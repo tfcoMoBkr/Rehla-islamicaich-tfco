@@ -1,0 +1,259 @@
+{
+  "id": "3.8",
+  "station": 3,
+  "slug": "the-friday-prayer",
+  "status": "draft",
+  "reviewed": false,
+  "reviewedBy": null,
+  "authoring": "Written by the team in simple wording from the sources listed in `sources`. Verses and hadiths are referenced and fetched verbatim, never typed.",
+  "title": {
+    "ar": "صلاة الجمعة",
+    "en": "The Friday prayer"
+  },
+  "objectives": {
+    "ar": [
+      "أن يعرف المتعلم فضل يوم الجمعة",
+      "أن يعرف صفة صلاة الجمعة وآدابها",
+      "أن يعرف ماذا يفعل من فاتته"
+    ],
+    "en": [
+      "Know the virtue of Friday",
+      "Know how the Friday prayer goes and its etiquette",
+      "Know what to do if it is missed"
+    ]
+  },
+  "sources": [
+    {
+      "key": "nmg",
+      "title": {
+        "ar": "دليل المسلم الجديد — صلاة الجمعة",
+        "en": "The New Muslim Guide — The Friday Prayer"
+      },
+      "publisher": "IslamHouse / Modern Guide",
+      "url": {
+        "ar": "https://newmuslimguide.com/ar/categories/your-prayer/671dec2457dc6",
+        "en": "https://newmuslimguide.com/en/categories/your-prayer/671dec2457dc6"
+      },
+      "use": "Facts restated in our own words; not copied."
+    }
+  ],
+  "suggestedVideo": {
+    "ar": {
+      "youtubeId": "d25gMKkf7kQ",
+      "channel": "منصة زادي",
+      "position": "close"
+    },
+    "en": null
+  },
+  "cards": [
+    {
+      "id": "c1",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "صلاة الجمعة تُصلى يوم الجمعة مكان صلاة الظهر. يجتمع المسلمون فيستمعون للخطبة ثم يصلون.",
+        "en": "The Friday prayer takes the place of Dhuhr on Friday. Muslims gather, listen to the sermon, then pray."
+      },
+      "evidence": {
+        "type": "quran",
+        "ref": "62:9",
+        "publisher": "quranenc.com"
+      }
+    },
+    {
+      "id": "c2",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "الجمعة خير يوم طلعت عليه الشمس.",
+        "en": "Friday is the best day on which the sun rises."
+      },
+      "evidence": {
+        "type": "hadith",
+        "hadeethencId": null,
+        "citation": "صحيح مسلم 854",
+        "availableIn": [],
+        "publisher": "hadeethenc.com"
+      }
+    },
+    {
+      "id": "c3",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "تجب الجمعة على الرجل البالغ العاقل المقيم. ولا تجب على المرأة ولا المسافر، وإن حضراها أجزأتهما عن الظهر.",
+        "en": "Friday prayer is obligatory for the adult, sane, resident man. It is not obligatory for women or travellers; if they attend it, it counts in place of Dhuhr."
+      },
+      "check": {
+        "type": "trueFalse",
+        "prompt": {
+          "ar": "صلاة الجمعة واجبة على المسافر.",
+          "en": "Friday prayer is obligatory for a traveller."
+        },
+        "answer": false
+      }
+    },
+    {
+      "id": "c4",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "يُستحب قبلها: الاغتسال، ولبس ثياب نظيفة حسنة، والتبكير إلى المسجد.",
+        "en": "Recommended beforehand: taking a bath, wearing clean and good clothes, and going early to the mosque."
+      }
+    },
+    {
+      "id": "c5",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "يخطب الإمام خطبتين يجلس بينهما. وعلى الحاضرين الإنصات، فلا يتكلمون ولا ينشغلون بشيء.",
+        "en": "The imam delivers two sermons, sitting briefly between them. Those present listen attentively: no talking and no fiddling with anything."
+      },
+      "check": {
+        "type": "trueFalse",
+        "prompt": {
+          "ar": "يجوز أن أتحدث مع من بجانبي أثناء الخطبة.",
+          "en": "I may chat with the person next to me during the sermon."
+        },
+        "answer": false
+      }
+    },
+    {
+      "id": "c6",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "ثم يصلي بهم الإمام ركعتين يجهر فيهما بالقراءة.",
+        "en": "Then the imam leads a two-rak'ah prayer, reciting aloud."
+      }
+    },
+    {
+      "id": "c7",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "من فاتته الجمعة صلّى ظهرًا أربع ركعات. ومن أدرك مع الإمام أقل من ركعة أتمّها ظهرًا.",
+        "en": "Whoever misses Friday prayer prays Dhuhr, four rak'ahs. Whoever catches less than one rak'ah with the imam completes it as Dhuhr."
+      }
+    }
+  ],
+  "activities": [
+    {
+      "id": "a1",
+      "type": "order",
+      "title": {
+        "ar": "جمعتي الأولى",
+        "en": "My first Friday"
+      },
+      "instruction": {
+        "ar": "رتّب خطوات اليوم.",
+        "en": "Put the steps of the day in order."
+      },
+      "items": [
+        {
+          "ar": "أغتسل وألبس ثيابًا نظيفة",
+          "en": "I bathe and wear clean clothes",
+          "n": 1
+        },
+        {
+          "ar": "أذهب مبكرًا إلى المسجد",
+          "en": "I go early to the mosque",
+          "n": 2
+        },
+        {
+          "ar": "أنصت للخطبة",
+          "en": "I listen to the sermon",
+          "n": 3
+        },
+        {
+          "ar": "أصلي ركعتين مع الإمام",
+          "en": "I pray two rak'ahs with the imam",
+          "n": 4
+        }
+      ]
+    },
+    {
+      "id": "a2",
+      "type": "swipe",
+      "title": {
+        "ar": "أثناء الخطبة",
+        "en": "During the sermon"
+      },
+      "sides": {
+        "right": {
+          "ar": "مناسب",
+          "en": "Fitting"
+        },
+        "left": {
+          "ar": "لا يناسب",
+          "en": "Not fitting"
+        }
+      },
+      "items": [
+        {
+          "ar": "الإنصات للخطيب",
+          "en": "Listening to the speaker",
+          "side": "right"
+        },
+        {
+          "ar": "الحديث مع من بجانبي",
+          "en": "Talking to the person beside me",
+          "side": "left"
+        },
+        {
+          "ar": "العبث بالسجاد",
+          "en": "Fiddling with the carpet",
+          "side": "left"
+        }
+      ]
+    }
+  ],
+  "situation": {
+    "prompt": {
+      "ar": "وصلت المسجد يوم الجمعة والإمام في التشهد الأخير. ماذا يقول الدرس؟",
+      "en": "You reach the mosque on Friday while the imam is in the final tashahhud. What does the lesson say?"
+    },
+    "options": [
+      {
+        "ar": "أدخل معه ثم أتمّها ظهرًا",
+        "en": "I join him, then complete it as Dhuhr",
+        "correct": true
+      },
+      {
+        "ar": "أصلي ركعتين فقط",
+        "en": "I pray two rak'ahs only",
+        "correct": false
+      }
+    ],
+    "followUp": {
+      "ar": "ولما يخص حالتك تحديدًا، اسأل مختصًا عبر صفحة «تحدث إلى إنسان».",
+      "en": "For what applies to your own case, ask a qualified person through the \"Talk to a human\" page."
+    }
+  },
+  "reviewNotes": [
+    "Whether work is an excuse for missing Friday prayer is a personal case; the lesson leaves it out and the learner is referred to a human."
+  ],
+  "explainToRafiq": {
+    "prompt": {
+      "ar": "اشرح لرفيق بكلماتك أهم ما فهمته من هذا الدرس.",
+      "en": "Explain to Rafiq in your own words the most important thing you understood from this lesson."
+    },
+    "scope": [
+      "cards"
+    ]
+  },
+  "readMore": [
+    {
+      "ar": "https://newmuslimguide.com/ar/categories/your-prayer/671dec2457dc6",
+      "en": "https://newmuslimguide.com/en/categories/your-prayer/671dec2457dc6"
+    }
+  ]
+}

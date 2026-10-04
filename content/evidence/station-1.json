@@ -1,0 +1,48 @@
+{
+  "station": 1,
+  "status": "proposed",
+  "note": "References only. Text is fetched verbatim by script from quranenc.com and hadeethenc.com and is never typed or generated. Hadith IDs were read from the HadeethEnc API on 2026-10-04; every one listed is graded صحيح or حسن by the source and has an Arabic and an English version with explanation.",
+  "lessons": [
+    {
+      "id": "1.1",
+      "quran": ["16:18", "5:3", "49:17", "14:7"],
+      "hadith": [],
+      "coverage": "thin",
+      "gap": "No bilingual hadith found for this lesson. Cards rely on the four verses and their meanings."
+    },
+    {
+      "id": "1.2",
+      "quran": ["16:97", "23:117", "2:256"],
+      "quranToConfirm": ["98:5"],
+      "hadith": [10098, 65008, 65007],
+      "coverage": "good"
+    },
+    {
+      "id": "1.3",
+      "quran": ["7:158", "33:40", "4:80", "3:132", "24:63", "3:31"],
+      "hadith": [3272, 4947, 66514],
+      "coverage": "good",
+      "gap": "No source for the timeline activity. Replace it with a match activity built from the hadith hints."
+    },
+    {
+      "id": "1.4",
+      "quran": [],
+      "hadith": [66512, 4303, 3700],
+      "coverage": "good"
+    },
+    {
+      "id": "1.5",
+      "quran": ["2:285", "4:136", "2:177"],
+      "hadith": [4563],
+      "coverage": "good"
+    },
+    {
+      "id": "1.6",
+      "quran": [],
+      "hadith": [65016, 65002, 5344, 4313, 4318, 65116],
+      "coverage": "partial",
+      "gap": "Covers repentance, the fresh start and the sweetness of faith. The practical first steps after embracing Islam are not covered by these sources; the lesson links to the book chapter for them."
+    }
+  ],
+  "excludedNoEnglish": [65547, 65831, 66399, 65926, 5034, 65115]
+}

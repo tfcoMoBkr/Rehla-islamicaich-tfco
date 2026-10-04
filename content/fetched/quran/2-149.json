@@ -1,0 +1,18 @@
+{
+  "ref": "2:149",
+  "arabic": "وَمِنۡ حَيۡثُ خَرَجۡتَ فَوَلِّ وَجۡهَكَ شَطۡرَ ٱلۡمَسۡجِدِ ٱلۡحَرَامِۖ وَإِنَّهُۥ لَلۡحَقُّ مِن رَّبِّكَۗ وَمَا ٱللَّهُ بِغَٰفِلٍ عَمَّا تَعۡمَلُونَ",
+  "translations": {
+    "en": {
+      "key": "english_saheeh",
+      "version": "1.1.2",
+      "text": "So from wherever you go out [for prayer, O Muḥammad], turn your face toward al-Masjid al-Ḥarām, and indeed, it is the truth from your Lord. And Allāh is not unaware of what you do.",
+      "footnotes": null
+    }
+  },
+  "source": {
+    "publisher": "quranenc.com",
+    "url": "https://quranenc.com/en/browse/english_saheeh/2#149",
+    "apiUrl": "https://quranenc.com/api/v1/translation/sura/english_saheeh/2",
+    "fetchedOn": "2026-10-04"
+  }
+}

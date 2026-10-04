@@ -1,0 +1,18 @@
+{
+  "ref": "29:45",
+  "arabic": "ٱتۡلُ مَآ أُوحِيَ إِلَيۡكَ مِنَ ٱلۡكِتَٰبِ وَأَقِمِ ٱلصَّلَوٰةَۖ إِنَّ ٱلصَّلَوٰةَ تَنۡهَىٰ عَنِ ٱلۡفَحۡشَآءِ وَٱلۡمُنكَرِۗ وَلَذِكۡرُ ٱللَّهِ أَكۡبَرُۗ وَٱللَّهُ يَعۡلَمُ مَا تَصۡنَعُونَ",
+  "translations": {
+    "en": {
+      "key": "english_saheeh",
+      "version": "1.1.2",
+      "text": "Recite, [O Muḥammad], what has been revealed to you of the Book and establish prayer. Indeed, prayer prohibits immorality and wrongdoing, and the remembrance of Allāh is greater. And Allāh knows that which you do.",
+      "footnotes": null
+    }
+  },
+  "source": {
+    "publisher": "quranenc.com",
+    "url": "https://quranenc.com/en/browse/english_saheeh/29#45",
+    "apiUrl": "https://quranenc.com/api/v1/translation/sura/english_saheeh/29",
+    "fetchedOn": "2026-10-04"
+  }
+}

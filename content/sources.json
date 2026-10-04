@@ -1,0 +1,140 @@
+{
+  "sources": [
+    {
+      "id": "quranenc",
+      "type": "quran",
+      "name": {
+        "ar": "QuranEnc.com",
+        "en": "QuranEnc.com"
+      },
+      "aliases": [],
+      "url": "https://quranenc.com",
+      "alsoAt": [],
+      "usedFor": {
+        "ar": "آيات القرآن الكريم التي تستشهد بها بطاقات الدروس، وآيات نشاط «آية آية»: تُجلب بمراجعها كما هي ولا تُكتب يدويًا. تُعرض الآية بنصها العربي، ومعها في الواجهة الإنجليزية ترجمة مركز نور الدولي (english_saheeh).",
+        "en": "The Quran verses cited by lesson cards and the verses of the \"Ayah by ayah\" activity, fetched by reference and never typed. Each verse is shown in Arabic, with the Noor International Center translation (english_saheeh) in the English interface."
+      },
+      "licence": {
+        "ar": "يُحتفظ بنسبة الترجمة ورقم إصدارها، ولا يُعدَّل النص.",
+        "en": "Attribution and translation version are kept; the text is not modified."
+      },
+      "status": "approved",
+      "verifiedOn": "2026-10-04"
+    },
+    {
+      "id": "mp3quran",
+      "type": "quran",
+      "name": {
+        "ar": "mp3quran.net",
+        "en": "mp3quran.net"
+      },
+      "aliases": [],
+      "url": "https://mp3quran.net",
+      "alsoAt": [],
+      "usedFor": {
+        "ar": "تلاوة الآيات في نشاط «آية آية»، مع توقيت كل آية من واجهة المصدر.",
+        "en": "Recitation audio in the \"Ayah by ayah\" activity, with each ayah's timing from the source's API."
+      },
+      "licence": {
+        "ar": "يُشغَّل الصوت من خوادم المصدر مباشرة ولا يُعاد استضافته.",
+        "en": "Audio is streamed from the source's servers and not re-hosted."
+      },
+      "status": "approved",
+      "verifiedOn": "2026-10-04"
+    },
+    {
+      "id": "hadeethenc",
+      "type": "hadith",
+      "name": {
+        "ar": "HadeethEnc.com",
+        "en": "HadeethEnc.com"
+      },
+      "aliases": [],
+      "url": "https://hadeethenc.com",
+      "alsoAt": [],
+      "usedFor": {
+        "ar": "الأحاديث التي تستشهد بها بطاقات الدروس، مع درجتها وتخريجها وشرحها: تُجلب برقمها كما هي. يُعرض الحديث بلغة المتعلم إن وُجدت له نسخة بها، وإلا اكتُفي بذكر مرجعه.",
+        "en": "The hadiths cited by lesson cards, with their grade, attribution and explanation, fetched verbatim by ID. A hadith is shown in the learner's language when the source has a version in it; otherwise only its reference is given."
+      },
+      "licence": {
+        "ar": "يُحتفظ بنسبة النص إلى المصدر ولا يُعدَّل. لا تنشر واجهة المصدر رقم إصدار، فيُسجَّل تاريخ الجلب.",
+        "en": "Attribution is kept and the text is not modified. The source's API publishes no version number, so the fetch date is recorded instead."
+      },
+      "status": "approved",
+      "verifiedOn": "2026-10-04"
+    },
+    {
+      "id": "nmg",
+      "type": "lessons",
+      "name": {
+        "ar": "دليل المسلم الجديد",
+        "en": "The New Muslim Guide"
+      },
+      "aliases": [],
+      "url": "https://newmuslimguide.com",
+      "alsoAt": [
+        "https://islamhouse.com/en/books/2838874"
+      ],
+      "usedFor": {
+        "ar": "ترتيب دروس «خطوات» وعناوينها، ورابط «اقرأ الدرس كاملًا». يعيد الفريق صياغة معلوماته بكلمات بسيطة ولا يُنسخ نصه.",
+        "en": "The order and titles of the Khutuwat lessons, and their \"read the full lesson\" links. The team restates its facts in simple wording; its text is not copied."
+      },
+      "licence": {
+        "ar": "جميع الحقوق محفوظة (Modern Guide Company)؛ لذلك لا يُنسخ النص.",
+        "en": "All rights reserved (Modern Guide Company); its text is therefore not copied."
+      },
+      "status": "pendingReview",
+      "verifiedOn": "2026-10-04"
+    },
+    {
+      "id": "zadi",
+      "type": "video",
+      "name": {
+        "ar": "منصة زادي للتعليم الشرعي المفتوح",
+        "en": "Zadi Learning"
+      },
+      "aliases": [
+        "منصة زادي"
+      ],
+      "url": "https://www.youtube.com/@zadilearning",
+      "alsoAt": [],
+      "usedFor": {
+        "ar": "مقاطع مقترحة بالعربية في ختام الدروس، من برنامج «حقيبة دليل المسلم الميسر».",
+        "en": "Suggested Arabic videos at the close of lessons, from the programme «حقيبة دليل المسلم الميسر»."
+      },
+      "licence": {
+        "ar": "تُعرض عبر مشغّل YouTube المدمج (youtube-nocookie.com) ولا يُعاد رفعها. بانتظار موافقة المشرف العلمي على المصدر.",
+        "en": "Shown in YouTube's embedded player (youtube-nocookie.com), never re-uploaded. Awaiting the scholarly mentor's approval of this source."
+      },
+      "status": "pendingReview",
+      "verifiedOn": "2026-10-04"
+    },
+    {
+      "id": "gti",
+      "type": "video",
+      "name": {
+        "ar": "Guide To Islam (Osoul Global Center)",
+        "en": "Guide To Islam (Osoul Global Center)"
+      },
+      "aliases": [
+        "Guide To Islam"
+      ],
+      "url": "https://www.youtube.com/@Guidetoislam",
+      "alsoAt": [
+        "https://islamhouse.com/en/videos/2834586/",
+        "https://islamhouse.com/en/videos/2838921/",
+        "https://islamhouse.com/en/videos/2822062/"
+      ],
+      "usedFor": {
+        "ar": "مقاطع مقترحة بالإنجليزية في ختام الدروس، ويُستشهد بصفحاتها على IslamHouse.",
+        "en": "Suggested English videos at the close of lessons, cited through their IslamHouse pages."
+      },
+      "licence": {
+        "ar": "تُعرض عبر مشغّل YouTube المدمج (youtube-nocookie.com) ولا يُعاد رفعها.",
+        "en": "Shown in YouTube's embedded player (youtube-nocookie.com), never re-uploaded."
+      },
+      "status": "pendingReview",
+      "verifiedOn": "2026-10-04"
+    }
+  ]
+}

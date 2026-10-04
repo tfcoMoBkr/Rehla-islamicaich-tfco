@@ -1,0 +1,18 @@
+{
+  "ref": "3:8",
+  "arabic": "رَبَّنَا لَا تُزِغۡ قُلُوبَنَا بَعۡدَ إِذۡ هَدَيۡتَنَا وَهَبۡ لَنَا مِن لَّدُنكَ رَحۡمَةًۚ إِنَّكَ أَنتَ ٱلۡوَهَّابُ",
+  "translations": {
+    "en": {
+      "key": "english_saheeh",
+      "version": "1.1.2",
+      "text": "[Who say], \"Our Lord, let not our hearts deviate after You have guided us and grant us from Yourself mercy. Indeed, You are the Bestower.[117]",
+      "footnotes": "[117] Who gives and grants continually without being asked."
+    }
+  },
+  "source": {
+    "publisher": "quranenc.com",
+    "url": "https://quranenc.com/en/browse/english_saheeh/3#8",
+    "apiUrl": "https://quranenc.com/api/v1/translation/sura/english_saheeh/3",
+    "fetchedOn": "2026-10-04"
+  }
+}

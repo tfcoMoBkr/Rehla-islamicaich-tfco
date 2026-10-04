@@ -1,0 +1,277 @@
+{
+  "id": "1.4",
+  "station": 1,
+  "slug": "the-five-pillars-of-islam",
+  "status": "draft",
+  "reviewed": false,
+  "reviewedBy": null,
+  "authoring": "Written by the team in simple wording from the sources listed in `sources`. Verses and hadiths are referenced and fetched verbatim, never typed.",
+  "title": {
+    "ar": "أركان الإسلام الخمسة",
+    "en": "The five pillars of Islam"
+  },
+  "objectives": {
+    "ar": [
+      "أن يعدّد المتعلم أركان الإسلام الخمسة",
+      "أن يفهم لماذا يأتي الإيمان ثم الطهارة ثم الصلاة في رحلته"
+    ],
+    "en": [
+      "Name the five pillars of Islam",
+      "Understand why faith, then purification, then prayer come in this order on the journey"
+    ]
+  },
+  "sources": [
+    {
+      "key": "nmg",
+      "title": {
+        "ar": "دليل المسلم الجديد — أركان الإسلام الخمسة",
+        "en": "The New Muslim Guide — The Five Pillars of Islam"
+      },
+      "publisher": "IslamHouse / Modern Guide",
+      "url": {
+        "ar": "https://newmuslimguide.com/ar/preliminaries/6410daa3a3554",
+        "en": "https://newmuslimguide.com/en/preliminaries/6410daa3a3554"
+      },
+      "use": "Facts restated in our own words; not copied."
+    }
+  ],
+  "suggestedVideo": {
+    "ar": {
+      "youtubeId": "Q6wjIXFGKVg",
+      "channel": "منصة زادي",
+      "position": "close"
+    },
+    "en": {
+      "youtubeId": "cCkCvF48z5E",
+      "channel": "Guide To Islam",
+      "position": "close"
+    }
+  },
+  "cards": [
+    {
+      "id": "c1",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "الإسلام مبني على خمسة أركان، هي أساسه.",
+        "en": "Islam is built on five pillars. They are its foundation."
+      },
+      "evidence": {
+        "type": "hadith",
+        "hadeethencId": 66512,
+        "citation": "رواه البخاري ومسلم",
+        "availableIn": [
+          "ar",
+          "en"
+        ],
+        "publisher": "hadeethenc.com"
+      },
+      "check": {
+        "type": "single",
+        "prompt": {
+          "ar": "كم عدد أركان الإسلام؟",
+          "en": "How many pillars does Islam have?"
+        },
+        "options": [
+          {
+            "ar": "خمسة",
+            "en": "Five",
+            "correct": true
+          },
+          {
+            "ar": "ستة",
+            "en": "Six",
+            "correct": false
+          },
+          {
+            "ar": "ثلاثة",
+            "en": "Three",
+            "correct": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "c2",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "الأركان الخمسة: الشهادتان، إقام الصلاة، إيتاء الزكاة، صوم رمضان، حج البيت.",
+        "en": "The five pillars: the two testimonies, performing the prayers, paying zakah, fasting Ramadan, and pilgrimage to the House."
+      }
+    },
+    {
+      "id": "c3",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "أولها الإيمان وتوحيد الله، وهو ما تعلمته في الدرسين السابقين.",
+        "en": "The first is faith and affirming the oneness of Allah, which you learned in the two previous lessons."
+      }
+    },
+    {
+      "id": "c4",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "ثم الصلاة، وهي عمود الدين: كالعمود الذي يقوم عليه البناء.",
+        "en": "Then comes the prayer, the pillar of the religion: like the post that holds a building up."
+      },
+      "evidence": {
+        "type": "hadith",
+        "hadeethencId": 4303,
+        "citation": "رواه الترمذي وابن ماجه وأحمد",
+        "availableIn": [
+          "ar",
+          "en"
+        ],
+        "publisher": "hadeethenc.com"
+      },
+      "check": {
+        "type": "trueFalse",
+        "prompt": {
+          "ar": "وُصفت الصلاة بأنها عمود الدين.",
+          "en": "The prayer is described as the pillar of the religion."
+        },
+        "answer": true
+      }
+    },
+    {
+      "id": "c5",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "ولا تصح الصلاة إلا بطهارة. لذلك رحلتك تسير هكذا: الإيمان، ثم الطهارة، ثم الصلاة.",
+        "en": "Prayer is only valid with purification. That is why your journey goes: faith, then purification, then prayer."
+      }
+    }
+  ],
+  "activities": [
+    {
+      "id": "a1",
+      "type": "select",
+      "visual": "fiveLanterns",
+      "title": {
+        "ar": "أضئ الفوانيس الخمسة",
+        "en": "Light the five lanterns"
+      },
+      "instruction": {
+        "ar": "اختر أركان الإسلام الخمسة. كل اختيار صحيح يضيء فانوسًا على الطريق.",
+        "en": "Choose the five pillars of Islam. Each correct choice lights a lantern on the road."
+      },
+      "items": [
+        {
+          "ar": "الشهادتان",
+          "en": "The two testimonies",
+          "correct": true
+        },
+        {
+          "ar": "إقام الصلاة",
+          "en": "Performing the prayers",
+          "correct": true
+        },
+        {
+          "ar": "إيتاء الزكاة",
+          "en": "Paying zakah",
+          "correct": true
+        },
+        {
+          "ar": "صوم رمضان",
+          "en": "Fasting Ramadan",
+          "correct": true
+        },
+        {
+          "ar": "حج البيت",
+          "en": "Pilgrimage to the House",
+          "correct": true
+        },
+        {
+          "ar": "الوضوء",
+          "en": "Wudu",
+          "correct": false
+        },
+        {
+          "ar": "الصدق",
+          "en": "Truthfulness",
+          "correct": false
+        },
+        {
+          "ar": "بر الوالدين",
+          "en": "Kindness to parents",
+          "correct": false
+        }
+      ],
+      "feedbackWrong": {
+        "ar": "عمل صالح عظيم، لكنه ليس من الأركان الخمسة.",
+        "en": "A great good deed, but not one of the five pillars."
+      }
+    },
+    {
+      "id": "a2",
+      "type": "order",
+      "title": {
+        "ar": "محطات رحلتك",
+        "en": "The stations of your journey"
+      },
+      "instruction": {
+        "ar": "رتّب المحطات كما شرحها الدرس.",
+        "en": "Put the stations in the order the lesson explains."
+      },
+      "items": [
+        {
+          "n": 1,
+          "ar": "الإيمان",
+          "en": "Faith"
+        },
+        {
+          "n": 2,
+          "ar": "الطهارة",
+          "en": "Purification"
+        },
+        {
+          "n": 3,
+          "ar": "الصلاة",
+          "en": "Prayer"
+        }
+      ]
+    }
+  ],
+  "situation": {
+    "prompt": {
+      "ar": "لماذا تتعلم الطهارة قبل الصلاة؟",
+      "en": "Why do you learn purification before prayer?"
+    },
+    "options": [
+      {
+        "ar": "لأن الصلاة لا تصح إلا بطهارة",
+        "en": "Because prayer is only valid with purification",
+        "correct": true
+      },
+      {
+        "ar": "لأن الطهارة أسهل",
+        "en": "Because purification is easier",
+        "correct": false
+      }
+    ]
+  },
+  "explainToRafiq": {
+    "prompt": {
+      "ar": "اشرح لرفيق بكلماتك أهم ما فهمته من هذا الدرس.",
+      "en": "Explain to Rafiq in your own words the most important thing you understood from this lesson."
+    },
+    "scope": [
+      "cards"
+    ]
+  },
+  "readMore": [
+    {
+      "ar": "https://newmuslimguide.com/ar/preliminaries/6410daa3a3554",
+      "en": "https://newmuslimguide.com/en/preliminaries/6410daa3a3554"
+    }
+  ]
+}

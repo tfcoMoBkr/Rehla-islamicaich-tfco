@@ -1,0 +1,257 @@
+{
+  "id": "1.2",
+  "station": 1,
+  "slug": "no-deity-but-allah",
+  "status": "draft",
+  "reviewed": false,
+  "reviewedBy": null,
+  "authoring": "Written by the team in simple wording from the sources listed in `sources`. Verses and hadiths are referenced and fetched verbatim, never typed.",
+  "title": {
+    "ar": "شهادة أن لا إله إلا الله",
+    "en": "The testimony: no deity but Allah"
+  },
+  "objectives": {
+    "ar": [
+      "أن يعرف المتعلم معنى لا إله إلا الله",
+      "أن يميز بين ركنيها: النفي والإثبات",
+      "أن يعرف مكانتها وفضلها"
+    ],
+    "en": [
+      "Know the meaning of laa ilaaha illallaah",
+      "Tell apart its two parts: negation and affirmation",
+      "Know its status and virtue"
+    ]
+  },
+  "sources": [
+    {
+      "key": "nmg",
+      "title": {
+        "ar": "دليل المسلم الجديد — الشهادتان: معناهما ومقتضاهما",
+        "en": "The New Muslim Guide — Testimony of Faith: Meaning and Requirements"
+      },
+      "publisher": "IslamHouse / Modern Guide",
+      "url": {
+        "ar": "https://newmuslimguide.com/ar/categories/your-faith/641a581a7070c",
+        "en": "https://newmuslimguide.com/en/categories/your-faith/641a581a7070c"
+      },
+      "use": "Facts restated in our own words; not copied."
+    }
+  ],
+  "suggestedVideo": {
+    "ar": {
+      "youtubeId": "ZYjFb_Wbxhg",
+      "channel": "منصة زادي",
+      "position": "close"
+    },
+    "en": {
+      "youtubeId": "Of-J9b7T_AM",
+      "channel": "Guide To Islam",
+      "position": "close"
+    }
+  },
+  "cards": [
+    {
+      "id": "c1",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "«لا إله إلا الله» أول واجب على المسلم، وبها يدخل الإنسان في الإسلام مع الإيمان بها.",
+        "en": "\"Laa ilaaha illallaah\" is the first duty of a Muslim. A person enters Islam by declaring it and believing in it."
+      },
+      "check": {
+        "type": "trueFalse",
+        "prompt": {
+          "ar": "أول واجب على المسلم هو شهادة أن لا إله إلا الله.",
+          "en": "The first duty of a Muslim is the testimony that there is no deity but Allah."
+        },
+        "answer": true
+      }
+    },
+    {
+      "id": "c2",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "من قالها صادقًا يبتغي بها وجه الله نجا من النار.",
+        "en": "Whoever says it sincerely, seeking Allah's pleasure, is saved from the Fire."
+      },
+      "evidence": {
+        "type": "hadith",
+        "hadeethencId": 10098,
+        "citation": "متفق عليه",
+        "availableIn": [
+          "ar",
+          "en"
+        ],
+        "publisher": "hadeethenc.com"
+      }
+    },
+    {
+      "id": "c3",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "ومن مات وهو مؤمن بها دخل الجنة.",
+        "en": "Whoever dies believing in it enters Paradise."
+      },
+      "evidence": {
+        "type": "hadith",
+        "hadeethencId": 65008,
+        "citation": "رواه مسلم",
+        "availableIn": [
+          "ar",
+          "en"
+        ],
+        "publisher": "hadeethenc.com"
+      }
+    },
+    {
+      "id": "c4",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "معناها: لا أحد يستحق العبادة إلا الله. فالعبادة كلها له وحده: الصلاة والدعاء والتوكل.",
+        "en": "Its meaning: no one deserves to be worshipped except Allah. All worship is for Him alone: prayer, supplication and reliance."
+      },
+      "evidence": {
+        "type": "quran",
+        "ref": "98:5",
+        "publisher": "quranenc.com"
+      },
+      "check": {
+        "type": "single",
+        "prompt": {
+          "ar": "ما معنى لا إله إلا الله؟",
+          "en": "What does laa ilaaha illallaah mean?"
+        },
+        "options": [
+          {
+            "ar": "لا أحد يستحق العبادة إلا الله",
+            "en": "No one deserves worship except Allah",
+            "correct": true
+          },
+          {
+            "ar": "الله موجود فقط",
+            "en": "Only that Allah exists",
+            "correct": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "c5",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "للشهادة ركنان. الأول «لا إله»: نفي العبادة عن كل ما سوى الله. الثاني «إلا الله»: إثبات العبادة لله وحده.",
+        "en": "The testimony has two parts. The first, \"laa ilaaha\", negates worship of anything besides Allah. The second, \"illallaah\", affirms worship for Allah alone."
+      },
+      "evidence": {
+        "type": "quran",
+        "ref": "2:256",
+        "publisher": "quranenc.com"
+      }
+    },
+    {
+      "id": "c6",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "بعبادة الله وحده يجد القلب الطمأنينة والحياة الطيبة.",
+        "en": "By worshipping Allah alone the heart finds peace and a good life."
+      },
+      "evidence": {
+        "type": "quran",
+        "ref": "16:97",
+        "publisher": "quranenc.com"
+      }
+    }
+  ],
+  "activities": [
+    {
+      "id": "a1",
+      "type": "sort",
+      "title": {
+        "ar": "نفي أم إثبات؟",
+        "en": "Negation or affirmation?"
+      },
+      "groups": [
+        {
+          "key": "negation",
+          "label": {
+            "ar": "الركن الأول: النفي",
+            "en": "First part: negation"
+          }
+        },
+        {
+          "key": "affirmation",
+          "label": {
+            "ar": "الركن الثاني: الإثبات",
+            "en": "Second part: affirmation"
+          }
+        }
+      ],
+      "items": [
+        {
+          "ar": "«لا إله»",
+          "en": "\"Laa ilaaha\"",
+          "group": "negation"
+        },
+        {
+          "ar": "«إلا الله»",
+          "en": "\"Illallaah\"",
+          "group": "affirmation"
+        },
+        {
+          "ar": "ترك عبادة كل ما سوى الله",
+          "en": "Rejecting the worship of anything besides Allah",
+          "group": "negation"
+        },
+        {
+          "ar": "صرف العبادة لله وحده",
+          "en": "Directing worship to Allah alone",
+          "group": "affirmation"
+        }
+      ]
+    }
+  ],
+  "situation": {
+    "prompt": {
+      "ar": "شعرت بضيق شديد وأردت أن تطلب العون. بحسب الدرس، إلى من تتوجه بالدعاء؟",
+      "en": "You feel distressed and want to ask for help. According to the lesson, to whom do you direct your supplication?"
+    },
+    "options": [
+      {
+        "ar": "إلى الله وحده",
+        "en": "To Allah alone",
+        "correct": true
+      },
+      {
+        "ar": "إلى أي شيء أرجو نفعه",
+        "en": "To anything I hope will benefit me",
+        "correct": false
+      }
+    ]
+  },
+  "explainToRafiq": {
+    "prompt": {
+      "ar": "اشرح لرفيق بكلماتك أهم ما فهمته من هذا الدرس.",
+      "en": "Explain to Rafiq in your own words the most important thing you understood from this lesson."
+    },
+    "scope": [
+      "cards"
+    ]
+  },
+  "readMore": [
+    {
+      "ar": "https://newmuslimguide.com/ar/categories/your-faith/641a581a7070c",
+      "en": "https://newmuslimguide.com/en/categories/your-faith/641a581a7070c"
+    }
+  ]
+}

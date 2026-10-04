@@ -1,0 +1,290 @@
+{
+  "id": "1.5",
+  "station": 1,
+  "slug": "the-six-pillars-of-faith",
+  "status": "draft",
+  "reviewed": false,
+  "reviewedBy": null,
+  "authoring": "Written by the team in simple wording from the sources listed in `sources`. Verses and hadiths are referenced and fetched verbatim, never typed.",
+  "title": {
+    "ar": "أركان الإيمان الستة",
+    "en": "The six pillars of faith"
+  },
+  "objectives": {
+    "ar": [
+      "أن يعدّد المتعلم أركان الإيمان الستة",
+      "أن يعرف معنى كل ركن بإيجاز"
+    ],
+    "en": [
+      "Name the six pillars of faith",
+      "Know briefly what each one means"
+    ]
+  },
+  "sources": [
+    {
+      "key": "nmg",
+      "title": {
+        "ar": "دليل المسلم الجديد — أركان الإيمان الستة",
+        "en": "The New Muslim Guide — The Six Pillars of Faith"
+      },
+      "publisher": "IslamHouse / Modern Guide",
+      "url": {
+        "ar": "https://newmuslimguide.com/ar/categories/your-faith/64245f26c664a",
+        "en": "https://newmuslimguide.com/en/categories/your-faith/64245f26c664a"
+      },
+      "use": "Facts restated in our own words; not copied."
+    }
+  ],
+  "suggestedVideo": {
+    "ar": {
+      "playlistId": "PL57pTpJnA2Q6C0Hy3ew2TeLTieIAS7G5I",
+      "channel": "منصة زادي",
+      "position": "close"
+    },
+    "en": {
+      "youtubeId": "H1R8OY0JgMs",
+      "channel": "Guide To Islam",
+      "position": "close"
+    }
+  },
+  "cards": [
+    {
+      "id": "c1",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "أركان الإيمان ستة، جمعها النبي ﷺ في حديث واحد حين سأله جبريل عليه السلام عن الإيمان.",
+        "en": "Faith has six pillars. The Prophet ﷺ named them together in one hadith, when Jibril, peace be upon him, asked him about faith."
+      },
+      "evidence": {
+        "type": "hadith",
+        "hadeethencId": 4563,
+        "citation": "رواه مسلم",
+        "availableIn": [
+          "ar",
+          "en"
+        ],
+        "publisher": "hadeethenc.com"
+      }
+    },
+    {
+      "id": "c2",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "الإيمان بالله: أن تؤمن بوجوده، وأنه الرب، وأنه وحده المستحق للعبادة، وبأسمائه وصفاته.",
+        "en": "Belief in Allah: believing that He exists, that He is the Lord, that He alone deserves worship, and in His names and attributes."
+      },
+      "check": {
+        "type": "trueFalse",
+        "prompt": {
+          "ar": "من الإيمان بالله الإيمان بأسمائه وصفاته.",
+          "en": "Belief in Allah includes belief in His names and attributes."
+        },
+        "answer": true
+      }
+    },
+    {
+      "id": "c3",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "الإيمان بالملائكة: أنهم موجودون في عالم الغيب، عباد مكرمون يطيعون الله ولا يعصونه.",
+        "en": "Belief in the angels: that they exist in the unseen world, honoured servants who obey Allah and never disobey Him."
+      },
+      "evidence": {
+        "type": "quran",
+        "ref": "21:26-27",
+        "publisher": "quranenc.com"
+      }
+    },
+    {
+      "id": "c4",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "الإيمان بالكتب: أن الله أنزل كتبًا على رسله، فيها الحق والنور والهدى.",
+        "en": "Belief in the books: that Allah sent down books to His messengers, containing truth, light and guidance."
+      },
+      "evidence": {
+        "type": "quran",
+        "ref": "4:136",
+        "publisher": "quranenc.com"
+      }
+    },
+    {
+      "id": "c5",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "الإيمان بالرسل: أن الله أرسل إلى كل أمة رسولًا يدعوهم إلى عبادة الله وحده، وأنهم صادقون بلّغوا الرسالة كاملة.",
+        "en": "Belief in the messengers: that Allah sent a messenger to every nation calling them to worship Allah alone, and that they were truthful and conveyed the message in full."
+      },
+      "check": {
+        "type": "single",
+        "prompt": {
+          "ar": "إلى ماذا دعا كل الرسل؟",
+          "en": "What did all the messengers call to?"
+        },
+        "options": [
+          {
+            "ar": "عبادة الله وحده",
+            "en": "Worshipping Allah alone",
+            "correct": true
+          },
+          {
+            "ar": "عبادة الرسل",
+            "en": "Worshipping the messengers",
+            "correct": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "c6",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "الإيمان باليوم الآخر: أن الله يبعث الناس من قبورهم ويحاسبهم على أعمالهم.",
+        "en": "Belief in the Last Day: that Allah will raise people from their graves and judge them by their deeds."
+      },
+      "evidence": {
+        "type": "quran",
+        "ref": "2:177",
+        "publisher": "quranenc.com"
+      }
+    },
+    {
+      "id": "c7",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "الإيمان بالقدر: أن كل شيء، خيره وشره، يقع بمشيئة الله وعلمه، وأن الله أعطى عباده الاختيار فيما يفعلون.",
+        "en": "Belief in the divine decree: that everything, good and bad, happens by Allah's will and knowledge, and that Allah gave His servants the choice in what they do."
+      }
+    }
+  ],
+  "activities": [
+    {
+      "id": "a1",
+      "type": "match",
+      "title": {
+        "ar": "طابق كل ركن بمعناه",
+        "en": "Match each pillar to its meaning"
+      },
+      "pairs": [
+        {
+          "left": {
+            "ar": "الإيمان بالله",
+            "en": "Belief in Allah"
+          },
+          "right": {
+            "ar": "أنه موجود، وهو الرب، وهو وحده المستحق للعبادة",
+            "en": "He exists, He is the Lord, and He alone deserves worship"
+          },
+          "card": "c2"
+        },
+        {
+          "left": {
+            "ar": "الإيمان بالملائكة",
+            "en": "Belief in the angels"
+          },
+          "right": {
+            "ar": "عباد مكرمون من عالم الغيب لا يعصون الله",
+            "en": "Honoured servants of the unseen world who never disobey Allah"
+          },
+          "card": "c3"
+        },
+        {
+          "left": {
+            "ar": "الإيمان بالكتب",
+            "en": "Belief in the books"
+          },
+          "right": {
+            "ar": "أنزلها الله على رسله وفيها الهدى",
+            "en": "Sent down by Allah to His messengers, containing guidance"
+          },
+          "card": "c4"
+        },
+        {
+          "left": {
+            "ar": "الإيمان بالرسل",
+            "en": "Belief in the messengers"
+          },
+          "right": {
+            "ar": "أرسلهم الله إلى الأمم يدعون إلى عبادته وحده",
+            "en": "Sent by Allah to the nations, calling to His worship alone"
+          },
+          "card": "c5"
+        },
+        {
+          "left": {
+            "ar": "الإيمان باليوم الآخر",
+            "en": "Belief in the Last Day"
+          },
+          "right": {
+            "ar": "البعث من القبور والحساب على الأعمال",
+            "en": "Resurrection from the graves and judgement of deeds"
+          },
+          "card": "c6"
+        },
+        {
+          "left": {
+            "ar": "الإيمان بالقدر",
+            "en": "Belief in the divine decree"
+          },
+          "right": {
+            "ar": "كل شيء يقع بمشيئة الله وعلمه",
+            "en": "Everything happens by Allah's will and knowledge"
+          },
+          "card": "c7"
+        }
+      ]
+    }
+  ],
+  "situation": {
+    "prompt": {
+      "ar": "أصابك أمر تكرهه. أي ركن من أركان الإيمان يذكّرك بأن كل شيء يقع بعلم الله ومشيئته؟",
+      "en": "Something you dislike happens to you. Which pillar of faith reminds you that everything happens by Allah's knowledge and will?"
+    },
+    "options": [
+      {
+        "ar": "الإيمان بالقدر",
+        "en": "Belief in the divine decree",
+        "correct": true
+      },
+      {
+        "ar": "الإيمان بالكتب",
+        "en": "Belief in the books",
+        "correct": false
+      },
+      {
+        "ar": "الإيمان بالملائكة",
+        "en": "Belief in the angels",
+        "correct": false
+      }
+    ]
+  },
+  "explainToRafiq": {
+    "prompt": {
+      "ar": "اشرح لرفيق بكلماتك أهم ما فهمته من هذا الدرس.",
+      "en": "Explain to Rafiq in your own words the most important thing you understood from this lesson."
+    },
+    "scope": [
+      "cards"
+    ]
+  },
+  "readMore": [
+    {
+      "ar": "https://newmuslimguide.com/ar/categories/your-faith/64245f26c664a",
+      "en": "https://newmuslimguide.com/en/categories/your-faith/64245f26c664a"
+    }
+  ]
+}

@@ -1,0 +1,365 @@
+{
+  "id": "3.3",
+  "station": 3,
+  "slug": "the-five-prayers-and-their-times",
+  "status": "draft",
+  "reviewed": false,
+  "reviewedBy": null,
+  "authoring": "Written by the team in simple wording from the sources listed in `sources`. Verses and hadiths are referenced and fetched verbatim, never typed.",
+  "title": {
+    "ar": "الصلوات الخمس وأوقاتها",
+    "en": "The five prayers and their times"
+  },
+  "objectives": {
+    "ar": [
+      "أن يسمّي المتعلم الصلوات الخمس",
+      "أن يعرف عدد ركعات كل صلاة",
+      "أن يعرف وقت كل صلاة إجمالًا"
+    ],
+    "en": [
+      "Name the five prayers",
+      "Know the number of rak'ahs of each",
+      "Know roughly when each is prayed"
+    ]
+  },
+  "sources": [
+    {
+      "key": "nmg",
+      "title": {
+        "ar": "دليل المسلم الجديد — الصلوات الخمس المفروضة وأوقاتها",
+        "en": "The New Muslim Guide — The Five Obligatory Prayers and Their Times"
+      },
+      "publisher": "IslamHouse / Modern Guide",
+      "url": {
+        "ar": "https://newmuslimguide.com/ar/categories/your-prayer/6701210bea9dc",
+        "en": "https://newmuslimguide.com/en/categories/your-prayer/6701210bea9dc"
+      },
+      "use": "Facts restated in our own words; not copied."
+    }
+  ],
+  "suggestedVideo": {
+    "ar": {
+      "youtubeId": "eNiX4-LXUUU",
+      "channel": "منصة زادي",
+      "position": "close"
+    },
+    "en": null
+  },
+  "cards": [
+    {
+      "id": "c1",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "فرض الله على المسلم خمس صلوات في اليوم والليلة، ولكل صلاة وقت محدد.",
+        "en": "Allah has enjoined five prayers each day and night, each with a set time."
+      },
+      "evidence": {
+        "type": "quran",
+        "ref": "4:103",
+        "publisher": "quranenc.com"
+      }
+    },
+    {
+      "id": "c2",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "الفجر: ركعتان. وقتها من طلوع الفجر إلى شروق الشمس.",
+        "en": "Fajr: 2 rak'ahs. Its time: from daybreak until sunrise."
+      }
+    },
+    {
+      "id": "c3",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "الظهر: أربع ركعات. وقتها من زوال الشمس عن وسط السماء إلى أن يصير ظل الشيء مثله.",
+        "en": "Dhuhr: 4 rak'ahs. Its time: from when the sun passes its highest point until an object's shadow equals its length."
+      },
+      "check": {
+        "type": "single",
+        "prompt": {
+          "ar": "كم ركعة صلاة الظهر؟",
+          "en": "How many rak'ahs is Dhuhr?"
+        },
+        "options": [
+          {
+            "ar": "أربع",
+            "en": "Four",
+            "correct": true
+          },
+          {
+            "ar": "ركعتان",
+            "en": "Two",
+            "correct": false
+          },
+          {
+            "ar": "ثلاث",
+            "en": "Three",
+            "correct": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "c4",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "العصر: أربع ركعات. وقتها من انتهاء وقت الظهر إلى غروب الشمس، وتُصلى قبل اصفرار الشمس.",
+        "en": "Asr: 4 rak'ahs. Its time: from the end of Dhuhr until sunset; pray it before the sun turns yellow."
+      }
+    },
+    {
+      "id": "c5",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "المغرب: ثلاث ركعات. وقتها من غروب الشمس إلى مغيب الشفق الأحمر.",
+        "en": "Maghrib: 3 rak'ahs. Its time: from sunset until the red glow disappears."
+      },
+      "check": {
+        "type": "single",
+        "prompt": {
+          "ar": "أي صلاة ثلاث ركعات؟",
+          "en": "Which prayer has three rak'ahs?"
+        },
+        "options": [
+          {
+            "ar": "المغرب",
+            "en": "Maghrib",
+            "correct": true
+          },
+          {
+            "ar": "الفجر",
+            "en": "Fajr",
+            "correct": false
+          },
+          {
+            "ar": "العشاء",
+            "en": "Isha",
+            "correct": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "c6",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "العشاء: أربع ركعات. وقتها من مغيب الشفق إلى منتصف الليل.",
+        "en": "Isha: 4 rak'ahs. Its time: from the end of twilight until midnight."
+      }
+    },
+    {
+      "id": "c7",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "يمكنك الاعتماد على تقاويم مواقيت الصلاة، ولا يلزمك أن تتحقق من الوقت بنفسك.",
+        "en": "You may rely on prayer timetables; you do not have to work out the time yourself."
+      },
+      "check": {
+        "type": "trueFalse",
+        "prompt": {
+          "ar": "يجب أن أراقب الشمس بنفسي لأعرف وقت الصلاة.",
+          "en": "I must watch the sun myself to know the prayer time."
+        },
+        "answer": false
+      }
+    }
+  ],
+  "prayers": [
+    {
+      "key": "fajr",
+      "name": {
+        "ar": "الفجر",
+        "en": "Fajr"
+      },
+      "rakahs": 2,
+      "time": {
+        "ar": "من طلوع الفجر إلى شروق الشمس",
+        "en": "From daybreak until sunrise"
+      }
+    },
+    {
+      "key": "dhuhr",
+      "name": {
+        "ar": "الظهر",
+        "en": "Dhuhr"
+      },
+      "rakahs": 4,
+      "time": {
+        "ar": "من زوال الشمس عن وسط السماء إلى أن يصير ظل الشيء مثله",
+        "en": "From when the sun passes its highest point until an object's shadow equals its length"
+      }
+    },
+    {
+      "key": "asr",
+      "name": {
+        "ar": "العصر",
+        "en": "Asr"
+      },
+      "rakahs": 4,
+      "time": {
+        "ar": "من انتهاء وقت الظهر إلى غروب الشمس، وتُصلى قبل اصفرار الشمس",
+        "en": "From the end of Dhuhr until sunset; pray it before the sun turns yellow"
+      }
+    },
+    {
+      "key": "maghrib",
+      "name": {
+        "ar": "المغرب",
+        "en": "Maghrib"
+      },
+      "rakahs": 3,
+      "time": {
+        "ar": "من غروب الشمس إلى مغيب الشفق الأحمر",
+        "en": "From sunset until the red glow disappears"
+      }
+    },
+    {
+      "key": "isha",
+      "name": {
+        "ar": "العشاء",
+        "en": "Isha"
+      },
+      "rakahs": 4,
+      "time": {
+        "ar": "من مغيب الشفق إلى منتصف الليل",
+        "en": "From the end of twilight until midnight"
+      }
+    }
+  ],
+  "activities": [
+    {
+      "id": "a1",
+      "type": "dayArc",
+      "title": {
+        "ar": "قوس اليوم",
+        "en": "The day arc"
+      },
+      "instruction": {
+        "ar": "اسحب الشمس على القوس من الفجر إلى الليل، وشاهد وقت أي صلاة هو وعدد ركعاتها.",
+        "en": "Drag the sun along the arc from dawn to night and see which prayer's time it is and how many rak'ahs it has."
+      },
+      "items": "prayers",
+      "markers": [
+        "daybreak",
+        "sunrise",
+        "zenith",
+        "sunset",
+        "twilightEnd",
+        "midnight"
+      ]
+    },
+    {
+      "id": "a2",
+      "type": "match",
+      "title": {
+        "ar": "كم ركعة؟",
+        "en": "How many rak'ahs?"
+      },
+      "pairs": [
+        {
+          "left": {
+            "ar": "الفجر",
+            "en": "Fajr"
+          },
+          "right": {
+            "ar": "2",
+            "en": "2"
+          }
+        },
+        {
+          "left": {
+            "ar": "الظهر",
+            "en": "Dhuhr"
+          },
+          "right": {
+            "ar": "4",
+            "en": "4"
+          }
+        },
+        {
+          "left": {
+            "ar": "العصر",
+            "en": "Asr"
+          },
+          "right": {
+            "ar": "4",
+            "en": "4"
+          }
+        },
+        {
+          "left": {
+            "ar": "المغرب",
+            "en": "Maghrib"
+          },
+          "right": {
+            "ar": "3",
+            "en": "3"
+          }
+        },
+        {
+          "left": {
+            "ar": "العشاء",
+            "en": "Isha"
+          },
+          "right": {
+            "ar": "4",
+            "en": "4"
+          }
+        }
+      ],
+      "allowRepeatedRight": true
+    }
+  ],
+  "situation": {
+    "prompt": {
+      "ar": "غربت الشمس للتو. وقت أي صلاة دخل؟",
+      "en": "The sun has just set. Which prayer's time has begun?"
+    },
+    "options": [
+      {
+        "ar": "المغرب",
+        "en": "Maghrib",
+        "correct": true
+      },
+      {
+        "ar": "العصر",
+        "en": "Asr",
+        "correct": false
+      },
+      {
+        "ar": "العشاء",
+        "en": "Isha",
+        "correct": false
+      }
+    ]
+  },
+  "explainToRafiq": {
+    "prompt": {
+      "ar": "اشرح لرفيق بكلماتك أهم ما فهمته من هذا الدرس.",
+      "en": "Explain to Rafiq in your own words the most important thing you understood from this lesson."
+    },
+    "scope": [
+      "cards"
+    ]
+  },
+  "readMore": [
+    {
+      "ar": "https://newmuslimguide.com/ar/categories/your-prayer/6701210bea9dc",
+      "en": "https://newmuslimguide.com/en/categories/your-prayer/6701210bea9dc"
+    }
+  ]
+}

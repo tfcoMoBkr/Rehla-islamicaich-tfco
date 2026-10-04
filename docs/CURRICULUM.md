@@ -1,12 +1,20 @@
 # Curriculum map — Khutuwat (خطوات)
 
-Status: **proposed, pending scholarly review**. Nothing in this file is lesson content. It defines the order of lessons, how a lesson is experienced, and where each lesson's text and suggested video come from. Lesson text is copied verbatim from the text source; it is never written or paraphrased by a model.
+Status: **proposed, pending scholarly review**. Nothing in this file is lesson content. It defines the order of lessons, how a lesson is experienced, and where each lesson's content and suggested video come from.
+
+**Where lesson content comes from.** Lessons are complete lessons built only from the sources the challenge organisers recommend. A lesson has three layers:
+
+1. **Explanation** — short, simple wording written by the team from the recommended sources (first of all The New Muslim Guide as published on IslamHouse). The source's facts are restated, not copied, because the book is all rights reserved. Every card names its source and links to it, and each lesson ends with a "read the full lesson" link.
+2. **Evidence** — Qur'an verses (quranenc.com) and hadiths with grade, explanation and benefits (hadeethenc.com), fetched verbatim by script and never typed. References per lesson are in `content/evidence/station-<n>.json`. A hadith is used only if it has both an Arabic and an English version.
+3. **Practice** — checks, activities and questions built from layers 1 and 2 only.
+
+Lesson files are written by the team in `content/lessons/drafts/` and carry `"reviewed": false` until a human reviewer approves them; unreviewed lessons are labelled as drafts and hidden in production. `content/lessons/drafts/2.4-how-to-perform-wudu.json` is the reference example of a complete lesson. Coding agents build the engine to render these files and never write or change lesson wording themselves.
 
 ## Sources
 
 | Key | Source | Role | Verified | Open point |
 | --- | --- | --- | --- | --- |
-| NMG | «دليل المسلم الجديد» / The New Muslim Guide, Fahd Salem Bahammam — https://newmuslimguide.com (ar, en); book also on https://islamhouse.com/en/books/2838874 | Lesson text in both languages, lesson order | Table of contents read on 2026-10-04 | Site footer says "All rights reserved, Modern Guide Company". Permission or the IslamHouse reuse terms must be confirmed before publishing text. |
+| NMG | «دليل المسلم الجديد» / The New Muslim Guide, Fahd Salem Bahammam — https://newmuslimguide.com (ar, en); book also on https://islamhouse.com/en/books/2838874 | Lesson order and titles; "read the full lesson" link target. Its text is not copied. | Table of contents read on 2026-10-04 | All rights reserved. |
 | ZADI | منصة زادي للتعليم الشرعي المفتوح — https://www.youtube.com/@zadilearning (verified channel). Programme «حقيبة دليل المسلم الميسر», presented by Dr. Fahd Bahammam, 2–6 min each | Suggested video, Arabic | Channel, playlists and video IDs read on 2026-10-04 | Not named in the challenge source list: ask the scholarly mentor to approve it. |
 | GTI | Guide To Islam (Osoul Global Center) — https://www.youtube.com/@Guidetoislam; the same videos are on IslamHouse: wudu https://islamhouse.com/en/videos/2834586/, prayer https://islamhouse.com/en/videos/2838921/, shahada https://islamhouse.com/en/videos/2822062/ | Suggested video, English | Read on 2026-10-04 | Cite the IslamHouse page as the source. |
 

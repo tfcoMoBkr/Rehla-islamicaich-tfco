@@ -1,0 +1,18 @@
+{
+  "ref": "4:136",
+  "arabic": "يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوٓاْ ءَامِنُواْ بِٱللَّهِ وَرَسُولِهِۦ وَٱلۡكِتَٰبِ ٱلَّذِي نَزَّلَ عَلَىٰ رَسُولِهِۦ وَٱلۡكِتَٰبِ ٱلَّذِيٓ أَنزَلَ مِن قَبۡلُۚ وَمَن يَكۡفُرۡ بِٱللَّهِ وَمَلَٰٓئِكَتِهِۦ وَكُتُبِهِۦ وَرُسُلِهِۦ وَٱلۡيَوۡمِ ٱلۡأٓخِرِ فَقَدۡ ضَلَّ ضَلَٰلَۢا بَعِيدًا",
+  "translations": {
+    "en": {
+      "key": "english_saheeh",
+      "version": "1.1.2",
+      "text": "O you who have believed, believe[224] in Allāh and His Messenger and the Book that He sent down upon His Messenger and the Scripture which He sent down before. And whoever disbelieves in Allāh, His angels, His books, His messengers, and the Last Day has certainly gone far astray.",
+      "footnotes": "[224] i.e., renew, confirm and adhere to your belief."
+    }
+  },
+  "source": {
+    "publisher": "quranenc.com",
+    "url": "https://quranenc.com/en/browse/english_saheeh/4#136",
+    "apiUrl": "https://quranenc.com/api/v1/translation/sura/english_saheeh/4",
+    "fetchedOn": "2026-10-04"
+  }
+}

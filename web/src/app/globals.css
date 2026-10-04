@@ -285,7 +285,24 @@
   }
 }
 
+@keyframes nudge {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(4px);
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
+  .animate-nudge {
+    animation: nudge 0.3s ease-in-out 2;
+  }
+
   .animate-road-draw {
     animation: road-draw 2.2s cubic-bezier(0.45, 0, 0.2, 1) 0.2s both;
   }
@@ -364,6 +381,20 @@
   .station-marker::after {
     inset: -0.95rem;
     border-width: 1px;
+  }
+
+  .station-marker[data-size="sm"] {
+    inline-size: 2.25rem;
+    block-size: 2.25rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .station-marker[data-state="open"] {
+    border-style: solid;
+    border-color: var(--muted-ink);
+    background: var(--paper);
+    color: var(--ink);
   }
 
   .station-marker[data-light="reach"] {

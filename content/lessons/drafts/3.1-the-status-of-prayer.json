@@ -1,0 +1,270 @@
+{
+  "id": "3.1",
+  "station": 3,
+  "slug": "the-status-of-prayer",
+  "status": "draft",
+  "reviewed": false,
+  "reviewedBy": null,
+  "authoring": "Written by the team in simple wording from the sources listed in `sources`. Verses and hadiths are referenced and fetched verbatim, never typed.",
+  "title": {
+    "ar": "منزلة الصلاة وفضلها",
+    "en": "The status and virtues of prayer"
+  },
+  "objectives": {
+    "ar": [
+      "أن يعرف المتعلم مكانة الصلاة في الإسلام",
+      "أن يذكر بعض فضائلها",
+      "أن يعرف على من تجب"
+    ],
+    "en": [
+      "Know the place of prayer in Islam",
+      "Name some of its virtues",
+      "Know who must pray"
+    ]
+  },
+  "sources": [
+    {
+      "key": "nmg",
+      "title": {
+        "ar": "دليل المسلم الجديد — منزلة الصلاة وفضلها",
+        "en": "The New Muslim Guide — Position and Virtues of Salaat in Islam"
+      },
+      "publisher": "IslamHouse / Modern Guide",
+      "url": {
+        "ar": "https://newmuslimguide.com/ar/categories/your-prayer/66fb8036c398b",
+        "en": "https://newmuslimguide.com/en/categories/your-prayer/66fb8036c398b"
+      },
+      "use": "Facts restated in our own words; not copied."
+    }
+  ],
+  "suggestedVideo": {
+    "ar": {
+      "youtubeId": "3ni4zVT1TsI",
+      "channel": "منصة زادي",
+      "position": "close"
+    },
+    "en": {
+      "youtubeId": "ETmbhhpTVi0",
+      "channel": "Guide To Islam",
+      "position": "close"
+    }
+  },
+  "cards": [
+    {
+      "id": "c1",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "الصلاة أعظم العبادات، يشترك فيها القلب والعقل واللسان والبدن.",
+        "en": "Prayer is the greatest act of worship. It engages the heart, the mind, the tongue and the body."
+      }
+    },
+    {
+      "id": "c2",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "وهي الركن الثاني من أركان الإسلام.",
+        "en": "It is the second pillar of Islam."
+      },
+      "evidence": {
+        "type": "hadith",
+        "hadeethencId": 66512,
+        "citation": "رواه البخاري ومسلم",
+        "availableIn": [
+          "ar",
+          "en"
+        ],
+        "publisher": "hadeethenc.com"
+      },
+      "check": {
+        "type": "single",
+        "prompt": {
+          "ar": "الصلاة هي الركن ... من أركان الإسلام.",
+          "en": "Prayer is the ... pillar of Islam."
+        },
+        "options": [
+          {
+            "ar": "الثاني",
+            "en": "second",
+            "correct": true
+          },
+          {
+            "ar": "الرابع",
+            "en": "fourth",
+            "correct": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "c3",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "أمر الله بالمحافظة عليها في كل حال: في السفر والإقامة، وفي الصحة والمرض، بقدر الاستطاعة.",
+        "en": "Allah commands observing it in every circumstance: travelling or at home, in health or illness, as far as one is able."
+      },
+      "evidence": {
+        "type": "quran",
+        "ref": "2:238",
+        "publisher": "quranenc.com"
+      }
+    },
+    {
+      "id": "c4",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "الصلوات الخمس تمحو صغائر الذنوب التي بينها.",
+        "en": "The five prayers wipe away the minor sins committed between them."
+      },
+      "evidence": {
+        "type": "hadith",
+        "hadeethencId": null,
+        "citation": "صحيح مسلم 233",
+        "availableIn": [],
+        "publisher": "hadeethenc.com"
+      }
+    },
+    {
+      "id": "c5",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "والصلاة نور، تهدي إلى الخير وتنهى عن الفحشاء والمنكر.",
+        "en": "Prayer is a light. It guides to good and restrains from shameful and wrong deeds."
+      },
+      "evidence": {
+        "type": "quran",
+        "ref": "29:45",
+        "publisher": "quranenc.com"
+      },
+      "check": {
+        "type": "trueFalse",
+        "prompt": {
+          "ar": "من فضائل الصلاة أنها تنهى عن الفحشاء والمنكر.",
+          "en": "One virtue of prayer is that it restrains from shameful and wrong deeds."
+        },
+        "answer": true
+      }
+    },
+    {
+      "id": "c6",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "وهي أول ما يُحاسب عليه العبد يوم القيامة.",
+        "en": "It is the first thing a person will be asked about on the Day of Judgement."
+      }
+    },
+    {
+      "id": "c7",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "كانت الصلاة راحة النبي ﷺ. وكان إذا أهمّه أمر لجأ إليها.",
+        "en": "Prayer was the Prophet's comfort ﷺ. Whenever something troubled him, he turned to it."
+      },
+      "evidence": {
+        "type": "hadith",
+        "hadeethencId": null,
+        "citation": "سنن أبي داود 4985",
+        "availableIn": [],
+        "publisher": "hadeethenc.com"
+      }
+    },
+    {
+      "id": "c8",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "تجب الصلاة على كل مسلم بالغ عاقل، رجلًا كان أو امرأة.",
+        "en": "Prayer is obligatory for every adult, sane Muslim, man or woman."
+      }
+    }
+  ],
+  "activities": [
+    {
+      "id": "a1",
+      "type": "select",
+      "visual": "collect",
+      "title": {
+        "ar": "اجمع فضائل الصلاة",
+        "en": "Collect the virtues of prayer"
+      },
+      "instruction": {
+        "ar": "اختر ما ذكره الدرس من فضائل.",
+        "en": "Choose the virtues the lesson mentions."
+      },
+      "items": [
+        {
+          "ar": "تمحو صغائر الذنوب",
+          "en": "It wipes away minor sins",
+          "correct": true
+        },
+        {
+          "ar": "نور لصاحبها",
+          "en": "It is a light",
+          "correct": true
+        },
+        {
+          "ar": "تنهى عن الفحشاء والمنكر",
+          "en": "It restrains from wrong",
+          "correct": true
+        },
+        {
+          "ar": "أول ما يُحاسب عليه العبد",
+          "en": "The first thing one is asked about",
+          "correct": true
+        },
+        {
+          "ar": "تُغني عن بقية أركان الإسلام",
+          "en": "It replaces the other pillars of Islam",
+          "correct": false
+        }
+      ]
+    }
+  ],
+  "situation": {
+    "prompt": {
+      "ar": "مررت بيوم صعب وضاق صدرك. ماذا كان يفعل النبي ﷺ في مثل هذا كما في الدرس؟",
+      "en": "You had a hard day and feel weighed down. What did the Prophet ﷺ do in such moments, according to the lesson?"
+    },
+    "options": [
+      {
+        "ar": "يلجأ إلى الصلاة",
+        "en": "He turned to prayer",
+        "correct": true
+      },
+      {
+        "ar": "يؤجل الصلاة حتى يرتاح",
+        "en": "He delayed prayer until he rested",
+        "correct": false
+      }
+    ]
+  },
+  "explainToRafiq": {
+    "prompt": {
+      "ar": "اشرح لرفيق بكلماتك أهم ما فهمته من هذا الدرس.",
+      "en": "Explain to Rafiq in your own words the most important thing you understood from this lesson."
+    },
+    "scope": [
+      "cards"
+    ]
+  },
+  "readMore": [
+    {
+      "ar": "https://newmuslimguide.com/ar/categories/your-prayer/66fb8036c398b",
+      "en": "https://newmuslimguide.com/en/categories/your-prayer/66fb8036c398b"
+    }
+  ]
+}

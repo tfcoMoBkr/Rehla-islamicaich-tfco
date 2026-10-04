@@ -1,0 +1,241 @@
+{
+  "id": "1.1",
+  "station": 1,
+  "slug": "the-greatest-blessing",
+  "status": "draft",
+  "reviewed": false,
+  "reviewedBy": null,
+  "authoring": "Written by the team in simple wording from the sources listed in `sources`. Verses and hadiths are referenced and fetched verbatim, never typed.",
+  "title": {
+    "ar": "أعظم نعمة في الوجود",
+    "en": "The greatest blessing"
+  },
+  "objectives": {
+    "ar": [
+      "أن يدرك المتعلم أن الهداية إلى الإسلام أعظم النعم",
+      "أن يعرف كيف يشكر هذه النعمة"
+    ],
+    "en": [
+      "Recognise that being guided to Islam is the greatest blessing",
+      "Know how to show gratitude for it"
+    ]
+  },
+  "sources": [
+    {
+      "key": "nmg",
+      "title": {
+        "ar": "دليل المسلم الجديد — أعظم نعمة في الوجود",
+        "en": "The New Muslim Guide — The Greatest Blessing Ever"
+      },
+      "publisher": "IslamHouse / Modern Guide",
+      "url": {
+        "ar": "https://newmuslimguide.com/ar/preliminaries/640f63a5e281e",
+        "en": "https://newmuslimguide.com/en/preliminaries/640f63a5e281e"
+      },
+      "use": "Facts restated in our own words; not copied."
+    }
+  ],
+  "suggestedVideo": {
+    "ar": {
+      "youtubeId": "XU1J__TlAcU",
+      "channel": "منصة زادي",
+      "position": "close"
+    },
+    "en": null
+  },
+  "cards": [
+    {
+      "id": "c1",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "نِعَم الله علينا كثيرة لا نستطيع عدّها: السمع والبصر والعقل والصحة والأهل.",
+        "en": "Allah's blessings upon us are too many to count: hearing, sight, the mind, health and family."
+      },
+      "evidence": {
+        "type": "quran",
+        "ref": "16:18",
+        "publisher": "quranenc.com"
+      },
+      "check": {
+        "type": "trueFalse",
+        "prompt": {
+          "ar": "يستطيع الإنسان أن يحصي نعم الله عليه.",
+          "en": "A person is able to count all of Allah's blessings."
+        },
+        "answer": false
+      }
+    },
+    {
+      "id": "c2",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "هذه النعم تنتهي بانتهاء الحياة الدنيا. أما نعمة الإسلام فهي التي تجلب الطمأنينة في الدنيا والنعيم الدائم في الآخرة، ولذلك هي أعظم النعم.",
+        "en": "These blessings end when this life ends. The blessing of Islam brings tranquillity in this life and lasting bliss in the hereafter, which is why it is the greatest blessing."
+      },
+      "evidence": {
+        "type": "quran",
+        "ref": "5:3",
+        "publisher": "quranenc.com"
+      },
+      "check": {
+        "type": "single",
+        "prompt": {
+          "ar": "ما أعظم نعمة أنعم الله بها علينا؟",
+          "en": "What is the greatest blessing Allah has given us?"
+        },
+        "options": [
+          {
+            "ar": "الهداية إلى الإسلام",
+            "en": "Being guided to Islam",
+            "correct": true
+          },
+          {
+            "ar": "الصحة",
+            "en": "Health",
+            "correct": false
+          },
+          {
+            "ar": "المال",
+            "en": "Wealth",
+            "correct": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "c3",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "الهداية فضل من الله عليك. هو الذي اختارك وهداك، فالمنّة له سبحانه.",
+        "en": "Guidance is a favour from Allah to you. He chose you and guided you, so the favour is His."
+      },
+      "evidence": {
+        "type": "quran",
+        "ref": "49:17",
+        "publisher": "quranenc.com"
+      }
+    },
+    {
+      "id": "c4",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "الشكر يحفظ النعمة ويزيدها.",
+        "en": "Gratitude preserves a blessing and increases it."
+      },
+      "evidence": {
+        "type": "quran",
+        "ref": "14:7",
+        "publisher": "quranenc.com"
+      },
+      "check": {
+        "type": "trueFalse",
+        "prompt": {
+          "ar": "شكر النعمة سبب في زيادتها.",
+          "en": "Being grateful for a blessing is a reason for its increase."
+        },
+        "answer": true
+      }
+    },
+    {
+      "id": "c5",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "وشكر نعمة الإسلام يكون بأمرين: أن تتمسك به وتصبر على ما تلقاه، وأن تعرّف غيرك به بحكمة وصبر.",
+        "en": "Gratitude for Islam is shown in two ways: holding fast to it with patience through what you face, and introducing others to it with wisdom and patience."
+      }
+    }
+  ],
+  "activities": [
+    {
+      "id": "a1",
+      "type": "select",
+      "title": {
+        "ar": "كيف أشكر نعمة الإسلام؟",
+        "en": "How do I show gratitude for Islam?"
+      },
+      "instruction": {
+        "ar": "اختر الأمرين المذكورين في الدرس.",
+        "en": "Choose the two ways mentioned in the lesson."
+      },
+      "items": [
+        {
+          "ar": "التمسك بالإسلام والصبر",
+          "en": "Holding fast to Islam with patience",
+          "correct": true
+        },
+        {
+          "ar": "تعريف الآخرين به بحكمة وصبر",
+          "en": "Introducing others to it with wisdom and patience",
+          "correct": true
+        },
+        {
+          "ar": "الانشغال بعدّ النعم دون عمل",
+          "en": "Counting blessings without acting on them",
+          "correct": false
+        },
+        {
+          "ar": "اعتبار إسلامي فضلًا مني على غيري",
+          "en": "Seeing my Islam as a favour I do for others",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "a2",
+      "type": "reflection",
+      "title": {
+        "ar": "الصفحة الأولى من دفتر رحلتك",
+        "en": "The first page of your journal"
+      },
+      "instruction": {
+        "ar": "أي بطاقة من هذا الدرس لامست قلبك أكثر؟ اخترها لتُحفظ في دفترك على جهازك فقط.",
+        "en": "Which card of this lesson touched you most? Choose it to keep in your journal, on your device only."
+      },
+      "items": "cards",
+      "storage": "deviceOnly"
+    }
+  ],
+  "situation": {
+    "prompt": {
+      "ar": "صديق يسألك: «لماذا أنت سعيد بإسلامك؟» أي جواب يوافق ما تعلمته في الدرس؟",
+      "en": "A friend asks: \"Why are you happy to be Muslim?\" Which answer matches what you learned in the lesson?"
+    },
+    "options": [
+      {
+        "ar": "لأنها أعظم نعمة، تجلب الطمأنينة في الدنيا والنعيم في الآخرة",
+        "en": "Because it is the greatest blessing, bringing tranquillity in this life and bliss in the hereafter",
+        "correct": true
+      },
+      {
+        "ar": "لأنني أفضل من غيري",
+        "en": "Because I am better than others",
+        "correct": false
+      }
+    ]
+  },
+  "explainToRafiq": {
+    "prompt": {
+      "ar": "اشرح لرفيق بكلماتك أهم ما فهمته من هذا الدرس.",
+      "en": "Explain to Rafiq in your own words the most important thing you understood from this lesson."
+    },
+    "scope": [
+      "cards"
+    ]
+  },
+  "readMore": [
+    {
+      "ar": "https://newmuslimguide.com/ar/preliminaries/640f63a5e281e",
+      "en": "https://newmuslimguide.com/en/preliminaries/640f63a5e281e"
+    }
+  ]
+}

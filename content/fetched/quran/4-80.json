@@ -1,0 +1,18 @@
+{
+  "ref": "4:80",
+  "arabic": "مَّن يُطِعِ ٱلرَّسُولَ فَقَدۡ أَطَاعَ ٱللَّهَۖ وَمَن تَوَلَّىٰ فَمَآ أَرۡسَلۡنَٰكَ عَلَيۡهِمۡ حَفِيظٗا",
+  "translations": {
+    "en": {
+      "key": "english_saheeh",
+      "version": "1.1.2",
+      "text": "He who obeys the Messenger has obeyed Allāh; but those who turn away - We have not sent you over them as a guardian.",
+      "footnotes": null
+    }
+  },
+  "source": {
+    "publisher": "quranenc.com",
+    "url": "https://quranenc.com/en/browse/english_saheeh/4#80",
+    "apiUrl": "https://quranenc.com/api/v1/translation/sura/english_saheeh/4",
+    "fetchedOn": "2026-10-04"
+  }
+}

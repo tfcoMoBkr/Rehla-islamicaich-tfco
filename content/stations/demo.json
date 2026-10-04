@@ -1,0 +1,166 @@
+{
+  "id": "demo",
+  "order": 0,
+  "demo": true,
+  "title": {
+    "ar": "طريق تجريبي",
+    "en": "Practice road"
+  },
+  "baseline": [
+    {
+      "id": "demo:baseline:load",
+      "objective": "load",
+      "reviewed": true,
+      "lesson": "practice-1",
+      "card": "c1",
+      "type": "single",
+      "prompt": {
+        "ar": "ما أفضل حقيبة لرحلة مشي طويلة؟",
+        "en": "What is the best bag for a long walk?"
+      },
+      "options": [
+        {
+          "ar": "حقيبة خفيفة",
+          "en": "A light bag",
+          "correct": true
+        },
+        {
+          "ar": "حقيبة ممتلئة",
+          "en": "A full bag",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "demo:baseline:water",
+      "objective": "water",
+      "reviewed": true,
+      "lesson": "practice-1",
+      "card": "c2",
+      "type": "trueFalse",
+      "prompt": {
+        "ar": "انتظر حتى تعطش ثم اشرب كثيرًا.",
+        "en": "Wait until you are thirsty, then drink a lot."
+      },
+      "answer": false
+    },
+    {
+      "id": "demo:baseline:shoes",
+      "objective": "shoes",
+      "reviewed": true,
+      "lesson": "practice-1",
+      "card": "c3",
+      "type": "single",
+      "prompt": {
+        "ar": "أي حذاء تلبس لرحلة طويلة؟",
+        "en": "Which shoes do you wear for a long walk?"
+      },
+      "options": [
+        {
+          "ar": "حذاء جديد",
+          "en": "New shoes",
+          "correct": false
+        },
+        {
+          "ar": "حذاء جرّبته",
+          "en": "Shoes you have tried",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "demo:baseline:route",
+      "objective": "route",
+      "reviewed": true,
+      "lesson": "practice-1",
+      "card": "c4",
+      "type": "trueFalse",
+      "prompt": {
+        "ar": "لا داعي لأن يعرف أحد طريقك.",
+        "en": "Nobody needs to know your route."
+      },
+      "answer": false
+    }
+  ],
+  "exam": [
+    {
+      "id": "demo:exam:load",
+      "objective": "load",
+      "reviewed": true,
+      "lesson": "practice-1",
+      "card": "c1",
+      "type": "trueFalse",
+      "prompt": {
+        "ar": "كل ما تحمله ستشعر بوزنه في آخر النهار.",
+        "en": "You will feel the weight of everything you carry by the end of the day."
+      },
+      "answer": true
+    },
+    {
+      "id": "demo:exam:water",
+      "objective": "water",
+      "reviewed": true,
+      "lesson": "practice-1",
+      "card": "c2",
+      "type": "single",
+      "prompt": {
+        "ar": "كيف تشرب الماء في الطريق؟",
+        "en": "How do you drink water on the way?"
+      },
+      "options": [
+        {
+          "ar": "دفعة واحدة كبيرة",
+          "en": "All at once",
+          "correct": false
+        },
+        {
+          "ar": "على دفعات صغيرة",
+          "en": "In small sips",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "demo:exam:shoes",
+      "objective": "shoes",
+      "reviewed": true,
+      "lesson": "practice-1",
+      "card": "c3",
+      "type": "trueFalse",
+      "prompt": {
+        "ar": "الحذاء الجديد خيار جيد لأول رحلة طويلة.",
+        "en": "New shoes are a good choice for a first long walk."
+      },
+      "answer": false
+    },
+    {
+      "id": "demo:exam:route",
+      "objective": "route",
+      "reviewed": true,
+      "lesson": "practice-1",
+      "card": "c4",
+      "type": "multiple",
+      "prompt": {
+        "ar": "ماذا تخبر به من تثق به قبل أن تنطلق؟ اختر كل ما ينطبق.",
+        "en": "What do you tell someone you trust before you set off? Choose all that apply."
+      },
+      "options": [
+        {
+          "ar": "طريقك",
+          "en": "Your route",
+          "correct": true
+        },
+        {
+          "ar": "موعد عودتك",
+          "en": "When you will be back",
+          "correct": true
+        },
+        {
+          "ar": "وزن حقيبتك",
+          "en": "The weight of your bag",
+          "correct": false
+        }
+      ]
+    }
+  ]
+}

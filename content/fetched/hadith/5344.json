@@ -1,0 +1,35 @@
+{
+  "id": 5344,
+  "publisher": "hadeethenc.com",
+  "languages": {
+    "ar": {
+      "title": "كل بني آدم خطاء، وخير الخطائين التوابون",
+      "hadeeth": "عن أنس بن مالك رضي الله عنه قال: قال رسول الله صلى الله عليه وسلم : «كلُّ بني آدم خَطَّاءٌ، وخيرُ الخَطَّائِينَ التوابون».",
+      "attribution": "رواه الترمذي وابن ماجه والدارمي وأحمد",
+      "grade": "حسن",
+      "explanation": "لا يخلو الإنسان من الخطيئة، لما فُطر عليه من الضعف، وعدم الانقياد لمولاه في فعل ما دعاه إليه، وترك ما نهاه عنه، لكنه تعالى فتح باب التوبة لعباده، وأخبر أن خير الخطائين هم المكثرون من التوبة.",
+      "hints": [
+        "من شأن ابن آدم الخطأ والوقوع في الذنب.",
+        "الواجب على المؤمن إذا تلبس بمعصية أن يبادر بالتوبة."
+      ],
+      "url": "https://hadeethenc.com/ar/browse/hadith/5344",
+      "apiUrl": "https://hadeethenc.com/api/v1/hadeeths/one/?language=ar&id=5344",
+      "version": null,
+      "fetchedOn": "2026-10-04"
+    },
+    "en": {
+      "title": "All human beings are sinners, and the best of the sinners are the frequent repenters",
+      "hadeeth": "Anas ibn Mālik (may Allah be pleased with him) reported that the Prophet (may Allah's peace and blessings be upon him) said: \"All human beings are sinners, and the best of the sinners are the frequent repenters.\"",
+      "attribution": "Narrated by Ibn Majah - Narrated by At-Termedhy - Narrated by Ahmad - Ad-Daarimi",
+      "grade": "Good hadith",
+      "explanation": "Human beings are prone to sin, owing to their natural weakness that leads them not to observe Allah's commands and prohibitions. However, Allah, the Almighty, has opened the door of repentance for His slaves, informing that the best of sinners are those who frequently repent.",
+      "hints": [
+        "Man naturally tends to err and fall into sin. What a believer is required to do if he commits a sin is to quickly repent."
+      ],
+      "url": "https://hadeethenc.com/en/browse/hadith/5344",
+      "apiUrl": "https://hadeethenc.com/api/v1/hadeeths/one/?language=en&id=5344",
+      "version": null,
+      "fetchedOn": "2026-10-04"
+    }
+  }
+}

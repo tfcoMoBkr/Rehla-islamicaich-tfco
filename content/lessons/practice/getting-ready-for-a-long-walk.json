@@ -1,0 +1,734 @@
+{
+  "id": "practice-1",
+  "station": "demo",
+  "slug": "getting-ready-for-a-long-walk",
+  "status": "demo",
+  "reviewed": false,
+  "reviewedBy": null,
+  "authoring": "Neutral, non-religious sample content written to demonstrate the lesson engine. Not lesson material.",
+  "title": {
+    "ar": "الاستعداد لرحلة مشي طويلة",
+    "en": "Getting ready for a long walk"
+  },
+  "objectives": {
+    "ar": [
+      "أن تجهّز حقيبة خفيفة",
+      "أن تعرف متى تشرب الماء",
+      "أن تخبر أحدًا بطريقك قبل أن تنطلق"
+    ],
+    "en": [
+      "Pack a light bag",
+      "Know when to drink water",
+      "Tell someone your route before you set off"
+    ]
+  },
+  "sources": [],
+  "suggestedVideo": {
+    "ar": null,
+    "en": null
+  },
+  "cards": [
+    {
+      "id": "c1",
+      "source": [],
+      "text": {
+        "ar": "ابدأ بحقيبة خفيفة: كل ما تحمله ستشعر بوزنه في آخر النهار.",
+        "en": "Start with a light bag: you will feel the weight of everything you carry by the end of the day."
+      },
+      "check": {
+        "type": "trueFalse",
+        "prompt": {
+          "ar": "الحقيبة الأثقل أفضل لرحلة مشي طويلة.",
+          "en": "A heavier bag is better for a long walk."
+        },
+        "answer": false
+      }
+    },
+    {
+      "id": "c2",
+      "source": [],
+      "text": {
+        "ar": "اشرب الماء قبل أن تعطش، على دفعات صغيرة طوال الطريق.",
+        "en": "Drink water before you feel thirsty, in small sips along the way."
+      },
+      "check": {
+        "type": "single",
+        "prompt": {
+          "ar": "متى تشرب الماء في رحلة مشي طويلة؟",
+          "en": "When should you drink water on a long walk?"
+        },
+        "options": [
+          {
+            "ar": "عندما أعطش كثيرًا فقط",
+            "en": "Only when I am very thirsty",
+            "correct": false
+          },
+          {
+            "ar": "على دفعات صغيرة طوال الطريق",
+            "en": "In small sips along the way",
+            "correct": true
+          },
+          {
+            "ar": "في نهاية الطريق فقط",
+            "en": "Only at the end",
+            "correct": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "c3",
+      "source": [],
+      "text": {
+        "ar": "اختر حذاءً جرّبته من قبل، ولا تبدأ رحلة طويلة بحذاء جديد.",
+        "en": "Choose shoes you have worn before; do not start a long walk in new shoes."
+      },
+      "check": {
+        "type": "trueFalse",
+        "prompt": {
+          "ar": "الرحلة الطويلة فرصة جيدة لتجربة حذاء جديد.",
+          "en": "A long walk is a good chance to try out new shoes."
+        },
+        "answer": false
+      }
+    },
+    {
+      "id": "c4",
+      "source": [],
+      "text": {
+        "ar": "أخبر أحدًا تثق به بطريقك وموعد عودتك قبل أن تنطلق.",
+        "en": "Before you set off, tell someone you trust your route and when you expect to be back."
+      }
+    },
+    {
+      "id": "c5",
+      "source": [],
+      "text": {
+        "ar": "في الحقيبة: ماء، وخريطة، وقبعة للظل، ومصباح لما بعد الغروب، ووجبة خفيفة.",
+        "en": "In the bag: water, a map, a hat for shade, a torch for after sunset, and a snack."
+      }
+    }
+  ],
+  "steps": [
+    {
+      "n": 1,
+      "title": {
+        "ar": "تفقّد الطقس",
+        "en": "Check the weather"
+      },
+      "text": {
+        "ar": "انظر إلى حالة الطقس قبل أن تحدد موعد الانطلاق.",
+        "en": "Look at the weather before you choose when to set off."
+      }
+    },
+    {
+      "n": 2,
+      "title": {
+        "ar": "جهّز الحقيبة",
+        "en": "Pack the bag"
+      },
+      "text": {
+        "ar": "ضع فيها ما تحتاجه فقط، ودع الباقي في البيت.",
+        "en": "Put in only what you need and leave the rest at home."
+      }
+    },
+    {
+      "n": 3,
+      "title": {
+        "ar": "أخبر أحدًا بطريقك",
+        "en": "Tell someone your route"
+      },
+      "text": {
+        "ar": "قل لمن تثق به أين ستمشي ومتى تعود.",
+        "en": "Tell someone you trust where you will walk and when you will be back."
+      }
+    },
+    {
+      "n": 4,
+      "title": {
+        "ar": "انطلق في الصباح",
+        "en": "Set off in the morning"
+      },
+      "text": {
+        "ar": "امشِ في برودة الصباح، واسترح وقت الظهيرة.",
+        "en": "Walk in the cool of the morning and rest at midday."
+      }
+    }
+  ],
+  "activities": [
+    {
+      "id": "a1",
+      "type": "select",
+      "visual": "fiveLanterns",
+      "title": {
+        "ar": "أضئ الفوانيس الخمسة",
+        "en": "Light the five lanterns"
+      },
+      "instruction": {
+        "ar": "اختر الأشياء الخمسة التي تضعها في الحقيبة. كل اختيار صحيح يضيء فانوسًا.",
+        "en": "Choose the five things that go in the bag. Each right choice lights a lantern."
+      },
+      "items": [
+        {
+          "ar": "ماء",
+          "en": "Water",
+          "correct": true
+        },
+        {
+          "ar": "خريطة",
+          "en": "A map",
+          "correct": true
+        },
+        {
+          "ar": "كتاب ضخم",
+          "en": "A heavy book",
+          "correct": false
+        },
+        {
+          "ar": "قبعة",
+          "en": "A hat",
+          "correct": true
+        },
+        {
+          "ar": "مصباح",
+          "en": "A torch",
+          "correct": true
+        },
+        {
+          "ar": "مرطبان زجاجي",
+          "en": "A glass jar",
+          "correct": false
+        },
+        {
+          "ar": "وجبة خفيفة",
+          "en": "A snack",
+          "correct": true
+        }
+      ],
+      "feedbackWrong": {
+        "ar": "قد يكون مفيدًا في البيت، لكنه يثقل الحقيبة.",
+        "en": "It may be useful at home, but it makes the bag heavy."
+      }
+    },
+    {
+      "id": "a2",
+      "type": "order",
+      "title": {
+        "ar": "رتّب خطوات الانطلاق",
+        "en": "Put the steps for setting off in order"
+      },
+      "items": "steps"
+    },
+    {
+      "id": "a3",
+      "type": "sort",
+      "title": {
+        "ar": "في الحقيبة أم في البيت؟",
+        "en": "In the bag or at home?"
+      },
+      "groups": [
+        {
+          "key": "bag",
+          "label": {
+            "ar": "في الحقيبة",
+            "en": "In the bag"
+          }
+        },
+        {
+          "key": "home",
+          "label": {
+            "ar": "يبقى في البيت",
+            "en": "Stays at home"
+          }
+        }
+      ],
+      "items": [
+        {
+          "ar": "قارورة ماء",
+          "en": "A water bottle",
+          "group": "bag",
+          "card": "c5"
+        },
+        {
+          "ar": "كتاب ضخم",
+          "en": "A heavy book",
+          "group": "home",
+          "card": "c1"
+        },
+        {
+          "ar": "خريطة",
+          "en": "A map",
+          "group": "bag",
+          "card": "c5"
+        },
+        {
+          "ar": "مرطبان زجاجي",
+          "en": "A glass jar",
+          "group": "home",
+          "card": "c1"
+        }
+      ]
+    },
+    {
+      "id": "a4",
+      "type": "match",
+      "title": {
+        "ar": "صِل كل غرض بفائدته",
+        "en": "Match each item to what it is for"
+      },
+      "pairs": [
+        {
+          "left": {
+            "ar": "الماء",
+            "en": "Water"
+          },
+          "right": {
+            "ar": "يبقيك مرتويًا",
+            "en": "Keeps you hydrated"
+          },
+          "card": "c5"
+        },
+        {
+          "left": {
+            "ar": "الخريطة",
+            "en": "Map"
+          },
+          "right": {
+            "ar": "تدلّك على الطريق",
+            "en": "Shows you the way"
+          },
+          "card": "c5"
+        },
+        {
+          "left": {
+            "ar": "القبعة",
+            "en": "Hat"
+          },
+          "right": {
+            "ar": "تمنحك الظل",
+            "en": "Gives you shade"
+          },
+          "card": "c5"
+        },
+        {
+          "left": {
+            "ar": "المصباح",
+            "en": "Torch"
+          },
+          "right": {
+            "ar": "يضيء بعد الغروب",
+            "en": "Gives light after sunset"
+          },
+          "card": "c5"
+        }
+      ]
+    },
+    {
+      "id": "a5",
+      "type": "timeline",
+      "title": {
+        "ar": "محطات اليوم على الطريق",
+        "en": "The day's stops on the road"
+      },
+      "instruction": {
+        "ar": "رتّب محطات اليوم من الصباح إلى المساء.",
+        "en": "Put the day's stops in order, morning first."
+      },
+      "items": [
+        {
+          "ar": "الانطلاق في برودة الصباح",
+          "en": "Setting off in the cool of the morning",
+          "n": 1,
+          "year": "06:00"
+        },
+        {
+          "ar": "الاستراحة في الظل وقت الظهيرة",
+          "en": "Resting in the shade at midday",
+          "n": 2,
+          "year": "12:00"
+        },
+        {
+          "ar": "إكمال الطريق بعد العصر",
+          "en": "Carrying on in the afternoon",
+          "n": 3
+        },
+        {
+          "ar": "التخييم عند الغروب",
+          "en": "Making camp at sunset",
+          "n": 4,
+          "year": "18:30"
+        }
+      ]
+    },
+    {
+      "id": "a6",
+      "type": "swipe",
+      "title": {
+        "ar": "هل يناسب هذا رحلة طويلة؟",
+        "en": "Does this suit a long walk?"
+      },
+      "sides": {
+        "right": {
+          "ar": "يناسبها",
+          "en": "Suits it"
+        },
+        "left": {
+          "ar": "لا يناسبها",
+          "en": "Does not suit it"
+        }
+      },
+      "items": [
+        {
+          "ar": "حذاء مشيت به من قبل",
+          "en": "Shoes you have walked in before",
+          "side": "right"
+        },
+        {
+          "ar": "حذاء جديد لم تجرّبه",
+          "en": "New shoes you have never worn",
+          "side": "left"
+        },
+        {
+          "ar": "رشفات ماء صغيرة طوال الطريق",
+          "en": "Small sips of water along the way",
+          "side": "right"
+        },
+        {
+          "ar": "حقيبة مثقلة بما لا تحتاجه",
+          "en": "A bag full of things you do not need",
+          "side": "left"
+        }
+      ]
+    },
+    {
+      "id": "a7",
+      "type": "decisionPath",
+      "title": {
+        "ar": "هل أنطلق الآن؟",
+        "en": "Shall I set off now?"
+      },
+      "steps": [
+        {
+          "q": {
+            "ar": "هل تفقّدت الطقس؟",
+            "en": "Have you checked the weather?"
+          },
+          "no": {
+            "ar": "تفقّده أولًا، ثم عُد.",
+            "en": "Check it first, then come back."
+          }
+        },
+        {
+          "q": {
+            "ar": "هل حقيبتك ثقيلة؟",
+            "en": "Is your bag heavy?"
+          },
+          "yes": {
+            "ar": "خفّفها مما لا تحتاجه.",
+            "en": "Lighten it of what you do not need."
+          }
+        },
+        {
+          "q": {
+            "ar": "هل يعرف أحد طريقك؟",
+            "en": "Does someone know your route?"
+          },
+          "no": {
+            "ar": "أخبر أحدًا تثق به أولًا.",
+            "en": "Tell someone you trust first."
+          }
+        }
+      ],
+      "end": {
+        "ar": "أنت جاهز. طريقًا موفقًا!",
+        "en": "You are ready. Have a good walk!"
+      }
+    },
+    {
+      "id": "a8",
+      "type": "guided",
+      "title": {
+        "ar": "جهّز معي خطوة خطوة",
+        "en": "Get ready with me, step by step"
+      },
+      "items": "steps",
+      "note": {
+        "ar": "خذ وقتك، وانتقل إلى الخطوة التالية حين تنتهي.",
+        "en": "Take your time, and move on when you are done."
+      }
+    },
+    {
+      "id": "a9",
+      "type": "checklist",
+      "storage": "deviceOnly",
+      "title": {
+        "ar": "قائمة حقيبتي",
+        "en": "My bag checklist"
+      },
+      "instruction": {
+        "ar": "قائمة لك وحدك، تُحفظ على جهازك فقط.",
+        "en": "A list for you alone, kept on your device only."
+      },
+      "items": [
+        {
+          "ar": "ماء",
+          "en": "Water",
+          "card": "c5"
+        },
+        {
+          "ar": "خريطة",
+          "en": "A map",
+          "card": "c5"
+        },
+        {
+          "ar": "قبعة",
+          "en": "A hat",
+          "card": "c5"
+        },
+        {
+          "ar": "مصباح",
+          "en": "A torch",
+          "card": "c5"
+        }
+      ]
+    },
+    {
+      "id": "a10",
+      "type": "reflection",
+      "storage": "deviceOnly",
+      "items": "cards",
+      "title": {
+        "ar": "صفحة من دفترك",
+        "en": "A page of your journal"
+      },
+      "instruction": {
+        "ar": "أي بطاقة من هذا الدرس ستأخذها معك؟ اخترها لتُحفظ في دفترك على جهازك.",
+        "en": "Which card of this lesson will you take with you? Choose it to keep it in your journal on this device."
+      }
+    }
+  ],
+  "situation": {
+    "prompt": {
+      "ar": "صديقك سيمشي غدًا مسافة طويلة لأول مرة، واشترى حذاءً جديدًا اليوم. بماذا تنصحه؟",
+      "en": "Your friend is going on their first long walk tomorrow and bought new shoes today. What do you suggest?"
+    },
+    "options": [
+      {
+        "ar": "أن يلبس الحذاء الجديد",
+        "en": "Wear the new shoes",
+        "correct": false
+      },
+      {
+        "ar": "أن يلبس حذاءً مشى به من قبل",
+        "en": "Wear shoes they have walked in before",
+        "correct": true
+      },
+      {
+        "ar": "أن يمشي حافيًا",
+        "en": "Walk barefoot",
+        "correct": false
+      }
+    ],
+    "followUp": {
+      "ar": "هذه قاعدة عامة؛ وإن كانت لصديقك حالة خاصة فليسأل مختصًا.",
+      "en": "This is a general rule; if your friend has a particular need, they should ask a specialist."
+    }
+  },
+  "readMore": [],
+  "quiz": [
+    {
+      "id": "demo:quiz:bag",
+      "objective": "load",
+      "reviewed": true,
+      "lesson": "practice-1",
+      "card": "c1",
+      "type": "single",
+      "prompt": {
+        "ar": "كيف ينبغي أن تكون حقيبتك؟",
+        "en": "What should your bag be like?"
+      },
+      "options": [
+        {
+          "ar": "خفيفة",
+          "en": "Light",
+          "correct": true
+        },
+        {
+          "ar": "ثقيلة بكل شيء",
+          "en": "Heavy with everything",
+          "correct": false
+        },
+        {
+          "ar": "لا حاجة إلى حقيبة",
+          "en": "No bag at all",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "demo:quiz:kit",
+      "objective": "load",
+      "reviewed": true,
+      "lesson": "practice-1",
+      "card": "c5",
+      "type": "multiple",
+      "prompt": {
+        "ar": "ما الذي تضعه في الحقيبة؟ اختر كل ما ينطبق.",
+        "en": "What goes in the bag? Choose all that apply."
+      },
+      "options": [
+        {
+          "ar": "ماء",
+          "en": "Water",
+          "correct": true
+        },
+        {
+          "ar": "خريطة",
+          "en": "A map",
+          "correct": true
+        },
+        {
+          "ar": "مرطبان زجاجي",
+          "en": "A glass jar",
+          "correct": false
+        },
+        {
+          "ar": "قبعة",
+          "en": "A hat",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "demo:quiz:route",
+      "objective": "route",
+      "reviewed": true,
+      "lesson": "practice-1",
+      "card": "c4",
+      "type": "trueFalse",
+      "prompt": {
+        "ar": "يحسن أن تخبر أحدًا بطريقك قبل أن تنطلق.",
+        "en": "It is wise to tell someone your route before you set off."
+      },
+      "answer": true
+    },
+    {
+      "id": "demo:quiz:order",
+      "objective": "route",
+      "reviewed": true,
+      "lesson": "practice-1",
+      "card": "c4",
+      "type": "order",
+      "prompt": {
+        "ar": "رتّب خطوات الانطلاق",
+        "en": "Order the steps for setting off"
+      },
+      "items": [
+        {
+          "ar": "جهّز حقيبة خفيفة",
+          "en": "Pack a light bag",
+          "n": 1
+        },
+        {
+          "ar": "أخبر أحدًا بطريقك",
+          "en": "Tell someone your route",
+          "n": 2
+        },
+        {
+          "ar": "انطلق",
+          "en": "Set off",
+          "n": 3
+        }
+      ]
+    },
+    {
+      "id": "demo:quiz:match",
+      "objective": "load",
+      "reviewed": true,
+      "lesson": "practice-1",
+      "card": "c5",
+      "type": "match",
+      "prompt": {
+        "ar": "صِل كل غرض بفائدته",
+        "en": "Match each item to what it is for"
+      },
+      "pairs": [
+        {
+          "left": {
+            "ar": "الخريطة",
+            "en": "Map"
+          },
+          "right": {
+            "ar": "تدلّك على الطريق",
+            "en": "Shows the way"
+          }
+        },
+        {
+          "left": {
+            "ar": "القبعة",
+            "en": "Hat"
+          },
+          "right": {
+            "ar": "تمنحك الظل",
+            "en": "Gives shade"
+          }
+        },
+        {
+          "left": {
+            "ar": "المصباح",
+            "en": "Torch"
+          },
+          "right": {
+            "ar": "يضيء بعد الغروب",
+            "en": "Light after sunset"
+          }
+        }
+      ]
+    },
+    {
+      "id": "demo:quiz:sort",
+      "objective": "shoes",
+      "reviewed": true,
+      "lesson": "practice-1",
+      "card": "c3",
+      "type": "sort",
+      "prompt": {
+        "ar": "أيّ الأحذية يناسب الرحلة؟",
+        "en": "Which footwear suits the walk?"
+      },
+      "groups": [
+        {
+          "key": "yes",
+          "label": {
+            "ar": "يناسب",
+            "en": "Suits it"
+          }
+        },
+        {
+          "key": "no",
+          "label": {
+            "ar": "لا يناسب",
+            "en": "Does not suit it"
+          }
+        }
+      ],
+      "items": [
+        {
+          "ar": "حذاء مجرَّب",
+          "en": "Shoes you have tried",
+          "group": "yes"
+        },
+        {
+          "ar": "حذاء جديد",
+          "en": "Brand-new shoes",
+          "group": "no"
+        },
+        {
+          "ar": "نعل مكسور",
+          "en": "A broken sandal",
+          "group": "no"
+        }
+      ]
+    }
+  ]
+}

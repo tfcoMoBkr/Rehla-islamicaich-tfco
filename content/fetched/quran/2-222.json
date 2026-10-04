@@ -1,0 +1,18 @@
+{
+  "ref": "2:222",
+  "arabic": "وَيَسۡـَٔلُونَكَ عَنِ ٱلۡمَحِيضِۖ قُلۡ هُوَ أَذٗى فَٱعۡتَزِلُواْ ٱلنِّسَآءَ فِي ٱلۡمَحِيضِ وَلَا تَقۡرَبُوهُنَّ حَتَّىٰ يَطۡهُرۡنَۖ فَإِذَا تَطَهَّرۡنَ فَأۡتُوهُنَّ مِنۡ حَيۡثُ أَمَرَكُمُ ٱللَّهُۚ إِنَّ ٱللَّهَ يُحِبُّ ٱلتَّوَّٰبِينَ وَيُحِبُّ ٱلۡمُتَطَهِّرِينَ",
+  "translations": {
+    "en": {
+      "key": "english_saheeh",
+      "version": "1.1.2",
+      "text": "And they ask you about menstruation. Say, \"It is harm, so keep away from wives[82] during menstruation. And do not approach them until they are pure. And when they have purified themselves,[83] then come to them from where Allāh has ordained for you. Indeed, Allāh loves those who are constantly repentant and loves those who purify themselves.\"",
+      "footnotes": "[82] i.e., refrain from sexual intercourse.\n[83] By taking a complete bath (ghusl) ."
+    }
+  },
+  "source": {
+    "publisher": "quranenc.com",
+    "url": "https://quranenc.com/en/browse/english_saheeh/2#222",
+    "apiUrl": "https://quranenc.com/api/v1/translation/sura/english_saheeh/2",
+    "fetchedOn": "2026-10-04"
+  }
+}

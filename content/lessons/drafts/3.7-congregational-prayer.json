@@ -1,0 +1,276 @@
+{
+  "id": "3.7",
+  "station": 3,
+  "slug": "congregational-prayer",
+  "status": "draft",
+  "reviewed": false,
+  "reviewedBy": null,
+  "authoring": "Written by the team in simple wording from the sources listed in `sources`. Verses and hadiths are referenced and fetched verbatim, never typed.",
+  "title": {
+    "ar": "صلاة الجماعة",
+    "en": "Congregational prayer"
+  },
+  "objectives": {
+    "ar": [
+      "أن يعرف المتعلم فضل صلاة الجماعة",
+      "أن يعرف كيف يتابع الإمام",
+      "أن يعرف ماذا يفعل إذا جاء متأخرًا"
+    ],
+    "en": [
+      "Know the virtue of praying in congregation",
+      "Know how to follow the imam",
+      "Know what to do when arriving late"
+    ]
+  },
+  "sources": [
+    {
+      "key": "nmg",
+      "title": {
+        "ar": "دليل المسلم الجديد — صلاة الجماعة",
+        "en": "The New Muslim Guide — The Congregational Prayer"
+      },
+      "publisher": "IslamHouse / Modern Guide",
+      "url": {
+        "ar": "https://newmuslimguide.com/ar/categories/your-prayer/671619839466d",
+        "en": "https://newmuslimguide.com/en/categories/your-prayer/671619839466d"
+      },
+      "use": "Facts restated in our own words; not copied."
+    }
+  ],
+  "suggestedVideo": {
+    "ar": {
+      "youtubeId": "jmGwtzQEvcc",
+      "channel": "منصة زادي",
+      "position": "close"
+    },
+    "en": null
+  },
+  "cards": [
+    {
+      "id": "c1",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "صلاة الجماعة تفضل صلاة المنفرد بسبع وعشرين درجة.",
+        "en": "Prayer in congregation is twenty-seven times greater in reward than praying alone."
+      },
+      "evidence": {
+        "type": "hadith",
+        "hadeethencId": null,
+        "citation": "صحيح البخاري 619؛ صحيح مسلم 650",
+        "availableIn": [],
+        "publisher": "hadeethenc.com"
+      },
+      "check": {
+        "type": "single",
+        "prompt": {
+          "ar": "بكم تفضل صلاة الجماعة صلاة المنفرد؟",
+          "en": "By how much is congregational prayer greater than praying alone?"
+        },
+        "options": [
+          {
+            "ar": "سبع وعشرين درجة",
+            "en": "Twenty-seven times",
+            "correct": true
+          },
+          {
+            "ar": "ثلاث درجات",
+            "en": "Three times",
+            "correct": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "c2",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "تنعقد الجماعة باثنين فأكثر: إمام ومأموم. وكلما كثر العدد كان أحب إلى الله.",
+        "en": "A congregation is formed by two or more: an imam and a follower. The larger it is, the dearer to Allah."
+      }
+    },
+    {
+      "id": "c3",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "المأموم يتابع الإمام: يفعل بعده مباشرة، ولا يسبقه.",
+        "en": "The follower follows the imam: acting right after him, never before him."
+      },
+      "evidence": {
+        "type": "hadith",
+        "hadeethencId": null,
+        "citation": "صحيح البخاري 710؛ صحيح مسلم 414",
+        "availableIn": [],
+        "publisher": "hadeethenc.com"
+      },
+      "check": {
+        "type": "trueFalse",
+        "prompt": {
+          "ar": "يجوز أن أركع قبل الإمام.",
+          "en": "I may bow before the imam."
+        },
+        "answer": false
+      }
+    },
+    {
+      "id": "c4",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "يقف الإمام أمام المأمومين، ويصطفّون خلفه صفوفًا مستقيمة، ويكملون الصف الأول فالأول. وإن كان المأموم واحدًا وقف عن يمين الإمام.",
+        "en": "The imam stands in front. The followers form straight rows behind him, filling the front rows first. A single follower stands to the imam's right."
+      }
+    },
+    {
+      "id": "c5",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "إذا جئت والصلاة قائمة، كبّرت ودخلت مع الإمام على الحال التي هو عليها.",
+        "en": "If you arrive while the prayer is under way, say the takbir and join the imam in whatever position he is in."
+      }
+    },
+    {
+      "id": "c6",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "تُحسب لك الركعة إذا أدركت الإمام في الركوع. وإن فاتك الركوع لم تُحسب لك تلك الركعة.",
+        "en": "A rak'ah counts for you if you catch the imam in bowing. If you miss the bowing, that rak'ah does not count."
+      }
+    },
+    {
+      "id": "c7",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "وبعد سلام الإمام تقوم وتكمل ما فاتك.",
+        "en": "After the imam's salam, you rise and complete what you missed."
+      }
+    }
+  ],
+  "activities": [
+    {
+      "id": "a1",
+      "type": "select",
+      "mode": "cases",
+      "title": {
+        "ar": "وصلتُ متأخرًا",
+        "en": "I arrived late"
+      },
+      "instruction": {
+        "ar": "كم ركعة تكمل بعد سلام الإمام؟",
+        "en": "How many rak'ahs do you complete after the imam's salam?"
+      },
+      "cases": [
+        {
+          "prompt": {
+            "ar": "الفجر (ركعتان): دخلت والإمام في الركعة الثانية.",
+            "en": "Fajr (two rak'ahs): you joined while the imam was in the second rak'ah."
+          },
+          "options": [
+            "1",
+            "2",
+            "0"
+          ],
+          "answer": "1"
+        },
+        {
+          "prompt": {
+            "ar": "الظهر (أربع): دخلت والإمام راكع في الثالثة.",
+            "en": "Dhuhr (four): you joined while the imam was bowing in the third."
+          },
+          "options": [
+            "2",
+            "3",
+            "1"
+          ],
+          "answer": "2"
+        },
+        {
+          "prompt": {
+            "ar": "المغرب (ثلاث): دخلت والإمام في التشهد الأخير.",
+            "en": "Maghrib (three): you joined while the imam was in the final tashahhud."
+          },
+          "options": [
+            "3",
+            "1",
+            "2"
+          ],
+          "answer": "3"
+        }
+      ]
+    },
+    {
+      "id": "a2",
+      "type": "select",
+      "title": {
+        "ar": "أين أقف؟",
+        "en": "Where do I stand?"
+      },
+      "instruction": {
+        "ar": "أنت المأموم الوحيد. أين تقف؟",
+        "en": "You are the only follower. Where do you stand?"
+      },
+      "items": [
+        {
+          "ar": "عن يمين الإمام",
+          "en": "To the imam's right",
+          "correct": true
+        },
+        {
+          "ar": "أمام الإمام",
+          "en": "In front of the imam",
+          "correct": false
+        },
+        {
+          "ar": "خلفه بعيدًا",
+          "en": "Far behind him",
+          "correct": false
+        }
+      ]
+    }
+  ],
+  "situation": {
+    "prompt": {
+      "ar": "دخلت المسجد والإمام ساجد. ماذا تفعل كما في الدرس؟",
+      "en": "You enter the mosque while the imam is in prostration. What do you do, according to the lesson?"
+    },
+    "options": [
+      {
+        "ar": "أكبّر وأسجد معه",
+        "en": "I say the takbir and prostrate with him",
+        "correct": true
+      },
+      {
+        "ar": "أنتظر حتى يقوم",
+        "en": "I wait until he stands",
+        "correct": false
+      }
+    ]
+  },
+  "explainToRafiq": {
+    "prompt": {
+      "ar": "اشرح لرفيق بكلماتك أهم ما فهمته من هذا الدرس.",
+      "en": "Explain to Rafiq in your own words the most important thing you understood from this lesson."
+    },
+    "scope": [
+      "cards"
+    ]
+  },
+  "readMore": [
+    {
+      "ar": "https://newmuslimguide.com/ar/categories/your-prayer/671619839466d",
+      "en": "https://newmuslimguide.com/en/categories/your-prayer/671619839466d"
+    }
+  ]
+}

@@ -1,0 +1,279 @@
+{
+  "id": "2.3",
+  "station": 2,
+  "slug": "what-breaks-wudu",
+  "status": "draft",
+  "reviewed": false,
+  "reviewedBy": null,
+  "authoring": "Written by the team in simple wording from the sources listed in `sources`. Verses and hadiths are referenced and fetched verbatim, never typed.",
+  "title": {
+    "ar": "الحدث ونواقض الوضوء",
+    "en": "Ritual impurity and what breaks wudu"
+  },
+  "objectives": {
+    "ar": [
+      "أن يفرّق المتعلم بين الحدث الأصغر والأكبر",
+      "أن يعرف نواقض الوضوء",
+      "أن يعرف ماذا يفعل عند الشك"
+    ],
+    "en": [
+      "Tell apart minor and major ritual impurity",
+      "Know what breaks wudu",
+      "Know what to do when in doubt"
+    ]
+  },
+  "sources": [
+    {
+      "key": "nmg",
+      "title": {
+        "ar": "دليل المسلم الجديد — الحدث",
+        "en": "The New Muslim Guide — Ritual Impurity (Hadath)"
+      },
+      "publisher": "IslamHouse / Modern Guide",
+      "url": {
+        "ar": "https://newmuslimguide.com/ar/categories/your-purification/66f37008555b6",
+        "en": "https://newmuslimguide.com/en/categories/your-purification/66f37008555b6"
+      },
+      "use": "Facts restated in our own words; not copied."
+    }
+  ],
+  "suggestedVideo": {
+    "ar": {
+      "youtubeId": "_HEApaL2NB8",
+      "channel": "منصة زادي",
+      "position": "close"
+    },
+    "en": null
+  },
+  "cards": [
+    {
+      "id": "c1",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "الحدث حال غير محسوس يمنع من الصلاة حتى يُرفع. وهو ليس شيئًا يُرى مثل النجاسة.",
+        "en": "Hadath is an intangible state that prevents prayer until it is removed. It is not something visible like najasah."
+      }
+    },
+    {
+      "id": "c2",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "الحدث نوعان: أصغر يُرفع بالوضوء، وأكبر يُرفع بالغسل.",
+        "en": "There are two types: minor, removed by wudu; and major, removed by ghusl."
+      },
+      "check": {
+        "type": "single",
+        "prompt": {
+          "ar": "بماذا يُرفع الحدث الأصغر؟",
+          "en": "What removes minor ritual impurity?"
+        },
+        "options": [
+          {
+            "ar": "بالوضوء",
+            "en": "Wudu",
+            "correct": true
+          },
+          {
+            "ar": "بالغسل فقط",
+            "en": "Ghusl only",
+            "correct": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "c3",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "إذا توضأت فلك أن تصلي ما شئت من الصلوات ما دام وضوؤك باقيًا.",
+        "en": "Once you have wudu, you may pray as many prayers as you wish as long as it is not broken."
+      }
+    },
+    {
+      "id": "c4",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "ينتقض الوضوء بما يخرج من السبيلين: البول والغائط والريح.",
+        "en": "Wudu is broken by what comes out of the private parts: urine, faeces and wind."
+      },
+      "evidence": {
+        "type": "quran",
+        "ref": "4:43",
+        "publisher": "quranenc.com"
+      }
+    },
+    {
+      "id": "c5",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "وينتقض بزوال العقل: بالنوم أو الإغماء ونحوهما.",
+        "en": "It is broken by loss of consciousness: sleep, fainting and the like."
+      }
+    },
+    {
+      "id": "c6",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "وذكر المصدر من النواقض أيضًا: مسّ العورة باليد مباشرة بشهوة، وأكل لحم الإبل.",
+        "en": "The source also lists: touching the private parts directly with desire, and eating camel meat."
+      },
+      "evidence": {
+        "type": "hadith",
+        "hadeethencId": null,
+        "citation": "سنن أبي داود 181؛ صحيح مسلم 360",
+        "availableIn": [],
+        "publisher": "hadeethenc.com"
+      }
+    },
+    {
+      "id": "c7",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "إذا شككت هل انتقض وضوؤك أم لا، فالأصل أنه باقٍ حتى تتيقن.",
+        "en": "If you doubt whether your wudu is broken, it remains valid until you are certain."
+      },
+      "evidence": {
+        "type": "hadith",
+        "hadeethencId": null,
+        "citation": "صحيح البخاري 175؛ صحيح مسلم 361",
+        "availableIn": [],
+        "publisher": "hadeethenc.com"
+      },
+      "check": {
+        "type": "trueFalse",
+        "prompt": {
+          "ar": "مجرد الشك ينقض الوضوء.",
+          "en": "Mere doubt breaks wudu."
+        },
+        "answer": false
+      }
+    }
+  ],
+  "activities": [
+    {
+      "id": "a1",
+      "type": "swipe",
+      "title": {
+        "ar": "هل وضوئي باقٍ؟",
+        "en": "Is my wudu still valid?"
+      },
+      "sides": {
+        "right": {
+          "ar": "باقٍ",
+          "en": "Still valid"
+        },
+        "left": {
+          "ar": "انتقض",
+          "en": "Broken"
+        }
+      },
+      "items": [
+        {
+          "ar": "خرجت مني ريح",
+          "en": "I passed wind",
+          "side": "left"
+        },
+        {
+          "ar": "نمت نومًا عميقًا",
+          "en": "I fell into a deep sleep",
+          "side": "left"
+        },
+        {
+          "ar": "شككت ولم أتيقن",
+          "en": "I doubted but was not certain",
+          "side": "right"
+        },
+        {
+          "ar": "قضيت حاجتي",
+          "en": "I used the toilet",
+          "side": "left"
+        },
+        {
+          "ar": "توضأت وصليت الظهر، وجاء العصر ولم يحدث شيء",
+          "en": "I made wudu and prayed Dhuhr; Asr came and nothing happened",
+          "side": "right"
+        }
+      ]
+    },
+    {
+      "id": "a2",
+      "type": "match",
+      "title": {
+        "ar": "أي طهارة أحتاج؟",
+        "en": "Which purification do I need?"
+      },
+      "pairs": [
+        {
+          "left": {
+            "ar": "الحدث الأصغر",
+            "en": "Minor ritual impurity"
+          },
+          "right": {
+            "ar": "الوضوء",
+            "en": "Wudu"
+          }
+        },
+        {
+          "left": {
+            "ar": "الحدث الأكبر",
+            "en": "Major ritual impurity"
+          },
+          "right": {
+            "ar": "الغسل",
+            "en": "Ghusl"
+          }
+        }
+      ]
+    }
+  ],
+  "situation": {
+    "prompt": {
+      "ar": "أنت في الصلاة وخُيّل إليك أنه خرج منك شيء، لكنك لست متأكدًا. ماذا يقول الدرس؟",
+      "en": "You are praying and imagine something came out, but you are not sure. What does the lesson say?"
+    },
+    "options": [
+      {
+        "ar": "أكمل صلاتي؛ الوضوء باقٍ حتى أتيقن",
+        "en": "I continue; wudu remains until I am certain",
+        "correct": true
+      },
+      {
+        "ar": "أقطع الصلاة فورًا",
+        "en": "I stop praying at once",
+        "correct": false
+      }
+    ]
+  },
+  "reviewNotes": [
+    "Card c6 lists two nullifiers exactly as the source does; scholars differ on them. Reviewer to decide whether to keep, soften or remove."
+  ],
+  "explainToRafiq": {
+    "prompt": {
+      "ar": "اشرح لرفيق بكلماتك أهم ما فهمته من هذا الدرس.",
+      "en": "Explain to Rafiq in your own words the most important thing you understood from this lesson."
+    },
+    "scope": [
+      "cards"
+    ]
+  },
+  "readMore": [
+    {
+      "ar": "https://newmuslimguide.com/ar/categories/your-purification/66f37008555b6",
+      "en": "https://newmuslimguide.com/en/categories/your-purification/66f37008555b6"
+    }
+  ]
+}

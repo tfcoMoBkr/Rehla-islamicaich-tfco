@@ -6,6 +6,8 @@ export type LanternState = "idle" | "thinking";
 
 type LanternProps = Omit<SVGProps<SVGSVGElement>, "children"> & {
   state?: LanternState;
+  /** An unlit lantern keeps its frame but has no flame or halo. */
+  lit?: boolean;
   /** Accessible name. Without it the lantern is decorative. */
   label?: string;
 };
@@ -14,7 +16,7 @@ type LanternProps = Omit<SVGProps<SVGSVGElement>, "children"> & {
  * Rafiq's mark: a traveller's lantern, the companion who carries the light.
  * Idle, it burns softly; thinking, its light breathes. Frame strokes follow `currentColor`.
  */
-export function Lantern({ state = "idle", label, className, ...props }: LanternProps) {
+export function Lantern({ state = "idle", lit = true, label, className, ...props }: LanternProps) {
   return (
     <svg
       viewBox="0 0 64 72"
@@ -26,7 +28,7 @@ export function Lantern({ state = "idle", label, className, ...props }: LanternP
       className={cn("overflow-visible", className)}
       {...props}
     >
-      <g className="lantern-halo" fill="var(--dawn)">
+      <g className="lantern-halo" fill="var(--dawn)" visibility={lit ? undefined : "hidden"}>
         <circle cx="32" cy="38" r="30" opacity="0.1" />
         <circle cx="32" cy="38" r="20" opacity="0.16" />
       </g>
@@ -42,7 +44,7 @@ export function Lantern({ state = "idle", label, className, ...props }: LanternP
         <path
           d="M24 19c-5 11-5 26 0 37h16c5-11 5-26 0-37z"
           fill="var(--dawn)"
-          fillOpacity="0.16"
+          fillOpacity={lit ? 0.16 : 0}
           vectorEffect="non-scaling-stroke"
         />
         <path d="M28.5 19.5c-2.6 11-2.6 25 0 36M35.5 19.5c2.6 11 2.6 25 0 36" opacity="0.45" vectorEffect="non-scaling-stroke" />
@@ -50,7 +52,7 @@ export function Lantern({ state = "idle", label, className, ...props }: LanternP
         <path d="M21 56h22l-2 5H23z" fill="currentColor" vectorEffect="non-scaling-stroke" />
       </g>
 
-      <g className="lantern-flame">
+      <g className="lantern-flame" visibility={lit ? undefined : "hidden"}>
         <path d="M32 27c4.6 5.8 5 11.4 0 17.5-5-6.1-4.6-11.7 0-17.5z" fill="var(--dawn)" />
         <path d="M32 35.5c1.8 2.6 2 5 0 7.6-2-2.6-1.8-5 0-7.6z" fill="var(--paper)" opacity="0.85" />
       </g>

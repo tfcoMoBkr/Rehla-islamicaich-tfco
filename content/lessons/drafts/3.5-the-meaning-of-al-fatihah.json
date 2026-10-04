@@ -1,0 +1,215 @@
+{
+  "id": "3.5",
+  "station": 3,
+  "slug": "the-meaning-of-al-fatihah",
+  "status": "draft",
+  "reviewed": false,
+  "reviewedBy": null,
+  "authoring": "Written by the team in simple wording from the sources listed in `sources`. Verses and hadiths are referenced and fetched verbatim, never typed.",
+  "title": {
+    "ar": "معنى سورة الفاتحة",
+    "en": "The meaning of Al-Fatihah"
+  },
+  "objectives": {
+    "ar": [
+      "أن يفهم المتعلم معنى كل آية من الفاتحة",
+      "أن يعرف مكانتها في الصلاة"
+    ],
+    "en": [
+      "Understand the meaning of each verse of Al-Fatihah",
+      "Know its place in the prayer"
+    ]
+  },
+  "sources": [
+    {
+      "key": "nmg",
+      "title": {
+        "ar": "دليل المسلم الجديد — صفة الصلاة — شرح سورة الفاتحة",
+        "en": "The New Muslim Guide — Performing the Prayer — Soorat Al-Faatihah Explained"
+      },
+      "publisher": "IslamHouse / Modern Guide",
+      "url": {
+        "ar": "https://newmuslimguide.com/ar/categories/your-prayer/6704bcc2d3c09",
+        "en": "https://newmuslimguide.com/en/categories/your-prayer/6704bcc2d3c09"
+      },
+      "use": "Facts restated in our own words; not copied."
+    }
+  ],
+  "suggestedVideo": {
+    "ar": {
+      "youtubeId": "HotCPz0Ms_E",
+      "channel": "منصة زادي",
+      "position": "close"
+    },
+    "en": null
+  },
+  "cards": [
+    {
+      "id": "c1",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "الفاتحة أعظم سورة في القرآن، وقراءتها ركن من أركان الصلاة.",
+        "en": "Al-Fatihah is the greatest surah of the Qur'an, and reciting it is a pillar of the prayer."
+      },
+      "evidence": {
+        "type": "quran",
+        "ref": "15:87",
+        "publisher": "quranenc.com"
+      },
+      "check": {
+        "type": "trueFalse",
+        "prompt": {
+          "ar": "قراءة الفاتحة ركن في الصلاة.",
+          "en": "Reciting Al-Fatihah is a pillar of the prayer."
+        },
+        "answer": true
+      }
+    },
+    {
+      "id": "c2",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "بعد الفاتحة تقول: «آمين»، ومعناها: اللهم استجب.",
+        "en": "After Al-Fatihah you say \"Ameen\", meaning: O Allah, answer."
+      }
+    }
+  ],
+  "ayat": [
+    {
+      "ref": "1:1",
+      "meaning": null
+    },
+    {
+      "ref": "1:2",
+      "source": [
+        "nmg"
+      ],
+      "meaning": {
+        "ar": "أثني على الله بكل صفاته وأفعاله ونعمه، مع المحبة والتعظيم. والرب: الخالق المالك الرازق المدبّر.",
+        "en": "I praise Allah for all His attributes, acts and blessings, with love and reverence. The Lord: the Creator, Owner, Provider and Disposer of all affairs."
+      }
+    },
+    {
+      "ref": "1:3",
+      "source": [
+        "nmg"
+      ],
+      "meaning": {
+        "ar": "اسمان من أسماء الله يدلان على سعة رحمته.",
+        "en": "Two of Allah's names, showing the vastness of His mercy."
+      }
+    },
+    {
+      "ref": "1:4",
+      "source": [
+        "nmg"
+      ],
+      "meaning": {
+        "ar": "هو وحده الحاكم يوم القيامة. وهذا يذكّرنا باليوم الآخر ويحثّنا على العمل الصالح.",
+        "en": "He alone is the Judge on the Day of Judgement. This reminds us of the Last Day and urges us to do good."
+      }
+    },
+    {
+      "ref": "1:5",
+      "source": [
+        "nmg"
+      ],
+      "meaning": {
+        "ar": "لا نعبد إلا أنت، ولا نستعين في أمورنا إلا بك.",
+        "en": "We worship none but You, and we seek help in all our affairs from You alone."
+      }
+    },
+    {
+      "ref": "1:6",
+      "source": [
+        "nmg"
+      ],
+      "meaning": {
+        "ar": "دُلَّنا على الطريق المستقيم وثبّتنا عليه. وهو الإسلام.",
+        "en": "Show us the Straight Path and keep us firm on it. It is Islam."
+      }
+    },
+    {
+      "ref": "1:7",
+      "source": [
+        "nmg"
+      ],
+      "meaning": {
+        "ar": "طريق من أنعمت عليهم ممن عرفوا الحق واتبعوه، لا طريق من عرف الحق فلم يتبعه، ولا من ضلّ عنه.",
+        "en": "The path of those You have blessed, who knew the truth and followed it; not of those who knew it and did not follow it, nor of those who went astray from it."
+      }
+    }
+  ],
+  "activities": [
+    {
+      "id": "a1",
+      "type": "ayahByAyah",
+      "title": {
+        "ar": "آية آية",
+        "en": "Ayah by ayah"
+      },
+      "instruction": {
+        "ar": "اضغط على الآية لتسمعها وتقرأ معناها.",
+        "en": "Tap an ayah to hear it and read its meaning."
+      },
+      "items": "ayat",
+      "text": "quranenc.com",
+      "audio": "mp3quran.net"
+    },
+    {
+      "id": "a2",
+      "type": "match",
+      "title": {
+        "ar": "طابق الآية بمعناها",
+        "en": "Match the ayah to its meaning"
+      },
+      "items": "ayat",
+      "leftFrom": "ref",
+      "rightFrom": "meaning",
+      "exclude": [
+        "1:1"
+      ]
+    }
+  ],
+  "situation": {
+    "prompt": {
+      "ar": "تقرأ في صلاتك الآية التي تطلب فيها من الله الهداية إلى الصراط المستقيم. ما معنى طلبك كما في الدرس؟",
+      "en": "In your prayer you recite the verse asking Allah for guidance to the Straight Path. What are you asking for, according to the lesson?"
+    },
+    "options": [
+      {
+        "ar": "أن يدلّني على الإسلام ويثبتني عليه",
+        "en": "To be shown Islam and kept firm on it",
+        "correct": true
+      },
+      {
+        "ar": "أن يرزقني مالًا",
+        "en": "To be given wealth",
+        "correct": false
+      }
+    ]
+  },
+  "reviewNotes": [
+    "Verse text and audio are fetched by reference; no verse is typed here.",
+    "The meanings are simplified from the source's explanation; the source's naming of specific groups under 1:7 is left out. Reviewer to confirm."
+  ],
+  "explainToRafiq": {
+    "prompt": {
+      "ar": "اشرح لرفيق بكلماتك أهم ما فهمته من هذا الدرس.",
+      "en": "Explain to Rafiq in your own words the most important thing you understood from this lesson."
+    },
+    "scope": [
+      "cards"
+    ]
+  },
+  "readMore": [
+    {
+      "ar": "https://newmuslimguide.com/ar/categories/your-prayer/6704bcc2d3c09",
+      "en": "https://newmuslimguide.com/en/categories/your-prayer/6704bcc2d3c09"
+    }
+  ]
+}

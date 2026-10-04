@@ -1,0 +1,49 @@
+{
+  "surah": 1,
+  "read": 1,
+  "reciter": "إبراهيم الأخضر",
+  "rewaya": "حفص عن عاصم",
+  "audioUrl": "https://server6.mp3quran.net/akdr/001.mp3",
+  "ayahs": [
+    {
+      "ayah": 1,
+      "start": 0,
+      "end": 13189
+    },
+    {
+      "ayah": 2,
+      "start": 13189,
+      "end": 19867
+    },
+    {
+      "ayah": 3,
+      "start": 19867,
+      "end": 25366
+    },
+    {
+      "ayah": 4,
+      "start": 25366,
+      "end": 31252
+    },
+    {
+      "ayah": 5,
+      "start": 31252,
+      "end": 38852
+    },
+    {
+      "ayah": 6,
+      "start": 38852,
+      "end": 45335
+    },
+    {
+      "ayah": 7,
+      "start": 45335,
+      "end": 61100
+    }
+  ],
+  "source": {
+    "publisher": "mp3quran.net",
+    "apiUrl": "https://mp3quran.net/api/v3/ayat_timing?surah=1&read=1",
+    "fetchedOn": "2026-10-04"
+  }
+}

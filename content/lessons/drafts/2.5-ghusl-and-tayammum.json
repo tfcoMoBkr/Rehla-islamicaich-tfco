@@ -1,0 +1,268 @@
+{
+  "id": "2.5",
+  "station": 2,
+  "slug": "ghusl-and-tayammum",
+  "status": "draft",
+  "reviewed": false,
+  "reviewedBy": null,
+  "authoring": "Written by the team in simple wording from the sources listed in `sources`. Verses and hadiths are referenced and fetched verbatim, never typed.",
+  "title": {
+    "ar": "الغسل والتيمم",
+    "en": "Ghusl and tayammum"
+  },
+  "objectives": {
+    "ar": [
+      "أن يعرف المتعلم متى يجب الغسل وكيف يكون",
+      "أن يعرف حكم المسح على الجوربين بإيجاز",
+      "أن يعرف متى يتيمم وكيف"
+    ],
+    "en": [
+      "Know when ghusl is required and how it is done",
+      "Know briefly about wiping over socks",
+      "Know when and how to perform tayammum"
+    ]
+  },
+  "sources": [
+    {
+      "key": "nmg",
+      "title": {
+        "ar": "دليل المسلم الجديد — الحدث الأكبر والغسل",
+        "en": "The New Muslim Guide — The Major Ritual Impurity and Ghusl"
+      },
+      "publisher": "IslamHouse / Modern Guide",
+      "url": {
+        "ar": "https://newmuslimguide.com/ar/categories/your-purification/66f7724f354f9",
+        "en": "https://newmuslimguide.com/en/categories/your-purification/66f7724f354f9"
+      },
+      "use": "Facts restated in our own words; not copied."
+    }
+  ],
+  "suggestedVideo": {
+    "ar": {
+      "youtubeId": "bZwb_wr9Qp8",
+      "channel": "منصة زادي",
+      "position": "close"
+    },
+    "en": null
+  },
+  "cards": [
+    {
+      "id": "c1",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "الحدث الأكبر يُرفع بالغسل. ويجب الغسل من الجنابة، وعلى المرأة بعد انتهاء الحيض والنفاس.",
+        "en": "Major ritual impurity is removed by ghusl. Ghusl is required after janabah (sexual intercourse or ejaculation), and for a woman after menstruation and post-natal bleeding end."
+      },
+      "evidence": {
+        "type": "quran",
+        "ref": "5:6",
+        "publisher": "quranenc.com"
+      }
+    },
+    {
+      "id": "c2",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "المرأة في الحيض والنفاس لا تصلي ولا تصوم. وتقضي الصوم بعد ذلك، ولا تقضي الصلاة.",
+        "en": "A woman during menstruation or post-natal bleeding does not pray or fast. She makes up the fasts afterwards, but not the prayers."
+      },
+      "check": {
+        "type": "trueFalse",
+        "prompt": {
+          "ar": "تقضي المرأة الصلوات التي فاتتها أيام الحيض.",
+          "en": "A woman makes up the prayers she missed during menstruation."
+        },
+        "answer": false
+      }
+    },
+    {
+      "id": "c3",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "يكفي في الغسل أن تنوي ثم تعمّ بدنك كله بالماء.",
+        "en": "For ghusl it is enough to make the intention and then wash the whole body with water."
+      }
+    },
+    {
+      "id": "c4",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "والأفضل: أن تغسل موضع النجاسة، ثم تتوضأ، ثم تعمّ بدنك بالماء. ولا تحتاج إلى وضوء آخر بعده.",
+        "en": "The best way: wash the private area, perform wudu, then wash the whole body. You do not need another wudu afterwards."
+      },
+      "check": {
+        "type": "single",
+        "prompt": {
+          "ar": "ما أقل ما يكفي في الغسل؟",
+          "en": "What is the minimum for ghusl?"
+        },
+        "options": [
+          {
+            "ar": "النية وتعميم البدن بالماء",
+            "en": "The intention and washing the whole body",
+            "correct": true
+          },
+          {
+            "ar": "غسل اليدين والوجه فقط",
+            "en": "Washing the hands and face only",
+            "correct": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "c5",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "من يسر الإسلام: إذا لبست الجوربين وأنت على وضوء، جاز لك عند الوضوء التالي أن تمسح على ظاهرهما بدل غسل القدمين. والمدة يوم وليلة للمقيم، وثلاثة أيام للمسافر.",
+        "en": "Islam is practical: if you put your socks on while in a state of wudu, you may wipe over the top of them at your next wudu instead of washing the feet. The limit is 24 hours for a resident and 72 hours for a traveller."
+      }
+    },
+    {
+      "id": "c6",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "إذا لم تجد الماء، أو لم تستطع استعماله لمرض، تيممتَ بالتراب الطاهر بدل الوضوء أو الغسل.",
+        "en": "If you cannot find water, or cannot use it because of illness, you perform tayammum with clean earth instead of wudu or ghusl."
+      },
+      "check": {
+        "type": "trueFalse",
+        "prompt": {
+          "ar": "التيمم بديل عن الوضوء عند العجز عن استعمال الماء.",
+          "en": "Tayammum replaces wudu when one is unable to use water."
+        },
+        "answer": true
+      }
+    },
+    {
+      "id": "c7",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "صفة التيمم: تضرب الأرض بيديك مرة، ثم تمسح وجهك، ثم تمسح ظاهر كفيك.",
+        "en": "How to perform tayammum: strike the earth once with both hands, wipe your face, then wipe the backs of your hands."
+      }
+    }
+  ],
+  "activities": [
+    {
+      "id": "a1",
+      "type": "match",
+      "title": {
+        "ar": "أيّها أحتاج؟",
+        "en": "Which one do I need?"
+      },
+      "pairs": [
+        {
+          "left": {
+            "ar": "انتقض وضوئي",
+            "en": "My wudu is broken"
+          },
+          "right": {
+            "ar": "الوضوء",
+            "en": "Wudu"
+          }
+        },
+        {
+          "left": {
+            "ar": "عليّ حدث أكبر",
+            "en": "I am in major ritual impurity"
+          },
+          "right": {
+            "ar": "الغسل",
+            "en": "Ghusl"
+          }
+        },
+        {
+          "left": {
+            "ar": "لا أستطيع استعمال الماء",
+            "en": "I cannot use water"
+          },
+          "right": {
+            "ar": "التيمم",
+            "en": "Tayammum"
+          }
+        }
+      ]
+    },
+    {
+      "id": "a2",
+      "type": "order",
+      "title": {
+        "ar": "رتّب خطوات التيمم",
+        "en": "Put the steps of tayammum in order"
+      },
+      "items": [
+        {
+          "ar": "أضرب الأرض بيديّ مرة",
+          "en": "I strike the earth once with both hands",
+          "n": 1
+        },
+        {
+          "ar": "أمسح وجهي",
+          "en": "I wipe my face",
+          "n": 2
+        },
+        {
+          "ar": "أمسح ظاهر كفيّ",
+          "en": "I wipe the backs of my hands",
+          "n": 3
+        }
+      ]
+    }
+  ],
+  "situation": {
+    "prompt": {
+      "ar": "لبست جوربيك بعد أن توضأت في الصباح، ثم احتجت إلى الوضوء ظهرًا وأنت في عملك. ماذا يتيح لك الدرس؟",
+      "en": "You put your socks on after making wudu in the morning, then need wudu at noon at work. What does the lesson allow?"
+    },
+    "options": [
+      {
+        "ar": "أن أمسح على ظاهر الجوربين",
+        "en": "To wipe over the top of the socks",
+        "correct": true
+      },
+      {
+        "ar": "لا بد من خلعهما دائمًا",
+        "en": "They must always be taken off",
+        "correct": false
+      }
+    ],
+    "followUp": {
+      "ar": "ولما يخص حالتك تحديدًا، اسأل مختصًا عبر صفحة «تحدث إلى إنسان».",
+      "en": "For what applies to your own case, ask a qualified person through the \"Talk to a human\" page."
+    }
+  },
+  "reviewNotes": [
+    "Card c1 states the causes of ghusl briefly and without detail; reviewer to confirm the wording.",
+    "Card c5 gives the socks concession without its full conditions; reviewer to confirm."
+  ],
+  "explainToRafiq": {
+    "prompt": {
+      "ar": "اشرح لرفيق بكلماتك أهم ما فهمته من هذا الدرس.",
+      "en": "Explain to Rafiq in your own words the most important thing you understood from this lesson."
+    },
+    "scope": [
+      "cards"
+    ]
+  },
+  "readMore": [
+    {
+      "ar": "https://newmuslimguide.com/ar/categories/your-purification/66f7724f354f9",
+      "en": "https://newmuslimguide.com/en/categories/your-purification/66f7724f354f9"
+    }
+  ]
+}

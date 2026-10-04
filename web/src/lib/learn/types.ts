@@ -1,0 +1,165 @@
+/*
+ * View models handed to client components: lesson files resolved to the learner's language
+ * (with evidence from content/fetched/), so the browser only receives what it will show.
+ */
+
+export type Choice = { id: string; text: string };
+export type Group = { id: string; label: string };
+
+type QuestionCommon = {
+  id: string;
+  lessonId: string;
+  prompt: string;
+  /** The card text that answers the question, quoted in feedback and review. */
+  sourceQuote: string | null;
+};
+
+export type QuestionView =
+  | (QuestionCommon & { type: "single"; options: Choice[]; answer: string })
+  | (QuestionCommon & { type: "multiple"; options: Choice[]; answers: string[] })
+  | (QuestionCommon & { type: "trueFalse"; answer: boolean })
+  | (QuestionCommon & { type: "order"; items: Choice[] })
+  | (QuestionCommon & { type: "match"; pairs: { id: string; left: string; right: string }[] })
+  | (QuestionCommon & { type: "sort"; groups: Group[]; items: { id: string; text: string; group: string }[] });
+
+export type SourceLink = { id: string; name: string };
+
+export type LessonSource = { key: string; title: string; url: string; sourceId: string | null };
+
+export type QuranAyahView = { ref: string; arabic: string; translation: string | null; footnotes: string | null };
+
+export type EvidenceView =
+  | {
+      kind: "quran";
+      ref: string;
+      /** Empty until scripts/fetch-content.mjs has fetched the verses. */
+      ayahs: QuranAyahView[];
+      url: string | null;
+      attribution: string | null;
+    }
+  | {
+      kind: "hadith";
+      citation: string;
+      /** Null when the hadith has no ID or no version in the learner's language: citation only. */
+      hadith: { title: string; text: string; grade: string; attribution: string; explanation: string; url: string } | null;
+    };
+
+export type CardView = {
+  id: string;
+  text: string;
+  sources: LessonSource[];
+  evidence: EvidenceView | null;
+  evidenceFirst: boolean;
+  check: QuestionView | null;
+};
+
+export type AyahLine = {
+  id: string;
+  ref: string;
+  text: string;
+  meaning: string | null;
+  translation: string | null;
+  /** The translator's notes for the markers in `translation`, verbatim. */
+  footnotes: string | null;
+  /** Milliseconds into the surah recitation, when audio is available. */
+  audio?: { start: number; end: number };
+};
+
+export type AyahSet = {
+  lines: AyahLine[];
+  attribution: string | null;
+  audioUrl: string | null;
+  reciter: string | null;
+};
+
+type ActivityCommon = { id: string; title: string; instruction: string | null };
+
+export type GuidedStep = {
+  id: string;
+  title: string | null;
+  text: string;
+  repeat: string | null;
+  say: string | null;
+  /** The reference of the step's evidence (a hadith citation or a surah:ayah). */
+  citation: string | null;
+};
+
+export type ActivityView = ActivityCommon &
+  (
+    | { type: "order"; items: { id: string; text: string; sourceQuote?: string }[] }
+    | { type: "timeline"; items: { id: string; text: string; label?: string }[] }
+    | { type: "sort"; groups: Group[]; items: { id: string; text: string; group: string; sourceQuote?: string }[] }
+    | { type: "swipe"; left: string; right: string; items: { id: string; text: string; side: "left" | "right" }[] }
+    | {
+        type: "select";
+        visual: "plain" | "fiveLanterns" | "collect";
+        items: { id: string; text: string; correct: boolean }[];
+        feedbackWrong: string | null;
+      }
+    | { type: "selectCases"; cases: { id: string; prompt: string; options: string[]; answer: string }[] }
+    | {
+        type: "match";
+        pairs: { id: string; left: string; right: string; sourceQuote?: string }[];
+        repeatedRight: boolean;
+        /** The left column holds Quran text, set in the Quran typeface. */
+        leftIsQuran: boolean;
+      }
+    | { type: "checklist"; quiz: boolean; items: { id: string; text: string; correct: boolean | null }[] }
+    | { type: "reflection"; items: { id: string; text: string }[] }
+    | { type: "guided"; note: string | null; steps: GuidedStep[] }
+    | {
+        type: "decisionPath";
+        steps: { id: string; question: string; yes: string | null; no: string | null }[];
+        end: string;
+        sources: LessonSource[];
+      }
+    | { type: "dayArc"; stops: { id: string; label: string; detail: string; count: number }[] }
+    | { type: "ayahByAyah"; ayahs: AyahSet }
+  );
+
+export type VideoView = SourceLink & {
+  youtubeId?: string;
+  playlistId?: string;
+  position: "close" | "beforeActivity";
+};
+
+export type LessonView = {
+  id: string;
+  slug: string;
+  stationId: string;
+  title: string;
+  reviewed: boolean;
+  demo: boolean;
+  objectives: string[];
+  sources: LessonSource[];
+  video: VideoView | null;
+  cards: CardView[];
+  activities: ActivityView[];
+  situation: { question: QuestionView; followUp: string | null; sources: LessonSource[] } | null;
+  quiz: QuestionView[];
+  readMore: string[];
+  laterTopics: { topic: string; number: string; href: string | null }[];
+  /** Notes for reviewers from the lesson file; shown only while it awaits review. */
+  reviewNotes: string[];
+  /** Parts of the lesson file the engine could not render, so a reviewer can see them. */
+  issues: string[];
+};
+
+export type LessonStop = {
+  id: string;
+  slug: string;
+  title: string;
+  reviewed: boolean;
+  demo: boolean;
+  hasQuiz: boolean;
+};
+
+export type StationView = {
+  id: string;
+  title: string;
+  order: number;
+  demo: boolean;
+  lessons: LessonStop[];
+  hasBaseline: boolean;
+  hasExam: boolean;
+};

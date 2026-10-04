@@ -1,0 +1,256 @@
+{
+  "id": "3.6",
+  "station": 3,
+  "slug": "pillars-obligations-and-invalidators",
+  "status": "draft",
+  "reviewed": false,
+  "reviewedBy": null,
+  "authoring": "Written by the team in simple wording from the sources listed in `sources`. Verses and hadiths are referenced and fetched verbatim, never typed.",
+  "title": {
+    "ar": "أركان الصلاة وواجباتها ومبطلاتها",
+    "en": "Pillars, obligations and invalidators of prayer"
+  },
+  "objectives": {
+    "ar": [
+      "أن يفرّق المتعلم بين الركن والواجب والسنة",
+      "أن يعرف مبطلات الصلاة ومكروهاتها",
+      "أن يعرف سجود السهو"
+    ],
+    "en": [
+      "Tell apart a pillar, an obligation and a recommended act",
+      "Know what invalidates prayer and what is disliked in it",
+      "Know the prostration of forgetfulness"
+    ]
+  },
+  "sources": [
+    {
+      "key": "nmg",
+      "title": {
+        "ar": "دليل المسلم الجديد — أركان الصلاة وواجباتها",
+        "en": "The New Muslim Guide — The Pillars and the Obligatory Acts of the Prayer"
+      },
+      "publisher": "IslamHouse / Modern Guide",
+      "url": {
+        "ar": "https://newmuslimguide.com/ar/categories/your-prayer/6710620c08dea",
+        "en": "https://newmuslimguide.com/en/categories/your-prayer/6710620c08dea"
+      },
+      "use": "Facts restated in our own words; not copied."
+    }
+  ],
+  "suggestedVideo": {
+    "ar": {
+      "youtubeId": "zN8z4wt5i6w",
+      "channel": "منصة زادي",
+      "position": "close"
+    },
+    "en": null
+  },
+  "cards": [
+    {
+      "id": "c1",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "الأركان: أجزاء الصلاة الأساسية التي لا تصح بدونها، مثل تكبيرة الإحرام، والقيام للقادر، وقراءة الفاتحة، والركوع، والسجود، والتشهد الأخير، والتسليم، والطمأنينة في كل ذلك.",
+        "en": "Pillars: the essential parts without which the prayer is not valid, such as the opening takbir, standing if able, reciting Al-Fatihah, bowing, prostrating, the final tashahhud, the taslim, and being settled in each position."
+      }
+    },
+    {
+      "id": "c2",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "الواجبات: إن تُركت عمدًا بطلت الصلاة، وإن تُركت سهوًا جُبرت بسجود السهو. مثل: بقية التكبيرات، وقول «سبحان ربي العظيم» و«سبحان ربي الأعلى»، والتشهد الأول.",
+        "en": "Obligations: if left deliberately the prayer is invalid; if forgotten they are made up by the prostration of forgetfulness. Examples: the other takbirs, saying \"Subhana rabbiyal-'adheem\" and \"Subhana rabbiyal-a'la\", and the first tashahhud."
+      },
+      "check": {
+        "type": "single",
+        "prompt": {
+          "ar": "نسيت التشهد الأول سهوًا. بماذا يُجبر؟",
+          "en": "You forgot the first tashahhud. What makes up for it?"
+        },
+        "options": [
+          {
+            "ar": "بسجود السهو",
+            "en": "The prostration of forgetfulness",
+            "correct": true
+          },
+          {
+            "ar": "لا شيء يجبره",
+            "en": "Nothing does",
+            "correct": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "c3",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "السنن: ما سوى ذلك من أقوال وأفعال تكمّل الصلاة، ولا تبطل الصلاة بتركها.",
+        "en": "Recommended acts: the remaining words and actions that complete the prayer. Leaving them does not invalidate it."
+      }
+    },
+    {
+      "id": "c4",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "سجود السهو: سجدتان في آخر الصلاة تجبران النقص. ومن شكّ في عدد الركعات بنى على الأقل ثم سجد للسهو.",
+        "en": "The prostration of forgetfulness: two prostrations at the end of the prayer that make up for a shortfall. If you doubt how many rak'ahs you prayed, assume the lower number, then perform it."
+      },
+      "check": {
+        "type": "trueFalse",
+        "prompt": {
+          "ar": "إذا شككت هل صليت ثلاثًا أم أربعًا أعدّها ثلاثًا.",
+          "en": "If I doubt whether I prayed three or four, I count it as three."
+        },
+        "answer": true
+      }
+    },
+    {
+      "id": "c5",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "تبطل الصلاة بـ: ترك ركن مع القدرة، وتعمّد ترك واجب، وتعمّد الكلام، والقهقهة، والحركة الكثيرة المتوالية بلا حاجة.",
+        "en": "Prayer is invalidated by: leaving out a pillar while able, deliberately leaving an obligation, deliberately speaking, laughing out loud, and continuous unnecessary movement."
+      }
+    },
+    {
+      "id": "c6",
+      "source": [
+        "nmg"
+      ],
+      "text": {
+        "ar": "ويُكره في الصلاة: الالتفات، والعبث باليدين أو الوجه، والصلاة وأنت مشغول بحاجة كالطعام الحاضر أو الحاجة إلى الخلاء.",
+        "en": "Disliked in prayer: turning the head, fiddling with the hands or face, and praying while distracted by a need such as food that is served or needing the toilet."
+      },
+      "evidence": {
+        "type": "hadith",
+        "hadeethencId": null,
+        "citation": "صحيح البخاري 718؛ صحيح مسلم 560",
+        "availableIn": [],
+        "publisher": "hadeethenc.com"
+      }
+    }
+  ],
+  "activities": [
+    {
+      "id": "a1",
+      "type": "sort",
+      "title": {
+        "ar": "ركن أم واجب أم مبطل؟",
+        "en": "Pillar, obligation or invalidator?"
+      },
+      "groups": [
+        {
+          "key": "rukn",
+          "label": {
+            "ar": "ركن",
+            "en": "Pillar"
+          }
+        },
+        {
+          "key": "wajib",
+          "label": {
+            "ar": "واجب",
+            "en": "Obligation"
+          }
+        },
+        {
+          "key": "mubtil",
+          "label": {
+            "ar": "مبطل",
+            "en": "Invalidator"
+          }
+        }
+      ],
+      "items": [
+        {
+          "ar": "تكبيرة الإحرام",
+          "en": "The opening takbir",
+          "group": "rukn"
+        },
+        {
+          "ar": "قراءة الفاتحة",
+          "en": "Reciting Al-Fatihah",
+          "group": "rukn"
+        },
+        {
+          "ar": "الركوع",
+          "en": "Bowing",
+          "group": "rukn"
+        },
+        {
+          "ar": "السجود",
+          "en": "Prostrating",
+          "group": "rukn"
+        },
+        {
+          "ar": "التشهد الأول",
+          "en": "The first tashahhud",
+          "group": "wajib"
+        },
+        {
+          "ar": "قول: سبحان ربي العظيم",
+          "en": "Saying: Subhana rabbiyal-'adheem",
+          "group": "wajib"
+        },
+        {
+          "ar": "تعمّد الكلام",
+          "en": "Deliberately speaking",
+          "group": "mubtil"
+        },
+        {
+          "ar": "القهقهة",
+          "en": "Laughing out loud",
+          "group": "mubtil"
+        }
+      ]
+    }
+  ],
+  "situation": {
+    "prompt": {
+      "ar": "صليت ونسيت أن تجلس للتشهد الأول، وتذكرت قبل السلام. أي قاعدة في الدرس تخص هذا؟",
+      "en": "You prayed and forgot to sit for the first tashahhud, and remembered before the salam. Which rule in the lesson applies?"
+    },
+    "options": [
+      {
+        "ar": "الواجب المتروك سهوًا يُجبر بسجود السهو",
+        "en": "A forgotten obligation is made up by the prostration of forgetfulness",
+        "correct": true
+      },
+      {
+        "ar": "تبطل الصلاة فورًا",
+        "en": "The prayer is void at once",
+        "correct": false
+      }
+    ],
+    "followUp": {
+      "ar": "ولما يخص حالتك تحديدًا، اسأل مختصًا عبر صفحة «تحدث إلى إنسان».",
+      "en": "For what applies to your own case, ask a qualified person through the \"Talk to a human\" page."
+    }
+  },
+  "explainToRafiq": {
+    "prompt": {
+      "ar": "اشرح لرفيق بكلماتك أهم ما فهمته من هذا الدرس.",
+      "en": "Explain to Rafiq in your own words the most important thing you understood from this lesson."
+    },
+    "scope": [
+      "cards"
+    ]
+  },
+  "readMore": [
+    {
+      "ar": "https://newmuslimguide.com/ar/categories/your-prayer/6710620c08dea",
+      "en": "https://newmuslimguide.com/en/categories/your-prayer/6710620c08dea"
+    }
+  ]
+}
