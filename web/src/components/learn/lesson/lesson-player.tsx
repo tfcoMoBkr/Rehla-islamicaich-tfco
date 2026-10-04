@@ -23,6 +23,7 @@ import { AwaitingReviewBadge } from "@/components/learn/content-badges";
 import { MediaGallery } from "@/components/learn/media-gallery";
 import { QuestionCard } from "@/components/learn/questions/question-card";
 import { SourceLine } from "@/components/learn/source-line";
+import { FiqhNote } from "@/components/learn/wording";
 import { SourceLinks } from "@/components/learn/source-links";
 import { VideoCard } from "@/components/learn/video-card";
 import { Stamp } from "@/components/journey/stamp";
@@ -275,6 +276,7 @@ export function LessonPlayer({ lesson, visual, provisionsPool, next }: LessonPla
             {screen.kind === "intro" && (
               <>
                 <SourceLine lesson={lesson} />
+                {lesson.fiqhNote && <FiqhNote note={lesson.fiqhNote} />}
                 {lesson.objectives.length > 0 && (
                   <div className="grid gap-3">
                     <p className="font-display text-xl font-semibold text-dawn">{t("objectivesTitle")}</p>
@@ -417,8 +419,8 @@ export function LessonPlayer({ lesson, visual, provisionsPool, next }: LessonPla
                 {lesson.situation.followUp && (
                   <div role="note" className="grid gap-2 rounded-xl border border-dashed border-border p-4 text-muted-foreground">
                     <p>{lesson.situation.followUp}</p>
-                    <Link href="/talk-to-a-human" className="justify-self-start font-medium text-foreground underline underline-offset-4">
-                      {t("talkToHuman")}
+                    <Link href="/talk-to-a-specialist" className="justify-self-start font-medium text-foreground underline underline-offset-4">
+                      {t("talkToSpecialist")}
                     </Link>
                   </div>
                 )}

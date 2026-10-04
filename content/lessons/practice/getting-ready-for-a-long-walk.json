@@ -42,7 +42,8 @@
           "en": "A heavier bag is better for a long walk."
         },
         "answer": false
-      }
+      },
+      "authoring": "team"
     },
     {
       "id": "c2",
@@ -74,7 +75,8 @@
             "correct": false
           }
         ]
-      }
+      },
+      "authoring": "team"
     },
     {
       "id": "c3",
@@ -90,7 +92,8 @@
           "en": "A long walk is a good chance to try out new shoes."
         },
         "answer": false
-      }
+      },
+      "authoring": "team"
     },
     {
       "id": "c4",
@@ -98,7 +101,8 @@
       "text": {
         "ar": "أخبر أحدًا تثق به بطريقك وموعد عودتك قبل أن تنطلق.",
         "en": "Before you set off, tell someone you trust your route and when you expect to be back."
-      }
+      },
+      "authoring": "team"
     },
     {
       "id": "c5",
@@ -106,7 +110,8 @@
       "text": {
         "ar": "في الحقيبة: ماء، وخريطة، وقبعة للظل، ومصباح لما بعد الغروب، ووجبة خفيفة.",
         "en": "In the bag: water, a map, a hat for shade, a torch for after sunset, and a snack."
-      }
+      },
+      "authoring": "team"
     }
   ],
   "steps": [
@@ -119,7 +124,8 @@
       "text": {
         "ar": "انظر إلى حالة الطقس قبل أن تحدد موعد الانطلاق.",
         "en": "Look at the weather before you choose when to set off."
-      }
+      },
+      "authoring": "team"
     },
     {
       "n": 2,
@@ -130,7 +136,8 @@
       "text": {
         "ar": "ضع فيها ما تحتاجه فقط، ودع الباقي في البيت.",
         "en": "Put in only what you need and leave the rest at home."
-      }
+      },
+      "authoring": "team"
     },
     {
       "n": 3,
@@ -141,7 +148,8 @@
       "text": {
         "ar": "قل لمن تثق به أين ستمشي ومتى تعود.",
         "en": "Tell someone you trust where you will walk and when you will be back."
-      }
+      },
+      "authoring": "team"
     },
     {
       "n": 4,
@@ -152,7 +160,8 @@
       "text": {
         "ar": "امشِ في برودة الصباح، واسترح وقت الظهيرة.",
         "en": "Walk in the cool of the morning and rest at midday."
-      }
+      },
+      "authoring": "team"
     }
   ],
   "activities": [

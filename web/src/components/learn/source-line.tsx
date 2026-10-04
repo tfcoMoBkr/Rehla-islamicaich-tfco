@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import type { LessonView } from "@/lib/learn/types";
 
-/** The lesson's sources and video source, under its title, each linked to the sources page. */
+/** The books the lesson quotes and its video source, under its title, each linked to the sources page. */
 export function SourceLine({ lesson }: { lesson: LessonView }) {
   const t = useTranslations("Lesson");
 
@@ -15,6 +15,7 @@ export function SourceLine({ lesson }: { lesson: LessonView }) {
     <dl className="grid gap-1 text-sm text-muted-foreground sm:grid-cols-[auto_minmax(0,1fr)] sm:gap-x-3">
       <dt className="font-medium text-foreground">{t("textSource")}</dt>
       <dd className="grid gap-0.5">
+        {lesson.sources.length === 0 && <span>{t("textSourceTeam")}</span>}
         {lesson.sources.map((source) => (
           <span key={source.key}>
             <a href={source.url} target="_blank" rel="noreferrer" className="underline underline-offset-4">

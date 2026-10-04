@@ -12,7 +12,6 @@ import { lessonNumber } from "./text-match.mjs";
 export const BOOK_PAIRS = [
   { book: "important-lessons", title: "الدروس المهمة لعامة الأمة / The Important Lessons for the General Ummah", ar: "1871", en: "2842316" },
   { book: "almukhtasar-almufid", title: "المختصر المفيد للمسلم الجديد / New Muslim Guideline", ar: "islamhouse-2831443", en: "byenah-4784" },
-  { book: "new-muslim-guide", title: "دليل المسلم الجديد / The New Muslim Guide", ar: "islamhouse-2838873", en: "islamhouse-2838874" },
   { book: "prophet-prayer", title: "كيفية صلاة النبي ﷺ / The Prophet's Manner of Performing Prayer", ar: "62675", en: "1261" },
 ];
 

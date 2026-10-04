@@ -1,5 +1,40 @@
 {
   "_review": "needs native review: written for the first Urdu, Bengali and French answers, not yet read by a native speaker",
+  "_changedForReview": [
+    "bn.clarify",
+    "bn.followUp",
+    "bn.opening",
+    "bn.referral.danger",
+    "bn.referral.disputed.body",
+    "bn.referral.disputed.title",
+    "bn.referral.distress",
+    "bn.referral.noSource.body",
+    "bn.referral.personalCase.body",
+    "bn.referral.personalCase.title",
+    "bn.referral.verification.body",
+    "fr.clarify",
+    "fr.followUp",
+    "fr.opening",
+    "fr.referral.danger",
+    "fr.referral.disputed.body",
+    "fr.referral.disputed.title",
+    "fr.referral.distress",
+    "fr.referral.noSource.body",
+    "fr.referral.personalCase.body",
+    "fr.referral.personalCase.title",
+    "fr.referral.verification.body",
+    "ur.clarify",
+    "ur.followUp",
+    "ur.opening",
+    "ur.referral.danger",
+    "ur.referral.disputed.body",
+    "ur.referral.disputed.title",
+    "ur.referral.distress",
+    "ur.referral.noSource.body",
+    "ur.referral.personalCase.body",
+    "ur.referral.personalCase.title",
+    "ur.referral.verification.body"
+  ],
   "ur": {
     "disclosure": "رفیق مصنوعی ذہانت کا ایک آلہ ہے، عالم نہیں۔ اس کی باتوں کو اس کے ماخذ سے ملا کر دیکھیں۔",
     "smalltalk": "رفیق راستے میں آپ کے ساتھ ہے۔ اس سے کسی سبق، کسی لفظ یا کسی عبادت کے طریقے کے بارے میں پوچھیں۔",
@@ -9,16 +44,16 @@
         "body": "آپ ایک شرعی حکم (فتویٰ) پوچھ رہے ہیں۔ رفیق فتویٰ نہیں دیتا؛ اس کا جواب کوئی مستند عالم دے جو تفصیلات جانتا ہو۔"
       },
       "personalCase": {
-        "title": "آپ کی صورتِ حال کسی انسان کی توجہ چاہتی ہے",
-        "body": "یہ آپ کی اپنی صورتِ حال کے بارے میں ہے۔ رفیق صرف عمومی معلومات دے سکتا ہے؛ کوئی مستند شخص آپ کی بات سن کر رہنمائی کر سکتا ہے۔"
+        "title": "اس کے لیے کسی ماہر کی ضرورت ہے",
+        "body": "یہ آپ کی اپنی صورتِ حال کے بارے میں ہے۔ رفیق صرف عمومی معلومات دے سکتا ہے؛ کوئی ماہر آپ کی بات سن کر رہنمائی کر سکتا ہے۔"
       },
       "disputed": {
-        "title": "اس مسئلے میں عالم کی وضاحت درکار ہے",
-        "body": "یہاں موجود معتمد ماخذ اس سوال کا فیصلہ نہیں کرتے، اور رفیق اپنی طرف سے فیصلہ نہیں کرے گا۔ کوئی مستند عالم آپ کو اس کی وضاحت کر سکتا ہے۔"
+        "title": "اس کے لیے کسی ماہر کی ضرورت ہے",
+        "body": "ایسے مسائل میں علما کی آرا مختلف ہیں، اور رفیق اپنی طرف سے فیصلہ نہیں کرے گا۔ کوئی مستند ماہر آپ کو اس کی وضاحت کر سکتا ہے۔"
       },
       "noSource": {
         "title": "کوئی معتبر ماخذ نہیں ملا",
-        "body": "رفیق کو اس کے لیے کوئی معتبر ماخذ نہیں ملا، اس لیے وہ اندازہ نہیں لگائے گا۔ کوئی انسان آپ کی مدد کر سکتا ہے۔"
+        "body": "رفیق کو اس کے لیے کوئی معتبر ماخذ نہیں ملا، اس لیے وہ اندازہ نہیں لگائے گا۔ کوئی ماہر آپ کی مدد کر سکتا ہے۔"
       },
       "noEvidence": {
         "title": "کوئی مطابق دلیل نہیں ملی",
@@ -26,13 +61,24 @@
       },
       "verification": {
         "title": "رفیق اپنے جواب کی تصدیق نہیں کر سکا",
-        "body": "رفیق اپنے جواب کو اس کے ماخذ سے نہیں ملا سکا، اس لیے وہ اسے نہیں دکھائے گا۔ دوسرے الفاظ میں پوچھیں، یا کسی انسان سے پوچھیں۔"
+        "body": "رفیق اپنے جواب کو اس کے ماخذ سے نہیں ملا سکا، اس لیے وہ اسے نہیں دکھائے گا۔ دوسرے الفاظ میں پوچھیں، یا کسی ماہر سے پوچھیں۔"
       },
       "offTopic": {
         "title": "رفیق کے راستے سے باہر",
         "body": "رفیق اسلام اور آپ کے اسباق کے بارے میں سوالوں کے جواب دیتا ہے۔ یہ سوال اس دائرے سے باہر ہے۔"
+      },
+      "distress": {
+        "title": "آپ اس میں اکیلے نہیں ہیں",
+        "body": "آپ جس حالت سے گزر رہے ہیں، وہ ایسے لوگوں کی توجہ چاہتی ہے جو آپ کی بات سن سکیں۔ یہ ماہرین آپ کی مدد کر سکتے ہیں۔"
+      },
+      "danger": {
+        "title": "ابھی مدد حاصل کریں",
+        "body": "اگر آپ یا کوئی اور خطرے میں ہے تو ابھی اپنے ملک کی ہنگامی خدمات سے یا کسی قابلِ اعتماد شخص سے رابطہ کریں۔ آپ ان ماہرین سے بھی رابطہ کر سکتے ہیں۔"
       }
-    }
+    },
+    "opening": "آپ کے سوال کا شکریہ۔",
+    "followUp": "کیا یہ بات واضح ہوئی؟ اگر چاہیں تو مزید پوچھیں۔",
+    "clarify": "کیا آپ ذرا وضاحت کر سکتے ہیں کہ آپ کا مطلب کیا ہے؟"
   },
   "bn": {
     "disclosure": "রফিক একটি কৃত্রিম বুদ্ধিমত্তার সরঞ্জাম, কোনো আলেম নয়। তার কথা তার উৎসের সাথে মিলিয়ে দেখুন।",
@@ -43,16 +89,16 @@
         "body": "আপনি একটি শরয়ি বিধান (ফতোয়া) জানতে চাইছেন। রফিক ফতোয়া দেয় না; বিস্তারিত জানেন এমন একজন যোগ্য আলেম আপনাকে উত্তর দেবেন।"
       },
       "personalCase": {
-        "title": "আপনার পরিস্থিতির জন্য একজন মানুষ প্রয়োজন",
-        "body": "এটি আপনার নিজের পরিস্থিতি সম্পর্কে। রফিক কেবল সাধারণ তথ্য দিতে পারে; একজন যোগ্য ব্যক্তি আপনার কথা শুনে পরামর্শ দিতে পারেন।"
+        "title": "এর জন্য একজন বিশেষজ্ঞ প্রয়োজন",
+        "body": "এটি আপনার নিজের পরিস্থিতি সম্পর্কে। রফিক কেবল সাধারণ তথ্য দিতে পারে; একজন বিশেষজ্ঞ আপনার কথা শুনে পরামর্শ দিতে পারেন।"
       },
       "disputed": {
-        "title": "এ বিষয়ে একজন আলেমের ব্যাখ্যা প্রয়োজন",
-        "body": "এখানকার অনুমোদিত উৎসগুলো এই প্রশ্নের মীমাংসা করে না, আর রফিক নিজে থেকে এর মীমাংসা করবে না। একজন যোগ্য আলেম আপনাকে তা ব্যাখ্যা করতে পারেন।"
+        "title": "এর জন্য একজন বিশেষজ্ঞ প্রয়োজন",
+        "body": "এ ধরনের বিষয়ে আলেমদের মধ্যে মতভেদ আছে, আর রফিক নিজে থেকে এর মীমাংসা করবে না। একজন যোগ্য বিশেষজ্ঞ আপনাকে তা ব্যাখ্যা করতে পারেন।"
       },
       "noSource": {
         "title": "কোনো নির্ভরযোগ্য উৎস পাওয়া যায়নি",
-        "body": "রফিক এর জন্য কোনো নির্ভরযোগ্য উৎস খুঁজে পায়নি, তাই সে অনুমান করবে না। একজন মানুষ আপনাকে সাহায্য করতে পারেন।"
+        "body": "রফিক এর জন্য কোনো নির্ভরযোগ্য উৎস খুঁজে পায়নি, তাই সে অনুমান করবে না। একজন বিশেষজ্ঞ আপনাকে সাহায্য করতে পারেন।"
       },
       "noEvidence": {
         "title": "মিলে যায় এমন কোনো দলিল নেই",
@@ -60,13 +106,24 @@
       },
       "verification": {
         "title": "রফিক তার উত্তর যাচাই করতে পারেনি",
-        "body": "রফিক তার উত্তরকে উৎসের সাথে মেলাতে পারেনি, তাই সে তা দেখাবে না। অন্যভাবে প্রশ্ন করুন, অথবা একজন মানুষকে জিজ্ঞাসা করুন।"
+        "body": "রফিক তার উত্তরকে উৎসের সাথে মেলাতে পারেনি, তাই সে তা দেখাবে না। অন্যভাবে প্রশ্ন করুন, অথবা একজন বিশেষজ্ঞকে জিজ্ঞাসা করুন।"
       },
       "offTopic": {
         "title": "রফিকের পথের বাইরে",
         "body": "রফিক ইসলাম ও আপনার পাঠ সম্পর্কিত প্রশ্নের উত্তর দেয়। এই প্রশ্নটি তার বাইরে।"
+      },
+      "distress": {
+        "title": "আপনি এতে একা নন",
+        "body": "আপনি যা পার হচ্ছেন, তার জন্য এমন মানুষের যত্ন প্রয়োজন যারা আপনার কথা শুনতে পারেন। এই বিশেষজ্ঞরা আপনাকে সাহায্য করতে পারেন।"
+      },
+      "danger": {
+        "title": "এখনই সাহায্য নিন",
+        "body": "আপনি বা অন্য কেউ বিপদে থাকলে এখনই আপনার দেশের জরুরি সেবা বা বিশ্বস্ত কারও সঙ্গে যোগাযোগ করুন। এই বিশেষজ্ঞদের সঙ্গেও যোগাযোগ করতে পারেন।"
       }
-    }
+    },
+    "opening": "আপনার প্রশ্নের জন্য ধন্যবাদ।",
+    "followUp": "বিষয়টি কি পরিষ্কার হয়েছে? চাইলে আরও জিজ্ঞাসা করুন।",
+    "clarify": "আপনি কী বোঝাতে চাইছেন, একটু বুঝিয়ে বলবেন?"
   },
   "fr": {
     "disclosure": "Rafiq est un outil d'intelligence artificielle, pas un savant. Vérifiez ses propos dans ses sources.",
@@ -77,16 +134,16 @@
         "body": "Vous demandez un avis juridique religieux (une fatwa). Rafiq n'en donne pas ; un savant qualifié qui connaît les détails doit vous répondre."
       },
       "personalCase": {
-        "title": "Votre situation mérite une personne",
-        "body": "Cela concerne votre propre situation. Rafiq ne peut donner que des informations générales ; une personne qualifiée peut vous écouter et vous conseiller."
+        "title": "Cela demande un spécialiste",
+        "body": "Cela concerne votre propre situation. Rafiq ne peut donner que des informations générales ; un spécialiste peut vous écouter et vous conseiller."
       },
       "disputed": {
-        "title": "Cela demande l'explication d'un savant",
-        "body": "Les sources approuvées ici ne tranchent pas cette question, et Rafiq ne la tranchera pas de lui-même. Un savant qualifié peut vous l'expliquer."
+        "title": "Cela demande un spécialiste",
+        "body": "Les savants divergent sur ce genre de questions, et Rafiq ne tranchera pas de lui-même. Un spécialiste qualifié peut vous l'expliquer."
       },
       "noSource": {
         "title": "Aucune source fiable trouvée",
-        "body": "Rafiq n'a trouvé aucune source fiable pour cela ; il ne fera donc pas de supposition. Une personne peut vous aider."
+        "body": "Rafiq n'a trouvé aucune source fiable pour cela ; il ne fera donc pas de supposition. Un spécialiste peut vous aider."
       },
       "noEvidence": {
         "title": "Aucune preuve correspondante",
@@ -94,12 +151,23 @@
       },
       "verification": {
         "title": "Rafiq n'a pas pu vérifier sa réponse",
-        "body": "Rafiq n'a pas pu faire correspondre sa réponse à ses sources ; il ne l'affichera donc pas. Reformulez votre question ou demandez à une personne."
+        "body": "Rafiq n'a pas pu faire correspondre sa réponse à ses sources ; il ne l'affichera donc pas. Reformulez votre question ou demandez à un spécialiste."
       },
       "offTopic": {
         "title": "Hors du chemin de Rafiq",
         "body": "Rafiq répond aux questions sur l'islam et sur vos leçons. Cette question en sort."
+      },
+      "distress": {
+        "title": "Vous n'êtes pas seul face à cela",
+        "body": "Ce que vous traversez mérite l'attention de personnes qui peuvent vous écouter. Ces spécialistes peuvent vous aider."
+      },
+      "danger": {
+        "title": "Demandez de l'aide maintenant",
+        "body": "Si vous ou quelqu'un d'autre êtes en danger, contactez maintenant les services d'urgence de votre pays, ou une personne de confiance. Vous pouvez aussi joindre ces spécialistes."
       }
-    }
+    },
+    "opening": "Merci pour votre question.",
+    "followUp": "Est-ce clair ? N'hésitez pas à demander davantage.",
+    "clarify": "Pouvez-vous préciser un peu ce que vous voulez dire ?"
   }
 }

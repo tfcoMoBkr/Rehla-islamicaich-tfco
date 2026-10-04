@@ -23,6 +23,7 @@ describe("answerText", () => {
         language: "en",
         level: "A",
         referred: false,
+        kind: "answer",
         blocks: [
           { type: "text", text: "Tawhid is [1] singling out Allah [1]." },
           { type: "quran", n: 2, ref: "112:1", surah: 112, ayah: 1, arabic: "…", translation: "…", translationKey: "english_saheeh", url: "https://quranenc.com" },
@@ -35,14 +36,14 @@ describe("answerText", () => {
 });
 
 describe("askRafiq", () => {
-  it("sends the trimmed question, the reached lessons and at most four turns", async () => {
+  it("sends the trimmed question, the reached lessons and at most eight turns", async () => {
     let body: unknown = null;
     const fetcher: typeof fetch = async (url, init) => {
       expect(String(url)).toBe(ASK_PATH);
       body = JSON.parse(String(init?.body));
       return new Response("{}", { status: 503 });
     };
-    const history = Array.from({ length: 6 }, (_, index) => ({ role: index % 2 ? "assistant" : "user", text: `t${index}` }) as const);
+    const history = Array.from({ length: 10 }, (_, index) => ({ role: index % 2 ? "assistant" : "user", text: `t${index}` }) as const);
     const result = await askRafiq({ question: "  What is wudu? ", locale: "en", reachedLessonIds: ["1.1"], history }, { fetcher });
 
     expect(result).toEqual({ kind: "unavailable" });

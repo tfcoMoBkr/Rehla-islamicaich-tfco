@@ -111,5 +111,5 @@ describe("content/", () => {
       if (key) expect(bytes.includes(key), path.relative(CONTENT, file)).toBe(false);
       if (/\.(json|md|txt|html)$/.test(file)) expect(bytes.toString("utf8"), path.relative(CONTENT, file)).not.toMatch(keyedUrl);
     }
-  });
+  }, 60_000);
 });

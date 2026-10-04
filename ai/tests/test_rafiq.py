@@ -44,12 +44,14 @@ async def test_levels_a_and_b_are_answered_with_their_sources(level: Level) -> N
     assert answer.sources[0].url == WUDU.url
 
 
-async def test_level_c_answers_only_under_the_disputed_rule() -> None:
+async def test_level_c_answers_under_the_disputed_rule_and_refers() -> None:
     chat = FakeChat(classified("C"), [GOOD])
     answer = await rafiq(chat).run(QUESTION, "en")
 
-    assert not answer.referred
     assert any("Scholars may differ" in system for system in chat.systems)
+    assert answer.sources[0].url == WUDU.url
+    assert answer.referred
+    assert reason(answer) == "disputed"
 
 
 async def test_level_c_without_an_adequate_source_is_referred() -> None:
@@ -114,7 +116,8 @@ async def test_off_topic_and_small_talk_need_no_sources(
 
     assert reason(answer) == expected
     assert answer.referred is referred
-    assert len(chat.systems) == 1  # classified only: nothing was retrieved or generated
+    assert answer.sources == []
+    assert not any("numbered passages" in system for system in chat.systems)  # nothing generated
 
 
 async def test_an_answer_that_fails_verification_twice_is_referred() -> None:

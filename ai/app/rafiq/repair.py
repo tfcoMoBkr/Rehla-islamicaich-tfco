@@ -12,6 +12,7 @@ misquoted verse is shown, at most MAX_BLOCKS blocks are kept (the most relevant 
 extractive answer keeps at most EXTRACTIVE_SENTENCES sentences of its own.
 """
 
+from app.languages import Language
 from app.rafiq.check import Problem, cited, code_problems, find_passage, is_lead_in
 from app.rafiq.draft import Unit, markers
 from app.retrieval.passages import Passage
@@ -19,7 +20,13 @@ from app.retrieval.passages import Passage
 MAX_BLOCKS = 2
 EXTRACTIVE_SENTENCES = 2
 REPAIR_ROUNDS = 3
-REMOVED_WITH_SENTENCE = {"unmarked", "unknownMarker", "verseBrackets", "unsupported"}
+REMOVED_WITH_SENTENCE = {
+    "unmarked",
+    "unknownMarker",
+    "verseBrackets",
+    "unsupported",
+    "wrongLanguage",
+}
 
 
 def block_of(passage: Passage) -> tuple[str, str] | None:
@@ -117,19 +124,20 @@ def repair(
     problems: list[Problem],
     passages: list[Passage],
     required_verse: str | None = None,
+    language: Language | None = None,
 ) -> list[Unit] | None:
     """The draft with every repairable problem repaired, or None if it cannot stand."""
     # Writing the markers out keeps every sentence in place, so the model check's verdicts still
     # point at the right sentences; the code checks are run again on the result.
     current = materialize(units, {passage.n for passage in passages})
     verdicts = [p for p in problems if p.kind == "unsupported"]
-    problems = verdicts + code_problems(current, passages, required_verse)
+    problems = verdicts + code_problems(current, passages, required_verse, language)
     for _ in range(REPAIR_ROUNDS):
         actionable = [p for p in problems if p.kind != "missingVerse"]
         if not actionable:
             break
         current = _apply(current, actionable, passages)
-        problems = code_problems(current, passages, required_verse)
+        problems = code_problems(current, passages, required_verse, language)
     remaining = [p for p in problems if p.kind != "missingVerse"]
     # A verse or hadith block is cited content too: it is shown with its source card.
     shows_sacred = any(unit.kind == "block" for unit in current)

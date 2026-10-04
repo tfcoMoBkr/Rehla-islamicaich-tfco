@@ -1,0 +1,17 @@
+{
+  "source": "dorar",
+  "note": "Sections of the fiqh encyclopedia on dorar.net linked under each fiqh lesson's title, where scholars' views on its details are set out.",
+  "url": "https://dorar.net/feqhia/{section}",
+  "lessons": {
+    "2.2": [144, 62],
+    "2.3": [392],
+    "2.4": [234],
+    "2.5": [459, 532],
+    "3.2": [807],
+    "3.3": [830],
+    "3.4": [880],
+    "3.6": [1111],
+    "3.7": [1318],
+    "3.8": [1571]
+  }
+}

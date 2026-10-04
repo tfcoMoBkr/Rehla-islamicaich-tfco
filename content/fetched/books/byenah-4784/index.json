@@ -1,0 +1,220 @@
+{
+  "id": "byenah-4784",
+  "language": "en",
+  "title": "New Muslim Guideline",
+  "authors": [
+    {
+      "name": "Muhammad al-Shehri",
+      "role": "author"
+    }
+  ],
+  "url": "https://byenah.com/en/muslim-content/4784",
+  "fetchedOn": "2026-10-04",
+  "format": "docx",
+  "text": "Each paragraph exactly as the DOCX has it, with the name of its style (the book sets Quran verses in its own style). Split at the book's Title, Heading 1 and Heading 2 paragraphs; empty paragraphs are skipped.",
+  "headingsWithoutText": [
+    "Summary"
+  ],
+  "sections": [
+    {
+      "file": "1.json",
+      "anchor": "s1",
+      "level": 0,
+      "heading": "NEW MUSLIM GUIDELINE",
+      "paragraphs": 4,
+      "characters": 99
+    },
+    {
+      "file": "2.json",
+      "anchor": "s2",
+      "level": 1,
+      "heading": "Introduction",
+      "paragraphs": 7,
+      "characters": 2082
+    },
+    {
+      "file": "3.json",
+      "anchor": "s3",
+      "level": 2,
+      "heading": "My Lord is Allah:",
+      "paragraphs": 21,
+      "characters": 2922
+    },
+    {
+      "file": "4.json",
+      "anchor": "s4",
+      "level": 2,
+      "heading": "My Prophet is Muhammad (pbuh):",
+      "paragraphs": 8,
+      "characters": 1143
+    },
+    {
+      "file": "5.json",
+      "anchor": "s5",
+      "level": 1,
+      "heading": "The Noble Qur’an is the Word of my Lord",
+      "paragraphs": 3,
+      "characters": 426
+    },
+    {
+      "file": "6.json",
+      "anchor": "s6",
+      "level": 2,
+      "heading": "I get to know the pillars of Islam:",
+      "paragraphs": 10,
+      "characters": 1332
+    },
+    {
+      "file": "7.json",
+      "anchor": "s7",
+      "level": 1,
+      "heading": "Second Pillar: Establishing Prayer (Salāh)",
+      "paragraphs": 2,
+      "characters": 183
+    },
+    {
+      "file": "8.json",
+      "anchor": "s8",
+      "level": 1,
+      "heading": "Third Pillar: Almsgiving (Zakat).",
+      "paragraphs": 10,
+      "characters": 1505
+    },
+    {
+      "file": "9.json",
+      "anchor": "s9",
+      "level": 1,
+      "heading": "Fourth Pillar: Fasting the month of Ramadan",
+      "paragraphs": 5,
+      "characters": 683
+    },
+    {
+      "file": "10.json",
+      "anchor": "s10",
+      "level": 1,
+      "heading": "Fifth Pillar: Pilgrimage to the Sacred House of Allah (Hajj)",
+      "paragraphs": 6,
+      "characters": 914
+    },
+    {
+      "file": "11.json",
+      "anchor": "s11",
+      "level": 2,
+      "heading": "I get to know the pillars of faith:",
+      "paragraphs": 5,
+      "characters": 1451
+    },
+    {
+      "file": "12.json",
+      "anchor": "s12",
+      "level": 1,
+      "heading": "First Pillar: Belief in Allah",
+      "paragraphs": 6,
+      "characters": 1159
+    },
+    {
+      "file": "13.json",
+      "anchor": "s13",
+      "level": 1,
+      "heading": "Second Pillar: Belief in the Angels",
+      "paragraphs": 3,
+      "characters": 706
+    },
+    {
+      "file": "14.json",
+      "anchor": "s14",
+      "level": 1,
+      "heading": "Third Pillar: Belief in Divine Scriptures (Books)",
+      "paragraphs": 8,
+      "characters": 1625
+    },
+    {
+      "file": "15.json",
+      "anchor": "s15",
+      "level": 1,
+      "heading": "Fourth Pillar: Belief in the Messengers",
+      "paragraphs": 4,
+      "characters": 809
+    },
+    {
+      "file": "16.json",
+      "anchor": "s16",
+      "level": 1,
+      "heading": "Fifth Pillar: Belief in the Day of Judgment.",
+      "paragraphs": 4,
+      "characters": 616
+    },
+    {
+      "file": "17.json",
+      "anchor": "s17",
+      "level": 1,
+      "heading": "Sixth Pillar: Belief in Destiny; its pleasant and unpleasant aspects thereof",
+      "paragraphs": 9,
+      "characters": 926
+    },
+    {
+      "file": "18.json",
+      "anchor": "s18",
+      "level": 2,
+      "heading": "I learn Wudu’ (Minor Ablution):",
+      "paragraphs": 20,
+      "characters": 1836
+    },
+    {
+      "file": "19.json",
+      "anchor": "s19",
+      "level": 1,
+      "heading": "Face boundaries:",
+      "paragraphs": 20,
+      "characters": 1800
+    },
+    {
+      "file": "20.json",
+      "anchor": "s20",
+      "level": 2,
+      "heading": "Wiping over socks and leather socks",
+      "paragraphs": 20,
+      "characters": 1397
+    },
+    {
+      "file": "21.json",
+      "anchor": "s21",
+      "level": 1,
+      "heading": "Ghusl (ritual bath)",
+      "paragraphs": 9,
+      "characters": 911
+    },
+    {
+      "file": "22.json",
+      "anchor": "s22",
+      "level": 2,
+      "heading": "Tayammum (dry ablution)",
+      "paragraphs": 5,
+      "characters": 575
+    },
+    {
+      "file": "23.json",
+      "anchor": "s23",
+      "level": 2,
+      "heading": "I learn how to pray:",
+      "paragraphs": 26,
+      "characters": 6124
+    },
+    {
+      "file": "24.json",
+      "anchor": "s24",
+      "level": 1,
+      "heading": "The Muslim Woman’s Hijāb",
+      "paragraphs": 34,
+      "characters": 2844
+    },
+    {
+      "file": "25.json",
+      "anchor": "s25",
+      "level": 1,
+      "heading": "My happiness lies in my religion, Islam",
+      "paragraphs": 11,
+      "characters": 4241
+    }
+  ]
+}

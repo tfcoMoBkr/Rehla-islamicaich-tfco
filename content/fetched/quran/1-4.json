@@ -6,7 +6,17 @@
       "key": "english_saheeh",
       "version": "1.1.2",
       "text": "Sovereign of the Day of Recompense.[5]",
-      "footnotes": "[5] i.e., repayment and compensation for whatever was earned of good or evil during life on this earth."
+      "footnotes": "[5] i.e., repayment and compensation for whatever was earned of good or evil during life on this earth.",
+      "name": "English Translation - Noor International Center"
+    },
+    "ar": {
+      "key": "arabic_moyassar",
+      "name": "اللغة العربية - التفسير الميسر",
+      "version": null,
+      "text": "وهو سبحانه وحده مالك يوم القيامة، وهو يوم الجزاء على الأعمال. وفي قراءة المسلم لهذه الآية في كل ركعة من صلواته تذكير له باليوم الآخر، وحثٌّ له على الاستعداد بالعمل الصالح، والكف عن المعاصي والسيئات.",
+      "footnotes": null,
+      "url": "https://quranenc.com/ar/browse/arabic_moyassar/1#4",
+      "fetchedOn": "2026-10-04"
     }
   },
   "source": {

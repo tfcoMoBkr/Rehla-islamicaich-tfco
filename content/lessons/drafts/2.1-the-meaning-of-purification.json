@@ -5,7 +5,7 @@
   "status": "draft",
   "reviewed": false,
   "reviewedBy": null,
-  "authoring": "Written by the team in simple wording from the sources listed in `sources`. Verses and hadiths are referenced and fetched verbatim, never typed.",
+  "authoring": "Cards with textRef show the named book verbatim; cards marked authoring: team keep the team's wording and rest only on their verse or hadith.",
   "title": {
     "ar": "معنى الطهارة",
     "en": "The meaning of purification"
@@ -20,48 +20,18 @@
       "Know what must be removed before prayer"
     ]
   },
-  "sources": [
-    {
-      "key": "nmg",
-      "title": {
-        "ar": "دليل المسلم الجديد — معنى الطهارة",
-        "en": "The New Muslim Guide — The Meaning of Purification"
-      },
-      "publisher": "IslamHouse / Modern Guide",
-      "url": {
-        "ar": "https://newmuslimguide.com/ar/categories/your-purification/66ef8ed845064",
-        "en": "https://newmuslimguide.com/en/categories/your-purification/66ef8ed845064"
-      },
-      "use": "Facts restated in our own words; not copied."
-    }
-  ],
+  "sources": [],
   "suggestedVideo": {
-    "ar": {
-      "youtubeId": "Uiw5-B-XG4g",
-      "channel": "منصة زادي",
-      "position": "close"
-    },
+    "ar": null,
     "en": null
   },
   "cards": [
     {
-      "id": "c1",
-      "source": [
-        "nmg"
-      ],
-      "text": {
-        "ar": "الطهارة معناها النظافة والنقاء.",
-        "en": "Purification (taharah) means cleanliness and purity."
-      }
-    },
-    {
       "id": "c2",
-      "source": [
-        "nmg"
-      ],
+      "source": [],
       "text": {
-        "ar": "أمر الله المسلم أن يطهّر ظاهره من النجاسات، وباطنه من الشرك وأمراض القلب كالحسد والكِبر والحقد. والله يحب المتطهرين.",
-        "en": "Allah commands the Muslim to purify the outside from physical impurities, and the inside from shirk and diseases of the heart such as envy, pride and hatred. Allah loves those who purify themselves."
+        "ar": "أمر الله المسلم أن يطهّر ظاهره من النجاسات، وباطنه من الشرك وأمراض القلب كالحسد والكِبر والحقد.",
+        "en": "Allah commands the Muslim to purify the outside from physical impurities, and the inside from shirk and diseases of the heart such as envy, pride and hatred."
       },
       "evidence": {
         "type": "quran",
@@ -75,56 +45,8 @@
           "en": "Purification in Islam concerns the body only."
         },
         "answer": false
-      }
-    },
-    {
-      "id": "c3",
-      "source": [
-        "nmg"
-      ],
-      "text": {
-        "ar": "وأمره أن يتطهر قبل الوقوف بين يديه في الصلاة. من يستعد لمقابلة صاحب مكانة يتنظف ويلبس أحسن ثيابه، فكيف بالوقوف بين يدي ملك الملوك؟",
-        "en": "He commands purification before standing before Him in prayer. A person cleans up and dresses well to meet someone of high standing; how much more so before the King of kings."
-      }
-    },
-    {
-      "id": "c4",
-      "source": [
-        "nmg"
-      ],
-      "text": {
-        "ar": "يجب الوضوء قبل الصلاة، ومسّ المصحف، والطواف بالكعبة. ويُستحب قبل قراءة القرآن من الحفظ، والدعاء، والنوم.",
-        "en": "Wudu is required before prayer, touching the Qur'an, and circling the Ka'bah. It is recommended before reciting the Qur'an from memory, supplicating, and sleeping."
-      }
-    },
-    {
-      "id": "c5",
-      "source": [
-        "nmg"
-      ],
-      "text": {
-        "ar": "قبل الصلاة تزيل أمرين: النجاسة، وهي شيء محسوس. والحدث، وهو حال غير محسوس يُرفع بالوضوء أو الغسل.",
-        "en": "Before prayer you remove two things: physical impurity (najasah), which is tangible; and ritual impurity (hadath), an intangible state removed by wudu or ghusl."
       },
-      "check": {
-        "type": "single",
-        "prompt": {
-          "ar": "ما الأمران اللذان تزيلهما قبل الصلاة؟",
-          "en": "Which two things do you remove before prayer?"
-        },
-        "options": [
-          {
-            "ar": "النجاسة والحدث",
-            "en": "Physical impurity and ritual impurity",
-            "correct": true
-          },
-          {
-            "ar": "التعب والجوع",
-            "en": "Tiredness and hunger",
-            "correct": false
-          }
-        ]
-      }
+      "authoring": "team"
     }
   ],
   "activities": [
@@ -158,11 +80,6 @@
           "group": "out"
         },
         {
-          "ar": "الوضوء",
-          "en": "Wudu",
-          "group": "out"
-        },
-        {
           "ar": "ترك الحسد",
           "en": "Giving up envy",
           "group": "in"
@@ -178,86 +95,9 @@
           "group": "in"
         }
       ]
-    },
-    {
-      "id": "a2",
-      "type": "sort",
-      "title": {
-        "ar": "واجب أم مستحب؟",
-        "en": "Required or recommended?"
-      },
-      "instruction": {
-        "ar": "متى يجب الوضوء ومتى يُستحب؟",
-        "en": "When is wudu required, and when is it recommended?"
-      },
-      "groups": [
-        {
-          "key": "req",
-          "label": {
-            "ar": "يجب الوضوء",
-            "en": "Wudu is required"
-          }
-        },
-        {
-          "key": "rec",
-          "label": {
-            "ar": "يُستحب الوضوء",
-            "en": "Wudu is recommended"
-          }
-        }
-      ],
-      "items": [
-        {
-          "ar": "الصلاة",
-          "en": "Prayer",
-          "group": "req"
-        },
-        {
-          "ar": "مسّ المصحف",
-          "en": "Touching the Qur'an",
-          "group": "req"
-        },
-        {
-          "ar": "الطواف بالكعبة",
-          "en": "Circling the Ka'bah",
-          "group": "req"
-        },
-        {
-          "ar": "قراءة القرآن من الحفظ",
-          "en": "Reciting the Qur'an from memory",
-          "group": "rec"
-        },
-        {
-          "ar": "الدعاء",
-          "en": "Supplicating",
-          "group": "rec"
-        },
-        {
-          "ar": "النوم",
-          "en": "Sleeping",
-          "group": "rec"
-        }
-      ]
     }
   ],
-  "situation": {
-    "prompt": {
-      "ar": "تريد أن تقرأ آيات تحفظها دون أن تمسك المصحف. ماذا يقول الدرس عن الوضوء هنا؟",
-      "en": "You want to recite verses you know by heart without holding the Qur'an. What does the lesson say about wudu here?"
-    },
-    "options": [
-      {
-        "ar": "مستحب",
-        "en": "It is recommended",
-        "correct": true
-      },
-      {
-        "ar": "لا علاقة له بالوضوء",
-        "en": "It has nothing to do with wudu",
-        "correct": false
-      }
-    ]
-  },
+  "situation": null,
   "explainToRafiq": {
     "prompt": {
       "ar": "اشرح لرفيق بكلماتك أهم ما فهمته من هذا الدرس.",
@@ -267,10 +107,5 @@
       "cards"
     ]
   },
-  "readMore": [
-    {
-      "ar": "https://newmuslimguide.com/ar/categories/your-purification/66ef8ed845064",
-      "en": "https://newmuslimguide.com/en/categories/your-purification/66ef8ed845064"
-    }
-  ]
+  "readMore": []
 }

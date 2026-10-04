@@ -5,7 +5,7 @@
   "status": "draft",
   "reviewed": false,
   "reviewedBy": null,
-  "authoring": "Written by the team in simple wording from the sources listed in `sources`. Verses and hadiths are referenced and fetched verbatim, never typed.",
+  "authoring": "No passage of the approved books states these cards' points cleanly in both languages, so every card is marked authoring: team: it keeps the team's wording and rests only on its verse or hadith.",
   "title": {
     "ar": "حياتك الجديدة",
     "en": "Your new life"
@@ -22,85 +22,16 @@
       "Know how to stay firm in faith"
     ]
   },
-  "sources": [
-    {
-      "key": "nmg",
-      "title": {
-        "ar": "دليل المسلم الجديد — كيف يدخل الإنسان في الإسلام",
-        "en": "The New Muslim Guide — How to Convert to Islam"
-      },
-      "publisher": "IslamHouse / Modern Guide",
-      "url": {
-        "ar": "https://newmuslimguide.com/ar/categories/your-new-life/678320ac35425",
-        "en": "https://newmuslimguide.com/en/categories/your-new-life/678320ac35425"
-      },
-      "use": "Facts restated in our own words; not copied."
-    },
-    {
-      "key": "nmg-tawbah",
-      "title": {
-        "ar": "دليل المسلم الجديد — التوبة",
-        "en": "The New Muslim Guide — Sincere Repentance"
-      },
-      "publisher": "IslamHouse / Modern Guide",
-      "url": {
-        "ar": "https://newmuslimguide.com/ar/categories/your-new-life/67837c6592bcd",
-        "en": "https://newmuslimguide.com/en/categories/your-new-life/67837c6592bcd"
-      },
-      "use": "Facts restated in our own words; not copied."
-    },
-    {
-      "key": "nmg-shukr",
-      "title": {
-        "ar": "دليل المسلم الجديد — شكر نعمة الهداية والتوبة",
-        "en": "The New Muslim Guide — Showing Gratefulness to Allah for His Guidance"
-      },
-      "publisher": "IslamHouse / Modern Guide",
-      "url": {
-        "ar": "https://newmuslimguide.com/ar/categories/your-new-life/6786336448ed9",
-        "en": "https://newmuslimguide.com/en/categories/your-new-life/6786336448ed9"
-      },
-      "use": "Facts restated in our own words; not copied."
-    }
-  ],
+  "sources": [],
   "suggestedVideo": {
     "ar": null,
     "en": null
   },
   "cards": [
     {
-      "id": "c1",
-      "source": [
-        "nmg"
-      ],
-      "text": {
-        "ar": "يدخل الإنسان في الإسلام بأن ينطق الشهادتين مؤمنًا بهما عارفًا بمعناهما.",
-        "en": "A person enters Islam by pronouncing the two testimonies with conviction, knowing what they mean."
-      },
-      "check": {
-        "type": "trueFalse",
-        "prompt": {
-          "ar": "يكفي نطق الشهادتين دون إيمان بمعناهما.",
-          "en": "Pronouncing the two testimonies without believing in their meaning is enough."
-        },
-        "answer": false
-      }
-    },
-    {
-      "id": "c2",
-      "source": [
-        "nmg"
-      ],
-      "text": {
-        "ar": "ويُستحب لمن أسلم أن يغتسل: كما طهّر قلبه، يطهّر بدنه.",
-        "en": "It is recommended for one who embraces Islam to take a bath: as the heart has been cleansed, so is the body."
-      }
-    },
-    {
       "id": "c3",
-      "source": [
-        "nmg-tawbah"
-      ],
+      "authoring": "team",
+      "source": [],
       "text": {
         "ar": "التوبة هي الرجوع الصادق إلى الله. ولها شروط: أن تترك الذنب، وأن تندم عليه، وأن تعزم على ألا تعود إليه.",
         "en": "Repentance is sincerely turning back to Allah. Its conditions: giving up the sin, feeling remorse for it, and resolving not to return to it."
@@ -118,9 +49,8 @@
     },
     {
       "id": "c4",
-      "source": [
-        "nmg-tawbah"
-      ],
+      "authoring": "team",
+      "source": [],
       "text": {
         "ar": "من تاب تاب الله عليه مهما عظم ذنبه، فرحمته وسعت كل شيء.",
         "en": "Whoever repents, Allah forgives, however great the sin. His mercy encompasses all things."
@@ -141,9 +71,8 @@
     },
     {
       "id": "c5",
-      "source": [
-        "nmg-tawbah"
-      ],
+      "authoring": "team",
+      "source": [],
       "text": {
         "ar": "ومن فضل الله أنه يبدّل سيئات التائب حسنات.",
         "en": "And out of Allah's bounty, He turns the bad deeds of the one who repents into good ones."
@@ -155,29 +84,9 @@
       }
     },
     {
-      "id": "c6",
-      "source": [
-        "nmg-tawbah"
-      ],
-      "text": {
-        "ar": "للإيمان حلاوة يجدها من كان الله ورسوله أحب إليه من كل شيء، وأحب الناس لله، وكره أن يعود إلى الكفر.",
-        "en": "Faith has a sweetness, tasted by the one to whom Allah and His Messenger are dearer than anything else, who loves others for Allah's sake, and who hates to return to unbelief."
-      },
-      "evidence": {
-        "type": "hadith",
-        "hadeethencId": 65115,
-        "citation": "متفق عليه",
-        "availableIn": [
-          "ar"
-        ],
-        "publisher": "hadeethenc.com"
-      }
-    },
-    {
       "id": "c7",
-      "source": [
-        "nmg-shukr"
-      ],
+      "authoring": "team",
+      "source": [],
       "text": {
         "ar": "قد تلقى صعوبات بعد إسلامك، وهذا من ابتلاء الله لعباده، وقد ابتلى الأنبياء من قبل. فتمسّك بدينك واصبر، وادعُ الله أن يثبتك.",
         "en": "You may face hardship after embracing Islam. This is part of how Allah tests His servants, as He tested the prophets before. Hold fast to your religion, be patient, and ask Allah to keep you firm."
@@ -190,9 +99,8 @@
     },
     {
       "id": "c8",
-      "source": [
-        "nmg-tawbah"
-      ],
+      "authoring": "team",
+      "source": [],
       "text": {
         "ar": "من دعاء الثبات في القرآن:",
         "en": "A supplication for steadfastness from the Qur'an:"
@@ -259,16 +167,6 @@
       "storage": "deviceOnly",
       "items": [
         {
-          "ar": "نطقت الشهادتين وعرفت معناهما",
-          "en": "I pronounced the two testimonies and learned their meaning",
-          "card": "c1"
-        },
-        {
-          "ar": "اغتسلت",
-          "en": "I took a bath",
-          "card": "c2"
-        },
-        {
           "ar": "تبت إلى الله",
           "en": "I turned to Allah in repentance",
           "card": "c3"
@@ -308,18 +206,5 @@
       "cards"
     ]
   },
-  "readMore": [
-    {
-      "ar": "https://newmuslimguide.com/ar/categories/your-new-life/678320ac35425",
-      "en": "https://newmuslimguide.com/en/categories/your-new-life/678320ac35425"
-    },
-    {
-      "ar": "https://newmuslimguide.com/ar/categories/your-new-life/67837c6592bcd",
-      "en": "https://newmuslimguide.com/en/categories/your-new-life/67837c6592bcd"
-    },
-    {
-      "ar": "https://newmuslimguide.com/ar/categories/your-new-life/6786336448ed9",
-      "en": "https://newmuslimguide.com/en/categories/your-new-life/6786336448ed9"
-    }
-  ]
+  "readMore": []
 }

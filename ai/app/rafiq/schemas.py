@@ -18,9 +18,14 @@ ReferralReason = Literal[
     "noSource",  # no adequate source was found
     "noEvidence",  # proof was asked for and none matches
     "verification",  # the answer could not be verified against its sources
+    "distress",  # the learner is going through something hard
+    "danger",  # a sign of danger to the learner or to others
     "offTopic",
     "smalltalk",
 ]
+# What kind of reply this is, for the page to lay it out.
+ReplyKind = Literal["answer", "referral", "chat", "clarify", "danger"]
+Intent = Literal["religious", "smalltalk", "feelings", "distress", "offtopic"]
 
 
 class Camel(BaseModel):
@@ -34,23 +39,41 @@ class Classification(BaseModel):
     # "other" is any language Rafiq does not answer in: the answer is then in English.
     language: Language | Literal["other"]
     level: Level
-    intent: Literal["religious", "smalltalk", "offtopic"]
+    intent: Intent
     personal_case: bool = Field(default=False, alias="personalCase")
     hostile_tone: bool = Field(default=False, alias="hostileTone")
     asks_for_evidence: bool = Field(default=False, alias="asksForEvidence")
     quoted_verse: str | None = Field(default=None, alias="quotedVerse")
     search_phrases: list[str] = Field(default_factory=list, alias="searchPhrases")
     question_type: QuestionType = Field(default="other", alias="questionType")
+    # A follow-up rewritten from the conversation so that it stands alone; retrieval uses it.
+    standalone: str | None = None
+    # A follow-up whose subject the conversation does not settle, and the one question to ask.
+    unclear: bool = False
+    clarification: str | None = None
+    danger: bool = False
 
 
 class Draft(BaseModel):
+    # Warmth around the answer: never a religious statement (removed if it is one).
+    opening: str = ""
     answer: str = ""
-    adequate: bool
+    follow_up: str = Field(default="", alias="followUp")
+    adequate: bool = False
     evidence_found: bool | None = Field(default=None, alias="evidenceFound")
+
+
+class ChatReply(BaseModel):
+    """A human reply to small talk or feelings: no religious content, no sources."""
+
+    opening: str = ""
+    follow_up: str = Field(default="", alias="followUp")
 
 
 class SupportCheck(BaseModel):
     unsupported: list[int] = Field(default_factory=list)
+    # The warm fields ("opening", "followUp", "clarification") that make a religious statement.
+    religious: list[str] = Field(default_factory=list)
 
 
 class KeywordQueries(BaseModel):
@@ -69,7 +92,8 @@ class AskRequest(Camel):
     question: Annotated[str, Field(min_length=1, max_length=1000)]
     locale: PageLocale
     reached_lesson_ids: list[str] | None = None
-    history: Annotated[list[Turn], Field(max_length=4)] = []
+    # The last turns of this conversation, kept on the learner's device and sent as they are.
+    history: Annotated[list[Turn], Field(max_length=8)] = []
 
 
 class LessonHelpRequest(Camel):
@@ -137,15 +161,21 @@ class SourceCard(Camel):
 
 class Referral(Camel):
     reason: ReferralReason
-    links: list[str] = ["/talk-to-a-human"]
+    links: list[str] = ["/talk-to-a-specialist"]
+    # The referral bodies to show, by id in content/referral-centers.json (the web renders them).
+    centers: list[str] = Field(default_factory=list)
 
 
 class RafiqAnswer(Camel):
     language: Language
     level: Level | None
     referred: bool
+    kind: ReplyKind = "answer"
+    # Warm lines around the cited answer, checked to carry no religious statement.
+    opening: str | None = None
     blocks: list[Block]
     sources: list[SourceCard]
+    follow_up: str | None = None
     referral: Referral | None = None
     # The lesson ahead on the learner's road that covers this question.
     later_lesson_id: str | None = None

@@ -4,6 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import type { EvidenceView } from "@/lib/learn/types";
 
 import { ListenableText } from "./audio/listenable-text";
+import { PublishedName } from "./wording";
 import { ExplanationToggle } from "./explanation-toggle";
 import { RecitationButton } from "./audio/recitation-button";
 
@@ -48,6 +49,11 @@ export function EvidenceBlock({ evidence }: { evidence: EvidenceView }) {
           ))
         )}
         <p className="text-sm text-muted-foreground">
+          {evidence.translation && (
+            <span className="block">
+              {t("translationLabel")}: <PublishedName published={evidence.translation} />
+            </span>
+          )}
           {evidence.url && (
             <a href={evidence.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 underline underline-offset-4">
               {evidence.attribution}
@@ -89,10 +95,13 @@ export function EvidenceBlock({ evidence }: { evidence: EvidenceView }) {
           <ExplanationToggle>
             <ListenableText text={evidence.hadith.explanation} className="leading-relaxed" />
           </ExplanationToggle>
-          <a href={evidence.hadith.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 justify-self-start text-sm underline underline-offset-4">
-            HadeethEnc.com
-            <ExternalLink aria-hidden className="size-3.5" />
-          </a>
+          <p className="flex flex-wrap items-center gap-x-3 text-sm text-muted-foreground">
+            <a href={evidence.hadith.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 underline underline-offset-4">
+              HadeethEnc.com
+              <ExternalLink aria-hidden className="size-3.5" />
+            </a>
+            <span>{t("hadithFetched", { date: evidence.hadith.fetchedOn })}</span>
+          </p>
         </>
       ) : (
         <p>

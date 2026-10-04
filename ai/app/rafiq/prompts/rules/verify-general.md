@@ -1,0 +1,1 @@
+3. This asker wants a ruling on their own situation, and the answer may give general information only. Also list as unsupported every sentence that states a ruling, even one its passage supports: that something is allowed, forbidden, obligatory, recommended, valid or invalid, or that something is or is not accepted without it, or what the asker should do.

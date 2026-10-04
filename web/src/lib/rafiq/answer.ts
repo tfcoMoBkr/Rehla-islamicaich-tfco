@@ -16,10 +16,27 @@ export const REFERRAL_REASONS = [
   "noSource",
   "noEvidence",
   "verification",
+  "distress",
+  "danger",
   "offTopic",
   "smalltalk",
 ] as const;
 export type ReferralReason = (typeof REFERRAL_REASONS)[number];
+
+/** Referrals that end with the specialist card (ai/app/rafiq/policy.py, SPECIALIST_REASONS). */
+export const SPECIALIST_REASONS: ReadonlySet<ReferralReason> = new Set([
+  "fatwa",
+  "personalCase",
+  "disputed",
+  "noSource",
+  "noEvidence",
+  "verification",
+  "distress",
+  "danger",
+]);
+
+/** How the page lays a reply out: a cited answer, a referral, a chat line, a question back, or danger. */
+export const REPLY_KINDS = ["answer", "referral", "chat", "clarify", "danger"] as const;
 
 const textBlockSchema = z.object({ type: z.literal("text"), text: z.string() });
 
@@ -75,9 +92,20 @@ export const rafiqAnswerSchema = z.object({
   language: answerLanguageSchema,
   level: z.enum(["A", "B", "C", "D"]).nullable(),
   referred: z.boolean(),
+  kind: z.enum(REPLY_KINDS).default("answer"),
+  /** Warm lines around the cited answer, checked by the service to carry no religious statement. */
+  opening: z.string().nullish(),
   blocks: z.array(z.discriminatedUnion("type", [textBlockSchema, quranBlockSchema, hadithBlockSchema])),
   sources: z.array(sourceCardSchema),
-  referral: z.object({ reason: z.enum(REFERRAL_REASONS), links: z.array(z.string()) }).nullish(),
+  followUp: z.string().nullish(),
+  referral: z
+    .object({
+      reason: z.enum(REFERRAL_REASONS),
+      links: z.array(z.string()),
+      /** Referral bodies to show, by id in content/referral-centers.json. */
+      centers: z.array(z.string()).default([]),
+    })
+    .nullish(),
   /** A lesson further along the learner's road that covers the question. */
   laterLessonId: z.string().nullish(),
   /** The question was in a language Rafiq does not answer in; the answer is in `language`. */
@@ -109,8 +137,9 @@ export function guardSources(answer: RafiqAnswer): RafiqAnswer {
   return {
     ...answer,
     referred: true,
+    kind: "referral",
     blocks: [],
-    referral: { reason: "noSource", links: ["/talk-to-a-human"] },
+    referral: { reason: "noSource", links: ["/talk-to-a-specialist"], centers: [] },
   };
 }
 
@@ -145,6 +174,11 @@ export function answerText(answer: RafiqAnswer): string {
     .join("\n")
     .replace(/\s*\[\d+\]/g, "")
     .trim();
+}
+
+/** Everything Rafiq said in a reply, as the conversation's history carries it back to him. */
+export function replyText(answer: RafiqAnswer): string {
+  return [answer.opening, answerText(answer), answer.followUp].filter(Boolean).join("\n");
 }
 
 export type TextPart = { kind: "text"; text: string } | { kind: "marker"; n: number };

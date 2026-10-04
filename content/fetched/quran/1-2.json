@@ -6,7 +6,17 @@
       "key": "english_saheeh",
       "version": "1.1.2",
       "text": "[All] praise is [due] to Allāh, Lord[4] of the worlds -",
-      "footnotes": "[4] When referring to Allāh (subḥānahu wa taʿālā) , the Arabic term \"rabb\" (translated as \"Lord\") includes all of the following meanings: \"owner, master, ruler, controller, sustainer, provider, guardian and caretaker.\""
+      "footnotes": "[4] When referring to Allāh (subḥānahu wa taʿālā) , the Arabic term \"rabb\" (translated as \"Lord\") includes all of the following meanings: \"owner, master, ruler, controller, sustainer, provider, guardian and caretaker.\"",
+      "name": "English Translation - Noor International Center"
+    },
+    "ar": {
+      "key": "arabic_moyassar",
+      "name": "اللغة العربية - التفسير الميسر",
+      "version": null,
+      "text": "الثناء على الله بصفاته التي كلُّها أوصاف كمال، وبنعمه الظاهرة والباطنة، الدينية والدنيوية، وفي ضمنه أَمْرٌ لعباده أن يحمدوه، فهو المستحق له وحده، وهو سبحانه المنشئ للخلق، القائم بأمورهم، المربي لجميع خلقه بنعمه، ولأوليائه بالإيمان والعمل الصالح.",
+      "footnotes": null,
+      "url": "https://quranenc.com/ar/browse/arabic_moyassar/1#2",
+      "fetchedOn": "2026-10-04"
     }
   },
   "source": {

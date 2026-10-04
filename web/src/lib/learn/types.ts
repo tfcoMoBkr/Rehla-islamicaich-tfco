@@ -35,6 +35,12 @@ export type RecitationSpan = { audioUrl: string; start: number; end: number };
 
 export type LessonSource = { key: string; title: string; url: string; sourceId: string | null };
 
+/** Whose words a card or step shows: a book's, verbatim, or the team's (labelled as such). */
+export type Wording = "book" | "team" | null;
+
+/** A QuranEnc translation or tafsir as it is shown beside a verse: its name and version. */
+export type PublishedTranslation = { name: string; key: string; version: string | null };
+
 export type QuranAyahView = {
   ref: string;
   arabic: string;
@@ -51,18 +57,31 @@ export type EvidenceView =
       ayahs: QuranAyahView[];
       url: string | null;
       attribution: string | null;
+      /** The translation shown with the verses, named with its version (English pages). */
+      translation: PublishedTranslation | null;
       reciter: string | null;
     }
   | {
       kind: "hadith";
       citation: string;
       /** Null when the hadith has no ID or no version in the learner's language: citation only. */
-      hadith: { title: string; text: string; grade: string; attribution: string; explanation: string; url: string } | null;
+      hadith: {
+        title: string;
+        text: string;
+        grade: string;
+        attribution: string;
+        explanation: string;
+        url: string;
+        /** When the text was fetched from HadeethEnc. */
+        fetchedOn: string;
+      } | null;
     };
 
 export type CardView = {
   id: string;
-  text: string;
+  /** Null for a card that is its verse or hadith alone. */
+  text: string | null;
+  wording: Wording;
   sources: LessonSource[];
   evidence: EvidenceView | null;
   evidenceFirst: boolean;
@@ -74,6 +93,7 @@ export type AyahLine = {
   id: string;
   ref: string;
   text: string;
+  /** التفسير الميسر for the ayah (Arabic pages), verbatim. */
   meaning: string | null;
   translation: string | null;
   /** The translator's notes for the markers in `translation`, verbatim. */
@@ -85,6 +105,8 @@ export type AyahLine = {
 export type AyahSet = {
   lines: AyahLine[];
   attribution: string | null;
+  /** The tafsir or translation the lines show, named with its version. */
+  published: PublishedTranslation | null;
   audioUrl: string | null;
   reciter: string | null;
 };
@@ -95,6 +117,7 @@ export type GuidedStep = {
   id: string;
   title: string | null;
   text: string;
+  wording: Wording;
   repeat: string | null;
   say: string | null;
   /** The reference of the step's evidence (a hadith citation or a surah:ayah). */
@@ -135,11 +158,15 @@ export type ActivityView = ActivityCommon &
     | { type: "ayahByAyah"; ayahs: AyahSet }
   );
 
+/** A video on its publisher's page (the primary link), played from the publisher's servers. */
 export type VideoView = SourceLink & {
-  youtubeId?: string;
-  playlistId?: string;
+  page: string;
+  file: string;
   position: "close" | "beforeActivity";
 };
+
+/** The fixed line under a fiqh lesson's title: the books it follows, and where scholars' views are set out. */
+export type FiqhNoteView = { books: string[]; links: string[] };
 
 export type LessonView = {
   id: string;
@@ -149,7 +176,9 @@ export type LessonView = {
   reviewed: boolean;
   demo: boolean;
   objectives: string[];
+  /** The books the lesson's text quotes. */
   sources: LessonSource[];
+  fiqhNote: FiqhNoteView | null;
   media: MediaView[];
   video: VideoView | null;
   cards: CardView[];

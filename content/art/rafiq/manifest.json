@@ -1,7 +1,7 @@
 {
   "character": "Rafiq, the travelling lantern",
-  "credit": "Rehla team; character generated with an AI image tool from the team's own brief, then cut out by the team",
-  "licence": "Team asset",
+  "credit": "Generated with an image tool from the Rehla team's brief",
+  "licence": "Produced for the Rehla project",
   "poses": [
     {
       "file": "rafiq/rafiq-hello.png",

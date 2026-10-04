@@ -11,6 +11,7 @@ import {
   fetchedAyahSchema,
   fetchedHadithSchema,
   fetchedRecitationSchema,
+  fiqhEncyclopediaSchema,
   lessonSchema,
   mediaManifestSchema,
   rafiqManifestSchema,
@@ -22,13 +23,14 @@ import {
   type FetchedAyah,
   type FetchedHadith,
   type FetchedRecitation,
+  type FiqhEncyclopedia,
   type Lesson,
   type LessonVisual,
   type Media,
   type MediaManifest,
   type Question,
   type RafiqManifest,
-  type ReferralCentre,
+  type ReferralCentres,
   type Source,
   type Station,
 } from "./schema";
@@ -187,10 +189,13 @@ export const readFetchedRecitation = cache(
     readOptional(path.join(CONTENT_DIR, "fetched", "recitation", `${surah}.json`), fetchedRecitationSchema),
 );
 
-export const loadReferralCentres = cache(async (): Promise<ReferralCentre[]> => {
-  const { centers } = await readValidated(path.join(CONTENT_DIR, "referral-centers.json"), referralCentresSchema);
-  return centers;
-});
+export const loadFiqhEncyclopedia = cache(
+  (): Promise<FiqhEncyclopedia> => readValidated(path.join(CONTENT_DIR, "fiqh-encyclopedia.json"), fiqhEncyclopediaSchema),
+);
+
+export const loadReferralCentres = cache(
+  (): Promise<ReferralCentres> => readValidated(path.join(CONTENT_DIR, "referral-centers.json"), referralCentresSchema),
+);
 
 const IMAGE_TYPES: Record<string, string> = {
   ".jpg": "image/jpeg",

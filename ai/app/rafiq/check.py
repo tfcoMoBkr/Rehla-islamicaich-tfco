@@ -18,6 +18,7 @@ from collections import Counter
 from dataclasses import dataclass
 from typing import Literal
 
+from app.languages import Language, spec, written_in
 from app.rafiq.draft import Unit, markers, strip_markers
 from app.retrieval.passages import Passage
 from app.text import has_arabic, words
@@ -99,9 +100,13 @@ def _run_length(text: str) -> int:
 
 
 def code_problems(
-    units: list[Unit], passages: list[Passage], required_verse: str | None = None
+    units: list[Unit],
+    passages: list[Passage],
+    required_verse: str | None = None,
+    language: Language | None = None,
 ) -> list[Problem]:
-    """What is wrong with a parsed draft, by code alone. `required_verse` must be shown."""
+    """What is wrong with a parsed draft, by code alone. `required_verse` must be shown, and
+    the prose must be written in `language`'s script."""
     problems: list[Problem] = []
     numbers = {passage.n for passage in passages}
     blocks = [unit.block for unit in units if unit.kind == "block"]
@@ -116,8 +121,7 @@ def code_problems(
         )
     # A book that quotes a verse or hadith may be summarised in its own words: a run the answer
     # shares with such a passage comes from that approved text, not from memory.
-    book_text = " ".join(p.text for p in passages if not p.sacred)
-    book_runs = {n: _runs(book_text, n) for n in (COPIED_RUN_ARABIC_SCRIPT, COPIED_RUN_OTHER)}
+    book_runs = book_runs_of(passages)
     for u, unit in enumerate(units):
         if unit.kind == "block" and unit.block:
             kind, reference = unit.block
@@ -131,7 +135,9 @@ def code_problems(
                 )
             continue
         for s, sentence in enumerate(unit.sentences):
-            problems.extend(_sentence_problems(units, u, s, sentence, passages, numbers, book_runs))
+            problems.extend(
+                _sentence_problems(units, u, s, sentence, passages, numbers, book_runs, language)
+            )
     return problems
 
 
@@ -143,9 +149,19 @@ def _sentence_problems(
     passages: list[Passage],
     numbers: set[int],
     book_runs: dict[int, set[tuple[str, ...]]],
+    language: Language | None = None,
 ) -> list[Problem]:
     found: list[Problem] = []
     quoted = sentence[:120]
+    if language and not written_in(strip_markers(sentence), language):
+        found.append(
+            Problem(
+                "wrongLanguage",
+                f"This sentence is not in {spec(language).name}: «{quoted}»",
+                unit=u,
+                sentence=s,
+            )
+        )
     unknown = sorted(set(markers(sentence)) - numbers)
     if unknown:
         found.append(
@@ -169,20 +185,34 @@ def _sentence_problems(
                 sentence=s,
             )
         )
+    copied = copied_from(sentence, passages, book_runs)
+    if copied is not None:
+        found.append(
+            Problem(
+                "copiedSacred",
+                f"Words of passage [{copied}] are written in the text; "
+                "show it with its placeholder instead.",
+                unit=u,
+                sentence=s,
+                passage=copied,
+            )
+        )
+    return found
+
+
+def book_runs_of(passages: list[Passage]) -> dict[int, set[tuple[str, ...]]]:
+    """Word runs of the book and term passages: a run found there is the book's, not memory's."""
+    book_text = " ".join(p.text for p in passages if not p.sacred)
+    return {n: _runs(book_text, n) for n in (COPIED_RUN_ARABIC_SCRIPT, COPIED_RUN_OTHER)}
+
+
+def copied_from(
+    text: str, passages: list[Passage], book_runs: dict[int, set[tuple[str, ...]]]
+) -> int | None:
+    """The number of the verse or hadith whose words the text copies, if any."""
     for passage in passages:
         for original in passage.sacred_texts():
-            length_needed = _run_length(original)
-            shared = _runs(sentence, length_needed) & _runs(original, length_needed)
-            if shared - book_runs[length_needed]:
-                found.append(
-                    Problem(
-                        "copiedSacred",
-                        f"Words of passage [{passage.n}] are written in the text; "
-                        "show it with its placeholder instead.",
-                        unit=u,
-                        sentence=s,
-                        passage=passage.n,
-                    )
-                )
-                return found
-    return found
+            length = _run_length(original)
+            if (_runs(text, length) & _runs(original, length)) - book_runs[length]:
+                return passage.n
+    return None

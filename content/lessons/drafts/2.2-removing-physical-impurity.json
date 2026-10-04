@@ -5,7 +5,7 @@
   "status": "draft",
   "reviewed": false,
   "reviewedBy": null,
-  "authoring": "Written by the team in simple wording from the sources listed in `sources`. Verses and hadiths are referenced and fetched verbatim, never typed.",
+  "authoring": "Cards with textRef show the named book verbatim; cards marked authoring: team keep the team's wording and rest only on their verse or hadith.",
   "title": {
     "ar": "التطهر من النجاسة وآداب قضاء الحاجة",
     "en": "Removing impurity and toilet etiquette"
@@ -22,86 +22,18 @@
       "Know the etiquette of using the toilet"
     ]
   },
-  "sources": [
-    {
-      "key": "nmg",
-      "title": {
-        "ar": "دليل المسلم الجديد — التطهر من النجاسة",
-        "en": "The New Muslim Guide — Purification from Physical Impurity"
-      },
-      "publisher": "IslamHouse / Modern Guide",
-      "url": {
-        "ar": "https://newmuslimguide.com/ar/categories/your-purification/66efccd101c3a",
-        "en": "https://newmuslimguide.com/en/categories/your-purification/66efccd101c3a"
-      },
-      "use": "Facts restated in our own words; not copied."
-    }
-  ],
+  "sources": [],
   "suggestedVideo": {
-    "ar": {
-      "youtubeId": "E47RDvVR2q8",
-      "channel": "منصة زادي",
-      "position": "close"
-    },
+    "ar": null,
     "en": null
   },
   "cards": [
     {
-      "id": "c1",
-      "source": [
-        "nmg"
-      ],
-      "text": {
-        "ar": "النجاسة: أشياء محسوسة يعدّها الإسلام غير طاهرة، وأمر بإزالتها قبل العبادة.",
-        "en": "Najasah: physical substances that Islam considers impure and commands us to remove before worship."
-      }
-    },
-    {
-      "id": "c2",
-      "source": [
-        "nmg"
-      ],
-      "text": {
-        "ar": "الأصل في كل شيء أنه طاهر. فإذا شككت في ثوبك ولا دليل على نجاسته، فهو طاهر.",
-        "en": "Everything is pure by default. If you doubt your clothing and there is no evidence of impurity, it is pure."
-      },
-      "check": {
-        "type": "trueFalse",
-        "prompt": {
-          "ar": "إذا شككت في طهارة ثوبي بلا دليل فعليّ أن أعدّه نجسًا.",
-          "en": "If I doubt my clothing's purity with no evidence, I must treat it as impure."
-        },
-        "answer": false
-      }
-    },
-    {
-      "id": "c3",
-      "source": [
-        "nmg"
-      ],
-      "text": {
-        "ar": "قبل الصلاة تزيل النجاسة عن ثلاثة: بدنك، وثوبك، والمكان الذي تصلي فيه.",
-        "en": "Before prayer you remove impurity from three things: your body, your clothing, and the place where you pray."
-      }
-    },
-    {
-      "id": "c4",
-      "source": [
-        "nmg"
-      ],
-      "text": {
-        "ar": "من النجاسات: بول الإنسان وغائطه، والدم إلا اليسير، والكلب والخنزير.",
-        "en": "Impure things include: human urine and faeces, blood except a small amount, and dogs and pigs."
-      }
-    },
-    {
       "id": "c5",
-      "source": [
-        "nmg"
-      ],
+      "source": [],
       "text": {
-        "ar": "تُزال النجاسة بالماء أو بأي منظّف، ولا يُشترط عدد معين من الغسلات. وإن بقي أثر أو رائحة بعد الغسل فلا يضر.",
-        "en": "Impurity is removed with water or any cleanser, with no fixed number of washes. If a stain or smell remains after washing, it does no harm."
+        "ar": "وإن بقي أثر أو رائحة بعد الغسل فلا يضر.",
+        "en": "If a stain or smell remains after washing, it does no harm."
       },
       "evidence": {
         "type": "hadith",
@@ -113,142 +45,10 @@
         ],
         "publisher": "hadeethenc.com"
       },
-      "check": {
-        "type": "trueFalse",
-        "prompt": {
-          "ar": "لا تزول النجاسة إلا بغسلها سبع مرات دائمًا.",
-          "en": "Impurity is only ever removed by washing seven times."
-        },
-        "answer": false
-      }
-    },
-    {
-      "id": "c6",
-      "source": [
-        "nmg"
-      ],
-      "text": {
-        "ar": "من آداب قضاء الحاجة: تدخل برجلك اليسرى وتقول الدعاء، وتستر عورتك، وتخرج برجلك اليمنى وتقول: «غفرانك».",
-        "en": "Toilet etiquette: enter with your left foot and say the supplication, cover your private parts, and leave with your right foot saying \"Ghufranak\" (I seek Your forgiveness)."
-      },
-      "evidence": {
-        "type": "hadith",
-        "hadeethencId": 3150,
-        "citation": "متفق عليه",
-        "availableIn": [
-          "ar",
-          "en"
-        ],
-        "publisher": "hadeethenc.com"
-      }
-    },
-    {
-      "id": "c7",
-      "source": [
-        "nmg"
-      ],
-      "text": {
-        "ar": "بعد قضاء الحاجة تتنظف بالماء، وهذا هو الاستنجاء. أو تمسح ثلاث مرات أو أكثر بمنديل ونحوه، وهذا هو الاستجمار. ويُستحب أن يكون باليد اليسرى.",
-        "en": "After relieving yourself you clean with water; this is istinja. Or you wipe three times or more with tissue or the like; this is istijmar. Using the left hand is recommended."
-      },
-      "check": {
-        "type": "single",
-        "prompt": {
-          "ar": "ما الاستنجاء؟",
-          "en": "What is istinja?"
-        },
-        "options": [
-          {
-            "ar": "التنظف بالماء بعد قضاء الحاجة",
-            "en": "Cleaning with water after relieving oneself",
-            "correct": true
-          },
-          {
-            "ar": "غسل اليدين قبل الأكل",
-            "en": "Washing hands before eating",
-            "correct": false
-          }
-        ]
-      }
+      "authoring": "team"
     }
   ],
-  "activities": [
-    {
-      "id": "a1",
-      "type": "swipe",
-      "title": {
-        "ar": "طاهر أم نجس؟",
-        "en": "Pure or impure?"
-      },
-      "sides": {
-        "right": {
-          "ar": "طاهر",
-          "en": "Pure"
-        },
-        "left": {
-          "ar": "نجس",
-          "en": "Impure"
-        }
-      },
-      "items": [
-        {
-          "ar": "بول الإنسان",
-          "en": "Human urine",
-          "side": "left"
-        },
-        {
-          "ar": "السمك الميت",
-          "en": "Dead fish",
-          "side": "right"
-        },
-        {
-          "ar": "ثوب شككت فيه بلا دليل",
-          "en": "Clothing I doubt with no evidence",
-          "side": "right"
-        },
-        {
-          "ar": "دم كثير",
-          "en": "A large amount of blood",
-          "side": "left"
-        },
-        {
-          "ar": "الحشرات",
-          "en": "Insects",
-          "side": "right"
-        }
-      ]
-    },
-    {
-      "id": "a2",
-      "type": "order",
-      "title": {
-        "ar": "من الدخول إلى الخروج",
-        "en": "From entering to leaving"
-      },
-      "items": [
-        {
-          "ar": "أدخل بالرجل اليسرى وأقول الدعاء",
-          "en": "I enter with my left foot and say the supplication",
-          "n": 1
-        },
-        {
-          "ar": "أستر عورتي وأقضي حاجتي",
-          "en": "I cover myself and relieve myself",
-          "n": 2
-        },
-        {
-          "ar": "أتنظف بالماء أو بالمناديل",
-          "en": "I clean with water or tissue",
-          "n": 3
-        },
-        {
-          "ar": "أخرج بالرجل اليمنى وأقول: غفرانك",
-          "en": "I leave with my right foot and say: Ghufranak",
-          "n": 4
-        }
-      ]
-    }
-  ],
+  "activities": [],
   "situation": {
     "prompt": {
       "ar": "غسلت بقعة نجاسة من ثوبك جيدًا، وبقي لون خفيف لا يزول. ماذا يقول الدرس؟",
@@ -267,10 +67,7 @@
       }
     ]
   },
-  "reviewNotes": [
-    "The entering supplication is not typed; it must be shown from a resolved hadith reference.",
-    "The lesson omits the detail on animal impurities and the dog rule to stay simple; reviewer to decide whether to add them."
-  ],
+  "reviewNotes": [],
   "explainToRafiq": {
     "prompt": {
       "ar": "اشرح لرفيق بكلماتك أهم ما فهمته من هذا الدرس.",
@@ -280,10 +77,5 @@
       "cards"
     ]
   },
-  "readMore": [
-    {
-      "ar": "https://newmuslimguide.com/ar/categories/your-purification/66efccd101c3a",
-      "en": "https://newmuslimguide.com/en/categories/your-purification/66efccd101c3a"
-    }
-  ]
+  "readMore": []
 }

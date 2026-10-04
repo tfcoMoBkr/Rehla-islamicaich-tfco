@@ -7,6 +7,7 @@ import { ListenControls } from "@/components/learn/audio/listen-controls";
 import { EvidenceBlock } from "@/components/learn/evidence-block";
 import { MediaGallery } from "@/components/learn/media-gallery";
 import { SourceLinks } from "@/components/learn/source-links";
+import { TeamWordingLabel } from "@/components/learn/wording";
 import { splitSentences, type ReadAloud } from "@/lib/audio/speech";
 import type { CardView } from "@/lib/learn/types";
 
@@ -35,7 +36,7 @@ type CardBoardProps = {
 export function CardBoard({ card, instant, sounds, narrate, onNarrateChange, onWritten, onLineHelp }: CardBoardProps) {
   const t = useTranslations("Board");
   const locale = useLocale();
-  const lines = useMemo(() => splitSentences(card.text), [card.text]);
+  const lines = useMemo(() => splitSentences(card.text ?? ""), [card.text]);
   const writing = useChalkWriting({ lines, locale, instant, sounds });
   const { reader } = writing;
   const started = useRef(false);
@@ -74,6 +75,7 @@ export function CardBoard({ card, instant, sounds, narrate, onNarrateChange, onW
           after={(line) => <LineHelpButton onOpen={() => onLineHelp(line)} />}
         />
       </div>
+      <TeamWordingLabel wording={card.wording} />
       <div className="flex flex-wrap items-center gap-2">
         <ListenControls reader={listen} />
         {!writing.done && (

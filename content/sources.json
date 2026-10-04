@@ -15,8 +15,8 @@
         "en": "The Quran verses cited by lesson cards and the verses of the \"Ayah by ayah\" activity, fetched by reference and never typed. Each verse is shown in Arabic, with the Noor International Center translation (english_saheeh) in the English interface. Rafiq shows every verse in Arabic with one published translation in the answer's language, with its name and version: english_saheeh (English Translation - Noor International Center, 1.1.2), urdu_junagarhi (Urdu Translation - Muhammad Junagarhi, 1.1.3) and french_montada (French translation - Noor International Center, 1.0.0), chosen with list_quran_translations on 2026-10-04. QuranEnc lists no Bengali translation, so a verse in a Bengali answer shows the English one, labelled as such."
       },
       "licence": {
-        "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره. يُحتفظ برقم إصدار الترجمة.",
-        "en": "The organisers' package states that the content of the Association's platforms is free for individuals and organisations; text is kept unmodified and attributed. The translation's version is kept."
+        "ar": "شروط QuranEnc.com المنشورة (صفحتا «حول المشروع» و«خدمات المطورين»، رُوجعت في 2026-10-04): يتاح تنزيل محتوى الترجمات وإعادة نشره، بالشروط والضوابط التالية: 1. عدم التعديل أو الإضافة أو الحذف على المحتوى. 2. الإشارة بوضوح للناشر وللمصدر (QuranEnc.com). 3. ذكر رقم الإصدار عند إعادة نشر الترجمة. 4. إبقاء معلومات نسخة الترجمة الموجودة داخل المستند. 5. إفادة المصدر (QuranEnc.com) بأي ملاحظة على الترجمة. 6. تطوير الترجمات وفق النسخ الجديدة الصادرة من المصدر (QuranEnc.com). 7. عدم تضمين إعلانات لا تليق بترجمات معاني القرآن الكريم عند العرض. وتُعرض النصوص في رحلة دون تعديل، ويُذكر تحت كل آية اسم الترجمة ورقم إصدارها، أو أن QuranEnc لا ينشر لها رقم إصدار، ولا إعلانات في المنصة.",
+        "en": "QuranEnc.com's published terms (its About and Developers' pages, checked on 2026-10-04): Contents of the translations can be downloaded and re-published, with the following terms and conditions: 1. No modification, addition, or deletion of the content. 2. Clearly referring to the publisher and the source (QuranEnc.com). 3. Mentioning the version number when re-publishing the translation. 4. Keeping the transcript information inside the document. 5. Notifying the source (QuranEnc.com) of any note on the translation. 6. Updating the translation according to the latest version issued from the source (QuranEnc.com). 7. Inappropriate advertisements must not be included when displaying translations of the meanings of the Noble Quran. Rehla shows the texts unmodified, names each translation and its version under the verse (or says that QuranEnc publishes no version number for it), and carries no advertisements."
       },
       "status": "approved",
       "verifiedOn": "2026-10-04"
@@ -57,33 +57,10 @@
         "en": "The hadiths cited by lesson cards, with their grade, attribution and explanation, fetched verbatim by ID. A hadith is shown in the learner's language when the source has a version in it; otherwise only its reference is given. Rafiq's corpus also keeps a catalogue of hadith and category titles only, without texts. Rafiq shows a hadith in Arabic with its published translation in the answer's language (Arabic, English, Urdu, Bengali or French) and, in Urdu, Bengali and French answers, HadeethEnc's own explanation; a hadith with no version in that language is shown with its English one, labelled as such."
       },
       "licence": {
-        "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره. لا تنشر واجهته رقم إصدار، فيُسجَّل تاريخ الجلب.",
-        "en": "The organisers' package states that the content of the Association's platforms is free for individuals and organisations; text is kept unmodified and attributed. Its API publishes no version number, so the fetch date is recorded."
+        "ar": "لا تنشر HadeethEnc.com شروطًا لإعادة الاستخدام غير ما في صفحة «حول الموسوعة» (رُوجعت في 2026-10-04) من أنها تتيح ترجماتها «مجاناً بكل الوسائل المتاحة». وتنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره، ويُعرض كل حديث بدرجته وتخريجه ورابطه وتاريخ جلبه.",
+        "en": "HadeethEnc.com publishes no reuse conditions beyond its About page (checked on 2026-10-04), which says it provides its translations \"for free through all available means\". The organisers' package states that the content of the Association's platforms is free for individuals and organisations; text is kept unmodified and attributed, and each hadith is shown with its grade, attribution, link and the date it was fetched."
       },
       "status": "approved",
-      "verifiedOn": "2026-10-04"
-    },
-    {
-      "id": "nmg",
-      "type": "lessons",
-      "name": {
-        "ar": "دليل المسلم الجديد",
-        "en": "The New Muslim Guide"
-      },
-      "aliases": [],
-      "url": "https://newmuslimguide.com",
-      "alsoAt": [
-        "https://islamhouse.com/en/books/2838874"
-      ],
-      "usedFor": {
-        "ar": "ترتيب دروس «خطوات» وعناوينها، ورابط «اقرأ الدرس كاملًا». يعيد الفريق صياغة معلوماته بكلمات بسيطة ولا يُنسخ نصه.",
-        "en": "The order and titles of the Khutuwat lessons, and their \"read the full lesson\" links. The team restates its facts in simple wording; its text is not copied."
-      },
-      "licence": {
-        "ar": "جميع الحقوق محفوظة (Modern Guide Company)؛ لذلك لا يُنسخ النص.",
-        "en": "All rights reserved (Modern Guide Company); its text is therefore not copied."
-      },
-      "status": "pendingReview",
       "verifiedOn": "2026-10-04"
     },
     {
@@ -97,12 +74,12 @@
       "url": "https://islamhouse.com/ar/books/1871/",
       "alsoAt": [],
       "usedFor": {
-        "ar": "نص مرجعي للفريق الذي يكتب دروس «خطوات»: الكتاب بالعربية محفوظًا بنصه كما نُشر، قسمًا قسمًا.",
-        "en": "Reference text for the team writing the Khutuwat lessons: the Arabic book, kept word for word as published, section by section."
+        "ar": "نص مرجعي للفريق الذي يكتب دروس «خطوات»: الكتاب بالعربية محفوظًا بنصه كما نُشر، قسمًا قسمًا. تقتبس بطاقات الدروس نصه حرفيًّا بالإحالة إليه (الكتاب والقسم والفقرة ومقتطف مطابق يتحقق منه اختبار آلي).",
+        "en": "Reference text for the team writing the Khutuwat lessons: the Arabic book, kept word for word as published, section by section. Lesson cards quote it verbatim by reference (book, section, paragraph and an exact excerpt, checked by a test)."
       },
       "licence": {
-        "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره. الناشر: مؤسسة الشيخ عبد العزيز بن باز الخيرية.",
-        "en": "The organisers' package states that the content of the Association's platforms is free for individuals and organisations; text is kept unmodified and attributed. Publisher: Sheikh Abdulaziz bin Baz Charitable Foundation."
+        "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره. الناشر: مؤسسة الشيخ عبد العزيز بن باز الخيرية. للاستخدام غير الربحي فقط.",
+        "en": "The organisers' package states that the content of the Association's platforms is free for individuals and organisations; text is kept unmodified and attributed. Publisher: Sheikh Abdulaziz bin Baz Charitable Foundation. Non-profit use only."
       },
       "status": "approved",
       "verifiedOn": "2026-10-04"
@@ -118,12 +95,12 @@
       "url": "https://islamhouse.com/en/books/2842316/",
       "alsoAt": [],
       "usedFor": {
-        "ar": "نص مرجعي للفريق الذي يكتب دروس «خطوات»: الترجمة الإنجليزية كما استُخرجت من ملف PDF، درسًا درسًا. الاقتباسات العربية في الملف لا تُستخرج بترتيب حروفها، فلا تُستعمل.",
-        "en": "Reference text for the team writing the Khutuwat lessons: the English translation as extracted from its PDF, lesson by lesson. Arabic quotations in the PDF do not extract in letter order and are not used."
+        "ar": "نص مرجعي للفريق الذي يكتب دروس «خطوات»: الترجمة الإنجليزية كما استُخرجت من ملف PDF، درسًا درسًا. الاقتباسات العربية في الملف لا تُستخرج بترتيب حروفها، فلا تُستعمل. تقتبس بطاقات الدروس نصه حرفيًّا بالإحالة إليه (الكتاب والقسم والفقرة ومقتطف مطابق يتحقق منه اختبار آلي).",
+        "en": "Reference text for the team writing the Khutuwat lessons: the English translation as extracted from its PDF, lesson by lesson. Arabic quotations in the PDF do not extract in letter order and are not used. Lesson cards quote it verbatim by reference (book, section, paragraph and an exact excerpt, checked by a test)."
       },
       "licence": {
-        "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره. ناشر الترجمة موقع risala.prh.gov.sa.",
-        "en": "The organisers' package states that the content of the Association's platforms is free for individuals and organisations; text is kept unmodified and attributed. Translation published by risala.prh.gov.sa."
+        "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره. ناشر الترجمة موقع risala.prh.gov.sa. للاستخدام غير الربحي فقط.",
+        "en": "The organisers' package states that the content of the Association's platforms is free for individuals and organisations; text is kept unmodified and attributed. Translation published by risala.prh.gov.sa. Non-profit use only."
       },
       "status": "approved",
       "verifiedOn": "2026-10-04"
@@ -141,12 +118,12 @@
         "https://islamhouse.com/en/books/1261/"
       ],
       "usedFor": {
-        "ar": "نص مرجعي للفريق الذي يكتب دروس الصلاة: الكتاب بالعربية محفوظًا بنصه قسمًا قسمًا، ونص الطبعة الإنجليزية صفحةً صفحة.",
-        "en": "Reference text for the team writing the prayer lessons: the Arabic book kept word for word, section by section, and the English edition's text page by page."
+        "ar": "نص مرجعي للفريق الذي يكتب دروس الصلاة: الكتاب بالعربية محفوظًا بنصه قسمًا قسمًا، ونص الطبعة الإنجليزية صفحةً صفحة. تقتبس بطاقات الدروس نصه حرفيًّا بالإحالة إليه (الكتاب والقسم والفقرة ومقتطف مطابق يتحقق منه اختبار آلي).",
+        "en": "Reference text for the team writing the prayer lessons: the Arabic book kept word for word, section by section, and the English edition's text page by page. Lesson cards quote it verbatim by reference (book, section, paragraph and an exact excerpt, checked by a test)."
       },
       "licence": {
-        "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره.",
-        "en": "The organisers' package states that the content of the Association's platforms is free for individuals and organisations; text is kept unmodified and attributed."
+        "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره. للاستخدام غير الربحي فقط.",
+        "en": "The organisers' package states that the content of the Association's platforms is free for individuals and organisations; text is kept unmodified and attributed. Non-profit use only."
       },
       "status": "approved",
       "verifiedOn": "2026-10-04"
@@ -168,60 +145,35 @@
         "en": "Illustrations for the wudu lessons, taken from the guide without cropping or changes and credited to Osoul Center."
       },
       "licence": {
-        "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره. النسبة: مركز أصول عبر IslamHouse.com.",
-        "en": "The organisers' package states that the content of the Association's platforms is free for individuals and organisations; text is kept unmodified and attributed. Credit: Osoul Center via IslamHouse.com."
+        "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره. النسبة: مركز أصول عبر IslamHouse.com. للاستخدام غير الربحي فقط.",
+        "en": "The organisers' package states that the content of the Association's platforms is free for individuals and organisations; text is kept unmodified and attributed. Credit: Osoul Center via IslamHouse.com. Non-profit use only."
       },
       "status": "approved",
       "verifiedOn": "2026-10-04"
     },
     {
-      "id": "zadi",
+      "id": "islamhouse-videos",
       "type": "video",
       "name": {
-        "ar": "منصة زادي للتعليم الشرعي المفتوح",
-        "en": "Zadi Learning"
+        "ar": "مقاطع مركز أصول على IslamHouse.com",
+        "en": "Osoul Center videos on IslamHouse.com"
       },
-      "aliases": [
-        "منصة زادي"
-      ],
-      "url": "https://www.youtube.com/@zadilearning",
-      "alsoAt": [],
-      "usedFor": {
-        "ar": "مقاطع مقترحة بالعربية في ختام الدروس، من برنامج «حقيبة دليل المسلم الميسر».",
-        "en": "Suggested Arabic videos at the close of lessons, from the programme «حقيبة دليل المسلم الميسر»."
-      },
-      "licence": {
-        "ar": "تُعرض عبر مشغّل YouTube المدمج (youtube-nocookie.com) ولا يُعاد رفعها. بانتظار موافقة المشرف العلمي على المصدر.",
-        "en": "Shown in YouTube's embedded player (youtube-nocookie.com), never re-uploaded. Awaiting the scholarly mentor's approval of this source."
-      },
-      "status": "pendingReview",
-      "verifiedOn": "2026-10-04"
-    },
-    {
-      "id": "gti",
-      "type": "video",
-      "name": {
-        "ar": "Guide To Islam (Osoul Global Center)",
-        "en": "Guide To Islam (Osoul Global Center)"
-      },
-      "aliases": [
-        "Guide To Islam"
-      ],
-      "url": "https://www.youtube.com/@Guidetoislam",
+      "aliases": [],
+      "url": "https://islamhouse.com/ar/videos/2834583/",
       "alsoAt": [
         "https://islamhouse.com/en/videos/2834586/",
-        "https://islamhouse.com/en/videos/2838921/",
-        "https://islamhouse.com/en/videos/2822062/"
+        "https://islamhouse.com/ar/videos/2832089/",
+        "https://islamhouse.com/en/videos/2838921/"
       ],
       "usedFor": {
-        "ar": "مقاطع مقترحة بالإنجليزية في ختام الدروس، ويُستشهد بصفحاتها على IslamHouse.",
-        "en": "Suggested English videos at the close of lessons, cited through their IslamHouse pages."
+        "ar": "المقطع المقترح لدرس الوضوء (كيف أتوضأ؟) ودرس الصلاة (كيف أصلي؟): صفحة المقطع في IslamHouse هي الرابط الأول، ويُشغَّل الملف من خوادم الموقع نفسها ولا يُعاد رفعه.",
+        "en": "The suggested video of the wudu lesson (How do I perform wudu?) and of the prayer lesson (How do I pray?): the video's IslamHouse page is the primary link, and the file plays from the site's own servers, never re-uploaded."
       },
       "licence": {
-        "ar": "تُعرض عبر مشغّل YouTube المدمج (youtube-nocookie.com) ولا يُعاد رفعها.",
-        "en": "Shown in YouTube's embedded player (youtube-nocookie.com), never re-uploaded."
+        "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُعرض دون تعديل ومع نسبته إلى مصدره. النسبة: الفريق العلمي لمركز أصول عبر IslamHouse.com. للاستخدام غير الربحي فقط.",
+        "en": "The organisers' package states that the content of the Association's platforms is free for individuals and organisations; shown unmodified and attributed. Credit: Osoul Center's scientific team via IslamHouse.com. Non-profit use only."
       },
-      "status": "pendingReview",
+      "status": "approved",
       "verifiedOn": "2026-10-04"
     },
     {
@@ -234,12 +186,12 @@
       "aliases": [],
       "alsoAt": [],
       "usedFor": {
-        "ar": "الرسوم المثبتة على لوح كل درس، والأيقونات، وشخصية رفيق. رسم الفريق المشاهد والأيقونات بنفسه، وولّد شخصية رفيق بأداة توليد صور بالذكاء الاصطناعي من وصفه الخاص ثم فرّغها بنفسه.",
-        "en": "The drawings pinned on each lesson's board, the icons, and Rafiq's character. The team drew the scenes and icons itself; Rafiq was generated with an AI image tool from the team's own brief, then cut out by the team."
+        "ar": "الرسوم المثبتة على لوح كل درس، والأيقونات، وشخصية رفيق. رسوم المشاهد والأيقونات أُنتجت بمساعدة أداة ذكاء اصطناعي وراجعها الفريق. شخصية رفيق وُلِّدت بأداة توليد صور من وصف الفريق.",
+        "en": "The drawings pinned on each lesson's board, the icons, and Rafiq's character. The scene drawings and icons were produced with the help of an AI tool and reviewed by the team. Rafiq's character was generated with an image tool from the team's brief."
       },
       "licence": {
-        "ar": "عمل أصلي لفريق رحلة، ومن أصوله شخصية رفيق.",
-        "en": "Original work and assets of the Rehla team, Rafiq's character included."
+        "ar": "أُنتجت لمشروع رحلة بمساعدة أدوات ذكاء اصطناعي، بوصف الفريق ومراجعته.",
+        "en": "Produced for the Rehla project with AI tools, from the team's brief and under its review."
       },
       "status": "approved",
       "verifiedOn": "2026-10-04"
@@ -255,8 +207,8 @@
       "url": "https://byenah.com/en/muslim-content/4784",
       "alsoAt": [],
       "usedFor": {
-        "ar": "نص مرجعي لإجابات رفيق (بالإنجليزية): الكتاب كما نُشر، قسمًا قسمًا، محفوظًا في مدونة رفيق.",
-        "en": "Reference text for Rafiq's answers (English): the book as published, section by section, kept in Rafiq's corpus."
+        "ar": "نص مرجعي لإجابات رفيق (بالإنجليزية): الكتاب كما نُشر، قسمًا قسمًا، محفوظًا في مدونة رفيق. تقتبس بطاقات الدروس نصه حرفيًّا بالإحالة إليه (الكتاب والقسم والفقرة ومقتطف مطابق يتحقق منه اختبار آلي).",
+        "en": "Reference text for Rafiq's answers (English): the book as published, section by section, kept in Rafiq's corpus. Lesson cards quote it verbatim by reference (book, section, paragraph and an exact excerpt, checked by a test)."
       },
       "licence": {
         "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره.",
@@ -276,35 +228,12 @@
       "url": "https://islamhouse.com/ar/books/2831443/",
       "alsoAt": [],
       "usedFor": {
-        "ar": "نص مرجعي لإجابات رفيق (بالعربية): الكتاب كما نُشر، قسمًا قسمًا، محفوظًا في مدونة رفيق. الآيات فيه مرسومة بخط لا يُستخرج نصًّا، فتُؤخذ الآيات من مصدرها.",
-        "en": "Reference text for Rafiq's answers (Arabic): the book as published, section by section, kept in Rafiq's corpus. Its verses are set in a glyph font that does not extract as text, so verses are taken from their own source."
+        "ar": "نص مرجعي لإجابات رفيق (بالعربية): الكتاب كما نُشر، قسمًا قسمًا، محفوظًا في مدونة رفيق. الآيات فيه مرسومة بخط لا يُستخرج نصًّا، فتُؤخذ الآيات من مصدرها. تقتبس بطاقات الدروس نصه حرفيًّا بالإحالة إليه (الكتاب والقسم والفقرة ومقتطف مطابق يتحقق منه اختبار آلي).",
+        "en": "Reference text for Rafiq's answers (Arabic): the book as published, section by section, kept in Rafiq's corpus. Its verses are set in a glyph font that does not extract as text, so verses are taken from their own source. Lesson cards quote it verbatim by reference (book, section, paragraph and an exact excerpt, checked by a test)."
       },
       "licence": {
-        "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره.",
-        "en": "The organisers' package states that the content of the Association's platforms is free for individuals and organisations; text is kept unmodified and attributed."
-      },
-      "status": "approved",
-      "verifiedOn": "2026-10-04"
-    },
-    {
-      "id": "ih-new-muslim-guide",
-      "type": "lessons",
-      "name": {
-        "ar": "«دليل المسلم الجديد» لهيثم سرحان (IslamHouse)",
-        "en": "The New Muslim Guide, Haitham Sarhan (IslamHouse)"
-      },
-      "aliases": [],
-      "url": "https://islamhouse.com/ar/books/2838873/",
-      "alsoAt": [
-        "https://islamhouse.com/en/books/2838874/"
-      ],
-      "usedFor": {
-        "ar": "مُدرج للتوثيق فقط: ملفاه بالعربية والإنجليزية صور بلا طبقة نص، فلا يُحفظ منهما شيء (لا يُستعمل التعرف الضوئي على الحروف).",
-        "en": "Listed for the record only: its Arabic and English PDFs are images with no text layer, so nothing is stored from them (OCR is not used)."
-      },
-      "licence": {
-        "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره.",
-        "en": "The organisers' package states that the content of the Association's platforms is free for individuals and organisations; text is kept unmodified and attributed."
+        "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره. للاستخدام غير الربحي فقط.",
+        "en": "The organisers' package states that the content of the Association's platforms is free for individuals and organisations; text is kept unmodified and attributed. Non-profit use only."
       },
       "status": "approved",
       "verifiedOn": "2026-10-04"
@@ -326,6 +255,26 @@
       "licence": {
         "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره.",
         "en": "The organisers' package states that the content of the Association's platforms is free for individuals and organisations; text is kept unmodified and attributed."
+      },
+      "status": "approved",
+      "verifiedOn": "2026-10-04"
+    },
+    {
+      "id": "ncnp-directory",
+      "type": "referral",
+      "name": {
+        "ar": "دليل المركز الوطني لتنمية القطاع غير الربحي",
+        "en": "Directory of the National Center for Non-Profit Sector"
+      },
+      "aliases": [],
+      "alsoAt": [],
+      "usedFor": {
+        "ar": "الجهات المرخّصة التي يحيل إليها «رفيق» وتعرضها صفحة «تحدّث مع مختص»: قناة وطنية واحدة (مركز الاتصال الموحد 1933) و13 جمعية في سبع مدن بالمملكة. جمعها قائد الفريق في 2026-10-04، بالحقول المتحقق منها فقط، وتُعرض كما أُعطيت.",
+        "en": "The licensed bodies Rafiq refers to and the \"Talk to a specialist\" page lists: one national channel (the 1933 unified call centre) and 13 associations in seven Saudi cities. Collected by the team lead on 2026-10-04, verified fields only, shown as given."
+      },
+      "licence": {
+        "ar": "بيانات تواصل عامة منشورة في الدليل، تُعرض دون تعديل. لا تشارك «رحلة» أي شيء عن المتعلم مع هذه الجهات.",
+        "en": "Public contact details published in the directory, shown unmodified. Rehla shares nothing about the learner with these bodies."
       },
       "status": "approved",
       "verifiedOn": "2026-10-04"

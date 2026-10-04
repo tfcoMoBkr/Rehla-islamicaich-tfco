@@ -5,73 +5,63 @@
   "status": "draft",
   "reviewed": false,
   "reviewedBy": null,
-  "authoring": "Written by the team in simple wording from the sources listed in `sources`. Verses and hadiths are referenced and fetched verbatim, never typed.",
+  "authoring": "Cards with textRef show the named book verbatim; cards marked authoring: team keep the team's wording and rest only on their verse or hadith.",
   "title": {
     "ar": "شروط الصلاة ومكانها",
     "en": "Conditions and place of prayer"
   },
   "objectives": {
     "ar": [
-      "أن يعدّد المتعلم شروط الصلاة الأربعة",
       "أن يعرف أن الأرض كلها مكان للصلاة ما دامت طاهرة"
     ],
     "en": [
-      "Name the four conditions of prayer",
       "Know that the whole earth is a place of prayer as long as it is clean"
     ]
   },
   "sources": [
     {
-      "key": "nmg",
+      "key": "ibnbaz-lessons",
       "title": {
-        "ar": "دليل المسلم الجديد — شروط الصلاة",
-        "en": "The New Muslim Guide — Conditions of Prayer"
+        "ar": "الدروس المهمة لعامة الأمة",
+        "en": "Important Lessons for the General Ummah"
       },
-      "publisher": "IslamHouse / Modern Guide",
+      "publisher": "IslamHouse.com",
       "url": {
-        "ar": "https://newmuslimguide.com/ar/categories/your-prayer/66fe415de06b4",
-        "en": "https://newmuslimguide.com/en/categories/your-prayer/66fe415de06b4"
+        "ar": "https://islamhouse.com/ar/books/1871/",
+        "en": "https://islamhouse.com/en/books/2842316/"
       },
-      "use": "Facts restated in our own words; not copied."
-    },
-    {
-      "key": "nmg-place",
-      "title": {
-        "ar": "دليل المسلم الجديد — مكان الصلاة",
-        "en": "The New Muslim Guide — The Place of Prayer"
-      },
-      "publisher": "IslamHouse / Modern Guide",
-      "url": {
-        "ar": "https://newmuslimguide.com/ar/categories/your-prayer/6702360956f71",
-        "en": "https://newmuslimguide.com/en/categories/your-prayer/6702360956f71"
-      },
-      "use": "Facts restated in our own words; not copied."
+      "use": "Shown verbatim by reference (textRef)."
     }
   ],
   "suggestedVideo": {
-    "ar": {
-      "youtubeId": "5GtS69nP4gY",
-      "channel": "منصة زادي",
-      "position": "close"
-    },
+    "ar": null,
     "en": null
   },
   "cards": [
     {
       "id": "c1",
       "source": [
-        "nmg"
+        "ibnbaz-lessons"
       ],
-      "text": {
-        "ar": "الشرط الأول: الطهارة من الحدث والنجاسة، وقد تعلمتها في المحطة السابقة.",
-        "en": "First condition: being free of ritual and physical impurity, which you learned in the previous station."
+      "textRef": {
+        "ar": {
+          "book": "1871",
+          "section": "t10",
+          "paragraph": 1,
+          "excerpt": "الإسلام، والعقل، والتمييز، ورفع الحدث، وإزالة النجاسة، وستر العورة، ودخول الوقت، واستقبال القبلة، والنية."
+        },
+        "en": {
+          "book": "2842316",
+          "section": "s9",
+          "paragraph": 2,
+          "excerpt": "Islam, sanity, reaching the age of discernment, being in a state of ritual purity, removal of najāsah (tangible impurity), covering the ‘awrah (parts of the body that must be covered during the prayer), commencement of the prayer time, facing the qiblah (direction of the Ka‘bah), and the intention."
+        }
       }
     },
     {
       "id": "c2",
-      "source": [
-        "nmg"
-      ],
+      "source": [],
+      "authoring": "team",
       "text": {
         "ar": "الشرط الثاني: ستر العورة بلباس ليس ضيقًا ولا شفافًا. عورة الرجل من السرّة إلى الركبة، والمرأة تستر بدنها كله إلا الوجه والكفين.",
         "en": "Second: covering the 'awrah with clothing that is neither tight nor see-through. For a man it is from the navel to the knee; a woman covers her whole body except the face and hands."
@@ -84,9 +74,8 @@
     },
     {
       "id": "c3",
-      "source": [
-        "nmg"
-      ],
+      "source": [],
+      "authoring": "team",
       "text": {
         "ar": "الشرط الثالث: استقبال القبلة، وهي الكعبة في مكة. من كان بعيدًا عنها يتجه إلى جهتها، ولا يضر الانحراف اليسير.",
         "en": "Third: facing the qiblah, the Ka'bah in Makkah. Someone far away faces its direction, and a slight deviation does no harm."
@@ -118,9 +107,8 @@
     },
     {
       "id": "c4",
-      "source": [
-        "nmg"
-      ],
+      "source": [],
+      "authoring": "team",
       "text": {
         "ar": "ومن عجز عن استقبال القبلة لمرض ونحوه سقط عنه ذلك.",
         "en": "Someone unable to face the qiblah because of illness or the like is excused."
@@ -133,9 +121,8 @@
     },
     {
       "id": "c5",
-      "source": [
-        "nmg"
-      ],
+      "source": [],
+      "authoring": "team",
       "text": {
         "ar": "الشرط الرابع: دخول الوقت. لا تصح الصلاة قبل وقتها، ولا يجوز تأخيرها عنه.",
         "en": "Fourth: its time having begun. Prayer is not valid before its time, and it must not be delayed beyond it."
@@ -155,20 +142,9 @@
       }
     },
     {
-      "id": "c6",
-      "source": [
-        "nmg"
-      ],
-      "text": {
-        "ar": "من نام عن صلاة أو نسيها صلّاها حين يتذكرها.",
-        "en": "Whoever sleeps through a prayer or forgets it prays it as soon as they remember."
-      }
-    },
-    {
       "id": "c7",
-      "source": [
-        "nmg-place"
-      ],
+      "source": [],
+      "authoring": "team",
       "text": {
         "ar": "تصح الصلاة في أي مكان طاهر، وهذا من تيسير الله. والأصل في المكان الطهارة، فلا تحتاج إلى سجادة.",
         "en": "Prayer is valid in any clean place; this is ease from Allah. A place is clean by default, so a prayer mat is not required."
@@ -183,16 +159,6 @@
         ],
         "publisher": "hadeethenc.com"
       }
-    },
-    {
-      "id": "c8",
-      "source": [
-        "nmg-place"
-      ],
-      "text": {
-        "ar": "تجنّب الصلاة في مكان تؤذي فيه الناس كالممرات، أو فيه ما يشغلك كالصور والأصوات العالية.",
-        "en": "Avoid praying where you would inconvenience people, such as passageways, or where things distract you, such as pictures and loud noise."
-      }
     }
   ],
   "activities": [
@@ -203,10 +169,6 @@
       "title": {
         "ar": "هل أنا جاهز للصلاة؟",
         "en": "Am I ready to pray?"
-      },
-      "instruction": {
-        "ar": "أشّر على الشروط الأربعة.",
-        "en": "Tick the four conditions."
       },
       "items": [
         {
@@ -243,7 +205,6 @@
         "ar": "أين أصلي؟",
         "en": "Where do I pray?"
       },
-      "source": "nmg-place",
       "steps": [
         {
           "q": {
@@ -254,26 +215,6 @@
             "ar": "ابحث عن مكان طاهر.",
             "en": "Find a clean place."
           }
-        },
-        {
-          "q": {
-            "ar": "هل صلاتك فيه تضايق الناس، كأن يكون ممرًّا؟",
-            "en": "Would praying there inconvenience people, such as in a passageway?"
-          },
-          "yes": {
-            "ar": "ابحث عن مكان أنسب.",
-            "en": "Find a more suitable place."
-          }
-        },
-        {
-          "q": {
-            "ar": "هل فيه ما يشغلك كالصور والأصوات العالية؟",
-            "en": "Is there something distracting, such as pictures or loud noise?"
-          },
-          "yes": {
-            "ar": "تجنّبه إن استطعت.",
-            "en": "Avoid it if you can."
-          }
         }
       ],
       "end": {
@@ -282,24 +223,7 @@
       }
     }
   ],
-  "situation": {
-    "prompt": {
-      "ar": "حان وقت الصلاة وأنت في حديقة عامة وليس معك سجادة. ماذا يقول الدرس؟",
-      "en": "Prayer time comes while you are in a public park without a prayer mat. What does the lesson say?"
-    },
-    "options": [
-      {
-        "ar": "أصلي في مكان طاهر لا أضايق فيه أحدًا",
-        "en": "I pray in a clean spot where I inconvenience no one",
-        "correct": true
-      },
-      {
-        "ar": "لا تصح الصلاة بلا سجادة",
-        "en": "Prayer is not valid without a mat",
-        "correct": false
-      }
-    ]
-  },
+  "situation": null,
   "explainToRafiq": {
     "prompt": {
       "ar": "اشرح لرفيق بكلماتك أهم ما فهمته من هذا الدرس.",
@@ -309,14 +233,5 @@
       "cards"
     ]
   },
-  "readMore": [
-    {
-      "ar": "https://newmuslimguide.com/ar/categories/your-prayer/66fe415de06b4",
-      "en": "https://newmuslimguide.com/en/categories/your-prayer/66fe415de06b4"
-    },
-    {
-      "ar": "https://newmuslimguide.com/ar/categories/your-prayer/6702360956f71",
-      "en": "https://newmuslimguide.com/en/categories/your-prayer/6702360956f71"
-    }
-  ]
+  "readMore": []
 }

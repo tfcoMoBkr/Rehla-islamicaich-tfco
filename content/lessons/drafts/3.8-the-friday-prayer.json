@@ -5,7 +5,7 @@
   "status": "draft",
   "reviewed": false,
   "reviewedBy": null,
-  "authoring": "Written by the team in simple wording from the sources listed in `sources`. Verses and hadiths are referenced and fetched verbatim, never typed.",
+  "authoring": "Cards with textRef show the named book verbatim; cards marked authoring: team keep the team's wording and rest only on their verse or hadith.",
   "title": {
     "ar": "صلاة الجمعة",
     "en": "The Friday prayer"
@@ -24,33 +24,28 @@
   },
   "sources": [
     {
-      "key": "nmg",
+      "key": "ibnbaz-lessons",
       "title": {
-        "ar": "دليل المسلم الجديد — صلاة الجمعة",
-        "en": "The New Muslim Guide — The Friday Prayer"
+        "ar": "الدروس المهمة لعامة الأمة",
+        "en": "Important Lessons for the General Ummah"
       },
-      "publisher": "IslamHouse / Modern Guide",
+      "publisher": "IslamHouse.com",
       "url": {
-        "ar": "https://newmuslimguide.com/ar/categories/your-prayer/671dec2457dc6",
-        "en": "https://newmuslimguide.com/en/categories/your-prayer/671dec2457dc6"
+        "ar": "https://islamhouse.com/ar/books/1871/",
+        "en": "https://islamhouse.com/en/books/2842316/"
       },
-      "use": "Facts restated in our own words; not copied."
+      "use": "Shown verbatim by reference (textRef)."
     }
   ],
   "suggestedVideo": {
-    "ar": {
-      "youtubeId": "d25gMKkf7kQ",
-      "channel": "منصة زادي",
-      "position": "close"
-    },
+    "ar": null,
     "en": null
   },
   "cards": [
     {
       "id": "c1",
-      "source": [
-        "nmg"
-      ],
+      "source": [],
+      "authoring": "team",
       "text": {
         "ar": "صلاة الجمعة تُصلى يوم الجمعة مكان صلاة الظهر. يجتمع المسلمون فيستمعون للخطبة ثم يصلون.",
         "en": "The Friday prayer takes the place of Dhuhr on Friday. Muslims gather, listen to the sermon, then pray."
@@ -63,13 +58,7 @@
     },
     {
       "id": "c2",
-      "source": [
-        "nmg"
-      ],
-      "text": {
-        "ar": "الجمعة خير يوم طلعت عليه الشمس.",
-        "en": "Friday is the best day on which the sun rises."
-      },
+      "source": [],
       "evidence": {
         "type": "hadith",
         "hadeethencId": 3711,
@@ -82,41 +71,22 @@
       }
     },
     {
-      "id": "c3",
-      "source": [
-        "nmg"
-      ],
-      "text": {
-        "ar": "تجب الجمعة على الرجل البالغ العاقل المقيم. ولا تجب على المرأة ولا المسافر، وإن حضراها أجزأتهما عن الظهر.",
-        "en": "Friday prayer is obligatory for the adult, sane, resident man. It is not obligatory for women or travellers; if they attend it, it counts in place of Dhuhr."
-      },
-      "check": {
-        "type": "trueFalse",
-        "prompt": {
-          "ar": "صلاة الجمعة واجبة على المسافر.",
-          "en": "Friday prayer is obligatory for a traveller."
-        },
-        "answer": false
-      }
-    },
-    {
-      "id": "c4",
-      "source": [
-        "nmg"
-      ],
-      "text": {
-        "ar": "يُستحب قبلها: الاغتسال، ولبس ثياب نظيفة حسنة، والتبكير إلى المسجد.",
-        "en": "Recommended beforehand: taking a bath, wearing clean and good clothes, and going early to the mosque."
-      }
-    },
-    {
       "id": "c5",
-      "source": [
-        "nmg"
-      ],
+      "source": [],
+      "authoring": "team",
       "text": {
-        "ar": "يخطب الإمام خطبتين يجلس بينهما. وعلى الحاضرين الإنصات، فلا يتكلمون ولا ينشغلون بشيء.",
-        "en": "The imam delivers two sermons, sitting briefly between them. Those present listen attentively: no talking and no fiddling with anything."
+        "ar": "وعلى الحاضرين الإنصات، فلا يتكلمون ولا ينشغلون بشيء.",
+        "en": "Those present listen attentively: no talking and no fiddling with anything."
+      },
+      "evidence": {
+        "type": "hadith",
+        "hadeethencId": 5433,
+        "citation": "رواه مسلم",
+        "availableIn": [
+          "ar",
+          "en"
+        ],
+        "publisher": "hadeethenc.com"
       },
       "check": {
         "type": "trueFalse",
@@ -130,59 +100,25 @@
     {
       "id": "c6",
       "source": [
-        "nmg"
+        "ibnbaz-lessons"
       ],
-      "text": {
-        "ar": "ثم يصلي بهم الإمام ركعتين يجهر فيهما بالقراءة.",
-        "en": "Then the imam leads a two-rak'ah prayer, reciting aloud."
-      }
-    },
-    {
-      "id": "c7",
-      "source": [
-        "nmg"
-      ],
-      "text": {
-        "ar": "من فاتته الجمعة صلّى ظهرًا أربع ركعات. ومن أدرك مع الإمام أقل من ركعة أتمّها ظهرًا.",
-        "en": "Whoever misses Friday prayer prays Dhuhr, four rak'ahs. Whoever catches less than one rak'ah with the imam completes it as Dhuhr."
+      "textRef": {
+        "ar": {
+          "book": "1871",
+          "section": "t14",
+          "paragraph": 15,
+          "excerpt": "الجهر بالقراءة في صلاة الفجر، وصلاة الجمعة، وصلاة العيدين، والاستسقاء، وفي الركعتين الأوليين من صلاة المغرب والعشاء."
+        },
+        "en": {
+          "book": "2842316",
+          "section": "s13",
+          "paragraph": 15,
+          "excerpt": "Audible recitation in Fajr (dawn) prayer, Jumu‘ah (Friday) prayer, the two Eid prayers, Istisqā’ (rain-seeking prayer), and in the first two Rak‘ahs of Maghrib (evening) and ‘Ishā’ (night) prayers."
+        }
       }
     }
   ],
   "activities": [
-    {
-      "id": "a1",
-      "type": "order",
-      "title": {
-        "ar": "جمعتي الأولى",
-        "en": "My first Friday"
-      },
-      "instruction": {
-        "ar": "رتّب خطوات اليوم.",
-        "en": "Put the steps of the day in order."
-      },
-      "items": [
-        {
-          "ar": "أغتسل وألبس ثيابًا نظيفة",
-          "en": "I bathe and wear clean clothes",
-          "n": 1
-        },
-        {
-          "ar": "أذهب مبكرًا إلى المسجد",
-          "en": "I go early to the mosque",
-          "n": 2
-        },
-        {
-          "ar": "أنصت للخطبة",
-          "en": "I listen to the sermon",
-          "n": 3
-        },
-        {
-          "ar": "أصلي ركعتين مع الإمام",
-          "en": "I pray two rak'ahs with the imam",
-          "n": 4
-        }
-      ]
-    },
     {
       "id": "a2",
       "type": "swipe",
@@ -219,28 +155,7 @@
       ]
     }
   ],
-  "situation": {
-    "prompt": {
-      "ar": "وصلت المسجد يوم الجمعة والإمام في التشهد الأخير. ماذا يقول الدرس؟",
-      "en": "You reach the mosque on Friday while the imam is in the final tashahhud. What does the lesson say?"
-    },
-    "options": [
-      {
-        "ar": "أدخل معه ثم أتمّها ظهرًا",
-        "en": "I join him, then complete it as Dhuhr",
-        "correct": true
-      },
-      {
-        "ar": "أصلي ركعتين فقط",
-        "en": "I pray two rak'ahs only",
-        "correct": false
-      }
-    ],
-    "followUp": {
-      "ar": "ولما يخص حالتك تحديدًا، اسأل مختصًا عبر صفحة «تحدث إلى إنسان».",
-      "en": "For what applies to your own case, ask a qualified person through the \"Talk to a human\" page."
-    }
-  },
+  "situation": null,
   "reviewNotes": [
     "Whether work is an excuse for missing Friday prayer is a personal case; the lesson leaves it out and the learner is referred to a human."
   ],
@@ -253,10 +168,5 @@
       "cards"
     ]
   },
-  "readMore": [
-    {
-      "ar": "https://newmuslimguide.com/ar/categories/your-prayer/671dec2457dc6",
-      "en": "https://newmuslimguide.com/en/categories/your-prayer/671dec2457dc6"
-    }
-  ]
+  "readMore": []
 }

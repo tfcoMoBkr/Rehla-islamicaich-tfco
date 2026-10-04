@@ -6,7 +6,17 @@
       "key": "english_saheeh",
       "version": "1.1.2",
       "text": "It is You we worship and You we ask for help.",
-      "footnotes": null
+      "footnotes": null,
+      "name": "English Translation - Noor International Center"
+    },
+    "ar": {
+      "key": "arabic_moyassar",
+      "name": "اللغة العربية - التفسير الميسر",
+      "version": null,
+      "text": "إنا نخصك وحدك بالعبادة، ونستعين بك وحدك في جميع أمورنا، فالأمر كله بيدك، لا يملك منه أحد مثقال ذرة. وفي هذه الآية دليل على أن العبد لا يجوز له أن يصرف شيئًا من أنواع العبادة كالدعاء والاستغاثة والذبح والطواف إلا لله وحده، وفيها شفاء القلوب من داء التعلق بغير الله، ومن أمراض الرياء والعجب، والكبرياء.",
+      "footnotes": null,
+      "url": "https://quranenc.com/ar/browse/arabic_moyassar/1#5",
+      "fetchedOn": "2026-10-04"
     }
   },
   "source": {

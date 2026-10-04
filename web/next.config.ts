@@ -21,6 +21,15 @@ const nextConfig: NextConfig = {
     // the default 30 s on free model tiers.
     proxyTimeout: 90_000,
   },
+  async redirects() {
+    return [
+      {
+        source: "/:locale(ar|en)/talk-to-a-human",
+        destination: "/:locale/talk-to-a-specialist",
+        permanent: true,
+      },
+    ];
+  },
   async rewrites() {
     return [
       {

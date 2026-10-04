@@ -1,3 +1,310 @@
 {
-  "centers": []
+  "source": "ncnp-directory",
+  "verifiedOn": "2026-10-04",
+  "centers": [
+    {
+      "id": "moia-1933",
+      "type": "nationalChannel",
+      "name": {
+        "ar": "مركز الاتصال الموحد لوزارة الشؤون الإسلامية والدعوة والإرشاد (1933)",
+        "en": null
+      },
+      "city": {
+        "ar": "وطني (كل المملكة)",
+        "en": null
+      },
+      "neighbourhood": null,
+      "address": null,
+      "phone": "1933",
+      "phoneAlt": null,
+      "email": "info@moia.gov.sa",
+      "website": null,
+      "mapUrl": null,
+      "languages": null
+    },
+    {
+      "id": "ncnp-1867",
+      "type": "association",
+      "name": {
+        "ar": "جمعية العناية بالمسلمين الجدد",
+        "en": null
+      },
+      "city": {
+        "ar": "الرياض",
+        "en": "Riyadh"
+      },
+      "neighbourhood": "العزيزية",
+      "address": "غرب النقل العام، مجمع الهدى الخيري",
+      "phone": "0554430306",
+      "phoneAlt": "0114944944",
+      "email": "alenayah@newmuslim.org.sa",
+      "website": "https://newmuslim.org.sa/",
+      "mapUrl": null,
+      "languages": null
+    },
+    {
+      "id": "ncnp-1831",
+      "type": "association",
+      "name": {
+        "ar": "جمعية الدعوة والإرشاد وتوعية الجاليات بالربوة",
+        "en": null
+      },
+      "city": {
+        "ar": "الرياض",
+        "en": "Riyadh"
+      },
+      "neighbourhood": "الريان",
+      "address": "شارع سويقة الهيثم الرئيسي",
+      "phone": "0505209648",
+      "phoneAlt": "0114454900",
+      "email": "CEO@RABWAH.SA",
+      "website": "https://rabwah.sa/ar",
+      "mapUrl": "https://www.google.com/maps?q=24.69980115776105,46.77432248511668",
+      "languages": null
+    },
+    {
+      "id": "ncnp-1919",
+      "type": "association",
+      "name": {
+        "ar": "جمعية الدعوة والإرشاد وتوعية الجاليات بالروضة",
+        "en": null
+      },
+      "city": {
+        "ar": "الرياض",
+        "en": "Riyadh"
+      },
+      "neighbourhood": null,
+      "address": null,
+      "phone": "0504877993",
+      "phoneAlt": null,
+      "email": "info@arrawdah.com",
+      "website": "https://arrawdah.org.sa/",
+      "mapUrl": "https://goo.gl/maps/62ctrBhHTY51K6WJ7",
+      "languages": null
+    },
+    {
+      "id": "ncnp-2552",
+      "type": "association",
+      "name": {
+        "ar": "جمعية الدعوة والارشاد وتوعية الجاليات بشمال الرياض",
+        "en": null
+      },
+      "city": {
+        "ar": "الرياض",
+        "en": "Riyadh"
+      },
+      "neighbourhood": "المحمدية",
+      "address": null,
+      "phone": "0550030381",
+      "phoneAlt": "0114704466 / 0114705222",
+      "email": "info@haqweb.com",
+      "website": "https://www.cnr.org.sa/",
+      "mapUrl": "https://www.google.com/maps?q=24.74399034765449,46.64769655101963",
+      "languages": null
+    },
+    {
+      "id": "ncnp-2489",
+      "type": "association",
+      "name": {
+        "ar": "جمعية وسط وغرب جدة الأهلية للدعوة والإرشاد وتوعية الجاليات",
+        "en": null
+      },
+      "city": {
+        "ar": "جدة",
+        "en": "Jeddah"
+      },
+      "neighbourhood": "الأندلس",
+      "address": "شارع عرفات، خلف البنك الأهلي فرع المساعدية",
+      "phone": "0505643663",
+      "phoneAlt": "920008669 / 0558845030",
+      "email": "info@jeddawa.sa",
+      "website": "https://www.jeddawa.sa",
+      "mapUrl": null,
+      "languages": {
+        "ar": [
+          "العربية",
+          "الإنجليزية",
+          "الفلبينية (تاغالوغ)",
+          "الصينية"
+        ],
+        "en": [
+          "Arabic",
+          "English",
+          "Filipino (Tagalog)",
+          "Chinese"
+        ]
+      }
+    },
+    {
+      "id": "ncnp-2496",
+      "type": "association",
+      "name": {
+        "ar": "جمعية الدعوة والإرشاد وتوعية الجاليات بحي السلامة",
+        "en": null
+      },
+      "city": {
+        "ar": "جدة",
+        "en": "Jeddah"
+      },
+      "neighbourhood": "السلامة",
+      "address": null,
+      "phone": "0503500340",
+      "phoneAlt": "0126828888",
+      "email": "admin@jdcidawah.org.sa",
+      "website": "https://www.jdcidawah.org.sa/",
+      "mapUrl": "https://www.google.com/maps?q=21.606068792972156,39.154669243868675",
+      "languages": {
+        "ar": [
+          "الإنجليزية",
+          "التاميلية",
+          "الفلبينية (تاغالوغ)"
+        ],
+        "en": [
+          "English",
+          "Tamil",
+          "Filipino (Tagalog)"
+        ]
+      }
+    },
+    {
+      "id": "ncnp-2484",
+      "type": "association",
+      "name": {
+        "ar": "جمعية شرق جدة الأهلية للدعوة والإرشاد وتوعية الجاليات بمنطقة مكة المكرمة",
+        "en": null
+      },
+      "city": {
+        "ar": "جدة",
+        "en": "Jeddah"
+      },
+      "neighbourhood": "المنتزهات",
+      "address": "طريق مكة القديم، كيلو 13، خلف مستوصف سابا",
+      "phone": "0554648113",
+      "phoneAlt": "0122622999 / 0122622555 · لدعوة غير المسلمين 0545800045",
+      "email": "info@sharq-jeddah.sa",
+      "website": "https://www.sharq-jeddah.sa/",
+      "mapUrl": "https://maps.app.goo.gl/Xu81rLx3MWTN2EMH9",
+      "languages": null
+    },
+    {
+      "id": "ncnp-2619",
+      "type": "association",
+      "name": {
+        "ar": "جمعية الدعوة والارشاد وتوعية الجاليات بمكة المكرمة",
+        "en": null
+      },
+      "city": {
+        "ar": "مكة المكرمة",
+        "en": "Makkah"
+      },
+      "neighbourhood": null,
+      "address": null,
+      "phone": "0555545012",
+      "phoneAlt": null,
+      "email": "info@dm.org.sa",
+      "website": "https://dm.org.sa/",
+      "mapUrl": null,
+      "languages": null
+    },
+    {
+      "id": "ncnp-1856",
+      "type": "association",
+      "name": {
+        "ar": "جمعية الدعوة والإرشاد وتوعية الجاليات في الشرائع بمكة المكرمة",
+        "en": null
+      },
+      "city": {
+        "ar": "مكة المكرمة",
+        "en": "Makkah"
+      },
+      "neighbourhood": "الشرائع",
+      "address": "الشرائع، مخطط 5 - 6635",
+      "phone": "0500831010",
+      "phoneAlt": "0125235553 / 0500008127",
+      "email": "mdshraey@gmail.com",
+      "website": "https://gds.org.sa/",
+      "mapUrl": null,
+      "languages": null
+    },
+    {
+      "id": "ncnp-2750",
+      "type": "association",
+      "name": {
+        "ar": "جمعية الدعوة والإرشاد وتوعية الجاليات بالمدينة المنورة",
+        "en": null
+      },
+      "city": {
+        "ar": "المدينة المنورة",
+        "en": "Madinah"
+      },
+      "neighbourhood": null,
+      "address": null,
+      "phone": "0509401188",
+      "phoneAlt": "0148480022",
+      "email": "dawah@dawahmadina.org.sa",
+      "website": "https://www.dawahmadina.org.sa/",
+      "mapUrl": "https://www.google.com/maps?q=24.420947518425933,39.648300171976274",
+      "languages": null
+    },
+    {
+      "id": "ncnp-1933",
+      "type": "association",
+      "name": {
+        "ar": "جمعية الدعوة والإرشاد وتوعية الجاليات في مدينة الدمام",
+        "en": null
+      },
+      "city": {
+        "ar": "الدمام",
+        "en": "Dammam"
+      },
+      "neighbourhood": null,
+      "address": null,
+      "phone": "0558113388",
+      "phoneAlt": "0138320004",
+      "email": "info@icc.org.sa",
+      "website": "https://www.icc.org.sa/iccdmm/index.php/ar/",
+      "mapUrl": null,
+      "languages": null
+    },
+    {
+      "id": "ncnp-2635",
+      "type": "association",
+      "name": {
+        "ar": "جمعية الدعوة والإرشاد وتوعية الجاليات في حي الراكة",
+        "en": null
+      },
+      "city": {
+        "ar": "الخبر",
+        "en": "Khobar"
+      },
+      "neighbourhood": "الراكة",
+      "address": null,
+      "phone": "0557584477",
+      "phoneAlt": null,
+      "email": "tawnie.raka@gmail.com",
+      "website": "https://dawah-rakah.org.sa/",
+      "mapUrl": null,
+      "languages": null
+    },
+    {
+      "id": "ncnp-1774",
+      "type": "association",
+      "name": {
+        "ar": "جمعية الدعوة والإرشاد وتوعية الجاليات في الاحساء",
+        "en": null
+      },
+      "city": {
+        "ar": "الأحساء (الهفوف)",
+        "en": "Al-Ahsa"
+      },
+      "neighbourhood": null,
+      "address": null,
+      "phone": "0535855552",
+      "phoneAlt": "0135866672",
+      "email": "dg@ahsaic.org",
+      "website": "https://www.alahsaic.org.sa",
+      "mapUrl": null,
+      "languages": null
+    }
+  ]
 }

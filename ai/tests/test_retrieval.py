@@ -1,5 +1,10 @@
 """Local retrieval: other wordings of a question, and transliterated terms."""
 
+from dataclasses import replace
+
+import pytest
+
+from app import languages
 from app.retrieval.retriever import Retriever
 from app.retrieval.terms import TermExpander
 
@@ -69,7 +74,11 @@ Source: https://hadeethenc.com/en/browse/hadith/42
 """
 
 
-async def test_a_verse_with_no_translation_in_the_language_carries_the_fallback_labelled() -> None:
+async def test_a_verse_with_no_translation_in_the_language_carries_the_fallback_labelled(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    # Every language in the table has a QuranEnc translation today; take one away.
+    monkeypatch.setitem(languages.LANGUAGES, "bn", replace(languages.LANGUAGES["bn"], quran=None))
     mcp = ScriptedMcp({"get_quran_verses": ENGLISH_VERSE})
     retriever = Retriever(index(WUDU), FakeEmbedder(), mcp)
 

@@ -1,18 +1,20 @@
 """Rafiq's pipeline as a LangGraph graph: classify → retrieve → generate → verify → respond, with
-a `refer` exit (and `smalltalk` / `offtopic` exits that need no sources).
+a `refer` exit, and exits that need no sources: small talk and feelings (`chat`), an unclear
+follow-up (`clarify`), off-topic messages, and signs of danger.
 
-    classify ─┬─ offtopic
-              ├─ smalltalk
-              └─ retrieve ─┬─ refer (an extractive language with no passage in it)
-                           └─ generate ─┬─ refer
-                                ▲       └─ verify ─┬─ respond
-                                └─ (one retry) ────┤
-                                                   └─ refer (problems left after repair)
+    safety ─┬─ danger (checked in code, before any model)
+            └─ classify ─┬─ danger · offtopic · chat · clarify
+                         └─ retrieve ─┬─ refer (an extractive language with no passage in it)
+                                      └─ generate ─┬─ refer
+                                           ▲       └─ verify ─┬─ respond
+                                           └─ (one retry) ────┤
+                                                              └─ refer (problems left after repair)
 
-verify checks the draft in code (check.py), then asks a model whether each cited sentence is
-supported. The first time it finds problems the draft is written again with them listed; the
-second time they are repaired in code (repair.py) and checked again, and only what still fails,
-or a draft with nothing cited left, is referred.
+verify checks the draft in code (check.py), then asks a model, in one call, whether each cited
+sentence is supported and whether a warm line (opening, follow-up) makes a religious statement.
+The first time it finds problems in the answer the draft is written again with them listed; the
+second time they are repaired in code (repair.py) and checked again, and only what still fails, or
+a draft with nothing cited left, is referred. A warm line that fails is dropped, never referred.
 """
 
 import logging
@@ -29,7 +31,9 @@ from app.rafiq.check import Problem, cited, code_problems, counts
 from app.rafiq.compose import compose
 from app.rafiq.draft import Unit, parse, render
 from app.rafiq.repair import finish, repair
+from app.rafiq.safety import danger_signs
 from app.rafiq.schemas import (
+    ChatReply,
     Classification,
     Draft,
     KeywordQueries,
@@ -37,9 +41,12 @@ from app.rafiq.schemas import (
     RafiqAnswer,
     Referral,
     ReferralReason,
+    ReplyKind,
     SupportCheck,
     Turn,
 )
+from app.rafiq.specialists import SPECIALIST_PAGE, referral_centres
+from app.rafiq.warmth import screened
 from app.retrieval.passages import Passage
 from app.retrieval.retriever import Retrieval, Retriever
 
@@ -63,6 +70,14 @@ def answer_language(classification: Classification) -> tuple[Language, bool]:
     return DEFAULT, True
 
 
+def referral(reason: ReferralReason) -> Referral:
+    """A referral names the specialist page and, when it calls for them, the bodies to show."""
+    if reason in policy.SPECIALIST_REASONS:
+        return Referral(reason=reason, links=[SPECIALIST_PAGE], centers=referral_centres())
+    links = [] if reason == "smalltalk" else [SPECIALIST_PAGE]
+    return Referral(reason=reason, links=links)
+
+
 class LessonContext(TypedDict):
     lesson_id: str
     line: str
@@ -75,12 +90,14 @@ class State(TypedDict, total=False):
     history: list[Turn]
     scope: list[str] | None
     lesson: LessonContext | None
+    danger: bool
     classification: Classification
     language: Language
     language_fallback: bool
     retrieval: Retrieval
     draft: Draft | None
     units: list[Unit]
+    warm: dict[str, str]
     problems: list[Problem]
     attempts: int
     answer: RafiqAnswer
@@ -147,6 +164,25 @@ def _history(state: State) -> str:
     )
 
 
+def _earlier_replies(state: State) -> str | None:
+    replies = [turn.text for turn in state.get("history") or [] if turn.role == "assistant"]
+    return "\n".join(replies) if replies else None
+
+
+def _question(state: State) -> str:
+    """The question as retrieval and generation see it: rewritten to stand alone when it was a
+    follow-up."""
+    classification = state.get("classification")
+    standalone = classification.standalone if classification else None
+    return standalone.strip() if standalone and standalone.strip() else state["question"]
+
+
+def _speaks(state: State) -> bool:
+    """Rafiq writes warm lines himself only in the languages he answers in full; for the others
+    the page shows fixed lines from its (reviewed) message file."""
+    return spec(state["language"]).local
+
+
 class Rafiq:
     def __init__(self, chat: ChatModel, retriever: Retriever, *, debug: bool = False) -> None:
         self._chat = chat
@@ -163,6 +199,10 @@ class Rafiq:
         except Exception:
             return []
         return [query.strip() for query in result.queries if query.strip()][:2]
+
+    @staticmethod
+    def _safety(state: State) -> State:
+        return {"danger": bool(danger_signs(state["question"]))}
 
     async def _classify(self, state: State) -> State:
         lesson = state.get("lesson")
@@ -182,18 +222,15 @@ class Rafiq:
             "language_fallback": fallback,
             "attempts": 0,
             "problems": [],
+            "warm": {},
         }
 
     async def _retrieve(self, state: State) -> State:
         classification = state["classification"]
-        query = state["question"]
+        query = _question(state)
         lesson = state.get("lesson")
         if lesson:
-            query = (
-                f"{state['question']} {lesson['line']}"
-                if lesson["mode"] == "question"
-                else lesson["line"]
-            )
+            query = f"{query} {lesson['line']}" if lesson["mode"] == "question" else lesson["line"]
         retrieval = await self._retriever.retrieve(
             query,
             state["language"],
@@ -214,33 +251,50 @@ class Rafiq:
             feedback = "\n\nYour last answer had these problems; fix them:\n" + "\n".join(
                 f"- {problem.text}" for problem in state["problems"]
             )
+        asked = state["question"]
+        rewritten = _question(state)
+        question = asked if rewritten == asked else f"{asked}\n(It asks: {rewritten})"
         listed = _passages_text(passages)
-        user = f"{_history(state)}Question: {state['question']}\n\nPassages:\n\n{listed}{feedback}"
-        system = prompt(
-            "generate",
-            language_name=spec(state["language"]).name,
-            mode_rules=_mode_rules(state),
+        language_name = spec(state["language"]).name
+        user = (
+            f"{_history(state)}Question: {question}\n\nPassages:\n\n{listed}{feedback}"
+            f"\n\nWrite your reply in {language_name}."
         )
+        system = prompt("generate", language_name=language_name, mode_rules=_mode_rules(state))
         draft = await self._chat.json(system, user, Draft)
         return {"draft": draft, "attempts": attempts, "problems": []}
 
-    async def _unsupported(self, units: list[Unit], passages: list[Passage]) -> list[Problem]:
-        """The model check: which cited sentences their passages do not support."""
-        sentences = cited(units)
+    async def _model_check(
+        self,
+        units: list[Unit] | None,
+        passages: list[Passage],
+        warm: dict[str, str],
+        *,
+        ruling_guard: bool = False,
+    ) -> tuple[list[Problem], dict[str, str]]:
+        """One model call: unsupported cited sentences, and the warm lines that may stay. Under the
+        ruling guard a sentence that states a ruling counts as unsupported, whatever it cites."""
+        sentences = cited(units) if units else []
+        if not sentences and not warm:
+            return [], warm
         by_number = {passage.n: passage for passage in passages}
         listing = "\n\n".join(
-            f"Sentence {index}: {units[u].sentences[s]}\nCited passages:\n"
+            f"Sentence {index}: {units[u].sentences[s] if units else ''}\nCited passages:\n"
             + "\n".join(f"[{n}] {by_number[n].text[:1200]}" for n in numbers if n in by_number)
             for index, (u, s, numbers) in enumerate(sentences, start=1)
         )
+        listing += "".join(f"\n\nWarm line {field}: {text}" for field, text in warm.items())
         try:
-            check = await self._chat.json(prompt("verify"), listing, SupportCheck)
+            rule = prompt("rules/verify-general") if ruling_guard else ""
+            system = prompt("verify", ruling_rule=rule)
+            check = await self._chat.json(system, listing.strip(), SupportCheck)
         except Exception:
+            # Unchecked warm lines are not shown; cited sentences keep their code checks.
             log.warning("support check unavailable; code checks only")
-            return []
+            return [], {}
         problems = []
         for index in check.unsupported:
-            if 0 < index <= len(sentences):
+            if 0 < index <= len(sentences) and units:
                 u, s, _ = sentences[index - 1]
                 text = units[u].sentences[s][:120]
                 problems.append(
@@ -251,7 +305,15 @@ class Rafiq:
                         sentence=s,
                     )
                 )
-        return problems
+        kept = {field: text for field, text in warm.items() if field not in check.religious}
+        return problems, kept
+
+    def _warm_lines(self, state: State, draft: Draft | ChatReply) -> dict[str, str]:
+        if not _speaks(state):
+            return {}
+        lines = {"opening": draft.opening, "followUp": draft.follow_up}
+        passages = state["retrieval"].passages if "retrieval" in state else []
+        return screened(lines, passages, state["language"], _earlier_replies(state))
 
     async def _verify(self, state: State) -> State:
         draft = state["draft"]
@@ -260,21 +322,27 @@ class Rafiq:
         required = _required_verse(state)
         last_try = state.get("attempts", 0) >= MAX_ATTEMPTS
         units = parse(draft.answer)
-        problems = code_problems(units, passages, required)
+        warm = self._warm_lines(state, draft)
+        problems = code_problems(units, passages, required, state["language"])
         self._log_problems(state, "code", draft.answer, problems)
         if problems and last_try:
-            repaired = repair(units, problems, passages, required)
+            repaired = repair(units, problems, passages, required, state["language"])
             problems = [] if repaired is not None else problems
             units = repaired if repaired is not None else units
             self._log_problems(state, "repaired", render(units), problems)
         if not problems:
-            problems = await self._unsupported(units, passages)
+            problems, warm = await self._model_check(
+                units,
+                passages,
+                warm,
+                ruling_guard=policy.needs_ruling_guard(state["classification"]),
+            )
             self._log_problems(state, "support", render(units), problems)
             if problems and last_try:
-                repaired = repair(units, problems, passages, required)
+                repaired = repair(units, problems, passages, required, state["language"])
                 problems = [] if repaired is not None else problems
                 units = repaired if repaired is not None else units
-        return {"problems": problems, "units": units}
+        return {"problems": problems, "units": units, "warm": warm}
 
     def _log_problems(self, state: State, stage: str, text: str, problems: list[Problem]) -> None:
         # Without RAFIQ_DEBUG only categories and counts are logged, never the question or answer.
@@ -302,12 +370,17 @@ class Rafiq:
             state["retrieval"].passages,
             state["language"],
             classification.level,
-            Referral(reason=reason) if reason else None,
+            referral(reason) if reason else None,
             explanations=extractive,
+        )
+        warm = state.get("warm", {})
+        kind: ReplyKind = "referral" if reason else "answer"
+        answer = answer.model_copy(
+            update={"kind": kind, "opening": warm.get("opening"), "follow_up": warm.get("followUp")}
         )
         return {"answer": self._decorated(state, answer)}
 
-    def _refer(self, state: State) -> State:
+    async def _refer(self, state: State) -> State:
         classification = state["classification"]
         reason: ReferralReason
         if state.get("problems"):
@@ -316,7 +389,42 @@ class Rafiq:
             reason = (
                 policy.referral_without_answer(classification, state.get("draft")) or "noSource"
             )
-        return {"answer": self._decorated(state, self._bare(state, reason))}
+        answer = self._bare(state, reason, "referral")
+        draft = state.get("draft")
+        if draft is not None:
+            # Even a referral opens kindly: the opening the model wrote, if it passes the checks.
+            _, warm = await self._model_check(None, [], self._warm_lines(state, draft))
+            answer = answer.model_copy(update={"opening": warm.get("opening")})
+        return {"answer": self._decorated(state, answer)}
+
+    async def _chat_reply(self, state: State) -> State:
+        """Small talk and feelings: a human reply first, and an offer to help where one fits."""
+        answer = self._bare(state, "smalltalk", "chat")
+        if not _speaks(state):
+            return {"answer": self._decorated(state, answer)}
+        system = prompt("chat", language_name=spec(state["language"]).name)
+        reply = await self._chat.json(system, _history(state) + state["question"], ChatReply)
+        _, warm = await self._model_check(None, [], self._warm_lines(state, reply))
+        answer = answer.model_copy(
+            update={"opening": warm.get("opening"), "follow_up": warm.get("followUp")}
+        )
+        return {"answer": self._decorated(state, answer)}
+
+    async def _clarify(self, state: State) -> State:
+        """An unclear follow-up gets one short question back instead of a guess."""
+        answer = self._bare(state, "smalltalk", "clarify")
+        question = state["classification"].clarification or ""
+        if _speaks(state) and question:
+            lines = screened({"clarification": question}, [], state["language"])
+            _, warm = await self._model_check(None, [], lines)
+            answer = answer.model_copy(update={"opening": warm.get("clarification")})
+        return {"answer": self._decorated(state, answer)}
+
+    def _danger(self, state: State) -> State:
+        if "language" not in state:
+            # Caught before classification: the page's language, which the message is likely in.
+            state = {**state, "language": state["locale"]}
+        return {"answer": self._decorated(state, self._bare(state, "danger", "danger"))}
 
     @staticmethod
     def _decorated(state: State, answer: RafiqAnswer) -> RafiqAnswer:
@@ -328,25 +436,25 @@ class Rafiq:
             }
         )
 
-    def _bare(self, state: State, reason: ReferralReason) -> RafiqAnswer:
+    def _bare(self, state: State, reason: ReferralReason, kind: ReplyKind) -> RafiqAnswer:
+        classification = state.get("classification")
+        quiet = reason in ("smalltalk", "offTopic", "danger") or classification is None
         return RafiqAnswer(
             language=state["language"],
-            level=state["classification"].level
-            if reason not in ("smalltalk", "offTopic")
-            else None,
+            level=None if quiet or classification is None else classification.level,
             referred=reason != "smalltalk",
+            kind=kind,
             blocks=[],
             sources=[],
-            referral=Referral(
-                reason=reason, links=[] if reason == "smalltalk" else ["/talk-to-a-human"]
-            ),
+            referral=referral(reason),
         )
 
-    def _smalltalk(self, state: State) -> State:
-        return {"answer": self._decorated(state, self._bare(state, "smalltalk"))}
-
     def _offtopic(self, state: State) -> State:
-        return {"answer": self._decorated(state, self._bare(state, "offTopic"))}
+        return {"answer": self._decorated(state, self._bare(state, "offTopic", "referral"))}
+
+    @staticmethod
+    def _after_safety(state: State) -> str:
+        return "danger" if state.get("danger") else "classify"
 
     @staticmethod
     def _after_classify(state: State) -> str:
@@ -377,19 +485,31 @@ class Rafiq:
 
     def _build(self):  # noqa: ANN202 (a compiled LangGraph graph)
         graph = StateGraph(State)
+        graph.add_node("safety", self._safety)
         graph.add_node("classify", self._classify)
         graph.add_node("retrieve", self._retrieve)
         graph.add_node("generate", self._generate)
         graph.add_node("verify", self._verify)
         graph.add_node("respond", self._respond)
         graph.add_node("refer", self._refer)
-        graph.add_node("smalltalk", self._smalltalk)
+        graph.add_node("chat", self._chat_reply)
+        graph.add_node("clarify", self._clarify)
         graph.add_node("offtopic", self._offtopic)
-        graph.add_edge(START, "classify")
+        graph.add_node("danger", self._danger)
+        graph.add_edge(START, "safety")
+        graph.add_conditional_edges(
+            "safety", self._after_safety, {"danger": "danger", "classify": "classify"}
+        )
         graph.add_conditional_edges(
             "classify",
             self._after_classify,
-            {"retrieve": "retrieve", "smalltalk": "smalltalk", "offtopic": "offtopic"},
+            {
+                "retrieve": "retrieve",
+                "chat": "chat",
+                "clarify": "clarify",
+                "offtopic": "offtopic",
+                "danger": "danger",
+            },
         )
         graph.add_conditional_edges(
             "retrieve", self._after_retrieve, {"generate": "generate", "refer": "refer"}
@@ -402,7 +522,7 @@ class Rafiq:
             self._after_verify,
             {"respond": "respond", "generate": "generate", "refer": "refer"},
         )
-        for end in ("respond", "refer", "smalltalk", "offtopic"):
+        for end in ("respond", "refer", "chat", "clarify", "offtopic", "danger"):
             graph.add_edge(end, END)
         return graph.compile()
 
@@ -429,8 +549,9 @@ class Rafiq:
         retrieval = state.get("retrieval")
         # Logs carry only the outcome, timings and counts: never the question or the answer.
         log.info(
-            "answered language=%s level=%s referred=%s reason=%s passages=%d mcp_calls=%d "
+            "answered kind=%s language=%s level=%s referred=%s reason=%s passages=%d mcp_calls=%d "
             "attempts=%d ms=%d",
+            answer.kind,
             answer.language,
             answer.level,
             answer.referred,

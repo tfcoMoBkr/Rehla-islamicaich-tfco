@@ -71,6 +71,8 @@ Each chunk carries `lang`, `type`, `sourceId`, `title`, `reference`, `url`, `pub
   "language": "ar | en | ur | bn | fr",
   "level": "A | B | C | D | null",
   "referred": false,
+  "kind": "answer | referral | chat | clarify | danger",
+  "opening": "A kind line with no religious statement, or null",
   "blocks": [
     { "type": "text", "text": "… [1]" },
     { "type": "quran", "n": 2, "ref": "2:256", "surah": 2, "ayah": 256, "surahName": "…", "arabic": "…",
@@ -80,13 +82,16 @@ Each chunk carries `lang`, `type`, `sourceId`, `title`, `reference`, `url`, `pub
       "grade": "…", "attribution": "…", "explanation": null, "url": "…" }
   ],
   "sources": [{ "n": 1, "sourceId": "…", "title": "…", "reference": "…", "url": "…", "publisher": "…" }],
-  "referral": { "reason": "fatwa | personalCase | disputed | noSource | noEvidence | verification | offTopic | smalltalk", "links": ["/talk-to-a-human"] },
+  "followUp": "One line that keeps the conversation going, or null",
+  "referral": { "reason": "fatwa | personalCase | disputed | noSource | noEvidence | verification | distress | danger | offTopic | smalltalk",
+                "links": ["/talk-to-a-specialist"], "centers": ["moia-1933", "…"] },
   "laterLessonId": "2.4",
   "languageFallback": false
 }
 ```
 
-- `/ask` takes `{question, locale, reachedLessonIds?, history?}`. `history` holds at most 4 turns, and `reachedLessonIds` are the lessons the learner completed.
+- `/ask` takes `{question, locale, reachedLessonIds?, history?}`. `history` holds at most 8 turns, and `reachedLessonIds` are the lessons the learner completed.
+- `referral.centers` are ids in `content/referral-centers.json`; the page renders the bodies from that file (the ingest copies the ids to `ai/data/index/referral-centers.json`).
 - `/lesson-help` takes `{lessonId, cardId, lineText, mode: simpler | example | question, question?, locale}`. It searches the lesson's own sources first. The lesson line is context for the answer, never one of its sources.
 
 How each answer is checked is described in `docs/RELIABILITY.md`; how that is measured is in `docs/EVALUATION.md`.
@@ -97,9 +102,12 @@ How each answer is checked is described in `docs/RELIABILITY.md`; how that is me
 |---|---|
 | `src/lib/rafiq/answer.ts` | The response schema (zod), `postToRafiq` (answer, rate-limited, unavailable or error), and the client guard that turns an unsourced reply into a referral. |
 | `src/lib/rafiq/ask.ts`, `lesson-help.ts` | Typed clients for the two endpoints. |
-| `src/app/[locale]/rafiq/page.tsx` | The page, behind the `rafiq` flag. It passes lesson titles and links so that a later lesson can be named. |
-| `src/components/rafiq/rafiq-conversation.tsx` | The conversation, held in memory only, as stops on a short road. It offers starter questions and the loading, error, unavailable and rate-limited states. Rafiq's pose follows the state: hello, listening while typing, thinking while waiting, pointing when the answer arrives, encouraging after an error. |
-| `src/components/rafiq/answer-view.tsx` | One answer, with the `lang` and `dir` of its language: text and lists with `[n]` markers linked to source cards, the referral card, the later lesson and the AI disclosure. |
+| `src/app/[locale]/rafiq/page.tsx` | The page, behind the `rafiq` flag. It passes lesson titles and links so that a later lesson can be named, and the lessons of the road in order for "continue your road". |
+| `src/components/rafiq/rafiq-conversation.tsx` | The conversation between the learner and Rafiq, kept on the device per language (`src/lib/rafiq/memory.ts`), restored on return and cleared by "Start again". Each question carries the last 8 turns. Rafiq's pose follows each reply: thinking while waiting, pointing at a cited answer, happy in small talk, listening when he asks back, encouraging at a referral or an error. |
+| `src/components/rafiq/rafiq-memory.tsx` | The greeting and next lesson (built from the message files), the optional name prompt (asked once, skippable), and "What Rafiq remembers" with a clear-everything control. |
+| `src/lib/device-store.ts` | Values kept in this browser only, shared by every component that shows them. |
+| `src/components/rafiq/answer-view.tsx` | One reply, with the `lang` and `dir` of its language, by kind: the opening, the cited text and lists with `[n]` markers linked to source cards (labelled "Generated explanation"), the referral card, the specialist card, the later lesson, the follow-up and the AI disclosure. |
+| `src/components/specialists/*`, `src/lib/referral/*` | The specialist card and the specialist page, rendered from `content/referral-centers.json` (provided once by the locale layout); the chosen city, kept on the device. |
 | `src/components/rafiq/answer-blocks.tsx` | The verse block (Arabic in the Quran face, surah and ayah, the published translation with its name and version) and the hadith block (Arabic, published translation, grade, attribution, HadeethEnc's explanation in extractive answers). Long texts collapse with "show all"; nothing is trimmed. |
 | `src/lib/rafiq/languages.ts`, `src/lib/answer-fonts.ts`, `messages/answer-languages.json` | The answer languages: direction and face (Urdu and Bengali faces load only with such an answer), and the referral, disclosure and small-talk texts in Urdu, Bengali and French (awaiting native review). |
 | `src/components/rafiq/source-cards.tsx`, `referral-card.tsx`, `rafiq-stage.tsx` | Source cards, each with links to the source and to its entry on `/sources`; the referral card for each reason; Rafiq in his own light, which breathes while he thinks (off under `prefers-reduced-motion`). |

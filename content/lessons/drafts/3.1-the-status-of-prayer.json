@@ -5,7 +5,7 @@
   "status": "draft",
   "reviewed": false,
   "reviewedBy": null,
-  "authoring": "Written by the team in simple wording from the sources listed in `sources`. Verses and hadiths are referenced and fetched verbatim, never typed.",
+  "authoring": "Cards with textRef show the named book verbatim; cards marked authoring: team keep the team's wording and rest only on their verse or hadith.",
   "title": {
     "ar": "منزلة الصلاة وفضلها",
     "en": "The status and virtues of prayer"
@@ -22,49 +22,16 @@
       "Know who must pray"
     ]
   },
-  "sources": [
-    {
-      "key": "nmg",
-      "title": {
-        "ar": "دليل المسلم الجديد — منزلة الصلاة وفضلها",
-        "en": "The New Muslim Guide — Position and Virtues of Salaat in Islam"
-      },
-      "publisher": "IslamHouse / Modern Guide",
-      "url": {
-        "ar": "https://newmuslimguide.com/ar/categories/your-prayer/66fb8036c398b",
-        "en": "https://newmuslimguide.com/en/categories/your-prayer/66fb8036c398b"
-      },
-      "use": "Facts restated in our own words; not copied."
-    }
-  ],
+  "sources": [],
   "suggestedVideo": {
-    "ar": {
-      "youtubeId": "3ni4zVT1TsI",
-      "channel": "منصة زادي",
-      "position": "close"
-    },
-    "en": {
-      "youtubeId": "ETmbhhpTVi0",
-      "channel": "Guide To Islam",
-      "position": "close"
-    }
+    "ar": null,
+    "en": null
   },
   "cards": [
     {
-      "id": "c1",
-      "source": [
-        "nmg"
-      ],
-      "text": {
-        "ar": "الصلاة أعظم العبادات، يشترك فيها القلب والعقل واللسان والبدن.",
-        "en": "Prayer is the greatest act of worship. It engages the heart, the mind, the tongue and the body."
-      }
-    },
-    {
       "id": "c2",
-      "source": [
-        "nmg"
-      ],
+      "source": [],
+      "authoring": "team",
       "text": {
         "ar": "وهي الركن الثاني من أركان الإسلام.",
         "en": "It is the second pillar of Islam."
@@ -101,9 +68,8 @@
     },
     {
       "id": "c3",
-      "source": [
-        "nmg"
-      ],
+      "source": [],
+      "authoring": "team",
       "text": {
         "ar": "أمر الله بالمحافظة عليها في كل حال: في السفر والإقامة، وفي الصحة والمرض، بقدر الاستطاعة.",
         "en": "Allah commands observing it in every circumstance: travelling or at home, in health or illness, as far as one is able."
@@ -116,9 +82,8 @@
     },
     {
       "id": "c4",
-      "source": [
-        "nmg"
-      ],
+      "source": [],
+      "authoring": "team",
       "text": {
         "ar": "الصلوات الخمس تمحو صغائر الذنوب التي بينها.",
         "en": "The five prayers wipe away the minor sins committed between them."
@@ -136,12 +101,11 @@
     },
     {
       "id": "c5",
-      "source": [
-        "nmg"
-      ],
+      "source": [],
+      "authoring": "team",
       "text": {
-        "ar": "والصلاة نور، تهدي إلى الخير وتنهى عن الفحشاء والمنكر.",
-        "en": "Prayer is a light. It guides to good and restrains from shameful and wrong deeds."
+        "ar": "تهدي إلى الخير وتنهى عن الفحشاء والمنكر.",
+        "en": "It guides to good and restrains from shameful and wrong deeds."
       },
       "evidence": {
         "type": "quran",
@@ -158,23 +122,12 @@
       }
     },
     {
-      "id": "c6",
-      "source": [
-        "nmg"
-      ],
-      "text": {
-        "ar": "وهي أول ما يُحاسب عليه العبد يوم القيامة.",
-        "en": "It is the first thing a person will be asked about on the Day of Judgement."
-      }
-    },
-    {
       "id": "c7",
-      "source": [
-        "nmg"
-      ],
+      "source": [],
+      "authoring": "team",
       "text": {
-        "ar": "كانت الصلاة راحة النبي ﷺ. وكان إذا أهمّه أمر لجأ إليها.",
-        "en": "Prayer was the Prophet's comfort ﷺ. Whenever something troubled him, he turned to it."
+        "ar": "كانت الصلاة راحة النبي ﷺ.",
+        "en": "Prayer was the Prophet's comfort ﷺ."
       },
       "evidence": {
         "type": "hadith",
@@ -185,16 +138,6 @@
           "en"
         ],
         "publisher": "hadeethenc.com"
-      }
-    },
-    {
-      "id": "c8",
-      "source": [
-        "nmg"
-      ],
-      "text": {
-        "ar": "تجب الصلاة على كل مسلم بالغ عاقل، رجلًا كان أو امرأة.",
-        "en": "Prayer is obligatory for every adult, sane Muslim, man or woman."
       }
     }
   ],
@@ -218,18 +161,8 @@
           "correct": true
         },
         {
-          "ar": "نور لصاحبها",
-          "en": "It is a light",
-          "correct": true
-        },
-        {
           "ar": "تنهى عن الفحشاء والمنكر",
           "en": "It restrains from wrong",
-          "correct": true
-        },
-        {
-          "ar": "أول ما يُحاسب عليه العبد",
-          "en": "The first thing one is asked about",
           "correct": true
         },
         {
@@ -240,24 +173,7 @@
       ]
     }
   ],
-  "situation": {
-    "prompt": {
-      "ar": "مررت بيوم صعب وضاق صدرك. ماذا كان يفعل النبي ﷺ في مثل هذا كما في الدرس؟",
-      "en": "You had a hard day and feel weighed down. What did the Prophet ﷺ do in such moments, according to the lesson?"
-    },
-    "options": [
-      {
-        "ar": "يلجأ إلى الصلاة",
-        "en": "He turned to prayer",
-        "correct": true
-      },
-      {
-        "ar": "يؤجل الصلاة حتى يرتاح",
-        "en": "He delayed prayer until he rested",
-        "correct": false
-      }
-    ]
-  },
+  "situation": null,
   "explainToRafiq": {
     "prompt": {
       "ar": "اشرح لرفيق بكلماتك أهم ما فهمته من هذا الدرس.",
@@ -267,10 +183,5 @@
       "cards"
     ]
   },
-  "readMore": [
-    {
-      "ar": "https://newmuslimguide.com/ar/categories/your-prayer/66fb8036c398b",
-      "en": "https://newmuslimguide.com/en/categories/your-prayer/66fb8036c398b"
-    }
-  ]
+  "readMore": []
 }

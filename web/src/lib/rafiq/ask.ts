@@ -4,8 +4,8 @@ import { postToRafiq, type RafiqResult } from "./answer";
 
 export const ASK_PATH = "/api/ai/ask";
 export const QUESTION_MAX_LENGTH = 1000;
-/** The service reads at most this many earlier turns. */
-export const HISTORY_TURNS = 4;
+/** The service reads at most this many earlier turns of the conversation. */
+export const HISTORY_TURNS = 8;
 
 export type Turn = { role: "user" | "assistant"; text: string };
 

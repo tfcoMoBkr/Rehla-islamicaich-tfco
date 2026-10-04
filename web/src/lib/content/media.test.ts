@@ -37,21 +37,31 @@ describe("media slots", () => {
 });
 
 describe("referral centres", () => {
-  it("start as an empty list", () => {
-    expect(referralCentresSchema.safeParse({ centers: [] }).success).toBe(true);
+  const national = {
+    id: "national",
+    type: "nationalChannel",
+    name: { ar: "قناة وطنية", en: null },
+    city: { ar: "وطني", en: null },
+    neighbourhood: null,
+    address: null,
+    phone: "1933",
+    phoneAlt: null,
+    email: null,
+    website: null,
+    mapUrl: null,
+    languages: null,
+  };
+  const file = (centers: unknown[]) => ({ source: "ncnp-directory", verifiedOn: "2026-10-04", centers });
+
+  it("list the national channel first", () => {
+    const association = { ...national, id: "a1", type: "association", city: { ar: "الرياض", en: "Riyadh" } };
+    expect(referralCentresSchema.safeParse(file([national, association])).success).toBe(true);
+    expect(referralCentresSchema.safeParse(file([association, national])).success).toBe(false);
   });
 
   it("need a way to reach them", () => {
-    const centre = {
-      id: "c1",
-      name: { ar: "مركز", en: "Centre" },
-      kind: "centre",
-      languages: ["ar"],
-      sourceUrl: "https://example.org",
-      verifiedOn: "2026-10-04",
-    };
-    expect(referralCentresSchema.safeParse({ centers: [centre] }).success).toBe(false);
-    expect(referralCentresSchema.safeParse({ centers: [{ ...centre, url: "https://example.org" }] }).success).toBe(true);
+    expect(referralCentresSchema.safeParse(file([{ ...national, phone: null }])).success).toBe(false);
+    expect(referralCentresSchema.safeParse(file([{ ...national, phone: null, email: "info@example.org" }])).success).toBe(true);
   });
 });
 

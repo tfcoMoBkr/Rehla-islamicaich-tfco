@@ -1,24 +1,28 @@
 # Curriculum map — Khutuwat (خطوات)
 
-Status: **proposed, pending scholarly review**. Nothing in this file is lesson content. It defines the order of lessons, how a lesson is experienced, and where each lesson's content and suggested video come from.
+Status: **proposed, pending scholarly review**. Nothing in this file is lesson content. It defines the order of lessons, how a lesson is experienced, and where each lesson's text, evidence and suggested video come from.
 
-**Where lesson content comes from.** Lessons are complete lessons built only from the sources the challenge organisers recommend. A lesson has three layers:
+**Where lesson content comes from.** Lessons use only the sources the challenge organisers list (`content/sources.json`). A lesson has three layers:
 
-1. **Explanation** — short, simple wording written by the team from the recommended sources (first of all The New Muslim Guide as published on IslamHouse). The source's facts are restated, not copied, because the book is all rights reserved. Every card names its source and links to it, and each lesson ends with a "read the full lesson" link.
-2. **Evidence** — Qur'an verses (quranenc.com) and hadiths with grade, explanation and benefits (hadeethenc.com), fetched verbatim by script and never typed. References per lesson are in `content/evidence/station-<n>.json`. A hadith is used only if it has both an Arabic and an English version.
-3. **Practice** — checks, activities and questions built from layers 1 and 2 only.
+1. **Text.** A card, a guided step or a post-rak'ah line shows one of these:
+   - **Book text, verbatim.** It points at a stored paragraph of an approved book (`textRef`: book, section, paragraph and an exact excerpt), and the engine shows that excerpt word for word. A test checks every excerpt against the stored paragraph byte for byte.
+   - **Team wording, labelled.** Where no approved book states the card's point in both Arabic and English, the card keeps the team's wording with the visible label «صياغة فريق رحلة» / "Wording by the Rehla team". It rests only on its verse or hadith; a team-worded card without one is removed.
+2. **Evidence.** Qur'an verses (quranenc.com) and hadiths with grade, attribution and explanation (hadeethenc.com) are fetched verbatim by script and never typed. A hadith is used only if it has both an Arabic and an English version.
+3. **Practice.** Checks, activities and questions are built from layers 1 and 2 only. An activity left without enough items is dropped for that lesson; nothing is invented to fill it.
 
-Lesson files are written by the team in `content/lessons/drafts/` and carry `"reviewed": false` until a human reviewer approves them; unreviewed lessons are labelled as drafts and hidden in production. `content/lessons/drafts/2.4-how-to-perform-wudu.json` is the reference example of a complete lesson. Coding agents build the engine to render these files and never write or change lesson wording themselves.
+Lesson files live in `content/lessons/drafts/` and carry `"reviewed": false` until a human reviewer approves them. Unreviewed lessons are labelled as drafts and hidden in production. Coding agents may point a card at stored book text, remove text, or add labels; they never write or change lesson wording (CLAUDE.md, rule 1). What changed in the 2026-10 content audit, card by card, is in `docs/CONTENT_REVIEW.md`.
 
 ## Sources
 
-| Key | Source | Role | Verified | Open point |
+| Key | Book | Arabic | English | Used for |
 | --- | --- | --- | --- | --- |
-| NMG | «دليل المسلم الجديد» / The New Muslim Guide, Fahd Salem Bahammam — https://newmuslimguide.com (ar, en); book also on https://islamhouse.com/en/books/2838874 | Lesson order and titles; "read the full lesson" link target. Its text is not copied. | Table of contents read on 2026-10-04 | All rights reserved. |
-| ZADI | منصة زادي للتعليم الشرعي المفتوح — https://www.youtube.com/@zadilearning (verified channel). Programme «حقيبة دليل المسلم الميسر», presented by Dr. Fahd Bahammam, 2–6 min each | Suggested video, Arabic | Channel, playlists and video IDs read on 2026-10-04 | Not named in the challenge source list: ask the scholarly mentor to approve it. |
-| GTI | Guide To Islam (Osoul Global Center) — https://www.youtube.com/@Guidetoislam; the same videos are on IslamHouse: wudu https://islamhouse.com/en/videos/2834586/, prayer https://islamhouse.com/en/videos/2838921/, shahada https://islamhouse.com/en/videos/2822062/ | Suggested video, English | Read on 2026-10-04 | Cite the IslamHouse page as the source. |
+| `ibnbaz-lessons` | «الدروس المهمة لعامة الأمة» / Important Lessons for the General Ummah, Ibn Baz | IslamHouse 1871 | IslamHouse 2842316 (risala.prh.gov.sa translation) | Pillars of Islam and faith, tawhid, conditions, pillars, obligations and invalidators of prayer, wudu and its invalidators |
+| `ibnbaz-prayer` | «كيفية صلاة النبي صلى الله عليه وسلم» / The Prophet's Manner of Performing Prayer, Ibn Baz | IslamHouse 62675 | IslamHouse 1261 (OCR text: only clean excerpts are used) | How to pray |
+| `mukhtasar` | «المختصر المفيد للمسلم الجديد» / New Muslim Guideline, Muhammad al-Shehri | IslamHouse 2831443 (PDF text: damaged paragraphs are not used) | byenah.com 4784 | Introductory points, wudu, ghusl, tayammum |
 
-NMG text URLs below are the Arabic pages under `https://newmuslimguide.com`; the English page is the same path under `/en/` (confirm when extracting).
+The stored books are in `content/fetched/books/`. Most Arabic paragraphs of al-Mukhtasar al-Mufid are damaged by PDF extraction (missing letters, scrambled order), and many English pages of 1261 are OCR-damaged. Such paragraphs are never quoted, which is why several cards keep labelled team wording.
+
+Suggested videos are published on IslamHouse.com by Osoul Center. The IslamHouse page is the primary link, and the file plays from IslamHouse's own servers. Only the two demonstration lessons have one: wudu (2.4) and prayer (3.4).
 
 ## How a lesson is experienced
 
@@ -26,78 +30,82 @@ The lesson is the interactive experience. Video is not part of the lesson flow.
 
 Every lesson has the same six parts, so the learner always knows where they are:
 
-1. **Recap** — one card recalling the previous lesson, then «زاد الطريق» / "Provisions": up to three review questions from earlier lessons.
-2. **Idea cards** — three to six short cards, one idea each, taken verbatim from the lesson text. Each card is followed by one unscored check.
-3. **Signature activity** — the interaction listed for the lesson in the tables below.
-4. **A small situation** — one everyday application question whose answer is in the lesson text.
-5. **Explain it to Rafiq** — the learner explains the lesson in their own words; Rafiq replies only with what is and is not covered by the lesson text, citing it. It never judges the learner's statement as religiously right or wrong. Hidden when the `rafiq` flag is off.
-6. **Close** — summary, journal stamp, lesson source, and a **suggested video** card ("to see it explained, watch…") when one exists in the learner's language. The card names the channel and language and opens the video in an in-page YouTube player (`youtube-nocookie.com`). Only the two demonstration lessons (2.4 wudu, 3.4 prayer) show the video before the activity instead of at the close.
+1. **Recap.** One card recalling the previous lesson, then «زاد الطريق» / "Provisions": up to three review questions from earlier lessons.
+2. **Idea cards.** Short cards, one idea each: book text verbatim, or labelled team wording with its verse or hadith. A card may be followed by one unscored check.
+3. **Signature activity.** The interaction listed for the lesson in the tables below, when the lesson's text gives it enough items.
+4. **A small situation.** One everyday application question whose answer is in the lesson text, when the lesson has one.
+5. **Explain it to Rafiq.** The learner explains the lesson in their own words; Rafiq replies only with what is and is not covered by the lesson text, citing it. It never judges the learner's statement as religiously right or wrong. Hidden when the `rafiq` flag is off.
+6. **Close.** Summary, journal stamp, the books the lesson quotes, and a **suggested video** card where one exists.
+
+Under its title, every fiqh lesson (stations 2 and 3) shows a fixed line naming the books it follows, saying that scholars differ on some of its details, and linking to the matching sections of the fiqh encyclopedia on dorar.net (`content/fiqh-encyclopedia.json`).
 
 ## Question system
 
 | Level | When | Scored | Behaviour |
 | --- | --- | --- | --- |
-| Check | After each idea card | No | Immediate feedback quoting the lesson sentence |
+| Check | After an idea card | No | Immediate feedback quoting the card |
 | Provisions | Start of each lesson | No | Spaced review of earlier lessons, missed questions first |
 | Quiz | At the marked points (🔹) below | Yes | Shows score and every question; Rafiq explains each wrong answer from the lesson text with its source |
 | What do I know? | Start of each station | Yes, not shown as pass/fail | Baseline for the understanding gain |
 | Station exam | End of each station | Yes | Same objectives as the baseline; unlocks the next station; journal shows the gain |
 
-Question types: single choice, multiple choice, true/false, ordering, matching, sorting into groups. Every question stores `sourceQuote` (the sentence of the lesson that answers it), `lessonId`, `objective` and `reviewed`. Questions are drafted from the lesson text only and stay hidden in production until `reviewed` is true.
+Question types: single choice, multiple choice, true/false, ordering, matching, sorting into groups. Every question stores `sourceQuote` (the card that answers it), `lessonId`, `objective` and `reviewed`. No question treats a point on which scholars differ as having one right answer.
 
 ## Station 1 — البداية / The Beginning
 
-| # | Lesson (ar / en) | Text (NMG) | Signature activity | Suggested video (ar · en) |
-| --- | --- | --- | --- | --- |
-| 1.1 | أعظم نعمة في الوجود / The greatest blessing | /preliminaries/640f63a5e281e | First page of the journal: the learner picks which sentence of the lesson speaks to them most (stored on device only) | `XU1J__TlAcU` · — |
-| 1.2 | شهادة أن لا إله إلا الله / No deity but Allah | /categories/your-faith/641a581a7070c | The two halves of the testimony: place each phrase of the lesson under "negation" or "affirmation" | `ZYjFb_Wbxhg` · `Of-J9b7T_AM` |
-| 1.3 | شهادة أن محمدًا رسول الله / Muhammad is the Messenger of Allah 🔹 | /categories/your-faith/641a5f9acb1dc | Timeline of the Prophet's life ﷺ: order the stages named in the lesson | `x09xALmClMk` · — |
-| 1.4 | أركان الإسلام الخمسة / The five pillars of Islam | /preliminaries/6410daa3a3554 | Five lanterns on the road: light each pillar by matching it to its description | `Q6wjIXFGKVg` · `cCkCvF48z5E` |
-| 1.5 | أركان الإيمان الستة / The six pillars of faith | /categories/your-faith/64245f26c664a | Match each pillar to its meaning | playlist `PL57pTpJnA2Q6C0Hy3ew2TeLTieIAS7G5I` · `H1R8OY0JgMs` |
-| 1.6 | حياتك الجديدة / Your new life 🔹 | /categories/your-new-life | "My first steps" checklist built from the lesson's own headings | — · — |
+| # | Lesson (ar / en) | Text quoted | Signature activity |
+| --- | --- | --- | --- |
+| 1.1 | أعظم نعمة في الوجود / The greatest blessing | team wording with its evidence | First page of the journal: the learner picks the card that speaks to them most (stored on device only) |
+| 1.2 | شهادة أن لا إله إلا الله / No deity but Allah | `ibnbaz-lessons` | The two halves of the testimony: sort phrases under "negation" or "affirmation" |
+| 1.3 | شهادة أن محمدًا رسول الله / Muhammad is the Messenger of Allah 🔹 | `ibnbaz-lessons` | Timeline of the Prophet's life ﷺ |
+| 1.4 | أركان الإسلام الخمسة / The five pillars of Islam | `ibnbaz-lessons` | Five lanterns on the road |
+| 1.5 | أركان الإيمان الستة / The six pillars of faith | `ibnbaz-lessons`, `mukhtasar` | Match each pillar to its meaning |
+| 1.6 | حياتك الجديدة / Your new life 🔹 | team wording with its evidence | "My first steps" checklist |
 
 ## Station 2 — الطهارة / Purification
 
-| # | Lesson (ar / en) | Text (NMG) | Signature activity | Suggested video (ar · en) |
+| # | Lesson (ar / en) | Text quoted | Signature activity | Suggested video |
 | --- | --- | --- | --- | --- |
-| 2.1 | معنى الطهارة / The meaning of purification | /categories/your-purification/66ef8ed845064 | Two kinds of purity: sort the lesson's examples | `Uiw5-B-XG4g` · — |
-| 2.2 | التطهر من النجاسة وآداب قضاء الحاجة / Removing impurity | /categories/your-purification/66efccd101c3a | Entering and leaving: order the etiquettes; listen to the two supplications | `E47RDvVR2q8` · — |
-| 2.3 | الحدث الأصغر ونواقض الوضوء / What breaks wudu 🔹 | /categories/your-purification/66f37008555b6 | "Is my wudu still valid?" — swipe each case from the lesson to one of two sides | `_HEApaL2NB8` · — |
-| 2.4 | كيف أتوضأ؟ / How do I perform wudu? | /categories/your-purification/66f7724f354f9 | **Wudu sequencer**: drag the steps into order, then "wudu with me" guided step by step | `0Z1P1mUm5i4` · `pMOl8qHjwb8` |
-| 2.5 | الغسل والتيمم / Ghusl and tayammum 🔹 | /categories/your-purification/66f7724f354f9 (sub-sections) | "Which one do I need?" — decision path using the cases in the lesson | `bZwb_wr9Qp8` · — |
+| 2.1 | معنى الطهارة / The meaning of purification | team wording with its evidence | Sort the lesson's examples | — |
+| 2.2 | التطهر من النجاسة وآداب قضاء الحاجة / Removing impurity | team wording with its evidence | dropped: no approved text for its items | — |
+| 2.3 | الحدث الأصغر ونواقض الوضوء / What breaks wudu 🔹 | `ibnbaz-lessons`, `mukhtasar` | "Is my wudu still valid?" swipe | — |
+| 2.4 | كيف أتوضأ؟ / How do I perform wudu? | `ibnbaz-lessons`, `mukhtasar` | **Wudu sequencer**, then "wudu with me" step by step | IslamHouse ar 2834583 · en 2834586 |
+| 2.5 | الغسل والتيمم / Ghusl and tayammum 🔹 | `mukhtasar` | Match and order | — |
 
 ## Station 3 — الصلاة / Prayer
 
-| # | Lesson (ar / en) | Text (NMG) | Signature activity | Suggested video (ar · en) |
+| # | Lesson (ar / en) | Text quoted | Signature activity | Suggested video |
 | --- | --- | --- | --- | --- |
-| 3.1 | منزلة الصلاة وفضلها / The status and virtues of prayer | /categories/your-prayer/66fb8036c398b | Collect the virtues: reveal each virtue and its evidence | `3ni4zVT1TsI` · `ETmbhhpTVi0` |
-| 3.2 | شروط الصلاة ومكانها / Conditions and place of prayer | /categories/your-prayer/66fe415de06b4, /6702360956f71 | "Am I ready to pray?" checklist | `5GtS69nP4gY` · — |
-| 3.3 | الصلوات الخمس وأوقاتها / The five prayers and their times 🔹 | /categories/your-prayer/6701210bea9dc | **The day arc**: drag the sun from dawn to night and see which prayer's time it is and its number of rak'ahs | `eNiX4-LXUUU` · — |
-| 3.4 | كيف أصلي؟ / How do I pray? | /categories/your-prayer/6704bcc2d3c09, /670de63436400 | **Build a rak'ah**: assemble the positions in order, then a full prayer | `MDgtFMR3-fo` · `bkC_79eJa70` |
-| 3.5 | معنى سورة الفاتحة / The meaning of Al-Fatihah 🔹 | confirm location in NMG | **Ayah by ayah**: tap an ayah to see its meaning (quranenc.com) and hear it (mp3quran.net) | `HotCPz0Ms_E` · — |
-| 3.6 | أركان الصلاة وواجباتها ومبطلاتها / Pillars, obligations and invalidators | /categories/your-prayer/6710620c08dea | Sort the lesson's items into three groups | `zN8z4wt5i6w` · — |
-| 3.7 | صلاة الجماعة / Congregational prayer | /categories/your-prayer/671619839466d | "I arrived late": pick what to do in each case from the lesson | `jmGwtzQEvcc` · — |
-| 3.8 | صلاة الجمعة / The Friday prayer 🔹 | /categories/your-prayer/671dec2457dc6 | My first Friday: order the steps of the day | `d25gMKkf7kQ` · — |
+| 3.1 | منزلة الصلاة وفضلها / The status and virtues of prayer | team wording with its evidence | Collect the virtues | — |
+| 3.2 | شروط الصلاة ومكانها / Conditions and place of prayer | `ibnbaz-lessons` | "Am I ready to pray?" checklist and decision path | — |
+| 3.3 | الصلوات الخمس وأوقاتها / The five prayers and their times 🔹 | team wording with its evidence | **The day arc** | — |
+| 3.4 | كيف أصلي؟ / How do I pray? | `ibnbaz-lessons`, `ibnbaz-prayer`, `mukhtasar` | **Build a rak'ah**, then a full prayer step by step | IslamHouse ar 2832089 · en 2838921 |
+| 3.5 | معنى سورة الفاتحة / The meaning of Al-Fatihah 🔹 | `ibnbaz-lessons`; each ayah's meaning is التفسير الميسر (Arabic) or the english_saheeh translation (English), from quranenc.com | **Ayah by ayah**: tap an ayah to see its published meaning and hear it (mp3quran.net) | — |
+| 3.6 | أركان الصلاة وواجباتها ومبطلاتها / Pillars, obligations and invalidators | `ibnbaz-lessons` (Ibn Baz's own lists) | Sort the lesson's items into groups | — |
+| 3.7 | صلاة الجماعة / Congregational prayer | team wording and hadith | dropped: no book states the late-arrival cases | — |
+| 3.8 | صلاة الجمعة / The Friday prayer 🔹 | `ibnbaz-lessons` | Swipe | — |
 
 ## Stations 4 and 5 (after the first three are complete)
 
-| Station | Topics (NMG chapters) | Arabic video playlists (ZADI) |
-| --- | --- | --- |
-| 4 — حياتي اليومية / Daily life | طعامك وشرابك، لباسك | «أحكام الأطعمة» `PL57pTpJnA2Q5NvQHYwxSZPRb_de4uBSuI` |
-| 5 — حياتي الجديدة / My new life | أخلاقك، أسرتك | «أخلاق المسلم» `PL57pTpJnA2Q5JAPA55GyAai7Nvy-UY_Fz`; «الأسرة حقوق وواجبات» `PL57pTpJnA2Q5EGwVNbSxCgou7d5R-WUkS` |
+| Station | Topics |
+| --- | --- |
+| 4 — حياتي اليومية / Daily life | Food and drink, clothing |
+| 5 — حياتي الجديدة / My new life | Character, family |
+
+Their text will come from the approved books in the same way: verbatim by reference, or labelled team wording resting on a verse or hadith.
 
 ## Rules for building lessons from this map
 
-1. Every card, activity item and question is taken from the lesson's approved text and stores the sentence it comes from. If the text does not contain enough items for an activity, the activity is dropped for that lesson; nothing is invented to fill it.
-2. Qur'an verses are rendered from quranenc.com by reference; recitation audio comes from mp3quran.net. Neither is generated.
-3. Illustrations are original, abstract inline SVG. No depiction of faces.
-4. A lesson with no suggested video in the learner's language simply has no video card. The two languages are otherwise identical.
-5. Every lesson records `textSource`, `videoSource` and `reviewedBy`.
+1. Every card shows book text verbatim by reference or labelled team wording; every activity item and question comes from the lesson's own cards and evidence. If the text does not give enough items for an activity, the activity is dropped for that lesson.
+2. Qur'an verses are rendered from quranenc.com by reference, each with its translation's name and version; recitation audio comes from mp3quran.net. Neither is generated.
+3. A point on which scholars differ is either shown verbatim from an approved book or removed, together with any question that treats it as settled.
+4. Illustrations are abstract inline SVG. No depiction of faces.
+5. A lesson with no suggested video in the learner's language simply has no video card.
 
 ## Review checklist (human)
 
-- [ ] Scholarly mentor approves ZADI as a video source.
-- [ ] Reuse permission for NMG text confirmed.
-- [ ] Each suggested video watched end to end by a reviewer.
-- [ ] Text location of lessons 1.6 and 3.5 confirmed in the book.
-- [ ] Every activity's items checked against the lesson text.
+- [ ] Each team-worded card read against its verse or hadith (`docs/CONTENT_REVIEW.md`).
+- [ ] Each Arabic–English pair of al-Mukhtasar al-Mufid checked (`docs/CONTENT_REVIEW.md`).
+- [ ] The two IslamHouse videos watched end to end.
+- [ ] The fiqh encyclopedia sections linked under each fiqh lesson opened and confirmed.
+- [ ] Objectives that no card covers any more (listed in `docs/CONTENT_REVIEW.md`) given approved text or removed.

@@ -5,7 +5,7 @@
   "status": "draft",
   "reviewed": false,
   "reviewedBy": null,
-  "authoring": "Written by the team in simple wording from the sources listed in `sources`. Verses and hadiths are referenced and fetched verbatim, never typed.",
+  "authoring": "Cards with textRef show the named book verbatim; cards marked authoring: team keep the team's wording and rest only on their verse or hadith.",
   "title": {
     "ar": "كيف أصلي؟",
     "en": "How do I pray?"
@@ -24,41 +24,56 @@
   },
   "sources": [
     {
-      "key": "nmg",
+      "key": "ibnbaz-prayer",
       "title": {
-        "ar": "دليل المسلم الجديد — كيف أصلي؟",
-        "en": "The New Muslim Guide — How to Pray"
+        "ar": "كيفية صلاة النبي صلى الله عليه وسلم",
+        "en": "The Prophet's Manner of Performing Prayer"
       },
-      "publisher": "IslamHouse / Modern Guide",
+      "publisher": "IslamHouse.com",
       "url": {
-        "ar": "https://newmuslimguide.com/ar/categories/your-prayer/670de63436400",
-        "en": "https://newmuslimguide.com/en/categories/your-prayer/670de63436400"
+        "ar": "https://islamhouse.com/ar/books/62675/",
+        "en": "https://islamhouse.com/en/books/1261/"
       },
-      "use": "Facts restated in our own words; not copied."
+      "use": "Shown verbatim by reference (textRef)."
     },
     {
-      "key": "nmg-full",
+      "key": "ibnbaz-lessons",
       "title": {
-        "ar": "دليل المسلم الجديد — صفة الصلاة",
-        "en": "The New Muslim Guide — Performing the Prayer"
+        "ar": "الدروس المهمة لعامة الأمة",
+        "en": "Important Lessons for the General Ummah"
       },
-      "publisher": "IslamHouse / Modern Guide",
+      "publisher": "IslamHouse.com",
       "url": {
-        "ar": "https://newmuslimguide.com/ar/categories/your-prayer/6704bcc2d3c09",
-        "en": "https://newmuslimguide.com/en/categories/your-prayer/6704bcc2d3c09"
+        "ar": "https://islamhouse.com/ar/books/1871/",
+        "en": "https://islamhouse.com/en/books/2842316/"
       },
-      "use": "Facts restated in our own words; not copied."
+      "use": "Shown verbatim by reference (textRef)."
+    },
+    {
+      "key": "mukhtasar",
+      "title": {
+        "ar": "المختصر المفيد للمسلم الجديد",
+        "en": "New Muslim Guideline"
+      },
+      "publisher": "IslamHouse.com / byenah.com",
+      "url": {
+        "ar": "https://islamhouse.com/ar/books/2831443/",
+        "en": "https://byenah.com/en/muslim-content/4784"
+      },
+      "use": "Shown verbatim by reference (textRef)."
     }
   ],
   "suggestedVideo": {
     "ar": {
-      "youtubeId": "MDgtFMR3-fo",
-      "channel": "منصة زادي",
+      "source": "islamhouse-videos",
+      "page": "https://islamhouse.com/ar/videos/2832089/",
+      "file": "https://d1.islamhouse.com/data/ar/ih_videos/mp4/single/ar-how-to-pray.mp4",
       "position": "beforeActivity"
     },
     "en": {
-      "youtubeId": "bkC_79eJa70",
-      "channel": "Guide To Islam",
+      "source": "islamhouse-videos",
+      "page": "https://islamhouse.com/en/videos/2838921/",
+      "file": "https://ih-download.islamenc.com/data/en/ih_videos/mp4/single/en_Salah_With_al_Duaa.mp4",
       "position": "beforeActivity"
     }
   },
@@ -66,27 +81,39 @@
     {
       "id": "c1",
       "source": [
-        "nmg-full"
+        "mukhtasar"
       ],
-      "text": {
-        "ar": "تبدأ بالنية في قلبك: أي صلاة تصلي. ولا تنطق بها.",
-        "en": "You begin with the intention in your heart: which prayer you are praying. You do not say it aloud."
+      "textRef": {
+        "ar": {
+          "book": "islamhouse-2831443",
+          "section": "s11",
+          "paragraph": 4,
+          "excerpt": "النيَّــة للفريضــة التــي أريــد أداءهــا،\nومحلهــا القلــب."
+        },
+        "en": {
+          "book": "byenah-4784",
+          "section": "s23",
+          "paragraph": 11,
+          "excerpt": "I make the intention in my heart for the prayer I intend to perform."
+        }
       }
     },
     {
       "id": "c2",
-      "source": [
-        "nmg-full"
-      ],
+      "source": [],
+      "authoring": "team",
       "text": {
         "ar": "تُفتتح الصلاة بالتكبير وتُختم بالتسليم.",
         "en": "Prayer opens with the takbir and closes with the taslim."
       },
       "evidence": {
         "type": "hadith",
-        "hadeethencId": null,
-        "citation": "سنن أبي داود 61؛ سنن الترمذي 3",
-        "availableIn": [],
+        "hadeethencId": 5216,
+        "citation": "رواه مسلم",
+        "availableIn": [
+          "ar",
+          "en"
+        ],
         "publisher": "hadeethenc.com"
       },
       "check": {
@@ -112,11 +139,21 @@
     {
       "id": "c3",
       "source": [
-        "nmg-full"
+        "ibnbaz-prayer"
       ],
-      "text": {
-        "ar": "السجود أقرب ما يكون العبد من ربه، فأكثِر فيه من الدعاء.",
-        "en": "In prostration a servant is closest to their Lord, so supplicate much in it."
+      "textRef": {
+        "ar": {
+          "book": "62675",
+          "section": "t6",
+          "paragraph": 1,
+          "excerpt": "ويكثر من الدعاء"
+        },
+        "en": {
+          "book": "1261",
+          "section": "a1-page-15",
+          "paragraph": 1,
+          "excerpt": "It is recommendable for the worshipper to\nexceed more and more in supplications and\nask for more from his Lord"
+        }
       },
       "evidence": {
         "type": "hadith",
@@ -131,9 +168,8 @@
     },
     {
       "id": "c4",
-      "source": [
-        "nmg-full"
-      ],
+      "source": [],
+      "authoring": "team",
       "text": {
         "ar": "إن لم تحفظ بعدُ الفاتحة وأذكار الصلاة، فاجتهد في حفظها، وقل في صلاتك ما حفظته منها بقدر استطاعتك.",
         "en": "If you have not yet memorised Al-Fatihah and the words of the prayer, work on memorising them, and say in your prayer whatever you have learned, as far as you are able."
@@ -151,25 +187,14 @@
         },
         "answer": false
       }
-    },
-    {
-      "id": "c5",
-      "source": [
-        "nmg-full"
-      ],
-      "text": {
-        "ar": "ويُستحب في هذه المدة أن تصلي مع الجماعة، فذلك يعينك على إتقان صلاتك.",
-        "en": "During this period it is recommended to pray in congregation; it helps you perfect your prayer."
-      }
     }
   ],
   "steps": [
     {
       "n": 1,
       "key": "qiyam",
-      "source": [
-        "nmg"
-      ],
+      "source": [],
+      "authoring": "team",
       "title": {
         "ar": "القيام والتكبير",
         "en": "Stand and say the takbir"
@@ -184,39 +209,58 @@
       "n": 2,
       "key": "qiraah",
       "source": [
-        "nmg"
+        "mukhtasar"
       ],
       "title": {
         "ar": "القراءة",
         "en": "Recite"
       },
-      "text": {
-        "ar": "تضع يدك اليمنى على اليسرى على صدرك، وتقرأ سورة الفاتحة، ثم ما تيسر من القرآن في الركعتين الأوليين.",
-        "en": "Place your right hand over your left on your chest, recite Al-Fatihah, then some Qur'an in the first two rak'ahs."
+      "textRef": {
+        "ar": {
+          "book": "islamhouse-2831443",
+          "section": "s11",
+          "paragraph": 9,
+          "excerpt": "أقــرأ بعــد الفاتحــة مــا تيسَّــر مــن \nالقــرآن فــي الركعــة الأولــى والثانيــة \nفقــط"
+        },
+        "en": {
+          "book": "byenah-4784",
+          "section": "s23",
+          "paragraph": 17,
+          "excerpt": "After al-Fātihah, I recite verses from the Qur’an (other than al-Fātihah) only in the first and second rak’a."
+        }
       }
     },
     {
       "n": 3,
       "key": "ruku",
       "source": [
-        "nmg"
+        "ibnbaz-prayer"
       ],
       "title": {
         "ar": "الركوع",
         "en": "Bow"
       },
-      "text": {
-        "ar": "تكبّر وتركع: تحني ظهرك مستويًا وتضع كفيك على ركبتيك، وتقول: «سبحان ربي العظيم». الواجب مرة، والمستحب ثلاث.",
-        "en": "Say the takbir and bow: back level, palms on knees, saying: \"Subhana rabbiyal-'adheem\" (Glory be to my Lord, the Almighty). Once is required; three times is recommended."
+      "textRef": {
+        "ar": {
+          "book": "62675",
+          "section": "t5",
+          "paragraph": 1,
+          "excerpt": "جاعلا رأسه حيال ظهره واضعًا يديه على ركبتيه مفرقًا أصابعه ويطمئن في ركوعه"
+        },
+        "en": {
+          "book": "1261",
+          "section": "a1-page-11",
+          "paragraph": 1,
+          "excerpt": "then bends down, making\nhis head and back on one level and putting\nhis hands with the fingers spread on his\nknees. The worshipper should feel serenity\nand tranquility while bowing"
+        }
       },
       "say": "سبحان ربي العظيم"
     },
     {
       "n": 4,
       "key": "itidal",
-      "source": [
-        "nmg"
-      ],
+      "source": [],
+      "authoring": "team",
       "title": {
         "ar": "الرفع من الركوع",
         "en": "Rise from bowing"
@@ -231,15 +275,25 @@
       "n": 5,
       "key": "sujud1",
       "source": [
-        "nmg"
+        "ibnbaz-prayer"
       ],
       "title": {
         "ar": "السجود",
         "en": "Prostrate"
       },
-      "text": {
-        "ar": "تكبّر وتسجد على جبهتك وكفيك وركبتيك وأطراف قدميك، وتقول: «سبحان ربي الأعلى». الواجب مرة، والمستحب ثلاث.",
-        "en": "Say the takbir and prostrate on your forehead, hands, knees and toes, saying: \"Subhana rabbiyal-a'la\" (Glory be to my Lord, the Most High). Once is required; three times is recommended."
+      "textRef": {
+        "ar": {
+          "book": "62675",
+          "section": "t6",
+          "paragraph": 1,
+          "excerpt": "ويكون على أعضائه السبعة: الجبهة مع الأنف، واليدين، والركبتين، وبطون أصابع الرجلين"
+        },
+        "en": {
+          "book": "1261",
+          "section": "a1-page-14",
+          "paragraph": 1,
+          "excerpt": "In prostration, the worshipper should\nuse these seven organs:\nThe forehead, the nose, both hands, both\nknees and the internal parts of the toes."
+        }
       },
       "say": "سبحان ربي الأعلى"
     },
@@ -247,24 +301,33 @@
       "n": 6,
       "key": "jalsa",
       "source": [
-        "nmg"
+        "ibnbaz-lessons"
       ],
       "title": {
         "ar": "الجلوس بين السجدتين",
         "en": "Sit between the two prostrations"
       },
-      "text": {
-        "ar": "تكبّر وتجلس، وتقول: «رب اغفر لي».",
-        "en": "Say the takbir and sit, saying: \"Rabbighfir li\" (My Lord, forgive me)."
+      "textRef": {
+        "ar": {
+          "book": "1871",
+          "section": "t14",
+          "paragraph": 10,
+          "excerpt": "جلوس المصلي على رجله اليسرى مفروشة، ونصب اليمنى في التشهد الأول وبين السجدتين."
+        },
+        "en": {
+          "book": "2842316",
+          "section": "s13",
+          "paragraph": 10,
+          "excerpt": "The worshipper rests on the left foot, with the right foot erected during the first Tashahhud and between the two prostrations."
+        }
       },
       "say": "رب اغفر لي"
     },
     {
       "n": 7,
       "key": "sujud2",
-      "source": [
-        "nmg"
-      ],
+      "source": [],
+      "authoring": "team",
       "title": {
         "ar": "السجود الثاني",
         "en": "Prostrate again"
@@ -280,18 +343,27 @@
     {
       "key": "second",
       "source": [
-        "nmg"
+        "ibnbaz-prayer"
       ],
-      "text": {
-        "ar": "تقوم مكبّرًا للركعة الثانية وتفعل فيها مثل الأولى.",
-        "en": "Rise with the takbir for the second rak'ah and do as in the first."
+      "textRef": {
+        "ar": {
+          "book": "62675",
+          "section": "t7",
+          "paragraph": 3,
+          "excerpt": "ثم ينهض قائمًا إلى الركعة الثانية معتمدًا على ركبتيه إن تيسر له ذلك وإن شق عليه اعتمد على الأرض، ثم يقرأ الفاتحة وما تيسر له من القرآن بعد الفاتحة، ثم يفعل كما فعل في الركعة الأولى."
+        },
+        "en": {
+          "book": "1261",
+          "section": "a1-page-17",
+          "paragraph": 1,
+          "excerpt": "Then the worshipper rises up and stands\nsupporting on his knees, or on the ground if\nhe cannot support himself on the knees,\nreads the Fatihah (The opening Sura of the\nglorious Quran) and some other verses of the\nQuran and do as just as he did in the first\nRakaah (unit of prayer)."
+        }
       }
     },
     {
       "key": "tashahhud1",
-      "source": [
-        "nmg"
-      ],
+      "source": [],
+      "authoring": "team",
       "text": {
         "ar": "بعد السجدة الثانية من الركعة الثانية تجلس وتقرأ التشهد الأول.",
         "en": "After the second prostration of the second rak'ah, sit and recite the first tashahhud."
@@ -309,9 +381,8 @@
     },
     {
       "key": "more",
-      "source": [
-        "nmg"
-      ],
+      "source": [],
+      "authoring": "team",
       "text": {
         "ar": "إن كانت الصلاة ثلاثًا أو أربعًا قمت وأكملت، وتقرأ في الثالثة والرابعة الفاتحة فقط.",
         "en": "If the prayer has three or four rak'ahs, rise and complete them, reciting only Al-Fatihah in the third and fourth."
@@ -319,9 +390,8 @@
     },
     {
       "key": "tashahhud2",
-      "source": [
-        "nmg"
-      ],
+      "source": [],
+      "authoring": "team",
       "text": {
         "ar": "في آخر ركعة تجلس وتقرأ التشهد ثم الصلاة على النبي ﷺ.",
         "en": "In the last rak'ah, sit and recite the tashahhud followed by the prayer upon the Prophet ﷺ."
@@ -339,9 +409,8 @@
     },
     {
       "key": "taslim",
-      "source": [
-        "nmg"
-      ],
+      "source": [],
+      "authoring": "team",
       "text": {
         "ar": "تلتفت يمينًا وتقول: «السلام عليكم ورحمة الله»، ثم يسارًا كذلك.",
         "en": "Turn your face to the right saying: \"Assalamu 'alaykum wa rahmatullah\", then to the left the same."
@@ -497,14 +566,5 @@
       "cards"
     ]
   },
-  "readMore": [
-    {
-      "ar": "https://newmuslimguide.com/ar/categories/your-prayer/670de63436400",
-      "en": "https://newmuslimguide.com/en/categories/your-prayer/670de63436400"
-    },
-    {
-      "ar": "https://newmuslimguide.com/ar/categories/your-prayer/6704bcc2d3c09",
-      "en": "https://newmuslimguide.com/en/categories/your-prayer/6704bcc2d3c09"
-    }
-  ]
+  "readMore": []
 }

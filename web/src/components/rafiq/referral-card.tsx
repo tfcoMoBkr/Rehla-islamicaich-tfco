@@ -23,9 +23,9 @@ export function ReferralCard({ reason, links, own }: ReferralCardProps) {
         <p className="font-semibold">{own?.title ?? t(`referral.${reason}.title`)}</p>
         <p className="leading-relaxed">{own?.body ?? t(`referral.${reason}.body`)}</p>
       </div>
-      {links.includes("/talk-to-a-human") && (
-        <Link href="/talk-to-a-human" className="justify-self-start font-semibold text-terracotta-text underline underline-offset-4">
-          {t("talkToHuman")}
+      {links.includes("/talk-to-a-specialist") && (
+        <Link href="/talk-to-a-specialist" className="justify-self-start font-semibold text-terracotta-text underline underline-offset-4">
+          {t("talkToSpecialist")}
         </Link>
       )}
     </div>

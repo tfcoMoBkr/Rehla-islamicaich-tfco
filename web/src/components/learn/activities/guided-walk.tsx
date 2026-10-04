@@ -2,6 +2,7 @@
 
 import { useLocale, useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
+import { TeamWordingLabel } from "@/components/learn/wording";
 
 import { StepDots } from "@/components/learn/assessment/step-dots";
 import { LineHelpButton } from "@/components/learn/board/line-help-button";
@@ -60,6 +61,7 @@ export function GuidedWalk({ steps, note, onFinish, onProgress, onLineHelp }: Gu
               </p>
             ))}
           </div>
+          <TeamWordingLabel wording={step.wording} />
           <ListenControls reader={reader} />
           <MediaGallery media={step.media} />
           {step.repeat && (

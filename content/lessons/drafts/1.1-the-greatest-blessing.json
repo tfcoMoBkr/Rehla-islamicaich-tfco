@@ -5,7 +5,7 @@
   "status": "draft",
   "reviewed": false,
   "reviewedBy": null,
-  "authoring": "Written by the team in simple wording from the sources listed in `sources`. Verses and hadiths are referenced and fetched verbatim, never typed.",
+  "authoring": "No passage of the approved books states these cards' points cleanly in both languages, so every card is marked authoring: team: it keeps the team's wording and rests only on its verse or hadith.",
   "title": {
     "ar": "أعظم نعمة في الوجود",
     "en": "The greatest blessing"
@@ -20,35 +20,16 @@
       "Know how to show gratitude for it"
     ]
   },
-  "sources": [
-    {
-      "key": "nmg",
-      "title": {
-        "ar": "دليل المسلم الجديد — أعظم نعمة في الوجود",
-        "en": "The New Muslim Guide — The Greatest Blessing Ever"
-      },
-      "publisher": "IslamHouse / Modern Guide",
-      "url": {
-        "ar": "https://newmuslimguide.com/ar/preliminaries/640f63a5e281e",
-        "en": "https://newmuslimguide.com/en/preliminaries/640f63a5e281e"
-      },
-      "use": "Facts restated in our own words; not copied."
-    }
-  ],
+  "sources": [],
   "suggestedVideo": {
-    "ar": {
-      "youtubeId": "XU1J__TlAcU",
-      "channel": "منصة زادي",
-      "position": "close"
-    },
+    "ar": null,
     "en": null
   },
   "cards": [
     {
       "id": "c1",
-      "source": [
-        "nmg"
-      ],
+      "authoring": "team",
+      "source": [],
       "text": {
         "ar": "نِعَم الله علينا كثيرة لا نستطيع عدّها: السمع والبصر والعقل والصحة والأهل.",
         "en": "Allah's blessings upon us are too many to count: hearing, sight, the mind, health and family."
@@ -69,9 +50,8 @@
     },
     {
       "id": "c2",
-      "source": [
-        "nmg"
-      ],
+      "authoring": "team",
+      "source": [],
       "text": {
         "ar": "هذه النعم تنتهي بانتهاء الحياة الدنيا. أما نعمة الإسلام فهي التي تجلب الطمأنينة في الدنيا والنعيم الدائم في الآخرة، ولذلك هي أعظم النعم.",
         "en": "These blessings end when this life ends. The blessing of Islam brings tranquillity in this life and lasting bliss in the hereafter, which is why it is the greatest blessing."
@@ -108,9 +88,8 @@
     },
     {
       "id": "c3",
-      "source": [
-        "nmg"
-      ],
+      "authoring": "team",
+      "source": [],
       "text": {
         "ar": "الهداية فضل من الله عليك. هو الذي اختارك وهداك، فالمنّة له سبحانه.",
         "en": "Guidance is a favour from Allah to you. He chose you and guided you, so the favour is His."
@@ -123,9 +102,8 @@
     },
     {
       "id": "c4",
-      "source": [
-        "nmg"
-      ],
+      "authoring": "team",
+      "source": [],
       "text": {
         "ar": "الشكر يحفظ النعمة ويزيدها.",
         "en": "Gratitude preserves a blessing and increases it."
@@ -143,53 +121,9 @@
         },
         "answer": true
       }
-    },
-    {
-      "id": "c5",
-      "source": [
-        "nmg"
-      ],
-      "text": {
-        "ar": "وشكر نعمة الإسلام يكون بأمرين: أن تتمسك به وتصبر على ما تلقاه، وأن تعرّف غيرك به بحكمة وصبر.",
-        "en": "Gratitude for Islam is shown in two ways: holding fast to it with patience through what you face, and introducing others to it with wisdom and patience."
-      }
     }
   ],
   "activities": [
-    {
-      "id": "a1",
-      "type": "select",
-      "title": {
-        "ar": "كيف أشكر نعمة الإسلام؟",
-        "en": "How do I show gratitude for Islam?"
-      },
-      "instruction": {
-        "ar": "اختر الأمرين المذكورين في الدرس.",
-        "en": "Choose the two ways mentioned in the lesson."
-      },
-      "items": [
-        {
-          "ar": "التمسك بالإسلام والصبر",
-          "en": "Holding fast to Islam with patience",
-          "correct": true
-        },
-        {
-          "ar": "تعريف الآخرين به بحكمة وصبر",
-          "en": "Introducing others to it with wisdom and patience",
-          "correct": true
-        },
-        {
-          "ar": "الانشغال بعدّ النعم دون عمل",
-          "en": "Counting blessings without acting on them",
-          "correct": false
-        },
-        {
-          "ar": "اعتبار إسلامي فضلًا مني على غيري",
-          "en": "Seeing my Islam as a favour I do for others",
-          "correct": false
-        }
-      ]
-    },
     {
       "id": "a2",
       "type": "reflection",
@@ -232,10 +166,5 @@
       "cards"
     ]
   },
-  "readMore": [
-    {
-      "ar": "https://newmuslimguide.com/ar/preliminaries/640f63a5e281e",
-      "en": "https://newmuslimguide.com/en/preliminaries/640f63a5e281e"
-    }
-  ]
+  "readMore": []
 }

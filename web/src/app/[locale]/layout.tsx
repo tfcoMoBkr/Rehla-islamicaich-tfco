@@ -9,10 +9,11 @@ import {
   RafiqPosesProvider,
   type RafiqPoses,
 } from "@/components/rafiq/rafiq-figure";
+import { ReferralCentresProvider } from "@/components/specialists/centres-context";
 import { DirectionProvider } from "@/components/ui/direction";
 import { localeDirection, resolveLocale } from "@/i18n/locale";
 import { routing } from "@/i18n/routing";
-import { loadRafiqManifest } from "@/lib/content/load";
+import { loadRafiqManifest, loadReferralCentres } from "@/lib/content/load";
 import { fontVariables } from "@/lib/fonts";
 
 import "../globals.css";
@@ -40,7 +41,7 @@ export default async function LocaleLayout({
   const locale = resolveLocale((await params).locale);
   setRequestLocale(locale);
   const dir = localeDirection[locale];
-  const { poses } = await loadRafiqManifest();
+  const [{ poses }, centres] = await Promise.all([loadRafiqManifest(), loadReferralCentres()]);
   const rafiq = Object.fromEntries(
     poses.map(({ pose, file, width, height }) => [
       pose,
@@ -54,16 +55,18 @@ export default async function LocaleLayout({
         <NextIntlClientProvider>
           <DirectionProvider dir={dir}>
             <RafiqPosesProvider poses={rafiq}>
-              <SkipLink />
-              <SiteHeader />
-              <main
-                id={MAIN_CONTENT_ID}
-                tabIndex={-1}
-                className="flex-1 outline-none"
-              >
-                {children}
-              </main>
-              <SiteFooter />
+              <ReferralCentresProvider value={centres}>
+                <SkipLink />
+                <SiteHeader />
+                <main
+                  id={MAIN_CONTENT_ID}
+                  tabIndex={-1}
+                  className="flex-1 outline-none"
+                >
+                  {children}
+                </main>
+                <SiteFooter />
+              </ReferralCentresProvider>
             </RafiqPosesProvider>
           </DirectionProvider>
         </NextIntlClientProvider>

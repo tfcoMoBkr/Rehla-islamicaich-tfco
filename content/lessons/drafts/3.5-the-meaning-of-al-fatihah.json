@@ -5,7 +5,7 @@
   "status": "draft",
   "reviewed": false,
   "reviewedBy": null,
-  "authoring": "Written by the team in simple wording from the sources listed in `sources`. Verses and hadiths are referenced and fetched verbatim, never typed.",
+  "authoring": "Cards with textRef show the named book verbatim; cards marked authoring: team keep the team's wording and rest only on their verse or hadith.",
   "title": {
     "ar": "معنى سورة الفاتحة",
     "en": "The meaning of Al-Fatihah"
@@ -22,36 +22,42 @@
   },
   "sources": [
     {
-      "key": "nmg",
+      "key": "ibnbaz-lessons",
       "title": {
-        "ar": "دليل المسلم الجديد — صفة الصلاة — شرح سورة الفاتحة",
-        "en": "The New Muslim Guide — Performing the Prayer — Soorat Al-Faatihah Explained"
+        "ar": "الدروس المهمة لعامة الأمة",
+        "en": "Important Lessons for the General Ummah"
       },
-      "publisher": "IslamHouse / Modern Guide",
+      "publisher": "IslamHouse.com",
       "url": {
-        "ar": "https://newmuslimguide.com/ar/categories/your-prayer/6704bcc2d3c09",
-        "en": "https://newmuslimguide.com/en/categories/your-prayer/6704bcc2d3c09"
+        "ar": "https://islamhouse.com/ar/books/1871/",
+        "en": "https://islamhouse.com/en/books/2842316/"
       },
-      "use": "Facts restated in our own words; not copied."
+      "use": "Shown verbatim by reference (textRef)."
     }
   ],
   "suggestedVideo": {
-    "ar": {
-      "youtubeId": "HotCPz0Ms_E",
-      "channel": "منصة زادي",
-      "position": "close"
-    },
+    "ar": null,
     "en": null
   },
   "cards": [
     {
       "id": "c1",
       "source": [
-        "nmg"
+        "ibnbaz-lessons"
       ],
-      "text": {
-        "ar": "الفاتحة أعظم سورة في القرآن، وقراءتها ركن من أركان الصلاة.",
-        "en": "Al-Fatihah is the greatest surah of the Qur'an, and reciting it is a pillar of the prayer."
+      "textRef": {
+        "ar": {
+          "book": "1871",
+          "section": "t11",
+          "paragraph": 1,
+          "excerpt": "القيام مع القدرة، وتكبيرة الإحرام، وقراءة الفاتحة، والركوع، والاعتدال بعد الركوع، والسجود على الأعضاء السبعة، والرفع منه، والجلسة بين السجدتين، والطمأنينة في جميع الأفعال، والترتيب بين الأركان، والتشهد الأخير، والجلوس له، والصلاة على النبي - صلى الله عليه وسلم - والتسليمتان."
+        },
+        "en": {
+          "book": "2842316",
+          "section": "s10",
+          "paragraph": 2,
+          "excerpt": "Standing if one is able to, the opening Takbīr, recitation of Surat al-Fātihah, bowing, standing upright after bowing, prostration on seven body parts, rising from prostration, sitting between the two prostrations, tranquility in all actions, observing the prescribed order among the pillars, the final Tashahhud, sitting for it, invoking Allah’s peace and blessings upon the Prophet (ﷺ), and making two Taslīms."
+        }
       },
       "evidence": {
         "type": "quran",
@@ -66,16 +72,6 @@
         },
         "answer": true
       }
-    },
-    {
-      "id": "c2",
-      "source": [
-        "nmg"
-      ],
-      "text": {
-        "ar": "بعد الفاتحة تقول: «آمين»، ومعناها: اللهم استجب.",
-        "en": "After Al-Fatihah you say \"Ameen\", meaning: O Allah, answer."
-      }
     }
   ],
   "ayat": [
@@ -85,63 +81,27 @@
     },
     {
       "ref": "1:2",
-      "source": [
-        "nmg"
-      ],
-      "meaning": {
-        "ar": "أثني على الله بكل صفاته وأفعاله ونعمه، مع المحبة والتعظيم. والرب: الخالق المالك الرازق المدبّر.",
-        "en": "I praise Allah for all His attributes, acts and blessings, with love and reverence. The Lord: the Creator, Owner, Provider and Disposer of all affairs."
-      }
+      "meaning": null
     },
     {
       "ref": "1:3",
-      "source": [
-        "nmg"
-      ],
-      "meaning": {
-        "ar": "اسمان من أسماء الله يدلان على سعة رحمته.",
-        "en": "Two of Allah's names, showing the vastness of His mercy."
-      }
+      "meaning": null
     },
     {
       "ref": "1:4",
-      "source": [
-        "nmg"
-      ],
-      "meaning": {
-        "ar": "هو وحده الحاكم يوم القيامة. وهذا يذكّرنا باليوم الآخر ويحثّنا على العمل الصالح.",
-        "en": "He alone is the Judge on the Day of Judgement. This reminds us of the Last Day and urges us to do good."
-      }
+      "meaning": null
     },
     {
       "ref": "1:5",
-      "source": [
-        "nmg"
-      ],
-      "meaning": {
-        "ar": "لا نعبد إلا أنت، ولا نستعين في أمورنا إلا بك.",
-        "en": "We worship none but You, and we seek help in all our affairs from You alone."
-      }
+      "meaning": null
     },
     {
       "ref": "1:6",
-      "source": [
-        "nmg"
-      ],
-      "meaning": {
-        "ar": "دُلَّنا على الطريق المستقيم وثبّتنا عليه. وهو الإسلام.",
-        "en": "Show us the Straight Path and keep us firm on it. It is Islam."
-      }
+      "meaning": null
     },
     {
       "ref": "1:7",
-      "source": [
-        "nmg"
-      ],
-      "meaning": {
-        "ar": "طريق من أنعمت عليهم ممن عرفوا الحق واتبعوه، لا طريق من عرف الحق فلم يتبعه، ولا من ضلّ عنه.",
-        "en": "The path of those You have blessed, who knew the truth and followed it; not of those who knew it and did not follow it, nor of those who went astray from it."
-      }
+      "meaning": null
     }
   ],
   "activities": [
@@ -175,24 +135,7 @@
       ]
     }
   ],
-  "situation": {
-    "prompt": {
-      "ar": "تقرأ في صلاتك الآية التي تطلب فيها من الله الهداية إلى الصراط المستقيم. ما معنى طلبك كما في الدرس؟",
-      "en": "In your prayer you recite the verse asking Allah for guidance to the Straight Path. What are you asking for, according to the lesson?"
-    },
-    "options": [
-      {
-        "ar": "أن يدلّني على الإسلام ويثبتني عليه",
-        "en": "To be shown Islam and kept firm on it",
-        "correct": true
-      },
-      {
-        "ar": "أن يرزقني مالًا",
-        "en": "To be given wealth",
-        "correct": false
-      }
-    ]
-  },
+  "situation": null,
   "reviewNotes": [
     "Verse text and audio are fetched by reference; no verse is typed here.",
     "The meanings are simplified from the source's explanation; the source's naming of specific groups under 1:7 is left out. Reviewer to confirm."
@@ -206,10 +149,5 @@
       "cards"
     ]
   },
-  "readMore": [
-    {
-      "ar": "https://newmuslimguide.com/ar/categories/your-prayer/6704bcc2d3c09",
-      "en": "https://newmuslimguide.com/en/categories/your-prayer/6704bcc2d3c09"
-    }
-  ]
+  "readMore": []
 }

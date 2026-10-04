@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AiNotice } from "@/components/rafiq/ai-notice";
 import type { LessonLink } from "@/components/rafiq/answer-view";
 import { RafiqConversation } from "@/components/rafiq/rafiq-conversation";
+import type { RoadLesson } from "@/components/rafiq/rafiq-memory";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { resolveLocale } from "@/i18n/locale";
 import { loadKhutuwat } from "@/lib/content/load";
@@ -28,12 +29,16 @@ export default async function RafiqPage({ params }: PageProps<"/[locale]/rafiq">
     ]),
   );
 
+  const road: RoadLesson[] = khutuwat.road.flatMap((station) =>
+    station.lessonIds.flatMap((id) => (lessons[id] ? [{ id, ...lessons[id] }] : [])),
+  );
+
   return (
     <div className="mx-auto max-w-3xl px-4 pt-20 pb-32 sm:px-6 md:pt-24">
       <SectionHeading as="h1" title={t("title")} description={t("description")} />
       <AiNotice figure={false} className="mt-6" />
       <div className="mt-10">
-        <RafiqConversation lessons={lessons} />
+        <RafiqConversation lessons={lessons} road={road} />
       </div>
     </div>
   );

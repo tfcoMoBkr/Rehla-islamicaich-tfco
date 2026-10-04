@@ -24,6 +24,7 @@ const answered: RafiqAnswer = {
   language: "en",
   level: "B",
   referred: false,
+  kind: "answer",
   blocks: [{ type: "text", text: "A simpler line [1]." }],
   sources: [source],
   referral: null,

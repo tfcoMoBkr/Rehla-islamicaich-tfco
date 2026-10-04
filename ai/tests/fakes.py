@@ -8,7 +8,7 @@ from pydantic import BaseModel
 
 from app.index import Chunk, Index
 from app.languages import Language
-from app.rafiq.schemas import Classification, Draft, KeywordQueries, SupportCheck
+from app.rafiq.schemas import ChatReply, Classification, Draft, KeywordQueries, SupportCheck
 from app.retrieval.passages import HadithText, Passage, VerseText
 from app.text import tokens
 
@@ -37,10 +37,14 @@ class FakeChat:
         classification: Classification,
         drafts: list[Draft],
         unsupported: list[int] | None = None,
+        religious: list[str] | None = None,
+        chat: ChatReply | None = None,
     ) -> None:
         self.classification = classification
         self.drafts = list(drafts)
         self.unsupported = unsupported or []
+        self.religious = religious or []
+        self.chat = chat or ChatReply(opening="And peace be with you.")
         self.systems: list[str] = []
         self.users: list[str] = []
 
@@ -52,7 +56,10 @@ class FakeChat:
         if schema is Draft:
             return self.drafts.pop(0) if len(self.drafts) > 1 else self.drafts[0]  # type: ignore[return-value]
         if schema is SupportCheck:
-            return SupportCheck(unsupported=self.unsupported)  # type: ignore[return-value]
+            check = SupportCheck(unsupported=self.unsupported, religious=self.religious)
+            return check  # type: ignore[return-value]
+        if schema is ChatReply:
+            return self.chat  # type: ignore[return-value]
         if schema is KeywordQueries:
             return KeywordQueries(queries=[])  # type: ignore[return-value]
         raise AssertionError(f"unexpected schema {schema}")

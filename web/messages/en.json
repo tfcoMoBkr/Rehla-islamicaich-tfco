@@ -79,7 +79,7 @@
       },
       "referral": {
         "title": "Abstention and referral",
-        "body": "When no reference is found, or for personal and disputed matters, Rafiq abstains and refers you to a qualified person. The system does not issue fatwas."
+        "body": "When no reference is found, or for personal and disputed matters, Rafiq abstains and refers you to a specialist. The system does not issue fatwas."
       },
       "verbatim": {
         "title": "Sacred text is never generated",
@@ -112,7 +112,7 @@
   "Footer": {
     "credit": "Built by Thakaa Flow for the AI Challenge Serving Islamic Content — Track 3.",
     "sources": "Sources",
-    "talkToHuman": "Talk to a human"
+    "talkToSpecialist": "Talk to a specialist"
   },
   "AiServiceStatus": {
     "checking": "Checking the AI service…",
@@ -212,7 +212,7 @@
     "textSource": "Sources",
     "videoSource": "Video",
     "demoSource": "Sample text written for this demonstration. It is not taken from a religious source.",
-    "videoPrivacy": "Nothing loads from YouTube until you ask to see the video, and it never starts on its own. It uses YouTube's privacy-enhanced mode.",
+    "videoPrivacy": "The video plays from IslamHouse.com's own servers, and nothing loads until you press play.",
     "demoNotice": "Demo lesson: neutral sample content, written to show how a lesson works. It is not religious material.",
     "draftNotice": "Draft, awaiting review: the team wrote this lesson from its sources and a reviewer has not approved it yet. Unreviewed lessons are never shown in production.",
     "practiceLesson": "Practice lesson",
@@ -232,16 +232,26 @@
     "issuesTitle": "{count, plural, one {# part the app could not show} other {# parts the app could not show}}",
     "recitedBy": "Recitation:",
     "showVideo": "Show the video",
-    "videoChannel": "Channel:",
     "videoLanguageLabel": "Language:",
     "videoLanguageName": "English",
     "mediaCredit": "Credit:",
     "mediaSource": "source",
-    "talkToHuman": "Talk to a qualified person",
     "hadithGrade": "Grade:",
     "hadithAttribution": "Reported by:",
     "showExplanation": "Show the explanation",
-    "hideExplanation": "Hide the explanation"
+    "hideExplanation": "Hide the explanation",
+    "videoPage": "Watch on IslamHouse.com",
+    "videoPublisher": "Published by:",
+    "teamWording": "Wording by the Rehla team",
+    "textSourceTeam": "The text of this lesson is worded by the Rehla team; each card names the verse or hadith it rests on.",
+    "fiqhNote": "This lesson follows {books}. Scholars differ on some of its details; see the <link>fiqh encyclopedia</link> for more.",
+    "fiqhNoteNoBooks": "Scholars differ on some of this lesson's details; see the <link>fiqh encyclopedia</link> for more.",
+    "fiqhSection": "part {n}",
+    "publishedVersion": "{name}, version {version}",
+    "publishedNoVersion": "{name} (QuranEnc publishes no version number for it)",
+    "translationLabel": "Translation",
+    "hadithFetched": "fetched on {date}",
+    "talkToSpecialist": "Talk to a specialist"
   },
   "Activity": {
     "continue": "Continue",
@@ -300,7 +310,8 @@
     "footnotes": "Translator's notes",
     "dragToAnswer": "Tap an answer, or drag the card onto it.",
     "tickZone": "Tap an item to tick it, or drag it here.",
-    "journalZone": "Tap the card you want to keep, or drag it into your journal here."
+    "journalZone": "Tap the card you want to keep, or drag it into your journal here.",
+    "meaningFrom": "Meaning:"
   },
   "Question": {
     "true": "True",
@@ -401,7 +412,7 @@
     "alsoAt": "Also at",
     "verifiedOn": "Checked on",
     "mediaTitle": "Images and videos in lessons",
-    "mediaEmpty": "No images or videos have been added to lessons yet. Each one will be listed here with its credit and licence.",
+    "mediaEmpty": "No lesson shows an image at the moment; any image a lesson shows is listed here with its credit and licence. The suggested videos are listed with their publisher above.",
     "mediaImage": "Image",
     "mediaVideo": "Video",
     "mediaSource": "source",
@@ -424,27 +435,6 @@
     "retryRecitation": "Try the recitation again",
     "recitationFailed": "The recitation could not be played. Check your connection and try again.",
     "recitationPlaying": "Recitation playing"
-  },
-  "Human": {
-    "title": "Talk to a human",
-    "description": "People and centres you can turn to with your own questions.",
-    "whyHuman": "Rafiq is an AI tool. It explains what the lessons say, but it does not give rulings on anyone's personal situation. For your own case, speak with a qualified person.",
-    "emptyTitle": "Contacts are being verified",
-    "emptyBody": "We list a centre here only after its contact details have been checked against its official source, so this list is still empty.",
-    "emptyMeanwhile": "Until then, the people at a mosque or Islamic centre near you are a good place to start.",
-    "kind": {
-      "centre": "Centre",
-      "phone": "Phone line",
-      "online": "Online"
-    },
-    "languages": "Languages",
-    "where": "Where",
-    "hours": "Hours",
-    "email": "Email",
-    "website": "Website",
-    "verified": "Checked on {date}.",
-    "checkedAt": "Where it was checked",
-    "privacy": "Rehla shares nothing about you with these centres. Whether and how you contact them is entirely your choice."
   },
   "Board": {
     "boardOf": "Board {current} of {total}",
@@ -508,10 +498,10 @@
     "ask": "Ask Rafiq",
     "thinking": "Rafiq is thinking…",
     "comingTitle": "Rafiq's help is coming",
-    "comingBody": "Soon Rafiq will be able to explain a line more simply, give an example or answer your question, right here. Until then, a person can help you.",
-    "talkToHuman": "Talk to a human",
+    "comingBody": "Soon Rafiq will be able to explain a line more simply, give an example or answer your question, right here. Until then, a specialist can help you.",
     "retry": "Try again",
-    "close": "Close"
+    "close": "Close",
+    "talkToSpecialist": "Talk to a specialist"
   },
   "RafiqCharacter": {
     "name": "Rafiq, the travelling lantern",
@@ -531,7 +521,7 @@
     "title": "Ask Rafiq",
     "description": "Ask about what you are learning. Rafiq answers from approved sources and shows you where each answer comes from.",
     "emptyTitle": "Rafiq is ready to walk with you",
-    "emptyBody": "Ask a question about Islam or about one of your lessons. If Rafiq finds no reliable source, he will say so and point you to a person.",
+    "emptyBody": "Ask a question about Islam or about one of your lessons. If Rafiq finds no reliable source, he will say so and point you to a specialist.",
     "startersTitle": "You could start with",
     "starters": {
       "tawhid": "What does tawhid mean?",
@@ -558,11 +548,10 @@
     "laterTitle": "This comes later on your road",
     "laterBody": "It is covered in the lesson “<lesson></lesson>”.",
     "smalltalk": "Rafiq is with you on the road. Ask him about a lesson, a word you came across, or how to do an act of worship.",
-    "talkToHuman": "Talk to a human",
     "retry": "Try again",
     "errors": {
       "rateLimited": "You have asked several questions in a short time. Wait a minute, then ask again.",
-      "unavailable": "Rafiq cannot be reached right now. Try again in a little while, or talk to a person.",
+      "unavailable": "Rafiq cannot be reached right now. Try again in a little while, or talk to a specialist.",
       "error": "Something went wrong while asking Rafiq. Please try again."
     },
     "referral": {
@@ -571,16 +560,16 @@
         "body": "You are asking for a religious ruling (a fatwa). Rafiq does not give rulings; a qualified scholar who knows the details should answer you."
       },
       "personalCase": {
-        "title": "Your situation deserves a person",
-        "body": "This is about your own situation. Rafiq can share general information only; a qualified person can listen to you and advise you."
+        "title": "This needs a specialist",
+        "body": "This is about your own situation. Rafiq can share general information only; a specialist can listen to you and advise you."
       },
       "disputed": {
-        "title": "This needs a scholar's explanation",
-        "body": "The approved sources here do not settle this question, and Rafiq will not settle it on his own. A qualified scholar can explain it to you."
+        "title": "This needs a specialist",
+        "body": "Scholars differ on matters like this, and Rafiq will not settle it on his own. A qualified specialist can explain it to you."
       },
       "noSource": {
         "title": "No reliable source found",
-        "body": "Rafiq did not find a reliable source for this, so he will not guess. A person can help you."
+        "body": "Rafiq did not find a reliable source for this, so he will not guess. A specialist can help you."
       },
       "noEvidence": {
         "title": "No matching evidence",
@@ -588,11 +577,19 @@
       },
       "verification": {
         "title": "Rafiq could not check his answer",
-        "body": "Rafiq could not match his answer to its sources, so he will not show it. Try other words, or ask a person."
+        "body": "Rafiq could not match his answer to its sources, so he will not show it. Try other words, or ask a specialist."
       },
       "offTopic": {
         "title": "Outside Rafiq's road",
         "body": "Rafiq answers questions about Islam and about your lessons. This question is outside that."
+      },
+      "distress": {
+        "title": "You do not have to carry this alone",
+        "body": "What you are going through deserves care from people who can listen. These specialists can help."
+      },
+      "danger": {
+        "title": "Please get help now",
+        "body": "If you or someone else is in danger, contact your local emergency services now, or a person you trust. You can also reach these specialists."
       }
     },
     "showAll": "Show all",
@@ -602,6 +599,61 @@
     "verseFallback": "No {language} translation of this verse is published; the {fallback} one is shown.",
     "hadithFallback": "HadeethEnc has no {language} version of this hadith; the {fallback} one is shown.",
     "explanationBy": "HadeethEnc's explanation",
-    "languageFallback": "Rafiq answers in Arabic, English, Urdu, Bengali and French. This question is in another language, so the answer is in English."
+    "languageFallback": "Rafiq answers in Arabic, English, Urdu, Bengali and French. This question is in another language, so the answer is in English.",
+    "generatedExplanation": "Generated explanation",
+    "talkToSpecialist": "Talk to a specialist",
+    "clarifyFallback": "Could you tell me a little more about what you mean?",
+    "you": "You",
+    "rafiqName": "Rafiq",
+    "greetingName": "Welcome back, {name}.",
+    "greeting": "Welcome back.",
+    "helloName": "Hello, {name}.",
+    "continueLesson": "You are at lesson {number}, «{title}». Shall we continue?",
+    "continueAction": "Continue the lesson",
+    "allDone": "You have completed every lesson on the road so far.",
+    "nameTitle": "What should Rafiq call you?",
+    "nameHelp": "Optional. It stays on this device and is never sent anywhere.",
+    "nameLabel": "Your name",
+    "nameSave": "Save",
+    "nameSkip": "Not now",
+    "memoryTitle": "What Rafiq remembers",
+    "memoryName": "Your name: {name}",
+    "memoryNoName": "No name given",
+    "memoryPlace": "Your place on the road: lesson {number}",
+    "memoryPlaceNone": "No lesson completed yet",
+    "memoryConversation": "This conversation: {count, plural, =0 {no messages} one {# message} other {# messages}}",
+    "memoryCity": "Your city for referrals: {city}",
+    "memoryNoCity": "No city chosen",
+    "memoryNote": "All of this stays on this device. Rafiq keeps nothing about you anywhere else, and infers nothing about you.",
+    "memoryProgress": "Your progress in the lessons stays in your journal.",
+    "editName": "Change name",
+    "removeName": "Remove name",
+    "clearAll": "Clear everything",
+    "clearConfirm": "Yes, clear it",
+    "cleared": "Everything Rafiq remembered on this device has been cleared."
+  },
+  "Specialist": {
+    "title": "Talk to a specialist",
+    "description": "Licensed bodies you can turn to with your own questions.",
+    "why": "Rafiq is an AI tool. It explains what the lessons say, but it does not give rulings on anyone's personal situation. For your own case, speak with a specialist.",
+    "nationalTitle": "Across Saudi Arabia",
+    "nationalNote": "National channel, available inside Saudi Arabia",
+    "cardTitle": "Specialists who can help",
+    "cityLabel": "Your city",
+    "cityChoose": "Choose a city",
+    "cityHelp": "Choose your city to see associations near you. Your choice stays on this device.",
+    "outside": "If you are outside Saudi Arabia, ask the nearest trusted Islamic centre in your country.",
+    "fullList": "See the full list",
+    "neighbourhood": "Neighbourhood",
+    "address": "Address",
+    "languages": "Languages",
+    "call": "Call",
+    "otherNumbers": "Other numbers",
+    "email": "Email",
+    "website": "Website",
+    "map": "Map",
+    "source": "Source: {name}. Details verified on {date}.",
+    "aboutSource": "About this source",
+    "privacy": "Rehla shares nothing about you with these bodies. Whether and how you contact them is entirely your choice."
   }
 }

@@ -5,7 +5,7 @@ import type { Locale } from "next-intl";
 import type { RoadStation } from "@/lib/learn/road";
 import type { QuestionView } from "@/lib/learn/types";
 
-import { lessonHref, lessonQuestions, questionView } from "./lesson-view";
+import { lessonHref, lessonQuestions, lessonText, questionView } from "./lesson-view";
 import { loadKhutuwat, type Khutuwat, type StationEntry } from "./load";
 import type { Lesson, Question } from "./schema";
 
@@ -44,7 +44,7 @@ export function toRoadStations({ route, khutuwat }: StationContext): RoadStation
 function stationQuestionView(question: Question, station: StationEntry, khutuwat: Khutuwat, locale: Locale): QuestionView {
   const lesson = question.lesson ? khutuwat.lessons.get(question.lesson) : undefined;
   const card = lesson?.cards.find((candidate) => candidate.id === question.card);
-  return questionView(question, question.lesson ?? station.id, card ? card.text[locale] : null, locale);
+  return questionView(question, question.lesson ?? station.id, card ? lessonText(card, locale) : null, locale);
 }
 
 export function stationQuestions(context: StationContext, part: "baseline" | "exam", locale: Locale): QuestionView[] {

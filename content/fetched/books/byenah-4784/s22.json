@@ -1,0 +1,41 @@
+{
+  "book": "byenah-4784",
+  "language": "en",
+  "anchor": "s22",
+  "level": 2,
+  "heading": "Tayammum (dry ablution)",
+  "paragraphs": [
+    {
+      "index": 1,
+      "style": "Normal",
+      "text": "If a Muslim cannot find water to purify himself therewith or water is available but he cannot use it due to illness or the like, and he fears the time for prayer might end, he may perform tayammum with soil."
+    },
+    {
+      "index": 2,
+      "style": "Normal",
+      "text": "In tayammum, the Muslim strikes his hands in dust once and then passes them over his face, wiping only his face and palms. The dust must be free from impurity."
+    },
+    {
+      "index": 3,
+      "style": "Normal",
+      "text": "Tayammum gets invalidated by the following:"
+    },
+    {
+      "index": 4,
+      "style": "Normal",
+      "text": "1. Tayammum gets invalidated by anything that invalidates ablution."
+    },
+    {
+      "index": 5,
+      "style": "Normal",
+      "text": "2. If water becomes available before one starts to perform the worship for which tayammum was made."
+    }
+  ],
+  "source": {
+    "publisher": "byenah.com",
+    "title": "New Muslim Guideline",
+    "url": "https://byenah.com/en/muslim-content/4784",
+    "file": "https://cdn.byenah.com/contents/4784/en-injlis-amuf-lilmu-aljad-ww.docx",
+    "fetchedOn": "2026-10-04"
+  }
+}

@@ -6,22 +6,41 @@
 | C | restricted answer saying scholars differ, or referral |
 | D | no ruling: general information only, and referral |
 
-A personal case is treated like level D whatever level the classifier gave it.
+A personal case is treated like level D whatever level the classifier gave it. Distress is met
+with care and, always, the specialist card; danger never reaches generation (see safety.py).
 """
 
 from typing import Literal
 
 from app.rafiq.schemas import Classification, Draft, ReferralReason
 
-Route = Literal["retrieve", "smalltalk", "offtopic"]
-Mode = Literal["full", "general", "disputed"]
+Route = Literal["retrieve", "chat", "clarify", "offtopic", "danger"]
+Mode = Literal["full", "general", "disputed", "distress"]
+
+# Referrals that end with the specialist card (named bodies, chosen city, national channel).
+SPECIALIST_REASONS: frozenset[ReferralReason] = frozenset(
+    {
+        "fatwa",
+        "personalCase",
+        "disputed",
+        "noSource",
+        "noEvidence",
+        "verification",
+        "distress",
+        "danger",
+    }
+)
 
 
 def route(classification: Classification) -> Route:
+    if classification.danger:
+        return "danger"
     if classification.intent == "offtopic":
         return "offtopic"
-    if classification.intent == "smalltalk":
-        return "smalltalk"
+    if classification.intent in ("smalltalk", "feelings"):
+        return "chat"
+    if classification.unclear:
+        return "clarify"
     return "retrieve"
 
 
@@ -32,17 +51,26 @@ def needs_ruling_guard(classification: Classification) -> bool:
 def mode(classification: Classification) -> Mode:
     if needs_ruling_guard(classification):
         return "general"
+    if classification.intent == "distress":
+        return "distress"
     if classification.level == "C":
         return "disputed"
     return "full"
 
 
 def referral_after_answer(classification: Classification) -> ReferralReason | None:
-    """A level D question or a personal case is always referred, even with general information."""
-    if classification.level == "D":
-        return "fatwa"
+    """A level D question, a personal case, distress or a disputed matter is always referred, even
+    when the passages allow sourced general information: the specialist card follows the answer."""
+    # A personal case is named as such even when it also asks for a ruling: the learner hears
+    # that this is about their own situation, which a specialist can listen to.
     if classification.personal_case:
         return "personalCase"
+    if classification.level == "D":
+        return "fatwa"
+    if classification.intent == "distress":
+        return "distress"
+    if classification.level == "C":
+        return "disputed"
     return None
 
 
@@ -53,7 +81,7 @@ def referral_without_answer(
     if classification.asks_for_evidence and (draft is None or draft.evidence_found is not True):
         return "noEvidence"
     if draft is None or not draft.adequate or not draft.answer.strip():
-        if needs_ruling_guard(classification):
+        if needs_ruling_guard(classification) or classification.intent == "distress":
             return referral_after_answer(classification)
         return "disputed" if classification.level == "C" else "noSource"
     return None

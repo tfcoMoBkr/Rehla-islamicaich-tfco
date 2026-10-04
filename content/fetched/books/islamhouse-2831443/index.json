@@ -1,0 +1,125 @@
+{
+  "id": "islamhouse-2831443",
+  "language": "ar",
+  "title": "المختصر المفيد للمسلم الجديد",
+  "authors": [
+    {
+      "name": "محمد بن الشيبة الشهري",
+      "role": "author"
+    }
+  ],
+  "url": "https://islamhouse.com/ar/books/2831443/",
+  "fetchedOn": "2026-10-04",
+  "format": "pdf",
+  "file": "content/sources/2831443-ar-almukhtasar-almufid-lilmuslim-aljadid-m-ashihriy-ppp.pdf",
+  "split": "contents",
+  "text": "Each page's text exactly as its PDF text layer gives it (one paragraph per page), split at the chapters the book's own contents pages link to; headings are the text inside each contents link, as extracted. Paragraphs marked quranGlyphs hold verses typeset in a glyph font that do not extract as text: take any verse from its own source.",
+  "failures": [],
+  "sections": [
+    {
+      "file": "1.json",
+      "anchor": "s1",
+      "heading": null,
+      "paragraphs": 4,
+      "characters": 1735
+    },
+    {
+      "file": "2.json",
+      "anchor": "s2",
+      "heading": "ربي ا",
+      "paragraphs": 6,
+      "characters": 2075
+    },
+    {
+      "file": "3.json",
+      "anchor": "s3",
+      "heading": "نبي محمد",
+      "paragraphs": 3,
+      "characters": 675
+    },
+    {
+      "file": "4.json",
+      "anchor": "s4",
+      "heading": "القرآن كلام ربي",
+      "paragraphs": 2,
+      "characters": 302
+    },
+    {
+      "file": "5.json",
+      "anchor": "s5",
+      "heading": "أتعرف على أركان الإسلام",
+      "paragraphs": 14,
+      "characters": 3676
+    },
+    {
+      "file": "6.json",
+      "anchor": "s6",
+      "heading": "أتعرف على أركان الإيمان",
+      "paragraphs": 17,
+      "characters": 5567
+    },
+    {
+      "file": "7.json",
+      "anchor": "s7",
+      "heading": "أتعلم الوضوء",
+      "paragraphs": 15,
+      "characters": 3174
+    },
+    {
+      "file": "8.json",
+      "anchor": "s8",
+      "heading": "المسح على الخفين والجورب",
+      "paragraphs": 5,
+      "characters": 1342
+    },
+    {
+      "file": "9.json",
+      "anchor": "s9",
+      "heading": "الغُســــل",
+      "paragraphs": 3,
+      "characters": 726
+    },
+    {
+      "file": "10.json",
+      "anchor": "s10",
+      "heading": "التيمم",
+      "paragraphs": 3,
+      "characters": 445
+    },
+    {
+      "file": "11.json",
+      "anchor": "s11",
+      "heading": "أتعلم الصلاة",
+      "paragraphs": 18,
+      "characters": 4414
+    },
+    {
+      "file": "12.json",
+      "anchor": "s12",
+      "heading": "حجاب المرأة المسلمة",
+      "paragraphs": 3,
+      "characters": 1019
+    },
+    {
+      "file": "13.json",
+      "anchor": "s13",
+      "heading": "من صفات المؤمن",
+      "paragraphs": 4,
+      "characters": 855
+    },
+    {
+      "file": "14.json",
+      "anchor": "s14",
+      "heading": "سعادتي في ديني الإسلام",
+      "paragraphs": 8,
+      "characters": 3065
+    },
+    {
+      "file": "15.json",
+      "anchor": "s15",
+      "heading": "تعرَّف على المشروع",
+      "paragraphs": 3,
+      "characters": 490
+    }
+  ]
+}

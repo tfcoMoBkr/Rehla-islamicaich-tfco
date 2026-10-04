@@ -5,7 +5,7 @@
   "status": "draft",
   "reviewed": false,
   "reviewedBy": null,
-  "authoring": "Written by the team in simple wording from the sources listed in `sources`. Verses and hadiths are referenced and fetched verbatim, never typed.",
+  "authoring": "Cards with textRef show the named book verbatim; cards marked authoring: team keep the team's wording and rest only on their verse or hadith.",
   "title": {
     "ar": "أركان الإيمان الستة",
     "en": "The six pillars of faith"
@@ -22,40 +22,55 @@
   },
   "sources": [
     {
-      "key": "nmg",
+      "key": "ibnbaz-lessons",
       "title": {
-        "ar": "دليل المسلم الجديد — أركان الإيمان الستة",
-        "en": "The New Muslim Guide — The Six Pillars of Faith"
+        "ar": "الدروس المهمة لعامة الأمة",
+        "en": "Important Lessons for the General Ummah"
       },
-      "publisher": "IslamHouse / Modern Guide",
+      "publisher": "IslamHouse.com",
       "url": {
-        "ar": "https://newmuslimguide.com/ar/categories/your-faith/64245f26c664a",
-        "en": "https://newmuslimguide.com/en/categories/your-faith/64245f26c664a"
+        "ar": "https://islamhouse.com/ar/books/1871/",
+        "en": "https://islamhouse.com/en/books/2842316/"
       },
-      "use": "Facts restated in our own words; not copied."
+      "use": "Shown verbatim by reference (textRef)."
+    },
+    {
+      "key": "mukhtasar",
+      "title": {
+        "ar": "المختصر المفيد للمسلم الجديد",
+        "en": "New Muslim Guideline"
+      },
+      "publisher": "IslamHouse.com / byenah.com",
+      "url": {
+        "ar": "https://islamhouse.com/ar/books/2831443/",
+        "en": "https://byenah.com/en/muslim-content/4784"
+      },
+      "use": "Shown verbatim by reference (textRef)."
     }
   ],
   "suggestedVideo": {
-    "ar": {
-      "playlistId": "PL57pTpJnA2Q6C0Hy3ew2TeLTieIAS7G5I",
-      "channel": "منصة زادي",
-      "position": "close"
-    },
-    "en": {
-      "youtubeId": "H1R8OY0JgMs",
-      "channel": "Guide To Islam",
-      "position": "close"
-    }
+    "ar": null,
+    "en": null
   },
   "cards": [
     {
       "id": "c1",
       "source": [
-        "nmg"
+        "ibnbaz-lessons"
       ],
-      "text": {
-        "ar": "أركان الإيمان ستة، جمعها النبي ﷺ في حديث واحد حين سأله جبريل عليه السلام عن الإيمان.",
-        "en": "Faith has six pillars. The Prophet ﷺ named them together in one hadith, when Jibril, peace be upon him, asked him about faith."
+      "textRef": {
+        "ar": {
+          "book": "1871",
+          "section": "t7",
+          "paragraph": 1,
+          "excerpt": "وهي ستة: أن تؤمن بالله وملائكته، وكتبه، ورسله، وباليوم الآخر، وتؤمن بالقدر خيره وشره من الله تعالى."
+        },
+        "en": {
+          "book": "2842316",
+          "section": "s6",
+          "paragraph": 1,
+          "excerpt": "They are six: to believe in Allah, His angels, His books, His messengers, the Last Day, and to believe that predestination, with its good and bad aspects, is from Allah Almighty."
+        }
       },
       "evidence": {
         "type": "hadith",
@@ -69,28 +84,9 @@
       }
     },
     {
-      "id": "c2",
-      "source": [
-        "nmg"
-      ],
-      "text": {
-        "ar": "الإيمان بالله: أن تؤمن بوجوده، وأنه الرب، وأنه وحده المستحق للعبادة، وبأسمائه وصفاته.",
-        "en": "Belief in Allah: believing that He exists, that He is the Lord, that He alone deserves worship, and in His names and attributes."
-      },
-      "check": {
-        "type": "trueFalse",
-        "prompt": {
-          "ar": "من الإيمان بالله الإيمان بأسمائه وصفاته.",
-          "en": "Belief in Allah includes belief in His names and attributes."
-        },
-        "answer": true
-      }
-    },
-    {
       "id": "c3",
-      "source": [
-        "nmg"
-      ],
+      "authoring": "team",
+      "source": [],
       "text": {
         "ar": "الإيمان بالملائكة: أنهم موجودون في عالم الغيب، عباد مكرمون يطيعون الله ولا يعصونه.",
         "en": "Belief in the angels: that they exist in the unseen world, honoured servants who obey Allah and never disobey Him."
@@ -103,9 +99,8 @@
     },
     {
       "id": "c4",
-      "source": [
-        "nmg"
-      ],
+      "authoring": "team",
+      "source": [],
       "text": {
         "ar": "الإيمان بالكتب: أن الله أنزل كتبًا على رسله، فيها الحق والنور والهدى.",
         "en": "Belief in the books: that Allah sent down books to His messengers, containing truth, light and guidance."
@@ -119,11 +114,21 @@
     {
       "id": "c5",
       "source": [
-        "nmg"
+        "mukhtasar"
       ],
-      "text": {
-        "ar": "الإيمان بالرسل: أن الله أرسل إلى كل أمة رسولًا يدعوهم إلى عبادة الله وحده، وأنهم صادقون بلّغوا الرسالة كاملة.",
-        "en": "Belief in the messengers: that Allah sent a messenger to every nation calling them to worship Allah alone, and that they were truthful and conveyed the message in full."
+      "textRef": {
+        "ar": {
+          "book": "islamhouse-2831443",
+          "section": "s6",
+          "paragraph": 14,
+          "excerpt": "وقــد اتفقــت دعوتهــم مــن أولهــم \nإلــى آخرهــم فــي أصــل الديــن، \nوهــو توحيــد الله عــزَّ وجــلَّ فــي \nالعبــادة وعــدم الإشــراك بــه."
+        },
+        "en": {
+          "book": "byenah-4784",
+          "section": "s15",
+          "paragraph": 4,
+          "excerpt": "The call of all of them was the same with regard to the core of the religion, which is to worship Allah Almighty alone and not associate anything with Him."
+        }
       },
       "check": {
         "type": "single",
@@ -147,9 +152,8 @@
     },
     {
       "id": "c6",
-      "source": [
-        "nmg"
-      ],
+      "authoring": "team",
+      "source": [],
       "text": {
         "ar": "الإيمان باليوم الآخر: أن الله يبعث الناس من قبورهم ويحاسبهم على أعمالهم.",
         "en": "Belief in the Last Day: that Allah will raise people from their graves and judge them by their deeds."
@@ -158,16 +162,6 @@
         "type": "quran",
         "ref": "2:177",
         "publisher": "quranenc.com"
-      }
-    },
-    {
-      "id": "c7",
-      "source": [
-        "nmg"
-      ],
-      "text": {
-        "ar": "الإيمان بالقدر: أن كل شيء، خيره وشره، يقع بمشيئة الله وعلمه، وأن الله أعطى عباده الاختيار فيما يفعلون.",
-        "en": "Belief in the divine decree: that everything, good and bad, happens by Allah's will and knowledge, and that Allah gave His servants the choice in what they do."
       }
     }
   ],
@@ -180,17 +174,6 @@
         "en": "Match each pillar to its meaning"
       },
       "pairs": [
-        {
-          "left": {
-            "ar": "الإيمان بالله",
-            "en": "Belief in Allah"
-          },
-          "right": {
-            "ar": "أنه موجود، وهو الرب، وهو وحده المستحق للعبادة",
-            "en": "He exists, He is the Lord, and He alone deserves worship"
-          },
-          "card": "c2"
-        },
         {
           "left": {
             "ar": "الإيمان بالملائكة",
@@ -234,44 +217,11 @@
             "en": "Resurrection from the graves and judgement of deeds"
           },
           "card": "c6"
-        },
-        {
-          "left": {
-            "ar": "الإيمان بالقدر",
-            "en": "Belief in the divine decree"
-          },
-          "right": {
-            "ar": "كل شيء يقع بمشيئة الله وعلمه",
-            "en": "Everything happens by Allah's will and knowledge"
-          },
-          "card": "c7"
         }
       ]
     }
   ],
-  "situation": {
-    "prompt": {
-      "ar": "أصابك أمر تكرهه. أي ركن من أركان الإيمان يذكّرك بأن كل شيء يقع بعلم الله ومشيئته؟",
-      "en": "Something you dislike happens to you. Which pillar of faith reminds you that everything happens by Allah's knowledge and will?"
-    },
-    "options": [
-      {
-        "ar": "الإيمان بالقدر",
-        "en": "Belief in the divine decree",
-        "correct": true
-      },
-      {
-        "ar": "الإيمان بالكتب",
-        "en": "Belief in the books",
-        "correct": false
-      },
-      {
-        "ar": "الإيمان بالملائكة",
-        "en": "Belief in the angels",
-        "correct": false
-      }
-    ]
-  },
+  "situation": null,
   "explainToRafiq": {
     "prompt": {
       "ar": "اشرح لرفيق بكلماتك أهم ما فهمته من هذا الدرس.",
@@ -281,10 +231,5 @@
       "cards"
     ]
   },
-  "readMore": [
-    {
-      "ar": "https://newmuslimguide.com/ar/categories/your-faith/64245f26c664a",
-      "en": "https://newmuslimguide.com/en/categories/your-faith/64245f26c664a"
-    }
-  ]
+  "readMore": []
 }

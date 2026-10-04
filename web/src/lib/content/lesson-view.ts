@@ -7,8 +7,10 @@ import type {
   AyahLine,
   CardView,
   EvidenceView,
+  FiqhNoteView,
   GuidedStep,
   LessonSource,
+  PublishedTranslation,
   LessonView,
   MediaView,
   QuestionView,
@@ -16,7 +18,19 @@ import type {
 } from "@/lib/learn/types";
 
 import { readFetchedAyah, readFetchedHadith, readFetchedRecitation, type Khutuwat, type StationEntry } from "./load";
-import type { Activity, Bilingual, Check, Evidence, Lesson, Media, Question, Source } from "./schema";
+import type {
+  Activity,
+  Bilingual,
+  Check,
+  Evidence,
+  ExcerptRef,
+  FiqhEncyclopedia,
+  Lesson,
+  Media,
+  Question,
+  Source,
+  TextRef,
+} from "./schema";
 
 /** `repeat` values on lesson steps that the guided walk knows how to say. */
 export const KNOWN_REPEATS = new Set(["once", "onceOnly", "onceRequiredThreeRecommended", "three"]);
@@ -35,9 +49,26 @@ type Context = {
 
 const pick = (text: Bilingual, locale: Locale) => text[locale];
 
+type LessonText = { text?: Bilingual; textRef?: TextRef; authoring?: "team" };
+
+/**
+ * What a card, step or post-rak'ah line shows: its book excerpts verbatim, or the team's labelled
+ * wording. Runs of whitespace (the line breaks a PDF page put inside a paragraph) are shown as one
+ * space, as a browser shows them; the characters themselves are not touched.
+ */
+export function lessonText(item: LessonText, locale: Locale): string | null {
+  if (item.textRef) {
+    const refs: ExcerptRef[] = ([] as ExcerptRef[]).concat(item.textRef[locale]);
+    return refs.map((ref) => ref.excerpt.replace(/\s+/g, " ").trim()).join("\n");
+  }
+  return item.text ? pick(item.text, locale) : null;
+}
+
+const wordingOf = (item: LessonText) => (item.textRef ? "book" : item.text ? "team" : null);
+
 function cardText({ lesson, locale }: Context, cardId: string | undefined): string | undefined {
   const card = cardId ? lesson.cards.find((candidate) => candidate.id === cardId) : undefined;
-  return card ? pick(card.text, locale) : undefined;
+  return card ? (lessonText(card, locale) ?? undefined) : undefined;
 }
 
 /** "21:26-27" → [[21, 26], [21, 27]] */
@@ -48,7 +79,7 @@ function expandRef(ref: string): [number, number][] {
   return Array.from({ length: (to || from) - from + 1 }, (_, index) => [Number(surah), from + index]);
 }
 
-function sourceIdForUrl(url: string, sources: Source[]): string | null {
+function sourceIdForUrl(url: string, sources: readonly Source[]): string | null {
   const host = (value: string) => new URL(value).hostname.replace(/^www\./, "");
   try {
     const target = host(url);
@@ -62,13 +93,32 @@ function sourceIdForUrl(url: string, sources: Source[]): string | null {
   }
 }
 
+/** A lesson source is shown only when content/sources.json lists it as approved. */
 function lessonSources(context: Context): LessonSource[] {
-  return context.lesson.sources.map((source) => {
+  return context.lesson.sources.flatMap((source) => {
     const url = pick(source.url, context.locale);
     const sourceId = sourceIdForUrl(url, context.sources);
-    if (!sourceId) context.issues.push(`sources.${source.key}: ${url} is not from a source listed in content/sources.json`);
-    return { key: source.key, title: pick(source.title, context.locale), url, sourceId };
+    if (!sourceId) {
+      context.issues.push(`sources.${source.key}: ${url} is not from a source listed in content/sources.json`);
+      return [];
+    }
+    if (!isApproved(sourceId, context.sources)) {
+      context.issues.push(`sources.${source.key}: ${sourceId} is not approved, so it is not shown`);
+      return [];
+    }
+    return [{ key: source.key, title: pick(source.title, context.locale), url, sourceId }];
   });
+}
+
+export const isApproved = (id: string | null, sources: readonly Source[]) =>
+  id !== null && sources.some((source) => source.id === id && source.status === "approved");
+
+/** The books the lesson's cards, steps and post-rak'ah lines actually quote. */
+function citedBooks(context: Context): LessonSource[] {
+  const { lesson } = context;
+  const quoting = [...lesson.cards, ...(lesson.steps ?? []), ...(lesson.afterRakah ?? [])].filter((item) => item.textRef);
+  const keys = new Set(quoting.flatMap((item) => item.source ?? []));
+  return context.lessonSources.filter((source) => keys.has(source.key));
 }
 
 function sourcesFor(keys: readonly string[] | undefined, where: string, context: Context): LessonSource[] {
@@ -128,8 +178,10 @@ export function questionView(question: Question, lessonId: string, quote: string
   }
 }
 
-export function mediaView(media: readonly Media[] | undefined, locale: Locale): MediaView[] {
-  return (media ?? []).map((item) => {
+/** Media is shown only when its source address belongs to an approved source. */
+export function mediaView(media: readonly Media[] | undefined, locale: Locale, sources: readonly Source[]): MediaView[] {
+  const approved = (media ?? []).filter((item) => isApproved(sourceIdForUrl(item.sourceUrl, sources), sources));
+  return approved.map((item) => {
     const common = { alt: pick(item.alt, locale), credit: item.credit, sourceUrl: item.sourceUrl, licence: item.licence };
     return item.type === "image"
       ? { ...common, kind: "image", src: `/media/${item.src}` }
@@ -153,6 +205,7 @@ async function evidenceView(evidence: Evidence, locale: Locale): Promise<Evidenc
             attribution: version.attribution,
             explanation: version.explanation,
             url: version.url,
+            fetchedOn: version.fetchedOn,
           }
         : null,
     };
@@ -185,26 +238,27 @@ async function evidenceView(evidence: Evidence, locale: Locale): Promise<Evidenc
     ref: evidence.ref,
     ayahs,
     url: first?.source.url ?? null,
-    attribution: first
-      ? locale === "en" && translation
-        ? `QuranEnc.com · ${translation.key}${translation.version ? ` ${translation.version}` : ""}`
-        : "QuranEnc.com"
-      : null,
+    attribution: first ? "QuranEnc.com" : null,
+    translation:
+      locale === "en" && translation
+        ? { name: translation.name ?? translation.key, key: translation.key, version: translation.version }
+        : null,
     reciter: recitation?.reciter ?? null,
   };
 }
 
 async function cardView(card: Lesson["cards"][number], context: Context): Promise<CardView> {
   const { lesson, locale } = context;
-  const text = pick(card.text, locale);
+  const text = lessonText(card, locale);
   return {
     id: card.id,
     text,
+    wording: wordingOf(card),
     sources: sourcesFor(card.source, `cards.${card.id}.source`, context),
     evidence: card.evidence ? await evidenceView(card.evidence, locale) : null,
     evidenceFirst: card.display === "evidenceFirst",
     check: card.check ? checkView(card.check, checkId(lesson.id, card.id), lesson.id, text, locale) : null,
-    media: mediaView(card.media, locale),
+    media: mediaView(card.media, locale, context.sources),
   };
 }
 
@@ -219,11 +273,12 @@ function guidedSteps(keys: string[], context: Context): GuidedStep[] {
         return {
           id: `step-${step.n}`,
           title: pick(step.title, locale),
-          text: pick(step.text, locale),
+          text: lessonText(step, locale) ?? "",
+          wording: wordingOf(step),
           repeat: step.repeat ?? null,
           say: step.say ?? null,
           citation: citationOf(step.evidence),
-          media: mediaView(step.media, locale),
+          media: mediaView(step.media, locale, context.sources),
         };
       });
     }
@@ -231,7 +286,8 @@ function guidedSteps(keys: string[], context: Context): GuidedStep[] {
       return (lesson.afterRakah ?? []).map((step) => ({
         id: `after-${step.key}`,
         title: null,
-        text: pick(step.text, locale),
+        text: lessonText(step, locale) ?? "",
+        wording: wordingOf(step),
         repeat: null,
         say: null,
         citation: citationOf(step.evidence),
@@ -243,21 +299,30 @@ function guidedSteps(keys: string[], context: Context): GuidedStep[] {
   });
 }
 
-async function ayahLines(context: Context, withAudio: boolean): Promise<{ lines: AyahLine[]; audioUrl: string | null; reciter: string | null }> {
+type AyahLines = { lines: AyahLine[]; audioUrl: string | null; reciter: string | null; published: PublishedTranslation | null };
+
+/**
+ * The ayahs of an ayah-by-ayah reading, each with its published meaning: التفسير الميسر on Arabic
+ * pages, the English translation with its footnotes on English pages, both as QuranEnc gives them.
+ */
+async function ayahLines(context: Context, withAudio: boolean): Promise<AyahLines> {
   const { lesson, locale } = context;
   const ayat = lesson.ayat ?? [];
   const surah = ayat[0] ? Number(ayat[0].ref.split(":")[0]) : null;
   const recitation = withAudio && surah ? await readFetchedRecitation(surah) : null;
   if (withAudio && surah && !recitation) context.issues.push(`ayahByAyah: recitation for surah ${surah} not fetched yet`);
 
+  let published: PublishedTranslation | null = null;
   const lines = await Promise.all(
     ayat.map(async (entry) => {
       const [surahNumber = 0, ayahNumber = 0] = entry.ref.split(":").map(Number);
       const fetched = await readFetchedAyah(surahNumber, ayahNumber);
       if (!fetched) context.issues.push(`ayat ${entry.ref}: not fetched yet (run scripts/fetch-content.mjs)`);
-      const meaning = entry.meaning ? pick(entry.meaning, locale) : null;
-      const translation = locale === "en" ? (fetched?.translations.en.text ?? null) : null;
-      if (!meaning && !translation) context.issues.push(`ayat ${entry.ref}: no meaning in ${locale}`);
+      const shown = locale === "ar" ? fetched?.translations.ar : fetched?.translations.en;
+      published ??= shown ? { name: shown.name ?? shown.key, key: shown.key, version: shown.version } : null;
+      const meaning = locale === "ar" ? (shown?.text ?? null) : null;
+      const translation = locale === "en" ? (shown?.text ?? null) : null;
+      if (!meaning && !translation) context.issues.push(`ayat ${entry.ref}: no published meaning in ${locale}`);
       const timing = recitation?.ayahs.find((candidate) => candidate.ayah === ayahNumber);
       return {
         id: entry.ref,
@@ -274,6 +339,7 @@ async function ayahLines(context: Context, withAudio: boolean): Promise<{ lines:
     lines: lines.filter((line) => line.text),
     audioUrl: recitation?.audioUrl ?? null,
     reciter: recitation?.reciter ?? null,
+    published,
   };
 }
 
@@ -301,7 +367,7 @@ async function activityView(activity: Activity, context: Context): Promise<Activ
           type: "order",
           items: order.flatMap((n) => {
             const step = steps.find((candidate) => candidate.n === n);
-            return step ? [{ id: String(n), text: pick(step.title, locale), sourceQuote: pick(step.text, locale) }] : [];
+            return step ? [{ id: String(n), text: pick(step.title, locale), sourceQuote: lessonText(step, locale) ?? undefined }] : [];
           }),
         };
       }
@@ -332,7 +398,7 @@ async function activityView(activity: Activity, context: Context): Promise<Activ
             (group.steps ?? []).flatMap((n) => {
               const step = lesson.steps?.find((candidate) => candidate.n === n);
               return step
-                ? [{ id: `${group.key}-${n}`, text: pick(step.title, locale), group: group.key, sourceQuote: pick(step.text, locale) }]
+                ? [{ id: `${group.key}-${n}`, text: pick(step.title, locale), group: group.key, sourceQuote: lessonText(step, locale) ?? undefined }]
                 : [];
             }),
           );
@@ -378,7 +444,7 @@ async function activityView(activity: Activity, context: Context): Promise<Activ
             .map(async (entry) => {
               const [surah = 0, ayah = 0] = entry.ref.split(":").map(Number);
               const fetched = await readFetchedAyah(surah, ayah);
-              const meaning = entry.meaning ? pick(entry.meaning, locale) : null;
+              const meaning = (locale === "ar" ? fetched?.translations.ar : fetched?.translations.en)?.text ?? null;
               if (!fetched || !meaning) {
                 issues.push(`${where}: ayah ${entry.ref} has no fetched text or no meaning`);
                 return null;
@@ -419,7 +485,14 @@ async function activityView(activity: Activity, context: Context): Promise<Activ
         issues.push(`${where}: reflection can only offer the lesson's cards`);
         return null;
       }
-      return { ...common, type: "reflection", items: lesson.cards.map((card) => ({ id: card.id, text: pick(card.text, locale) })) };
+      return {
+        ...common,
+        type: "reflection",
+        items: lesson.cards.flatMap((card) => {
+          const text = lessonText(card, locale);
+          return text ? [{ id: card.id, text }] : [];
+        }),
+      };
     case "guided":
       return {
         ...common,
@@ -459,25 +532,41 @@ async function activityView(activity: Activity, context: Context): Promise<Activ
         })),
       };
     case "ayahByAyah": {
-      const { lines, audioUrl, reciter } = await ayahLines(context, activity.audio === "mp3quran.net");
+      const { lines, audioUrl, reciter, published } = await ayahLines(context, activity.audio === "mp3quran.net");
       return {
         ...common,
         type: "ayahByAyah",
-        ayahs: { lines, audioUrl, reciter, attribution: lines.length > 0 ? "QuranEnc.com" : null },
+        ayahs: { lines, audioUrl, reciter, published, attribution: lines.length > 0 ? "QuranEnc.com" : null },
       };
     }
   }
 }
 
-export async function toLessonView(lesson: Lesson, khutuwat: Khutuwat, locale: Locale, sources: Source[]): Promise<LessonView> {
+/** The fixed line under a fiqh lesson's title, naming only the books the lesson quotes. */
+function fiqhNote(lesson: Lesson, books: LessonSource[], encyclopedia: FiqhEncyclopedia): FiqhNoteView | null {
+  const sections = encyclopedia.lessons[lesson.id];
+  if (!sections) return null;
+  return {
+    books: books.map((book) => book.title),
+    links: sections.map((section) => encyclopedia.url.replace("{section}", String(section))),
+  };
+}
+
+export async function toLessonView(
+  lesson: Lesson,
+  khutuwat: Khutuwat,
+  locale: Locale,
+  sources: Source[],
+  encyclopedia: FiqhEncyclopedia,
+): Promise<LessonView> {
   const context: Context = { lesson, locale, sources, lessonSources: [], issues: [] };
   context.lessonSources = lessonSources(context);
+  const books = citedBooks(context);
 
   const video = lesson.suggestedVideo[locale];
-  const videoSource = video
-    ? sources.find((source) => source.aliases.includes(video.channel) || source.name.ar === video.channel || source.name.en === video.channel)
-    : undefined;
-  if (video && !videoSource) context.issues.push(`suggestedVideo.${locale}: channel "${video.channel}" is not in content/sources.json`);
+  const videoSource = video ? sources.find((source) => source.id === video.source) : undefined;
+  if (video && !videoSource) context.issues.push(`suggestedVideo.${locale}: "${video.source}" is not in content/sources.json`);
+  const showVideo = video && videoSource && videoSource.status === "approved" ? { video, videoSource } : null;
 
   const cards = await Promise.all(lesson.cards.map((card) => cardView(card, context)));
   const activities = (await Promise.all(lesson.activities.map((activity) => activityView(activity, context)))).filter(
@@ -492,18 +581,18 @@ export async function toLessonView(lesson: Lesson, khutuwat: Khutuwat, locale: L
     reviewed: lesson.reviewed,
     demo: lesson.status === "demo",
     objectives: lesson.objectives[locale],
-    sources: context.lessonSources,
-    media: mediaView(lesson.media, locale),
-    video:
-      video && videoSource
-        ? {
-            id: videoSource.id,
-            name: pick(videoSource.name, locale),
-            youtubeId: video.youtubeId,
-            playlistId: video.playlistId,
-            position: video.position,
-          }
-        : null,
+    sources: books,
+    fiqhNote: fiqhNote(lesson, books, encyclopedia),
+    media: mediaView(lesson.media, locale, sources),
+    video: showVideo
+      ? {
+          id: showVideo.videoSource.id,
+          name: pick(showVideo.videoSource.name, locale),
+          page: showVideo.video.page,
+          file: showVideo.video.file,
+          position: showVideo.video.position,
+        }
+      : null,
     cards,
     activities,
     situation: lesson.situation && {
@@ -531,7 +620,7 @@ export async function toLessonView(lesson: Lesson, khutuwat: Khutuwat, locale: L
 /** The questions of a lesson that can come back later as Provisions or exam review. */
 export function lessonQuestions(lesson: Lesson, locale: Locale): QuestionView[] {
   const checks = lesson.cards.flatMap((card) =>
-    card.check ? [checkView(card.check, checkId(lesson.id, card.id), lesson.id, pick(card.text, locale), locale)] : [],
+    card.check ? [checkView(card.check, checkId(lesson.id, card.id), lesson.id, lessonText(card, locale), locale)] : [],
   );
   const situation = lesson.situation
     ? [
@@ -546,7 +635,7 @@ export function lessonQuestions(lesson: Lesson, locale: Locale): QuestionView[] 
     : [];
   const quiz = (lesson.quiz ?? []).map((question) => {
     const quote = question.card ? lesson.cards.find((card) => card.id === question.card) : undefined;
-    return questionView(question, lesson.id, quote ? pick(quote.text, locale) : null, locale);
+    return questionView(question, lesson.id, quote ? lessonText(quote, locale) : null, locale);
   });
   return [...checks, ...situation, ...quiz];
 }

@@ -6,7 +6,17 @@
       "key": "english_saheeh",
       "version": "1.1.2",
       "text": "The Entirely Merciful, the Especially Merciful,",
-      "footnotes": null
+      "footnotes": null,
+      "name": "English Translation - Noor International Center"
+    },
+    "ar": {
+      "key": "arabic_moyassar",
+      "name": "اللغة العربية - التفسير الميسر",
+      "version": null,
+      "text": "(الرَّحْمَنِ) ذي الرحمة العامة الذي وسعت رحمته جميع الخلق، (الرَّحِيمِ) ، بالمؤمنين، وهما اسمان من أسماء الله تعالى.",
+      "footnotes": null,
+      "url": "https://quranenc.com/ar/browse/arabic_moyassar/1#3",
+      "fetchedOn": "2026-10-04"
     }
   },
   "source": {

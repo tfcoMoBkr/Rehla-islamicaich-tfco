@@ -18,8 +18,8 @@ export function SiteFooter() {
         <div className="grid gap-2 text-sm">
           <p className="text-muted-foreground">{t("credit")}</p>
           <div className="flex flex-wrap gap-x-5 gap-y-1">
-            <Link href="/talk-to-a-human" className="font-medium underline underline-offset-4 hover:text-dawn">
-              {t("talkToHuman")}
+            <Link href="/talk-to-a-specialist" className="font-medium underline underline-offset-4 hover:text-dawn">
+              {t("talkToSpecialist")}
             </Link>
             <Link href="/sources" className="font-medium underline underline-offset-4 hover:text-dawn">
               {t("sources")}

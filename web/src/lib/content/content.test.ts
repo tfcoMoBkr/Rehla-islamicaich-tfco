@@ -6,7 +6,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { collectMedia, renderSourcesDoc } from "../../../scripts/generate-sources-doc.mjs";
 
 import { toLessonView } from "./lesson-view";
-import { loadArtManifest, loadKhutuwat, loadRafiqManifest, loadSources, loadVisuals } from "./load";
+import { loadArtManifest, loadFiqhEncyclopedia, loadKhutuwat, loadRafiqManifest, loadSources, loadVisuals } from "./load";
 import { toVisualView } from "./visual-view";
 
 afterEach(() => {
@@ -33,22 +33,23 @@ describe("content/", () => {
 
   it("renders every lesson in both languages", async () => {
     vi.stubEnv("CONTENT_SHOW_DRAFTS", "true");
-    const [khutuwat, sources] = await Promise.all([loadKhutuwat(), loadSources()]);
+    const [khutuwat, sources, encyclopedia] = await Promise.all([loadKhutuwat(), loadSources(), loadFiqhEncyclopedia()]);
     for (const lesson of khutuwat.lessons.values()) {
       for (const locale of ["ar", "en"] as const) {
-        const view = await toLessonView(lesson, khutuwat, locale, sources);
+        const view = await toLessonView(lesson, khutuwat, locale, sources, encyclopedia);
         expect(view.cards.length, `${lesson.id} ${locale}`).toBe(lesson.cards.length);
-        expect(view.activities.length, `${lesson.id} ${locale}`).toBeGreaterThan(0);
+        // Every activity the file keeps is rendered; a lesson whose activities all lost their items has none.
+        expect(view.activities.length, `${lesson.id} ${locale}`).toBe(lesson.activities.length);
       }
     }
   });
 
   it("shows a hadith only in a language its source has, and the citation otherwise", async () => {
     vi.stubEnv("CONTENT_SHOW_DRAFTS", "true");
-    const [khutuwat, sources] = await Promise.all([loadKhutuwat(), loadSources()]);
+    const [khutuwat, sources, encyclopedia] = await Promise.all([loadKhutuwat(), loadSources(), loadFiqhEncyclopedia()]);
     for (const lesson of khutuwat.lessons.values()) {
       for (const locale of ["ar", "en"] as const) {
-        const view = await toLessonView(lesson, khutuwat, locale, sources);
+        const view = await toLessonView(lesson, khutuwat, locale, sources, encyclopedia);
         lesson.cards.forEach((card, index) => {
           const evidence = view.cards[index]?.evidence;
           if (card.evidence?.type !== "hadith" || evidence?.kind !== "hadith") return;
@@ -61,11 +62,11 @@ describe("content/", () => {
   });
 
   it("has a practice lesson that shows every activity listed for checkpoint 1", async () => {
-    const [khutuwat, sources] = await Promise.all([loadKhutuwat(), loadSources()]);
+    const [khutuwat, sources, encyclopedia] = await Promise.all([loadKhutuwat(), loadSources(), loadFiqhEncyclopedia()]);
     const practice = khutuwat.lessons.get("practice-1");
     expect(practice).toBeDefined();
     if (!practice) return;
-    const view = await toLessonView(practice, khutuwat, "en", sources);
+    const view = await toLessonView(practice, khutuwat, "en", sources, encyclopedia);
     expect(view.issues).toEqual([]);
     const types = new Set(view.activities.map((activity) => activity.type));
     for (const type of ["order", "sort", "select", "match", "timeline", "checklist", "reflection", "guided"] as const) {

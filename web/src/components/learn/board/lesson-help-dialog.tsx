@@ -206,8 +206,8 @@ function ComingSoon() {
 function HumanLink() {
   const t = useTranslations("LineHelp");
   return (
-    <Link href="/talk-to-a-human" className="justify-self-start font-semibold underline underline-offset-4">
-      {t("talkToHuman")}
+    <Link href="/talk-to-a-specialist" className="justify-self-start font-semibold underline underline-offset-4">
+      {t("talkToSpecialist")}
     </Link>
   );
 }

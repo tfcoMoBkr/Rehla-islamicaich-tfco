@@ -4,9 +4,11 @@ import json
 
 from app.config import get_settings
 from app.index import Index
+from app.languages import Language
 from app.rafiq.check import code_problems
 from app.rafiq.compose import compose
-from app.rafiq.draft import parse
+from app.rafiq.draft import parse, render
+from app.rafiq.repair import repair
 from app.rafiq.schemas import HadithBlock, QuranBlock, TextBlock
 from app.retrieval.passages import Passage, from_chunk, from_hadith_chunks
 
@@ -20,13 +22,34 @@ def passages() -> list[Passage]:
     ]
 
 
-def kinds(answer: str, required: str | None = None, given: list[Passage] | None = None) -> set[str]:
-    found = code_problems(parse(answer), given or passages(), required)
+def kinds(
+    answer: str,
+    required: str | None = None,
+    given: list[Passage] | None = None,
+    language: Language | None = None,
+) -> set[str]:
+    found = code_problems(parse(answer), given or passages(), required, language)
     return {problem.kind for problem in found}
 
 
 def test_a_cited_answer_passes() -> None:
     assert kinds("You wash your face and your feet [1].\n{{quran:2:256}}") == set()
+
+
+def test_prose_must_be_in_the_answer_language() -> None:
+    english = "You wash your face and your feet [1]."
+    assert kinds(english, language="en") == set()
+    assert kinds(english, language="ar") == {"wrongLanguage"}
+    assert kinds("تغسل وجهك ثم يديك إلى المرفقين، وهذا هو الـ wudu [1].", language="ar") == set()
+
+
+def test_a_sentence_in_another_language_is_removed_and_the_block_stays() -> None:
+    units = parse("You wash your face and your feet [1].\n{{quran:2:256}}")
+    problems = code_problems(units, passages(), None, "ar")
+    repaired = repair(units, problems, passages(), None, "ar")
+
+    assert repaired is not None
+    assert render(repaired).strip() == "{{quran:2:256}}"
 
 
 def test_a_sentence_no_marker_covers_is_rejected() -> None:

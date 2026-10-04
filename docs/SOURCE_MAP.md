@@ -1,55 +1,49 @@
 # Source map — which recommended source is used for what
 
-The challenge's scholarly package (reference list dated 17 Sep 2026) names the sources below. Rehla uses only these. This file says what each one is used for, how it is reached, and what was verified on 2026-10-04.
+The challenge's scholarly package (reference list dated 17 Sep 2026) names the sources below. Rehla uses only these. This file says what each one is used for, how it is reached, and what was verified. `content/sources.json` is the full list shown on the sources page, with licence notes.
 
-## Correction to earlier work
+## Correction after the content audit
 
-The 19 lesson drafts were first written from newmuslimguide.com (Fahd Bahammam). That site is **not** in the organisers' list, and the item "The New Muslim Guide" on IslamHouse (ID 2838874) is a different book (file name `en-new-muslim-guide-sarhan.pdf`). The explanation text of the drafts must therefore be replaced with text taken verbatim from the sources below. The lesson order, activities and question types stay.
+The 19 lesson drafts were first worded by the team from a lesson website that is **not** on the organisers' list. After an external audit (2026-10), every link to that site and every reference to it as a source were removed. Its wording now survives only where it is labelled «صياغة فريق رحلة» / "Wording by the Rehla team" and rests on a verse or hadith fetched from the approved encyclopedias.
+
+- **Verbatim text.** Wherever an approved book states a card's point in both Arabic and English, the card now shows that book's text verbatim by reference (`textRef`).
+- **Removed text.** Points on which scholars differ were shown verbatim or removed.
+
+The lesson order, activities and question types stay where their items survived. The IslamHouse item 2838873/2838874 ("The New Muslim Guide", Haitham Sarhan) is a different book whose PDFs have no text layer. It is not used and is not listed among the visible sources. Every change is listed in `docs/CONTENT_REVIEW.md`.
 
 ## Association platforms (content stated as free for individuals and organisations, with public APIs)
 
-| Source | Use in Rehla | Access | Verified |
+| Source | Use in Rehla | Access | Reuse conditions |
 | --- | --- | --- | --- |
-| quranenc.com | Every verse: Arabic text, English meaning, Arabic explanation | API, no key | API works; translation keys still to be listed |
-| hadeethenc.com | Every hadith: text, grade, explanation, benefits, ar + en | API `hadeethenc.com/api/v1`, no key | Works. 26 IDs confirmed; about 20 more to resolve |
-| byenah.com | New-Muslim teaching releases (books, leaflets) in ar + en | API `byenah.com/ar/api` | Not opened: the site refuses automated fetches from here (403). Must be opened from the developer's machine |
-| islamhouse.com | Lesson text (books below) and videos | API v3, public key in the docs | Works. Reuse: unmodified, with attribution, non-profit (IslamHouse-API README) |
-| islamenc.com | Text books and cards with aligned translations | REST, documentation not found yet | Site opens; API not located |
-| terminologyenc.com | Definition of every religious term shown to the learner, ar + en | API | Not surveyed yet |
-| icadb.com | Sentence-aligned approved translations | `icadb.com/api/docs` requires login | Needs an account |
-| risala.prh.gov.sa | Approved English translations of teaching texts | Site | Server error from here; its English edition of "Important Lessons" is reachable through IslamHouse |
-| mcp.islamiccontent.org | Rafiq's retrieval over the six platforms above | MCP, no auth | To be connected in the AI service |
+| quranenc.com | Every verse: Arabic text, English translation, التفسير الميسر for ayah-by-ayah readings; Rafiq's Urdu, Bengali and French translations | API, no key | Seven published conditions (no modification, name the publisher and source, give the version, …), recorded verbatim in `content/sources.json` |
+| hadeethenc.com | Every hadith: text, grade, attribution, explanation, ar + en | API `hadeethenc.com/api/v1`, no key | No conditions published beyond "free through all available means"; the organisers' package applies |
+| islamhouse.com | The lesson books below and the two suggested videos | API v3 (public key in its documentation) | Unmodified, with attribution, non-profit use (IslamHouse-API README) |
+| byenah.com | English edition of al-Mukhtasar al-Mufid | Downloaded DOCX | The organisers' package applies |
+| terminologyenc.com | Definitions of religious terms, ar + en | API | The organisers' package applies |
+| mcp.islamiccontent.org | Rafiq's live retrieval of verses and hadiths | MCP, no auth | Shown with text and link exactly as returned; nothing stored |
 
 ## External platforms recommended by the association
 
 | Source | Use in Rehla | Notes |
 | --- | --- | --- |
-| dorar.net (`/feqhia`, `/aqeeda`, `/tafseer`, `/hadith`, `/history`) | "Details and differences of opinion" link on each fiqh lesson; hadith verification; seerah timeline | Arabic. JSON hadith search documented at dorar.net/article/389. Section URLs still to be collected |
-| islamqa.info | "Read more" link per lesson, same answer number in ar and en | All rights reserved: link only, never copied |
-| binbaz.org.sa | Arabic source text of Ibn Baz's works; "read more" links | Footer allows copying with attribution |
-| binothaimeen.net | "Read more" links | Not surveyed yet |
-| Kuwaiti Fiqh Encyclopedia | Term control for fiqh vocabulary | Not surveyed yet |
-| tafsir.net | Further reading for Al-Fatihah | Not surveyed yet |
-| mp3quran.net | Recitation audio and ayah timings for Al-Fatihah | Public API, no key |
-| qurancomplex.gov.sa | Quran font and text reference | Developer platform |
-| dictionary.ksaa.gov.sa | Arabic wording checks | — |
-| dawa.center/file/7937 «بيّنات» | Rafiq's answers to common doubts; pillars of faith | A 1,251-page Arabic PDF book, not a dataset |
-| islamic-content.com/dictionary | Term translation control | Personal non-commercial use: consult, do not copy |
+| dorar.net (`/feqhia`) | The fixed line under each fiqh lesson links to its sections in the fiqh encyclopedia | Link only; nothing copied |
+| islamqa.info, binbaz.org.sa, binothaimeen.net, tafsir.net | "Read more" links | Link only; nothing copied |
+| mp3quran.net | Recitation audio and ayah timings; surah names in Rafiq's answer languages | Public API, no key; audio streamed from its servers |
 
-## Texts the lessons will be taken from (verbatim, both languages)
+## Texts the lessons quote (verbatim, both languages)
 
 | Text | Arabic | English | Covers |
 | --- | --- | --- | --- |
-| «الدروس المهمة لعامة الأمة», Ibn Baz | IslamHouse 1871; binbaz.org.sa | IslamHouse 2842316, published by risala.prh.gov.sa: `https://d1.islamhouse.com/data/en/ih_books/single/risala_en-addurus_almuhimmah-2.1.pdf` | Pillars of Islam and faith, tawhid, conditions/pillars/obligations of prayer, wudu, invalidators (per its description; chapter list to confirm after download) |
-| «كيفية صلاة النبي ﷺ», Ibn Baz | IslamHouse 62675 | IslamHouse 1261 | How to pray |
-| «دليل المسلم الجديد» (Sarhan) | IslamHouse 2838873 | IslamHouse 2838874 | New-Muslim overview; contents to confirm after download |
-| Hadith explanations | hadeethenc.com | hadeethenc.com | Evidence and benefits on every card |
+| «الدروس المهمة لعامة الأمة», Ibn Baz | IslamHouse 1871 | IslamHouse 2842316 (risala.prh.gov.sa) | Pillars of Islam and faith, tawhid, conditions, pillars, obligations and invalidators of prayer, wudu and its invalidators |
+| «كيفية صلاة النبي صلى الله عليه وسلم», Ibn Baz | IslamHouse 62675 | IslamHouse 1261 (OCR; only clean excerpts) | How to pray |
+| «المختصر المفيد للمسلم الجديد», Muhammad al-Shehri | IslamHouse 2831443 (PDF; damaged paragraphs are not used) | byenah.com 4784 | Introductory points, wudu, ghusl, tayammum |
+| Hadith texts and explanations | hadeethenc.com | hadeethenc.com | Evidence on cards |
 
-Videos: "How to perform wudu" (IslamHouse ar 2834583 / en 2834586) and "How can I pray?" (ar 2832089 / en 2838921), both by Osoul Center.
+All stored books are in `content/fetched/books/` (`node scripts/fetch-content.mjs` and `--lesson-books`).
 
-IslamHouse item call: `https://api3.islamhouse.com/v3/<key>/main/get-item/<id>/<ar|en>/json` (the public key is printed in the API documentation).
+Videos: "How to perform wudu" (IslamHouse ar 2834583 / en 2834586) and "How can I pray?" (ar 2832089 / en 2838921), both by Osoul Center's scientific team.
 
-## Per-lesson "read more" links already identified (IslamQA answer numbers, same in /ar/ and /en/)
+## Per-lesson "read more" links (IslamQA answer numbers, same in /ar/ and /en/)
 
 | Lesson | IslamQA |
 | --- | --- |

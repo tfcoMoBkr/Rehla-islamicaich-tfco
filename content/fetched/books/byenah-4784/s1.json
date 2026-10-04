@@ -1,0 +1,36 @@
+{
+  "book": "byenah-4784",
+  "language": "en",
+  "anchor": "s1",
+  "level": 0,
+  "heading": "NEW MUSLIM GUIDELINE",
+  "paragraphs": [
+    {
+      "index": 1,
+      "style": "Normal",
+      "text": "By"
+    },
+    {
+      "index": 2,
+      "style": "Normal",
+      "text": "Muhammad al-Shehri"
+    },
+    {
+      "index": 3,
+      "style": "Normal",
+      "text": "1441 H / 2020 AD"
+    },
+    {
+      "index": 4,
+      "style": "Normal",
+      "text": "In the name of Allah, the Most Compassionate, the Most Merciful"
+    }
+  ],
+  "source": {
+    "publisher": "byenah.com",
+    "title": "New Muslim Guideline",
+    "url": "https://byenah.com/en/muslim-content/4784",
+    "file": "https://cdn.byenah.com/contents/4784/en-injlis-amuf-lilmu-aljad-ww.docx",
+    "fetchedOn": "2026-10-04"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "book": "islamhouse-2831443",
+  "language": "ar",
+  "anchor": "s4",
+  "heading": "القرآن كلام ربي",
+  "paragraphs": [
+    {
+      "index": 1,
+      "pages": [
+        24
+      ],
+      "text": "قال تعالى\nﯠ ﯡ ﯢ ﯣ ﯤ ﯥ ﯦ (\n)ﯧ ﯨ ﯩ ﯪ ﯫ \n). (النساء",
+      "quranGlyphs": true
+    },
+    {
+      "index": 2,
+      "pages": [
+        25
+      ],
+      "text": "هــو كام ا القــرآن الكــريم \nتعالــى الــذي أنزلــه علــى نبيــه \n ليُخــرج النــاس مــن ﷺمحمــد  \nالظلمــات إلــى النــور ويهديهــم إلــى \nالصــراط المســتقيم. \nمــن قــرأهُ حصــل لــه أجــرٌ عظيــم، \nومــن عمــلَ بهدْيــهِ سَــلَكَ الطريــق \nالقــويم."
+    }
+  ],
+  "source": {
+    "publisher": "IslamHouse.com",
+    "title": "المختصر المفيد للمسلم الجديد",
+    "url": "https://islamhouse.com/ar/books/2831443/",
+    "file": "https://d1.islamhouse.com/data/ar/ih_books/single_010/ar-almukhtasar-almufid-lilmuslim-aljadid-m-ashihriy-ppp.pdf",
+    "fetchedOn": "2026-10-04"
+  }
+}

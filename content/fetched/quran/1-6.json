@@ -6,7 +6,17 @@
       "key": "english_saheeh",
       "version": "1.1.2",
       "text": "Guide us to the straight path -",
-      "footnotes": null
+      "footnotes": null,
+      "name": "English Translation - Noor International Center"
+    },
+    "ar": {
+      "key": "arabic_moyassar",
+      "name": "اللغة العربية - التفسير الميسر",
+      "version": null,
+      "text": "دُلَّنا، وأرشدنا، ووفقنا إلى الطريق المستقيم، وثبتنا عليه حتى نلقاك، وهو الإسلام، الذي هو الطريق الواضح الموصل إلى رضوان الله وإلى جنته، الذي دلّ عليه خاتم رسله وأنبيائه محمد صلى الله عليه وسلم، فلا سبيل إلى سعادة العبد إلا بالاستقامة عليه.",
+      "footnotes": null,
+      "url": "https://quranenc.com/ar/browse/arabic_moyassar/1#6",
+      "fetchedOn": "2026-10-04"
     }
   },
   "source": {

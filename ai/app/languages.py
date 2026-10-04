@@ -6,10 +6,12 @@ The others are answered extractively: published verse and hadith texts in that l
 publisher's own explanation, and at most two connecting sentences (see docs/RELIABILITY.md).
 """
 
+import re
 from dataclasses import dataclass
 from typing import Literal
 
 Language = Literal["ar", "en", "ur", "bn", "fr"]
+Script = Literal["arabic", "latin", "bengali"]
 # The languages the local index (books, terms, stored verses and hadiths) is written in.
 IndexLanguage = Literal["ar", "en"]
 
@@ -20,7 +22,8 @@ class QuranTranslation:
 
     key: str
     name: str
-    version: str
+    # None when QuranEnc publishes no version number for it (its list endpoint omits it).
+    version: str | None
 
 
 @dataclass(frozen=True)
@@ -28,10 +31,11 @@ class LanguageSpec:
     code: Language
     name: str
     direction: Literal["rtl", "ltr"]
-    # None for Arabic (the verse is the text) and for a language QuranEnc has no translation in.
+    # None for Arabic (the verse is the text) and for any language QuranEnc has no translation in.
     quran: QuranTranslation | None
     hadeethenc: str
     local: bool
+    script: Script
 
 
 ENGLISH_SAHEEH = QuranTranslation(
@@ -39,8 +43,10 @@ ENGLISH_SAHEEH = QuranTranslation(
 )
 
 LANGUAGES: dict[Language, LanguageSpec] = {
-    "ar": LanguageSpec("ar", "Modern Standard Arabic", "rtl", None, "ar", local=True),
-    "en": LanguageSpec("en", "English", "ltr", ENGLISH_SAHEEH, "en", local=True),
+    "ar": LanguageSpec(
+        "ar", "Modern Standard Arabic", "rtl", None, "ar", local=True, script="arabic"
+    ),
+    "en": LanguageSpec("en", "English", "ltr", ENGLISH_SAHEEH, "en", local=True, script="latin"),
     "ur": LanguageSpec(
         "ur",
         "Urdu",
@@ -48,9 +54,17 @@ LANGUAGES: dict[Language, LanguageSpec] = {
         QuranTranslation("urdu_junagarhi", "Urdu Translation - Muhammad Junagarhi", "1.1.3"),
         "ur",
         local=False,
+        script="arabic",
     ),
-    # QuranEnc publishes no Bengali translation: verses show the English one, labelled as such.
-    "bn": LanguageSpec("bn", "Bengali", "ltr", None, "bn", local=False),
+    "bn": LanguageSpec(
+        "bn",
+        "Bengali",
+        "ltr",
+        QuranTranslation("bengali_rwwad", "Bengali Translation - Rowwad Translation Center", None),
+        "bn",
+        local=False,
+        script="bengali",
+    ),
     "fr": LanguageSpec(
         "fr",
         "French",
@@ -60,8 +74,20 @@ LANGUAGES: dict[Language, LanguageSpec] = {
         ),
         "fr",
         local=False,
+        script="latin",
     ),
 }
+
+_LETTERS: dict[Script, re.Pattern[str]] = {
+    "arabic": re.compile(r"[\u0620-\u064a\u066e-\u06d3\u06fa-\u06ff\u0750-\u077f]"),
+    "latin": re.compile(r"[A-Za-z\u00c0-\u024f]"),
+    "bengali": re.compile(r"[\u0980-\u09ff]"),
+}
+_ANY_LETTER = re.compile(r"[^\W\d_]")
+# Below this many letters a line is too short to judge (a name, a term, a number).
+_JUDGED_FROM = 12
+# A line may carry a term or a name in another script; most of it must be in its own.
+_OWN_SHARE = 0.6
 
 # What a language without its own published text falls back to, shown and labelled as such.
 FALLBACK: Language = "en"
@@ -71,6 +97,15 @@ DEFAULT: Language = "en"
 
 def spec(language: Language) -> LanguageSpec:
     return LANGUAGES[language]
+
+
+def written_in(text: str, language: Language) -> bool:
+    """Whether a line of prose is written in the script of `language`."""
+    letters = len(_ANY_LETTER.findall(text))
+    if letters < _JUDGED_FROM:
+        return True
+    own = len(_LETTERS[LANGUAGES[language].script].findall(text))
+    return own / letters >= _OWN_SHARE
 
 
 def quran_translation(language: Language) -> tuple[Language, QuranTranslation] | None:

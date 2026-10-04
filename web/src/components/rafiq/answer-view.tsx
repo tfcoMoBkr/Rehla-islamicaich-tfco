@@ -1,9 +1,10 @@
 import { useTranslations } from "next-intl";
 
 import { Lantern } from "@/components/journey/lantern";
+import { SpecialistCard } from "@/components/specialists/specialist-card";
 import { Link } from "@/i18n/navigation";
 import { ANSWER_FONT_VARIABLES } from "@/lib/answer-fonts";
-import { splitMarkers, type AnswerBlock, type RafiqAnswer } from "@/lib/rafiq/answer";
+import { SPECIALIST_REASONS, splitMarkers, type AnswerBlock, type RafiqAnswer } from "@/lib/rafiq/answer";
 import { answerMessages } from "@/lib/rafiq/answer-messages";
 import { inLanguage, type AnswerLanguage } from "@/lib/rafiq/languages";
 import { cn } from "@/lib/utils";
@@ -23,10 +24,12 @@ type AnswerViewProps = {
 };
 
 /**
- * One answer from Rafiq, in the language it was asked in: his words with [n] markers, verses and
- * hadiths exactly as their sources publish them, the numbered sources, a referral when he hands
- * over to a person, and the disclosure that he is an AI tool. Interface labels stay in the page's
- * language; what Rafiq says is in the answer's.
+ * One reply from Rafiq, in the language it was asked in. Around the cited part he speaks warmly (an
+ * opening and a follow-up the service checked to carry no religious statement; fixed lines from the
+ * reviewed message file in Urdu, Bengali and French). The cited part shows his words with [n]
+ * markers, verses and hadiths exactly as their sources publish them, and the numbered sources. A
+ * referral says why he hands over, and the specialist card shows who can help. Every reply that
+ * carries religious content ends with the disclosure that he is an AI tool.
  */
 export function AnswerView({ answer, id, lessons }: AnswerViewProps) {
   const t = useTranslations("Rafiq");
@@ -34,20 +37,33 @@ export function AnswerView({ answer, id, lessons }: AnswerViewProps) {
   const own = answerMessages(answer.language);
   const voice = inLanguage(answer.language);
   const fonts = ANSWER_FONT_VARIABLES[answer.language];
+  const say = (text: string, className?: string) => (
+    <p {...voice} className={cn("text-lg", voice.className, className)}>
+      {text}
+    </p>
+  );
 
-  if (answer.referral?.reason === "smalltalk") {
+  if (answer.kind === "chat") {
     return (
-      <p {...voice} className={cn("text-lg", voice.className, fonts)}>
-        {own?.smalltalk ?? t("smalltalk")}
-      </p>
+      <div className={cn("grid gap-3", fonts)}>
+        {say(answer.opening ?? own?.smalltalk ?? t("smalltalk"))}
+        {answer.followUp && say(answer.followUp, "text-muted-foreground")}
+      </div>
     );
+  }
+  if (answer.kind === "clarify") {
+    return <div className={fonts}>{say(answer.opening ?? own?.clarify ?? t("clarifyFallback"))}</div>;
   }
 
   const referral = answer.referral;
+  const cited = answer.blocks.length > 0;
+  const opening = answer.opening ?? (cited ? own?.opening : null);
+  const followUp = answer.followUp ?? (cited ? own?.followUp : null);
   return (
     <div className={cn("grid gap-5", fonts)}>
       {answer.languageFallback && <p className="text-sm text-muted-foreground">{t("languageFallback")}</p>}
-      {answer.blocks.length > 0 && (
+      {opening && say(opening)}
+      {cited && (
         <div lang={voice.lang} dir={voice.dir} className="grid gap-4">
           {answer.blocks.map((block, index) => (
             <Block key={index} block={block} id={id} language={answer.language} />
@@ -60,6 +76,9 @@ export function AnswerView({ answer, id, lessons }: AnswerViewProps) {
           links={referral.links}
           own={own ? { ...own.referral[referral.reason], language: answer.language } : undefined}
         />
+      )}
+      {referral && SPECIALIST_REASONS.has(referral.reason) && (
+        <SpecialistCard ids={referral.centers.length > 0 ? referral.centers : undefined} />
       )}
       {later && (
         <p className="rounded-xl border border-oasis/30 bg-oasis/6 px-4 py-3">
@@ -74,16 +93,19 @@ export function AnswerView({ answer, id, lessons }: AnswerViewProps) {
         </p>
       )}
       {answer.sources.length > 0 && <SourceCards sources={answer.sources} id={id} />}
-      <p className="flex items-center gap-2 text-sm text-muted-foreground">
-        <Lantern className="size-5 shrink-0 text-ink" />
-        {own ? (
-          <span lang={voice.lang} dir={voice.dir}>
-            {own.disclosure}
-          </span>
-        ) : (
-          t("disclosure")
-        )}
-      </p>
+      {followUp && say(followUp, "text-muted-foreground")}
+      {answer.kind !== "danger" && (
+        <p className="flex items-center gap-2 text-sm text-muted-foreground">
+          <Lantern className="size-5 shrink-0 text-ink" />
+          {own ? (
+            <span lang={voice.lang} dir={voice.dir}>
+              {own.disclosure}
+            </span>
+          ) : (
+            t("disclosure")
+          )}
+        </p>
+      )}
     </div>
   );
 }
@@ -97,8 +119,12 @@ function Block({ block, id, language }: { block: AnswerBlock; id: string; langua
 // A bullet, or a number in ASCII, Arabic-Indic, Persian or Bengali digits, then a space.
 const LIST_ITEM = /^\s*(?:[-*•▪◦]|[0-9\u0660-\u0669\u06f0-\u06f9\u09e6-\u09ef]+[.)-])\s+/;
 
-/** Rafiq's own words: paragraphs, and lists where he wrote one item per line. */
+/**
+ * Rafiq's own words: paragraphs, and lists where he wrote one item per line. They are labelled as a
+ * generated explanation, set apart from the verses and hadiths quoted as their publishers print them.
+ */
 function TextBlock({ text, id, language }: { text: string; id: string; language: AnswerLanguage }) {
+  const t = useTranslations("Rafiq");
   const { className } = inLanguage(language);
   const groups: { list: boolean; numbered: boolean; lines: string[] }[] = [];
   for (const line of text.split(/\n+/).filter((part) => part.trim())) {
@@ -109,7 +135,8 @@ function TextBlock({ text, id, language }: { text: string; id: string; language:
     else groups.push({ list: false, numbered: false, lines: [line] });
   }
   return (
-    <>
+    <section className="grid gap-3 rounded-xl border border-dashed border-hairline px-4 py-3">
+      <p className="text-xs font-semibold tracking-wide text-muted-foreground">{t("generatedExplanation")}</p>
       {groups.map((group, index) => {
         if (!group.list) {
           return (
@@ -129,7 +156,7 @@ function TextBlock({ text, id, language }: { text: string; id: string; language:
           </List>
         );
       })}
-    </>
+    </section>
   );
 }
 

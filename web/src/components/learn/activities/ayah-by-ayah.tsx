@@ -3,6 +3,7 @@
 import { ChevronDown } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
+import { PublishedName } from "@/components/learn/wording";
 
 import { RecitationButton } from "@/components/learn/audio/recitation-button";
 import type { AyahLine, AyahSet } from "@/lib/learn/types";
@@ -83,6 +84,11 @@ export function AyahByAyah({ ayahs, onProgress }: AyahByAyahProps) {
         })}
       </ol>
       <p className="text-sm text-muted-foreground">
+        {ayahs.published && (
+          <span className="block">
+            {t("meaningFrom")} <PublishedName published={ayahs.published} />
+          </span>
+        )}
         {t("quranFrom")} QuranEnc.com
         {ayahs.reciter && (
           <>

@@ -7,7 +7,7 @@ import { StationGate } from "@/components/learn/station/station-gate";
 import { resolveLocale } from "@/i18n/locale";
 import { earlierQuestions, findLesson, getStationContext, nextAfterLesson, toRoadStations } from "@/lib/content/khutuwat";
 import { toLessonView } from "@/lib/content/lesson-view";
-import { loadSources } from "@/lib/content/load";
+import { loadFiqhEncyclopedia, loadSources } from "@/lib/content/load";
 import { toVisualView } from "@/lib/content/visual-view";
 import { requireFeature } from "@/lib/require-feature";
 
@@ -36,7 +36,7 @@ export default async function LessonPage({ params }: Props) {
 
   const { context, lesson } = await lessonFor(stationId, slug);
   const [lessonView, visual] = await Promise.all([
-    toLessonView(lesson, context.khutuwat, locale, await loadSources()),
+    toLessonView(lesson, context.khutuwat, locale, await loadSources(), await loadFiqhEncyclopedia()),
     toVisualView(lesson.id),
   ]);
 

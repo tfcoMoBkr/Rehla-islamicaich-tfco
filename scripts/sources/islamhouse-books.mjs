@@ -23,11 +23,8 @@ import {
 
 const API = "https://api3.islamhouse.com/v3";
 
-export const ISLAMHOUSE_BOOKS = [
-  { id: 2831443, language: "ar" },
-  { id: 2838873, language: "ar" },
-  { id: 2838874, language: "en" },
-];
+// 2838873/2838874 (Haitham Sarhan's guide) are not used: their PDFs have no text layer.
+export const ISLAMHOUSE_BOOKS = [{ id: 2831443, language: "ar" }];
 
 /** Quran verses typeset in a glyph font extract as presentation-form codepoints that spell nothing. */
 const GLYPH_FONT = /[ﭐ-ﷹﷻ-﷿ﹰ-﻿]/gu;

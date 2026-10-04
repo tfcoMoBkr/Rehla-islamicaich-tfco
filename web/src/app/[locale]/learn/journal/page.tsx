@@ -5,6 +5,7 @@ import { BackToRoad } from "@/components/learn/back-to-road";
 import { JournalView } from "@/components/learn/journal/journal-view";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { resolveLocale } from "@/i18n/locale";
+import { lessonText } from "@/lib/content/lesson-view";
 import { loadKhutuwat } from "@/lib/content/load";
 import { requireFeature } from "@/lib/require-feature";
 
@@ -24,7 +25,13 @@ export default async function JournalPage({ params }: PageProps<"/[locale]/learn
   const pickable = Object.fromEntries(
     lessons
       .filter((lesson) => lesson.activities.some((activity) => activity.type === "reflection"))
-      .map((lesson) => [lesson.id, Object.fromEntries(lesson.cards.map((card) => [card.id, card.text[locale]]))]),
+      .map((lesson) => [
+        lesson.id,
+        Object.fromEntries(lesson.cards.flatMap((card) => {
+          const text = lessonText(card, locale);
+          return text ? [[card.id, text]] : [];
+        })),
+      ]),
   );
 
   return (

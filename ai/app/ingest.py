@@ -20,6 +20,7 @@ import numpy as np
 from app.config import get_settings
 from app.index import Chunk, Index, IndexMeta, Language
 from app.llm import OpenRouterEmbedder
+from app.rafiq.specialists import FILE as REFERRALS_FILE
 from app.retrieval.surahs import FILE as SURAHS_FILE
 
 TARGET = 800
@@ -31,8 +32,6 @@ LANGUAGES: tuple[Language, ...] = ("ar", "en")
 BOOK_SOURCES = {
     "byenah-4784": "byenah-new-muslim-guideline",
     "islamhouse-2831443": "ih-almukhtasar-almufid",
-    "islamhouse-2838873": "ih-new-muslim-guide",
-    "islamhouse-2838874": "ih-new-muslim-guide",
     "1871": "ih-durus-muhimmah",
     "2842316": "risala-important-lessons",
     "62675": "ih-salat-nabi",
@@ -402,6 +401,7 @@ async def build() -> None:
     )
     Index(chunks, matrix, meta).save(settings.index_dir, meta)
     copy_surah_names(settings.content_dir, settings.index_dir)
+    copy_referral_ids(settings.content_dir, settings.index_dir)
     print(f"Index written to {settings.index_dir}: {json.dumps(meta.counts)}")
 
 
@@ -410,6 +410,17 @@ def copy_surah_names(content: Path, index_dir: Path) -> None:
     names = read(content / "fetched" / "surahs.json")
     (index_dir / SURAHS_FILE).write_text(
         json.dumps(names, ensure_ascii=False, indent=1) + "\n", encoding="utf-8"
+    )
+
+
+def copy_referral_ids(content: Path, index_dir: Path) -> None:
+    """The ids of the referral bodies, national channel first: the service names them, the web
+    renders them from content/referral-centers.json."""
+    centres = read(content / "referral-centers.json")["centers"]
+    ids = [c["id"] for c in centres if c["type"] == "nationalChannel"]
+    ids += [c["id"] for c in centres if c["type"] != "nationalChannel"]
+    (index_dir / REFERRALS_FILE).write_text(
+        json.dumps({"ids": ids}, indent=1) + "\n", encoding="utf-8"
     )
 
 

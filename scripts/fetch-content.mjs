@@ -8,6 +8,7 @@
 //   node scripts/fetch-content.mjs --corpus     build Rafiq's source corpus in content/corpus/ (scripts/sources/)
 //   node scripts/fetch-content.mjs --mcp-probe  list the MCP server's tools and time sample calls (docs/MCP_TOOLS.md)
 //   node scripts/fetch-content.mjs --surahs     surah names in Rafiq's answer languages (content/fetched/surahs.json)
+//   node scripts/fetch-content.mjs --lesson-books  copy the corpus books lessons quote into content/fetched/books
 //
 // Keys are read from the environment or from a .env file at the repository root (see .env.example).
 
@@ -30,6 +31,12 @@ const HADEETHENC = "https://hadeethenc.com/api/v1";
 const MP3QURAN = "https://mp3quran.net/api/v3";
 /** The English translation shown beside each verse (CLAUDE.md: approved quranenc.com translation). */
 const QURAN_TRANSLATION = { en: "english_saheeh" };
+/**
+ * The Arabic meaning shown with each ayah of a lesson's ayah-by-ayah reading. QuranEnc's list of
+ * translations does not include it, so its name is the one its own page gives and it has no
+ * published version number.
+ */
+const QURAN_TAFSIR = { ar: { key: "arabic_moyassar", name: "اللغة العربية - التفسير الميسر" } };
 /** Rafiq's answer languages (ai/app/languages.py) and mp3quran.net's code for each. */
 const SURAH_NAME_LANGUAGES = { ar: "ar", en: "eng", ur: "ur", bn: "bn", fr: "fr" };
 /** mp3quran.net reading used for every verse's audio (1 = Ibrahim Al-Akhdar, Hafs 'an 'Asim). */
@@ -94,8 +101,54 @@ function collectReferences(lesson, found) {
   };
   visit(lesson);
   for (const ayah of lesson.ayat ?? []) {
-    expandRef(ayah.ref).forEach((ref) => found.ayahs.add(ref.join(":")));
+    expandRef(ayah.ref).forEach((ref) => {
+      found.ayahs.add(ref.join(":"));
+      found.tafsir.add(ref.join(":"));
+    });
   }
+}
+
+/**
+ * Adds to stored verses what lessons show beside them: each translation's name, and the Arabic
+ * tafsir for the ayahs of an ayah-by-ayah reading. The verse and translation texts are not changed.
+ */
+async function annotateQuran(tafsirAyahs) {
+  const { translations } = await getJson(`${QURANENC}/translations/list`);
+  const names = Object.fromEntries(translations.map((translation) => [translation.key, translation.title]));
+  const dir = path.join(fetchedDir, "quran");
+  let changed = 0;
+  for (const name of await readdir(dir)) {
+    const file = path.join(dir, name);
+    const ayah = JSON.parse(await readFile(file, "utf8"));
+    let touched = false;
+    for (const translation of Object.values(ayah.translations)) {
+      if (!translation.name && names[translation.key]) {
+        translation.name = names[translation.key];
+        touched = true;
+      }
+    }
+    const tafsir = QURAN_TAFSIR.ar;
+    if (tafsirAyahs.has(ayah.ref) && (refresh || !ayah.translations.ar)) {
+      const [surah, number] = ayah.ref.split(":");
+      const apiUrl = `${QURANENC}/translation/aya/${tafsir.key}/${surah}/${number}`;
+      const { result } = await getJson(apiUrl);
+      ayah.translations.ar = {
+        key: tafsir.key,
+        name: tafsir.name,
+        version: null,
+        text: result.translation,
+        footnotes: result.footnotes || null,
+        url: `https://quranenc.com/ar/browse/${tafsir.key}/${surah}#${number}`,
+        fetchedOn: today,
+      };
+      touched = true;
+    }
+    if (touched) {
+      await save(file, ayah);
+      changed += 1;
+    }
+  }
+  return changed;
 }
 
 async function fetchQuran(ayahs) {
@@ -125,6 +178,7 @@ async function fetchQuran(ayahs) {
         translations: {
           en: {
             key,
+            name: translations.find((translation) => translation.key === key)?.title ?? null,
             version: versions[key] ?? null,
             text: entry.translation,
             footnotes: entry.footnotes || null,
@@ -233,6 +287,26 @@ async function verifyRecitations() {
   return files.length;
 }
 
+/**
+ * Books that lesson cards quote by reference (textRef) but that the corpus builder fetches into the
+ * git-ignored content/corpus/: their sections are copied as they are into content/fetched/books/.
+ */
+const LESSON_CORPUS_BOOKS = ["islamhouse-2831443", "byenah-4784"];
+
+async function copyLessonBooks() {
+  let copied = 0;
+  for (const book of LESSON_CORPUS_BOOKS) {
+    const from = path.join(root, "content", "corpus", "books", book);
+    for (const name of await readdir(from)) {
+      const data = JSON.parse(await readFile(path.join(from, name), "utf8"));
+      const file = name === "index.json" ? name : `${data.anchor}.json`;
+      await save(path.join(fetchedDir, "books", book, file), data);
+      copied += 1;
+    }
+  }
+  return copied;
+}
+
 /** Surah names as mp3quran.net publishes them: the label of every verse Rafiq shows. */
 async function fetchSurahNames() {
   const file = path.join(fetchedDir, "surahs.json");
@@ -250,7 +324,7 @@ async function fetchSurahNames() {
 }
 
 async function fetchLessonContent() {
-  const found = { ayahs: new Set(), hadiths: new Map(), recitations: new Set() };
+  const found = { ayahs: new Set(), hadiths: new Map(), recitations: new Set(), tafsir: new Set() };
   for (const file of await lessonFiles(lessonsDir)) {
     collectReferences(JSON.parse(await readFile(file, "utf8")), found);
   }
@@ -263,11 +337,13 @@ async function fetchLessonContent() {
     await fetchRecitations(found.recitations),
   ];
   const verified = await verifyRecitations();
+  const annotated = await annotateQuran(found.tafsir);
   await fetchSurahNames();
   console.log(
     `Referenced: ${found.ayahs.size} ayahs, ${found.hadiths.size} hadiths, ${found.recitations.size} recitations.`,
     `Fetched now: ${ayahs} ayahs, ${hadiths} hadiths, ${recitations} recitations.`,
     `Recordings verified: ${verified}.`,
+    `Verses annotated: ${annotated}.`,
   );
   await fetchIslamHouse({ root, today, refresh });
 }
@@ -275,6 +351,8 @@ async function fetchLessonContent() {
 if (process.argv.includes("--corpus")) {
   const { buildCorpus } = await import("./sources/corpus.mjs");
   await buildCorpus({ refresh });
+} else if (process.argv.includes("--lesson-books")) {
+  console.log(`Lesson book sections copied: ${await copyLessonBooks()}.`);
 } else if (process.argv.includes("--surahs")) {
   console.log(`Surah names fetched: ${await fetchSurahNames()} file.`);
 } else if (process.argv.includes("--mcp-probe")) {
