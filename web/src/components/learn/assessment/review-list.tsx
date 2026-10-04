@@ -70,7 +70,7 @@ export function ReviewList({ questions, answers }: ReviewListProps) {
         const right = answers[question.id] === true;
         const Icon = right ? CircleCheck : Footprints;
         return (
-          <li key={question.id} className="rounded-xl border border-hairline bg-paper p-5">
+          <li key={question.id} className="rounded-xl border border-border bg-card p-5">
             <p className="flex items-start gap-2 font-semibold">
               <span className="text-muted-foreground">{index + 1}.</span>
               {question.prompt}
@@ -78,7 +78,7 @@ export function ReviewList({ questions, answers }: ReviewListProps) {
             <p
               className={cn(
                 "mt-3 inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-sm font-medium",
-                right ? "bg-oasis/10 text-oasis-text" : "bg-dawn/15 text-terracotta-text",
+                right ? "bg-success/10 text-success" : "bg-dawn/15 text-destructive",
               )}
             >
               <Icon aria-hidden className="size-4" />

@@ -59,7 +59,7 @@ export function ChecklistActivity({ activity, lessonId, onComplete, onProgress }
             key={item.id}
             className={cn(
               optionClassName,
-              "cursor-pointer has-checked:border-oasis/60 has-checked:bg-oasis/8 has-focus-visible:outline-2 has-focus-visible:outline-ring",
+              "cursor-pointer has-checked:border-success/60 has-checked:bg-success/8 has-focus-visible:outline-2 has-focus-visible:outline-ring",
               verdict === "wrong" && "border-dawn",
             )}
           >
@@ -67,10 +67,10 @@ export function ChecklistActivity({ activity, lessonId, onComplete, onProgress }
               type="checkbox"
               checked={ticked}
               onChange={() => toggle(item.id)}
-              className="size-5 shrink-0 accent-oasis-text focus-visible:outline-none"
+              className="size-5 shrink-0 accent-success focus-visible:outline-none"
             />
             <span className="min-w-0 flex-1">{item.text}</span>
-            {verdict === "right" && item.correct && <Check aria-hidden className="size-5 text-oasis-text" />}
+            {verdict === "right" && item.correct && <Check aria-hidden className="size-5 text-success" />}
           </label>
         );
       })}

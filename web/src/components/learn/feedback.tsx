@@ -22,16 +22,16 @@ export function Feedback({ tone, children, quote, className }: FeedbackProps) {
       role="status"
       className={cn(
         "animate-rise-in rounded-xl border p-4",
-        tone === "right" ? "border-oasis/40 bg-oasis/8" : "border-dawn/50 bg-dawn/10",
+        tone === "right" ? "border-success/40 bg-success/8" : "border-dawn/50 bg-dawn/10",
         className,
       )}
     >
       <p className="flex items-center gap-2 font-semibold">
         {tone === "right" ? (
           // A right answer lights a lantern.
-          <Lantern className="lantern-flare size-7 shrink-0 text-ink" />
+          <Lantern className="lantern-flare size-7 shrink-0 text-foreground" />
         ) : (
-          <Footprints aria-hidden className="size-5 shrink-0 text-terracotta-text" />
+          <Footprints aria-hidden className="size-5 shrink-0 text-destructive" />
         )}
         {children}
       </p>

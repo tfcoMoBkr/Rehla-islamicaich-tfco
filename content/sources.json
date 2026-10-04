@@ -87,6 +87,94 @@
       "verifiedOn": "2026-10-04"
     },
     {
+      "id": "ih-durus-muhimmah",
+      "type": "lessons",
+      "name": {
+        "ar": "«الدروس المهمة لعامة الأمة» لعبد العزيز بن باز",
+        "en": "Al-Durus al-Muhimmah li-'Ammat al-Ummah (Arabic), Abdul Aziz bin Baz"
+      },
+      "aliases": [],
+      "url": "https://islamhouse.com/ar/books/1871/",
+      "alsoAt": [],
+      "usedFor": {
+        "ar": "نص مرجعي للفريق الذي يكتب دروس «خطوات»: الكتاب بالعربية محفوظًا بنصه كما نُشر، قسمًا قسمًا.",
+        "en": "Reference text for the team writing the Khutuwat lessons: the Arabic book, kept word for word as published, section by section."
+      },
+      "licence": {
+        "ar": "بحسب IslamHouse: يجوز إعادة استخدامه مجانًا مع ذكر المصدر ودون تعديل. الناشر: مؤسسة الشيخ عبد العزيز بن باز الخيرية.",
+        "en": "IslamHouse: free reuse with attribution, unmodified. Publisher: Sheikh Abdulaziz bin Baz Charitable Foundation."
+      },
+      "status": "approved",
+      "verifiedOn": "2026-10-04"
+    },
+    {
+      "id": "risala-important-lessons",
+      "type": "lessons",
+      "name": {
+        "ar": "«الدروس المهمة لعامة الأمة» لعبد العزيز بن باز، بترجمة risala.prh.gov.sa الإنجليزية",
+        "en": "The Important Lessons for the General Ummah, Abdul Aziz bin Baz (risala.prh.gov.sa)"
+      },
+      "aliases": [],
+      "url": "https://islamhouse.com/en/books/2842316/",
+      "alsoAt": [],
+      "usedFor": {
+        "ar": "نص مرجعي للفريق الذي يكتب دروس «خطوات»: الترجمة الإنجليزية كما استُخرجت من ملف PDF، درسًا درسًا. الاقتباسات العربية في الملف لا تُستخرج بترتيب حروفها، فلا تُستعمل.",
+        "en": "Reference text for the team writing the Khutuwat lessons: the English translation as extracted from its PDF, lesson by lesson. Arabic quotations in the PDF do not extract in letter order and are not used."
+      },
+      "licence": {
+        "ar": "بحسب IslamHouse: يجوز إعادة استخدامه مجانًا مع ذكر المصدر ودون تعديل. ناشر الترجمة موقع risala.prh.gov.sa.",
+        "en": "IslamHouse: free reuse with attribution, unmodified. Publisher: Message of The Two Holy Mosques (risala.prh.gov.sa)."
+      },
+      "status": "approved",
+      "verifiedOn": "2026-10-04"
+    },
+    {
+      "id": "ih-salat-nabi",
+      "type": "lessons",
+      "name": {
+        "ar": "«كيفية صلاة النبي ﷺ» لعبد العزيز بن باز",
+        "en": "The Prophet's Manner of Performing Prayer, Abdul Aziz bin Baz"
+      },
+      "aliases": [],
+      "url": "https://islamhouse.com/ar/books/62675/",
+      "alsoAt": [
+        "https://islamhouse.com/en/books/1261/"
+      ],
+      "usedFor": {
+        "ar": "نص مرجعي للفريق الذي يكتب دروس الصلاة: الكتاب بالعربية محفوظًا بنصه قسمًا قسمًا، ونص الطبعة الإنجليزية صفحةً صفحة.",
+        "en": "Reference text for the team writing the prayer lessons: the Arabic book kept word for word, section by section, and the English edition's text page by page."
+      },
+      "licence": {
+        "ar": "بحسب IslamHouse: يجوز إعادة استخدامه مجانًا مع ذكر المصدر ودون تعديل.",
+        "en": "IslamHouse: free reuse with attribution, unmodified."
+      },
+      "status": "approved",
+      "verifiedOn": "2026-10-04"
+    },
+    {
+      "id": "osoul-wudu-guide",
+      "type": "lessons",
+      "name": {
+        "ar": "دليل الوضوء المصوَّر بالإنجليزية من مركز أصول",
+        "en": "How to Make Wudū’ (Ablution): An Illustrated Explanation, Osoul Center"
+      },
+      "aliases": [
+        "Osoul Center via IslamHouse.com"
+      ],
+      "url": "https://islamhouse.com/en/books/2839339/",
+      "alsoAt": [],
+      "usedFor": {
+        "ar": "صور توضيحية لدروس الوضوء، مأخوذة من الدليل دون قص أو تعديل، منسوبة إلى مركز أصول.",
+        "en": "Illustrations for the wudu lessons, taken from the guide without cropping or changes and credited to Osoul Center."
+      },
+      "licence": {
+        "ar": "بحسب IslamHouse: يجوز إعادة استخدامه مجانًا مع ذكر المصدر ودون تعديل.",
+        "en": "IslamHouse: free reuse with attribution, unmodified."
+      },
+      "status": "approved",
+      "verifiedOn": "2026-10-04"
+    },
+    {
       "id": "zadi",
       "type": "video",
       "name": {
@@ -134,6 +222,26 @@
         "en": "Shown in YouTube's embedded player (youtube-nocookie.com), never re-uploaded."
       },
       "status": "pendingReview",
+      "verifiedOn": "2026-10-04"
+    },
+    {
+      "id": "rehla-art",
+      "type": "illustrations",
+      "name": {
+        "ar": "رسوم فريق رحلة",
+        "en": "Rehla team illustrations"
+      },
+      "aliases": [],
+      "alsoAt": [],
+      "usedFor": {
+        "ar": "الرسوم المثبتة على لوح كل درس، والأيقونات. رسمها فريق رحلة بنفسه.",
+        "en": "The drawings pinned on each lesson's board, and the icons. Drawn by the Rehla team itself."
+      },
+      "licence": {
+        "ar": "عمل أصلي لفريق رحلة.",
+        "en": "Original work by the Rehla team."
+      },
+      "status": "approved",
       "verifiedOn": "2026-10-04"
     }
   ]

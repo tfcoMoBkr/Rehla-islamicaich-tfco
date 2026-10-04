@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
+import { useRafiqReaction } from "@/components/learn/board/rafiq-context";
 import { Feedback } from "@/components/learn/feedback";
 import { optionClassName } from "@/components/learn/interactions/option-styles";
 import { Button } from "@/components/ui/button";
@@ -36,6 +37,7 @@ export function ChoiceQuestion({ question, mode, onAnswered }: ChoiceQuestionPro
   const [selected, setSelected] = useState<string[]>([]);
   const [result, setResult] = useState<"right" | "retry" | null>(null);
   const [firstTry, setFirstTry] = useState<boolean | null>(null);
+  const react = useRafiqReaction();
 
   const options =
     question.type === "trueFalse"
@@ -53,6 +55,7 @@ export function ChoiceQuestion({ question, mode, onAnswered }: ChoiceQuestionPro
       return current.includes(id) ? current.filter((value) => value !== id) : [...current, id];
     });
     if (result === "retry") setResult(null);
+    react("thinking");
   }
 
   function submit() {
@@ -63,6 +66,7 @@ export function ChoiceQuestion({ question, mode, onAnswered }: ChoiceQuestionPro
     }
     if (firstTry === null) setFirstTry(correct);
     setResult(correct ? "right" : "retry");
+    react(correct ? "pleased" : "encouraging");
   }
 
   return (
@@ -84,7 +88,7 @@ export function ChoiceQuestion({ question, mode, onAnswered }: ChoiceQuestionPro
               key={option.id}
               className={cn(
                 optionClassName,
-                "cursor-pointer has-checked:border-terracotta-text has-checked:bg-terracotta/8 has-focus-visible:outline-2 has-focus-visible:outline-ring",
+                "cursor-pointer has-checked:border-primary has-checked:bg-primary/10 has-focus-visible:outline-2 has-focus-visible:outline-ring",
                 locked && "cursor-default",
               )}
             >
@@ -95,7 +99,7 @@ export function ChoiceQuestion({ question, mode, onAnswered }: ChoiceQuestionPro
                 checked={checked}
                 disabled={locked}
                 onChange={() => toggle(option.id)}
-                className="size-5 shrink-0 accent-terracotta-text focus-visible:outline-none"
+                className="size-5 shrink-0 accent-primary focus-visible:outline-none"
               />
               {option.text}
             </label>

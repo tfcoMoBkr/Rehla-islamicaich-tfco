@@ -25,7 +25,14 @@ describe("media slots", () => {
 
   it("only take raster images from content/media", () => {
     expect(mediaSchema.safeParse({ ...image, src: "../secret.json" }).success).toBe(false);
+    expect(mediaSchema.safeParse({ ...image, src: "../secret.png" }).success).toBe(false);
     expect(mediaSchema.safeParse({ ...image, src: "drawing.svg" }).success).toBe(false);
+  });
+
+  it("take an image from one folder down, no deeper", () => {
+    expect(mediaSchema.safeParse({ ...image, src: "wudu-guide/p26-1.png" }).success).toBe(true);
+    expect(mediaSchema.safeParse({ ...image, src: "a/b/c.png" }).success).toBe(false);
+    expect(mediaSchema.safeParse({ ...image, src: "/wudu-guide/p26-1.png" }).success).toBe(false);
   });
 });
 

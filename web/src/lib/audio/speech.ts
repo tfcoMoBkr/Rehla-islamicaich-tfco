@@ -57,13 +57,23 @@ export type ReadAloud = {
   cycleRate: () => void;
 };
 
+type ReadAloudOptions = {
+  /** Called as the voice starts each segment, e.g. to write that line on the board. */
+  onSegmentStart?: (index: number) => void;
+};
+
 /** Reads `segments` aloud in order; pausing keeps the place, so play resumes from that segment. */
-export function useReadAloud(segments: readonly string[], lang: string): ReadAloud {
+export function useReadAloud(segments: readonly string[], lang: string, options: ReadAloudOptions = {}): ReadAloud {
   const voice = useVoice(lang);
   const [playing, setPlaying] = useState(false);
   const [current, setCurrent] = useState<number | null>(null);
   const [rate, setRate] = useState<(typeof READING_RATES)[number]>(1);
   const owner = useRef(Symbol("reader"));
+  const onSegmentStart = useRef(options.onSegmentStart);
+
+  useEffect(() => {
+    onSegmentStart.current = options.onSegmentStart;
+  });
 
   const stop = useCallback(() => {
     stopSpeech();
@@ -82,7 +92,10 @@ export function useReadAloud(segments: readonly string[], lang: string): ReadAlo
         utterance.voice = voice;
         utterance.lang = voice.lang;
         utterance.rate = speed;
-        utterance.onstart = () => setCurrent(index);
+        utterance.onstart = () => {
+          setCurrent(index);
+          onSegmentStart.current?.(index);
+        };
         if (index === segments.length - 1) {
           utterance.onend = () => {
             setPlaying(false);

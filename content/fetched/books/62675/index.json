@@ -1,0 +1,70 @@
+{
+  "id": 62675,
+  "language": "ar",
+  "title": "كيفية صلاة النبي صلى الله عليه وسلم",
+  "authors": [
+    {
+      "name": "عبد العزيز بن باز",
+      "role": "author"
+    },
+    {
+      "name": "مؤسسة الشيخ عبد العزيز بن باز الخيرية",
+      "role": "source"
+    }
+  ],
+  "url": "https://islamhouse.com/ar/books/62675/",
+  "fetchedOn": "2026-10-04",
+  "parts": [
+    {
+      "format": "html",
+      "text": "HTML tags removed and whitespace collapsed as a browser shows it; characters as published.",
+      "sections": [
+        {
+          "anchor": "t1",
+          "heading": "كيفية صلاة النبي",
+          "paragraphs": 6
+        },
+        {
+          "anchor": "t2",
+          "heading": "إسباغ الوضوء",
+          "paragraphs": 2
+        },
+        {
+          "anchor": "t3",
+          "heading": "التوجه إلى القبلة",
+          "paragraphs": 5
+        },
+        {
+          "anchor": "t4",
+          "heading": "دعاء الاستفتاح",
+          "paragraphs": 1
+        },
+        {
+          "anchor": "t5",
+          "heading": "الركوع والرفع منه وما يشتمل عليه",
+          "paragraphs": 2
+        },
+        {
+          "anchor": "t6",
+          "heading": "السجود والرفع منه وما يشتمل عليه",
+          "paragraphs": 1
+        },
+        {
+          "anchor": "t7",
+          "heading": "الجلوس بين السجدتين وكيفيته",
+          "paragraphs": 3
+        },
+        {
+          "anchor": "t8",
+          "heading": "الجلوس للتشهد في الصلاة الثنائية وكيفيته",
+          "paragraphs": 1
+        },
+        {
+          "anchor": "t9",
+          "heading": "الجلوس للتشهد في الصلاة الثلاثية أو الرباعية وكيفيته",
+          "paragraphs": 2
+        }
+      ]
+    }
+  ]
+}

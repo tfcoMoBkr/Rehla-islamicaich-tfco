@@ -9,47 +9,94 @@ import type { RecitationSpan } from "@/lib/learn/types";
  * surah recording, so only one ayah is ever heard at a time.
  */
 
+export type RecitationStatus = "idle" | "loading" | "playing" | "error";
+
 let audio: HTMLAudioElement | null = null;
-let playingId: string | null = null;
-let stopAt: number | null = null;
+let currentId: string | null = null;
+let status: RecitationStatus = "idle";
+let span: RecitationSpan | null = null;
+/** True until the player has reached the ayah's start; it stays muted until then. */
+let seeking = false;
 const listeners = new Set<() => void>();
 
-function notify() {
+function set(next: RecitationStatus) {
+  status = next;
   listeners.forEach((listener) => listener());
 }
 
+function fail() {
+  audio?.pause();
+  seeking = false;
+  set("error");
+}
+
 function player(): HTMLAudioElement {
-  if (!audio) {
-    audio = new Audio();
-    audio.preload = "none";
-    audio.addEventListener("timeupdate", () => {
-      if (audio && stopAt !== null && audio.currentTime * 1000 >= stopAt) stopRecitation();
-    });
-    audio.addEventListener("ended", stopRecitation);
-  }
-  return audio;
+  if (audio) return audio;
+  const element = new Audio();
+  element.preload = "none";
+  element.addEventListener("timeupdate", () => {
+    if (span && !seeking && element.currentTime * 1000 >= span.end) stopRecitation();
+  });
+  element.addEventListener("seeked", () => {
+    if (!seeking) return;
+    seeking = false;
+    element.muted = false;
+    if (currentId && !element.paused) set("playing");
+  });
+  element.addEventListener("playing", () => {
+    if (currentId && !seeking) set("playing");
+  });
+  element.addEventListener("ended", stopRecitation);
+  element.addEventListener("error", () => {
+    if (currentId) fail();
+  });
+  audio = element;
+  return element;
 }
 
 export function stopRecitation(): void {
   audio?.pause();
-  playingId = null;
-  stopAt = null;
-  notify();
+  seeking = false;
+  currentId = null;
+  span = null;
+  set("idle");
 }
 
-function play(id: string, span: RecitationSpan, onStart: () => void): void {
+/** Called from the tap itself, so that play() runs inside the user gesture. */
+function play(id: string, target: RecitationSpan, onStart: () => void): void {
   const element = player();
   onStart();
-  if (element.src !== span.audioUrl) element.src = span.audioUrl;
-  const begin = () => {
-    element.currentTime = span.start / 1000;
-    void element.play().catch(stopRecitation);
+  element.pause();
+  currentId = id;
+  span = target;
+  seeking = true;
+  element.muted = true;
+  set("loading");
+
+  if (element.src !== target.audioUrl) {
+    element.src = target.audioUrl;
+    element.load();
+  }
+  const seek = () => {
+    if (currentId !== id) return;
+    element.currentTime = target.start / 1000;
   };
-  if (element.readyState >= 1) begin();
-  else element.addEventListener("loadedmetadata", begin, { once: true });
-  playingId = id;
-  stopAt = span.end;
-  notify();
+  if (element.readyState >= HTMLMediaElement.HAVE_METADATA) seek();
+  else element.addEventListener("loadedmetadata", seek, { once: true });
+
+  element.play().then(
+    () => {
+      // Already at the ayah's start (no seek needed): unmute and report as playing.
+      if (currentId === id && Math.abs(element.currentTime * 1000 - target.start) < 250) {
+        seeking = false;
+        element.muted = false;
+        set("playing");
+      }
+    },
+    () => {
+      if (currentId === id) fail();
+    },
+  );
 }
 
 function subscribe(listener: () => void) {
@@ -57,16 +104,20 @@ function subscribe(listener: () => void) {
   return () => listeners.delete(listener);
 }
 
-/** Whether this ayah is playing, and a toggle that plays only its span of the recitation. */
-export function useRecitation(id: string, span: RecitationSpan | null, onStart: () => void) {
-  const playing = useSyncExternalStore(subscribe, () => playingId === id, () => false);
+/** This ayah's playback state, and a toggle that plays only its span of the recitation. */
+export function useRecitation(id: string, target: RecitationSpan | null, onStart: () => void) {
+  const state = useSyncExternalStore(
+    subscribe,
+    () => (currentId === id ? status : "idle"),
+    () => "idle" as const,
+  );
   return {
-    available: span !== null,
-    playing,
+    available: target !== null,
+    status: state,
     toggle: () => {
-      if (!span) return;
-      if (playing) stopRecitation();
-      else play(id, span, onStart);
+      if (!target) return;
+      if (state === "playing" || state === "loading") stopRecitation();
+      else play(id, target, onStart);
     },
   };
 }

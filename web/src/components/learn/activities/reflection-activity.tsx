@@ -38,13 +38,13 @@ export function ReflectionActivity({ activity, lessonId, onChoose }: ReflectionA
               progressActions.pick(lessonId, item.id);
               onChoose?.();
             }}
-            className="mt-1 size-5 shrink-0 accent-terracotta-text focus-visible:outline-none"
+            className="mt-1 size-5 shrink-0 accent-primary focus-visible:outline-none"
           />
           {item.text}
         </label>
       ))}
       <p className="flex items-center gap-2 text-sm text-muted-foreground">
-        <BookHeart aria-hidden className="size-4 text-oasis-text" />
+        <BookHeart aria-hidden className="size-4 text-success" />
         {chosen ? t("savedToJournal") : t("deviceOnly")}
       </p>
     </fieldset>

@@ -19,13 +19,13 @@ export function PartStepper({ parts, current }: { parts: readonly LessonPart[]; 
       <ol aria-hidden className="flex items-center">
         {parts.map((part, index) => (
           <li key={part} className="flex items-center">
-            {index > 0 && <span className={cn("h-0.5 w-3", index <= position ? "bg-dawn" : "bg-hairline")} />}
+            {index > 0 && <span className={cn("h-0.5 w-3", index <= position ? "bg-dawn" : "bg-border")} />}
             <span
               className={cn(
                 "size-2.5 rounded-full border-2",
                 index < position && "border-dawn bg-dawn",
-                index === position && "size-3.5 border-terracotta-text bg-paper",
-                index > position && "border-hairline bg-paper",
+                index === position && "size-3.5 border-primary bg-card",
+                index > position && "border-border bg-card",
               )}
             />
           </li>

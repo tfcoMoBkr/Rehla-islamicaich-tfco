@@ -52,7 +52,11 @@ function sourceIdForUrl(url: string, sources: Source[]): string | null {
   const host = (value: string) => new URL(value).hostname.replace(/^www\./, "");
   try {
     const target = host(url);
-    return sources.find((source) => [source.url, ...source.alsoAt].some((known) => host(known) === target))?.id ?? null;
+    return (
+      sources.find((source) =>
+        [...(source.url ? [source.url] : []), ...source.alsoAt].some((known) => host(known) === target),
+      )?.id ?? null
+    );
   } catch {
     return null;
   }
@@ -466,7 +470,6 @@ async function activityView(activity: Activity, context: Context): Promise<Activ
 }
 
 export async function toLessonView(lesson: Lesson, khutuwat: Khutuwat, locale: Locale, sources: Source[]): Promise<LessonView> {
-  const station = [...khutuwat.road, ...khutuwat.practice].find((candidate) => candidate.id === lesson.station);
   const context: Context = { lesson, locale, sources, lessonSources: [], issues: [] };
   context.lessonSources = lessonSources(context);
 
@@ -488,7 +491,6 @@ export async function toLessonView(lesson: Lesson, khutuwat: Khutuwat, locale: L
     title: pick(lesson.title, locale),
     reviewed: lesson.reviewed,
     demo: lesson.status === "demo",
-    cover: lesson.cover ?? station?.cover ?? ["dawnSky", "path"],
     objectives: lesson.objectives[locale],
     sources: context.lessonSources,
     media: mediaView(lesson.media, locale),

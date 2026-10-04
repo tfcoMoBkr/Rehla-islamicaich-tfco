@@ -227,7 +227,6 @@
     "evidenceNotFetched": "The verse will appear here once it has been fetched from its source.",
     "footnotes": "Translator's notes",
     "evidenceHadith": "From the Sunnah",
-    "explanation": "Explanation",
     "citationOnly": "Only the reference is shown: the source has no version of this hadith in this language yet, or its reference is still being confirmed.",
     "reviewNotesTitle": "{count, plural, one {# note for reviewers} other {# notes for reviewers}}",
     "issuesTitle": "{count, plural, one {# part the app could not show} other {# parts the app could not show}}",
@@ -238,7 +237,11 @@
     "videoLanguageName": "English",
     "mediaCredit": "Credit:",
     "mediaSource": "source",
-    "talkToHuman": "Talk to a qualified person"
+    "talkToHuman": "Talk to a qualified person",
+    "hadithGrade": "Grade:",
+    "hadithAttribution": "Reported by:",
+    "showExplanation": "Show the explanation",
+    "hideExplanation": "Hide the explanation"
   },
   "Activity": {
     "continue": "Continue",
@@ -381,7 +384,8 @@
       "lessons": "Lessons",
       "video": "Video",
       "terminology": "Terminology",
-      "referral": "Referral"
+      "referral": "Referral",
+      "illustrations": "Illustrations"
     },
     "status": {
       "approved": "Approved source",
@@ -396,7 +400,11 @@
     "mediaImage": "Image",
     "mediaVideo": "Video",
     "mediaSource": "source",
-    "mediaUsedIn": "Used in: {lessons}"
+    "mediaUsedIn": "Used in: {lessons}",
+    "artTitle": "The drawings",
+    "artScenes": "Scenes pinned on the lesson boards",
+    "artIcons": "Icons",
+    "artCount": "{count, plural, one {# drawing} other {# drawings}}"
   },
   "Listen": {
     "listen": "Listen",
@@ -404,7 +412,11 @@
     "speed": "Reading speed: {rate}×",
     "reading": "Reading aloud",
     "listenRecitation": "Listen to the recitation",
-    "pauseRecitation": "Pause the recitation"
+    "pauseRecitation": "Pause the recitation",
+    "loadingRecitation": "Loading the recitation…",
+    "retryRecitation": "Try the recitation again",
+    "recitationFailed": "The recitation could not be played. Check your connection and try again.",
+    "recitationPlaying": "Recitation playing"
   },
   "Human": {
     "title": "Talk to a human",
@@ -426,5 +438,76 @@
     "verified": "Checked on {date}.",
     "checkedAt": "Where it was checked",
     "privacy": "Rehla shares nothing about you with these centres. Whether and how you contact them is entirely your choice."
+  },
+  "Board": {
+    "boardOf": "Board {current} of {total}",
+    "earlierBoard": "An earlier board",
+    "previousBoard": "Previous board",
+    "nextBoard": "Next board",
+    "backToCurrent": "Back to where I was",
+    "writeAll": "Show the whole board",
+    "sounds": "Sounds",
+    "soundsOn": "on",
+    "soundsOff": "off",
+    "rafiqSays": "Rafiq says:",
+    "drawingAwaitingReview": "Drawing awaiting review"
+  },
+  "RafiqCaptions": {
+    "intro": [
+      "Welcome to the board. Begin when you are ready.",
+      "Here is today's board. Shall we begin?"
+    ],
+    "close": [
+      "We reached the end of this board together.",
+      "A good walk today. See you at the next board."
+    ],
+    "idle": [
+      "Take your time with this board.",
+      "Read it at your own pace.",
+      "I am here when you are ready."
+    ],
+    "writing": [
+      "Let me write this on the board.",
+      "Follow the board with me.",
+      "Here comes the next line."
+    ],
+    "pleased": [
+      "That's it!",
+      "Well done.",
+      "Exactly right.",
+      "Lovely work."
+    ],
+    "thinking": [
+      "Take a moment.",
+      "Which one feels right?",
+      "Let's think it through."
+    ],
+    "encouraging": [
+      "Nearly. Try another one.",
+      "Good try. Look once more.",
+      "No harm in trying again."
+    ]
+  },
+  "LineHelp": {
+    "open": "I didn't understand this line",
+    "title": "Didn't understand this line?",
+    "choose": "What would help?",
+    "modes": {
+      "simpler": "Explain it more simply",
+      "example": "Give me an example",
+      "question": "I have a question"
+    },
+    "questionLabel": "Your question",
+    "ask": "Ask Rafiq",
+    "thinking": "Rafiq is thinking…",
+    "comingTitle": "Rafiq's help is coming",
+    "comingBody": "Soon Rafiq will be able to explain a line more simply, give an example or answer your question, right here. Until then, a person can help you.",
+    "talkToHuman": "Talk to a human",
+    "aiNotice": "Rafiq is an AI tool, not a scholar.",
+    "sourcesTitle": "Sources",
+    "referral": "Rafiq could not find a reliable source for this, so he will not guess. A person can help you.",
+    "error": "Rafiq could not be reached. Please try again in a moment.",
+    "retry": "Try again",
+    "close": "Close"
   }
 }

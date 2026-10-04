@@ -24,6 +24,12 @@ type ActivityRunnerProps = {
   activity: ActivityView;
   lessonId: string;
   onDone: () => void;
+  /** How far the learner is, for the drawing pinned beside the activity. */
+  onProgressChange?: (done: number, total: number) => void;
+  /** The step in focus, where an activity has one (the day arc's sun). */
+  onFocusChange?: (step: number) => void;
+  /** "I didn't understand" for a line the activity teaches (the guided walk's steps). */
+  onLineHelp?: (line: string, stepId: string) => void;
 };
 
 /** Activities finished before moving on; the others can be left at the learner's pace. */
@@ -59,16 +65,27 @@ function stepsIn(activity: ActivityView): number {
 }
 
 /** Renders whichever reusable activity the lesson file names. No lesson has its own code. */
-export function ActivityRunner({ activity, lessonId, onDone }: ActivityRunnerProps) {
+export function ActivityRunner({
+  activity,
+  lessonId,
+  onDone,
+  onProgressChange,
+  onFocusChange,
+  onLineHelp,
+}: ActivityRunnerProps) {
   const t = useTranslations("Activity");
   const [completed, setCompleted] = useState(false);
   const [progress, setProgress] = useState(0);
   const seed = `${lessonId}:${activity.id}`;
   const total = Math.max(stepsIn(activity), 1);
   const finished = completed || progress >= total;
+  const report = (done: number) => {
+    setProgress(done);
+    onProgressChange?.(done, total);
+  };
   const finish = () => {
     setCompleted(true);
-    setProgress(total);
+    report(total);
   };
 
   return (
@@ -77,13 +94,13 @@ export function ActivityRunner({ activity, lessonId, onDone }: ActivityRunnerPro
       <TrailProgress value={progress / total} done={finished} />
 
       {activity.type === "order" && (
-        <SequenceBuilder items={activity.items} seed={seed} onComplete={finish} onProgress={setProgress} />
+        <SequenceBuilder items={activity.items} seed={seed} onComplete={finish} onProgress={report} />
       )}
       {activity.type === "timeline" && (
-        <SequenceBuilder items={activity.items} seed={seed} variant="road" onComplete={finish} onProgress={setProgress} />
+        <SequenceBuilder items={activity.items} seed={seed} variant="road" onComplete={finish} onProgress={report} />
       )}
       {activity.type === "sort" && (
-        <SortDeck groups={activity.groups} items={activity.items} seed={seed} onComplete={finish} onProgress={setProgress} />
+        <SortDeck groups={activity.groups} items={activity.items} seed={seed} onComplete={finish} onProgress={report} />
       )}
       {activity.type === "swipe" && (
         <SortDeck
@@ -95,13 +112,13 @@ export function ActivityRunner({ activity, lessonId, onDone }: ActivityRunnerPro
           seed={seed}
           variant="swipe"
           onComplete={finish}
-          onProgress={setProgress}
+          onProgress={report}
         />
       )}
       {activity.type === "select" && (
-        <SelectActivity activity={activity} seed={seed} onComplete={finish} onProgress={setProgress} />
+        <SelectActivity activity={activity} seed={seed} onComplete={finish} onProgress={report} />
       )}
-      {activity.type === "selectCases" && <CasesActivity activity={activity} onComplete={finish} onProgress={setProgress} />}
+      {activity.type === "selectCases" && <CasesActivity activity={activity} onComplete={finish} onProgress={report} />}
       {activity.type === "match" && (
         <MatchBoard
           pairs={activity.pairs}
@@ -109,19 +126,19 @@ export function ActivityRunner({ activity, lessonId, onDone }: ActivityRunnerPro
           repeatedRight={activity.repeatedRight}
           leftIsQuran={activity.leftIsQuran}
           onComplete={finish}
-          onProgress={setProgress}
+          onProgress={report}
         />
       )}
       {activity.type === "checklist" && (
-        <ChecklistActivity activity={activity} lessonId={lessonId} onComplete={finish} onProgress={setProgress} />
+        <ChecklistActivity activity={activity} lessonId={lessonId} onComplete={finish} onProgress={report} />
       )}
       {activity.type === "reflection" && <ReflectionActivity activity={activity} lessonId={lessonId} onChoose={finish} />}
       {activity.type === "guided" && (
-        <GuidedWalk steps={activity.steps} note={activity.note} onFinish={finish} onProgress={setProgress} />
+        <GuidedWalk steps={activity.steps} note={activity.note} onFinish={finish} onProgress={report} onLineHelp={onLineHelp} />
       )}
-      {activity.type === "decisionPath" && <DecisionPath activity={activity} onComplete={finish} onProgress={setProgress} />}
-      {activity.type === "dayArc" && <DayArc activity={activity} onProgress={setProgress} />}
-      {activity.type === "ayahByAyah" && <AyahByAyah ayahs={activity.ayahs} onProgress={setProgress} />}
+      {activity.type === "decisionPath" && <DecisionPath activity={activity} onComplete={finish} onProgress={report} />}
+      {activity.type === "dayArc" && <DayArc activity={activity} onProgress={report} onFocus={onFocusChange} />}
+      {activity.type === "ayahByAyah" && <AyahByAyah ayahs={activity.ayahs} onProgress={report} />}
 
       {finished && MUST_FINISH.has(activity.type) && <Feedback tone="right">{t("wellDone")}</Feedback>}
 

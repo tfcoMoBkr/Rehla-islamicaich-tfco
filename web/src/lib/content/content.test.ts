@@ -1,4 +1,4 @@
-import { readFile } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -6,7 +6,8 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { collectMedia, renderSourcesDoc } from "../../../scripts/generate-sources-doc.mjs";
 
 import { toLessonView } from "./lesson-view";
-import { loadKhutuwat, loadSources } from "./load";
+import { loadArtManifest, loadKhutuwat, loadSources, loadVisuals } from "./load";
+import { toVisualView } from "./visual-view";
 
 afterEach(() => {
   vi.unstubAllEnvs();
@@ -74,6 +75,32 @@ describe("content/", () => {
     expect(new Set(view.quiz.map((question) => question.type))).toEqual(
       new Set(["single", "multiple", "trueFalse", "order", "match", "sort"]),
     );
+  });
+
+  it("lists every drawing in content/art/ in its manifest, and nothing else", async () => {
+    const art = path.resolve(process.cwd(), "..", "content", "art");
+    const files = (
+      await Promise.all(["scenes", "icons"].map(async (dir) => (await readdir(path.join(art, dir))).map((name) => `${dir}/${name}`)))
+    ).flat();
+    const { items } = await loadArtManifest();
+    expect(items.map((item) => item.file).sort()).toEqual(files.sort());
+  });
+
+  it("gives every lesson a drawing whose named parts exist in its scenes", async () => {
+    vi.stubEnv("CONTENT_SHOW_DRAFTS", "true");
+    const [visuals, { lessons }] = await Promise.all([loadVisuals(), loadKhutuwat()]);
+    for (const lesson of lessons.values()) {
+      if (lesson.status === "demo") continue;
+      expect(visuals.some((visual) => visual.lesson === lesson.id), lesson.id).toBe(true);
+      expect(await toVisualView(lesson.id), lesson.id).not.toBeNull();
+    }
+  });
+
+  it("shows a drawing awaiting review only where drafts are shown", async () => {
+    vi.stubEnv("CONTENT_SHOW_DRAFTS", "false");
+    const pending = (await loadVisuals()).filter((visual) => visual.needsReview);
+    expect(pending.map((visual) => visual.lesson)).toEqual(["3.4"]);
+    for (const visual of pending) expect(await toVisualView(visual.lesson)).toBeNull();
   });
 
   it("keeps docs/SOURCES.md in step with content/sources.json and the media in lessons", async () => {

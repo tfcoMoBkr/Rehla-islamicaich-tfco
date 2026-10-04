@@ -4,6 +4,7 @@ import { Check } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 
+import { useRafiqReaction } from "@/components/learn/board/rafiq-context";
 import { Feedback } from "@/components/learn/feedback";
 import { optionClassName, placedClassName } from "@/components/learn/interactions/option-styles";
 import { Lantern } from "@/components/journey/lantern";
@@ -30,16 +31,19 @@ export function SelectActivity({ activity, seed, onComplete, onProgress }: Selec
   const [found, setFound] = useState<string[]>([]);
   const [wrong, setWrong] = useState<string[]>([]);
   const [lastWrong, setLastWrong] = useState<string | null>(null);
+  const react = useRafiqReaction();
 
   function choose(item: (typeof items)[number]) {
     if (!item.correct) {
       setWrong((current) => (current.includes(item.id) ? current : [...current, item.id]));
       setLastWrong(item.id);
+      react("encouraging");
       return;
     }
     const next = [...found, item.id];
     setFound(next);
     setLastWrong(null);
+    react("pleased");
     onProgress?.(next.length);
     if (next.length === target) onComplete(wrong.length);
   }
@@ -56,7 +60,7 @@ export function SelectActivity({ activity, seed, onComplete, onProgress }: Selec
       {activity.visual === "collect" && found.length > 0 && (
         <ul className="flex flex-wrap gap-2" aria-label={t("collected")}>
           {found.map((id) => (
-            <li key={id} className="animate-rise-in rounded-full bg-oasis/12 px-3 py-1.5 text-sm font-medium text-oasis-text">
+            <li key={id} className="animate-rise-in rounded-full bg-success/12 px-3 py-1.5 text-sm font-medium text-success">
               {activity.items.find((item) => item.id === id)?.text}
             </li>
           ))}
@@ -78,7 +82,7 @@ export function SelectActivity({ activity, seed, onComplete, onProgress }: Selec
                 className={cn(optionClassName, isFound && placedClassName, isWrong && "border-dashed text-muted-foreground")}
               >
                 <span className="min-w-0 flex-1">{item.text}</span>
-                {isFound && <Check aria-hidden className="size-5 text-oasis-text" />}
+                {isFound && <Check aria-hidden className="size-5 text-success" />}
               </button>
             </li>
           );

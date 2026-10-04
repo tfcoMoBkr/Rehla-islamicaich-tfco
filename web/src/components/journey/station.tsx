@@ -101,7 +101,7 @@ export function Station({
             {meta}
           </div>
         )}
-        <h3 className={cn("font-display leading-snug font-semibold", size === "sm" ? "text-lg" : "text-xl sm:text-2xl")}>
+        <h3 className={cn("leading-snug font-semibold", size === "sm" ? "text-lg" : "font-display text-xl sm:text-2xl")}>
           {href ? (
             // The link's hit area is stretched over the whole card.
             <Link href={href} className="rounded-sm after:absolute after:inset-0 after:rounded-xl">

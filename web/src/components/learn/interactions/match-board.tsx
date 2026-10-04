@@ -4,12 +4,15 @@ import { Check } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 
+import { useRafiqReaction } from "@/components/learn/board/rafiq-context";
 import { Feedback } from "@/components/learn/feedback";
 import { Lantern } from "@/components/journey/lantern";
 import { stableShuffle } from "@/lib/learn/shuffle";
 import { cn } from "@/lib/utils";
 
+import { DragHandle } from "./drag-handle";
 import { missedClassName, optionClassName, placedClassName } from "./option-styles";
+import { useDragDrop } from "./use-drag-drop";
 
 type Pair = { id: string; left: string; right: string; sourceQuote?: string };
 
@@ -28,7 +31,7 @@ type MatchBoardProps = {
   onProgress?: (done: number) => void;
 };
 
-/** Tap an item, then the one it goes with. */
+/** Tap an item, then the one it goes with; or drag the item onto it. */
 export function MatchBoard({
   pairs,
   seed,
@@ -51,22 +54,30 @@ export function MatchBoard({
   const [matched, setMatched] = useState<string[]>([]);
   const [missed, setMissed] = useState<string | null>(null);
   const [mistakes, setMistakes] = useState(0);
+  const react = useRafiqReaction();
+  const { itemProps, targetProps } = useDragDrop((pairId, answerKey) => {
+    const answer = answers.find((candidate) => candidate.key === answerKey);
+    setSelected(pairId);
+    if (answer) choose(answer, pairId);
+  });
 
   const selectedPair = pairs.find((pair) => pair.id === selected);
   const done = matched.length === pairs.length;
 
-  function choose(answer: (typeof answers)[number]) {
-    if (!selected) return;
-    if (!answer.ids.includes(selected)) {
+  function choose(answer: (typeof answers)[number], pairId = selected) {
+    if (!pairId || matched.includes(pairId)) return;
+    if (!answer.ids.includes(pairId)) {
       setMistakes((count) => count + 1);
       setMissed(answer.key);
+      react("encouraging");
       return;
     }
-    const next = [...matched, selected];
+    const next = [...matched, pairId];
     setMatched(next);
     onProgress?.(next.length);
     setSelected(null);
     setMissed(null);
+    react("pleased");
     if (next.length === pairs.length) onComplete(mistakes);
   }
 
@@ -86,10 +97,13 @@ export function MatchBoard({
                   onClick={() => {
                     setSelected(pair.id);
                     setMissed(null);
+                    react("thinking");
                   }}
-                  className={cn(optionClassName, "min-h-16", isMatched && placedClassName)}
+                  {...(isMatched ? {} : itemProps(pair.id))}
+                  className={cn(optionClassName, "min-h-16 data-dragging:shadow-lg", isMatched && placedClassName)}
                 >
-                  {style === "lanterns" && <Lantern lit={isMatched} className="size-7 shrink-0 text-ink" />}
+                  {!isMatched && <DragHandle />}
+                  {style === "lanterns" && <Lantern lit={isMatched} className="size-7 shrink-0 text-foreground" />}
                   <span
                     lang={leftIsQuran ? "ar" : undefined}
                     dir={leftIsQuran ? "rtl" : undefined}
@@ -112,9 +126,10 @@ export function MatchBoard({
                   type="button"
                   disabled={isMatched || !selected}
                   onClick={() => choose(answer)}
+                  {...targetProps(answer.key)}
                   className={cn(
                     optionClassName,
-                    "min-h-16",
+                    "min-h-16 data-drop-over:border-primary data-drop-over:bg-primary/10",
                     isMatched && placedClassName,
                     missed === answer.key && missedClassName,
                     !selected && !isMatched && "opacity-70",
@@ -142,7 +157,7 @@ export function MatchBoard({
 
 function MatchedMark() {
   return (
-    <span className="grid size-6 shrink-0 place-items-center rounded-full bg-oasis-text text-paper">
+    <span className="grid size-6 shrink-0 place-items-center rounded-full bg-success text-background">
       <Check aria-hidden className="size-3.5" />
     </span>
   );

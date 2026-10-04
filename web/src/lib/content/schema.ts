@@ -26,6 +26,11 @@ export const evidenceSchema = z.discriminatedUnion("type", [
   }),
 ]);
 
+/** A raster image in content/media/, at its top level or in one folder (e.g. a guide's pictures). */
+const mediaSrc = z
+  .string()
+  .regex(/^(?:[\w-]+\/)?[\w-]+\.(?:jpe?g|png|webp|avif)$/i, "Images are .jpg, .png, .webp or .avif files in content/media/");
+
 /** Pictures and clips added to a lesson, card or step. Unlicensed or uncredited media is rejected. */
 const mediaCredit = {
   alt: bilingual,
@@ -37,16 +42,13 @@ export const mediaSchema = z.discriminatedUnion("type", [
   z.object({
     type: z.literal("image"),
     /** A file in content/media/, listed in content/media/manifest.json. */
-    src: z.string().regex(/^[\w-]+\.(jpe?g|png|webp|avif)$/i, "Images are .jpg, .png, .webp or .avif files in content/media/"),
+    src: mediaSrc,
     ...mediaCredit,
   }),
   z.object({ type: z.literal("video"), youtubeId: z.string().regex(/^[\w-]{11}$/), ...mediaCredit }),
 ]);
 const mediaList = z.array(mediaSchema).optional();
 
-/** The motifs a lesson cover is composed from, back to front. */
-export const COVER_MOTIFS = ["dawnSky", "sunArc", "stars", "water", "path", "lantern"] as const;
-export const coverSchema = z.array(z.enum(COVER_MOTIFS)).min(1);
 
 const trueFalse = z.object({ type: z.literal("trueFalse"), prompt: bilingual, answer: z.boolean() });
 const single = z.object({ type: z.literal("single"), prompt: bilingual, options: z.array(choice).min(2) });
@@ -244,8 +246,6 @@ export const lessonSchema = z.object({
     .optional(),
   /** Scored questions closing the lesson (lessons marked 🔹 in docs/CURRICULUM.md). */
   quiz: z.array(questionSchema).optional(),
-  /** Overrides the station's cover motifs. */
-  cover: coverSchema.optional(),
   media: mediaList,
 });
 
@@ -254,8 +254,6 @@ export const stationSchema = z.object({
   order: z.number().int(),
   demo: z.boolean(),
   title: bilingual,
-  /** The cover motifs of this station's lessons, unless a lesson sets its own. */
-  cover: coverSchema,
   baseline: z.array(questionSchema),
   exam: z.array(questionSchema),
 });
@@ -263,10 +261,46 @@ export const stationSchema = z.object({
 export const mediaManifestSchema = z.object({
   images: z.array(
     z.object({
-      src: z.string(),
+      src: mediaSrc,
       credit: z.string().trim().min(1),
       sourceUrl: z.url(),
       licence: z.string().trim().min(1),
+    }),
+  ),
+});
+
+/** The team's own illustrations in content/art/, listed in content/art/manifest.json. */
+export const artManifestSchema = z.object({
+  credit: z.string().trim().min(1),
+  licence: z.string().trim().min(1),
+  items: z.array(
+    z.object({
+      file: z.string().regex(/^(scenes|icons)\/[\w-]+\.svg$/, "Art files are .svg files in content/art/scenes or content/art/icons"),
+      description: z.string().trim().min(1),
+      credit: z.string().trim().min(1),
+      licence: z.string().trim().min(1),
+    }),
+  ),
+});
+
+const partId = z.string().regex(/^[\w-]+$/);
+
+/**
+ * The drawing pinned on each lesson's board (content/visuals.json): which scenes it shows, the
+ * parts that light up as the learner moves through the lesson, the parts that fade away, and a
+ * part that travels to the place of the step in focus (the sun along the day's arc).
+ */
+export const visualsSchema = z.object({
+  lessons: z.array(
+    z.object({
+      lesson: z.string(),
+      scenes: z.array(partId).min(1),
+      reveal: z.array(partId).default([]),
+      clear: z.array(partId).default([]),
+      follow: z.object({ part: partId, along: z.array(partId).min(1) }).optional(),
+      ambience: z.enum(["water"]).optional(),
+      /** Shown only where drafts are shown, labelled as awaiting review. */
+      needsReview: z.boolean().default(false),
     }),
   ),
 });
@@ -300,19 +334,24 @@ export const referralCentresSchema = z.object({
 
 export const sourcesSchema = z.object({
   sources: z.array(
-    z.object({
-      id: z.string(),
-      type: z.enum(["quran", "hadith", "lessons", "video", "terminology", "referral"]),
-      name: bilingual,
-      /** Other names lesson files may use for this source, e.g. a channel name. */
-      aliases: z.array(z.string()).default([]),
-      url: z.url(),
-      alsoAt: z.array(z.url()),
-      usedFor: bilingual,
-      licence: bilingual,
-      status: z.enum(["approved", "pendingReview"]),
-      verifiedOn: z.iso.date(),
-    }),
+    z
+      .object({
+        id: z.string(),
+        type: z.enum(["quran", "hadith", "lessons", "video", "terminology", "referral", "illustrations"]),
+        name: bilingual,
+        /** Other names lesson files may use for this source, e.g. a channel name. */
+        aliases: z.array(z.string()).default([]),
+        /** Only the team's own illustrations, kept in this repository, have no address elsewhere. */
+        url: z.url().optional(),
+        alsoAt: z.array(z.url()),
+        usedFor: bilingual,
+        licence: bilingual,
+        status: z.enum(["approved", "pendingReview"]),
+        verifiedOn: z.iso.date(),
+      })
+      .refine((source) => source.url !== undefined || source.type === "illustrations", {
+        message: "A source needs a url",
+      }),
   ),
 });
 
@@ -366,6 +405,7 @@ export type FetchedAyah = z.infer<typeof fetchedAyahSchema>;
 export type FetchedHadith = z.infer<typeof fetchedHadithSchema>;
 export type FetchedRecitation = z.infer<typeof fetchedRecitationSchema>;
 export type Media = z.infer<typeof mediaSchema>;
-export type CoverMotif = (typeof COVER_MOTIFS)[number];
 export type MediaManifest = z.infer<typeof mediaManifestSchema>;
+export type ArtManifest = z.infer<typeof artManifestSchema>;
+export type LessonVisual = z.infer<typeof visualsSchema>["lessons"][number];
 export type ReferralCentre = z.infer<typeof referralCentresSchema>["centers"][number];

@@ -5,7 +5,9 @@ import path from "node:path";
 import { cache } from "react";
 import type { z } from "zod";
 
+import { cleanSvg } from "./scene-svg";
 import {
+  artManifestSchema,
   fetchedAyahSchema,
   fetchedHadithSchema,
   fetchedRecitationSchema,
@@ -14,10 +16,13 @@ import {
   referralCentresSchema,
   sourcesSchema,
   stationSchema,
+  visualsSchema,
+  type ArtManifest,
   type FetchedAyah,
   type FetchedHadith,
   type FetchedRecitation,
   type Lesson,
+  type LessonVisual,
   type Media,
   type MediaManifest,
   type Question,
@@ -29,6 +34,7 @@ import { showDrafts } from "./visibility";
 
 const CONTENT_DIR = path.resolve(process.cwd(), "..", "content");
 const MEDIA_DIR = path.join(CONTENT_DIR, "media");
+const ART_DIR = path.join(CONTENT_DIR, "art");
 
 async function readValidated<T>(file: string, schema: z.ZodType<T>): Promise<T> {
   const raw: unknown = JSON.parse(await readFile(file, "utf8"));
@@ -192,13 +198,34 @@ const IMAGE_TYPES: Record<string, string> = {
   ".avif": "image/avif",
 };
 
-/** An image from content/media/, only if the manifest lists it. */
+export const loadArtManifest = cache(
+  (): Promise<ArtManifest> => readValidated(path.join(ART_DIR, "manifest.json"), artManifestSchema),
+);
+
+export const loadVisuals = cache(async (): Promise<LessonVisual[]> => {
+  const { lessons } = await readValidated(path.join(CONTENT_DIR, "visuals.json"), visualsSchema);
+  return lessons;
+});
+
+/** A drawing from content/art/, cleaned for inline use, only if the art manifest lists it. */
+export const readArtSvg = cache(async (file: string): Promise<string | null> => {
+  const manifest = await loadArtManifest();
+  if (!manifest.items.some((item) => item.file === file)) return null;
+  try {
+    return cleanSvg(await readFile(path.join(ART_DIR, file), "utf8"), file);
+  } catch (error) {
+    if (error instanceof Error && "code" in error && error.code === "ENOENT") return null;
+    throw error;
+  }
+});
+
+/** An image from content/media/, only if the manifest lists it (its schema keeps every listed path inside the folder). */
 export async function readMediaFile(name: string): Promise<{ body: Buffer; type: string } | null> {
   const type = IMAGE_TYPES[path.extname(name).toLowerCase()];
   const manifest = await loadMediaManifest();
   if (!type || !manifest.images.some((image) => image.src === name)) return null;
   try {
-    return { body: await readFile(path.join(MEDIA_DIR, path.basename(name))), type };
+    return { body: await readFile(path.join(MEDIA_DIR, name)), type };
   } catch {
     return null;
   }

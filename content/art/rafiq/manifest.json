@@ -1,0 +1,61 @@
+{
+  "character": "Rafiq, the travelling lantern",
+  "credit": "Rehla team; character generated with an AI image tool from the team's own brief, then cut out by the team",
+  "licence": "Team asset",
+  "poses": [
+    {
+      "file": "rafiq/rafiq-hello.png",
+      "pose": "hello",
+      "width": 458,
+      "height": 777
+    },
+    {
+      "file": "rafiq/rafiq-waving.png",
+      "pose": "waving",
+      "width": 239,
+      "height": 392
+    },
+    {
+      "file": "rafiq/rafiq-walking.png",
+      "pose": "walking",
+      "width": 277,
+      "height": 390
+    },
+    {
+      "file": "rafiq/rafiq-writing.png",
+      "pose": "writing",
+      "width": 271,
+      "height": 370
+    },
+    {
+      "file": "rafiq/rafiq-thinking.png",
+      "pose": "thinking",
+      "width": 198,
+      "height": 393
+    },
+    {
+      "file": "rafiq/rafiq-happy.png",
+      "pose": "happy",
+      "width": 264,
+      "height": 376
+    },
+    {
+      "file": "rafiq/rafiq-encouraging.png",
+      "pose": "encouraging",
+      "width": 248,
+      "height": 382
+    },
+    {
+      "file": "rafiq/rafiq-pointing.png",
+      "pose": "pointing",
+      "width": 264,
+      "height": 373
+    },
+    {
+      "file": "rafiq/rafiq-listening.png",
+      "pose": "listening",
+      "width": 195,
+      "height": 358
+    }
+  ]
+}

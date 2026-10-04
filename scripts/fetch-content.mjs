@@ -1,16 +1,23 @@
 #!/usr/bin/env node
 // Fetches the Quran verses (with the recitation timings of their surahs) and hadiths that lesson files reference into
-// content/fetched/, verbatim, with source URL, date and version. Nothing here is typed by hand:
-// the web app only ever shows what this script saved.
+// content/fetched/, verbatim, with source URL, date and version, and the lesson source books from IslamHouse
+// (scripts/islamhouse.mjs). Nothing here is typed by hand: the web app only ever shows what this script saved.
 //
 //   node scripts/fetch-content.mjs            fetch what is missing
 //   node scripts/fetch-content.mjs --refresh  fetch everything again
+//
+// Keys are read from the environment or from a .env file at the repository root (see .env.example).
 
 import { mkdir, readdir, readFile, writeFile, access } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { fetchIslamHouse } from "./islamhouse.mjs";
+
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+try {
+  process.loadEnvFile(path.join(root, ".env"));
+} catch {}
 const lessonsDir = path.join(root, "content", "lessons");
 const fetchedDir = path.join(root, "content", "fetched");
 const refresh = process.argv.includes("--refresh");
@@ -185,6 +192,42 @@ async function fetchRecitations(surahs) {
   return saved;
 }
 
+/** Asks for the first bytes only: a real recording answers 200 or 206 with an audio type. */
+async function isAudio(url) {
+  try {
+    const response = await fetch(url, { headers: { Range: "bytes=0-1" }, signal: AbortSignal.timeout(20000) });
+    await response.body?.cancel();
+    const type = response.headers.get("content-type") ?? "";
+    return (response.status === 200 || response.status === 206) && type.startsWith("audio/");
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Checks that every saved recitation points at a real recording. A wrong URL is rebuilt from the
+ * reading's folder_url; if that fails too, the script stops rather than leave a silent button.
+ */
+async function verifyRecitations() {
+  const dir = path.join(fetchedDir, "recitation");
+  const files = (await readdir(dir)).filter((name) => name.endsWith(".json")).sort((a, b) => parseInt(a) - parseInt(b));
+  let reads = null;
+  for (const name of files) {
+    const file = path.join(dir, name);
+    const recitation = JSON.parse(await readFile(file, "utf8"));
+    if (await isAudio(recitation.audioUrl)) continue;
+    reads ??= await getJson(`${MP3QURAN}/ayat_timing/reads`);
+    const read = reads.find((candidate) => candidate.id === recitation.read);
+    const rebuilt = read && `${read.folder_url}${String(recitation.surah).padStart(3, "0")}.mp3`;
+    if (!rebuilt || !(await isAudio(rebuilt))) {
+      throw new Error(`Recitation of surah ${recitation.surah} is not a playable recording: ${recitation.audioUrl}`);
+    }
+    await save(file, { ...recitation, audioUrl: rebuilt });
+    console.log(`Recitation of surah ${recitation.surah}: URL corrected to ${rebuilt}`);
+  }
+  return files.length;
+}
+
 const found = { ayahs: new Set(), hadiths: new Map(), recitations: new Set() };
 for (const file of await lessonFiles(lessonsDir)) {
   collectReferences(JSON.parse(await readFile(file, "utf8")), found);
@@ -197,7 +240,10 @@ const [ayahs, hadiths, recitations] = [
   await fetchHadiths(found.hadiths),
   await fetchRecitations(found.recitations),
 ];
+const verified = await verifyRecitations();
 console.log(
   `Referenced: ${found.ayahs.size} ayahs, ${found.hadiths.size} hadiths, ${found.recitations.size} recitations.`,
   `Fetched now: ${ayahs} ayahs, ${hadiths} hadiths, ${recitations} recitations.`,
+  `Recordings verified: ${verified}.`,
 );
+await fetchIslamHouse({ root, today, refresh });

@@ -4,10 +4,12 @@ import { useLocale, useTranslations } from "next-intl";
 import type { EvidenceView } from "@/lib/learn/types";
 
 import { ListenableText } from "./audio/listenable-text";
+import { ExplanationToggle } from "./explanation-toggle";
 import { RecitationButton } from "./audio/recitation-button";
 
 /**
- * A card's evidence, verbatim from its source. A verse is shown in Arabic (with the approved
+ * A card's evidence, verbatim from its source, fading in whole: sacred text is never written
+ * out word by word. A verse is shown in Arabic (with the approved
  * translation in English) and heard only in its real recitation. A hadith is shown in the
  * learner's language when the source has it, otherwise only as its citation; its Arabic text is
  * never read by a synthetic voice, its explanation may be.
@@ -18,7 +20,7 @@ export function EvidenceBlock({ evidence }: { evidence: EvidenceView }) {
 
   if (evidence.kind === "quran") {
     return (
-      <figure className="animate-rise-in grid gap-3 rounded-2xl border border-dawn/40 bg-dawn/6 p-5 [animation-delay:150ms]">
+      <figure className="animate-fade-in grid gap-3 rounded-2xl border border-dawn/40 bg-dawn/6 p-5 [animation-delay:150ms]">
         <figcaption className="text-sm font-medium text-muted-foreground">
           {t("evidenceQuran")} <span dir="ltr">({evidence.ref})</span>
         </figcaption>
@@ -63,7 +65,7 @@ export function EvidenceBlock({ evidence }: { evidence: EvidenceView }) {
   }
 
   return (
-    <figure className="animate-rise-in grid gap-3 rounded-2xl border border-oasis/30 bg-oasis/6 p-5 [animation-delay:150ms]">
+    <figure className="animate-fade-in grid gap-3 rounded-2xl border border-oasis/30 bg-oasis/6 p-5 [animation-delay:150ms]">
       <figcaption className="text-sm font-medium text-muted-foreground">{t("evidenceHadith")}</figcaption>
       {evidence.hadith ? (
         <>
@@ -74,15 +76,19 @@ export function EvidenceBlock({ evidence }: { evidence: EvidenceView }) {
               <ListenableText text={evidence.hadith.text} className="text-lg leading-relaxed" controlsClassName="mt-2" />
             </blockquote>
           )}
-          <p className="text-sm">
-            <span className="font-semibold">{evidence.hadith.grade}</span> · {evidence.hadith.attribution}
-          </p>
-          <details className="text-sm text-muted-foreground">
-            <summary className="cursor-pointer font-medium">{t("explanation")}</summary>
-            <div className="mt-2 grid gap-2">
-              <ListenableText text={evidence.hadith.explanation} className="leading-relaxed" />
+          <dl className="flex flex-wrap gap-x-4 gap-y-1 text-sm">
+            <div className="flex gap-1.5">
+              <dt className="text-muted-foreground">{t("hadithGrade")}</dt>
+              <dd className="font-semibold">{evidence.hadith.grade}</dd>
             </div>
-          </details>
+            <div className="flex gap-1.5">
+              <dt className="text-muted-foreground">{t("hadithAttribution")}</dt>
+              <dd>{evidence.hadith.attribution}</dd>
+            </div>
+          </dl>
+          <ExplanationToggle>
+            <ListenableText text={evidence.hadith.explanation} className="leading-relaxed" />
+          </ExplanationToggle>
           <a href={evidence.hadith.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 justify-self-start text-sm underline underline-offset-4">
             HadeethEnc.com
             <ExternalLink aria-hidden className="size-3.5" />

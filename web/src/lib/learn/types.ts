@@ -22,8 +22,6 @@ export type QuestionView =
   | (QuestionCommon & { type: "match"; pairs: { id: string; left: string; right: string }[] })
   | (QuestionCommon & { type: "sort"; groups: Group[]; items: { id: string; text: string; group: string }[] });
 
-import type { CoverMotif } from "@/lib/content/schema";
-
 export type SourceLink = { id: string; name: string };
 
 /** A picture or clip added to a lesson, card or step, always with its credit and licence. */
@@ -150,7 +148,6 @@ export type LessonView = {
   title: string;
   reviewed: boolean;
   demo: boolean;
-  cover: CoverMotif[];
   objectives: string[];
   sources: LessonSource[];
   media: MediaView[];
@@ -165,6 +162,23 @@ export type LessonView = {
   reviewNotes: string[];
   /** Parts of the lesson file the engine could not render, so a reviewer can see them. */
   issues: string[];
+};
+
+/** A scene drawing from content/art/, inline, with its ids prefixed by `prefix`. */
+export type SceneView = { name: string; prefix: string; markup: string };
+
+/** The drawing pinned on a lesson's board and how it follows the learner (content/visuals.json). */
+export type LessonVisualView = {
+  /** More than one scene: they follow each other as the lesson goes on. */
+  scenes: SceneView[];
+  /** Parts that light up, in order, as the learner advances. */
+  reveal: string[];
+  /** Parts that fade away as the learner advances. */
+  clear: string[];
+  /** A part that moves to the place of the step in focus. */
+  follow: { part: string; along: string[] } | null;
+  ambience: "water" | null;
+  needsReview: boolean;
 };
 
 export type LessonStop = {

@@ -6,12 +6,6 @@
     "ar": "طريق تجريبي",
     "en": "Practice road"
   },
-  "cover": [
-    "dawnSky",
-    "stars",
-    "path",
-    "lantern"
-  ],
   "baseline": [
     {
       "id": "demo:baseline:load",

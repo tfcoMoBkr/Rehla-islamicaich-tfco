@@ -8,6 +8,7 @@ import { resolveLocale } from "@/i18n/locale";
 import { earlierQuestions, findLesson, getStationContext, nextAfterLesson, toRoadStations } from "@/lib/content/khutuwat";
 import { toLessonView } from "@/lib/content/lesson-view";
 import { loadSources } from "@/lib/content/load";
+import { toVisualView } from "@/lib/content/visual-view";
 import { requireFeature } from "@/lib/require-feature";
 
 type Props = PageProps<"/[locale]/learn/[station]/[lesson]">;
@@ -34,12 +35,16 @@ export default async function LessonPage({ params }: Props) {
   setRequestLocale(locale);
 
   const { context, lesson } = await lessonFor(stationId, slug);
-  const lessonView = await toLessonView(lesson, context.khutuwat, locale, await loadSources());
+  const [lessonView, visual] = await Promise.all([
+    toLessonView(lesson, context.khutuwat, locale, await loadSources()),
+    toVisualView(lesson.id),
+  ]);
 
   return (
     <StationGate route={toRoadStations(context)} stationId={stationId} stationTitle={context.station.title[locale]}>
       <LessonPlayer
         lesson={lessonView}
+        visual={visual}
         provisionsPool={earlierQuestions(context, lesson.id, locale)}
         next={nextAfterLesson(context, lesson.id)}
       />

@@ -1,3 +1,376 @@
 {
-  "images": []
+  "images": [
+    {
+      "src": "wudu-guide/p01-1.jpg",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p01-2.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p01-3.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p05-1.jpg",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p06-1.jpg",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p07-1.jpg",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p08-1.jpg",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p09-1.jpg",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p10-1.jpg",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p11-1.jpg",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p12-1.jpg",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p13-1.jpg",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p14-1.jpg",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p15-1.jpg",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p17-1.jpg",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p18-1.jpg",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p19-1.jpg",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p20-1.jpg",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p22-1.jpg",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p23-1.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p25-1.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p25-2.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p26-1.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p27-2.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p27-3.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p28-1.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p29-1.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p29-2.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p29-3.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p29-4.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p29-5.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p29-6.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p29-7.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p30-1.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p30-2.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p30-3.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p30-4.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p30-5.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p31-1.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p31-2.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p31-3.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p31-4.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p31-5.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p32-1.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p32-2.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p32-3.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p32-4.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p33-1.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p33-2.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p33-3.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p33-4.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p33-5.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p33-6.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p33-7.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p37-1.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p38-1.jpg",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p39-1.jpg",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p40-1.jpg",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p45-1.jpg",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p46-1.jpg",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p47-2.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    },
+    {
+      "src": "wudu-guide/p48-3.png",
+      "credit": "Osoul Center via IslamHouse.com",
+      "sourceUrl": "https://islamhouse.com/en/books/2839339/",
+      "licence": "IslamHouse: free reuse with attribution, unmodified"
+    }
+  ]
 }

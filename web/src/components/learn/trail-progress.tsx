@@ -14,7 +14,7 @@ export function TrailProgress({ value, done }: { value: number; done: boolean })
   return (
     <div aria-hidden className="flex items-center gap-3">
       <svg viewBox="0 0 300 26" fill="none" className="h-auto w-full flex-1 rtl:-scale-x-100">
-        <path d={TRAIL} stroke="var(--hairline)" strokeWidth="3" strokeDasharray="6 7" strokeLinecap="round" />
+        <path d={TRAIL} stroke="var(--border)" strokeWidth="3" strokeDasharray="6 7" strokeLinecap="round" />
         <path
           d={TRAIL}
           pathLength={1}
@@ -27,7 +27,7 @@ export function TrailProgress({ value, done }: { value: number; done: boolean })
           style={{ strokeDashoffset: 1 - reached, transition: "stroke-dashoffset 0.7s cubic-bezier(0.2, 0.7, 0.2, 1)" }}
         />
       </svg>
-      <Lantern lit={done} className={cn("size-9 shrink-0 text-ink", done && "lantern-flare")} />
+      <Lantern lit={done} className={cn("size-9 shrink-0 text-foreground", done && "lantern-flare")} />
     </div>
   );
 }

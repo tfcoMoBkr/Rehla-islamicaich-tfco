@@ -4,12 +4,15 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useMemo, useRef, useState, type PointerEvent } from "react";
 
+import { useRafiqReaction } from "@/components/learn/board/rafiq-context";
 import { Feedback } from "@/components/learn/feedback";
 import { stableShuffle } from "@/lib/learn/shuffle";
 import type { Group } from "@/lib/learn/types";
 import { cn } from "@/lib/utils";
 
+import { DragHandle } from "./drag-handle";
 import { missedClassName, optionClassName } from "./option-styles";
+import { useDragDrop } from "./use-drag-drop";
 
 type Item = { id: string; text: string; group: string; sourceQuote?: string };
 
@@ -27,7 +30,7 @@ type SortDeckProps = {
 
 const SWIPE_DISTANCE = 90;
 
-/** One card at a time, placed into its group. */
+/** One card at a time, placed into its group: tap the group, or drag (or swipe) the card to it. */
 export function SortDeck({ groups, items, seed, variant = "buttons", hints = true, onComplete, onProgress }: SortDeckProps) {
   const t = useTranslations("Activity");
   const deck = useMemo(() => stableShuffle(items, seed), [items, seed]);
@@ -36,6 +39,8 @@ export function SortDeck({ groups, items, seed, variant = "buttons", hints = tru
   const [mistakes, setMistakes] = useState(0);
   const [drag, setDrag] = useState(0);
   const dragStart = useRef<number | null>(null);
+  const react = useRafiqReaction();
+  const cardDrag = useDragDrop((_, groupId) => place(groupId));
 
   const current = deck[position];
   const done = position >= deck.length;
@@ -46,9 +51,11 @@ export function SortDeck({ groups, items, seed, variant = "buttons", hints = tru
     if (groupId !== current.group) {
       setMistakes((count) => count + 1);
       setMissed(true);
+      react("encouraging");
       return;
     }
     setMissed(false);
+    react("pleased");
     setPosition(position + 1);
     onProgress?.(position + 1);
     if (position + 1 === deck.length) onComplete(mistakes);
@@ -91,15 +98,21 @@ export function SortDeck({ groups, items, seed, variant = "buttons", hints = tru
             {isSwipe && <span className="ms-2">{t("swipeHint")}</span>}
           </p>
           <div
-            {...swipeHandlers}
-            style={drag ? { transform: `translateX(${drag}px) rotate(${drag / 24}deg)` } : undefined}
+            {...(isSwipe
+              ? { ...swipeHandlers, style: drag ? { transform: `translateX(${drag}px) rotate(${drag / 24}deg)` } : undefined }
+              : cardDrag.itemProps(current.id))}
             className={cn(
-              "grid min-h-36 place-items-center rounded-2xl border-2 border-hairline bg-paper p-6 text-center text-lg font-medium shadow-[0_14px_28px_-22px_color-mix(in_srgb,var(--ink)_45%,transparent)] select-none",
-              isSwipe && "cursor-grab touch-pan-y active:cursor-grabbing",
+              "relative grid min-h-36 place-items-center rounded-2xl border-2 border-border bg-card p-6 text-center text-lg font-medium shadow-[0_14px_28px_-22px_color-mix(in_srgb,var(--ink)_45%,transparent)] select-none",
+              isSwipe ? "cursor-grab touch-pan-y active:cursor-grabbing" : "md:cursor-grab",
               !drag && "transition-transform duration-200",
               missed && missedClassName,
             )}
           >
+            {!isSwipe && (
+              <span className="absolute inset-s-3 top-3">
+                <DragHandle />
+              </span>
+            )}
             {current.text}
           </div>
           {/* Swipe sides are physical, so their buttons keep left and right in both directions. */}
@@ -137,14 +150,15 @@ export function SortDeck({ groups, items, seed, variant = "buttons", hints = tru
             dir="auto"
             key={group.id}
             aria-label={group.label}
-            className="rounded-xl border border-dashed border-hairline bg-sand/60 p-3"
+            {...cardDrag.targetProps(group.id)}
+            className="rounded-xl border border-dashed border-border bg-muted/60 p-3 transition-colors data-drop-over:border-primary data-drop-over:bg-primary/10"
           >
             <h4 className="text-sm font-semibold">
               {group.label} <span className="text-muted-foreground">({placedIn(group.id).length})</span>
             </h4>
             <ul className="mt-2 flex flex-wrap gap-1.5">
               {placedIn(group.id).map((item) => (
-                <li key={item.id} className="animate-rise-in rounded-full bg-oasis/10 px-2.5 py-1 text-sm">
+                <li key={item.id} className="animate-rise-in rounded-full bg-success/10 px-2.5 py-1 text-sm">
                   {item.text}
                 </li>
               ))}

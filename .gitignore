@@ -37,3 +37,6 @@ Thumbs.db
 CLAUDE.md
 AGENTS.md
 .claude/
+
+# Source books downloaded by scripts/fetch-content.mjs (large, re-downloadable)
+content/sources/

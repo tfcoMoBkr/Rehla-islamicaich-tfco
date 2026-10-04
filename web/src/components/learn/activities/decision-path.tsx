@@ -51,7 +51,7 @@ export function DecisionPath({ activity, onComplete, onProgress }: DecisionPathP
     <div className="grid gap-5">
       <ol aria-hidden className="flex gap-1.5">
         {activity.steps.map((entry, position) => (
-          <li key={entry.id} className={position < index ? "h-1.5 flex-1 rounded-full bg-dawn" : "h-1.5 flex-1 rounded-full bg-hairline"} />
+          <li key={entry.id} className={position < index ? "h-1.5 flex-1 rounded-full bg-dawn" : "h-1.5 flex-1 rounded-full bg-border"} />
         ))}
       </ol>
       {step && <p className="text-xl font-semibold">{step.question}</p>}

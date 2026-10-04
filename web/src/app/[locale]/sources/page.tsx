@@ -5,12 +5,12 @@ import { getFormatter, getTranslations, setRequestLocale } from "next-intl/serve
 import { Card } from "@/components/ui/card";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { resolveLocale } from "@/i18n/locale";
-import { lessonMedia, loadKhutuwat, loadSources } from "@/lib/content/load";
+import { lessonMedia, loadArtManifest, loadKhutuwat, loadSources } from "@/lib/content/load";
 import type { Media } from "@/lib/content/schema";
 import type { SourceType } from "@/lib/content/schema";
 import { cn } from "@/lib/utils";
 
-const GROUP_ORDER: readonly SourceType[] = ["quran", "hadith", "lessons", "video", "terminology", "referral"];
+const GROUP_ORDER: readonly SourceType[] = ["quran", "hadith", "lessons", "video", "terminology", "referral", "illustrations"];
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/sources">): Promise<Metadata> {
   const locale = resolveLocale((await params).locale);
@@ -22,11 +22,12 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/sources"
 export default async function SourcesPage({ params }: PageProps<"/[locale]/sources">) {
   const locale = resolveLocale((await params).locale);
   setRequestLocale(locale);
-  const [tr, format, sources, khutuwat] = await Promise.all([
+  const [tr, format, sources, khutuwat, art] = await Promise.all([
     getTranslations("Sources"),
     getFormatter(),
     loadSources(),
     loadKhutuwat(),
+    loadArtManifest(),
   ]);
   const t = (text: { ar: string; en: string }) => text[locale];
 
@@ -57,10 +58,14 @@ export default async function SourcesPage({ params }: PageProps<"/[locale]/sourc
                 <Card key={source.id} id={source.id} className="scroll-mt-24 gap-4 px-6 sm:px-8">
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <h3 className="font-display text-xl font-semibold">
-                      <a href={source.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 underline-offset-4 hover:underline">
-                        {t(source.name)}
-                        <ExternalLink aria-hidden className="size-4" />
-                      </a>
+                      {source.url ? (
+                        <a href={source.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 underline-offset-4 hover:underline">
+                          {t(source.name)}
+                          <ExternalLink aria-hidden className="size-4" />
+                        </a>
+                      ) : (
+                        t(source.name)
+                      )}
                     </h3>
                     <span
                       className={cn(
@@ -93,6 +98,7 @@ export default async function SourcesPage({ params }: PageProps<"/[locale]/sourc
                       {format.dateTime(new Date(source.verifiedOn), { dateStyle: "long" })}
                     </dd>
                   </dl>
+                  {source.type === "illustrations" && <ArtGallery items={art.items} />}
                 </Card>
               ))}
             </section>
@@ -124,6 +130,39 @@ export default async function SourcesPage({ params }: PageProps<"/[locale]/sourc
           )}
         </section>
       </div>
+    </div>
+  );
+}
+
+/** The team's drawings, shown as they are: the scenes pinned on lesson boards, then the icons. */
+async function ArtGallery({ items }: { items: readonly { file: string; description: string }[] }) {
+  const tr = await getTranslations("Sources");
+  const groups = [
+    { key: "scenes", title: tr("artScenes"), tile: "aspect-[40/26] w-full" },
+    { key: "icons", title: tr("artIcons"), tile: "size-12" },
+  ] as const;
+
+  return (
+    <div className="grid gap-5">
+      {groups.map((group) => {
+        const files = items.filter((item) => item.file.startsWith(`${group.key}/`));
+        if (files.length === 0) return null;
+        return (
+          <section key={group.key} aria-label={group.title} className="grid gap-3">
+            <h4 className="font-medium">
+              {group.title} <span className="text-muted-foreground">· {tr("artCount", { count: files.length })}</span>
+            </h4>
+            <ul className={group.key === "scenes" ? "grid grid-cols-2 gap-3 sm:grid-cols-4" : "flex flex-wrap gap-2"}>
+              {files.map((item) => (
+                <li key={item.file} className="overflow-hidden rounded-lg border border-border bg-paper">
+                  {/* eslint-disable-next-line @next/next/no-img-element -- static SVG drawings, nothing for the image optimiser to do */}
+                  <img src={`/art/${item.file}`} alt={item.description} lang="en" loading="lazy" className={group.tile} />
+                </li>
+              ))}
+            </ul>
+          </section>
+        );
+      })}
     </div>
   );
 }

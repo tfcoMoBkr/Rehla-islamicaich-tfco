@@ -15,6 +15,7 @@ const GROUPS = [
   ["video", "Video"],
   ["terminology", "Terminology"],
   ["referral", "Referral"],
+  ["illustrations", "Illustrations"],
 ];
 
 const STATUS = { approved: "Approved", pendingReview: "Pending review" };
@@ -53,7 +54,7 @@ export function collectMedia(lessons) {
 }
 
 /**
- * @param {{ id: string; type: string; name: { en: string }; url: string; alsoAt: string[];
+ * @param {{ id: string; type: string; name: { en: string }; url?: string; alsoAt: string[];
  *   usedFor: { en: string }; licence: { en: string }; status: "approved" | "pendingReview";
  *   verifiedOn: string }[]} sources
  * @param {ReturnType<typeof collectMedia>} media
@@ -71,7 +72,8 @@ export function renderSourcesDoc(sources, media) {
     if (group.length === 0) continue;
     lines.push(`## ${title}`, "", "| Source | Link | Used for | Licence | Status | Checked on |", "| --- | --- | --- | --- | --- | --- |");
     for (const source of group) {
-      const links = [source.url, ...source.alsoAt].map((url) => `<${url}>`).join("<br>");
+      const urls = [...(source.url ? [source.url] : []), ...source.alsoAt];
+      const links = urls.length > 0 ? urls.map((url) => `<${url}>`).join("<br>") : "In this repository";
       lines.push(
         `| ${cell(source.name.en)} (\`${source.id}\`) | ${links} | ${cell(source.usedFor.en)} | ${cell(source.licence.en)} | ${STATUS[source.status]} | ${source.verifiedOn} |`,
       );

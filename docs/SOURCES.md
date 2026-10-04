@@ -20,6 +20,10 @@ Every source Rehla uses. Generated from `content/sources.json` by `npm run conte
 | Source | Link | Used for | Licence | Status | Checked on |
 | --- | --- | --- | --- | --- | --- |
 | The New Muslim Guide (`nmg`) | <https://newmuslimguide.com><br><https://islamhouse.com/en/books/2838874> | The order and titles of the Khutuwat lessons, and their "read the full lesson" links. The team restates its facts in simple wording; its text is not copied. | All rights reserved (Modern Guide Company); its text is therefore not copied. | Pending review | 2026-10-04 |
+| Al-Durus al-Muhimmah li-'Ammat al-Ummah (Arabic), Abdul Aziz bin Baz (`ih-durus-muhimmah`) | <https://islamhouse.com/ar/books/1871/> | Reference text for the team writing the Khutuwat lessons: the Arabic book, kept word for word as published, section by section. | IslamHouse: free reuse with attribution, unmodified. Publisher: Sheikh Abdulaziz bin Baz Charitable Foundation. | Approved | 2026-10-04 |
+| The Important Lessons for the General Ummah, Abdul Aziz bin Baz (risala.prh.gov.sa) (`risala-important-lessons`) | <https://islamhouse.com/en/books/2842316/> | Reference text for the team writing the Khutuwat lessons: the English translation as extracted from its PDF, lesson by lesson. Arabic quotations in the PDF do not extract in letter order and are not used. | IslamHouse: free reuse with attribution, unmodified. Publisher: Message of The Two Holy Mosques (risala.prh.gov.sa). | Approved | 2026-10-04 |
+| The Prophet's Manner of Performing Prayer, Abdul Aziz bin Baz (`ih-salat-nabi`) | <https://islamhouse.com/ar/books/62675/><br><https://islamhouse.com/en/books/1261/> | Reference text for the team writing the prayer lessons: the Arabic book kept word for word, section by section, and the English edition's text page by page. | IslamHouse: free reuse with attribution, unmodified. | Approved | 2026-10-04 |
+| How to Make Wudū’ (Ablution): An Illustrated Explanation, Osoul Center (`osoul-wudu-guide`) | <https://islamhouse.com/en/books/2839339/> | Illustrations for the wudu lessons, taken from the guide without cropping or changes and credited to Osoul Center. | IslamHouse: free reuse with attribution, unmodified. | Approved | 2026-10-04 |
 
 ## Video
 
@@ -27,6 +31,12 @@ Every source Rehla uses. Generated from `content/sources.json` by `npm run conte
 | --- | --- | --- | --- | --- | --- |
 | Zadi Learning (`zadi`) | <https://www.youtube.com/@zadilearning> | Suggested Arabic videos at the close of lessons, from the programme «حقيبة دليل المسلم الميسر». | Shown in YouTube's embedded player (youtube-nocookie.com), never re-uploaded. Awaiting the scholarly mentor's approval of this source. | Pending review | 2026-10-04 |
 | Guide To Islam (Osoul Global Center) (`gti`) | <https://www.youtube.com/@Guidetoislam><br><https://islamhouse.com/en/videos/2834586/><br><https://islamhouse.com/en/videos/2838921/><br><https://islamhouse.com/en/videos/2822062/> | Suggested English videos at the close of lessons, cited through their IslamHouse pages. | Shown in YouTube's embedded player (youtube-nocookie.com), never re-uploaded. | Pending review | 2026-10-04 |
+
+## Illustrations
+
+| Source | Link | Used for | Licence | Status | Checked on |
+| --- | --- | --- | --- | --- | --- |
+| Rehla team illustrations (`rehla-art`) | In this repository | The drawings pinned on each lesson's board, and the icons. Drawn by the Rehla team itself. | Original work by the Rehla team. | Approved | 2026-10-04 |
 
 ## Media in lessons
 
