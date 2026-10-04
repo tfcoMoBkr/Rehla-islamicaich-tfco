@@ -39,7 +39,8 @@
       "lesson": "3.3",
       "scenes": ["day-arc-sky"],
       "reveal": ["prayer-1", "prayer-2", "prayer-3", "prayer-4", "prayer-5"],
-      "follow": { "part": "sun", "along": ["prayer-1", "prayer-2", "prayer-3", "prayer-4", "prayer-5"] }
+      "follow": { "part": "sun", "along": ["prayer-1", "prayer-2", "prayer-3", "prayer-4", "prayer-5"] },
+      "mirrorRtl": true
     },
     {
       "lesson": "3.4",

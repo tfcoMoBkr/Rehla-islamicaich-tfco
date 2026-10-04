@@ -35,6 +35,7 @@ export async function toVisualView(lessonId: string): Promise<LessonVisualView |
     clear: entry.clear,
     follow: entry.follow ?? null,
     ambience: entry.ambience ?? null,
+    mirrorRtl: entry.mirrorRtl,
     needsReview: entry.needsReview,
   };
 }

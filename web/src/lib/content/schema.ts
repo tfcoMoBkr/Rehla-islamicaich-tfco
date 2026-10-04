@@ -283,6 +283,37 @@ export const artManifestSchema = z.object({
   ),
 });
 
+export const RAFIQ_POSES = [
+  "hello",
+  "waving",
+  "walking",
+  "writing",
+  "thinking",
+  "happy",
+  "encouraging",
+  "pointing",
+  "listening",
+] as const;
+
+/** Rafiq's character: one transparent PNG per pose in content/art/rafiq/, with its pixel size. */
+export const rafiqManifestSchema = z
+  .object({
+    character: z.string().trim().min(1),
+    credit: z.string().trim().min(1),
+    licence: z.string().trim().min(1),
+    poses: z.array(
+      z.object({
+        file: z.string().regex(/^rafiq\/[\w-]+\.png$/, "Poses are .png files in content/art/rafiq"),
+        pose: z.enum(RAFIQ_POSES),
+        width: z.number().int().positive(),
+        height: z.number().int().positive(),
+      }),
+    ),
+  })
+  .refine((manifest) => RAFIQ_POSES.every((pose) => manifest.poses.filter((entry) => entry.pose === pose).length === 1), {
+    message: "Every pose of Rafiq appears exactly once",
+  });
+
 const partId = z.string().regex(/^[\w-]+$/);
 
 /**
@@ -299,6 +330,8 @@ export const visualsSchema = z.object({
       clear: z.array(partId).default([]),
       follow: z.object({ part: partId, along: z.array(partId).min(1) }).optional(),
       ambience: z.enum(["water"]).optional(),
+      /** Mirror the drawing in right-to-left pages, where time and reading run the other way. */
+      mirrorRtl: z.boolean().default(false),
       /** Shown only where drafts are shown, labelled as awaiting review. */
       needsReview: z.boolean().default(false),
     }),
@@ -407,5 +440,7 @@ export type FetchedRecitation = z.infer<typeof fetchedRecitationSchema>;
 export type Media = z.infer<typeof mediaSchema>;
 export type MediaManifest = z.infer<typeof mediaManifestSchema>;
 export type ArtManifest = z.infer<typeof artManifestSchema>;
+export type RafiqManifest = z.infer<typeof rafiqManifestSchema>;
+export type RafiqPose = (typeof RAFIQ_POSES)[number];
 export type LessonVisual = z.infer<typeof visualsSchema>["lessons"][number];
 export type ReferralCentre = z.infer<typeof referralCentresSchema>["centers"][number];

@@ -1,11 +1,25 @@
-import { readArtSvg } from "@/lib/content/load";
+import { readArtSvg, readRafiqPose } from "@/lib/content/load";
 
 /**
- * Serves the team's drawings in content/art/ for the sources page, cleaned of embedded metadata.
- * Only files listed in content/art/manifest.json are served, as inert images.
+ * Serves the team's art in content/art/: Rafiq's poses (PNG, listed in content/art/rafiq/manifest.json)
+ * and the drawings (SVG, listed in content/art/manifest.json, cleaned of embedded metadata and
+ * served as inert images). Nothing unlisted is served.
  */
 export async function GET(_request: Request, { params }: RouteContext<"/art/[...path]">) {
-  const svg = await readArtSvg((await params).path.join("/"));
+  const file = (await params).path.join("/");
+  if (file.endsWith(".png")) {
+    const pose = await readRafiqPose(file);
+    if (!pose) return new Response(null, { status: 404 });
+    return new Response(new Uint8Array(pose), {
+      headers: {
+        "Content-Type": "image/png",
+        "Cache-Control": "public, max-age=86400",
+        "X-Content-Type-Options": "nosniff",
+      },
+    });
+  }
+
+  const svg = await readArtSvg(file);
   if (!svg) return new Response(null, { status: 404 });
   return new Response(svg, {
     headers: {

@@ -13,6 +13,7 @@ import {
   fetchedRecitationSchema,
   lessonSchema,
   mediaManifestSchema,
+  rafiqManifestSchema,
   referralCentresSchema,
   sourcesSchema,
   stationSchema,
@@ -26,6 +27,7 @@ import {
   type Media,
   type MediaManifest,
   type Question,
+  type RafiqManifest,
   type ReferralCentre,
   type Source,
   type Station,
@@ -206,6 +208,21 @@ export const loadVisuals = cache(async (): Promise<LessonVisual[]> => {
   const { lessons } = await readValidated(path.join(CONTENT_DIR, "visuals.json"), visualsSchema);
   return lessons;
 });
+
+export const loadRafiqManifest = cache(
+  (): Promise<RafiqManifest> => readValidated(path.join(ART_DIR, "rafiq", "manifest.json"), rafiqManifestSchema),
+);
+
+/** One of Rafiq's poses (content/art/rafiq/), only if his manifest lists it. */
+export async function readRafiqPose(file: string): Promise<Buffer | null> {
+  const manifest = await loadRafiqManifest();
+  if (!manifest.poses.some((pose) => pose.file === file)) return null;
+  try {
+    return await readFile(path.join(ART_DIR, file));
+  } catch {
+    return null;
+  }
+}
 
 /** A drawing from content/art/, cleaned for inline use, only if the art manifest lists it. */
 export const readArtSvg = cache(async (file: string): Promise<string | null> => {

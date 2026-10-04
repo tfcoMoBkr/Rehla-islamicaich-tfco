@@ -178,6 +178,8 @@ export type LessonVisualView = {
   /** A part that moves to the place of the step in focus. */
   follow: { part: string; along: string[] } | null;
   ambience: "water" | null;
+  /** Mirrored in right-to-left pages (the day's arc runs in the reading direction). */
+  mirrorRtl: boolean;
   needsReview: boolean;
 };
 

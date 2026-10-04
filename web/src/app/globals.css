@@ -369,16 +369,6 @@
   }
 }
 
-@keyframes flame-sway {
-  0%,
-  100% {
-    rotate: -7deg;
-  }
-  50% {
-    rotate: 7deg;
-  }
-}
-
 @keyframes rafiq-bounce {
   0%,
   100% {
@@ -468,27 +458,9 @@
       translate 1.2s cubic-bezier(0.3, 0.7, 0.2, 1);
   }
 
-  .rafiq {
-    transition: rotate 0.5s cubic-bezier(0.3, 0.7, 0.3, 1);
-  }
-
-  .rafiq .rafiq-flame {
-    animation: flame-flicker 2.6s ease-in-out infinite;
-  }
-
-  .rafiq[data-mood="thinking"] .rafiq-flame {
-    animation: flame-sway 1.4s ease-in-out infinite;
-  }
-
-  .rafiq[data-mood="encouraging"] {
+  /* Rafiq hops once when he is happy. */
+  .rafiq-figure [data-active][data-pose="happy"] {
     animation: rafiq-bounce 0.75s cubic-bezier(0.3, 0.7, 0.3, 1) 1;
-  }
-
-  .rafiq .rafiq-halo,
-  .rafiq .rafiq-glow {
-    transition:
-      opacity 0.4s ease,
-      scale 0.4s ease;
   }
 }
 
@@ -566,49 +538,6 @@
 
   .pinned-scene [data-scene-part="cleared"] {
     opacity: 0;
-  }
-
-  /* Rafiq, the lantern: idle, writing (leans toward the board), pleased (flame brightens),
-     thinking (flame sways), encouraging (a small bounce after a wrong try). */
-  .rafiq {
-    transform-origin: 50% 100%;
-  }
-
-  .rafiq[data-mood="writing"] {
-    rotate: 9deg;
-  }
-
-  [dir="rtl"] .rafiq[data-mood="writing"] {
-    rotate: -9deg;
-  }
-
-  .rafiq .rafiq-halo,
-  .rafiq .rafiq-glow {
-    transform-box: fill-box;
-    transform-origin: center;
-  }
-
-  .rafiq .rafiq-flame {
-    transform-box: fill-box;
-    transform-origin: 50% 90%;
-  }
-
-  .rafiq .rafiq-halo {
-    opacity: 0.5;
-  }
-
-  .rafiq .rafiq-glow {
-    opacity: 0;
-  }
-
-  .rafiq[data-mood="pleased"] .rafiq-halo {
-    opacity: 1;
-    scale: 1.2;
-  }
-
-  .rafiq[data-mood="pleased"] .rafiq-glow {
-    opacity: 0.9;
-    scale: 1.15;
   }
 
   .lantern-halo,

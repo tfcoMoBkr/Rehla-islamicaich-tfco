@@ -5,9 +5,14 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { MAIN_CONTENT_ID, SkipLink } from "@/components/layout/skip-link";
+import {
+  RafiqPosesProvider,
+  type RafiqPoses,
+} from "@/components/rafiq/rafiq-figure";
 import { DirectionProvider } from "@/components/ui/direction";
 import { localeDirection, resolveLocale } from "@/i18n/locale";
 import { routing } from "@/i18n/routing";
+import { loadRafiqManifest } from "@/lib/content/load";
 import { fontVariables } from "@/lib/fonts";
 
 import "../globals.css";
@@ -35,18 +40,31 @@ export default async function LocaleLayout({
   const locale = resolveLocale((await params).locale);
   setRequestLocale(locale);
   const dir = localeDirection[locale];
+  const { poses } = await loadRafiqManifest();
+  const rafiq = Object.fromEntries(
+    poses.map(({ pose, file, width, height }) => [
+      pose,
+      { src: `/art/${file}`, width, height },
+    ]),
+  ) as RafiqPoses;
 
   return (
     <html lang={locale} dir={dir} className={fontVariables}>
       <body className="flex min-h-dvh flex-col">
         <NextIntlClientProvider>
           <DirectionProvider dir={dir}>
-            <SkipLink />
-            <SiteHeader />
-            <main id={MAIN_CONTENT_ID} tabIndex={-1} className="flex-1 outline-none">
-              {children}
-            </main>
-            <SiteFooter />
+            <RafiqPosesProvider poses={rafiq}>
+              <SkipLink />
+              <SiteHeader />
+              <main
+                id={MAIN_CONTENT_ID}
+                tabIndex={-1}
+                className="flex-1 outline-none"
+              >
+                {children}
+              </main>
+              <SiteFooter />
+            </RafiqPosesProvider>
           </DirectionProvider>
         </NextIntlClientProvider>
       </body>
