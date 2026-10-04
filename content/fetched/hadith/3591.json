@@ -1,0 +1,38 @@
+{
+  "id": 3591,
+  "publisher": "hadeethenc.com",
+  "languages": {
+    "ar": {
+      "title": "الصلوات الخمس، والجمعة إلى الجمعة، ورمضان إلى رمضان، مكفرات ما بينهن إذا اجتنب الكبائر",
+      "hadeeth": "عن أبي هريرة رضي الله عنه أن رسول الله صلى الله عليه وسلم كان يقول: «الصَّلَوَاتُ الْخَمْسُ، وَالْجُمُعَةُ إِلَى الْجُمُعَةِ، وَرَمَضَانُ إِلَى رَمَضَانَ، مُكَفِّرَاتٌ مَا بَيْنَهُنَّ إِذَا اجْتَنَبَ الْكَبَائِرَ».",
+      "attribution": "رواه مسلم",
+      "grade": "صحيح",
+      "explanation": "يخبر النبي صلى الله عليه وسلم أن الصلوات الخمس المفروضة في اليوم والليلة، وصلاة الجمعة كل أسبوع، وصوم شهر رمضان كل عام، مكفرات لما بينها من صغائر الذنوب بشرط اجتناب الكبائر، \nأما الكبائر كالزنا وشرب الخمر فلا تُكفر إلا بالتوبة.",
+      "hints": [
+        "الذنوب منها صغائر ومنها كبائر.",
+        "تكفير الصغائر مشروط باجتناب الكبائر.",
+        "الكبائر هي الذنوب التي ورد فِيهِا حد فِي الدُّنْيَا، أَو جَاءَ فِيهِا وَعِيد فِي الْآخِرَة؛ بالعَذَاب، أَو الغضب، أَو كان فيها تهديدٌ، أَو لعنٌ لفَاعلِها، كالزنى وشرب الخمر."
+      ],
+      "url": "https://hadeethenc.com/ar/browse/hadith/3591",
+      "apiUrl": "https://hadeethenc.com/api/v1/hadeeths/one/?language=ar&id=3591",
+      "version": null,
+      "fetchedOn": "2026-10-04"
+    },
+    "en": {
+      "title": "The five (daily) prayers, Friday prayer to the next Friday prayer, and Ramadan to the next Ramadan are expiation of the sins committed between them, so long as major sins are avoided",
+      "hadeeth": "Abu Hurayrah (may Allah be pleased with him) reported: The Messenger of Allah (may Allah’s peace and blessings be upon him) said: \"The five (daily) prayers, Friday prayer to the next Friday prayer, and Ramadan to the next Ramadan are expiation of the sins committed between them, so long as major sins are avoided.\"",
+      "attribution": "Narrated by Muslim",
+      "grade": "Authentic",
+      "explanation": "The Prophet (may Allah's peace and blessings be upon him) informs us that the five prayers prescribed to be performed during the day and night, the Friday prayer every week, and the fasting of the month of Ramadan every year expiate minor sins committed between them, provided that major sins are avoided. As for major sins like adultery and alcoholic drinking, these can only be expiated by repentance.",
+      "hints": [
+        "Some sins are minor and some are major.\r",
+        "The expiation of minor sins is contingent upon the avoidance of major ones.\r",
+        "Major sins are sins for which a legal punishment is prescribed in this world, a warning is issued with regard to the Hereafter by punishment or Allah's wrath, or their perpetrators are cursed, such as adultery and drinking alcohol."
+      ],
+      "url": "https://hadeethenc.com/en/browse/hadith/3591",
+      "apiUrl": "https://hadeethenc.com/api/v1/hadeeths/one/?language=en&id=3591",
+      "version": null,
+      "fetchedOn": "2026-10-04"
+    }
+  }
+}

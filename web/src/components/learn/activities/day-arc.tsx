@@ -9,7 +9,8 @@ import { cn } from "@/lib/utils";
 
 type DayArcProps = {
   activity: Extract<ActivityView, { type: "dayArc" }>;
-  onExplored: () => void;
+  /** Called with how many stops have been visited. */
+  onProgress: (visited: number) => void;
 };
 
 const WIDTH = 320;
@@ -21,7 +22,7 @@ const RADIUS = 140;
  * them. The stops are evenly spaced: the arc shows sequence, not clock times; each stop's own
  * description says when it is. Time runs in the reading direction.
  */
-export function DayArc({ activity, onExplored }: DayArcProps) {
+export function DayArc({ activity, onProgress }: DayArcProps) {
   const t = useTranslations("Activity");
   const id = useId();
   const rtl = useDirection() === "rtl";
@@ -42,7 +43,7 @@ export function DayArc({ activity, onExplored }: DayArcProps) {
     if (stop && !visited.includes(stop.id)) {
       const explored = [...visited, stop.id];
       setVisited(explored);
-      if (explored.length === stops.length) onExplored();
+      onProgress(explored.length);
     }
   }
 

@@ -1,0 +1,36 @@
+{
+  "id": 5382,
+  "publisher": "hadeethenc.com",
+  "languages": {
+    "ar": {
+      "title": "أقرب ما يكون العبد من ربه وهو ساجد، فأكثروا الدعاء",
+      "hadeeth": "عن أبي هريرة رضي الله عنه أن رسول الله صلى الله عليه وسلم قال: «أَقْرَبُ مَا يَكُونُ الْعَبْدُ مِنْ رَبِّهِ وَهُوَ سَاجِدٌ، فَأَكْثِرُوا الدُّعَاءَ».",
+      "attribution": "رواه مسلم",
+      "grade": "صحيح",
+      "explanation": "بَيَّنَ النبيُّ صلى الله عليه وسلم أنَّ أقربَ ما يكون العبد من ربه وهو ساجد؛ وذلك أنّ المصليَ يَضعُ أعلى وأشرف ما في جسده على الأرض خضوعًا وتَذَلُّلًا وتواضعًا لله عز وجل وهو ساجد.\n\nوقد أمر صلى الله عليه وسلم بالإكثار من الدعاء في السجود، فيجتمع في ذلك التَذَلُّلُ لله بالقول والفعل.",
+      "hints": [
+        "الطاعة تزيدُ العبدَ قُرْبًا مِن الله سبحانه وتعالى.",
+        "استحبابِ كثرةِ الدعاء في السجود؛ لأنه من مواطن الإجابة."
+      ],
+      "url": "https://hadeethenc.com/ar/browse/hadith/5382",
+      "apiUrl": "https://hadeethenc.com/api/v1/hadeeths/one/?language=ar&id=5382",
+      "version": null,
+      "fetchedOn": "2026-10-04"
+    },
+    "en": {
+      "title": "The nearest a slave to his Lord is while he is prostrating, so increase supplication",
+      "hadeeth": "Abu Hurayrah (may Allah be pleased with him) reported: The Messenger of Allah (may Allah's peace and blessings be upon him) said: \"The nearest a slave to his Lord is while he is prostrating, so increase supplication.\"",
+      "attribution": "Narrated by Muslim",
+      "grade": "Authentic",
+      "explanation": "The Prophet (may Allah's peace and blessings be upon him) pointed out that the closer a servant comes to his Lord is when he is prostrating, for he puts the highest and noblest part of his body on the ground in submission and humility to Allah Almighty.\r\n\r\nThe Prophet (may Allah's peace and blessings be upon him) ordered us to increase supplication while prostrating. Thus, we become submissive to Allah both by words and action.",
+      "hints": [
+        "Acts of piety draw a servant closer to Allah Almighty.\r",
+        "It is recommended to supplicate a lot during prostration, for supplication is likely to be answered in this position."
+      ],
+      "url": "https://hadeethenc.com/en/browse/hadith/5382",
+      "apiUrl": "https://hadeethenc.com/api/v1/hadeeths/one/?language=en&id=5382",
+      "version": null,
+      "fetchedOn": "2026-10-04"
+    }
+  }
+}

@@ -21,12 +21,14 @@ type SortDeckProps = {
   variant?: "buttons" | "swipe";
   hints?: boolean;
   onComplete: (mistakes: number) => void;
+  /** Called with how many steps are done, after each one. */
+  onProgress?: (done: number) => void;
 };
 
 const SWIPE_DISTANCE = 90;
 
 /** One card at a time, placed into its group. */
-export function SortDeck({ groups, items, seed, variant = "buttons", hints = true, onComplete }: SortDeckProps) {
+export function SortDeck({ groups, items, seed, variant = "buttons", hints = true, onComplete, onProgress }: SortDeckProps) {
   const t = useTranslations("Activity");
   const deck = useMemo(() => stableShuffle(items, seed), [items, seed]);
   const [position, setPosition] = useState(0);
@@ -48,6 +50,7 @@ export function SortDeck({ groups, items, seed, variant = "buttons", hints = tru
     }
     setMissed(false);
     setPosition(position + 1);
+    onProgress?.(position + 1);
     if (position + 1 === deck.length) onComplete(mistakes);
   }
 

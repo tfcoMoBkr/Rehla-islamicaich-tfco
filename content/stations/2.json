@@ -6,6 +6,11 @@
     "ar": "الطهارة",
     "en": "Purification"
   },
+  "cover": [
+    "dawnSky",
+    "water",
+    "path"
+  ],
   "baseline": [],
   "exam": []
 }

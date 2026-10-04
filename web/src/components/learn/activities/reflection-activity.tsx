@@ -11,10 +11,11 @@ import { cn } from "@/lib/utils";
 type ReflectionActivityProps = {
   activity: Extract<ActivityView, { type: "reflection" }>;
   lessonId: string;
+  onChoose?: () => void;
 };
 
 /** The learner keeps one card in their journal. Stored on this device only, never sent anywhere. */
-export function ReflectionActivity({ activity, lessonId }: ReflectionActivityProps) {
+export function ReflectionActivity({ activity, lessonId, onChoose }: ReflectionActivityProps) {
   const t = useTranslations("Activity");
   const chosen = useProgress().picks[lessonId];
 
@@ -33,7 +34,10 @@ export function ReflectionActivity({ activity, lessonId }: ReflectionActivityPro
             type="radio"
             name={`${lessonId}-reflection`}
             checked={chosen === item.id}
-            onChange={() => progressActions.pick(lessonId, item.id)}
+            onChange={() => {
+              progressActions.pick(lessonId, item.id);
+              onChoose?.();
+            }}
             className="mt-1 size-5 shrink-0 accent-terracotta-text focus-visible:outline-none"
           />
           {item.text}

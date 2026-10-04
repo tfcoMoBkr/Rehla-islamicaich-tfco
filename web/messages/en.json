@@ -111,7 +111,8 @@
   },
   "Footer": {
     "credit": "Built by Thakaa Flow for the AI Challenge Serving Islamic Content — Track 3.",
-    "sources": "Sources"
+    "sources": "Sources",
+    "talkToHuman": "Talk to a human"
   },
   "AiServiceStatus": {
     "checking": "Checking the AI service…",
@@ -211,10 +212,7 @@
     "textSource": "Sources",
     "videoSource": "Video",
     "demoSource": "Sample text written for this demonstration. It is not taken from a religious source.",
-    "videoFrom": "From",
-    "videoLanguage": "in English",
-    "playVideo": "Play the video",
-    "videoPrivacy": "Nothing loads from YouTube until you press play; it then uses YouTube's privacy-enhanced mode.",
+    "videoPrivacy": "Nothing loads from YouTube until you ask to see the video, and it never starts on its own. It uses YouTube's privacy-enhanced mode.",
     "demoNotice": "Demo lesson: neutral sample content, written to show how a lesson works. It is not religious material.",
     "draftNotice": "Draft, awaiting review: the team wrote this lesson from its sources and a reviewer has not approved it yet. Unreviewed lessons are never shown in production.",
     "practiceLesson": "Practice lesson",
@@ -232,7 +230,15 @@
     "explanation": "Explanation",
     "citationOnly": "Only the reference is shown: the source has no version of this hadith in this language yet, or its reference is still being confirmed.",
     "reviewNotesTitle": "{count, plural, one {# note for reviewers} other {# notes for reviewers}}",
-    "issuesTitle": "{count, plural, one {# part the app could not show} other {# parts the app could not show}}"
+    "issuesTitle": "{count, plural, one {# part the app could not show} other {# parts the app could not show}}",
+    "recitedBy": "Recitation:",
+    "showVideo": "Show the video",
+    "videoChannel": "Channel:",
+    "videoLanguageLabel": "Language:",
+    "videoLanguageName": "English",
+    "mediaCredit": "Credit:",
+    "mediaSource": "source",
+    "talkToHuman": "Talk to a qualified person"
   },
   "Activity": {
     "continue": "Continue",
@@ -384,6 +390,41 @@
     "usedFor": "Used for",
     "licence": "Licence",
     "alsoAt": "Also at",
-    "verifiedOn": "Checked on"
+    "verifiedOn": "Checked on",
+    "mediaTitle": "Images and videos in lessons",
+    "mediaEmpty": "No images or videos have been added to lessons yet. Each one will be listed here with its credit and licence.",
+    "mediaImage": "Image",
+    "mediaVideo": "Video",
+    "mediaSource": "source",
+    "mediaUsedIn": "Used in: {lessons}"
+  },
+  "Listen": {
+    "listen": "Listen",
+    "pause": "Pause",
+    "speed": "Reading speed: {rate}×",
+    "reading": "Reading aloud",
+    "listenRecitation": "Listen to the recitation",
+    "pauseRecitation": "Pause the recitation"
+  },
+  "Human": {
+    "title": "Talk to a human",
+    "description": "People and centres you can turn to with your own questions.",
+    "whyHuman": "Rafiq is an AI tool. It explains what the lessons say, but it does not give rulings on anyone's personal situation. For your own case, speak with a qualified person.",
+    "emptyTitle": "Contacts are being verified",
+    "emptyBody": "We list a centre here only after its contact details have been checked against its official source, so this list is still empty.",
+    "emptyMeanwhile": "Until then, the people at a mosque or Islamic centre near you are a good place to start.",
+    "kind": {
+      "centre": "Centre",
+      "phone": "Phone line",
+      "online": "Online"
+    },
+    "languages": "Languages",
+    "where": "Where",
+    "hours": "Hours",
+    "email": "Email",
+    "website": "Website",
+    "verified": "Checked on {date}.",
+    "checkedAt": "Where it was checked",
+    "privacy": "Rehla shares nothing about you with these centres. Whether and how you contact them is entirely your choice."
   }
 }

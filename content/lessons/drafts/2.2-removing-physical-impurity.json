@@ -105,9 +105,12 @@
       },
       "evidence": {
         "type": "hadith",
-        "hadeethencId": null,
-        "citation": "سنن أبي داود 365",
-        "availableIn": [],
+        "hadeethencId": 8373,
+        "citation": "رواه أبو داود وأحمد",
+        "availableIn": [
+          "ar",
+          "en"
+        ],
         "publisher": "hadeethenc.com"
       },
       "check": {
@@ -127,6 +130,16 @@
       "text": {
         "ar": "من آداب قضاء الحاجة: تدخل برجلك اليسرى وتقول الدعاء، وتستر عورتك، وتخرج برجلك اليمنى وتقول: «غفرانك».",
         "en": "Toilet etiquette: enter with your left foot and say the supplication, cover your private parts, and leave with your right foot saying \"Ghufranak\" (I seek Your forgiveness)."
+      },
+      "evidence": {
+        "type": "hadith",
+        "hadeethencId": 3150,
+        "citation": "متفق عليه",
+        "availableIn": [
+          "ar",
+          "en"
+        ],
+        "publisher": "hadeethenc.com"
       }
     },
     {

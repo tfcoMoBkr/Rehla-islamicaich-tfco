@@ -125,9 +125,12 @@
       },
       "evidence": {
         "type": "hadith",
-        "hadeethencId": null,
-        "citation": "صحيح مسلم 233",
-        "availableIn": [],
+        "hadeethencId": 3591,
+        "citation": "رواه مسلم",
+        "availableIn": [
+          "ar",
+          "en"
+        ],
         "publisher": "hadeethenc.com"
       }
     },
@@ -175,9 +178,12 @@
       },
       "evidence": {
         "type": "hadith",
-        "hadeethencId": null,
-        "citation": "سنن أبي داود 4985",
-        "availableIn": [],
+        "hadeethencId": 65095,
+        "citation": "رواه أبو داود",
+        "availableIn": [
+          "ar",
+          "en"
+        ],
         "publisher": "hadeethenc.com"
       }
     },

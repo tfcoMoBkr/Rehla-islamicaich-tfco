@@ -26,6 +26,28 @@ export const evidenceSchema = z.discriminatedUnion("type", [
   }),
 ]);
 
+/** Pictures and clips added to a lesson, card or step. Unlicensed or uncredited media is rejected. */
+const mediaCredit = {
+  alt: bilingual,
+  credit: z.string().trim().min(1),
+  sourceUrl: z.url(),
+  licence: z.string().trim().min(1),
+};
+export const mediaSchema = z.discriminatedUnion("type", [
+  z.object({
+    type: z.literal("image"),
+    /** A file in content/media/, listed in content/media/manifest.json. */
+    src: z.string().regex(/^[\w-]+\.(jpe?g|png|webp|avif)$/i, "Images are .jpg, .png, .webp or .avif files in content/media/"),
+    ...mediaCredit,
+  }),
+  z.object({ type: z.literal("video"), youtubeId: z.string().regex(/^[\w-]{11}$/), ...mediaCredit }),
+]);
+const mediaList = z.array(mediaSchema).optional();
+
+/** The motifs a lesson cover is composed from, back to front. */
+export const COVER_MOTIFS = ["dawnSky", "sunArc", "stars", "water", "path", "lantern"] as const;
+export const coverSchema = z.array(z.enum(COVER_MOTIFS)).min(1);
+
 const trueFalse = z.object({ type: z.literal("trueFalse"), prompt: bilingual, answer: z.boolean() });
 const single = z.object({ type: z.literal("single"), prompt: bilingual, options: z.array(choice).min(2) });
 const multiple = z.object({ type: z.literal("multiple"), prompt: bilingual, options: z.array(choice).min(2) });
@@ -180,6 +202,7 @@ export const lessonSchema = z.object({
       evidence: evidenceSchema.optional(),
       check: checkSchema.optional(),
       display: z.literal("evidenceFirst").optional(),
+      media: mediaList,
     }),
   ),
   activities: z.array(activitySchema),
@@ -206,6 +229,7 @@ export const lessonSchema = z.object({
         repeat: z.string().optional(),
         say: z.string().optional(),
         evidence: evidenceSchema.optional(),
+        media: mediaList,
       }),
     )
     .optional(),
@@ -220,6 +244,9 @@ export const lessonSchema = z.object({
     .optional(),
   /** Scored questions closing the lesson (lessons marked 🔹 in docs/CURRICULUM.md). */
   quiz: z.array(questionSchema).optional(),
+  /** Overrides the station's cover motifs. */
+  cover: coverSchema.optional(),
+  media: mediaList,
 });
 
 export const stationSchema = z.object({
@@ -227,8 +254,48 @@ export const stationSchema = z.object({
   order: z.number().int(),
   demo: z.boolean(),
   title: bilingual,
+  /** The cover motifs of this station's lessons, unless a lesson sets its own. */
+  cover: coverSchema,
   baseline: z.array(questionSchema),
   exam: z.array(questionSchema),
+});
+
+export const mediaManifestSchema = z.object({
+  images: z.array(
+    z.object({
+      src: z.string(),
+      credit: z.string().trim().min(1),
+      sourceUrl: z.url(),
+      licence: z.string().trim().min(1),
+    }),
+  ),
+});
+
+const contactRequired = (centre: { phone?: string; email?: string; url?: string }) =>
+  Boolean(centre.phone || centre.email || centre.url);
+
+export const referralCentresSchema = z.object({
+  centers: z.array(
+    z
+      .object({
+        id: z.string(),
+        name: bilingual,
+        kind: z.enum(["centre", "phone", "online"]),
+        /** ISO codes of the languages the centre can help in. */
+        languages: z.array(z.string()).min(1),
+        city: bilingual.optional(),
+        address: bilingual.optional(),
+        phone: z.string().optional(),
+        email: z.email().optional(),
+        url: z.url().optional(),
+        hours: bilingual.optional(),
+        notes: bilingual.optional(),
+        /** Where the contact details were checked. */
+        sourceUrl: z.url(),
+        verifiedOn: z.iso.date(),
+      })
+      .refine(contactRequired, { message: "A referral centre needs a phone number, an email or a website" }),
+  ),
 });
 
 export const sourcesSchema = z.object({
@@ -298,3 +365,7 @@ export type SourceType = Source["type"];
 export type FetchedAyah = z.infer<typeof fetchedAyahSchema>;
 export type FetchedHadith = z.infer<typeof fetchedHadithSchema>;
 export type FetchedRecitation = z.infer<typeof fetchedRecitationSchema>;
+export type Media = z.infer<typeof mediaSchema>;
+export type CoverMotif = (typeof COVER_MOTIFS)[number];
+export type MediaManifest = z.infer<typeof mediaManifestSchema>;
+export type ReferralCentre = z.infer<typeof referralCentresSchema>["centers"][number];

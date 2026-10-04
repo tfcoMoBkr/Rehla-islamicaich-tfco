@@ -15,13 +15,15 @@ type ChecklistActivityProps = {
   activity: Extract<ActivityView, { type: "checklist" }>;
   lessonId: string;
   onComplete: () => void;
+  /** Called with how many steps are done, after each one. */
+  onProgress?: (done: number) => void;
 };
 
 /**
  * A personal list kept on this device only, or (in quiz mode) "tick the right ones", checked
  * when the learner asks and never penalised.
  */
-export function ChecklistActivity({ activity, lessonId, onComplete }: ChecklistActivityProps) {
+export function ChecklistActivity({ activity, lessonId, onComplete, onProgress }: ChecklistActivityProps) {
   const t = useTranslations("Activity");
   const progress = useProgress();
   const [quizTicks, setQuizTicks] = useState<string[]>([]);
@@ -36,6 +38,7 @@ export function ChecklistActivity({ activity, lessonId, onComplete }: ChecklistA
       setChecked(false);
     } else {
       progressActions.setChecklist(key, next);
+      onProgress?.(next.length);
     }
   }
 

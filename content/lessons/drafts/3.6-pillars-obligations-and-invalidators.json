@@ -134,9 +134,12 @@
       },
       "evidence": {
         "type": "hadith",
-        "hadeethencId": null,
-        "citation": "صحيح البخاري 718؛ صحيح مسلم 560",
-        "availableIn": [],
+        "hadeethencId": 10878,
+        "citation": "رواه البخاري",
+        "availableIn": [
+          "ar",
+          "en"
+        ],
         "publisher": "hadeethenc.com"
       }
     }

@@ -27,3 +27,7 @@ Every source Rehla uses. Generated from `content/sources.json` by `npm run conte
 | --- | --- | --- | --- | --- | --- |
 | Zadi Learning (`zadi`) | <https://www.youtube.com/@zadilearning> | Suggested Arabic videos at the close of lessons, from the programme «حقيبة دليل المسلم الميسر». | Shown in YouTube's embedded player (youtube-nocookie.com), never re-uploaded. Awaiting the scholarly mentor's approval of this source. | Pending review | 2026-10-04 |
 | Guide To Islam (Osoul Global Center) (`gti`) | <https://www.youtube.com/@Guidetoislam><br><https://islamhouse.com/en/videos/2834586/><br><https://islamhouse.com/en/videos/2838921/><br><https://islamhouse.com/en/videos/2822062/> | Suggested English videos at the close of lessons, cited through their IslamHouse pages. | Shown in YouTube's embedded player (youtube-nocookie.com), never re-uploaded. | Pending review | 2026-10-04 |
+
+## Media in lessons
+
+No images or videos have been added to lessons yet.

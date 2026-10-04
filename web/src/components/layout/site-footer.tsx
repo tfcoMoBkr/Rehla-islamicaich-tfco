@@ -17,9 +17,14 @@ export function SiteFooter() {
         <Logo />
         <div className="grid gap-2 text-sm">
           <p className="text-muted-foreground">{t("credit")}</p>
-          <Link href="/sources" className="justify-self-start font-medium underline underline-offset-4 hover:text-dawn">
-            {t("sources")}
-          </Link>
+          <div className="flex flex-wrap gap-x-5 gap-y-1">
+            <Link href="/talk-to-a-human" className="font-medium underline underline-offset-4 hover:text-dawn">
+              {t("talkToHuman")}
+            </Link>
+            <Link href="/sources" className="font-medium underline underline-offset-4 hover:text-dawn">
+              {t("sources")}
+            </Link>
+          </div>
         </div>
         <Suspense fallback={<AiServiceStatusFallback />}>
           <AiServiceStatus />

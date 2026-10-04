@@ -24,6 +24,8 @@ type MatchBoardProps = {
   leftIsQuran?: boolean;
   hints?: boolean;
   onComplete: (mistakes: number) => void;
+  /** Called with how many steps are done, after each one. */
+  onProgress?: (done: number) => void;
 };
 
 /** Tap an item, then the one it goes with. */
@@ -35,6 +37,7 @@ export function MatchBoard({
   leftIsQuran = false,
   hints = true,
   onComplete,
+  onProgress,
 }: MatchBoardProps) {
   const t = useTranslations("Activity");
   const answers = useMemo(() => {
@@ -61,6 +64,7 @@ export function MatchBoard({
     }
     const next = [...matched, selected];
     setMatched(next);
+    onProgress?.(next.length);
     setSelected(null);
     setMissed(null);
     if (next.length === pairs.length) onComplete(mistakes);

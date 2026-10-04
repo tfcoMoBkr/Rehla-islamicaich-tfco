@@ -1,0 +1,59 @@
+{
+  "surah": 98,
+  "read": 1,
+  "reciter": "إبراهيم الأخضر",
+  "rewaya": "حفص عن عاصم",
+  "audioUrl": "https://server6.mp3quran.net/akdr/098.mp3",
+  "ayahs": [
+    {
+      "ayah": 0,
+      "start": 0,
+      "end": 7830
+    },
+    {
+      "ayah": 1,
+      "start": 7830,
+      "end": 21566
+    },
+    {
+      "ayah": 2,
+      "start": 21566,
+      "end": 29655
+    },
+    {
+      "ayah": 3,
+      "start": 29655,
+      "end": 34769
+    },
+    {
+      "ayah": 4,
+      "start": 34769,
+      "end": 48069
+    },
+    {
+      "ayah": 5,
+      "start": 48069,
+      "end": 73770
+    },
+    {
+      "ayah": 6,
+      "start": 73770,
+      "end": 93052
+    },
+    {
+      "ayah": 7,
+      "start": 93052,
+      "end": 104911
+    },
+    {
+      "ayah": 8,
+      "start": 104911,
+      "end": 132963
+    }
+  ],
+  "source": {
+    "publisher": "mp3quran.net",
+    "apiUrl": "https://mp3quran.net/api/v3/ayat_timing?surah=98&read=1",
+    "fetchedOn": "2026-10-04"
+  }
+}

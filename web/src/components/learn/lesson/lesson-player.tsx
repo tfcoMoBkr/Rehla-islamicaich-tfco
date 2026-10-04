@@ -1,14 +1,17 @@
 "use client";
 
 import { ArrowRight, BookOpen, ExternalLink } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { ActivityRunner } from "@/components/learn/activities/activity-runner";
+import { ListenControls } from "@/components/learn/audio/listen-controls";
+import { ListenableText } from "@/components/learn/audio/listenable-text";
 import { AssessmentRunner } from "@/components/learn/assessment/assessment-runner";
 import { ReviewList } from "@/components/learn/assessment/review-list";
 import { ScoreSummary } from "@/components/learn/assessment/score-summary";
 import { EvidenceBlock } from "@/components/learn/evidence-block";
+import { MediaGallery } from "@/components/learn/media-gallery";
 import { QuestionCard } from "@/components/learn/questions/question-card";
 import { SourceLine } from "@/components/learn/source-line";
 import { SourceLinks } from "@/components/learn/source-links";
@@ -18,10 +21,12 @@ import { Button } from "@/components/ui/button";
 import { PROVISIONS_LIMIT } from "@/config/learning";
 import { Link } from "@/i18n/navigation";
 import { progressActions, useProgress } from "@/lib/learn/progress-store";
+import { useReadAloud } from "@/lib/audio/speech";
 import { pickProvisions } from "@/lib/learn/provisions";
 import type { CardView, LessonView, QuestionView } from "@/lib/learn/types";
 
 import { LessonBanner } from "./lesson-banner";
+import { LessonCover } from "./lesson-cover";
 import { PartStepper, type LessonPart } from "./part-stepper";
 
 type Screen =
@@ -72,7 +77,10 @@ type LessonPlayerProps = {
 
 export function LessonPlayer({ lesson, provisionsPool, next }: LessonPlayerProps) {
   const t = useTranslations("Lesson");
+  const locale = useLocale();
   const progress = useProgress();
+  const introSegments = useMemo(() => [lesson.title, ...lesson.objectives], [lesson.title, lesson.objectives]);
+  const introReader = useReadAloud(introSegments, locale);
   const screens = useMemo(() => buildScreens(lesson), [lesson]);
   const [index, setIndex] = useState(0);
   const [provisions, setProvisions] = useState<QuestionView[]>([]);
@@ -142,6 +150,7 @@ export function LessonPlayer({ lesson, provisionsPool, next }: LessonPlayerProps
       <LessonBanner lesson={lesson} showDetails={screen.kind === "intro"} />
 
       <header className="mt-6 grid gap-3">
+        {screen.kind === "intro" && <LessonCover motifs={lesson.cover} className="mb-3" />}
         <p className="text-sm font-medium text-muted-foreground">{lesson.demo ? t("practiceLesson") : t("lessonNumber", { number: lesson.id })}</p>
         <h1 className={screen.kind === "intro" ? "font-display text-3xl leading-tight font-semibold sm:text-4xl" : "font-display text-xl font-semibold"}>
           {lesson.title}
@@ -153,15 +162,24 @@ export function LessonPlayer({ lesson, provisionsPool, next }: LessonPlayerProps
         {screen.kind === "intro" && (
           <>
             {lesson.objectives.length > 0 && (
-              <div className="rounded-2xl border border-hairline bg-paper p-6">
-                <p className="font-semibold">{t("objectivesTitle")}</p>
-                <ul className="mt-3 grid list-inside list-disc gap-1.5 marker:text-dawn">
-                  {lesson.objectives.map((objective) => (
-                    <li key={objective}>{objective}</li>
-                  ))}
-                </ul>
+              <div className="grid gap-4 rounded-2xl border border-hairline bg-paper p-6">
+                <div>
+                  <p className="font-semibold">{t("objectivesTitle")}</p>
+                  <ul className="mt-3 grid list-inside list-disc gap-1.5 marker:text-dawn">
+                    {lesson.objectives.map((objective, index) => (
+                      <li
+                        key={objective}
+                        className={introReader.current === index + 1 ? "rounded-sm bg-dawn/25 transition-colors" : "transition-colors"}
+                      >
+                        {objective}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <ListenControls reader={introReader} />
               </div>
             )}
+            <MediaGallery media={lesson.media} />
             <div className="rounded-2xl border border-hairline bg-paper p-6">
               <p className="font-semibold">{t("partsTitle")}</p>
               <ol className="mt-3 grid gap-2">
@@ -202,7 +220,13 @@ export function LessonPlayer({ lesson, provisionsPool, next }: LessonPlayerProps
           <>
             {heading(t("cardOf", { current: screen.index + 1, total: lesson.cards.length }))}
             {card.evidenceFirst && card.evidence && <EvidenceBlock evidence={card.evidence} />}
-            <p className="rounded-2xl border border-hairline border-s-4 border-s-dawn bg-paper p-6 text-xl leading-relaxed">{card.text}</p>
+            <div
+              key={card.id}
+              className="animate-card-in relative grid gap-4 overflow-hidden rounded-2xl border border-hairline bg-paper p-6 ps-7 before:absolute before:inset-y-0 before:start-0 before:w-1.5 before:bg-dawn"
+            >
+              <ListenableText text={card.text} className="text-xl leading-relaxed" />
+            </div>
+            <MediaGallery media={card.media} />
             {!card.evidenceFirst && card.evidence && <EvidenceBlock evidence={card.evidence} />}
             <SourceLinks sources={card.sources} />
             <Button className="justify-self-start" onClick={() => advance()}>
@@ -244,9 +268,12 @@ export function LessonPlayer({ lesson, provisionsPool, next }: LessonPlayerProps
               onAnswered={(correct) => lesson.situation && practiced(lesson.situation.question, correct)}
             />
             {lesson.situation.followUp && (
-              <p role="note" className="rounded-xl border border-dashed border-hairline p-4 text-muted-foreground">
-                {lesson.situation.followUp}
-              </p>
+              <div role="note" className="grid gap-2 rounded-xl border border-dashed border-hairline p-4 text-muted-foreground">
+                <p>{lesson.situation.followUp}</p>
+                <Link href="/talk-to-a-human" className="justify-self-start font-medium text-foreground underline underline-offset-4">
+                  {t("talkToHuman")}
+                </Link>
+              </div>
             )}
             <SourceLinks sources={lesson.situation.sources} />
           </>

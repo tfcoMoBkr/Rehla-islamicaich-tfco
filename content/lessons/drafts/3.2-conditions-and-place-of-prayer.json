@@ -175,9 +175,12 @@
       },
       "evidence": {
         "type": "hadith",
-        "hadeethencId": null,
-        "citation": "صحيح البخاري 328؛ صحيح مسلم 521",
-        "availableIn": [],
+        "hadeethencId": 3503,
+        "citation": "متفق عليه",
+        "availableIn": [
+          "ar",
+          "en"
+        ],
         "publisher": "hadeethenc.com"
       }
     },

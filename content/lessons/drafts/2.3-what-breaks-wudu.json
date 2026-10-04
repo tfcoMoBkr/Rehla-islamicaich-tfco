@@ -131,9 +131,12 @@
       },
       "evidence": {
         "type": "hadith",
-        "hadeethencId": null,
-        "citation": "سنن أبي داود 181؛ صحيح مسلم 360",
-        "availableIn": [],
+        "hadeethencId": 8397,
+        "citation": "رواه أبو داود والنسائي وابن ماجه",
+        "availableIn": [
+          "ar",
+          "en"
+        ],
         "publisher": "hadeethenc.com"
       }
     },
@@ -148,9 +151,12 @@
       },
       "evidence": {
         "type": "hadith",
-        "hadeethencId": null,
-        "citation": "صحيح البخاري 175؛ صحيح مسلم 361",
-        "availableIn": [],
+        "hadeethencId": 3064,
+        "citation": "متفق عليه",
+        "availableIn": [
+          "ar",
+          "en"
+        ],
         "publisher": "hadeethenc.com"
       },
       "check": {

@@ -22,11 +22,28 @@ export type QuestionView =
   | (QuestionCommon & { type: "match"; pairs: { id: string; left: string; right: string }[] })
   | (QuestionCommon & { type: "sort"; groups: Group[]; items: { id: string; text: string; group: string }[] });
 
+import type { CoverMotif } from "@/lib/content/schema";
+
 export type SourceLink = { id: string; name: string };
+
+/** A picture or clip added to a lesson, card or step, always with its credit and licence. */
+export type MediaView = { alt: string; credit: string; sourceUrl: string; licence: string } & (
+  | { kind: "image"; src: string }
+  | { kind: "video"; youtubeId: string }
+);
+
+/** A span of a real recitation (mp3quran.net), in milliseconds. */
+export type RecitationSpan = { audioUrl: string; start: number; end: number };
 
 export type LessonSource = { key: string; title: string; url: string; sourceId: string | null };
 
-export type QuranAyahView = { ref: string; arabic: string; translation: string | null; footnotes: string | null };
+export type QuranAyahView = {
+  ref: string;
+  arabic: string;
+  translation: string | null;
+  footnotes: string | null;
+  recitation: RecitationSpan | null;
+};
 
 export type EvidenceView =
   | {
@@ -36,6 +53,7 @@ export type EvidenceView =
       ayahs: QuranAyahView[];
       url: string | null;
       attribution: string | null;
+      reciter: string | null;
     }
   | {
       kind: "hadith";
@@ -51,6 +69,7 @@ export type CardView = {
   evidence: EvidenceView | null;
   evidenceFirst: boolean;
   check: QuestionView | null;
+  media: MediaView[];
 };
 
 export type AyahLine = {
@@ -82,6 +101,7 @@ export type GuidedStep = {
   say: string | null;
   /** The reference of the step's evidence (a hadith citation or a surah:ayah). */
   citation: string | null;
+  media: MediaView[];
 };
 
 export type ActivityView = ActivityCommon &
@@ -130,8 +150,10 @@ export type LessonView = {
   title: string;
   reviewed: boolean;
   demo: boolean;
+  cover: CoverMotif[];
   objectives: string[];
   sources: LessonSource[];
+  media: MediaView[];
   video: VideoView | null;
   cards: CardView[];
   activities: ActivityView[];

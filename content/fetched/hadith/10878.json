@@ -1,0 +1,34 @@
+{
+  "id": 10878,
+  "publisher": "hadeethenc.com",
+  "languages": {
+    "ar": {
+      "title": "سألت رسول الله صلى الله عليه وسلم عن الالتفات في الصلاة؟ فقال: هو اختلاس يختلسه الشيطان من صلاة العبد",
+      "hadeeth": "عن عائشة رضي الله عنها قالت: سَألتُ رسول الله صلى الله عليه وسلم عن الالتِفَات في الصلاة؟ فقال: «هو اخْتِلاس يَختَلِسُهُ الشَّيطان من صلاة العَبْد».",
+      "attribution": "رواه البخاري",
+      "grade": "صحيح",
+      "explanation": "سألت عائشة رسول الله صلى الله عليه وسلم ، عن حكم الالتفات في الصلاة، هل يَضرُّ بالصلاة ويؤثر عليها؟\nفذكر لها أن هذا الالتفات هو اختطاف يختطفه الشيطان من صلاة العَبْد على وجه السُّرعة والخُفْيَة من أجل أن يُخِلَّ بها وينقص ثوابها.",
+      "hints": [
+        "حِرص عائشة -رضي الله عنها- على أخذ العلم لأجل العمل به.",
+        "التَّحذير من الالتِفَات في الصلاة؛ لأنه من عَمَل الشيطان؛ لما يترتب عليه من حصول النَّقص في الصلاة.",
+        "كراهة الالتِفَات في الصلاة إلاَّ لحاجة، ما لم يكن الالتِفَات باستدَارة جميع البَدن عن القِبْلة أو استدبارها، فإنه يبطل الصلاة؛ لأن استقبال القبلة شرط في الصلاة."
+      ],
+      "url": "https://hadeethenc.com/ar/browse/hadith/10878",
+      "apiUrl": "https://hadeethenc.com/api/v1/hadeeths/one/?language=ar&id=10878",
+      "version": null,
+      "fetchedOn": "2026-10-04"
+    },
+    "en": {
+      "title": "I asked the Messenger of Allah (may Allah's peace and blessings be upon him) about looking around during prayer. He replied: It is a way of stealing by which the devil steals a portion of a slave's prayer",
+      "hadeeth": "‘Ā’ishah (may Allah be pleased with her) reported: I asked the Messenger of Allah (may Allah's peace and blessings be upon him) about looking around during prayer. He replied: \"It is a way of stealing by which the devil steals a portion of a slave's prayer.\"",
+      "attribution": "Narrated by Bukhari",
+      "grade": "Authentic hadith",
+      "explanation": "‘Ā’ishah (may Allah be pleased with her) asked the Messenger of Allah (may Allah’s peace and blessings be upon him) about the ruling on looking hither and thither during the prayer, and whether it affects the validity of prayer. He told her that this looking is a means by which the devil snatches away a portion of a slave’s prayer in a swift and hidden manner so as to affect its validity and decrease its reward.",
+      "hints": [],
+      "url": "https://hadeethenc.com/en/browse/hadith/10878",
+      "apiUrl": "https://hadeethenc.com/api/v1/hadeeths/one/?language=en&id=10878",
+      "version": null,
+      "fetchedOn": "2026-10-04"
+    }
+  }
+}

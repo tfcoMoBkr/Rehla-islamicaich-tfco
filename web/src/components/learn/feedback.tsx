@@ -1,7 +1,8 @@
-import { CircleCheck, Footprints } from "lucide-react";
+import { Footprints } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 
+import { Lantern } from "@/components/journey/lantern";
 import { cn } from "@/lib/utils";
 
 type FeedbackProps = {
@@ -15,19 +16,23 @@ type FeedbackProps = {
 
 export function Feedback({ tone, children, quote, className }: FeedbackProps) {
   const t = useTranslations("Learning");
-  const Icon = tone === "right" ? CircleCheck : Footprints;
 
   return (
     <div
       role="status"
       className={cn(
-        "rounded-xl border p-4",
+        "animate-rise-in rounded-xl border p-4",
         tone === "right" ? "border-oasis/40 bg-oasis/8" : "border-dawn/50 bg-dawn/10",
         className,
       )}
     >
       <p className="flex items-center gap-2 font-semibold">
-        <Icon aria-hidden className={cn("size-5", tone === "right" ? "text-oasis-text" : "text-terracotta-text")} />
+        {tone === "right" ? (
+          // A right answer lights a lantern.
+          <Lantern className="lantern-flare size-7 shrink-0 text-ink" />
+        ) : (
+          <Footprints aria-hidden className="size-5 shrink-0 text-terracotta-text" />
+        )}
         {children}
       </p>
       {quote && (

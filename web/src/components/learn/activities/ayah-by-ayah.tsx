@@ -1,42 +1,26 @@
 "use client";
 
-import { ChevronDown, Pause, Play } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
+import { RecitationButton } from "@/components/learn/audio/recitation-button";
 import type { AyahLine, AyahSet } from "@/lib/learn/types";
 import { cn } from "@/lib/utils";
 
 type AyahByAyahProps = {
   ayahs: AyahSet;
-  onExplored: () => void;
+  onProgress: (opened: number) => void;
 };
 
 /**
  * Tap an ayah to open its meaning and hear it. The ayah text is shown exactly as fetched from
- * quranenc.com, in the Quran typeface; audio plays that ayah's span of the mp3quran.net recitation.
+ * quranenc.com, in the Quran typeface, and heard only in its mp3quran.net recitation.
  */
-export function AyahByAyah({ ayahs, onExplored }: AyahByAyahProps) {
+export function AyahByAyah({ ayahs, onProgress }: AyahByAyahProps) {
   const t = useTranslations("Activity");
   const locale = useLocale();
   const [open, setOpen] = useState<string[]>([]);
-  const [playing, setPlaying] = useState<string | null>(null);
-  const audioRef = useRef<HTMLAudioElement>(null);
-  const stopAt = useRef<number | null>(null);
-
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-    const onTime = () => {
-      if (stopAt.current !== null && audio.currentTime * 1000 >= stopAt.current) {
-        audio.pause();
-        stopAt.current = null;
-        setPlaying(null);
-      }
-    };
-    audio.addEventListener("timeupdate", onTime);
-    return () => audio.removeEventListener("timeupdate", onTime);
-  }, []);
 
   if (ayahs.lines.length === 0) {
     return (
@@ -49,26 +33,11 @@ export function AyahByAyah({ ayahs, onExplored }: AyahByAyahProps) {
   function toggle(line: AyahLine) {
     const next = open.includes(line.id) ? open.filter((id) => id !== line.id) : [...open, line.id];
     setOpen(next);
-    if (next.length === ayahs.lines.length) onExplored();
-  }
-
-  function play(line: AyahLine) {
-    const audio = audioRef.current;
-    if (!audio || !line.audio) return;
-    if (playing === line.id) {
-      audio.pause();
-      setPlaying(null);
-      return;
-    }
-    audio.currentTime = line.audio.start / 1000;
-    stopAt.current = line.audio.end;
-    setPlaying(line.id);
-    void audio.play().catch(() => setPlaying(null));
+    onProgress(new Set([...open, line.id]).size);
   }
 
   return (
     <div className="grid gap-3">
-      {ayahs.audioUrl && <audio ref={audioRef} src={ayahs.audioUrl} preload="none" />}
       <ol className="grid gap-3">
         {ayahs.lines.map((line) => {
           const expanded = open.includes(line.id);
@@ -104,16 +73,10 @@ export function AyahByAyah({ ayahs, onExplored }: AyahByAyahProps) {
                     <p className="mt-1 whitespace-pre-line">{line.footnotes}</p>
                   </details>
                 )}
-                {line.audio && ayahs.audioUrl && (
-                  <button
-                    type="button"
-                    onClick={() => play(line)}
-                    className="mt-1 inline-flex min-h-11 items-center gap-2 justify-self-start rounded-full border border-hairline px-4 text-sm font-medium hover:bg-accent"
-                  >
-                    {playing === line.id ? <Pause aria-hidden className="size-4" /> : <Play aria-hidden className="size-4" />}
-                    {playing === line.id ? t("pause") : t("listen")}
-                  </button>
-                )}
+                <RecitationButton
+                  id={`ayah-${line.id}`}
+                  span={line.audio && ayahs.audioUrl ? { audioUrl: ayahs.audioUrl, ...line.audio } : null}
+                />
               </div>
             </li>
           );

@@ -1,0 +1,109 @@
+{
+  "surah": 64,
+  "read": 1,
+  "reciter": "إبراهيم الأخضر",
+  "rewaya": "حفص عن عاصم",
+  "audioUrl": "https://server6.mp3quran.net/akdr/064.mp3",
+  "ayahs": [
+    {
+      "ayah": 0,
+      "start": 0,
+      "end": 9210
+    },
+    {
+      "ayah": 1,
+      "start": 9210,
+      "end": 26195
+    },
+    {
+      "ayah": 2,
+      "start": 26195,
+      "end": 44552
+    },
+    {
+      "ayah": 3,
+      "start": 44552,
+      "end": 57406
+    },
+    {
+      "ayah": 4,
+      "start": 57406,
+      "end": 76996
+    },
+    {
+      "ayah": 5,
+      "start": 76996,
+      "end": 91591
+    },
+    {
+      "ayah": 6,
+      "start": 91591,
+      "end": 117352
+    },
+    {
+      "ayah": 7,
+      "start": 117352,
+      "end": 142140
+    },
+    {
+      "ayah": 8,
+      "start": 142140,
+      "end": 160914
+    },
+    {
+      "ayah": 9,
+      "start": 160914,
+      "end": 200059
+    },
+    {
+      "ayah": 10,
+      "start": 200059,
+      "end": 219934
+    },
+    {
+      "ayah": 11,
+      "start": 219934,
+      "end": 244079
+    },
+    {
+      "ayah": 12,
+      "start": 244079,
+      "end": 262910
+    },
+    {
+      "ayah": 13,
+      "start": 262910,
+      "end": 277519
+    },
+    {
+      "ayah": 14,
+      "start": 277519,
+      "end": 306650
+    },
+    {
+      "ayah": 15,
+      "start": 306650,
+      "end": 325103
+    },
+    {
+      "ayah": 16,
+      "start": 325103,
+      "end": 350319
+    },
+    {
+      "ayah": 17,
+      "start": 350319,
+      "end": 366815
+    },
+    {
+      "ayah": 18,
+      "start": 366815,
+      "end": 376007
+    }
+  ],
+  "source": {
+    "publisher": "mp3quran.net",
+    "apiUrl": "https://mp3quran.net/api/v3/ayat_timing?surah=64&read=1",
+    "fetchedOn": "2026-10-04"
+  }
+}

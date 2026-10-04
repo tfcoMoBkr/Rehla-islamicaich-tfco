@@ -10,12 +10,13 @@ import type {
   GuidedStep,
   LessonSource,
   LessonView,
+  MediaView,
   QuestionView,
   StationView,
 } from "@/lib/learn/types";
 
 import { readFetchedAyah, readFetchedHadith, readFetchedRecitation, type Khutuwat, type StationEntry } from "./load";
-import type { Activity, Bilingual, Check, Evidence, Lesson, Question, Source } from "./schema";
+import type { Activity, Bilingual, Check, Evidence, Lesson, Media, Question, Source } from "./schema";
 
 /** `repeat` values on lesson steps that the guided walk knows how to say. */
 export const KNOWN_REPEATS = new Set(["once", "onceOnly", "onceRequiredThreeRecommended", "three"]);
@@ -123,6 +124,15 @@ export function questionView(question: Question, lessonId: string, quote: string
   }
 }
 
+export function mediaView(media: readonly Media[] | undefined, locale: Locale): MediaView[] {
+  return (media ?? []).map((item) => {
+    const common = { alt: pick(item.alt, locale), credit: item.credit, sourceUrl: item.sourceUrl, licence: item.licence };
+    return item.type === "image"
+      ? { ...common, kind: "image", src: `/media/${item.src}` }
+      : { ...common, kind: "video", youtubeId: item.youtubeId };
+  });
+}
+
 async function evidenceView(evidence: Evidence, locale: Locale): Promise<EvidenceView> {
   if (evidence.type === "hadith") {
     const fetched =
@@ -144,20 +154,26 @@ async function evidenceView(evidence: Evidence, locale: Locale): Promise<Evidenc
     };
   }
 
-  const fetched = await Promise.all(expandRef(evidence.ref).map(([surah, ayah]) => readFetchedAyah(surah, ayah)));
-  const ayahs = fetched.flatMap((ayah) =>
-    ayah
-      ? [
-          {
-            ref: ayah.ref,
-            arabic: ayah.arabic,
-            // Arabic readers read the verse itself; English readers also get the approved translation.
-            translation: locale === "en" ? ayah.translations.en.text : null,
-            footnotes: locale === "en" ? ayah.translations.en.footnotes : null,
-          },
-        ]
-      : [],
-  );
+  const refs = expandRef(evidence.ref);
+  const [fetched, recitation] = await Promise.all([
+    Promise.all(refs.map(([surah, ayah]) => readFetchedAyah(surah, ayah))),
+    refs[0] ? readFetchedRecitation(refs[0][0]) : null,
+  ]);
+  const ayahs = fetched.flatMap((ayah) => {
+    if (!ayah) return [];
+    const number = Number(ayah.ref.split(":")[1]);
+    const timing = recitation?.ayahs.find((candidate) => candidate.ayah === number);
+    return [
+      {
+        ref: ayah.ref,
+        arabic: ayah.arabic,
+        // Arabic readers read the verse itself; English readers also get the approved translation.
+        translation: locale === "en" ? ayah.translations.en.text : null,
+        footnotes: locale === "en" ? ayah.translations.en.footnotes : null,
+        recitation: recitation && timing ? { audioUrl: recitation.audioUrl, start: timing.start, end: timing.end } : null,
+      },
+    ];
+  });
   const first = fetched.find((ayah) => ayah !== null);
   const translation = first?.translations.en;
   return {
@@ -170,6 +186,7 @@ async function evidenceView(evidence: Evidence, locale: Locale): Promise<Evidenc
         ? `QuranEnc.com · ${translation.key}${translation.version ? ` ${translation.version}` : ""}`
         : "QuranEnc.com"
       : null,
+    reciter: recitation?.reciter ?? null,
   };
 }
 
@@ -183,6 +200,7 @@ async function cardView(card: Lesson["cards"][number], context: Context): Promis
     evidence: card.evidence ? await evidenceView(card.evidence, locale) : null,
     evidenceFirst: card.display === "evidenceFirst",
     check: card.check ? checkView(card.check, checkId(lesson.id, card.id), lesson.id, text, locale) : null,
+    media: mediaView(card.media, locale),
   };
 }
 
@@ -201,6 +219,7 @@ function guidedSteps(keys: string[], context: Context): GuidedStep[] {
           repeat: step.repeat ?? null,
           say: step.say ?? null,
           citation: citationOf(step.evidence),
+          media: mediaView(step.media, locale),
         };
       });
     }
@@ -212,6 +231,7 @@ function guidedSteps(keys: string[], context: Context): GuidedStep[] {
         repeat: null,
         say: null,
         citation: citationOf(step.evidence),
+        media: [],
       }));
     }
     context.issues.push(`guided: no lesson list called "${key}"`);
@@ -446,6 +466,7 @@ async function activityView(activity: Activity, context: Context): Promise<Activ
 }
 
 export async function toLessonView(lesson: Lesson, khutuwat: Khutuwat, locale: Locale, sources: Source[]): Promise<LessonView> {
+  const station = [...khutuwat.road, ...khutuwat.practice].find((candidate) => candidate.id === lesson.station);
   const context: Context = { lesson, locale, sources, lessonSources: [], issues: [] };
   context.lessonSources = lessonSources(context);
 
@@ -467,8 +488,10 @@ export async function toLessonView(lesson: Lesson, khutuwat: Khutuwat, locale: L
     title: pick(lesson.title, locale),
     reviewed: lesson.reviewed,
     demo: lesson.status === "demo",
+    cover: lesson.cover ?? station?.cover ?? ["dawnSky", "path"],
     objectives: lesson.objectives[locale],
     sources: context.lessonSources,
+    media: mediaView(lesson.media, locale),
     video:
       video && videoSource
         ? {

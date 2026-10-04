@@ -6,6 +6,12 @@
     "ar": "الصلاة",
     "en": "Prayer"
   },
+  "cover": [
+    "dawnSky",
+    "sunArc",
+    "path",
+    "lantern"
+  ],
   "baseline": [],
   "exam": []
 }

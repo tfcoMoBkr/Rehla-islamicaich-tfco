@@ -1,0 +1,74 @@
+{
+  "surah": 62,
+  "read": 1,
+  "reciter": "إبراهيم الأخضر",
+  "rewaya": "حفص عن عاصم",
+  "audioUrl": "https://server6.mp3quran.net/akdr/062.mp3",
+  "ayahs": [
+    {
+      "ayah": 0,
+      "start": 0,
+      "end": 8526
+    },
+    {
+      "ayah": 1,
+      "start": 8526,
+      "end": 21629
+    },
+    {
+      "ayah": 2,
+      "start": 21629,
+      "end": 49292
+    },
+    {
+      "ayah": 3,
+      "start": 49292,
+      "end": 61525
+    },
+    {
+      "ayah": 4,
+      "start": 61525,
+      "end": 76498
+    },
+    {
+      "ayah": 5,
+      "start": 76498,
+      "end": 107167
+    },
+    {
+      "ayah": 6,
+      "start": 107167,
+      "end": 137040
+    },
+    {
+      "ayah": 7,
+      "start": 137040,
+      "end": 155717
+    },
+    {
+      "ayah": 8,
+      "start": 155717,
+      "end": 181936
+    },
+    {
+      "ayah": 9,
+      "start": 181936,
+      "end": 212224
+    },
+    {
+      "ayah": 10,
+      "start": 212224,
+      "end": 231152
+    },
+    {
+      "ayah": 11,
+      "start": 231152,
+      "end": 262113
+    }
+  ],
+  "source": {
+    "publisher": "mp3quran.net",
+    "apiUrl": "https://mp3quran.net/api/v3/ayat_timing?surah=62&read=1",
+    "fetchedOn": "2026-10-04"
+  }
+}

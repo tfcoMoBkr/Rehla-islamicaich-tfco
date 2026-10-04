@@ -15,13 +15,15 @@ type SelectActivityProps = {
   activity: Extract<ActivityView, { type: "select" }>;
   seed: string;
   onComplete: (mistakes: number) => void;
+  /** Called with how many steps are done, after each one. */
+  onProgress?: (done: number) => void;
 };
 
 /**
  * Find every right answer among the items. `fiveLanterns` lights one lantern per find;
  * `collect` gathers what was found. A wrong pick costs nothing; it just says why.
  */
-export function SelectActivity({ activity, seed, onComplete }: SelectActivityProps) {
+export function SelectActivity({ activity, seed, onComplete, onProgress }: SelectActivityProps) {
   const t = useTranslations("Activity");
   const items = useMemo(() => stableShuffle(activity.items, seed), [activity.items, seed]);
   const target = activity.items.filter((item) => item.correct).length;
@@ -38,6 +40,7 @@ export function SelectActivity({ activity, seed, onComplete }: SelectActivityPro
     const next = [...found, item.id];
     setFound(next);
     setLastWrong(null);
+    onProgress?.(next.length);
     if (next.length === target) onComplete(wrong.length);
   }
 

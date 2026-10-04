@@ -20,10 +20,12 @@ type SequenceBuilderProps = {
   /** After a wrong tap, quote the lesson sentence for the step that comes next. */
   hints?: boolean;
   onComplete: (mistakes: number) => void;
+  /** Called with how many steps are done, after each one. */
+  onProgress?: (done: number) => void;
 };
 
 /** Build a sequence one tap at a time: "which comes next?" */
-export function SequenceBuilder({ items, seed, variant = "list", hints = true, onComplete }: SequenceBuilderProps) {
+export function SequenceBuilder({ items, seed, variant = "list", hints = true, onComplete, onProgress }: SequenceBuilderProps) {
   const t = useTranslations("Activity");
   const pool = useMemo(() => stableShuffle(items, seed), [items, seed]);
   const [placed, setPlaced] = useState<string[]>([]);
@@ -43,6 +45,7 @@ export function SequenceBuilder({ items, seed, variant = "list", hints = true, o
     const next = [...placed, item.id];
     setPlaced(next);
     setMissed(null);
+    onProgress?.(next.length);
     if (next.length === items.length) onComplete(mistakes);
   }
 

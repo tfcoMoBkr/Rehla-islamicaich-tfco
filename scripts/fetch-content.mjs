@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Fetches the Quran verses, hadiths and recitation timings that lesson files reference into
+// Fetches the Quran verses (with the recitation timings of their surahs) and hadiths that lesson files reference into
 // content/fetched/, verbatim, with source URL, date and version. Nothing here is typed by hand:
 // the web app only ever shows what this script saved.
 //
@@ -20,7 +20,7 @@ const HADEETHENC = "https://hadeethenc.com/api/v1";
 const MP3QURAN = "https://mp3quran.net/api/v3";
 /** The English translation shown beside each verse (CLAUDE.md: approved quranenc.com translation). */
 const QURAN_TRANSLATION = { en: "english_saheeh" };
-/** mp3quran.net reading used for ayah-by-ayah audio (1 = Ibrahim Al-Akhdar, Hafs 'an 'Asim). */
+/** mp3quran.net reading used for every verse's audio (1 = Ibrahim Al-Akhdar, Hafs 'an 'Asim). */
 const RECITATION_READ = 1;
 
 const today = new Date().toISOString().slice(0, 10);
@@ -83,9 +83,6 @@ function collectReferences(lesson, found) {
   visit(lesson);
   for (const ayah of lesson.ayat ?? []) {
     expandRef(ayah.ref).forEach((ref) => found.ayahs.add(ref.join(":")));
-  }
-  if ((lesson.activities ?? []).some((activity) => activity.type === "ayahByAyah" && activity.audio === "mp3quran.net")) {
-    for (const ayah of lesson.ayat ?? []) found.recitations.add(expandRef(ayah.ref)[0][0]);
   }
 }
 
@@ -165,10 +162,11 @@ async function fetchHadiths(hadiths) {
 
 async function fetchRecitations(surahs) {
   let saved = 0;
-  for (const surah of surahs) {
+  let reads = null;
+  for (const surah of [...surahs].sort((a, b) => a - b)) {
     const file = path.join(fetchedDir, "recitation", `${surah}.json`);
     if (!refresh && (await exists(file))) continue;
-    const reads = await getJson(`${MP3QURAN}/ayat_timing/reads`);
+    reads ??= await getJson(`${MP3QURAN}/ayat_timing/reads`);
     const read = reads.find((candidate) => candidate.id === RECITATION_READ);
     if (!read) throw new Error(`mp3quran.net has no reading ${RECITATION_READ}`);
     const timingUrl = `${MP3QURAN}/ayat_timing?surah=${surah}&read=${RECITATION_READ}`;
@@ -191,6 +189,8 @@ const found = { ayahs: new Set(), hadiths: new Map(), recitations: new Set() };
 for (const file of await lessonFiles(lessonsDir)) {
   collectReferences(JSON.parse(await readFile(file, "utf8")), found);
 }
+// Every verse shown in a lesson can be heard in a real recitation, so fetch timings for each surah cited.
+for (const ref of found.ayahs) found.recitations.add(Number(ref.split(":")[0]));
 
 const [ayahs, hadiths, recitations] = [
   await fetchQuran(found.ayahs),

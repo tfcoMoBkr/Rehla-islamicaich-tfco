@@ -1,0 +1,109 @@
+{
+  "surah": 49,
+  "read": 1,
+  "reciter": "إبراهيم الأخضر",
+  "rewaya": "حفص عن عاصم",
+  "audioUrl": "https://server6.mp3quran.net/akdr/049.mp3",
+  "ayahs": [
+    {
+      "ayah": 0,
+      "start": 0,
+      "end": 9337
+    },
+    {
+      "ayah": 1,
+      "start": 9337,
+      "end": 32552
+    },
+    {
+      "ayah": 2,
+      "start": 32552,
+      "end": 62861
+    },
+    {
+      "ayah": 3,
+      "start": 62861,
+      "end": 90450
+    },
+    {
+      "ayah": 4,
+      "start": 90450,
+      "end": 105064
+    },
+    {
+      "ayah": 5,
+      "start": 105064,
+      "end": 120945
+    },
+    {
+      "ayah": 6,
+      "start": 120945,
+      "end": 154305
+    },
+    {
+      "ayah": 7,
+      "start": 154305,
+      "end": 195077
+    },
+    {
+      "ayah": 8,
+      "start": 195077,
+      "end": 206667
+    },
+    {
+      "ayah": 9,
+      "start": 206667,
+      "end": 252638
+    },
+    {
+      "ayah": 10,
+      "start": 252638,
+      "end": 269748
+    },
+    {
+      "ayah": 11,
+      "start": 269748,
+      "end": 329932
+    },
+    {
+      "ayah": 12,
+      "start": 329932,
+      "end": 376744
+    },
+    {
+      "ayah": 13,
+      "start": 376744,
+      "end": 419373
+    },
+    {
+      "ayah": 14,
+      "start": 419373,
+      "end": 459009
+    },
+    {
+      "ayah": 15,
+      "start": 459009,
+      "end": 490108
+    },
+    {
+      "ayah": 16,
+      "start": 490108,
+      "end": 508396
+    },
+    {
+      "ayah": 17,
+      "start": 508396,
+      "end": 535419
+    },
+    {
+      "ayah": 18,
+      "start": 535419,
+      "end": 550426
+    }
+  ],
+  "source": {
+    "publisher": "mp3quran.net",
+    "apiUrl": "https://mp3quran.net/api/v3/ayat_timing?surah=49&read=1",
+    "fetchedOn": "2026-10-04"
+  }
+}

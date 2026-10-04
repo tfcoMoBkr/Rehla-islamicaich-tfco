@@ -298,7 +298,52 @@
   }
 }
 
+@keyframes lantern-flare {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.18);
+  }
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(1rem) scale(0.98);
+  }
+}
+
+/* The dawn edge of a card draws in along its inline start. */
+@keyframes edge-light {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
+  .lantern-flare .lantern-halo {
+    animation: lantern-flare 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .animate-card-in {
+    animation: card-in 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .animate-card-in::before {
+    animation: edge-light 0.9s cubic-bezier(0.3, 0.6, 0.2, 1) 0.15s both;
+  }
+
+  .animate-cover-draw {
+    animation: road-draw 1.8s cubic-bezier(0.45, 0, 0.2, 1) 0.2s both;
+  }
+
+  .animate-cover-fade {
+    animation: rise-in 1.2s ease-out both;
+  }
+
   .animate-nudge {
     animation: nudge 0.3s ease-in-out 2;
   }

@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
   // Lesson and source data live in ../content and are read at request time.
   outputFileTracingRoot: repositoryRoot,
   outputFileTracingIncludes: {
-    "/*": ["../content/**/*.json"],
+    "/**": ["../content/**/*.json", "../content/media/**/*"],
   },
   turbopack: {
     root: repositoryRoot,

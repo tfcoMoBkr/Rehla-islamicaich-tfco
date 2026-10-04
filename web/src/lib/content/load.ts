@@ -1,6 +1,6 @@
 import "server-only";
 
-import { readdir, readFile } from "node:fs/promises";
+import { access, readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { cache } from "react";
 import type { z } from "zod";
@@ -10,19 +10,25 @@ import {
   fetchedHadithSchema,
   fetchedRecitationSchema,
   lessonSchema,
+  mediaManifestSchema,
+  referralCentresSchema,
   sourcesSchema,
   stationSchema,
   type FetchedAyah,
   type FetchedHadith,
   type FetchedRecitation,
   type Lesson,
+  type Media,
+  type MediaManifest,
   type Question,
+  type ReferralCentre,
   type Source,
   type Station,
 } from "./schema";
 import { showDrafts } from "./visibility";
 
 const CONTENT_DIR = path.resolve(process.cwd(), "..", "content");
+const MEDIA_DIR = path.join(CONTENT_DIR, "media");
 
 async function readValidated<T>(file: string, schema: z.ZodType<T>): Promise<T> {
   const raw: unknown = JSON.parse(await readFile(file, "utf8"));
@@ -78,6 +84,36 @@ function assertConsistent(stations: Station[], lessons: Lesson[]): void {
   }
 }
 
+export const loadMediaManifest = cache(
+  (): Promise<MediaManifest> => readValidated(path.join(MEDIA_DIR, "manifest.json"), mediaManifestSchema),
+);
+
+/** Every media item of a lesson: on the lesson, its cards and its steps. */
+export function lessonMedia(lesson: Lesson): Media[] {
+  return [
+    ...(lesson.media ?? []),
+    ...lesson.cards.flatMap((card) => card.media ?? []),
+    ...(lesson.steps ?? []).flatMap((step) => step.media ?? []),
+  ];
+}
+
+/** An image must be listed in content/media/manifest.json and present beside it. */
+async function assertMediaPresent(lessons: Lesson[], manifest: MediaManifest): Promise<void> {
+  for (const lesson of lessons) {
+    for (const media of lessonMedia(lesson)) {
+      if (media.type !== "image") continue;
+      if (!manifest.images.some((image) => image.src === media.src)) {
+        throw new Error(`Lesson "${lesson.id}" uses image "${media.src}", which is not in content/media/manifest.json`);
+      }
+      try {
+        await access(path.join(MEDIA_DIR, media.src));
+      } catch {
+        throw new Error(`Lesson "${lesson.id}" uses image "${media.src}", which is not in content/media/`);
+      }
+    }
+  }
+}
+
 function isVisible(lesson: Lesson, drafts: boolean): boolean {
   return drafts || lesson.reviewed || lesson.status === "demo";
 }
@@ -92,6 +128,7 @@ export const loadKhutuwat = cache(async (): Promise<Khutuwat> => {
     Promise.all((await jsonFiles(path.join(CONTENT_DIR, "lessons"))).map((file) => readValidated(file, lessonSchema))),
   ]);
   assertConsistent(stations, lessons);
+  await assertMediaPresent(lessons, await loadMediaManifest());
 
   const drafts = showDrafts();
   const visible = lessons
@@ -141,3 +178,28 @@ export const readFetchedRecitation = cache(
   (surah: number): Promise<FetchedRecitation | null> =>
     readOptional(path.join(CONTENT_DIR, "fetched", "recitation", `${surah}.json`), fetchedRecitationSchema),
 );
+
+export const loadReferralCentres = cache(async (): Promise<ReferralCentre[]> => {
+  const { centers } = await readValidated(path.join(CONTENT_DIR, "referral-centers.json"), referralCentresSchema);
+  return centers;
+});
+
+const IMAGE_TYPES: Record<string, string> = {
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".png": "image/png",
+  ".webp": "image/webp",
+  ".avif": "image/avif",
+};
+
+/** An image from content/media/, only if the manifest lists it. */
+export async function readMediaFile(name: string): Promise<{ body: Buffer; type: string } | null> {
+  const type = IMAGE_TYPES[path.extname(name).toLowerCase()];
+  const manifest = await loadMediaManifest();
+  if (!type || !manifest.images.some((image) => image.src === name)) return null;
+  try {
+    return { body: await readFile(path.join(MEDIA_DIR, path.basename(name))), type };
+  } catch {
+    return null;
+  }
+}

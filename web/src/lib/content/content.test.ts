@@ -3,7 +3,7 @@ import path from "node:path";
 
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { renderSourcesDoc } from "../../../scripts/generate-sources-doc.mjs";
+import { collectMedia, renderSourcesDoc } from "../../../scripts/generate-sources-doc.mjs";
 
 import { toLessonView } from "./lesson-view";
 import { loadKhutuwat, loadSources } from "./load";
@@ -76,9 +76,10 @@ describe("content/", () => {
     );
   });
 
-  it("keeps docs/SOURCES.md in step with content/sources.json", async () => {
-    const sources = await loadSources();
+  it("keeps docs/SOURCES.md in step with content/sources.json and the media in lessons", async () => {
+    vi.stubEnv("CONTENT_SHOW_DRAFTS", "true");
+    const [sources, { lessons }] = await Promise.all([loadSources(), loadKhutuwat()]);
     const doc = await readFile(path.resolve(process.cwd(), "..", "docs", "SOURCES.md"), "utf8");
-    expect(doc).toBe(renderSourcesDoc(sources));
+    expect(doc).toBe(renderSourcesDoc(sources, collectMedia([...lessons.values()])));
   });
 });

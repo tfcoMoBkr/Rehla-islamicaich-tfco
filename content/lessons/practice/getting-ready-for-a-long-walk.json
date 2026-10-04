@@ -730,5 +730,12 @@
         }
       ]
     }
+  ],
+  "cover": [
+    "dawnSky",
+    "sunArc",
+    "water",
+    "path",
+    "lantern"
   ]
 }

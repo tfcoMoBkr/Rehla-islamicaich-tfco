@@ -57,9 +57,12 @@
       },
       "evidence": {
         "type": "hadith",
-        "hadeethencId": null,
-        "citation": "صحيح البخاري 619؛ صحيح مسلم 650",
-        "availableIn": [],
+        "hadeethencId": 3441,
+        "citation": "متفق عليه",
+        "availableIn": [
+          "ar",
+          "en"
+        ],
         "publisher": "hadeethenc.com"
       },
       "check": {
@@ -103,9 +106,12 @@
       },
       "evidence": {
         "type": "hadith",
-        "hadeethencId": null,
-        "citation": "صحيح البخاري 710؛ صحيح مسلم 414",
-        "availableIn": [],
+        "hadeethencId": 6029,
+        "citation": "متفق عليه",
+        "availableIn": [
+          "ar",
+          "en"
+        ],
         "publisher": "hadeethenc.com"
       },
       "check": {

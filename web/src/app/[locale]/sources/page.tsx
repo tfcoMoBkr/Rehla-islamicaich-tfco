@@ -5,7 +5,8 @@ import { getFormatter, getTranslations, setRequestLocale } from "next-intl/serve
 import { Card } from "@/components/ui/card";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { resolveLocale } from "@/i18n/locale";
-import { loadSources } from "@/lib/content/load";
+import { lessonMedia, loadKhutuwat, loadSources } from "@/lib/content/load";
+import type { Media } from "@/lib/content/schema";
 import type { SourceType } from "@/lib/content/schema";
 import { cn } from "@/lib/utils";
 
@@ -21,8 +22,24 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/sources"
 export default async function SourcesPage({ params }: PageProps<"/[locale]/sources">) {
   const locale = resolveLocale((await params).locale);
   setRequestLocale(locale);
-  const [tr, format, sources] = await Promise.all([getTranslations("Sources"), getFormatter(), loadSources()]);
+  const [tr, format, sources, khutuwat] = await Promise.all([
+    getTranslations("Sources"),
+    getFormatter(),
+    loadSources(),
+    loadKhutuwat(),
+  ]);
   const t = (text: { ar: string; en: string }) => text[locale];
+
+  // Every image and video in the lessons a learner can open, each listed once with where it is used.
+  const media = new Map<string, { item: Media; lessons: string[] }>();
+  for (const lesson of khutuwat.lessons.values()) {
+    for (const item of lessonMedia(lesson)) {
+      const key = item.type === "image" ? item.src : item.youtubeId;
+      const entry = media.get(key) ?? { item, lessons: [] };
+      if (!entry.lessons.includes(t(lesson.title))) entry.lessons.push(t(lesson.title));
+      media.set(key, entry);
+    }
+  }
 
   return (
     <div className="mx-auto max-w-4xl px-4 pt-20 pb-32 sm:px-6 md:pt-24">
@@ -81,6 +98,31 @@ export default async function SourcesPage({ params }: PageProps<"/[locale]/sourc
             </section>
           );
         })}
+        <section aria-labelledby="sources-media" className="grid gap-4">
+          <h2 id="sources-media" className="font-display text-2xl font-semibold">
+            {tr("mediaTitle")}
+          </h2>
+          {media.size === 0 ? (
+            <p className="text-muted-foreground">{tr("mediaEmpty")}</p>
+          ) : (
+            <ul className="grid gap-3">
+              {[...media.values()].map(({ item, lessons }) => (
+                <li key={item.type === "image" ? item.src : item.youtubeId}>
+                  <Card className="gap-2 px-6 sm:px-8">
+                    <p className="font-medium">{t(item.alt)}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {tr(item.type === "image" ? "mediaImage" : "mediaVideo")} · {item.credit} · {item.licence} ·{" "}
+                      <a href={item.sourceUrl} target="_blank" rel="noreferrer" className="underline underline-offset-4">
+                        {tr("mediaSource")}
+                      </a>
+                    </p>
+                    <p className="text-sm text-muted-foreground">{tr("mediaUsedIn", { lessons: new Intl.ListFormat(locale).format(lessons) })}</p>
+                  </Card>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
       </div>
     </div>
   );

@@ -11,10 +11,12 @@ import type { ActivityView } from "@/lib/learn/types";
 type DecisionPathProps = {
   activity: Extract<ActivityView, { type: "decisionPath" }>;
   onComplete: () => void;
+  /** Called with how many steps are done, after each one. */
+  onProgress?: (done: number) => void;
 };
 
 /** Yes/no questions, one at a time. An answer with its own advice stops the path there. */
-export function DecisionPath({ activity, onComplete }: DecisionPathProps) {
+export function DecisionPath({ activity, onComplete, onProgress }: DecisionPathProps) {
   const t = useTranslations("Activity");
   const [index, setIndex] = useState(0);
   const [stop, setStop] = useState<string | null>(null);
@@ -28,6 +30,7 @@ export function DecisionPath({ activity, onComplete }: DecisionPathProps) {
       setStop(advice);
       return;
     }
+    onProgress?.(index + 1);
     if (index + 1 >= activity.steps.length) onComplete();
     setIndex(index + 1);
   }

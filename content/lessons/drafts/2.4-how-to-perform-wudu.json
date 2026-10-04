@@ -49,9 +49,12 @@
       },
       "evidence": {
         "type": "hadith",
-        "hadeethencId": null,
-        "citation": "صحيح مسلم 244",
-        "availableIn": [],
+        "hadeethencId": 3284,
+        "citation": "رواه مسلم",
+        "availableIn": [
+          "ar",
+          "en"
+        ],
         "publisher": "hadeethenc.com"
       },
       "check": {
@@ -89,9 +92,12 @@
       },
       "evidence": {
         "type": "hadith",
-        "hadeethencId": null,
-        "citation": "صحيح البخاري 1، صحيح مسلم 1907",
-        "availableIn": [],
+        "hadeethencId": 4560,
+        "citation": "متفق عليه",
+        "availableIn": [
+          "ar",
+          "en"
+        ],
         "publisher": "hadeethenc.com"
       },
       "check": {
