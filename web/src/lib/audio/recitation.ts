@@ -33,7 +33,6 @@ function fail() {
 function player(): HTMLAudioElement {
   if (audio) return audio;
   const element = new Audio();
-  element.preload = "none";
   element.addEventListener("timeupdate", () => {
     if (span && !seeking && element.currentTime * 1000 >= span.end) stopRecitation();
   });

@@ -7,6 +7,7 @@
 //   node scripts/fetch-content.mjs --refresh    fetch everything again
 //   node scripts/fetch-content.mjs --corpus     build Rafiq's source corpus in content/corpus/ (scripts/sources/)
 //   node scripts/fetch-content.mjs --mcp-probe  list the MCP server's tools and time sample calls (docs/MCP_TOOLS.md)
+//   node scripts/fetch-content.mjs --surahs     surah names in Rafiq's answer languages (content/fetched/surahs.json)
 //
 // Keys are read from the environment or from a .env file at the repository root (see .env.example).
 
@@ -29,6 +30,8 @@ const HADEETHENC = "https://hadeethenc.com/api/v1";
 const MP3QURAN = "https://mp3quran.net/api/v3";
 /** The English translation shown beside each verse (CLAUDE.md: approved quranenc.com translation). */
 const QURAN_TRANSLATION = { en: "english_saheeh" };
+/** Rafiq's answer languages (ai/app/languages.py) and mp3quran.net's code for each. */
+const SURAH_NAME_LANGUAGES = { ar: "ar", en: "eng", ur: "ur", bn: "bn", fr: "fr" };
 /** mp3quran.net reading used for every verse's audio (1 = Ibrahim Al-Akhdar, Hafs 'an 'Asim). */
 const RECITATION_READ = 1;
 
@@ -230,6 +233,22 @@ async function verifyRecitations() {
   return files.length;
 }
 
+/** Surah names as mp3quran.net publishes them: the label of every verse Rafiq shows. */
+async function fetchSurahNames() {
+  const file = path.join(fetchedDir, "surahs.json");
+  if (!refresh && (await exists(file))) return 0;
+  const names = {};
+  for (const [language, code] of Object.entries(SURAH_NAME_LANGUAGES)) {
+    const { suwar } = await getJson(`${MP3QURAN}/suwar?language=${code}`);
+    for (const surah of suwar) {
+      // Some names arrive padded with spaces, a byte-order mark or a line break.
+      (names[surah.id] ??= {})[language] = surah.name.trim();
+    }
+  }
+  await save(file, { publisher: "mp3quran.net", apiUrl: `${MP3QURAN}/suwar`, fetchedOn: today, names });
+  return 1;
+}
+
 async function fetchLessonContent() {
   const found = { ayahs: new Set(), hadiths: new Map(), recitations: new Set() };
   for (const file of await lessonFiles(lessonsDir)) {
@@ -244,6 +263,7 @@ async function fetchLessonContent() {
     await fetchRecitations(found.recitations),
   ];
   const verified = await verifyRecitations();
+  await fetchSurahNames();
   console.log(
     `Referenced: ${found.ayahs.size} ayahs, ${found.hadiths.size} hadiths, ${found.recitations.size} recitations.`,
     `Fetched now: ${ayahs} ayahs, ${hadiths} hadiths, ${recitations} recitations.`,
@@ -255,6 +275,8 @@ async function fetchLessonContent() {
 if (process.argv.includes("--corpus")) {
   const { buildCorpus } = await import("./sources/corpus.mjs");
   await buildCorpus({ refresh });
+} else if (process.argv.includes("--surahs")) {
+  console.log(`Surah names fetched: ${await fetchSurahNames()} file.`);
 } else if (process.argv.includes("--mcp-probe")) {
   const { probeMcp } = await import("./sources/mcp-probe.mjs");
   await probeMcp();

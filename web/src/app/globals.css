@@ -120,6 +120,10 @@
   --font-display: var(--font-reem-kufi), var(--font-plex-arabic), ui-sans-serif, sans-serif;
   --font-heading: var(--font-reem-kufi), var(--font-plex-arabic), ui-sans-serif, sans-serif;
   --font-quran: var(--font-amiri-quran), serif;
+  /* Rafiq's answers in other scripts; the Urdu and Bengali faces load only with such an answer. */
+  --font-arabic: var(--font-plex-arabic), ui-sans-serif, sans-serif;
+  --font-urdu: var(--font-noto-nastaliq), var(--font-plex-arabic), serif;
+  --font-bengali: var(--font-noto-bengali), ui-sans-serif, sans-serif;
 
   --color-sand: var(--sand);
   --color-paper: var(--paper);

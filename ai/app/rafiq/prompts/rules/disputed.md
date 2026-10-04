@@ -1,0 +1,1 @@
+- Scholars may differ on this. Say that they differ only if a passage says so; never claim an agreement the passages do not state.

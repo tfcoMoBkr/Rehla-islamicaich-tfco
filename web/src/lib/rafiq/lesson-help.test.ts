@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import type { RafiqAnswer } from "./answer";
 import { LESSON_HELP_PATH, requestLessonHelp, type LessonHelpRequest } from "./lesson-help";
 
 const request: LessonHelpRequest = {
@@ -10,6 +11,25 @@ const request: LessonHelpRequest = {
   locale: "en",
 };
 
+const source = {
+  n: 1,
+  sourceId: "byenah-new-muslim-guideline",
+  title: "New Muslim Guideline",
+  reference: "Pillars",
+  url: "https://byenah.com/en",
+  publisher: "byenah.com",
+};
+
+const answered: RafiqAnswer = {
+  language: "en",
+  level: "B",
+  referred: false,
+  blocks: [{ type: "text", text: "A simpler line [1]." }],
+  sources: [source],
+  referral: null,
+  languageFallback: false,
+};
+
 const respond = (status: number, body: unknown): typeof fetch => async () =>
   new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json" } });
 
@@ -18,33 +38,35 @@ describe("requestLessonHelp", () => {
     let sent: { url: string; body: unknown } | null = null;
     const fetcher: typeof fetch = async (url, init) => {
       sent = { url: String(url), body: JSON.parse(String(init?.body)) };
-      return new Response(JSON.stringify({ answer: "", sources: [] }));
+      return new Response(JSON.stringify(answered));
     };
     await requestLessonHelp(request, { fetcher });
     expect(sent).toEqual({ url: LESSON_HELP_PATH, body: request });
   });
 
-  it("returns an answer only with its sources", async () => {
-    const source = { title: "The New Muslim Guide", url: "https://newmuslimguide.com/en" };
-    const result = await requestLessonHelp(request, { fetcher: respond(200, { answer: "A simpler line.", sources: [source] }) });
-    expect(result).toEqual({ kind: "answer", answer: "A simpler line.", sources: [source] });
+  it("returns an answer with its sources", async () => {
+    const result = await requestLessonHelp(request, { fetcher: respond(200, answered) });
+    expect(result).toEqual({ kind: "answer", answer: answered });
   });
 
   it("turns an answer without sources into a referral", async () => {
-    const result = await requestLessonHelp(request, { fetcher: respond(200, { answer: "Unsourced.", sources: [] }) });
-    expect(result).toEqual({ kind: "referral" });
+    const result = await requestLessonHelp(request, { fetcher: respond(200, { ...answered, sources: [] }) });
+    expect(result.kind === "answer" && result.answer.referral?.reason).toBe("noSource");
+    expect(result.kind === "answer" && result.answer.blocks).toEqual([]);
   });
 
-  it("reports an error for a failed request or an unexpected reply", async () => {
+  it("tells a busy or absent service from a failed request", async () => {
+    expect(await requestLessonHelp(request, { fetcher: respond(429, { error: { code: "rate_limited" } }) })).toEqual({ kind: "rateLimited" });
+    expect(await requestLessonHelp(request, { fetcher: respond(503, { error: { code: "unavailable" } }) })).toEqual({ kind: "unavailable" });
     expect(await requestLessonHelp(request, { fetcher: respond(404, {}) })).toEqual({ kind: "error" });
     expect(await requestLessonHelp(request, { fetcher: respond(200, { text: "?" }) })).toEqual({ kind: "error" });
     const offline: typeof fetch = async () => {
       throw new TypeError("Failed to fetch");
     };
-    expect(await requestLessonHelp(request, { fetcher: offline })).toEqual({ kind: "error" });
+    expect(await requestLessonHelp(request, { fetcher: offline })).toEqual({ kind: "unavailable" });
   });
 
-  it("needs the learner's question in question mode", async () => {
-    await expect(requestLessonHelp({ ...request, mode: "question", question: "  " })).rejects.toThrow();
+  it("needs the learner's question in question mode", () => {
+    expect(() => requestLessonHelp({ ...request, mode: "question", question: "  " })).toThrow();
   });
 });

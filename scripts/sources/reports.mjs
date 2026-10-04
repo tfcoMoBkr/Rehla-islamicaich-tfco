@@ -208,5 +208,19 @@ export async function writeReports() {
 
   const rows = (await lessons()).map((lesson) => ({ lesson, result: coverage(lesson, books, catalogue) }));
   await writeFile(path.join(root, "docs", "COVERAGE.md"), coverageDoc(rows, books));
+  // The same matches as data, for the AI service's index (the lessonIds of each chunk).
+  await writeJson(path.join(corpusDir, "coverage.json"), {
+    madeOn: today,
+    topics: "scripts/sources/coverage-topics.json",
+    lessons: Object.fromEntries(
+      rows.map(({ lesson, result }) => [
+        lesson.id,
+        {
+          sections: result.sections.map(({ book, section }) => ({ book: book.id, anchor: section.anchor })),
+          categories: result.categories.map((category) => category.id),
+        },
+      ]),
+    ),
+  });
   return manifest;
 }

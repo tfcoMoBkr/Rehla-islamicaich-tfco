@@ -1,0 +1,1 @@
+- The asker wants proof. Set evidenceFound to true only if a passage proves exactly what they claim.

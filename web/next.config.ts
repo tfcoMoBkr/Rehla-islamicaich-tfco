@@ -16,6 +16,11 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: repositoryRoot,
   },
+  experimental: {
+    // Rafiq checks every answer against its sources before replying, which can take longer than
+    // the default 30 s on free model tiers.
+    proxyTimeout: 90_000,
+  },
   async rewrites() {
     return [
       {

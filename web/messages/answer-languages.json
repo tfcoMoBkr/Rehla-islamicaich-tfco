@@ -1,0 +1,105 @@
+{
+  "_review": "needs native review: written for the first Urdu, Bengali and French answers, not yet read by a native speaker",
+  "ur": {
+    "disclosure": "رفیق مصنوعی ذہانت کا ایک آلہ ہے، عالم نہیں۔ اس کی باتوں کو اس کے ماخذ سے ملا کر دیکھیں۔",
+    "smalltalk": "رفیق راستے میں آپ کے ساتھ ہے۔ اس سے کسی سبق، کسی لفظ یا کسی عبادت کے طریقے کے بارے میں پوچھیں۔",
+    "referral": {
+      "fatwa": {
+        "title": "اس کے لیے عالم کی ضرورت ہے",
+        "body": "آپ ایک شرعی حکم (فتویٰ) پوچھ رہے ہیں۔ رفیق فتویٰ نہیں دیتا؛ اس کا جواب کوئی مستند عالم دے جو تفصیلات جانتا ہو۔"
+      },
+      "personalCase": {
+        "title": "آپ کی صورتِ حال کسی انسان کی توجہ چاہتی ہے",
+        "body": "یہ آپ کی اپنی صورتِ حال کے بارے میں ہے۔ رفیق صرف عمومی معلومات دے سکتا ہے؛ کوئی مستند شخص آپ کی بات سن کر رہنمائی کر سکتا ہے۔"
+      },
+      "disputed": {
+        "title": "اس مسئلے میں عالم کی وضاحت درکار ہے",
+        "body": "یہاں موجود معتمد ماخذ اس سوال کا فیصلہ نہیں کرتے، اور رفیق اپنی طرف سے فیصلہ نہیں کرے گا۔ کوئی مستند عالم آپ کو اس کی وضاحت کر سکتا ہے۔"
+      },
+      "noSource": {
+        "title": "کوئی معتبر ماخذ نہیں ملا",
+        "body": "رفیق کو اس کے لیے کوئی معتبر ماخذ نہیں ملا، اس لیے وہ اندازہ نہیں لگائے گا۔ کوئی انسان آپ کی مدد کر سکتا ہے۔"
+      },
+      "noEvidence": {
+        "title": "کوئی مطابق دلیل نہیں ملی",
+        "body": "معتمد ماخذ میں اس سے مطابقت رکھنے والی کوئی دلیل نہیں ملی، اور رفیق کوئی دلیل اپنی طرف سے نہیں گھڑے گا۔"
+      },
+      "verification": {
+        "title": "رفیق اپنے جواب کی تصدیق نہیں کر سکا",
+        "body": "رفیق اپنے جواب کو اس کے ماخذ سے نہیں ملا سکا، اس لیے وہ اسے نہیں دکھائے گا۔ دوسرے الفاظ میں پوچھیں، یا کسی انسان سے پوچھیں۔"
+      },
+      "offTopic": {
+        "title": "رفیق کے راستے سے باہر",
+        "body": "رفیق اسلام اور آپ کے اسباق کے بارے میں سوالوں کے جواب دیتا ہے۔ یہ سوال اس دائرے سے باہر ہے۔"
+      }
+    }
+  },
+  "bn": {
+    "disclosure": "রফিক একটি কৃত্রিম বুদ্ধিমত্তার সরঞ্জাম, কোনো আলেম নয়। তার কথা তার উৎসের সাথে মিলিয়ে দেখুন।",
+    "smalltalk": "রফিক পথে আপনার সঙ্গে আছে। তাকে কোনো পাঠ, কোনো শব্দ বা কোনো ইবাদতের পদ্ধতি সম্পর্কে জিজ্ঞাসা করুন।",
+    "referral": {
+      "fatwa": {
+        "title": "এর জন্য একজন আলেম প্রয়োজন",
+        "body": "আপনি একটি শরয়ি বিধান (ফতোয়া) জানতে চাইছেন। রফিক ফতোয়া দেয় না; বিস্তারিত জানেন এমন একজন যোগ্য আলেম আপনাকে উত্তর দেবেন।"
+      },
+      "personalCase": {
+        "title": "আপনার পরিস্থিতির জন্য একজন মানুষ প্রয়োজন",
+        "body": "এটি আপনার নিজের পরিস্থিতি সম্পর্কে। রফিক কেবল সাধারণ তথ্য দিতে পারে; একজন যোগ্য ব্যক্তি আপনার কথা শুনে পরামর্শ দিতে পারেন।"
+      },
+      "disputed": {
+        "title": "এ বিষয়ে একজন আলেমের ব্যাখ্যা প্রয়োজন",
+        "body": "এখানকার অনুমোদিত উৎসগুলো এই প্রশ্নের মীমাংসা করে না, আর রফিক নিজে থেকে এর মীমাংসা করবে না। একজন যোগ্য আলেম আপনাকে তা ব্যাখ্যা করতে পারেন।"
+      },
+      "noSource": {
+        "title": "কোনো নির্ভরযোগ্য উৎস পাওয়া যায়নি",
+        "body": "রফিক এর জন্য কোনো নির্ভরযোগ্য উৎস খুঁজে পায়নি, তাই সে অনুমান করবে না। একজন মানুষ আপনাকে সাহায্য করতে পারেন।"
+      },
+      "noEvidence": {
+        "title": "মিলে যায় এমন কোনো দলিল নেই",
+        "body": "অনুমোদিত উৎসগুলোতে এর সাথে মিলে যায় এমন কোনো দলিল পাওয়া যায়নি, আর রফিক কোনো দলিল বানিয়ে বলবে না।"
+      },
+      "verification": {
+        "title": "রফিক তার উত্তর যাচাই করতে পারেনি",
+        "body": "রফিক তার উত্তরকে উৎসের সাথে মেলাতে পারেনি, তাই সে তা দেখাবে না। অন্যভাবে প্রশ্ন করুন, অথবা একজন মানুষকে জিজ্ঞাসা করুন।"
+      },
+      "offTopic": {
+        "title": "রফিকের পথের বাইরে",
+        "body": "রফিক ইসলাম ও আপনার পাঠ সম্পর্কিত প্রশ্নের উত্তর দেয়। এই প্রশ্নটি তার বাইরে।"
+      }
+    }
+  },
+  "fr": {
+    "disclosure": "Rafiq est un outil d'intelligence artificielle, pas un savant. Vérifiez ses propos dans ses sources.",
+    "smalltalk": "Rafiq est avec vous sur le chemin. Interrogez-le sur une leçon, un mot rencontré ou la manière d'accomplir un acte d'adoration.",
+    "referral": {
+      "fatwa": {
+        "title": "Cela demande un savant",
+        "body": "Vous demandez un avis juridique religieux (une fatwa). Rafiq n'en donne pas ; un savant qualifié qui connaît les détails doit vous répondre."
+      },
+      "personalCase": {
+        "title": "Votre situation mérite une personne",
+        "body": "Cela concerne votre propre situation. Rafiq ne peut donner que des informations générales ; une personne qualifiée peut vous écouter et vous conseiller."
+      },
+      "disputed": {
+        "title": "Cela demande l'explication d'un savant",
+        "body": "Les sources approuvées ici ne tranchent pas cette question, et Rafiq ne la tranchera pas de lui-même. Un savant qualifié peut vous l'expliquer."
+      },
+      "noSource": {
+        "title": "Aucune source fiable trouvée",
+        "body": "Rafiq n'a trouvé aucune source fiable pour cela ; il ne fera donc pas de supposition. Une personne peut vous aider."
+      },
+      "noEvidence": {
+        "title": "Aucune preuve correspondante",
+        "body": "Aucune preuve correspondant à cela n'a été trouvée dans les sources approuvées, et Rafiq n'en inventera pas."
+      },
+      "verification": {
+        "title": "Rafiq n'a pas pu vérifier sa réponse",
+        "body": "Rafiq n'a pas pu faire correspondre sa réponse à ses sources ; il ne l'affichera donc pas. Reformulez votre question ou demandez à une personne."
+      },
+      "offTopic": {
+        "title": "Hors du chemin de Rafiq",
+        "body": "Rafiq répond aux questions sur l'islam et sur vos leçons. Cette question en sort."
+      }
+    }
+  }
+}

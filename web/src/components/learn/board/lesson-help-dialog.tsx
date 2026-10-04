@@ -1,39 +1,37 @@
 "use client";
 
-import { ExternalLink, X } from "lucide-react";
+import { X } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useId, useRef, useState } from "react";
 
-import { RafiqFigure } from "@/components/rafiq/rafiq-figure";
+import { AnswerView } from "@/components/rafiq/answer-view";
+import { RafiqStage } from "@/components/rafiq/rafiq-stage";
 import { Button } from "@/components/ui/button";
 import { features } from "@/config/features";
 import { Link } from "@/i18n/navigation";
 import type { RafiqPose } from "@/lib/content/schema";
-import {
-  LESSON_HELP_MODES,
-  requestLessonHelp,
-  type LessonHelpMode,
-  type LessonHelpResult,
-} from "@/lib/rafiq/lesson-help";
+import type { RafiqResult } from "@/lib/rafiq/answer";
+import { LESSON_HELP_MODES, requestLessonHelp, type LessonHelpMode } from "@/lib/rafiq/lesson-help";
 import { cn } from "@/lib/utils";
 
 export type HelpTarget = { lessonId: string; cardId: string; line: string };
 
-type Status = { kind: "choosing" } | { kind: "asking" } | LessonHelpResult;
+type Status = { kind: "choosing" } | { kind: "asking" } | RafiqResult;
 
 /** Rafiq listens while the learner chooses and types, thinks while waiting, and points to the answer. */
 const POSE: Record<Status["kind"], RafiqPose> = {
   choosing: "listening",
   asking: "thinking",
   answer: "pointing",
-  referral: "pointing",
+  rateLimited: "encouraging",
+  unavailable: "encouraging",
   error: "encouraging",
 };
 
 /**
  * "I didn't understand" for one line of the board: explain it more simply, give an example, or
- * ask a question. Rafiq answers through POST /api/ai/lesson-help once the `rafiq` flag is on;
- * until then the panel says his help is coming and offers a person instead. No answer is made up.
+ * ask a question. Rafiq answers through POST /api/ai/lesson-help, from this lesson's sources first,
+ * while the `rafiq` flag is on; with it off the panel says his help is coming and offers a person.
  */
 export function LessonHelpDialog({ target, onClose }: { target: HelpTarget | null; onClose: () => void }) {
   const dialog = useRef<HTMLDialogElement>(null);
@@ -59,6 +57,7 @@ export function LessonHelpDialog({ target, onClose }: { target: HelpTarget | nul
 
 function HelpPanel({ target, onClose }: { target: HelpTarget; onClose: () => void }) {
   const t = useTranslations("LineHelp");
+  const tr = useTranslations("Rafiq");
   const locale = useLocale();
   const questionId = useId();
   const [mode, setMode] = useState<LessonHelpMode | null>(null);
@@ -99,7 +98,7 @@ function HelpPanel({ target, onClose }: { target: HelpTarget; onClose: () => voi
     <div className="grid gap-5 p-5 pb-7 sm:p-7">
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-end gap-3">
-          <RafiqFigure pose={POSE[status.kind]} height={96} className="shrink-0 rtl:-scale-x-100" />
+          <RafiqStage pose={POSE[status.kind]} thinking={status.kind === "asking"} height={96} />
           <h2 id="line-help-title" className="pb-2 font-display text-xl font-semibold">
             {t("title")}
           </h2>
@@ -131,7 +130,10 @@ function HelpPanel({ target, onClose }: { target: HelpTarget; onClose: () => voi
               name="line-help-mode"
               value={option}
               checked={mode === option}
-              onChange={() => setMode(option)}
+              onChange={() => {
+                setMode(option);
+                setStatus({ kind: "choosing" });
+              }}
               className="size-5 shrink-0 accent-primary focus-visible:outline-none"
             />
             {t(`modes.${option}`)}
@@ -169,37 +171,19 @@ function HelpPanel({ target, onClose }: { target: HelpTarget; onClose: () => voi
             </p>
           )}
           {status.kind === "answer" && (
-            <div role="status" className="grid gap-4">
-              <p className="text-sm text-muted-foreground">{t("aiNotice")}</p>
-              <p className="text-lg leading-relaxed whitespace-pre-line">{status.answer}</p>
-              <div>
-                <h3 className="font-semibold">{t("sourcesTitle")}</h3>
-                <ol className="mt-2 grid list-inside list-decimal gap-1.5">
-                  {status.sources.map((source) => (
-                    <li key={`${source.url}${source.reference ?? ""}`}>
-                      <a href={source.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 underline underline-offset-4">
-                        {source.title}
-                        {source.reference && <span dir="ltr">({source.reference})</span>}
-                        <ExternalLink aria-hidden className="size-3.5" />
-                      </a>
-                    </li>
-                  ))}
-                </ol>
-              </div>
+            <div role="status">
+              <AnswerView answer={status.answer} id="line-help" />
             </div>
           )}
-          {status.kind === "referral" && (
+          {(status.kind === "error" || status.kind === "unavailable" || status.kind === "rateLimited") && (
             <div role="status" className="grid gap-3">
-              <p>{t("referral")}</p>
-              <HumanLink />
-            </div>
-          )}
-          {status.kind === "error" && (
-            <div role="status" className="grid gap-3">
-              <p>{t("error")}</p>
-              <Button variant="outline" className="justify-self-start" onClick={ask}>
-                {t("retry")}
-              </Button>
+              <p>{tr(`errors.${status.kind}`)}</p>
+              {status.kind !== "rateLimited" && (
+                <Button variant="outline" className="justify-self-start" onClick={ask}>
+                  {t("retry")}
+                </Button>
+              )}
+              {status.kind === "unavailable" && <HumanLink />}
             </div>
           )}
         </>

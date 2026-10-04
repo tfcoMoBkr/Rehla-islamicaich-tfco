@@ -1,0 +1,1 @@
+- The question is worded harshly. Stay calm and kind, do not repeat the wording, answer the real question.

@@ -510,10 +510,6 @@
     "comingTitle": "Rafiq's help is coming",
     "comingBody": "Soon Rafiq will be able to explain a line more simply, give an example or answer your question, right here. Until then, a person can help you.",
     "talkToHuman": "Talk to a human",
-    "aiNotice": "Rafiq is an AI tool, not a scholar.",
-    "sourcesTitle": "Sources",
-    "referral": "Rafiq could not find a reliable source for this, so he will not guess. A person can help you.",
-    "error": "Rafiq could not be reached. Please try again in a moment.",
     "retry": "Try again",
     "close": "Close"
   },
@@ -530,5 +526,82 @@
       "pointing": "Rafiq pointing to the board",
       "listening": "Rafiq listening"
     }
+  },
+  "Rafiq": {
+    "title": "Ask Rafiq",
+    "description": "Ask about what you are learning. Rafiq answers from approved sources and shows you where each answer comes from.",
+    "emptyTitle": "Rafiq is ready to walk with you",
+    "emptyBody": "Ask a question about Islam or about one of your lessons. If Rafiq finds no reliable source, he will say so and point you to a person.",
+    "startersTitle": "You could start with",
+    "starters": {
+      "tawhid": "What does tawhid mean?",
+      "wudu": "How do I perform wudu?",
+      "wuduBreakers": "What breaks wudu?",
+      "prayers": "How many prayers are there in a day?"
+    },
+    "questionLabel": "Your question",
+    "askAnother": "Ask another question",
+    "placeholder": "Write your question here",
+    "enterHint": "Press Enter to ask, Shift+Enter for a new line.",
+    "count": "{count} of {max} characters",
+    "ask": "Ask",
+    "startAgain": "Start again",
+    "yourQuestion": "Your question",
+    "rafiqAnswer": "Rafiq's answer",
+    "thinking": "Rafiq is looking in the sources…",
+    "answered": "Rafiq has answered.",
+    "disclosure": "Rafiq is an AI tool, not a scholar. Check what he says against his sources.",
+    "sourcesTitle": "Sources",
+    "sourceMarker": "Source {n}",
+    "openSource": "Open on {publisher}",
+    "aboutSource": "About this source",
+    "laterTitle": "This comes later on your road",
+    "laterBody": "It is covered in the lesson “<lesson></lesson>”.",
+    "smalltalk": "Rafiq is with you on the road. Ask him about a lesson, a word you came across, or how to do an act of worship.",
+    "talkToHuman": "Talk to a human",
+    "retry": "Try again",
+    "errors": {
+      "rateLimited": "You have asked several questions in a short time. Wait a minute, then ask again.",
+      "unavailable": "Rafiq cannot be reached right now. Try again in a little while, or talk to a person.",
+      "error": "Something went wrong while asking Rafiq. Please try again."
+    },
+    "referral": {
+      "fatwa": {
+        "title": "This needs a scholar",
+        "body": "You are asking for a religious ruling (a fatwa). Rafiq does not give rulings; a qualified scholar who knows the details should answer you."
+      },
+      "personalCase": {
+        "title": "Your situation deserves a person",
+        "body": "This is about your own situation. Rafiq can share general information only; a qualified person can listen to you and advise you."
+      },
+      "disputed": {
+        "title": "This needs a scholar's explanation",
+        "body": "The approved sources here do not settle this question, and Rafiq will not settle it on his own. A qualified scholar can explain it to you."
+      },
+      "noSource": {
+        "title": "No reliable source found",
+        "body": "Rafiq did not find a reliable source for this, so he will not guess. A person can help you."
+      },
+      "noEvidence": {
+        "title": "No matching evidence",
+        "body": "No evidence matching this was found in the approved sources, and Rafiq will not make one up."
+      },
+      "verification": {
+        "title": "Rafiq could not check his answer",
+        "body": "Rafiq could not match his answer to its sources, so he will not show it. Try other words, or ask a person."
+      },
+      "offTopic": {
+        "title": "Outside Rafiq's road",
+        "body": "Rafiq answers questions about Islam and about your lessons. This question is outside that."
+      }
+    },
+    "showAll": "Show all",
+    "showLess": "Show less",
+    "surahAyah": "<surah></surah>, verse {ayah}",
+    "translationBy": "Translation: {name}, version {version}",
+    "verseFallback": "No {language} translation of this verse is published; the {fallback} one is shown.",
+    "hadithFallback": "HadeethEnc has no {language} version of this hadith; the {fallback} one is shown.",
+    "explanationBy": "HadeethEnc's explanation",
+    "languageFallback": "Rafiq answers in Arabic, English, Urdu, Bengali and French. This question is in another language, so the answer is in English."
   }
 }

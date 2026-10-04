@@ -1,0 +1,1 @@
+- The asker quoted «{quoted}» as a verse, but the verse is different. Gently say the wording is different, ending that sentence with the verse passage's number, show the real verse with {{quran:{ref}}}, and explain only the real wording. Do not build on the quoted words.

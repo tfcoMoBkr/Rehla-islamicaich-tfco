@@ -11,12 +11,12 @@
       "url": "https://quranenc.com",
       "alsoAt": [],
       "usedFor": {
-        "ar": "آيات القرآن الكريم التي تستشهد بها بطاقات الدروس، وآيات نشاط «آية آية»: تُجلب بمراجعها كما هي ولا تُكتب يدويًا. تُعرض الآية بنصها العربي، ومعها في الواجهة الإنجليزية ترجمة مركز نور الدولي (english_saheeh).",
-        "en": "The Quran verses cited by lesson cards and the verses of the \"Ayah by ayah\" activity, fetched by reference and never typed. Each verse is shown in Arabic, with the Noor International Center translation (english_saheeh) in the English interface."
+        "ar": "آيات القرآن الكريم التي تستشهد بها بطاقات الدروس، وآيات نشاط «آية آية»: تُجلب بمراجعها كما هي ولا تُكتب يدويًا. تُعرض الآية بنصها العربي، ومعها في الواجهة الإنجليزية ترجمة مركز نور الدولي (english_saheeh). ويعرض رفيق كل آية بنصها العربي مع ترجمة منشورة واحدة بلغة الجواب، باسمها ورقم إصدارها: english_saheeh (ترجمة مركز نور الدولي الإنجليزية، 1.1.2)، وurdu_junagarhi (الترجمة الأردية لمحمد جوناكري، 1.1.3)، وfrench_montada (ترجمة مركز نور الدولي الفرنسية، 1.0.0)، اختيرت عبر list_quran_translations في 2026-10-04. ولا يدرج الموقع ترجمة بنغالية، فتُعرض الآية في الجواب البنغالي بالترجمة الإنجليزية مع التنبيه على ذلك.",
+        "en": "The Quran verses cited by lesson cards and the verses of the \"Ayah by ayah\" activity, fetched by reference and never typed. Each verse is shown in Arabic, with the Noor International Center translation (english_saheeh) in the English interface. Rafiq shows every verse in Arabic with one published translation in the answer's language, with its name and version: english_saheeh (English Translation - Noor International Center, 1.1.2), urdu_junagarhi (Urdu Translation - Muhammad Junagarhi, 1.1.3) and french_montada (French translation - Noor International Center, 1.0.0), chosen with list_quran_translations on 2026-10-04. QuranEnc lists no Bengali translation, so a verse in a Bengali answer shows the English one, labelled as such."
       },
       "licence": {
-        "ar": "يُحتفظ بنسبة الترجمة ورقم إصدارها، ولا يُعدَّل النص.",
-        "en": "Attribution and translation version are kept; the text is not modified."
+        "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره. يُحتفظ برقم إصدار الترجمة.",
+        "en": "The organisers' package states that the content of the Association's platforms is free for individuals and organisations; text is kept unmodified and attributed. The translation's version is kept."
       },
       "status": "approved",
       "verifiedOn": "2026-10-04"
@@ -32,8 +32,8 @@
       "url": "https://mp3quran.net",
       "alsoAt": [],
       "usedFor": {
-        "ar": "تلاوة الآيات في نشاط «آية آية»، مع توقيت كل آية من واجهة المصدر.",
-        "en": "Recitation audio in the \"Ayah by ayah\" activity, with each ayah's timing from the source's API."
+        "ar": "تلاوة الآيات في نشاط «آية آية»، مع توقيت كل آية من واجهة المصدر. وأسماء السور التي تُعنوَن بها الآيات في أجوبة رفيق، بالعربية والإنجليزية والأردية والبنغالية والفرنسية (content/fetched/surahs.json).",
+        "en": "Recitation audio in the \"Ayah by ayah\" activity, with each ayah's timing from the source's API. The surah names that label the verses Rafiq shows, in Arabic, English, Urdu, Bengali and French (content/fetched/surahs.json)."
       },
       "licence": {
         "ar": "يُشغَّل الصوت من خوادم المصدر مباشرة ولا يُعاد استضافته.",
@@ -53,12 +53,12 @@
       "url": "https://hadeethenc.com",
       "alsoAt": [],
       "usedFor": {
-        "ar": "الأحاديث التي تستشهد بها بطاقات الدروس، مع درجتها وتخريجها وشرحها: تُجلب برقمها كما هي. يُعرض الحديث بلغة المتعلم إن وُجدت له نسخة بها، وإلا اكتُفي بذكر مرجعه. وفي مدونة رفيق فهرس بعناوين الأحاديث وتصنيفاتها فقط، بلا نصوص.",
-        "en": "The hadiths cited by lesson cards, with their grade, attribution and explanation, fetched verbatim by ID. A hadith is shown in the learner's language when the source has a version in it; otherwise only its reference is given. Rafiq's corpus also keeps a catalogue of hadith and category titles only, without texts."
+        "ar": "الأحاديث التي تستشهد بها بطاقات الدروس، مع درجتها وتخريجها وشرحها: تُجلب برقمها كما هي. يُعرض الحديث بلغة المتعلم إن وُجدت له نسخة بها، وإلا اكتُفي بذكر مرجعه. وفي مدونة رفيق فهرس بعناوين الأحاديث وتصنيفاتها فقط، بلا نصوص. ويعرض رفيق الحديث بنصه العربي مع ترجمته المنشورة بلغة الجواب (العربية أو الإنجليزية أو الأردية أو البنغالية أو الفرنسية)، ومعه في الأجوبة الأردية والبنغالية والفرنسية شرحُ الموسوعة نفسها؛ وإن لم تكن للحديث نسخة بتلك اللغة عُرض بنسخته الإنجليزية مع التنبيه على ذلك.",
+        "en": "The hadiths cited by lesson cards, with their grade, attribution and explanation, fetched verbatim by ID. A hadith is shown in the learner's language when the source has a version in it; otherwise only its reference is given. Rafiq's corpus also keeps a catalogue of hadith and category titles only, without texts. Rafiq shows a hadith in Arabic with its published translation in the answer's language (Arabic, English, Urdu, Bengali or French) and, in Urdu, Bengali and French answers, HadeethEnc's own explanation; a hadith with no version in that language is shown with its English one, labelled as such."
       },
       "licence": {
-        "ar": "يُحتفظ بنسبة النص إلى المصدر ولا يُعدَّل. لا تنشر واجهة المصدر رقم إصدار، فيُسجَّل تاريخ الجلب.",
-        "en": "Attribution is kept and the text is not modified. The source's API publishes no version number, so the fetch date is recorded instead."
+        "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره. لا تنشر واجهته رقم إصدار، فيُسجَّل تاريخ الجلب.",
+        "en": "The organisers' package states that the content of the Association's platforms is free for individuals and organisations; text is kept unmodified and attributed. Its API publishes no version number, so the fetch date is recorded."
       },
       "status": "approved",
       "verifiedOn": "2026-10-04"
@@ -101,8 +101,8 @@
         "en": "Reference text for the team writing the Khutuwat lessons: the Arabic book, kept word for word as published, section by section."
       },
       "licence": {
-        "ar": "بحسب IslamHouse: يجوز إعادة استخدامه مجانًا مع ذكر المصدر ودون تعديل. الناشر: مؤسسة الشيخ عبد العزيز بن باز الخيرية.",
-        "en": "IslamHouse: free reuse with attribution, unmodified. Publisher: Sheikh Abdulaziz bin Baz Charitable Foundation."
+        "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره. الناشر: مؤسسة الشيخ عبد العزيز بن باز الخيرية.",
+        "en": "The organisers' package states that the content of the Association's platforms is free for individuals and organisations; text is kept unmodified and attributed. Publisher: Sheikh Abdulaziz bin Baz Charitable Foundation."
       },
       "status": "approved",
       "verifiedOn": "2026-10-04"
@@ -122,8 +122,8 @@
         "en": "Reference text for the team writing the Khutuwat lessons: the English translation as extracted from its PDF, lesson by lesson. Arabic quotations in the PDF do not extract in letter order and are not used."
       },
       "licence": {
-        "ar": "بحسب IslamHouse: يجوز إعادة استخدامه مجانًا مع ذكر المصدر ودون تعديل. ناشر الترجمة موقع risala.prh.gov.sa.",
-        "en": "IslamHouse: free reuse with attribution, unmodified. Publisher: Message of The Two Holy Mosques (risala.prh.gov.sa)."
+        "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره. ناشر الترجمة موقع risala.prh.gov.sa.",
+        "en": "The organisers' package states that the content of the Association's platforms is free for individuals and organisations; text is kept unmodified and attributed. Translation published by risala.prh.gov.sa."
       },
       "status": "approved",
       "verifiedOn": "2026-10-04"
@@ -145,8 +145,8 @@
         "en": "Reference text for the team writing the prayer lessons: the Arabic book kept word for word, section by section, and the English edition's text page by page."
       },
       "licence": {
-        "ar": "بحسب IslamHouse: يجوز إعادة استخدامه مجانًا مع ذكر المصدر ودون تعديل.",
-        "en": "IslamHouse: free reuse with attribution, unmodified."
+        "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره.",
+        "en": "The organisers' package states that the content of the Association's platforms is free for individuals and organisations; text is kept unmodified and attributed."
       },
       "status": "approved",
       "verifiedOn": "2026-10-04"
@@ -168,8 +168,8 @@
         "en": "Illustrations for the wudu lessons, taken from the guide without cropping or changes and credited to Osoul Center."
       },
       "licence": {
-        "ar": "بحسب IslamHouse: يجوز إعادة استخدامه مجانًا مع ذكر المصدر ودون تعديل.",
-        "en": "IslamHouse: free reuse with attribution, unmodified."
+        "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره. النسبة: مركز أصول عبر IslamHouse.com.",
+        "en": "The organisers' package states that the content of the Association's platforms is free for individuals and organisations; text is kept unmodified and attributed. Credit: Osoul Center via IslamHouse.com."
       },
       "status": "approved",
       "verifiedOn": "2026-10-04"
@@ -259,8 +259,8 @@
         "en": "Reference text for Rafiq's answers (English): the book as published, section by section, kept in Rafiq's corpus."
       },
       "licence": {
-        "ar": "منشور مجانًا على byenah.com؛ يُحفظ نصه كما هو مع رابطه. شروط الترخيص بانتظار التأكيد من الناشر.",
-        "en": "Published free on byenah.com; its text is kept verbatim with its link. Licence terms awaiting confirmation from the publisher."
+        "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره.",
+        "en": "The organisers' package states that the content of the Association's platforms is free for individuals and organisations; text is kept unmodified and attributed."
       },
       "status": "approved",
       "verifiedOn": "2026-10-04"
@@ -280,8 +280,8 @@
         "en": "Reference text for Rafiq's answers (Arabic): the book as published, section by section, kept in Rafiq's corpus. Its verses are set in a glyph font that does not extract as text, so verses are taken from their own source."
       },
       "licence": {
-        "ar": "بحسب IslamHouse: يجوز إعادة استخدامه مجانًا مع ذكر المصدر ودون تعديل.",
-        "en": "IslamHouse: free reuse with attribution, unmodified."
+        "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره.",
+        "en": "The organisers' package states that the content of the Association's platforms is free for individuals and organisations; text is kept unmodified and attributed."
       },
       "status": "approved",
       "verifiedOn": "2026-10-04"
@@ -303,8 +303,8 @@
         "en": "Listed for the record only: its Arabic and English PDFs are images with no text layer, so nothing is stored from them (OCR is not used)."
       },
       "licence": {
-        "ar": "بحسب IslamHouse: يجوز إعادة استخدامه مجانًا مع ذكر المصدر ودون تعديل.",
-        "en": "IslamHouse: free reuse with attribution, unmodified."
+        "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره.",
+        "en": "The organisers' package states that the content of the Association's platforms is free for individuals and organisations; text is kept unmodified and attributed."
       },
       "status": "approved",
       "verifiedOn": "2026-10-04"
@@ -324,8 +324,8 @@
         "en": "The definitions of eight terms in Arabic and English, kept as published in Rafiq's corpus, each with the link to its page."
       },
       "licence": {
-        "ar": "يُحتفظ بنسبة النص إلى الموسوعة ولا يُعدَّل.",
-        "en": "Attribution to the encyclopedia is kept and the text is not modified."
+        "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره.",
+        "en": "The organisers' package states that the content of the Association's platforms is free for individuals and organisations; text is kept unmodified and attributed."
       },
       "status": "approved",
       "verifiedOn": "2026-10-04"
@@ -362,8 +362,8 @@
       "url": "https://dorar.net",
       "alsoAt": [],
       "usedFor": {
-        "ar": "روابط فقط: قد يدلّ رفيق المتعلم عليه، ولا يُخزَّن منه شيء ولا يُقتبس.",
-        "en": "Links only: Rafiq may point the learner to it; nothing from it is stored or quoted."
+        "ar": "روابط فقط («اقرأ المزيد»): قد يدلّ رفيق المتعلم عليه، ولا يُنسخ منه نص ولا يُقتبس. معتمد بوصفه رابطًا.",
+        "en": "Links only (\"read more\"): Rafiq may point the learner to it; no text is copied or quoted. Approved as a link."
       },
       "licence": {
         "ar": "لا يُنسخ منه شيء؛ يُكتفى بالرابط.",
@@ -383,14 +383,14 @@
       "url": "https://islamqa.info",
       "alsoAt": [],
       "usedFor": {
-        "ar": "روابط فقط: قد يدلّ رفيق المتعلم عليه، ولا يُخزَّن منه شيء ولا يُقتبس.",
-        "en": "Links only: Rafiq may point the learner to it; nothing from it is stored or quoted."
+        "ar": "روابط فقط («اقرأ المزيد»): قد يدلّ رفيق المتعلم عليه، ولا يُنسخ منه نص ولا يُقتبس. معتمد بوصفه رابطًا.",
+        "en": "Links only (\"read more\"): Rafiq may point the learner to it; no text is copied or quoted. Approved as a link."
       },
       "licence": {
         "ar": "لا يُنسخ منه شيء؛ يُكتفى بالرابط.",
         "en": "Nothing is copied from it; it is only linked."
       },
-      "status": "pendingReview",
+      "status": "approved",
       "verifiedOn": "2026-10-04"
     },
     {
@@ -404,14 +404,14 @@
       "url": "https://binbaz.org.sa",
       "alsoAt": [],
       "usedFor": {
-        "ar": "روابط فقط: قد يدلّ رفيق المتعلم عليه، ولا يُخزَّن منه شيء ولا يُقتبس.",
-        "en": "Links only: Rafiq may point the learner to it; nothing from it is stored or quoted."
+        "ar": "روابط فقط («اقرأ المزيد»): قد يدلّ رفيق المتعلم عليه، ولا يُنسخ منه نص ولا يُقتبس. معتمد بوصفه رابطًا.",
+        "en": "Links only (\"read more\"): Rafiq may point the learner to it; no text is copied or quoted. Approved as a link."
       },
       "licence": {
         "ar": "لا يُنسخ منه شيء؛ يُكتفى بالرابط.",
         "en": "Nothing is copied from it; it is only linked."
       },
-      "status": "pendingReview",
+      "status": "approved",
       "verifiedOn": "2026-10-04"
     },
     {
@@ -425,14 +425,14 @@
       "url": "https://binothaimeen.net",
       "alsoAt": [],
       "usedFor": {
-        "ar": "روابط فقط: قد يدلّ رفيق المتعلم عليه، ولا يُخزَّن منه شيء ولا يُقتبس.",
-        "en": "Links only: Rafiq may point the learner to it; nothing from it is stored or quoted."
+        "ar": "روابط فقط («اقرأ المزيد»): قد يدلّ رفيق المتعلم عليه، ولا يُنسخ منه نص ولا يُقتبس. معتمد بوصفه رابطًا.",
+        "en": "Links only (\"read more\"): Rafiq may point the learner to it; no text is copied or quoted. Approved as a link."
       },
       "licence": {
         "ar": "لا يُنسخ منه شيء؛ يُكتفى بالرابط.",
         "en": "Nothing is copied from it; it is only linked."
       },
-      "status": "pendingReview",
+      "status": "approved",
       "verifiedOn": "2026-10-04"
     },
     {
@@ -446,14 +446,14 @@
       "url": "https://tafsir.net",
       "alsoAt": [],
       "usedFor": {
-        "ar": "روابط فقط: قد يدلّ رفيق المتعلم عليه، ولا يُخزَّن منه شيء ولا يُقتبس.",
-        "en": "Links only: Rafiq may point the learner to it; nothing from it is stored or quoted."
+        "ar": "روابط فقط («اقرأ المزيد»): قد يدلّ رفيق المتعلم عليه، ولا يُنسخ منه نص ولا يُقتبس. معتمد بوصفه رابطًا.",
+        "en": "Links only (\"read more\"): Rafiq may point the learner to it; no text is copied or quoted. Approved as a link."
       },
       "licence": {
         "ar": "لا يُنسخ منه شيء؛ يُكتفى بالرابط.",
         "en": "Nothing is copied from it; it is only linked."
       },
-      "status": "pendingReview",
+      "status": "approved",
       "verifiedOn": "2026-10-04"
     }
   ]

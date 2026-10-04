@@ -1,9 +1,14 @@
 from functools import lru_cache
+from pathlib import Path
+from typing import Literal
 
 from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 SERVICE_NAME = "rehla-ai"
+
+AI_ROOT = Path(__file__).resolve().parents[1]
+REPOSITORY_ROOT = AI_ROOT.parent
 
 
 class Settings(BaseSettings):
@@ -24,8 +29,18 @@ class Settings(BaseSettings):
     llm_model: str | None = None
     llm_fallback_model: str | None = None
     embedding_model: str | None = None
+    # OpenRouter's provider preference: "deny" keeps prompts away from providers that store them.
+    openrouter_data_collection: Literal["allow", "deny"] = "deny"
     supabase_url: str | None = None
     supabase_service_role_key: SecretStr | None = None
+
+    mcp_url: str = "https://mcp.islamiccontent.org/mcp"
+    # Built by `uv run python -m app.ingest`; committed, so the deployed service needs no content/.
+    index_dir: Path = AI_ROOT / "data" / "index"
+    content_dir: Path = REPOSITORY_ROOT / "content"
+    asks_per_minute: int = 10
+    # Local diagnosis only: logs Rafiq's drafts and the problems found in them. Never in production.
+    rafiq_debug: bool = False
 
 
 @lru_cache

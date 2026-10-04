@@ -8,7 +8,7 @@ export type Feature =
 
 export const features: Readonly<Record<Feature, boolean>> = {
   learn: true,
-  rafiq: false,
+  rafiq: true,
   mawqif: false,
   adasa: false,
   community: false,
