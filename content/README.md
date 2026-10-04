@@ -42,6 +42,16 @@ The same script fetches the books the lessons are written from, through the Isla
 
 Each book's `index.json` lists its sections with their paragraph counts and how its text was taken.
 
+## Rafiq's corpus
+
+`node scripts/fetch-content.mjs --corpus` builds `corpus/` (git-ignored), one module per source in `scripts/sources/`. Requests go one at a time with pauses, back off on 429, and every step resumes from what is already saved (API pages are cached in `corpus/.cache/`). Every record keeps its text verbatim with its source name, public URL, language and fetch date. Quran and hadith texts are not stored: Rafiq reads them live from the MCP server (`docs/MCP_TOOLS.md`, from `--mcp-probe`).
+
+- `corpus/books/<id>/<n>.json` + `index.json`: books split at their own headings, in the same shape as `fetched/books/`. A DOCX is split at its heading styles (python-docx); a PDF at the chapters its contents pages link to. A PDF with no text layer is reported and nothing is saved (no OCR).
+- `corpus/books/pairs/<book>.json`: the Arabic and English editions of a book paired section by section only where both editions show it (same lesson number, or same number of sections in order); the rest is listed as unpaired.
+- `corpus/hadith-catalogue.json`: the HadeethEnc category tree and the titles (no texts) of the hadiths in the chosen categories, in Arabic and English; hadiths with no English title are marked.
+- `corpus/terms/<id>.json`: chosen TerminologyEnc term pages, each field in Arabic and English.
+- `corpus/index.json` lists every book, including the lesson books in `fetched/books/` (indexed where they are); `corpus/MANIFEST.json` gives counts, characters per language, failures and notes per source; `docs/COVERAGE.md` shows which sections and categories cover each lesson.
+
 ## Stations and questions
 
 Station files hold the scored questions: `baseline` ("what do I know?") and `exam`, on the **same objectives**, so the journal can show the gain. A lesson may add a `quiz` (lessons marked 🔹 in `docs/CURRICULUM.md`). Question types: `single`, `multiple`, `trueFalse`, `order`, `match`, `sort`, written like the checks in lesson files, plus `id`, `objective`, `reviewed`, and optionally `lesson` and `card` (the card whose text answers it). Unreviewed questions are hidden in production.

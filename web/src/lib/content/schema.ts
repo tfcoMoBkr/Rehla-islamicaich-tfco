@@ -370,7 +370,8 @@ export const sourcesSchema = z.object({
     z
       .object({
         id: z.string(),
-        type: z.enum(["quran", "hadith", "lessons", "video", "terminology", "referral", "illustrations"]),
+        /** `reference`: linked only, nothing stored or quoted. `retrieval`: read live, nothing stored. */
+        type: z.enum(["quran", "hadith", "lessons", "video", "terminology", "referral", "illustrations", "retrieval", "reference"]),
         name: bilingual,
         /** Other names lesson files may use for this source, e.g. a channel name. */
         aliases: z.array(z.string()).default([]),

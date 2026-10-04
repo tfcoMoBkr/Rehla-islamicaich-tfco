@@ -3,8 +3,10 @@
 // content/fetched/, verbatim, with source URL, date and version, and the lesson source books from IslamHouse
 // (scripts/islamhouse.mjs). Nothing here is typed by hand: the web app only ever shows what this script saved.
 //
-//   node scripts/fetch-content.mjs            fetch what is missing
-//   node scripts/fetch-content.mjs --refresh  fetch everything again
+//   node scripts/fetch-content.mjs              fetch what is missing
+//   node scripts/fetch-content.mjs --refresh    fetch everything again
+//   node scripts/fetch-content.mjs --corpus     build Rafiq's source corpus in content/corpus/ (scripts/sources/)
+//   node scripts/fetch-content.mjs --mcp-probe  list the MCP server's tools and time sample calls (docs/MCP_TOOLS.md)
 //
 // Keys are read from the environment or from a .env file at the repository root (see .env.example).
 
@@ -228,22 +230,34 @@ async function verifyRecitations() {
   return files.length;
 }
 
-const found = { ayahs: new Set(), hadiths: new Map(), recitations: new Set() };
-for (const file of await lessonFiles(lessonsDir)) {
-  collectReferences(JSON.parse(await readFile(file, "utf8")), found);
-}
-// Every verse shown in a lesson can be heard in a real recitation, so fetch timings for each surah cited.
-for (const ref of found.ayahs) found.recitations.add(Number(ref.split(":")[0]));
+async function fetchLessonContent() {
+  const found = { ayahs: new Set(), hadiths: new Map(), recitations: new Set() };
+  for (const file of await lessonFiles(lessonsDir)) {
+    collectReferences(JSON.parse(await readFile(file, "utf8")), found);
+  }
+  // Every verse shown in a lesson can be heard in a real recitation, so fetch timings for each surah cited.
+  for (const ref of found.ayahs) found.recitations.add(Number(ref.split(":")[0]));
 
-const [ayahs, hadiths, recitations] = [
-  await fetchQuran(found.ayahs),
-  await fetchHadiths(found.hadiths),
-  await fetchRecitations(found.recitations),
-];
-const verified = await verifyRecitations();
-console.log(
-  `Referenced: ${found.ayahs.size} ayahs, ${found.hadiths.size} hadiths, ${found.recitations.size} recitations.`,
-  `Fetched now: ${ayahs} ayahs, ${hadiths} hadiths, ${recitations} recitations.`,
-  `Recordings verified: ${verified}.`,
-);
-await fetchIslamHouse({ root, today, refresh });
+  const [ayahs, hadiths, recitations] = [
+    await fetchQuran(found.ayahs),
+    await fetchHadiths(found.hadiths),
+    await fetchRecitations(found.recitations),
+  ];
+  const verified = await verifyRecitations();
+  console.log(
+    `Referenced: ${found.ayahs.size} ayahs, ${found.hadiths.size} hadiths, ${found.recitations.size} recitations.`,
+    `Fetched now: ${ayahs} ayahs, ${hadiths} hadiths, ${recitations} recitations.`,
+    `Recordings verified: ${verified}.`,
+  );
+  await fetchIslamHouse({ root, today, refresh });
+}
+
+if (process.argv.includes("--corpus")) {
+  const { buildCorpus } = await import("./sources/corpus.mjs");
+  await buildCorpus({ refresh });
+} else if (process.argv.includes("--mcp-probe")) {
+  const { probeMcp } = await import("./sources/mcp-probe.mjs");
+  await probeMcp();
+} else {
+  await fetchLessonContent();
+}

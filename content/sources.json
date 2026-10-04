@@ -53,8 +53,8 @@
       "url": "https://hadeethenc.com",
       "alsoAt": [],
       "usedFor": {
-        "ar": "الأحاديث التي تستشهد بها بطاقات الدروس، مع درجتها وتخريجها وشرحها: تُجلب برقمها كما هي. يُعرض الحديث بلغة المتعلم إن وُجدت له نسخة بها، وإلا اكتُفي بذكر مرجعه.",
-        "en": "The hadiths cited by lesson cards, with their grade, attribution and explanation, fetched verbatim by ID. A hadith is shown in the learner's language when the source has a version in it; otherwise only its reference is given."
+        "ar": "الأحاديث التي تستشهد بها بطاقات الدروس، مع درجتها وتخريجها وشرحها: تُجلب برقمها كما هي. يُعرض الحديث بلغة المتعلم إن وُجدت له نسخة بها، وإلا اكتُفي بذكر مرجعه. وفي مدونة رفيق فهرس بعناوين الأحاديث وتصنيفاتها فقط، بلا نصوص.",
+        "en": "The hadiths cited by lesson cards, with their grade, attribution and explanation, fetched verbatim by ID. A hadith is shown in the learner's language when the source has a version in it; otherwise only its reference is given. Rafiq's corpus also keeps a catalogue of hadith and category titles only, without texts."
       },
       "licence": {
         "ar": "يُحتفظ بنسبة النص إلى المصدر ولا يُعدَّل. لا تنشر واجهة المصدر رقم إصدار، فيُسجَّل تاريخ الجلب.",
@@ -242,6 +242,218 @@
         "en": "Original work and assets of the Rehla team, Rafiq's character included."
       },
       "status": "approved",
+      "verifiedOn": "2026-10-04"
+    },
+    {
+      "id": "byenah-new-muslim-guideline",
+      "type": "lessons",
+      "name": {
+        "ar": "«المختصر المفيد للمسلم الجديد» لمحمد الشهري، بالإنجليزية (byenah.com)",
+        "en": "New Muslim Guideline, Muhammad al-Shehri (byenah.com)"
+      },
+      "aliases": [],
+      "url": "https://byenah.com/en/muslim-content/4784",
+      "alsoAt": [],
+      "usedFor": {
+        "ar": "نص مرجعي لإجابات رفيق (بالإنجليزية): الكتاب كما نُشر، قسمًا قسمًا، محفوظًا في مدونة رفيق.",
+        "en": "Reference text for Rafiq's answers (English): the book as published, section by section, kept in Rafiq's corpus."
+      },
+      "licence": {
+        "ar": "منشور مجانًا على byenah.com؛ يُحفظ نصه كما هو مع رابطه. شروط الترخيص بانتظار التأكيد من الناشر.",
+        "en": "Published free on byenah.com; its text is kept verbatim with its link. Licence terms awaiting confirmation from the publisher."
+      },
+      "status": "approved",
+      "verifiedOn": "2026-10-04"
+    },
+    {
+      "id": "ih-almukhtasar-almufid",
+      "type": "lessons",
+      "name": {
+        "ar": "«المختصر المفيد للمسلم الجديد» لمحمد الشهري",
+        "en": "Al-Mukhtasar al-Mufid lil-Muslim al-Jadid (Arabic), Muhammad al-Shehri"
+      },
+      "aliases": [],
+      "url": "https://islamhouse.com/ar/books/2831443/",
+      "alsoAt": [],
+      "usedFor": {
+        "ar": "نص مرجعي لإجابات رفيق (بالعربية): الكتاب كما نُشر، قسمًا قسمًا، محفوظًا في مدونة رفيق. الآيات فيه مرسومة بخط لا يُستخرج نصًّا، فتُؤخذ الآيات من مصدرها.",
+        "en": "Reference text for Rafiq's answers (Arabic): the book as published, section by section, kept in Rafiq's corpus. Its verses are set in a glyph font that does not extract as text, so verses are taken from their own source."
+      },
+      "licence": {
+        "ar": "بحسب IslamHouse: يجوز إعادة استخدامه مجانًا مع ذكر المصدر ودون تعديل.",
+        "en": "IslamHouse: free reuse with attribution, unmodified."
+      },
+      "status": "approved",
+      "verifiedOn": "2026-10-04"
+    },
+    {
+      "id": "ih-new-muslim-guide",
+      "type": "lessons",
+      "name": {
+        "ar": "«دليل المسلم الجديد» لهيثم سرحان (IslamHouse)",
+        "en": "The New Muslim Guide, Haitham Sarhan (IslamHouse)"
+      },
+      "aliases": [],
+      "url": "https://islamhouse.com/ar/books/2838873/",
+      "alsoAt": [
+        "https://islamhouse.com/en/books/2838874/"
+      ],
+      "usedFor": {
+        "ar": "مُدرج للتوثيق فقط: ملفاه بالعربية والإنجليزية صور بلا طبقة نص، فلا يُحفظ منهما شيء (لا يُستعمل التعرف الضوئي على الحروف).",
+        "en": "Listed for the record only: its Arabic and English PDFs are images with no text layer, so nothing is stored from them (OCR is not used)."
+      },
+      "licence": {
+        "ar": "بحسب IslamHouse: يجوز إعادة استخدامه مجانًا مع ذكر المصدر ودون تعديل.",
+        "en": "IslamHouse: free reuse with attribution, unmodified."
+      },
+      "status": "approved",
+      "verifiedOn": "2026-10-04"
+    },
+    {
+      "id": "terminologyenc",
+      "type": "terminology",
+      "name": {
+        "ar": "موسوعة المصطلحات الإسلامية المترجمة",
+        "en": "Encyclopedia of Translated Islamic Terms (TerminologyEnc.com)"
+      },
+      "aliases": [],
+      "url": "https://terminologyenc.com",
+      "alsoAt": [],
+      "usedFor": {
+        "ar": "تعريفات ثمانية مصطلحات بالعربية والإنجليزية، محفوظة كما نُشرت في مدونة رفيق، كلٌّ برابط صفحته.",
+        "en": "The definitions of eight terms in Arabic and English, kept as published in Rafiq's corpus, each with the link to its page."
+      },
+      "licence": {
+        "ar": "يُحتفظ بنسبة النص إلى الموسوعة ولا يُعدَّل.",
+        "en": "Attribution to the encyclopedia is kept and the text is not modified."
+      },
+      "status": "approved",
+      "verifiedOn": "2026-10-04"
+    },
+    {
+      "id": "islamiccontent-mcp",
+      "type": "retrieval",
+      "name": {
+        "ar": "خادم MCP لجمعية المحتوى الإسلامي متعدد اللغات",
+        "en": "MCP server of the Association for Multilingual Islamic Content"
+      },
+      "aliases": [],
+      "url": "https://mcp.islamiccontent.org/mcp",
+      "alsoAt": [],
+      "usedFor": {
+        "ar": "استرجاع مباشر، لا يُخزَّن شيء: يقرأ رفيق منه نصوص الآيات والأحاديث وقت السؤال، بروابطها.",
+        "en": "Live retrieval, nothing stored: Rafiq reads verse and hadith texts from it at the time of the question, with their links."
+      },
+      "licence": {
+        "ar": "يُعرض ما يُسترجع بنصه ورابطه كما أُعيد، ولا يُحفظ.",
+        "en": "What is retrieved is shown with its text and link exactly as returned, and is not stored."
+      },
+      "status": "approved",
+      "verifiedOn": "2026-10-04"
+    },
+    {
+      "id": "dorar",
+      "type": "reference",
+      "name": {
+        "ar": "الدرر السنية",
+        "en": "Dorar.net"
+      },
+      "aliases": [],
+      "url": "https://dorar.net",
+      "alsoAt": [],
+      "usedFor": {
+        "ar": "روابط فقط: قد يدلّ رفيق المتعلم عليه، ولا يُخزَّن منه شيء ولا يُقتبس.",
+        "en": "Links only: Rafiq may point the learner to it; nothing from it is stored or quoted."
+      },
+      "licence": {
+        "ar": "لا يُنسخ منه شيء؛ يُكتفى بالرابط.",
+        "en": "Nothing is copied from it; it is only linked."
+      },
+      "status": "approved",
+      "verifiedOn": "2026-10-04"
+    },
+    {
+      "id": "islamqa",
+      "type": "reference",
+      "name": {
+        "ar": "موقع الإسلام سؤال وجواب",
+        "en": "IslamQA.info"
+      },
+      "aliases": [],
+      "url": "https://islamqa.info",
+      "alsoAt": [],
+      "usedFor": {
+        "ar": "روابط فقط: قد يدلّ رفيق المتعلم عليه، ولا يُخزَّن منه شيء ولا يُقتبس.",
+        "en": "Links only: Rafiq may point the learner to it; nothing from it is stored or quoted."
+      },
+      "licence": {
+        "ar": "لا يُنسخ منه شيء؛ يُكتفى بالرابط.",
+        "en": "Nothing is copied from it; it is only linked."
+      },
+      "status": "pendingReview",
+      "verifiedOn": "2026-10-04"
+    },
+    {
+      "id": "binbaz",
+      "type": "reference",
+      "name": {
+        "ar": "الموقع الرسمي للشيخ عبد العزيز بن باز",
+        "en": "Official site of Sheikh Abdulaziz bin Baz"
+      },
+      "aliases": [],
+      "url": "https://binbaz.org.sa",
+      "alsoAt": [],
+      "usedFor": {
+        "ar": "روابط فقط: قد يدلّ رفيق المتعلم عليه، ولا يُخزَّن منه شيء ولا يُقتبس.",
+        "en": "Links only: Rafiq may point the learner to it; nothing from it is stored or quoted."
+      },
+      "licence": {
+        "ar": "لا يُنسخ منه شيء؛ يُكتفى بالرابط.",
+        "en": "Nothing is copied from it; it is only linked."
+      },
+      "status": "pendingReview",
+      "verifiedOn": "2026-10-04"
+    },
+    {
+      "id": "binothaimeen",
+      "type": "reference",
+      "name": {
+        "ar": "الموقع الرسمي للشيخ محمد بن صالح العثيمين",
+        "en": "Official site of Sheikh Muhammad ibn Salih al-Uthaymeen"
+      },
+      "aliases": [],
+      "url": "https://binothaimeen.net",
+      "alsoAt": [],
+      "usedFor": {
+        "ar": "روابط فقط: قد يدلّ رفيق المتعلم عليه، ولا يُخزَّن منه شيء ولا يُقتبس.",
+        "en": "Links only: Rafiq may point the learner to it; nothing from it is stored or quoted."
+      },
+      "licence": {
+        "ar": "لا يُنسخ منه شيء؛ يُكتفى بالرابط.",
+        "en": "Nothing is copied from it; it is only linked."
+      },
+      "status": "pendingReview",
+      "verifiedOn": "2026-10-04"
+    },
+    {
+      "id": "tafsir-net",
+      "type": "reference",
+      "name": {
+        "ar": "ملتقى أهل التفسير (tafsir.net)",
+        "en": "Tafsir Center for Quranic Studies (tafsir.net)"
+      },
+      "aliases": [],
+      "url": "https://tafsir.net",
+      "alsoAt": [],
+      "usedFor": {
+        "ar": "روابط فقط: قد يدلّ رفيق المتعلم عليه، ولا يُخزَّن منه شيء ولا يُقتبس.",
+        "en": "Links only: Rafiq may point the learner to it; nothing from it is stored or quoted."
+      },
+      "licence": {
+        "ar": "لا يُنسخ منه شيء؛ يُكتفى بالرابط.",
+        "en": "Nothing is copied from it; it is only linked."
+      },
+      "status": "pendingReview",
       "verifiedOn": "2026-10-04"
     }
   ]

@@ -388,7 +388,9 @@
       "video": "Video",
       "terminology": "Terminology",
       "referral": "Referral",
-      "illustrations": "Illustrations"
+      "illustrations": "Illustrations",
+      "retrieval": "Live retrieval (nothing stored)",
+      "reference": "Further reading (links only)"
     },
     "status": {
       "approved": "Approved source",

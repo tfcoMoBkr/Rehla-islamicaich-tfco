@@ -388,7 +388,9 @@
       "video": "المقاطع المرئية",
       "terminology": "المصطلحات",
       "referral": "الإحالة",
-      "illustrations": "الرسوم"
+      "illustrations": "الرسوم",
+      "retrieval": "استرجاع مباشر (لا يُخزَّن شيء)",
+      "reference": "للاستزادة (روابط فقط)"
     },
     "status": {
       "approved": "مصدر معتمد",

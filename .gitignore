@@ -40,3 +40,6 @@ AGENTS.md
 
 # Source books downloaded by scripts/fetch-content.mjs (large, re-downloadable)
 content/sources/
+
+# Rafiq's source corpus, rebuilt by `node scripts/fetch-content.mjs --corpus` (large, re-downloadable)
+content/corpus/

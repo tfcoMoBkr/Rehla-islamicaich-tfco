@@ -16,6 +16,8 @@ const GROUPS = [
   ["terminology", "Terminology"],
   ["referral", "Referral"],
   ["illustrations", "Illustrations"],
+  ["retrieval", "Live retrieval (nothing stored)"],
+  ["reference", "Further reading (links only)"],
 ];
 
 const STATUS = { approved: "Approved", pendingReview: "Pending review" };

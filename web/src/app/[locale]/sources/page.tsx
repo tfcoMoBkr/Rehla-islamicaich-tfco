@@ -11,7 +11,17 @@ import type { Media, RafiqManifest } from "@/lib/content/schema";
 import type { SourceType } from "@/lib/content/schema";
 import { cn } from "@/lib/utils";
 
-const GROUP_ORDER: readonly SourceType[] = ["quran", "hadith", "lessons", "video", "terminology", "referral", "illustrations"];
+const GROUP_ORDER: readonly SourceType[] = [
+  "quran",
+  "hadith",
+  "lessons",
+  "video",
+  "terminology",
+  "referral",
+  "illustrations",
+  "retrieval",
+  "reference",
+];
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/sources">): Promise<Metadata> {
   const locale = resolveLocale((await params).locale);
