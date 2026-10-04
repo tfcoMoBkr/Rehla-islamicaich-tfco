@@ -297,7 +297,10 @@
       "three": "Three times"
     },
     "reference": "Reference",
-    "footnotes": "Translator's notes"
+    "footnotes": "Translator's notes",
+    "dragToAnswer": "Tap an answer, or drag the card onto it.",
+    "tickZone": "Tap an item to tick it, or drag it here.",
+    "journalZone": "Tap the card you want to keep, or drag it into your journal here."
   },
   "Question": {
     "true": "True",
@@ -404,7 +407,9 @@
     "artTitle": "The drawings",
     "artScenes": "Scenes pinned on the lesson boards",
     "artIcons": "Icons",
-    "artCount": "{count, plural, one {# drawing} other {# drawings}}"
+    "artCount": "{count, plural, one {# drawing} other {# drawings}}",
+    "artRafiq": "Rafiq, the travelling lantern",
+    "artCredit": "Credit"
   },
   "Listen": {
     "listen": "Listen",
@@ -509,5 +514,19 @@
     "error": "Rafiq could not be reached. Please try again in a moment.",
     "retry": "Try again",
     "close": "Close"
+  },
+  "RafiqCharacter": {
+    "name": "Rafiq, the travelling lantern",
+    "alt": {
+      "hello": "Rafiq, the travelling lantern, saying hello",
+      "waving": "Rafiq waving to welcome you",
+      "walking": "Rafiq walking with you to this stop",
+      "writing": "Rafiq writing on a small board",
+      "thinking": "Rafiq thinking",
+      "happy": "Rafiq, happy",
+      "encouraging": "Rafiq encouraging you",
+      "pointing": "Rafiq pointing to the board",
+      "listening": "Rafiq listening"
+    }
   }
 }

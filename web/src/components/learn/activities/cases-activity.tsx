@@ -4,8 +4,11 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 import { StepDots } from "@/components/learn/assessment/step-dots";
+import { useRafiqReaction } from "@/components/learn/board/rafiq-context";
 import { Feedback } from "@/components/learn/feedback";
+import { DragHandle } from "@/components/learn/interactions/drag-handle";
 import { optionClassName } from "@/components/learn/interactions/option-styles";
+import { useDragDrop } from "@/components/learn/interactions/use-drag-drop";
 import { Button } from "@/components/ui/button";
 import type { ActivityView } from "@/lib/learn/types";
 import { cn } from "@/lib/utils";
@@ -17,16 +20,30 @@ type CasesActivityProps = {
   onProgress?: (done: number) => void;
 };
 
-/** One case per screen, each with its own small set of answers. */
+/** One case per screen, each with its own small set of answers: tap an answer, or drag the case onto it. */
 export function CasesActivity({ activity, onComplete, onProgress }: CasesActivityProps) {
   const t = useTranslations("Activity");
   const [index, setIndex] = useState(0);
   const [picked, setPicked] = useState<string | null>(null);
   const [mistakes, setMistakes] = useState(0);
+  const react = useRafiqReaction();
   const entry = activity.cases[index];
-  if (!entry) return null;
+  const right = entry !== undefined && picked === entry.answer;
+  const { itemProps, targetProps } = useDragDrop((_, option) => pick(option));
 
-  const right = picked === entry.answer;
+  function pick(option: string) {
+    if (!entry || right) return;
+    setPicked(option);
+    if (option === entry.answer) {
+      onProgress?.(index + 1);
+      react("pleased");
+    } else {
+      setMistakes((count) => count + 1);
+      react("encouraging");
+    }
+  }
+
+  if (!entry) return null;
   const last = index === activity.cases.length - 1;
 
   return (
@@ -37,7 +54,14 @@ export function CasesActivity({ activity, onComplete, onProgress }: CasesActivit
         </p>
         <StepDots total={activity.cases.length} current={index} />
       </div>
-      <p className="text-lg font-semibold">{entry.prompt}</p>
+      <div
+        {...(right ? {} : itemProps(entry.prompt))}
+        className="flex items-start gap-2 rounded-2xl border-2 border-border bg-card p-4 text-lg font-semibold text-card-foreground data-dragging:shadow-lg"
+      >
+        {!right && <DragHandle />}
+        <p className="min-w-0 flex-1">{entry.prompt}</p>
+      </div>
+      {!right && <p className="text-sm text-muted-foreground">{t("dragToAnswer")}</p>}
       <div className="grid grid-cols-3 gap-2">
         {entry.options.map((option) => (
           <button
@@ -45,12 +69,9 @@ export function CasesActivity({ activity, onComplete, onProgress }: CasesActivit
             type="button"
             disabled={right}
             aria-pressed={picked === option}
-            onClick={() => {
-              setPicked(option);
-              if (option === entry.answer) onProgress?.(index + 1);
-              else setMistakes((count) => count + 1);
-            }}
-            className={cn(optionClassName, "justify-center text-center text-xl")}
+            onClick={() => pick(option)}
+            {...targetProps(option)}
+            className={cn(optionClassName, "justify-center text-center text-xl data-drop-over:border-primary data-drop-over:bg-primary/10")}
           >
             {option}
           </button>

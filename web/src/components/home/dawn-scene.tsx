@@ -1,4 +1,3 @@
-import { Lantern } from "@/components/journey/lantern";
 import { cn } from "@/lib/utils";
 
 /*
@@ -112,10 +111,9 @@ export function DawnScene({ className }: { className?: string }) {
         </g>
       </g>
 
-      {/* The lantern at the start of the road, and the pool of light it throws. */}
+      {/* The pool of light at the start of the road, where Rafiq stands (drawn over the scene by the hero). */}
       <ellipse cx="720" cy="940" rx="150" ry="26" fill="var(--dawn)" opacity="0.12" />
       <ellipse cx="720" cy="940" rx="74" ry="12" fill="var(--dawn)" opacity="0.2" />
-      <Lantern x="678" y="846" width="84" height="94.5" className="text-sand" />
 
       <path d="M0 1000V968C200 948 420 952 560 962S780 970 900 960 1280 950 1440 966V1000z" fill="var(--night)" />
     </svg>

@@ -4,10 +4,11 @@ import { ExternalLink, X } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useId, useRef, useState } from "react";
 
-import { Lantern } from "@/components/journey/lantern";
+import { RafiqFigure } from "@/components/rafiq/rafiq-figure";
 import { Button } from "@/components/ui/button";
 import { features } from "@/config/features";
 import { Link } from "@/i18n/navigation";
+import type { RafiqPose } from "@/lib/content/schema";
 import {
   LESSON_HELP_MODES,
   requestLessonHelp,
@@ -19,6 +20,15 @@ import { cn } from "@/lib/utils";
 export type HelpTarget = { lessonId: string; cardId: string; line: string };
 
 type Status = { kind: "choosing" } | { kind: "asking" } | LessonHelpResult;
+
+/** Rafiq listens while the learner chooses and types, thinks while waiting, and points to the answer. */
+const POSE: Record<Status["kind"], RafiqPose> = {
+  choosing: "listening",
+  asking: "thinking",
+  answer: "pointing",
+  referral: "pointing",
+  error: "encouraging",
+};
 
 /**
  * "I didn't understand" for one line of the board: explain it more simply, give an example, or
@@ -88,9 +98,12 @@ function HelpPanel({ target, onClose }: { target: HelpTarget; onClose: () => voi
   return (
     <div className="grid gap-5 p-5 pb-7 sm:p-7">
       <div className="flex items-start justify-between gap-3">
-        <h2 id="line-help-title" className="font-display text-xl font-semibold">
-          {t("title")}
-        </h2>
+        <div className="flex items-end gap-3">
+          <RafiqFigure pose={POSE[status.kind]} height={96} className="shrink-0 rtl:-scale-x-100" />
+          <h2 id="line-help-title" className="pb-2 font-display text-xl font-semibold">
+            {t("title")}
+          </h2>
+        </div>
         <button
           type="button"
           onClick={onClose}
@@ -151,8 +164,7 @@ function HelpPanel({ target, onClose }: { target: HelpTarget; onClose: () => voi
             </Button>
           )}
           {status.kind === "asking" && (
-            <p role="status" className="flex items-center gap-3 font-medium">
-              <Lantern state="thinking" className="size-9 shrink-0 text-foreground" />
+            <p role="status" className="font-medium">
               {t("thinking")}
             </p>
           )}
@@ -200,10 +212,7 @@ function ComingSoon() {
   const t = useTranslations("LineHelp");
   return (
     <div role="note" className="grid gap-3 rounded-2xl border border-dawn/50 bg-dawn/10 p-4">
-      <p className="flex items-center gap-2 font-semibold">
-        <Lantern className="size-7 shrink-0 text-foreground" />
-        {t("comingTitle")}
-      </p>
+      <p className="font-semibold">{t("comingTitle")}</p>
       <p>{t("comingBody")}</p>
       <HumanLink />
     </div>

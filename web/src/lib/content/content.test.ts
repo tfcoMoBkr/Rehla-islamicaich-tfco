@@ -6,7 +6,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { collectMedia, renderSourcesDoc } from "../../../scripts/generate-sources-doc.mjs";
 
 import { toLessonView } from "./lesson-view";
-import { loadArtManifest, loadKhutuwat, loadSources, loadVisuals } from "./load";
+import { loadArtManifest, loadKhutuwat, loadRafiqManifest, loadSources, loadVisuals } from "./load";
 import { toVisualView } from "./visual-view";
 
 afterEach(() => {
@@ -84,6 +84,16 @@ describe("content/", () => {
     ).flat();
     const { items } = await loadArtManifest();
     expect(items.map((item) => item.file).sort()).toEqual(files.sort());
+  });
+
+  it("has every pose of Rafiq, each at the pixel size its manifest gives", async () => {
+    const art = path.resolve(process.cwd(), "..", "content", "art");
+    const { poses } = await loadRafiqManifest();
+    for (const pose of poses) {
+      // A PNG's width and height are the two big-endian integers after its 16-byte signature and IHDR header.
+      const png = await readFile(path.join(art, pose.file));
+      expect([png.readUInt32BE(16), png.readUInt32BE(20)], pose.file).toEqual([pose.width, pose.height]);
+    }
   });
 
   it("gives every lesson a drawing whose named parts exist in its scenes", async () => {

@@ -5,8 +5,9 @@ import { getFormatter, getTranslations, setRequestLocale } from "next-intl/serve
 import { Card } from "@/components/ui/card";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { resolveLocale } from "@/i18n/locale";
-import { lessonMedia, loadArtManifest, loadKhutuwat, loadSources } from "@/lib/content/load";
-import type { Media } from "@/lib/content/schema";
+import { RafiqFigure } from "@/components/rafiq/rafiq-figure";
+import { lessonMedia, loadArtManifest, loadKhutuwat, loadRafiqManifest, loadSources } from "@/lib/content/load";
+import type { Media, RafiqManifest } from "@/lib/content/schema";
 import type { SourceType } from "@/lib/content/schema";
 import { cn } from "@/lib/utils";
 
@@ -22,12 +23,13 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/sources"
 export default async function SourcesPage({ params }: PageProps<"/[locale]/sources">) {
   const locale = resolveLocale((await params).locale);
   setRequestLocale(locale);
-  const [tr, format, sources, khutuwat, art] = await Promise.all([
+  const [tr, format, sources, khutuwat, art, rafiq] = await Promise.all([
     getTranslations("Sources"),
     getFormatter(),
     loadSources(),
     loadKhutuwat(),
     loadArtManifest(),
+    loadRafiqManifest(),
   ]);
   const t = (text: { ar: string; en: string }) => text[locale];
 
@@ -57,7 +59,7 @@ export default async function SourcesPage({ params }: PageProps<"/[locale]/sourc
               {group.map((source) => (
                 <Card key={source.id} id={source.id} className="scroll-mt-24 gap-4 px-6 sm:px-8">
                   <div className="flex flex-wrap items-start justify-between gap-3">
-                    <h3 className="font-display text-xl font-semibold">
+                    <h3 className="text-xl leading-snug font-semibold">
                       {source.url ? (
                         <a href={source.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 underline-offset-4 hover:underline">
                           {t(source.name)}
@@ -98,7 +100,7 @@ export default async function SourcesPage({ params }: PageProps<"/[locale]/sourc
                       {format.dateTime(new Date(source.verifiedOn), { dateStyle: "long" })}
                     </dd>
                   </dl>
-                  {source.type === "illustrations" && <ArtGallery items={art.items} />}
+                  {source.type === "illustrations" && <ArtGallery items={art.items} rafiq={rafiq} />}
                 </Card>
               ))}
             </section>
@@ -134,8 +136,8 @@ export default async function SourcesPage({ params }: PageProps<"/[locale]/sourc
   );
 }
 
-/** The team's drawings, shown as they are: the scenes pinned on lesson boards, then the icons. */
-async function ArtGallery({ items }: { items: readonly { file: string; description: string }[] }) {
+/** The team's art, shown as it is: Rafiq's poses with their credit, the scenes pinned on lesson boards, the icons. */
+async function ArtGallery({ items, rafiq }: { items: readonly { file: string; description: string }[]; rafiq: RafiqManifest }) {
   const tr = await getTranslations("Sources");
   const groups = [
     { key: "scenes", title: tr("artScenes"), tile: "aspect-[40/26] w-full" },
@@ -144,6 +146,21 @@ async function ArtGallery({ items }: { items: readonly { file: string; descripti
 
   return (
     <div className="grid gap-5">
+      <section aria-label={tr("artRafiq")} className="grid gap-3">
+        <h4 className="font-medium">
+          {tr("artRafiq")} <span className="text-muted-foreground">· {tr("artCount", { count: rafiq.poses.length })}</span>
+        </h4>
+        <p className="text-sm text-muted-foreground">
+          {tr("artCredit")}: <span lang="en">{rafiq.credit}</span> · <span lang="en">{rafiq.licence}</span>
+        </p>
+        <ul className="flex flex-wrap items-end gap-3">
+          {rafiq.poses.map(({ pose }) => (
+            <li key={pose} className="rounded-lg bg-night px-2 pt-2">
+              <RafiqFigure pose={pose} height={pose === "hello" ? 120 : 96} />
+            </li>
+          ))}
+        </ul>
+      </section>
       {groups.map((group) => {
         const files = items.filter((item) => item.file.startsWith(`${group.key}/`));
         if (files.length === 0) return null;

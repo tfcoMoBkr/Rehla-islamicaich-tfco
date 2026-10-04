@@ -36,7 +36,7 @@ Every source Rehla uses. Generated from `content/sources.json` by `npm run conte
 
 | Source | Link | Used for | Licence | Status | Checked on |
 | --- | --- | --- | --- | --- | --- |
-| Rehla team illustrations (`rehla-art`) | In this repository | The drawings pinned on each lesson's board, and the icons. Drawn by the Rehla team itself. | Original work by the Rehla team. | Approved | 2026-10-04 |
+| Rehla team illustrations (`rehla-art`) | In this repository | The drawings pinned on each lesson's board, the icons, and Rafiq's character. The team drew the scenes and icons itself; Rafiq was generated with an AI image tool from the team's own brief, then cut out by the team. | Original work and assets of the Rehla team, Rafiq's character included. | Approved | 2026-10-04 |
 
 ## Media in lessons
 

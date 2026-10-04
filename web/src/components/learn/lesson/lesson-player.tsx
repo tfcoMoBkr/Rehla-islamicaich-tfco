@@ -242,7 +242,7 @@ export function LessonPlayer({ lesson, visual, provisionsPool, next }: LessonPla
         )}
 
         <div className="mt-6">
-          <RafiqAtBoard mood={rafiq.mood} caption={rafiq.caption} />
+          <RafiqAtBoard mood={rafiq.mood} atLessonStart={screen.kind === "intro"} caption={rafiq.caption} />
           <ChalkBoard
             label={lesson.title}
             onSwipeBack={screen.kind === "card" ? goBack : undefined}

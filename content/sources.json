@@ -234,12 +234,12 @@
       "aliases": [],
       "alsoAt": [],
       "usedFor": {
-        "ar": "الرسوم المثبتة على لوح كل درس، والأيقونات. رسمها فريق رحلة بنفسه.",
-        "en": "The drawings pinned on each lesson's board, and the icons. Drawn by the Rehla team itself."
+        "ar": "الرسوم المثبتة على لوح كل درس، والأيقونات، وشخصية رفيق. رسم الفريق المشاهد والأيقونات بنفسه، وولّد شخصية رفيق بأداة توليد صور بالذكاء الاصطناعي من وصفه الخاص ثم فرّغها بنفسه.",
+        "en": "The drawings pinned on each lesson's board, the icons, and Rafiq's character. The team drew the scenes and icons itself; Rafiq was generated with an AI image tool from the team's own brief, then cut out by the team."
       },
       "licence": {
-        "ar": "عمل أصلي لفريق رحلة.",
-        "en": "Original work by the Rehla team."
+        "ar": "عمل أصلي لفريق رحلة، ومن أصوله شخصية رفيق.",
+        "en": "Original work and assets of the Rehla team, Rafiq's character included."
       },
       "status": "approved",
       "verifiedOn": "2026-10-04"

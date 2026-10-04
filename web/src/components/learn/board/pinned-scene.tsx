@@ -70,7 +70,10 @@ export function PinnedScene({ visual, state, className }: PinnedSceneProps) {
       <div
         ref={root}
         dangerouslySetInnerHTML={markup}
-        className="pinned-scene -rotate-2 overflow-hidden rounded-md border-4 border-paper bg-paper shadow-[0_10px_18px_-10px_color-mix(in_srgb,var(--night)_90%,transparent)]"
+        className={cn(
+          "pinned-scene -rotate-2 overflow-hidden rounded-md border-4 border-paper bg-paper shadow-[0_10px_18px_-10px_color-mix(in_srgb,var(--night)_90%,transparent)]",
+          visual.mirrorRtl && "rtl:-scale-x-100",
+        )}
       />
       {visual.needsReview && (
         <figcaption className="mt-2 text-center text-xs font-semibold text-dawn">{t("drawingAwaitingReview")}</figcaption>

@@ -55,6 +55,8 @@ type StationProps = {
   side?: RoadSide;
   /** Badges or notes shown beside the label. */
   meta?: ReactNode;
+  /** Who stands at this stop, e.g. Rafiq walking beside the learner's current lesson. */
+  companion?: ReactNode;
   children?: ReactNode;
 };
 
@@ -69,6 +71,7 @@ export function Station({
   lightOnReach,
   side,
   meta,
+  companion,
   children,
 }: StationProps) {
   const heading = (
@@ -93,8 +96,10 @@ export function Station({
           "relative gap-2 px-5 py-5 sm:px-6",
           href && "transition-shadow focus-within:shadow-md hover:shadow-md",
           state === "locked" && href === undefined && "opacity-80",
+          companion && "min-h-28 pe-24 sm:pe-28",
         )}
       >
+        {companion && <div className="pointer-events-none absolute inset-e-3 bottom-2">{companion}</div>}
         {(label || meta) && (
           <div className="flex flex-wrap items-center gap-2 text-sm font-medium text-muted-foreground">
             {label && <span>{label}</span>}

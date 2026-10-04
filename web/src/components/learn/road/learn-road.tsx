@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { AwaitingReviewBadge, DemoBadge } from "@/components/learn/content-badges";
 import { RoadJourney } from "@/components/journey/road-journey";
 import { Station, type StationState } from "@/components/journey/station";
+import { RafiqFigure } from "@/components/rafiq/rafiq-figure";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Link } from "@/i18n/navigation";
@@ -62,6 +63,7 @@ export function LearnRoad({ road, practice }: LearnRoadProps) {
                 status={statuses[index] ?? "locked"}
                 previousTitle={road[index - 1]?.title}
                 nextLessonId={step.kind === "lesson" && step.stationId === station.id ? step.lessonId : null}
+                stationIsNext={(step.kind === "baseline" || step.kind === "exam") && step.stationId === station.id}
               />
             ))}
           </ol>
@@ -88,9 +90,14 @@ type RoadStationStopsProps = {
   status: StationState;
   previousTitle?: string;
   nextLessonId: string | null;
+  /** The next step is this station's "what do I know?" check or its exam. */
+  stationIsNext: boolean;
 };
 
-function RoadStationStops({ station, number, status, previousTitle, nextLessonId }: RoadStationStopsProps) {
+/** Rafiq walks beside the learner's next stop on the road. */
+const walkingRafiq = <RafiqFigure pose="walking" height={88} className="rtl:-scale-x-100" />;
+
+function RoadStationStops({ station, number, status, previousTitle, nextLessonId, stationIsNext }: RoadStationStopsProps) {
   const t = useTranslations("Learn");
   const progress = useProgress();
   const locked = status === "locked";
@@ -105,6 +112,7 @@ function RoadStationStops({ station, number, status, previousTitle, nextLessonId
         icon={<span className="font-display text-lg font-bold">{number}</span>}
         label={t("stationLabel", { number })}
         title={station.title}
+        companion={stationIsNext ? walkingRafiq : undefined}
       >
         <p>{t("lessonCount", { count: station.lessons.length })}</p>
         {locked ? (
@@ -156,6 +164,7 @@ function RoadStationStops({ station, number, status, previousTitle, nextLessonId
             icon={lesson.id}
             href={locked ? undefined : `/learn/${station.id}/${lesson.slug}`}
             title={lesson.title}
+            companion={state === "current" ? walkingRafiq : undefined}
             meta={
               <>
                 {lesson.hasQuiz && (

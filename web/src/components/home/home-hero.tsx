@@ -1,6 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
+import { RafiqFigure } from "@/components/rafiq/rafiq-figure";
 import { Button } from "@/components/ui/button";
 import { features } from "@/config/features";
 import { Link } from "@/i18n/navigation";
@@ -16,6 +17,13 @@ export async function HomeHero() {
       className="tone-night relative isolate overflow-hidden bg-background"
     >
       <DawnScene className="absolute inset-0 -z-10 size-full" />
+      {/* Rafiq greets the traveller at the start of the road, in the pool of light the scene draws there. */}
+      <RafiqFigure
+        pose="hello"
+        height={320}
+        priority
+        className="animate-rise-in absolute inset-x-0 bottom-[4%] -z-10 mx-auto h-[min(34svh,20rem)] w-auto [animation-delay:500ms]"
+      />
       <div className="mx-auto flex min-h-[calc(100svh-7rem)] max-w-3xl flex-col items-center px-4 pt-14 pb-[42svh] text-center sm:px-6 md:min-h-[calc(100svh-4.5rem)] md:pt-16 md:pb-[40svh]">
         <p className="animate-rise-in font-medium text-dawn">{t("eyebrow")}</p>
         <h1

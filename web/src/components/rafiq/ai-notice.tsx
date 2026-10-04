@@ -1,11 +1,12 @@
 import { useTranslations } from "next-intl";
 
-import { Lantern, type LanternState } from "@/components/journey/lantern";
 import { cn } from "@/lib/utils";
 
+import { RafiqFigure } from "./rafiq-figure";
+
 type AiNoticeProps = {
-  /** Mirrors Rafiq's state so the lantern glows while an answer is being prepared. */
-  state?: LanternState;
+  /** Rafiq thinks while an answer is being prepared, and listens otherwise. */
+  state?: "idle" | "thinking";
   className?: string;
 };
 
@@ -22,7 +23,7 @@ export function AiNotice({ state = "idle", className }: AiNoticeProps) {
         className,
       )}
     >
-      <Lantern state={state} className="size-10 shrink-0 text-ink" />
+      <RafiqFigure pose={state === "thinking" ? "thinking" : "listening"} height={64} decorative className="shrink-0 rtl:-scale-x-100" />
       <p className="pt-0.5">
         <strong className="font-semibold text-foreground">{t("title")}</strong>{" "}
         <span className="text-muted-foreground">{t("body")}</span>

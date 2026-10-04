@@ -68,7 +68,8 @@ export function Stamp({
           <circle cx="60" cy="60" r="49.5" strokeWidth="1" />
           <circle cx="60" cy="60" r="31" strokeWidth="1.25" strokeDasharray="2 3" />
         </g>
-        <text fill="currentColor" fontSize="10.5" fontWeight="600" className="[&:lang(en)]:tracking-[0.16em]">
+        {/* The ring carries whole lesson titles, so it is set in the body face, which stays legible when long. */}
+        <text fill="currentColor" fontSize="10" fontWeight="500" className="font-sans [&:lang(en)]:tracking-[0.12em]">
           <textPath href={`#${id}-ring`} startOffset="50%" textAnchor="middle">
             {ringText}
           </textPath>
