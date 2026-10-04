@@ -32,3 +32,8 @@ Thumbs.db
 .idea/
 .vscode/*
 !.vscode/extensions.json
+
+# Local agent guides
+CLAUDE.md
+AGENTS.md
+.claude/

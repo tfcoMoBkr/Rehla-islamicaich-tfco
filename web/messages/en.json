@@ -1,0 +1,137 @@
+{
+  "Metadata": {
+    "title": "Rehla — Your companion on the path of light",
+    "titleTemplate": "%s · Rehla",
+    "description": "An AI-powered platform that accompanies new Muslims from the moment they declare the Shahada to confident practice and belonging, in their own language and grounded in approved sources."
+  },
+  "Common": {
+    "backHome": "Back to home"
+  },
+  "Brand": {
+    "name": "Rehla",
+    "homeLabel": "Rehla — home",
+    "altName": "رحلة"
+  },
+  "SkipLink": {
+    "label": "Skip to main content"
+  },
+  "Navigation": {
+    "label": "Main sections",
+    "sections": {
+      "learn": "Steps",
+      "rafiq": "Ask Rafiq",
+      "mawqif": "Situations",
+      "adasa": "Lens",
+      "community": "Community",
+      "aqim": "Aqim"
+    }
+  },
+  "LocaleSwitcher": {
+    "label": "Change language",
+    "locale": "{locale, select, ar {العربية} en {English} other {}}"
+  },
+  "Home": {
+    "eyebrow": "For new Muslims, after the Shahada",
+    "title": "Rehla",
+    "tagline": "Your companion on the path of light",
+    "intro": "Rehla is an AI-powered platform that accompanies new Muslims from the moment they declare the Shahada to confident practice and belonging, in their own language and grounded in approved sources.",
+    "cta": "Take your first steps",
+    "why": {
+      "title": "Why Rehla",
+      "body": "Right after the Shahada, a new Muslim faces practical questions that cannot wait: how to purify and pray, how to behave in a mosque for the first time, what the Arabic texts around them mean, and who to turn to when stuck. Human follow-up alone cannot be present in their every day.",
+      "eyebrow": "Where the road begins"
+    },
+    "stations": {
+      "eyebrow": "Along the road",
+      "title": "Stations of the journey",
+      "description": "What the journey offers, one station at a time.",
+      "label": "Station {number}",
+      "learn": {
+        "name": "Khutuwat · Steps",
+        "body": "A graded learning path: lessons, short quizzes, and an explanation for every mistake."
+      },
+      "rafiq": {
+        "name": "Ask Rafiq",
+        "body": "Answers cited to their sources, with abstention and referral when needed."
+      },
+      "mawqif": {
+        "name": "Mawqif · Situations",
+        "body": "Practise everyday situations interactively, with evaluation and correction."
+      },
+      "adasa": {
+        "name": "Adasa · Lens",
+        "body": "Photograph the Arabic text around you and have it explained in your language."
+      },
+      "community": {
+        "name": "Rehla Community",
+        "body": "An opt-in forum with verified da’wah guides, and a directory of nearby mosques and centers."
+      },
+      "aqim": {
+        "name": "Aqim",
+        "body": "A camera-based practice prayer that ends with a report on your performance."
+      }
+    },
+    "principles": {
+      "title": "Our commitments",
+      "attribution": {
+        "title": "Every statement is sourced",
+        "body": "Every religious statement is shown with its source; nothing is attributed to a reference that does not contain it."
+      },
+      "referral": {
+        "title": "Abstention and referral",
+        "body": "When no reference is found, or for personal and disputed matters, Rafiq abstains and refers you to a qualified person. The system does not issue fatwas."
+      },
+      "verbatim": {
+        "title": "Sacred text is never generated",
+        "body": "Quran verses and hadiths are displayed verbatim from their approved sources."
+      },
+      "transparency": {
+        "title": "Transparency",
+        "body": "Rafiq discloses that it is an AI tool, not a human specialist."
+      },
+      "privacy": {
+        "title": "Privacy",
+        "body": "You state your own stage; the system does not infer any religious or sensitive attribute about you."
+      },
+      "eyebrow": "At first light",
+      "stamp": {
+        "ring": "Rehla · Our pledge · Rehla · Our pledge ·",
+        "center": "Pledge"
+      }
+    },
+    "closing": {
+      "title": "The road is ahead of you",
+      "body": "Start at the first station, at your own pace."
+    }
+  },
+  "Learn": {
+    "title": "Khutuwat · Steps",
+    "description": "A graded learning path: lessons, short quizzes, and an explanation for every mistake.",
+    "status": {
+      "title": "In preparation",
+      "body": "Lessons are being prepared from approved sources and will appear here soon."
+    }
+  },
+  "AiNotice": {
+    "label": "About Rafiq",
+    "title": "Rafiq is an AI tool.",
+    "body": "It is not a human scholar. It answers from approved sources and cites them, and it does not issue fatwas. For personal matters, consult a qualified scholar."
+  },
+  "Footer": {
+    "credit": "Built by Thakaa Flow for the AI Challenge Serving Islamic Content — Track 3."
+  },
+  "AiServiceStatus": {
+    "checking": "Checking the AI service…",
+    "online": "AI service is available",
+    "offline": "AI service is currently unavailable"
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "body": "The link may have changed, or the page may no longer exist."
+  },
+  "Error": {
+    "title": "Something went wrong",
+    "body": "This page could not be displayed. Please try again.",
+    "retry": "Try again"
+  }
+}

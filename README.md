@@ -52,6 +52,49 @@
 
 يعتمد المحتوى على المصادر الواردة في «المرجعية والحزمة العلمية والبيانات» الصادرة عن التحدي، وسيُوثَّق سجل المصادر والتراخيص كاملًا في هذا المستودع.
 
+### التشغيل محليًا
+
+المتطلبات: Node.js 20.9 أو أحدث، وPython 3.12 أو أحدث، و[uv](https://docs.astral.sh/uv/).
+
+**1. خدمة الذكاء الاصطناعي** (FastAPI على المنفذ 8000). تعمل الخدمة دون مفاتيح، ويمكن إضافتها لاحقًا في الملف `ai/.env`:
+
+<div dir="ltr">
+
+```bash
+cd ai
+cp .env.example .env
+uv sync
+uv run uvicorn app.main:app --reload --port 8000
+```
+
+</div>
+
+**2. تطبيق الويب** (Next.js على المنفذ 3000). يتصل بالخدمة عبر `AI_SERVICE_URL`، وقيمته الافتراضية `http://localhost:8000`:
+
+<div dir="ltr">
+
+```bash
+cd web
+cp .env.example .env.local
+npm install
+npm run dev
+```
+
+</div>
+
+ثم افتح `http://localhost:3000/ar` للعربية أو `http://localhost:3000/en` للإنجليزية.
+
+**الفحوص:**
+
+<div dir="ltr">
+
+```bash
+cd web && npm run lint && npm run typecheck && npm run build
+cd ai && uv run ruff check && uv run mypy app tests && uv run pytest
+```
+
+</div>
+
 ### الفريق
 
 **ذكاء فلو (Thakaa Flow)**
@@ -61,8 +104,8 @@
 
 ### حالة المشروع
 
-> **3 أكتوبر 2026:** يحتوي هذا المستودع حاليًا على وصف الفكرة فقط، ولا يتضمن أي شفرة برمجية.
-> يبدأ البناء مع انطلاق أيام التحدي في **4 أكتوبر 2026**، وتُضاف تعليمات التشغيل ورابط التجربة والتوثيق التقني تباعًا.
+> **التطوير جارٍ.** بدأ البناء مع انطلاق أيام التحدي في **4 أكتوبر 2026**، ويوضح الملف [docs/START_STATE.md](docs/START_STATE.md) حالة المستودع قبل ذلك.
+> يُضاف رابط التجربة والتوثيق التقني تباعًا.
 
 </div>
 
@@ -107,6 +150,37 @@ A bilingual web platform (Arabic and English) led by one AI companion, **Rafiq**
 
 Content relies on the sources listed in the challenge's official scholarly reference package. A full log of sources and licenses will be documented in this repository.
 
+### Run locally
+
+Requirements: Node.js 20.9+, Python 3.12+ and [uv](https://docs.astral.sh/uv/).
+
+**1. AI service** (FastAPI on port 8000). It starts without any keys; add them to `ai/.env` when needed:
+
+```bash
+cd ai
+cp .env.example .env
+uv sync
+uv run uvicorn app.main:app --reload --port 8000
+```
+
+**2. Web app** (Next.js on port 3000). It reaches the AI service through `AI_SERVICE_URL`, which defaults to `http://localhost:8000`:
+
+```bash
+cd web
+cp .env.example .env.local
+npm install
+npm run dev
+```
+
+Then open `http://localhost:3000/ar` (Arabic) or `http://localhost:3000/en` (English).
+
+**Checks:**
+
+```bash
+cd web && npm run lint && npm run typecheck && npm run build
+cd ai && uv run ruff check && uv run mypy app tests && uv run pytest
+```
+
 ### Team
 
 **Thakaa Flow**
@@ -116,5 +190,5 @@ Content relies on the sources listed in the challenge's official scholarly refer
 
 ### Project status
 
-> **October 3, 2026:** this repository currently contains the project description only, with no source code.
-> Development starts with the challenge build days on **October 4, 2026**. Setup instructions, the live demo link, and technical documentation will be added as the work progresses.
+> **Development is in progress.** The build started with the challenge build days on **October 4, 2026**; [docs/START_STATE.md](docs/START_STATE.md) records the repository's state before then.
+> The live demo link and technical documentation will be added as the work progresses.

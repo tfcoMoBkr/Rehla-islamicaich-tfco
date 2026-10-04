@@ -1,0 +1,400 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/* There is no dark theme; this keeps shadcn's `dark:` utilities inert. */
+@custom-variant dark (&:is(.dark *));
+
+/* ------------------------------------------------------------------------ *
+ * Palette: "the road at dawn"
+ * ------------------------------------------------------------------------ */
+:root {
+  --sand: #f6efe3;
+  --paper: #fffaf1;
+  --ink: #12383a;
+  --night: #0e2a33;
+  --dawn: #e0a030;
+  --terracotta: #c4573a;
+  --oasis: #2f7d6b;
+  --muted-ink: #5e7375;
+  --hairline: #e4d9c6;
+
+  /* Text-safe tints. Muted ink, terracotta and oasis fall just under WCAG AA (4.5:1)
+     on sand, so text uses them deepened with ink. Ratios are for sand / paper. */
+  --muted-ink-text: color-mix(in srgb, var(--muted-ink) 88%, var(--ink)); /* 4.89 / 5.38 */
+  --terracotta-text: color-mix(in srgb, var(--terracotta) 85%, var(--ink)); /* 4.65 / 5.11 */
+  --oasis-text: color-mix(in srgb, var(--oasis) 88%, var(--ink)); /* 4.79 / 5.26 */
+  --night-muted: color-mix(in srgb, var(--sand) 70%, var(--night)); /* 7.14 on night */
+  --night-line: color-mix(in srgb, var(--sand) 18%, var(--night));
+}
+
+/* ------------------------------------------------------------------------ *
+ * Tones. Day is the default; `.tone-night` re-maps the same semantic tokens
+ * for dark bands (header, footer, the "before dawn" stretch of the road).
+ * ------------------------------------------------------------------------ */
+@layer base {
+  :root,
+  .tone-day {
+    --background: var(--sand);
+    --foreground: var(--ink);
+    --card: var(--paper);
+    --card-foreground: var(--ink);
+    --popover: var(--paper);
+    --popover-foreground: var(--ink);
+    --primary: var(--terracotta-text);
+    --primary-foreground: var(--paper);
+    --secondary: color-mix(in srgb, var(--hairline) 70%, var(--sand));
+    --secondary-foreground: var(--ink);
+    --muted: color-mix(in srgb, var(--hairline) 45%, var(--sand));
+    --muted-foreground: var(--muted-ink-text);
+    --accent: color-mix(in srgb, var(--hairline) 60%, var(--sand));
+    --accent-foreground: var(--ink);
+    --destructive: var(--terracotta-text);
+    --success: var(--oasis-text);
+    --border: var(--hairline);
+    --input: var(--muted-ink);
+    --ring: var(--terracotta-text);
+    color: var(--foreground);
+  }
+
+  .tone-night {
+    --background: var(--night);
+    --foreground: var(--sand);
+    --muted: color-mix(in srgb, var(--sand) 8%, var(--night));
+    --muted-foreground: var(--night-muted);
+    /* On night the call to action is the light itself: dawn gold with night text (6.61:1). */
+    --primary: var(--dawn);
+    --primary-foreground: var(--night);
+    --secondary: color-mix(in srgb, var(--sand) 12%, var(--night));
+    --secondary-foreground: var(--sand);
+    --accent: color-mix(in srgb, var(--sand) 10%, var(--night));
+    --accent-foreground: var(--sand);
+    --success: var(--oasis);
+    --border: var(--night-line);
+    --input: var(--night-muted);
+    --ring: var(--dawn);
+    color: var(--foreground);
+  }
+}
+
+:root {
+  --radius: 0.75rem;
+  /* The road starts pale in the night and reaches dawn gold. Override per map as needed. */
+  --road-from: var(--night-muted);
+  --road-via: var(--dawn);
+  --road-to: var(--dawn);
+  --road-bed-from: color-mix(in srgb, var(--sand) 9%, transparent);
+  --road-bed-to: color-mix(in srgb, var(--hairline) 75%, var(--dawn));
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .07 0 0 0 0 .22 0 0 0 0 .23 .14 0 0 0 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
+@theme inline {
+  --font-sans: var(--font-body);
+  --font-display: var(--font-reem-kufi), var(--font-plex-arabic), ui-sans-serif, sans-serif;
+  --font-heading: var(--font-reem-kufi), var(--font-plex-arabic), ui-sans-serif, sans-serif;
+  --font-quran: var(--font-amiri-quran), serif;
+
+  --color-sand: var(--sand);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-night: var(--night);
+  --color-dawn: var(--dawn);
+  --color-terracotta: var(--terracotta);
+  --color-oasis: var(--oasis);
+  --color-muted-ink: var(--muted-ink);
+  --color-hairline: var(--hairline);
+  --color-terracotta-text: var(--terracotta-text);
+  --color-oasis-text: var(--oasis-text);
+  --color-night-muted: var(--night-muted);
+  --color-night-line: var(--night-line);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* Fine paper grain: a static, tiled SVG noise, so it costs nothing at scroll time. */
+@utility paper-grain {
+  background-image: var(--grain);
+}
+
+/* The long stretch of the road where night gives way to dawn. Paper grain sits on top. */
+@utility journey-dawn {
+  background-image:
+    var(--grain),
+    linear-gradient(
+      to bottom,
+      var(--night) 0%,
+      var(--night) 8%,
+      color-mix(in oklab, var(--night) 72%, var(--terracotta)) 30%,
+      color-mix(in oklab, var(--terracotta) 62%, var(--dawn)) 50%,
+      color-mix(in oklab, var(--dawn) 48%, var(--sand)) 68%,
+      var(--sand) 86%
+    );
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  /* The body face is chosen by language, not by fallback order: next/font's metric-matched
+     fallback (local Arial) covers Arabic too and would catch it before the Arabic face.
+     Any element with its own `lang` (e.g. "English" in an Arabic page) re-resolves it. */
+  :root {
+    --font-body: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  }
+
+  :lang(ar) {
+    --font-body: var(--font-plex-arabic), ui-sans-serif, system-ui, sans-serif;
+  }
+
+  [lang] {
+    font-family: var(--font-body);
+  }
+
+  html {
+    @apply font-sans;
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* Arabic script needs a larger size and more leading than Latin at the same weight. */
+  html:lang(ar) {
+    font-size: 106.25%;
+  }
+
+  body {
+    @apply paper-grain bg-background text-foreground antialiased;
+    line-height: 1.7;
+  }
+
+  body:lang(ar) {
+    line-height: 1.95;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------------ *
+ * Motion. Every animation is opt-in under `no-preference`; the resting state
+ * of each element is its final, fully visible state.
+ * ------------------------------------------------------------------------ */
+@keyframes road-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+}
+
+@keyframes lantern-breathe {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.82);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes flame-flicker {
+  0%,
+  100% {
+    transform: scaleY(1) scaleX(1);
+  }
+  35% {
+    transform: scaleY(1.08) scaleX(0.94);
+  }
+  70% {
+    transform: scaleY(0.95) scaleX(1.04);
+  }
+}
+
+@keyframes stamp-press {
+  0% {
+    opacity: 0;
+    transform: scale(1.35) rotate(var(--stamp-rotate));
+  }
+  60% {
+    opacity: 1;
+    transform: scale(0.96) rotate(var(--stamp-rotate));
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-road-draw {
+    animation: road-draw 2.2s cubic-bezier(0.45, 0, 0.2, 1) 0.2s both;
+  }
+
+  .animate-rise-in {
+    animation: rise-in 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  [data-lantern-state="thinking"] .lantern-halo {
+    animation: lantern-breathe 2.4s ease-in-out infinite;
+  }
+
+  [data-lantern-state="thinking"] .lantern-flame {
+    animation: flame-flicker 1.2s ease-in-out infinite;
+  }
+
+  [data-stamp-appear] {
+    animation: stamp-press 0.5s cubic-bezier(0.3, 0.7, 0.3, 1) both;
+  }
+}
+
+/* ------------------------------------------------------------------------ *
+ * Building blocks whose states are easier to read as CSS than as utilities.
+ * ------------------------------------------------------------------------ */
+@layer components {
+  .lantern-halo,
+  .lantern-flame {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .lantern-flame {
+    transform-origin: 50% 90%;
+  }
+
+  [data-lantern-state="idle"] .lantern-halo {
+    opacity: 0.45;
+  }
+
+  /* Station marker: a stop on the road. Unlit is an empty ring the road passes through;
+     lit is a filled disc of dawn light with two flat rings around it. */
+  .station-marker {
+    position: relative;
+    display: grid;
+    place-items: center;
+    inline-size: 3rem;
+    block-size: 3rem;
+    border-radius: 9999px;
+    border: 2px dashed var(--muted-ink);
+    background: transparent;
+    color: var(--muted-foreground);
+    transition:
+      background-color 0.6s ease,
+      border-color 0.6s ease,
+      color 0.6s ease;
+  }
+
+  .station-marker::before,
+  .station-marker::after {
+    content: "";
+    position: absolute;
+    border-radius: inherit;
+    border: 1.5px solid var(--dawn);
+    opacity: 0;
+    transform: scale(0.6);
+    transition:
+      opacity 0.6s ease,
+      transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+    pointer-events: none;
+  }
+
+  .station-marker::before {
+    inset: -0.45rem;
+  }
+
+  .station-marker::after {
+    inset: -0.95rem;
+    border-width: 1px;
+  }
+
+  .station-marker[data-light="reach"] {
+    border-color: var(--dawn);
+    color: var(--dawn);
+  }
+
+  .station-marker[data-state="current"] {
+    border-style: solid;
+    border-color: var(--terracotta-text);
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  .station-marker[data-state="completed"],
+  .station-marker[data-light="reach"]:not([data-reached="false"]) {
+    border-style: solid;
+    border-color: var(--dawn);
+    background: var(--dawn);
+    color: var(--night);
+  }
+
+  .station-marker[data-state="completed"]::before,
+  .station-marker[data-light="reach"]:not([data-reached="false"])::before {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+
+  .station-marker[data-state="completed"]::after,
+  .station-marker[data-light="reach"]:not([data-reached="false"])::after {
+    opacity: 0.25;
+    transform: scale(1);
+  }
+}
