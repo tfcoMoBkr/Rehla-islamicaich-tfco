@@ -40,14 +40,16 @@ Everything below lives in the browser's `localStorage`. For a guest, none of it 
 | `rehla.auth.v1` | The account session (supabase-js), only when signed in. | Sign out, or delete the account |
 | `rehla.account.v1` | The display name and country to show in the header, only when signed in. | Sign out |
 | `rehla.invite.v1` | That the invitation to create an account was dismissed, so it is not shown again. | Kept on sign-out |
+| `rehla.choice.v1` | Whether the visitor chose an account or guest use on the first visit, so the choice is offered once. | Kept on sign-out |
+| `rehla.name.unused.v1` | That a signed-in learner asked Rafiq not to use their account's name. | "What Rafiq remembers", the account page, "Clear everything" |
 
 ### The name
 
-The name is optional, asked once, and can be skipped, changed or removed at any time.
+The name Rafiq calls the learner by is optional and can be changed or removed at any time, in "What Rafiq remembers" and, when signed in, on the account page.
 
-- Only the page uses it, to greet the learner. The greeting ("Welcome back, {name}") and the next step ("You are at lesson {number}…") are built in code from the message files.
-- It is **never sent to the AI service**. A test (`web/src/lib/rafiq/memory.test.ts`) checks that a request to Rafiq carries only the question, the page language, the lessons reached and the conversation history.
-- Rafiq builds no profile from it, and does not use it to guess anything about the person.
+- **Where it is kept.** A guest's name stays on the device (`rehla.name.v1`). A signed-in learner's is the display name in their own profile row; they can ask Rafiq not to use it (`rehla.name.unused.v1`, on the device).
+- **Never sent to the AI service or the model provider.** Rafiq writes the placeholder `{{name}}` in a warm line, and the page puts the name there on the device, or removes the placeholder when there is none. Code keeps the placeholder out of the cited answer and out of two replies in a row. Tests check that a request to Rafiq carries no name (`web/src/lib/rafiq/memory.test.ts`) and that the placeholder never reaches the screen.
+- The greeting ("Welcome back, {name}") and the next step are built in code from the message files. Rafiq builds no profile from the name and guesses nothing from it.
 
 ### The city
 
@@ -69,6 +71,14 @@ The service keeps none of it after replying: it holds no conversation state and 
 **Rate limiting** counts requests per IP address in memory, for one minute, and stores nothing.
 
 **The model provider** (OpenRouter) receives the question and the passages Rafiq retrieved. Provider data collection is refused by default (`OPENROUTER_DATA_COLLECTION=deny`).
+
+## Photos shown to Lens
+
+The photo is sent to an AI model provider to be read; nothing is kept.
+
+- **In the browser.** The photo is downscaled to at most 1280 px and re-encoded as JPEG, which leaves its metadata (location, camera, time) behind, before it is sent.
+- **In the service.** It is held in memory for the reading call only, never stored or logged. Logs carry the kind of photo, the row of the decision table that applied, and the timing.
+- **The model provider** (OpenRouter, with data collection refused) receives the photo to read it. Lens never describes people, does not read out or translate personal documents, and infers nothing about the person from a photo.
 
 ## Clearing everything
 

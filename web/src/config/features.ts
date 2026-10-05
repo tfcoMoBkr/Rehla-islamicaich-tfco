@@ -12,7 +12,7 @@ export const features: Readonly<Record<Feature, boolean>> = {
   practice: true,
   rafiq: true,
   mawqif: false,
-  adasa: false,
+  adasa: true,
   community: false,
   aqim: false,
 };
@@ -25,7 +25,7 @@ export const sections: readonly Section[] = [
   { feature: "practice", href: "/practice" },
   { feature: "rafiq", href: "/rafiq" },
   { feature: "mawqif", href: "/mawqif" },
-  { feature: "adasa", href: "/adasa" },
+  { feature: "adasa", href: "/lens" },
   { feature: "community", href: "/community" },
   { feature: "aqim", href: "/aqim" },
 ];

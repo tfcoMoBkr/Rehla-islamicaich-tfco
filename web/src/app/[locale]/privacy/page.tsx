@@ -1,4 +1,4 @@
-import { HardDrive, MessageCircle, ShieldCheck, Trash2, UserRound, type LucideIcon } from "lucide-react";
+import { Camera, HardDrive, MessageCircle, ShieldCheck, Trash2, UserRound, type LucideIcon } from "lucide-react";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { ReactNode } from "react";
@@ -6,6 +6,7 @@ import type { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { accountsEnabled } from "@/config/accounts";
+import { features } from "@/config/features";
 import { PageMessages } from "@/i18n/client-messages";
 import { Link } from "@/i18n/navigation";
 import { resolveLocale } from "@/i18n/locale";
@@ -74,7 +75,14 @@ export default async function PrivacyPage({ params }: PageProps<"/[locale]/priva
 
         <Part id="privacy-rafiq" icon={MessageCircle} title={t("rafiqTitle")}>
           <p>{t("rafiqBody")}</p>
+          <p>{t("nameBody")}</p>
         </Part>
+
+        {features.adasa && (
+          <Part id="privacy-lens" icon={Camera} title={t("lensTitle")}>
+            <p>{t("lensBody")}</p>
+          </Part>
+        )}
 
         <Part id="privacy-control" icon={Trash2} title={t("controlTitle")}>
           {accounts && <p>{t("controlAccount")}</p>}

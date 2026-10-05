@@ -13,6 +13,3 @@ export function supabaseConfig(): SupabaseConfig | null {
 }
 
 export const accountsEnabled = (): boolean => supabaseConfig() !== null;
-
-/** Reset emails need an SMTP provider set up in Supabase; until then the reset screen says it is not available. */
-export const passwordResetEnabled = (): boolean => accountsEnabled() && process.env.NEXT_PUBLIC_PASSWORD_RESET_EMAILS === "on";

@@ -13,6 +13,7 @@ from app.api import router as rafiq_router
 from app.config import Settings, get_settings
 from app.health import router as health_router
 from app.index import Index
+from app.lens.lens import Lens
 from app.llm import ModelUnavailableError, OpenRouterChat, OpenRouterEmbedder
 from app.rafiq.graph import Rafiq
 from app.retrieval.mcp import McpClient
@@ -41,6 +42,16 @@ def load_rafiq(settings: Settings, client: httpx.AsyncClient) -> Rafiq | None:
     return rafiq
 
 
+def load_lens(settings: Settings, client: httpx.AsyncClient, rafiq: Rafiq) -> Lens | None:
+    """Lens on top of Rafiq; None when no vision model is configured."""
+    try:
+        vision = OpenRouterChat(settings, client, vision=True)
+    except ModelUnavailableError as error:
+        log.warning("Lens is unavailable: %s", error)
+        return None
+    return Lens(vision, rafiq, rafiq.retriever)
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     settings = get_settings()
@@ -50,6 +61,8 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
         app.state.services = Services(
             limiter=RateLimiter(settings.asks_per_minute),
             load=lambda: load_rafiq(settings, client),
+            lens_limiter=RateLimiter(settings.lens_per_minute),
+            load_lens=lambda rafiq: load_lens(settings, client, rafiq),
         )
         yield
 

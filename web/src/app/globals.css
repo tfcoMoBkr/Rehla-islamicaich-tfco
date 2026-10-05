@@ -645,3 +645,30 @@
     transform: scale(1);
   }
 }
+
+/* Lens: a soft band of dawn light passes over the photo while it is read. At rest (and under
+ * reduced motion) the band sits still in the middle, so the state still reads as "working". */
+.lens-scan {
+  background: linear-gradient(
+      180deg,
+      transparent,
+      color-mix(in srgb, var(--dawn) 26%, transparent) 50%,
+      transparent
+    )
+    0 50% / 100% 35% no-repeat;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lens-scan {
+    animation: lens-scan 2.4s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes lens-scan {
+  from {
+    background-position: 0 -10%;
+  }
+  to {
+    background-position: 0 110%;
+  }
+}

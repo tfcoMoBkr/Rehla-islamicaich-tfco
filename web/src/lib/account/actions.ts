@@ -179,7 +179,7 @@ export async function updateProfile(displayName: string, country: string | null,
   try {
     const client = await accountClient();
     const user = await currentUser(client);
-    if (!user) return { ok: false, error: "linkExpired" };
+    if (!user) return { ok: false, error: "sessionEnded" };
     const { error } = await client.from("profiles").update({ display_name: displayName, country, locale }).eq("id", user.id);
     if (error) return fail(error);
     accountSummary.set({ name: displayName, country });
@@ -194,7 +194,7 @@ export async function changePassword(current: string, next: string): Promise<Res
   try {
     const client = await accountClient();
     const user = await currentUser(client);
-    if (!user?.email) return { ok: false, error: "linkExpired" };
+    if (!user?.email) return { ok: false, error: "sessionEnded" };
     const check = await client.auth.signInWithPassword({ email: user.email, password: current });
     if (check.error) {
       const error = accountError(check.error);
@@ -207,49 +207,12 @@ export async function changePassword(current: string, next: string): Promise<Res
   }
 }
 
-export async function requestPasswordReset(email: string, locale: Locale): Promise<Result> {
-  try {
-    const client = await accountClient();
-    const { error } = await client.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/${locale}/account/new-password`,
-    });
-    return error ? fail(error) : { ok: true };
-  } catch (error) {
-    return fail(error);
-  }
-}
-
-/** On the page a reset link opens: whether the link gave this browser a session to set a password with. */
-export async function hasRecoverySession(): Promise<boolean> {
-  try {
-    const client = await accountClient();
-    return (await currentUser(client)) !== null;
-  } catch {
-    return false;
-  }
-}
-
-export async function setNewPassword(password: string): Promise<Result> {
-  try {
-    const client = await accountClient();
-    watchSession(client);
-    const user = await currentUser(client);
-    if (!user) return { ok: false, error: "linkExpired" };
-    const { error } = await client.auth.updateUser({ password });
-    if (error) return fail(error);
-    await begin(client, user.id);
-    return { ok: true };
-  } catch (error) {
-    return fail(error);
-  }
-}
-
 /** Everything the account holds about the learner, as one JSON document. */
 export async function exportData(): Promise<Result<{ data: object }>> {
   try {
     const client = await accountClient();
     const user = await currentUser(client);
-    if (!user) return { ok: false, error: "linkExpired" };
+    if (!user) return { ok: false, error: "sessionEnded" };
     const [profile, progress] = await Promise.all([loadProfile(client, user.id), readProgressRows(client, user.id)]);
     return {
       ok: true,
@@ -271,9 +234,9 @@ export async function deleteAccount(): Promise<Result> {
     const client = await accountClient();
     const { data } = await client.auth.getSession();
     const token = data.session?.access_token;
-    if (!token) return { ok: false, error: "linkExpired" };
+    if (!token) return { ok: false, error: "sessionEnded" };
     const response = await fetch(DELETE_PATH, { method: "POST", headers: { authorization: `Bearer ${token}` } });
-    if (!response.ok) return { ok: false, error: response.status === 401 ? "linkExpired" : "unknown" };
+    if (!response.ok) return { ok: false, error: response.status === 401 ? "sessionEnded" : "unknown" };
     stopSync();
     await client.auth.signOut({ scope: "local" }).catch(() => undefined);
     clearDevice();

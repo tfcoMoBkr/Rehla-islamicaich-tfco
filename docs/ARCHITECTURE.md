@@ -25,7 +25,7 @@ Every main page is rendered at build time: the home page, Khutuwat (road, lesson
 - **The tour** (`src/components/guide/`) opens the first time the learner enters `/learn`, as a panel at the bottom of the screen with no backdrop: one idea per step, each beside the real thing in miniature (the stations, a board line with its source, the shortest ordering activity of the road, one of the lessons' own questions, Rafiq). "Skip" or Escape closes it for good on the device; "How Rehla works" on the learn page and in the footer opens it again.
 - **Practice** (`/[locale]/practice`, flag `practice`) gathers every activity of the road's lessons by station, from the same lesson data and components (`src/lib/learn/practice.ts`), except reflections and private checklists. Each activity has its own static page: the activity full width, then its lesson's short questions (card checks and quiz). Provisions are earned once per activity (3) and per question answered right (1), are never taken away, and are kept in the learner's progress record (`practice.earned`, `practice.best`, keyed by id, so an account joins two devices' provisions without counting any twice).
 
-The browser talks only to the web app. A route handler (`web/src/app/api/ai/[path]/route.ts`, `web/src/lib/ai-proxy.ts`) forwards `/api/ai/ask`, `/api/ai/lesson-help` and `/api/ai/health` to the AI service at `AI_SERVICE_URL`, adding the shared key `AI_SERVICE_KEY` and the learner's address; the key and the provider keys never reach the browser. The service refuses any request without the key when `AI_SERVICE_KEY` is set (`ai/app/security.py`) and sends no CORS headers, so no page can call it directly. Sections are switched on in `web/src/config/features.ts`; navigation shows only the sections that are on.
+The browser talks only to the web app. A route handler (`web/src/app/api/ai/[path]/route.ts`, `web/src/lib/ai-proxy.ts`) forwards `/api/ai/ask`, `/api/ai/lesson-help`, `/api/ai/lens` and `/api/ai/health` to the AI service at `AI_SERVICE_URL`, adding the shared key `AI_SERVICE_KEY` and the learner's address; the key and the provider keys never reach the browser. The service refuses any request without the key when `AI_SERVICE_KEY` is set (`ai/app/security.py`) and sends no CORS headers, so no page can call it directly. Sections are switched on in `web/src/config/features.ts`; navigation shows only the sections that are on.
 
 ## Optional accounts
 
@@ -63,6 +63,28 @@ Joining rules, for an item both sides hold:
 | `tour` | the Khutuwat tour was seen | seen if either side saw it |
 
 Items only one side holds are kept.
+
+## Lens («عدسة»)
+
+A learner photographs something around them (a sign in a mosque, a prayer mat, a wudu area, Arabic writing) and Lens says what it is and what it means, from the approved sources. Page: `/[locale]/lens` (flag `adasa`). Service: `POST /lens` (`ai/app/lens/`), reached through the web proxy (`/api/ai/lens`).
+
+Three steps, kept apart in code and on screen:
+
+1. **SEE** (`lens.py`, `prompts/see.md`): a vision model (`VLM_MODEL`, then `VLM_FALLBACK_MODEL`) reports what the photo shows as strict JSON (`Seen` in `schemas.py`): kind, a neutral subject, the text read and its language, a translation of ordinary text only, whether the text looks like scripture, whether people are present, a confidence, a category, the photo's quality, religious terms that appear in the text, and other things in the photo. It explains nothing, gives no ruling, describes no person, and treats any instruction written in the photo as text. Invalid JSON is asked again once, then the fallback model is asked, then the reply is the unclear card.
+2. **DECIDE** (`decide.py`): code applies the decision table in `docs/RELIABILITY.md` to that report. Text that looks like scripture, and Arabic phrases of three to thirty words, are looked up with `Retriever.find_quoted`, the same lookup Rafiq uses for a quoted verse; only an exact match counts.
+3. **EXPLAIN**: only for the rows that answer, the subject, or a religious term the text really holds, becomes an ordinary question to Rafiq ("What is X, and what does it mean for a Muslim?"), so the answer is a normal `RafiqAnswer` with every Rafiq check and card. A matched verse or hadith is shown as its published block with no model text at all; a paper about the learner's own situation gets the specialist card with no ruling.
+
+**Limits.** The browser downscales a photo to 1280 px, re-encodes it as JPEG (which leaves its metadata behind) and sends at most 4 MB; the service checks the size and the file's own signature. `/lens` has its own limit (`LENS_PER_MINUTE`, 5 per minute per address), the shared service key, and a 45-second budget that ends in a friendly card. The image is held in memory for the SEE call only; logs carry the kind, the row, the card and the timing.
+
+**Examples.** Four drawn examples (original SVG) let a visitor without a camera try Lens: each sends a stored `seen` result, so only EXPLAIN runs, and the screen marks it "Example".
+
+## Rafiq and the learner's name
+
+Rafiq never sees the learner's name. He may write the placeholder `{{name}}` in a warm line (`opening`, `followUp`, a reply to small talk); the page fills it in on the device (`web/src/lib/rafiq/name.ts`), or removes it with its vocative or comma when there is no name. Code keeps it out of the cited answer and out of two replies in a row (`ai/app/rafiq/name.py`). The name is the account's display name when signed in, otherwise the one given on this device.
+
+## Account or guest
+
+The first time a visitor who is not signed in opens Khutuwat, Practice or Rafiq, one dialog offers an account or guest use as two equal choices (`web/src/components/account/account-choice.tsx`). It is a client-side check after hydration, so pages stay static and a signed-in learner never sees it. The choice is kept on the device; the Khutuwat tour opens only after it is answered.
 
 ## Rafiq
 

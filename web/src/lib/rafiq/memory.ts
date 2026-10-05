@@ -8,7 +8,7 @@ import { forgetLessonThreads } from "./lesson-threads";
 
 /*
  * What Rafiq remembers, all on this device: the name the learner chose to give (optional, never
- * sent to the service), the conversation in each language, the conversations beside lesson boards,
+ * sent to the service; a signed-in learner's is their account's display name, see name.ts), the conversation in each language, the conversations beside lesson boards,
  * and the city chosen for referrals.
  * Nothing is inferred from them, and "Clear everything" removes them all.
  */
@@ -18,6 +18,8 @@ export const NAME_MAX_LENGTH = 40;
 export const learnerName = textStore("rehla.name.v1");
 /** The learner has answered the name prompt once (given a name, or skipped). */
 export const nameAsked = textStore("rehla.name.asked.v1");
+/** Set when a signed-in learner asks Rafiq not to use their account's name (src/lib/rafiq/name.ts). */
+export const nameUnused = textStore("rehla.name.unused.v1");
 
 const resultSchema = z.discriminatedUnion("kind", [
   z.object({ kind: z.literal("answer"), answer: rafiqAnswerSchema }),
@@ -55,6 +57,7 @@ export function keepExchange(locale: "ar" | "en", exchange: Omit<StoredExchange,
 export function forgetEverything(): void {
   learnerName.set(null);
   nameAsked.set(null);
+  nameUnused.set(null);
   conversations.ar.set(null);
   conversations.en.set(null);
   chooseCity(null);

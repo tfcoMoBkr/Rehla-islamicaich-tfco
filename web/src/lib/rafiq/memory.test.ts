@@ -2,7 +2,9 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { chooseCity } from "@/lib/referral/chosen-city";
 
-import type { RafiqAnswer } from "./answer";
+import { accountSummary } from "@/lib/account/session";
+
+import { replyText, type RafiqAnswer } from "./answer";
 import { askRafiq } from "./ask";
 import { conversationStore, forgetEverything, keepExchange, learnerName, nameAsked } from "./memory";
 
@@ -86,5 +88,22 @@ describe("what Rafiq remembers", () => {
     const body = String(fetcher.mock.calls[0]?.[1]?.body);
     expect(body).not.toContain("Unique-Name");
     expect(Object.keys(JSON.parse(body) as object).sort()).toEqual(["history", "locale", "question"]);
+  });
+
+  it("never sends a signed-in learner's name either: earlier replies go back with the placeholder", async () => {
+    accountSummary.set({ name: "Amina Unique-Name", country: null });
+    learnerName.set("Sam Unique-Name");
+    const named: RafiqAnswer = { ...chat, opening: "Good to hear from you, {{name}}." };
+    const fetcher = vi.fn<typeof fetch>(async () => new Response(JSON.stringify(chat), { status: 200 }));
+    const history = [
+      { role: "user" as const, text: "Hello" },
+      { role: "assistant" as const, text: replyText(named) },
+    ];
+    await askRafiq({ question: "And wudu?", locale: "en", history }, { fetcher });
+
+    const body = String(fetcher.mock.calls[0]?.[1]?.body);
+    expect(body).not.toContain("Unique-Name");
+    expect(body).toContain("{{name}}");
+    accountSummary.set(null);
   });
 });

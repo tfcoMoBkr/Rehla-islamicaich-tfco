@@ -46,9 +46,6 @@ export function SignInForm() {
       <Field label={t("password")}>
         {(props) => <PasswordInput {...props} autoComplete="current-password" value={password} onChange={(event) => setPassword(event.target.value)} required />}
       </Field>
-      <Link href="/account/reset" className="justify-self-start text-sm font-medium underline underline-offset-4">
-        {t("forgot")}
-      </Link>
 
       <p className="text-sm text-muted-foreground">{t("signInMerge")}</p>
       {error && <FormMessage tone="error">{t(`errors.${error}`)}</FormMessage>}

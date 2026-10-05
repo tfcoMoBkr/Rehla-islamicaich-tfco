@@ -9,7 +9,7 @@ import { aiServiceUrl } from "@/config/ai-service";
  */
 
 /** The service's endpoints the browser may reach, and the one method each accepts. */
-export const AI_ROUTES = { ask: "POST", "lesson-help": "POST", health: "GET" } as const;
+export const AI_ROUTES = { ask: "POST", "lesson-help": "POST", lens: "POST", health: "GET" } as const;
 export type AiRoute = keyof typeof AI_ROUTES;
 
 /** Rafiq checks every answer against its sources before replying, which can take a while. */

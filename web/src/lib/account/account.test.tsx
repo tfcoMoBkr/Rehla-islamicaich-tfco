@@ -158,7 +158,6 @@ const auth = {
   getSession: vi.fn(async () => ({ data: { session: session() } })),
   onAuthStateChange: vi.fn(() => ({ data: { subscription: { unsubscribe: () => undefined } } })),
   updateUser: vi.fn(async () => ({ data: {}, error: null })),
-  resetPasswordForEmail: vi.fn(async () => ({ data: {}, error: null })),
 };
 
 const createClient = vi.fn(() => ({ auth, from: (table: "profiles" | "progress_items") => new Query(table) }));
@@ -397,7 +396,7 @@ describe("the account's error messages", () => {
   });
 
   it("exist in both languages for every error", () => {
-    const keys = ["wrongPassword", "currentPasswordWrong", "emailUsed", "weakPassword", "samePassword", "badEmail", "countryNotListed", "notConfirmed", "tooMany", "resetUnavailable", "linkExpired", "network", "unknown"];
+    const keys = ["wrongPassword", "currentPasswordWrong", "emailUsed", "weakPassword", "samePassword", "badEmail", "countryNotListed", "notConfirmed", "tooMany", "sessionEnded", "network", "unknown"];
     for (const messages of [en, ar]) expect(Object.keys(messages.Account.errors)).toEqual(expect.arrayContaining(keys));
   });
 });

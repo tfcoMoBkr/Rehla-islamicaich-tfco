@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
+import { AccountChoice } from "@/components/account/account-choice";
 import { AccountSync } from "@/components/account/account-sync";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -68,6 +69,7 @@ export default async function LocaleLayout({
                 </main>
                 <SiteFooter />
                 <AccountSync />
+                <AccountChoice />
               </ReferralCentresProvider>
             </RafiqPosesProvider>
           </DirectionProvider>

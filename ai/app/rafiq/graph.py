@@ -32,6 +32,7 @@ from app.rafiq import policy
 from app.rafiq.check import Problem, cited, code_problems, counts
 from app.rafiq.compose import compose
 from app.rafiq.draft import Unit, parse, render
+from app.rafiq.name import named_last_time, without_name
 from app.rafiq.repair import finish, repair
 from app.rafiq.safety import danger_signs
 from app.rafiq.schemas import (
@@ -46,6 +47,7 @@ from app.rafiq.schemas import (
     ReferralReason,
     ReplyKind,
     SupportCheck,
+    TextBlock,
     Turn,
 )
 from app.rafiq.specialists import SPECIALIST_PAGE, referral_centres
@@ -204,6 +206,10 @@ class Rafiq:
         self._debug = debug
         self._graph = self._build()
 
+    @property
+    def retriever(self) -> Retriever:
+        return self._retriever
+
     async def _keywords(self, question: str, language: Language) -> list[str]:
         try:
             result = await self._chat.json(
@@ -335,7 +341,11 @@ class Rafiq:
             return {}
         lines = {"opening": draft.opening, "followUp": draft.follow_up}
         passages = state["retrieval"].passages if "retrieval" in state else []
-        return screened(lines, passages, state["language"], _earlier_replies(state))
+        kept = screened(lines, passages, state["language"], _earlier_replies(state))
+        # The name now and then, as a companion would: never in two replies in a row.
+        if named_last_time(state.get("history")):
+            kept = {field: without_name(text) for field, text in kept.items()}
+        return kept
 
     async def _verify(self, state: State) -> State:
         draft = state["draft"]
@@ -399,8 +409,20 @@ class Rafiq:
         )
         warm = state.get("warm", {})
         kind: ReplyKind = "referral" if reason else "answer"
+        # The name belongs to the warm lines only, never to the cited answer.
+        blocks = [
+            block.model_copy(update={"text": without_name(block.text)})
+            if isinstance(block, TextBlock)
+            else block
+            for block in answer.blocks
+        ]
         answer = answer.model_copy(
-            update={"kind": kind, "opening": warm.get("opening"), "follow_up": warm.get("followUp")}
+            update={
+                "kind": kind,
+                "blocks": blocks,
+                "opening": warm.get("opening"),
+                "follow_up": warm.get("followUp"),
+            }
         )
         return {"answer": self._decorated(state, answer)}
 

@@ -11,6 +11,7 @@ line is simply not shown; it never causes a referral.
 from app.languages import Language, written_in
 from app.rafiq.check import book_runs_of, copied_from
 from app.rafiq.draft import MARKER, PLACEHOLDER, canonical_markers, split_sentences
+from app.rafiq.name import without_name
 from app.retrieval.passages import Passage
 from app.text import words
 
@@ -55,7 +56,8 @@ def screened(
         bracketed = "﴿" in line or "﴾" in line
         if marked or bracketed or copied_from(line, passages, runs) is not None:
             continue
-        if not written_in(line, language) or _repeats(line, earlier):
+        # The name placeholder is filled on the device; it is not part of the line's language.
+        if not written_in(without_name(line), language) or _repeats(line, earlier):
             continue
         kept[field] = line
     return kept

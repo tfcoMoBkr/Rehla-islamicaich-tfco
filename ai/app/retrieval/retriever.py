@@ -299,23 +299,36 @@ class Retriever:
                 passages.append(passage)
         return passages
 
-    async def _quoted_verse(
-        self, quote: str, language: Language
+    async def find_quoted(
+        self, quote: str, language: Language, sources: tuple[str, ...] = ("quran",)
     ) -> tuple[Passage | None, Misquote | None]:
+        """The verse or hadith a quoted text points to, read from the approved sources, and whether
+        the quoted words appear in it exactly. Rafiq uses it for a quoted verse, Lens for text read
+        from a photo; nothing else looks sacred text up."""
         text = await self._mcp.call(
-            "search", {"query": quote, "language": "ar", "sources": ["quran"], "limit": 3}
+            "search", {"query": quote, "language": "ar", "sources": list(sources), "limit": 3}
         )
         for hit in parse_search(text or ""):
-            verse = re.fullmatch(r"quran:(\d+):(\d+)(?::\w+)?", hit.id)
-            if not verse:
-                continue
-            passage = await self._verse(int(verse.group(1)), int(verse.group(2)), language)
-            if passage and passage.verse:
-                return passage, Misquote(
-                    quoted=quote,
-                    ref=passage.verse.ref,
-                    exact=_contains(passage.verse.arabic, quote),
-                )
+            if verse := re.fullmatch(r"quran:(\d+):(\d+)(?::\w+)?", hit.id):
+                if "quran" not in sources:
+                    continue
+                passage = await self._verse(int(verse.group(1)), int(verse.group(2)), language)
+                if passage and passage.verse:
+                    return passage, Misquote(
+                        quoted=quote,
+                        ref=passage.verse.ref,
+                        exact=_contains(passage.verse.arabic, quote),
+                    )
+            elif hadith := re.fullmatch(r"hadith:(\d+):\w+", hit.id):
+                if "hadith" not in sources:
+                    continue
+                passage = await self._hadith(int(hadith.group(1)), language)
+                if passage and passage.hadith:
+                    return passage, Misquote(
+                        quoted=quote,
+                        ref=str(passage.hadith.id),
+                        exact=_contains(passage.hadith.arabic, quote),
+                    )
         return None, None
 
     async def _queries(
@@ -373,7 +386,7 @@ class Retriever:
 
         misquote = None
         if quoted_verse:
-            verse, misquote = await self._quoted_verse(quoted_verse, language)
+            verse, misquote = await self.find_quoted(quoted_verse, language)
             if verse:
                 passages.insert(0, verse)
 

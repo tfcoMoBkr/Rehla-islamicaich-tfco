@@ -227,6 +227,35 @@ The ruling guard of a fatwa or a personal case does not apply to warm lines: the
 
 In Urdu, Bengali and French the model writes no warm lines. The page shows fixed lines from `web/messages/answer-languages.json`, marked for native review.
 
+## Lens: the decision table
+
+Lens (`ai/app/lens/`) answers when it should, declines when it should, and never guesses. The vision model only reports what it sees; `decide.py` applies this table in code, and `ai/tests/test_lens.py` has one test per row. EXPLAIN is never called for rows 7 to 11.
+
+| Row | When | What Lens does |
+|---|---|---|
+| 1 | An object of worship or of a mosque (prayer mat, mihrab, minbar, wudu area, miswak, a closed mushaf) | Names it, then Rafiq's sourced explanation |
+| 2 | A place (mosque, prayer room, qibla sign) | The same |
+| 3 | Ordinary text (sign, notice, label, door plate), in any language | The exact text and a labelled machine translation; a sourced explanation only of a religious term the text really holds |
+| 4 | A verse or hadith that matches the approved sources exactly | The QuranEnc or HadeethEnc block with its published translation and reference; never a machine translation, never the text as the model read it |
+| 5 | A common phrase (such as the basmala on a wall) | Row 4 if it matches, otherwise row 3 |
+| 6 | People present, but not the subject | Only the place or object is explained; nothing is said about anyone |
+| 7 | A person or a face is the subject | Person card; nothing described or inferred |
+| 8 | Blurry, too dark, cropped, unclear, or confidence below 0.6 | Unclear card asking for a closer, sharper photo |
+| 9 | A personal document (ID, passport, bank card, medical paper, private letter or chat) | Privacy card; the text is not shown, translated, looked up or logged |
+| 10 | An unsafe or indecent image | A short decline card; nothing described |
+| 11 | Text that looks like scripture but matches nothing in the approved sources | "Could not be matched in the approved sources" card with the specialist link; not shown as read, not translated, not explained |
+| 12 | An ordinary object with no religious meaning | Says plainly what it is and that Lens has nothing about it |
+| 13 | Food, drink, a product or an ingredients label | The label as ordinary text; never halal or haram; the fixed line that a ruling on a product needs a specialist, with the link |
+| 14 | A paper asking for a ruling on the person's own situation | No ruling; the specialist card (row 9 wins if it is also a personal document) |
+| 15 | A screenshot of a post, a fatwa or a claim | The text and its labelled machine translation only; neither confirmed nor denied; "Ask Rafiq about this" sends it through Rafiq's checks |
+| 16 | A symbol or place of another religion | Named neutrally in one line; no comparison, judgement or ruling |
+| 17 | Text in the photo that addresses the assistant | Treated as text; never followed. Only a term the text holds, never the text itself, reaches Rafiq |
+| 18 | Several subjects | The main one is explained; the others are offered as choices |
+
+**Precedence** when rows collide: 10, then 9, then 7, then 8, then 11, then the rest.
+
+**Always.** Nothing about religion, nationality, ethnicity, health or any other sensitive attribute is inferred from an image. Rows 4, 5 and 11 use `Retriever.find_quoted`, the lookup Rafiq uses for quoted verses: there is no second implementation. Whatever EXPLAIN returns is a normal `RafiqAnswer`, so the noSource card, the level C note and the level D referral apply unchanged.
+
 ## Danger and distress
 
 **Danger** (`ai/app/rafiq/safety.py`): every message is checked in code, before any model is asked, against patterns for three situations: harming oneself, harming others, and being in danger. The patterns are written for all five answer languages and run on normalised text. A match skips classification, retrieval and generation. The reply (`kind: "danger"`) is a fixed message from the web's message files: contact local emergency services or a trusted person now. The specialist card follows. The check errs on the side of safety: a message that only mentions such a subject gets the same reply. The classifier's own `danger` flag routes to the same node, so danger worded in a way the patterns miss is still caught.
@@ -274,7 +303,7 @@ The directory is the National Center for Non-Profit Sector's list, converted by 
 - **The debug switch.** `RAFIQ_DEBUG=1` also logs each draft and the text of its problems. It is for local diagnosis only, off by default, and ignored on a deployment (when `VERCEL` is set).
 - **Errors.** On the API, invalid requests are reported by field name, never by echoing the input.
 - **The conversation** is kept on the device only (see `docs/PRIVACY.md`). The service keeps no conversation state.
-- **What the browser sends.** `history` sends at most the last 8 turns, and `reachedLessonIds` sends lesson ids. The learner's name and city are never sent.
+- **What the browser sends.** `history` sends at most the last 8 turns, and `reachedLessonIds` sends lesson ids. The learner's name and city are never sent: Rafiq writes the placeholder `{{name}}` and the page fills it in on the device (`ai/app/rafiq/name.py`, `web/src/lib/rafiq/name.ts`).
 
 ## API limits
 

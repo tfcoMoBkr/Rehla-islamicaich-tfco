@@ -1,7 +1,7 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { useEffect, useId, useRef, useState, type FormEvent, type KeyboardEvent } from "react";
+import { useEffect, useId, useRef, useState, useSyncExternalStore, type FormEvent, type KeyboardEvent } from "react";
 
 import { Button } from "@/components/ui/button";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
@@ -19,6 +19,9 @@ const STARTERS = ["tawhid", "wudu", "wuduBreakers", "prayers"] as const;
 /** The counter appears when a question nears the limit. */
 const COUNTER_FROM = 800;
 const NO_EXCHANGES: StoredExchange[] = [];
+
+const noSubscription = () => () => undefined;
+const askedInAddress = () => new URLSearchParams(window.location.search).get("ask")?.slice(0, QUESTION_MAX_LENGTH) ?? null;
 
 /**
  * Ask Rafiq: a conversation between the learner and their companion. It is kept on this device in
@@ -42,13 +45,21 @@ export function RafiqConversation({
   const reducedMotion = usePrefersReducedMotion();
   const inputId = useId();
   const hintId = useId();
-  const [draft, setDraft] = useState("");
+  // Opened from Lens with a question ready (?ask=…): it waits in the box and is sent only when the
+  // learner chooses to, so it goes through every check like any question they type.
+  const asked = useSyncExternalStore(noSubscription, askedInAddress, () => null);
+  const [typed, setDraft] = useState<string | null>(null);
+  const draft = typed ?? asked ?? "";
   const [asking, setAsking] = useState<Omit<Exchange, "result"> | null>(null);
   const [announcement, setAnnouncement] = useState("");
   const pending = useRef<AbortController | null>(null);
   const replies = useRef(new Map<number, HTMLElement>());
 
   useEffect(() => () => pending.current?.abort(), []);
+
+  useEffect(() => {
+    if (asked) input.current?.focus();
+  }, [asked]);
 
   const exchanges: Exchange[] = stored.map((exchange) => (exchange.id === asking?.id ? { ...exchange, result: null } : exchange));
   if (asking && !stored.some((exchange) => exchange.id === asking.id)) exchanges.push({ ...asking, result: null });

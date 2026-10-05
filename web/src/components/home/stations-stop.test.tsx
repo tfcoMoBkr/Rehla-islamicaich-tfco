@@ -5,10 +5,14 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import type { Feature } from "@/config/features";
 
+import ar from "../../../messages/ar.json";
 import en from "../../../messages/en.json";
 
+const language = vi.hoisted(() => ({ current: "en" as "ar" | "en" }));
+
 vi.mock("next-intl/server", () => ({
-  getTranslations: async (namespace: string) => createTranslator({ locale: "en", messages: en, namespace: namespace as "Home.stations" }),
+  getTranslations: async (namespace: string) =>
+    createTranslator({ locale: language.current, messages: language.current === "ar" ? ar : en, namespace: namespace as "Home.stations" }),
 }));
 vi.mock("@/i18n/navigation", () => ({
   Link: ({ href, children, className }: { href: string; children: ReactNode; className?: string }) => (
@@ -66,5 +70,18 @@ describe("the stations of the journey", () => {
     expect(after.stations[index]).toContain('data-light="reach"');
     expect(after.stations[index]).toContain('href="/mawqif"');
     expect(after.stations.filter((_, position) => position !== index)).toEqual(before.stations.filter((_, position) => position !== index));
+  });
+
+  it.each(["ar", "en"] as const)("shows Lens lit, linked and no longer «قريبًا», while the stations not built yet keep it (%s)", async (locale) => {
+    language.current = locale;
+    const { sections, stations } = await render();
+    language.current = "en";
+    const soon = `>${(locale === "ar" ? ar : en).Home.stations.soon}<`;
+    const at = (feature: string) => stations[sections.findIndex((section) => section.feature === feature)] ?? "";
+
+    expect(at("adasa")).toContain('href="/lens"');
+    expect(at("adasa")).toContain('data-light="reach"');
+    expect(at("adasa")).not.toContain(soon);
+    for (const unbuilt of ["mawqif", "community", "aqim"]) expect(at(unbuilt), unbuilt).toContain(soon);
   });
 });

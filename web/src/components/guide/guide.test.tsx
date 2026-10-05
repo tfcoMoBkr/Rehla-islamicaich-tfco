@@ -17,6 +17,7 @@ vi.mock("@/i18n/navigation", () => ({
       {children}
     </a>
   ),
+  usePathname: () => "/learn",
 }));
 
 const storage = new Map<string, string>();

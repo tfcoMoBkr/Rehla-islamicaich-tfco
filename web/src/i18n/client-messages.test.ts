@@ -21,9 +21,8 @@ const PAGE_FILES: Record<ClientPage, string> = {
   account: "app/[locale]/account/page.tsx",
   signIn: "app/[locale]/account/sign-in/page.tsx",
   signUp: "app/[locale]/account/sign-up/page.tsx",
-  passwordReset: "app/[locale]/account/reset/page.tsx",
-  newPassword: "app/[locale]/account/new-password/page.tsx",
   privacy: "app/[locale]/privacy/page.tsx",
+  lens: "app/[locale]/lens/page.tsx",
 };
 
 const missing = (needed: Set<string>, sent: readonly string[]) => [...needed].filter((namespace) => !sent.includes(namespace)).sort();

@@ -10,8 +10,8 @@ import nextEnv from "@next/env";
 const web = path.resolve(import.meta.dirname, "..");
 const content = path.resolve(web, "..", "content");
 const LOCALES = ["ar", "en"];
-const PAGES = ["", "/learn", "/learn/journal", "/practice", "/rafiq", "/sources", "/talk-to-a-specialist", "/privacy"];
-const ACCOUNT_PAGES = ["/account", "/account/sign-in", "/account/sign-up", "/account/reset", "/account/new-password"];
+const PAGES = ["", "/learn", "/learn/journal", "/practice", "/rafiq", "/sources", "/talk-to-a-specialist", "/privacy", "/lens"];
+const ACCOUNT_PAGES = ["/account", "/account/sign-in", "/account/sign-up"];
 
 // The same variables `next build` saw: the account pages exist only when Supabase is configured (src/config/accounts.ts).
 nextEnv.loadEnvConfig(web);

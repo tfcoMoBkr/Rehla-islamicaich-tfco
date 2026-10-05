@@ -35,6 +35,12 @@ class ChatModel(Protocol):
     async def json[T: BaseModel](self, system: str, user: str, schema: type[T]) -> T: ...
 
 
+class VisionModel(Protocol):
+    async def json[T: BaseModel](
+        self, system: str, user: str, schema: type[T], *, image: str | None = None
+    ) -> T: ...
+
+
 class Embedder(Protocol):
     async def embed(self, texts: list[str]) -> np.ndarray: ...
 
@@ -68,16 +74,27 @@ def extract_json(content: str) -> object:
 
 
 class OpenRouterChat:
-    def __init__(self, settings: Settings, client: httpx.AsyncClient) -> None:
-        if settings.openrouter_api_key is None or settings.llm_model is None:
-            raise ModelUnavailableError("OPENROUTER_API_KEY and LLM_MODEL are required")
+    """Chat with the configured models; `vision` uses VLM_MODEL and VLM_FALLBACK_MODEL instead, and
+    accepts an image (a data URL) beside the text."""
+
+    def __init__(
+        self, settings: Settings, client: httpx.AsyncClient, *, vision: bool = False
+    ) -> None:
+        main, fallback = (
+            (settings.vlm_model, settings.vlm_fallback_model)
+            if vision
+            else (settings.llm_model, settings.llm_fallback_model)
+        )
+        if settings.openrouter_api_key is None or main is None:
+            required = "VLM_MODEL" if vision else "LLM_MODEL"
+            raise ModelUnavailableError(f"OPENROUTER_API_KEY and {required} are required")
         self._key = settings.openrouter_api_key.get_secret_value()
-        self._models = [m for m in (settings.llm_model, settings.llm_fallback_model) if m]
+        self._models = [m for m in (main, fallback) if m]
         self._data_collection = settings.openrouter_data_collection
         self._client = client
         self._cooling_until: dict[str, float] = {}
 
-    async def _complete(self, model: str, messages: list[dict[str, str]], strict: bool) -> str:
+    async def _complete(self, model: str, messages: list[dict[str, object]], strict: bool) -> str:
         body: dict[str, object] = {
             "model": model,
             "messages": messages,
@@ -114,13 +131,21 @@ class OpenRouterChat:
         now = time.monotonic()
         return sorted(self._models, key=lambda model: self._cooling_until.get(model, 0.0) > now)
 
-    async def json[T: BaseModel](self, system: str, user: str, schema: type[T]) -> T:
+    async def json[T: BaseModel](
+        self, system: str, user: str, schema: type[T], *, image: str | None = None
+    ) -> T:
+        content: object = user
+        if image is not None:
+            content = [
+                {"type": "text", "text": user},
+                {"type": "image_url", "image_url": {"url": image}},
+            ]
         for wait in (*ROUND_WAITS, None):
             rate_limited = 0
             for model in self._ordered():
-                messages = [
+                messages: list[dict[str, object]] = [
                     {"role": "system", "content": system},
-                    {"role": "user", "content": user},
+                    {"role": "user", "content": content},
                 ]
                 for attempt in range(2):
                     try:

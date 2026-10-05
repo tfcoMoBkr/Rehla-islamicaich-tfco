@@ -31,15 +31,15 @@
 
 منصة ويب بالعربية والإنجليزية، يقودها مساعد ذكي اسمه **«رفيق»**، حاضر في جميع أقسامها:
 
-| القسم | الوصف |
-|---|---|
-| **خطوات** | مسار تعلّم متدرج: دروس، واختبارات قصيرة، وشرح لكل خطأ |
-| **تدرَّب** | أنشطة الدروس كلها في مكان واحد، يجرّبها المتعلم متى شاء ويجمع بها زادًا لطريقه |
-| **اسأل «رفيق»** | إجابات مسندة إلى مصادرها، مع الامتناع والإحالة عند الحاجة |
-| **موقف** | تدريب تفاعلي على مواقف الحياة اليومية للمسلم، مع تقييم وتصحيح |
-| **عدسة** | تصوير النصوص العربية في المحيط وشرحها بلغة المستخدم |
-| **مجتمع رحلة** | منتدى اختياري يشارك فيه دعاة موثّقون، ودليل للمساجد والمراكز القريبة |
-| **أقم** | صلاة تدريبية بالكاميرا تنتهي بتقرير عن الأداء |
+| القسم | الوصف | الحالة |
+|---|---|---|
+| **خطوات** | مسار تعلّم متدرج: دروس، واختبارات قصيرة، وشرح لكل خطأ | متاح |
+| **تدرَّب** | أنشطة الدروس كلها في مكان واحد، يجرّبها المتعلم متى شاء ويجمع بها زادًا لطريقه | متاح |
+| **اسأل «رفيق»** | إجابات مسندة إلى مصادرها، مع الامتناع والإحالة عند الحاجة | متاح |
+| **عدسة** | صوّر شيئًا مما حولك (لافتة في مسجد، سجادة صلاة، كتابة عربية) لتعرف ما هو وما معناه من المصادر المعتمدة، مع امتناع واضح عند الحاجة | متاح |
+| **موقف** | تدريب تفاعلي على مواقف الحياة اليومية للمسلم، مع تقييم وتصحيح | قريبًا |
+| **مجتمع رحلة** | منتدى اختياري يشارك فيه دعاة موثّقون، ودليل للمساجد والمراكز القريبة | قريبًا |
+| **أقم** | صلاة تدريبية بالكاميرا تنتهي بتقرير عن الأداء | قريبًا |
 
 ### المبادئ
 
@@ -130,15 +130,15 @@ Right after the Shahada, a new Muslim faces practical questions that cannot wait
 
 A bilingual web platform (Arabic and English) led by one AI companion, **Rafiq**, present in every section:
 
-| Section | Description |
-|---|---|
-| **Khutuwat** (Steps) | A graded learning path: lessons, short quizzes, and an explanation for every mistake |
-| **Practice** | Every lesson activity in one place, to try at any time and gather provisions for the road |
-| **Ask Rafiq** | Answers cited to their sources, with abstention and referral when needed |
-| **Mawqif** (Situation) | Interactive practice of everyday situations, with evaluation and correction |
-| **Adasa** (Lens) | Photograph Arabic text in your surroundings and have it explained in your language |
-| **Rehla Community** | An opt-in forum with verified da'wah guides, and a directory of nearby mosques and centers |
-| **Aqim** | A camera-based practice prayer that ends with a performance report |
+| Section | Description | Status |
+|---|---|---|
+| **Khutuwat** (Steps) | A graded learning path: lessons, short quizzes, and an explanation for every mistake | Available |
+| **Practice** | Every lesson activity in one place, to try at any time and gather provisions for the road | Available |
+| **Ask Rafiq** | Answers cited to their sources, with abstention and referral when needed | Available |
+| **Adasa** (Lens) | Photograph something around you (a sign in a mosque, a prayer mat, Arabic writing) and see what it is and what it means from the approved sources, with a clear decline when it should not answer | Available |
+| **Mawqif** (Situation) | Interactive practice of everyday situations, with evaluation and correction | Coming soon |
+| **Rehla Community** | An opt-in forum with verified da'wah guides, and a directory of nearby mosques and centers | Coming soon |
+| **Aqim** | A camera-based practice prayer that ends with a performance report | Coming soon |
 
 ### Principles
 

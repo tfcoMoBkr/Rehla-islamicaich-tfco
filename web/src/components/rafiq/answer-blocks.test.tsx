@@ -2,12 +2,23 @@ import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 
 import { NextIntlClientProvider } from "next-intl";
-import { createElement, type ReactElement } from "react";
+import { createElement, type ReactElement, type ReactNode } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
+import type { RafiqAnswer } from "@/lib/rafiq/answer";
+
+import ar from "../../../messages/ar.json";
 import messages from "../../../messages/en.json";
 import { HadithBlockView, QuranBlockView } from "./answer-blocks";
+import { AnswerView } from "./answer-view";
+
+vi.mock("@/i18n/navigation", () => ({
+  Link: ({ href, children }: { href: string; children: ReactNode }) => <a href={href}>{children}</a>,
+}));
+
+// next/font runs only in a Next build; the answer's font classes do not matter here.
+vi.mock("@/lib/answer-fonts", () => ({ ANSWER_FONT_VARIABLES: { ar: "", en: "", ur: "", bn: "", fr: "" } }));
 
 const fetched = path.resolve(__dirname, "../../../../content/fetched");
 
@@ -113,5 +124,35 @@ describe("published texts reach the page unchanged", () => {
 
     expect(html).toContain("HadeethEnc has no Bangla version of this hadith; the English one is shown.");
     expect(html).toMatch(/lang="en" dir="ltr" data-published="translation"/);
+  });
+});
+
+describe("the learner's name in a reply", () => {
+  const reply = (language: "ar" | "en", opening: string, followUp: string): RafiqAnswer => ({
+    kind: "answer",
+    language,
+    level: "A",
+    referred: false,
+    opening,
+    followUp,
+    blocks: [{ type: "text", text: language === "ar" ? "تغسل وجهك {{name}} [1]." : "You wash your face {{name}} [1]." }],
+    sources: [{ n: 1, sourceId: "s", title: "Book", reference: "1", url: "https://example.org", publisher: "P" }],
+    referral: null,
+    laterLessonId: null,
+    languageFallback: false,
+  });
+
+  it.each([
+    ["en", reply("en", "Good question, {{name}}.", "{{name}}, was that clear?"), "Good question.", "Was that clear?"],
+    ["ar", reply("ar", "سؤال جميل يا {{name}}.", "يا {{name}}، هل كان ذلك واضحًا؟"), "سؤال جميل.", "هل كان ذلك واضحًا؟"],
+  ] as const)("never shows the placeholder, and leaves cleanly without a name (%s)", (locale, answer, opening, followUp) => {
+    const html = renderToStaticMarkup(
+      <NextIntlClientProvider locale={locale} messages={locale === "ar" ? ar : messages}>
+        <AnswerView answer={answer} id="a" />
+      </NextIntlClientProvider>,
+    );
+    expect(html).not.toMatch(/\{\{|\}\}/);
+    expect(html).toContain(opening);
+    expect(html).toContain(followUp);
   });
 });

@@ -7,6 +7,7 @@ import { ANSWER_FONT_VARIABLES } from "@/lib/answer-fonts";
 import { SPECIALIST_REASONS, splitMarkers, type AnswerBlock, type RafiqAnswer } from "@/lib/rafiq/answer";
 import { answerMessages } from "@/lib/rafiq/answer-messages";
 import { inLanguage, type AnswerLanguage } from "@/lib/rafiq/languages";
+import { fillName, useLearnerName, withoutName } from "@/lib/rafiq/name";
 import { cn } from "@/lib/utils";
 
 import { HadithBlockView, Marker, QuranBlockView } from "./answer-blocks";
@@ -37,9 +38,11 @@ export function AnswerView({ answer, id, lessons }: AnswerViewProps) {
   const own = answerMessages(answer.language);
   const voice = inLanguage(answer.language);
   const fonts = ANSWER_FONT_VARIABLES[answer.language];
+  const name = useLearnerName();
+  // Warm lines may address the learner by name: filled in here, on the device, or removed cleanly.
   const say = (text: string, className?: string) => (
     <p {...voice} className={cn("text-lg", voice.className, className)}>
-      {text}
+      {fillName(text, name)}
     </p>
   );
 
@@ -113,7 +116,8 @@ export function AnswerView({ answer, id, lessons }: AnswerViewProps) {
 function Block({ block, id, language }: { block: AnswerBlock; id: string; language: AnswerLanguage }) {
   if (block.type === "quran") return <QuranBlockView block={block} id={id} language={language} />;
   if (block.type === "hadith") return <HadithBlockView block={block} id={id} language={language} />;
-  return <TextBlock text={block.text} id={id} language={language} />;
+  // The cited answer never carries the name; a stray placeholder is removed, never shown.
+  return <TextBlock text={withoutName(block.text)} id={id} language={language} />;
 }
 
 // A bullet, or a number in ASCII, Arabic-Indic, Persian or Bengali digits, then a space.

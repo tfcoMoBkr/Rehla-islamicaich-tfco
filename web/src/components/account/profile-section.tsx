@@ -8,6 +8,7 @@ import { updateProfile } from "@/lib/account/actions";
 import { countryName } from "@/lib/account/countries";
 import type { AccountError } from "@/lib/account/errors";
 import { DISPLAY_NAME_MAX_LENGTH } from "@/lib/account/session";
+import { nameUnused } from "@/lib/rafiq/memory";
 
 import { CountrySelect, Field, FormMessage, TextInput, useFixedCountryNames } from "./fields";
 
@@ -17,6 +18,7 @@ export function ProfileSection({ email, name, country, onSaved }: ProfileSection
   const t = useTranslations("Account");
   const locale = useLocale() as Locale;
   const fixedNames = useFixedCountryNames();
+  const rafiqUsesName = nameUnused.use() === null;
   const [editing, setEditing] = useState(false);
   const [draftName, setDraftName] = useState(name);
   const [draftCountry, setDraftCountry] = useState(country);
@@ -83,6 +85,15 @@ export function ProfileSection({ email, name, country, onSaved }: ProfileSection
               <bdi dir="ltr">{email}</bdi>
             </dd>
           </dl>
+          <label className="flex min-h-11 items-center gap-3 justify-self-start">
+            <input
+              type="checkbox"
+              checked={rafiqUsesName}
+              onChange={(event) => nameUnused.set(event.target.checked ? null : "yes")}
+              className="size-5 accent-oasis"
+            />
+            {t("rafiqUsesName")}
+          </label>
           <Button
             variant="outline"
             className="justify-self-start"

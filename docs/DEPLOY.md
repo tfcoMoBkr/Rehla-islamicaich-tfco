@@ -30,6 +30,9 @@ Nothing to configure beyond the root directory; the repository carries the rest.
 | `OPENROUTER_DATA_COLLECTION` | no | `deny` (default) or `allow`. |
 | `ASKS_PER_MINUTE` | no | Questions per address per minute, per instance (default 10). |
 | `MCP_URL` | no | Defaults to `https://mcp.islamiccontent.org/mcp`. |
+| `VLM_MODEL` | for Lens | The vision model that reads photos for Lens. Without it `/lens` answers 503. |
+| `VLM_FALLBACK_MODEL` | recommended | Used when the vision model fails or returns invalid JSON twice. |
+| `LENS_PER_MINUTE` | no | Photos per address per minute, per instance (default 5). |
 | `RAFIQ_DEBUG` | no | Leave unset. It is ignored on Vercel anyway (`VERCEL` is set). |
 
 The AI service never talks to Supabase and has no Supabase variables.
@@ -53,7 +56,6 @@ The AI service never talks to Supabase and has no Supabase variables.
 | `NEXT_PUBLIC_SUPABASE_URL` | for accounts | The project URL, `https://<project-ref>.supabase.co`. |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | for accounts | The publishable key, `sb_publishable_…`. Public by design: row level security decides what it can reach. |
 | `SUPABASE_SECRET_KEY` | for accounts | A secret key, `sb_secret_…`. Server only: used by `/api/account/delete` and nowhere else. Never prefix it with `NEXT_PUBLIC_`. |
-| `NEXT_PUBLIC_PASSWORD_RESET_EMAILS` | no | `on` once SMTP is set up in Supabase (see below); otherwise leave unset. |
 
 `ISLAMHOUSE_API_KEY` is used only by the content scripts on a developer's machine; neither project needs it.
 
@@ -82,16 +84,10 @@ Expect two rows, both with `rls_on = true`: `profiles` with 2 policies and `prog
 - **Authentication → URL Configuration:**
   - **Site URL:** `https://rehla-islamicaich-tfco-6igd.vercel.app`
   - **Redirect URLs:** add
-    - `https://rehla-islamicaich-tfco-6igd.vercel.app/ar/account/new-password`
-    - `https://rehla-islamicaich-tfco-6igd.vercel.app/en/account/new-password`
     - `https://rehla-islamicaich-tfco-6igd.vercel.app/ar/account`
     - `https://rehla-islamicaich-tfco-6igd.vercel.app/en/account`
     - for local work, `http://localhost:3000/**`
 - **Project Settings → API Keys:** copy the **publishable** key (`sb_publishable_…`) and create or copy a **secret** key (`sb_secret_…`). Do not use the legacy `anon` and `service_role` keys.
-
-### 3. Password reset needs email
-
-Supabase's built-in email service only sends to the project team's own addresses, a few an hour. To let learners reset a forgotten password, set up an SMTP provider under **Authentication → Emails → SMTP Settings**, then set `NEXT_PUBLIC_PASSWORD_RESET_EMAILS=on` in the `web` project and redeploy. Until then, the reset screen says reset is not available and offers to create a new account; no button sends an email that would never arrive.
 
 ## Order
 

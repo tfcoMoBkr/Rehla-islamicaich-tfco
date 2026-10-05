@@ -63,7 +63,7 @@
       },
       "adasa": {
         "name": "Adasa · Lens",
-        "body": "Photograph Arabic text around you to understand it in your language."
+        "body": "Photograph something around you, such as a sign in a mosque or a prayer mat, and see what it is and what it means, from the approved sources."
       },
       "community": {
         "name": "Rehla Community",
@@ -588,7 +588,7 @@
     "continueLesson": "You are at lesson {number}, «{title}». Shall we continue?",
     "continueAction": "Continue the lesson",
     "allDone": "You have completed every lesson on the road so far.",
-    "nameTitle": "What should Rafiq call you?",
+    "nameTitle": "What should I call you?",
     "nameHelp": "Optional. It stays on this device and is never sent anywhere.",
     "nameLabel": "Your name",
     "nameSave": "Save",
@@ -608,7 +608,12 @@
     "clearAll": "Clear everything",
     "clearConfirm": "Yes, clear it",
     "cleared": "Everything Rafiq remembered on this device has been cleared.",
-    "memoryDeviceOnly": "Your conversations with Rafiq stay on this device only."
+    "memoryDeviceOnly": "Your conversations with Rafiq stay on this device only.",
+    "memoryNameAccount": "Your name, from your account: {name}",
+    "memoryNameUnused": "Rafiq does not use your name.",
+    "useNameAgain": "Use my name again",
+    "nameSaveFailed": "Your name could not be saved. Try again.",
+    "memoryNoteAccount": "Your name is in your account; everything else here stays on this device. Rafiq keeps nothing about you anywhere else, and infers nothing about you."
   },
   "Specialist": {
     "title": "Talk to a specialist",
@@ -745,7 +750,6 @@
     "privacyLink": "How your data is kept",
     "haveAccount": "Already have an account?",
     "noAccount": "No account yet?",
-    "forgot": "Forgot your password?",
     "working": "One moment…",
     "checkEmailTitle": "Check your email",
     "checkEmailBody": "We sent a link to {email}. Open it to finish creating your account. Your progress on this device stays as it is.",
@@ -793,19 +797,6 @@
     "stay": "Stay signed in",
     "signOutAnyway": "Sign out anyway",
     "signedOut": "You are signed out. This device is back to guest use.",
-    "resetTitle": "Reset your password",
-    "resetDescription": "We will email you a link to choose a new password.",
-    "resetSend": "Send the link",
-    "resetSent": "If an account uses {email}, a link is on its way. It works once, for a short time.",
-    "resetUnavailableTitle": "Password reset is not available yet",
-    "resetUnavailableBody": "Rehla cannot send email yet, so a forgotten password cannot be reset. You can create a new account instead.",
-    "newPasswordTitle": "Choose a new password",
-    "newPasswordDescription": "Then you are signed in.",
-    "newPasswordSave": "Save the new password",
-    "checkingLink": "Checking the link…",
-    "linkExpiredTitle": "This link no longer works",
-    "linkExpiredBody": "Reset links work once, for a short time. Ask for a new one.",
-    "askAgain": "Ask for a new link",
     "errors": {
       "wrongPassword": "That email and password do not match. Check them and try again.",
       "currentPasswordWrong": "Your current password is not right.",
@@ -818,12 +809,12 @@
       "nameRequired": "Write the name you would like shown.",
       "notConfirmed": "This account is waiting for its email to be confirmed. Open the link we sent you.",
       "tooMany": "Too many tries in a short time. Wait a minute, then try again.",
-      "resetUnavailable": "Reset emails cannot be sent yet.",
-      "linkExpired": "Your session has ended. Sign in again.",
+      "sessionEnded": "Your session has ended. Sign in again.",
       "network": "We could not reach the server. Check your connection and try again.",
       "unknown": "Something went wrong on our side. Try again in a moment.",
       "confirmWord": "Type the word exactly as shown."
-    }
+    },
+    "rafiqUsesName": "Rafiq calls me by this name"
   },
   "Privacy": {
     "title": "Privacy",
@@ -849,6 +840,98 @@
     "controlAccount": "On your account page, “Download my data” gives you a file of everything your account holds, and “Delete my account and data” removes it all for good. Signing out removes your account's data from this device.",
     "controlGuest": "As a guest, erase your journal from the journal page, and clear what Rafiq remembers from the Rafiq page.",
     "toAccount": "Your account",
-    "toSignUp": "Create an account"
+    "toSignUp": "Create an account",
+    "nameBody": "The name Rafiq calls you by stays on this device, or in your own profile if you have an account. It is never sent to the AI model provider: Rafiq leaves a place for it, and your device fills it in.",
+    "lensTitle": "Photos you show Lens",
+    "lensBody": "The photo is sent to an AI model provider to be read; nothing is kept. Lens never describes people, does not read out personal documents, and infers nothing about you from a photo."
+  },
+  "AccountChoice": {
+    "title": "Before you set off",
+    "intro": "Choose how Rehla keeps your progress. You can change your mind later.",
+    "createTitle": "Create an account",
+    "createBody": "Your progress follows you on any device.",
+    "guestTitle": "Continue as a guest",
+    "guestBody": "Your progress is kept on this device only, and may be lost if you change device or clear the browser.",
+    "haveAccount": "Already have an account?",
+    "signIn": "Sign in"
+  },
+  "Lens": {
+    "title": "Lens",
+    "description": "Photograph something around you and see what it is and what it means, from the approved sources.",
+    "startTitle": "What would you like to understand?",
+    "takePhoto": "Take a photo",
+    "choosePhoto": "Choose a photo",
+    "privacyLine": "The photo is sent to an AI model provider to be read; nothing is kept.",
+    "examplesTitle": "No camera? Try an example",
+    "examplesBody": "Each example shows what Lens does with a photo like it.",
+    "exampleBadge": "Example",
+    "examples": {
+      "mosque": "A mosque sign",
+      "prayerMat": "A prayer mat",
+      "wudu": "A wudu area",
+      "calligraphy": "Arabic calligraphy"
+    },
+    "photoAlt": "Your photo",
+    "working": "Lens is working on your photo",
+    "done": "Lens has finished.",
+    "stepRead": "Reading the photo",
+    "stepSources": "Looking in the sources",
+    "whatThisIs": "What this is",
+    "textRead": "Text in the photo",
+    "machineTranslation": "Machine translation",
+    "whatItMeans": "What it means",
+    "otherReligion": "This appears to be: {subject}",
+    "productNote": "A ruling on a specific product needs a specialist.",
+    "claimNote": "Lens does not confirm or deny what this says.",
+    "specialistLink": "Ask a specialist",
+    "alsoInPhoto": "Also in the photo",
+    "askMore": "Ask Rafiq more about this",
+    "askAbout": "Ask Rafiq about this",
+    "askAboutSubject": "What is {subject}, and what does it mean for a Muslim?",
+    "askAboutText": "What do the sources say about this: “{text}”?",
+    "askAboutVerse": "What does this verse mean: {surah}, verse {ayah}?",
+    "askAboutHadith": "What does this hadith mean: “{title}”?",
+    "anotherPhoto": "Try another photo",
+    "retake": "Take another photo",
+    "tryAgain": "Try again",
+    "disclosure": "Lens uses an AI model to read photos. It is a tool, not a scholar.",
+    "cards": {
+      "person": {
+        "title": "Lens does not describe people",
+        "body": "Photograph a place, an object or some writing instead, and Lens will tell you what it is."
+      },
+      "unclear": {
+        "title": "This photo is hard to read",
+        "body": "Try a closer, sharper photo in good light, with the whole thing in the frame."
+      },
+      "privacy": {
+        "title": "This looks like a personal document",
+        "body": "To keep it private, Lens does not read it out or translate it, and nothing from it was kept. Try a photo of a place, an object or a sign."
+      },
+      "unsafe": {
+        "title": "Lens cannot help with this photo",
+        "body": "Try a photo of a place, an object or some writing."
+      },
+      "unmatched": {
+        "title": "This could not be matched in the approved sources",
+        "body": "It looks like a verse or a hadith, but Lens did not find it in the approved sources, so it does not translate or explain it. A specialist can help you check it."
+      },
+      "nothing": {
+        "title": "Lens has nothing about this",
+        "titleWith": "This looks like: {subject}",
+        "body": "Lens has nothing about it in the approved sources. Try a photo of something in a mosque, a sign or some Arabic writing."
+      },
+      "timeout": {
+        "title": "This took too long",
+        "body": "Lens could not finish in time. Try again in a moment."
+      }
+    },
+    "errors": {
+      "type": "This file is not a photo Lens can read. Choose a JPEG, PNG or WebP photo.",
+      "size": "This photo is too large. Choose a smaller one.",
+      "rateLimited": "You have sent several photos in a short time. Wait a minute, then try again.",
+      "unavailable": "Lens is not available right now. Try again in a moment.",
+      "error": "Something went wrong. Try again."
+    }
   }
 }

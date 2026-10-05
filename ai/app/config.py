@@ -29,6 +29,9 @@ class Settings(BaseSettings):
     llm_model: str | None = None
     llm_fallback_model: str | None = None
     embedding_model: str | None = None
+    # Lens reads photos with a vision model; without VLM_MODEL the /lens endpoint is unavailable.
+    vlm_model: str | None = None
+    vlm_fallback_model: str | None = None
     # OpenRouter's provider preference: "deny" keeps prompts away from providers that store them.
     openrouter_data_collection: Literal["allow", "deny"] = "deny"
 
@@ -37,6 +40,7 @@ class Settings(BaseSettings):
     index_dir: Path = AI_ROOT / "data" / "index"
     content_dir: Path = REPOSITORY_ROOT / "content"
     asks_per_minute: int = 10
+    lens_per_minute: int = 5
     # Shared with the web app's proxy; when set, requests without it are refused (app/security.py).
     ai_service_key: SecretStr | None = None
     # Local diagnosis only: logs Rafiq's drafts and the problems found in them. Never in production.

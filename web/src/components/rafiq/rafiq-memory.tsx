@@ -8,7 +8,9 @@ import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { useProgress } from "@/lib/learn/progress-store";
 import { useChosenCity } from "@/lib/referral/chosen-city";
-import { forgetEverything, learnerName, nameAsked, NAME_MAX_LENGTH } from "@/lib/rafiq/memory";
+import { useAccount } from "@/lib/account/session";
+import { forgetEverything, nameAsked, nameUnused, NAME_MAX_LENGTH } from "@/lib/rafiq/memory";
+import { removeLearnerName, saveLearnerName, useAsksForName, useLearnerName } from "@/lib/rafiq/name";
 import { shown } from "@/lib/referral/centres";
 
 /** A lesson on the road, in order, as the page hands it to the conversation. */
@@ -26,7 +28,7 @@ function useNextLesson(road: readonly RoadLesson[]): RoadLesson | null {
  */
 export function RafiqWelcome({ road, returning }: { road: readonly RoadLesson[]; returning: boolean }) {
   const t = useTranslations("Rafiq");
-  const name = learnerName.use();
+  const name = useLearnerName();
   const next = useNextLesson(road);
   const greeting = name ? (returning ? t("greetingName", { name }) : t("helloName", { name })) : returning ? t("greeting") : null;
 
@@ -47,21 +49,25 @@ export function RafiqWelcome({ road, returning }: { road: readonly RoadLesson[];
   );
 }
 
-/** Asked once, and skippable: the name stays on the device and is never sent anywhere. */
+/**
+ * Asked once, and skippable, of a guest with no name yet: the name stays on the device and is never
+ * sent anywhere. A signed-in learner is called by their account's name and is not asked.
+ */
 export function NamePrompt() {
   const t = useTranslations("Rafiq");
-  const asked = nameAsked.use();
+  const locale = useLocale() as "ar" | "en";
+  const asks = useAsksForName();
   const inputId = useId();
   const helpId = useId();
   const [value, setValue] = useState("");
 
-  if (asked) return null;
+  if (!asks) return null;
 
   function save(event: FormEvent) {
     event.preventDefault();
     const name = value.trim().slice(0, NAME_MAX_LENGTH);
-    if (name) learnerName.set(name);
-    nameAsked.set("yes");
+    if (name) void saveLearnerName(name, locale);
+    else nameAsked.set("yes");
   }
 
   return (
@@ -106,8 +112,10 @@ export function RafiqMemory({
   onCleared: () => void;
 }) {
   const t = useTranslations("Rafiq");
-  const locale = useLocale();
-  const name = learnerName.use();
+  const locale = useLocale() as "ar" | "en";
+  const name = useLearnerName();
+  const account = useAccount();
+  const unused = nameUnused.use() !== null;
   const city = useChosenCity();
   const { centers } = useReferralCentres();
   const { completedLessons } = useProgress();
@@ -120,12 +128,17 @@ export function RafiqMemory({
   const reached = road.filter((lesson) => lesson.id in completedLessons).at(-1);
   const cityName = city ? centers.find((centre) => centre.city.ar === city)?.city : undefined;
 
-  function rename(event: FormEvent) {
+  async function rename(event: FormEvent) {
     event.preventDefault();
     const value = draft.trim().slice(0, NAME_MAX_LENGTH);
-    learnerName.set(value || null);
-    nameAsked.set("yes");
-    setEditing(false);
+    if (!value) {
+      removeLearnerName();
+      setEditing(false);
+      return;
+    }
+    const saved = await saveLearnerName(value, locale);
+    setAnnouncement(saved ? "" : t("nameSaveFailed"));
+    if (saved) setEditing(false);
   }
 
   return (
@@ -134,13 +147,19 @@ export function RafiqMemory({
       <div className="mt-3 grid gap-3">
         <ul className="grid gap-1.5 text-sm">
           <li className="flex flex-wrap items-center gap-x-3 gap-y-1">
-            <span>{name ? t("memoryName", { name }) : t("memoryNoName")}</span>
+            <span>
+              {name
+                ? t(account ? "memoryNameAccount" : "memoryName", { name })
+                : account && unused
+                  ? t("memoryNameUnused")
+                  : t("memoryNoName")}
+            </span>
             {!editing && (
               <button
                 type="button"
                 className="underline underline-offset-4"
                 onClick={() => {
-                  setDraft(name ?? "");
+                  setDraft(name ?? account?.name ?? "");
                   setEditing(true);
                 }}
               >
@@ -148,14 +167,19 @@ export function RafiqMemory({
               </button>
             )}
             {name && !editing && (
-              <button type="button" className="underline underline-offset-4" onClick={() => learnerName.set(null)}>
+              <button type="button" className="underline underline-offset-4" onClick={removeLearnerName}>
                 {t("removeName")}
+              </button>
+            )}
+            {account && unused && !editing && (
+              <button type="button" className="underline underline-offset-4" onClick={() => nameUnused.set(null)}>
+                {t("useNameAgain")}
               </button>
             )}
           </li>
           {editing && (
             <li>
-              <form onSubmit={rename} className="flex flex-wrap gap-2">
+              <form onSubmit={(event) => void rename(event)} className="flex flex-wrap gap-2">
                 <label htmlFor={inputId} className="sr-only">
                   {t("nameLabel")}
                 </label>
@@ -179,7 +203,7 @@ export function RafiqMemory({
           </li>
         </ul>
         <p className="text-sm font-medium">{t("memoryDeviceOnly")}</p>
-        <p className="text-sm text-muted-foreground">{t("memoryNote")}</p>
+        <p className="text-sm text-muted-foreground">{t(account ? "memoryNoteAccount" : "memoryNote")}</p>
         <p className="text-sm text-muted-foreground">{t("memoryProgress")}</p>
         <div className="flex flex-wrap gap-2">
           {confirming ? (

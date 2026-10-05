@@ -1,9 +1,11 @@
-"""Rafiq's HTTP API: POST /ask and POST /lesson-help.
+"""Rafiq's HTTP API: POST /ask, POST /lesson-help and POST /lens.
 
 Questions and answers are neither stored nor logged; logs carry only the outcome, timings and
 counts. Errors share one shape: {"error": {"code": "...", ...}}.
 """
 
+import base64
+import binascii
 import threading
 import time
 from collections import deque
@@ -15,6 +17,8 @@ from fastapi.concurrency import run_in_threadpool
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
+from app.lens.lens import Lens
+from app.lens.schemas import LensRequest, LensResponse
 from app.llm import ModelUnavailableError
 from app.rafiq.graph import Rafiq
 from app.rafiq.schemas import AskRequest, LessonHelpRequest, RafiqAnswer
@@ -54,6 +58,10 @@ class Services:
     rafiq: Rafiq | None = None
     # Builds Rafiq (and loads the index) on first use, so a cold instance answers /health at once.
     load: Callable[[], Rafiq | None] | None = None
+    # Lens has its own, tighter limit, and is built on Rafiq when VLM_MODEL is set.
+    lens_limiter: RateLimiter = field(default_factory=lambda: RateLimiter(5))
+    lens: Lens | None = None
+    load_lens: Callable[[Rafiq], Lens | None] | None = None
     _lock: threading.Lock = field(default_factory=threading.Lock, repr=False)
 
     def get(self) -> Rafiq | None:
@@ -62,6 +70,14 @@ class Services:
                 if self.rafiq is None and self.load is not None:
                     self.rafiq, self.load = self.load(), None
         return self.rafiq
+
+    def get_lens(self) -> Lens | None:
+        rafiq = self.get()
+        if self.lens is None and rafiq is not None and self.load_lens is not None:
+            with self._lock:
+                if self.lens is None and self.load_lens is not None:
+                    self.lens, self.load_lens = self.load_lens(rafiq), None
+        return self.lens
 
 
 def _client(request: Request) -> str:
@@ -113,6 +129,51 @@ async def lesson_help(body: LessonHelpRequest, request: Request) -> RafiqAnswer:
             history=body.history,
             scope=scope,
             lesson={"lesson_id": body.lesson_id, "line": body.line_text, "mode": body.mode},
+        )
+    except ModelUnavailableError as error:
+        raise ApiError(503, "unavailable") from error
+
+
+# The browser downscales a photo to 1280 px as JPEG; anything larger is not a photo from Lens.
+MAX_IMAGE_BYTES = 4 * 1024 * 1024
+SIGNATURES = {
+    "image/jpeg": b"\xff\xd8\xff",
+    "image/png": b"\x89PNG\r\n\x1a\n",
+    "image/webp": b"RIFF",
+}
+
+
+def image_url(body: LensRequest) -> str | None:
+    """The photo as a data URL for the vision model, after checking its size and its type by its
+    own bytes (not by what the request claims). It is never written anywhere."""
+    if body.image is None:
+        return None
+    try:
+        data = base64.b64decode(body.image, validate=True)
+    except (binascii.Error, ValueError) as error:
+        raise ApiError(422, "image_type") from error
+    if len(data) > MAX_IMAGE_BYTES:
+        raise ApiError(413, "image_too_large")
+    if not data.startswith(SIGNATURES[body.mime_type]):
+        raise ApiError(422, "image_type")
+    if body.mime_type == "image/webp" and data[8:12] != b"WEBP":
+        raise ApiError(422, "image_type")
+    return f"data:{body.mime_type};base64,{body.image}"
+
+
+@router.post("/lens", response_model=LensResponse, response_model_by_alias=True)
+async def lens(body: LensRequest, request: Request) -> LensResponse:
+    services: Services = request.app.state.services
+    services.lens_limiter.check(_client(request))
+    if body.image is None and body.seen is None:
+        raise ApiError(422, "image_required")
+    url = image_url(body)
+    reader = await run_in_threadpool(services.get_lens)
+    if reader is None:
+        raise ApiError(503, "unavailable")
+    try:
+        return await reader.run(
+            body.locale, image=url, seen=body.seen, scope=body.reached_lesson_ids
         )
     except ModelUnavailableError as error:
         raise ApiError(503, "unavailable") from error

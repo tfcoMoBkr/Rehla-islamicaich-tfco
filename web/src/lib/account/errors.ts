@@ -14,8 +14,7 @@ export type AccountError =
   | "countryNotListed"
   | "notConfirmed"
   | "tooMany"
-  | "resetUnavailable"
-  | "linkExpired"
+  | "sessionEnded"
   | "network"
   | "unknown";
 
@@ -30,10 +29,9 @@ const BY_CODE: Record<string, AccountError> = {
   email_not_confirmed: "notConfirmed",
   over_request_rate_limit: "tooMany",
   over_email_send_rate_limit: "tooMany",
-  email_address_not_authorized: "resetUnavailable",
-  otp_expired: "linkExpired",
-  session_not_found: "linkExpired",
-  session_expired: "linkExpired",
+  otp_expired: "sessionEnded",
+  session_not_found: "sessionEnded",
+  session_expired: "sessionEnded",
   // A check constraint on profiles. The app checks the display name first, so it is the country.
   "23514": "countryNotListed",
 };
