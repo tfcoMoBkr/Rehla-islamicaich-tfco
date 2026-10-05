@@ -84,10 +84,11 @@ An opt-in place where new Muslims, and people who support them, share experience
   - Triggers keep the rules in the database: hourly limits; new items visible, unpinned and dated by the database; `hidden`, `pinned` and `role` changed only by moderators; the author, a reply's post and creation dates never changed through the API; and an item hidden once three different members report it. The guards trust only the database's own functions, the SQL editor and the server key (any role other than `anon` and `authenticated`), never a setting a session could set.
   - `community_leave(keep_posts)` deletes or anonymises a leaving member's posts.
   - Two public views: `community_authors` (name, role, opt-in country, for members with something visible posted) and `community_helped` (counts only).
+  - Sample posts (`20261006020000_community_samples.sql`, `supabase/seed/community_samples*.sql`): members, posts and replies the team writes to show the space in use carry `is_sample`, which only the database sets. They are closed to replies, reactions and reports, never count toward a member's limits, and are shown with a "Sample" badge and a note on the home.
   - `supabase/tests/community_rules.sql` checks the rules as a guest, members, an author and a moderator.
 - **Pages** (all rendered at build time; the data is read in the browser with the Supabase client, `web/src/lib/community/data.ts`):
   - the home: rules, category and language filters, pinned then latest posts;
-  - a thread (`/community/post?id=…`): the post, replies, "this helped me", report, a reply box, one calm line saying replies are experience not rulings, and "Ask Rafiq about this", which opens Rafiq privately with a question ready;
+  - a thread (`/community/post?id=…`): the post, replies, "this helped me", report, a reply box, one calm line saying replies are experience not rulings, and "Ask Rafiq about this" on the post and on each reply, which opens Rafiq privately with that post (and reply) quoted above an editable question. The post goes to the Rafiq page through this device's storage, not the address (`web/src/lib/rafiq/shared-post.ts`), fitted to the length of a question; nothing is sent until the learner asks. The service receives it as `shared` on `POST /ask`: fenced as another member's words in the classification and the answer (`ai/app/rafiq/prompts/rules/shared.md`), checked for danger like the question, added to the search, never cited;
   - writing (`/community/write`);
   - the moderators' review list (`/community/review`): unhide, keep hidden, hide, pin.
 

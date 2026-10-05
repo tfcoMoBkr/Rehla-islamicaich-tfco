@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
-import { listPosts } from "@/lib/community/data";
+import { listPosts, samplesShown } from "@/lib/community/data";
 import { isModerator, useStanding, type Standing } from "@/lib/community/membership";
 import { CATEGORIES, type Category, type Post } from "@/lib/community/types";
 import { cn } from "@/lib/utils";
@@ -46,6 +46,7 @@ export function CommunityHome() {
 
   return (
     <div className="grid gap-8">
+      <SamplesNote />
       <Invitation standing={standing} />
 
       <div className="grid gap-4 rounded-2xl border border-hairline bg-card p-4 sm:p-5">
@@ -90,6 +91,27 @@ export function CommunityHome() {
       {latest.length > 0 && <PostList id="community-latest" title={t("latest")} posts={latest} />}
     </div>
   );
+}
+
+/** One line, while the team's sample posts are shown, saying what they are. */
+function SamplesNote() {
+  const [shown, setShown] = useState(false);
+  useEffect(() => {
+    let current = true;
+    void samplesShown().then((result) => {
+      if (current && result.ok) setShown(result.value);
+    });
+    return () => {
+      current = false;
+    };
+  }, []);
+  return <SamplesLine shown={shown} />;
+}
+
+export function SamplesLine({ shown }: { shown: boolean }) {
+  const t = useTranslations("Community.sample");
+  if (!shown) return null;
+  return <p className="rounded-xl border-2 border-dashed border-ink/30 px-4 py-2 text-sm font-medium">{t("note")}</p>;
 }
 
 export function Invitation({ standing }: { standing: Standing }) {

@@ -15,7 +15,7 @@ import { referralCentresSchema } from "@/lib/content/schema";
 
 import ar from "../../../messages/ar.json";
 import en from "../../../messages/en.json";
-import { Invitation } from "./community-home";
+import { Invitation, SamplesLine } from "./community-home";
 import { RULES } from "./community-states";
 import { PostCard } from "./post-card";
 import { ShareNotice, type ShareState } from "./share-checks";
@@ -59,8 +59,9 @@ const post: Post = {
   pinned: false,
   helped: 2,
   replies: 1,
+  isSample: false,
 };
-const reply: Reply = { id: "r1", post: "p1", author: { id: "t", name: "فريق رحلة", role: "moderator", country: null }, authorId: "t", body: "Welcome.", needsSpecialist: false, createdAt: "2026-10-05T11:00:00Z", hidden: false, helped: 0 };
+const reply: Reply = { id: "r1", post: "p1", author: { id: "t", name: "فريق رحلة", role: "moderator", country: null }, authorId: "t", body: "Welcome.", needsSpecialist: false, createdAt: "2026-10-05T11:00:00Z", hidden: false, helped: 0, isSample: false };
 const thread = (me: string | null): Thread => ({ post, replies: [reply], mine: { helped: new Set(), me } });
 
 const member: Standing = { kind: "member", membership: { name: "Sam", showCountry: false, role: "member", joinedAt: "2026-10-05T09:00:00Z" } };
@@ -87,7 +88,10 @@ describe("reading a thread", () => {
     expect(html).toContain(t.replyBox.label);
     expect(html).toContain(t.helped);
     expect(html.match(new RegExp(`>${t.report.button}<`, "g"))).toHaveLength(2);
-    expect(html).toContain(`/rafiq?${new URLSearchParams({ ask: t.askAboutPost.replace("{title}", post.title) }).toString()}`);
+    // Rafiq opens with the post (and, from a reply, that reply) handed over on the device.
+    expect(html).toContain('href="/rafiq?about=post"');
+    expect(html).toContain('href="/rafiq?about=reply"');
+    expect(html).toContain(t.askRafiqReply);
     expect(html).not.toContain(t.moderation.pin);
   });
 
@@ -195,5 +199,36 @@ describe("the checks before sharing", () => {
   it("never writes «رفيقًا» in the community's Arabic", () => {
     expect(JSON.stringify(ar.Community)).not.toContain("رفيقًا");
     expect(JSON.stringify(ar.Community)).toContain("«رفيق»");
+  });
+});
+
+describe("sample posts", () => {
+  const sample = { ...post, id: "s1", isSample: true, author: null, authorId: null };
+  const sampleReply = { ...reply, id: "sr1", post: "s1", isSample: true };
+
+  it.each(["ar", "en"] as const)("carry the Sample badge, and only they do (%s)", (locale) => {
+    const t = MESSAGES[locale].Community.sample;
+    const badge = `>${t.badge}</span>`;
+    expect(render(locale, <PostCard post={sample} />)).toContain(badge);
+    expect(render(locale, <PostCard post={post} />)).not.toContain(badge);
+    const thread = render(locale, <ThreadBody thread={{ post: sample, replies: [sampleReply, reply], mine: { helped: new Set(), me: "u2" } }} standing={member} onReplied={noop} />);
+    expect(thread.split(badge)).toHaveLength(3);
+  });
+
+  it.each(["ar", "en"] as const)("are closed: no reply box, reaction or report, and a line that says so (%s)", (locale) => {
+    const t = MESSAGES[locale].Community;
+    const html = render(locale, <ThreadBody thread={{ post: sample, replies: [sampleReply], mine: { helped: new Set(), me: "u2" } }} standing={member} onReplied={noop} />);
+    expect(html).toContain(t.sample.closed);
+    expect(html).not.toContain("<textarea");
+    expect(html).not.toContain(`>${t.report.button}<`);
+    expect(html).not.toContain("aria-pressed");
+    // Rafiq can still be asked about it.
+    expect(html).toContain('href="/rafiq?about=post"');
+  });
+
+  it.each(["ar", "en"] as const)("are announced on the home only while there are some (%s)", (locale) => {
+    const note = MESSAGES[locale].Community.sample.note;
+    expect(render(locale, <SamplesLine shown />)).toContain(note);
+    expect(render(locale, <SamplesLine shown={false} />)).toBe("");
   });
 });

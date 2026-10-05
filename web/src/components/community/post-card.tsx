@@ -21,8 +21,15 @@ export function PostTags({ post }: { post: Post }) {
       )}
       {post.needsSpecialist && <span className="rounded-full border border-terracotta/40 px-3 py-1 font-medium text-terracotta-text">{t("specialistTag")}</span>}
       {post.hidden && <span className="rounded-full bg-muted px-3 py-1 font-medium">{t("hiddenTag")}</span>}
+      {post.isSample && <SampleBadge />}
     </p>
   );
+}
+
+/** Marks an illustration written by the Rehla team, never a real member's words. */
+export function SampleBadge() {
+  const t = useTranslations("Community.sample");
+  return <span className="rounded-full border-2 border-dashed border-ink/40 px-3 py-0.5 text-sm font-semibold">{t("badge")}</span>;
 }
 
 export function PostCard({ post }: { post: Post }) {

@@ -8,16 +8,18 @@ import { Link } from "@/i18n/navigation";
 import type { RafiqPose } from "@/lib/content/schema";
 import { replyText, type RafiqResult } from "@/lib/rafiq/answer";
 import { HISTORY_TURNS, type Turn } from "@/lib/rafiq/ask";
+import type { SharedPost } from "@/lib/rafiq/shared-post";
 
 import { AnswerView, type LessonLink } from "./answer-view";
 import { RafiqStage } from "./rafiq-stage";
+import { SharedPostQuote } from "./shared-post-quote";
 
 /*
  * A conversation with Rafiq as two people talking: his turns at the start side with his figure and
  * name, the learner's at the end side. Shared by his page and the panel beside the lesson board.
  */
 
-export type Exchange = { id: number; question: string; result: RafiqResult | null };
+export type Exchange = { id: number; question: string; result: RafiqResult | null; shared?: SharedPost };
 
 export function poseFor(result: RafiqResult | null): RafiqPose {
   if (!result) return "thinking";
@@ -105,6 +107,11 @@ export function ExchangeView({
 }) {
   return (
     <>
+      {exchange.shared && (
+        <li className="flex justify-end ps-12">
+          <SharedPostQuote post={exchange.shared} className="max-w-full" />
+        </li>
+      )}
       <YouSaid>{exchange.question}</YouSaid>
       <RafiqReply id={`rafiq-${exchange.id}`} result={exchange.result} lessons={lessons} replyRef={replyRef} onRetry={onRetry} />
     </>

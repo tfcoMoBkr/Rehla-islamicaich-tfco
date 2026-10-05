@@ -93,7 +93,7 @@ Expect two rows, both with `rls_on = true`: `profiles` with 2 policies and `prog
 
 The community uses the same Supabase project. Without the Supabase variables the community pages show a calm "not available here" state, and the build still passes.
 
-1. **Create its tables.** In **SQL Editor**, run the whole of `supabase/migrations/20261006000000_community.sql`, then the whole of `supabase/migrations/20261006010000_community_guard.sql` (after the account migrations, in that order). Each is safe to run again. Check row level security:
+1. **Create its tables.** In **SQL Editor**, run the whole of each community migration in name order, after the account migrations: `20261006000000_community.sql`, `20261006010000_community_guard.sql`, `20261006020000_community_samples.sql`. Each is safe to run again. Run them before deploying a web version that reads their columns. Check row level security:
 
    ```sql
    select c.relname as table_name, c.relrowsecurity as rls_on,
@@ -106,7 +106,7 @@ The community uses the same Supabase project. Without the Supabase variables the
 
    Expect five rows, all with `rls_on = true`: `community_members` 4, `community_posts` 4, `community_reactions` 3, `community_replies` 4, `community_reports` 3.
 
-2. **Check the rules** (optional, recommended). Paste the whole of `supabase/tests/community_rules.sql` into the SQL Editor and run it (with psql: `psql -1 -f supabase/tests/community_rules.sql`). It acts as a guest, four members, someone who has not joined and a moderator, then undoes everything it wrote, so it leaves nothing behind. The result is one row: `all community rules hold` with `13` checks. If a rule does not hold, it stops with an error naming it (`FAIL: …`).
+2. **Check the rules** (optional, recommended). Paste the whole of `supabase/tests/community_rules.sql` into the SQL Editor and run it (with psql: `psql -1 -f supabase/tests/community_rules.sql`). It acts as a guest, four members, someone who has not joined and a moderator, then undoes everything it wrote, so it leaves nothing behind. The result is one row: `all community rules hold` with `15` checks. If a rule does not hold, it stops with an error naming it (`FAIL: …`).
 
 3. **Seed the team's posts.** Sign up in the site with the account the Rehla team will post from. In `supabase/seed/community.sql`, replace `TEAM_EMAIL` with that account's email and run the whole file. It makes that account a member named «فريق رحلة» with the moderator role (badge "Rehla team") and adds, in both languages, a pinned welcome post, the pinned full rules, and one discussion prompt per category. It is safe to run again.
 
@@ -127,6 +127,10 @@ The community uses the same Supabase project. Without the Supabase variables the
    ```
 
    Give the guide role only to real people whose role the team has confirmed. The product never claims that a scholar or da'iyah is present.
+
+5. **Sample posts** (optional, to show the space in use). Run the whole of `supabase/seed/community_samples.sql`: 21 posts and 42 replies by eight sample members with obvious names ("Sample Traveller", «مثال: مسافر»), across the five categories and both languages, over the last two weeks, with a few reactions, one pinned post, one tagged "Better answered by a specialist" and one shown as from a former member. Every one is marked `is_sample` in the database and shows a "Sample" / «مثال» badge, and the community home says that sample posts are shown. They are closed: nobody can reply to, react to or report them. Safe to run again.
+
+   To remove them, run the whole of `supabase/seed/community_samples_remove.sql`. It deletes the sample replies, posts, members and their accounts (fixed ids under the reserved `samples.rehla.invalid` address domain), and nothing else. Safe to run again.
 
 ## Order
 

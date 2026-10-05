@@ -5,6 +5,7 @@ import { chooseCity } from "@/lib/referral/chosen-city";
 
 import { rafiqAnswerSchema, type RafiqResult } from "./answer";
 import { forgetLessonThreads } from "./lesson-threads";
+import { sharedPostSchema, sharedPostStore, type SharedPost } from "./shared-post";
 
 /*
  * What Rafiq remembers, all on this device: the name the learner chose to give (optional, never
@@ -29,8 +30,15 @@ const resultSchema = z.discriminatedUnion("kind", [
 ]);
 
 /** One question and its reply; `at` is when the reply came, in milliseconds since the epoch. */
-export const exchangeSchema = z.object({ id: z.int(), at: z.number(), question: z.string(), result: resultSchema });
-export type StoredExchange = { id: number; at: number; question: string; result: RafiqResult };
+export const exchangeSchema = z.object({
+  id: z.int(),
+  at: z.number(),
+  question: z.string(),
+  result: resultSchema,
+  // The community post the question was about, shown above it.
+  shared: z.optional(sharedPostSchema),
+});
+export type StoredExchange = { id: number; at: number; question: string; result: RafiqResult; shared?: SharedPost };
 
 /** When this page was opened: a conversation that began earlier is one the learner returns to. */
 export const OPENED_AT = typeof window === "undefined" ? 0 : Date.now();
@@ -62,4 +70,5 @@ export function forgetEverything(): void {
   conversations.en.set(null);
   chooseCity(null);
   forgetLessonThreads();
+  sharedPostStore.set(null);
 }

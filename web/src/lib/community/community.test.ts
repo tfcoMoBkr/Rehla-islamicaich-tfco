@@ -94,7 +94,7 @@ describe("the checks before sharing", () => {
 
 describe("reading the community", () => {
   it("shows writers by community name and badge, and a post whose writer left as a former member's", async () => {
-    const row = { category: "encouragement", body: "b", language: "ar", needs_specialist: false, created_at: "2026-10-05T10:00:00Z", edited_at: null, hidden: false, pinned: false };
+    const row = { category: "encouragement", body: "b", language: "ar", needs_specialist: false, created_at: "2026-10-05T10:00:00Z", edited_at: null, hidden: false, pinned: false, is_sample: false };
     answers.community_posts = { data: [{ ...row, id: "p1", author: "u1", title: "One" }, { ...row, id: "p2", author: null, title: "Two" }], error: null };
     answers.community_authors = { data: [{ user_id: "u1", name: "Noor", role: "guide", country: null }], error: null };
     answers.community_helped = { data: [{ target: "p1", helped: 2 }], error: null };

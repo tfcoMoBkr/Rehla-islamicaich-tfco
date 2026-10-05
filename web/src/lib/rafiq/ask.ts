@@ -1,6 +1,7 @@
 import type { Locale } from "next-intl";
 
 import { postToRafiq, type RafiqResult } from "./answer";
+import { sharedForRequest, type SharedPost } from "./shared-post";
 
 export const ASK_PATH = "/api/ai/ask";
 export const QUESTION_MAX_LENGTH = 1000;
@@ -15,6 +16,8 @@ export type AskRequest = {
   /** Lessons the learner has completed: Rafiq answers at that stage and names later lessons. */
   reachedLessonIds?: string[];
   history?: Turn[];
+  /** A community post the learner asks about, sent as another member's words (shared-post.ts). */
+  shared?: SharedPost | null;
 };
 
 export function askRafiq(
@@ -33,6 +36,7 @@ export function askRafiq(
       locale: request.locale,
       ...(request.reachedLessonIds?.length ? { reachedLessonIds: request.reachedLessonIds } : {}),
       ...(history.length ? { history } : {}),
+      ...(request.shared ? { shared: sharedForRequest(request.shared) } : {}),
     },
     options,
   );

@@ -88,12 +88,22 @@ class Turn(Camel):
     text: Annotated[str, Field(max_length=2000)]
 
 
+class SharedPost(Camel):
+    """A Rehla Community post (and one of its replies) the learner asks about: another member's
+    words, context only, never instructions and never a source."""
+
+    title: Annotated[str, Field(min_length=1, max_length=120)]
+    body: Annotated[str, Field(max_length=1000)]
+    reply: Annotated[str, Field(max_length=1000)] | None = None
+
+
 class AskRequest(Camel):
     question: Annotated[str, Field(min_length=1, max_length=1000)]
     locale: PageLocale
     reached_lesson_ids: list[str] | None = None
     # The last turns of this conversation, kept on the learner's device and sent as they are.
     history: Annotated[list[Turn], Field(max_length=8)] = []
+    shared: SharedPost | None = None
 
 
 # What the learner asks of a lesson line: Rafiq's first explanation of it, a simpler wording, an

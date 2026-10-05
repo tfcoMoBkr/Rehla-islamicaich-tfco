@@ -9,13 +9,14 @@ import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { createReply, getThread, moderate, type Thread } from "@/lib/community/data";
 import { isModerator, useStanding, type Standing } from "@/lib/community/membership";
-import { LIMITS, type CommunityError, type Reply } from "@/lib/community/types";
+import { LIMITS, type CommunityError, type Post, type Reply } from "@/lib/community/types";
+import { fitSharedPost, sharedPostStore } from "@/lib/rafiq/shared-post";
 import { cn } from "@/lib/utils";
 
 import { AuthorLine } from "./author-line";
 import { CalmLine, Failed, Loading, Quiet } from "./community-states";
 import { HelpedButton, ReportControl } from "./post-actions";
-import { PostTags } from "./post-card";
+import { PostTags, SampleBadge } from "./post-card";
 import { Counter } from "./post-composer";
 import { ShareNotice, useShare } from "./share-checks";
 
@@ -93,14 +94,9 @@ export function ThreadBody({ thread, standing, onReplied }: { thread: Thread; st
           {post.body}
         </div>
         <div className="flex flex-wrap items-center gap-2 border-t border-hairline pt-4">
-          <HelpedButton target={{ type: "post", id: post.id }} count={post.helped} mine={mine.helped.has(post.id)} canReact={canAct} />
-          <Button asChild variant="outline" size="sm">
-            <Link href={{ pathname: "/rafiq", query: { ask: t("askAboutPost", { title: post.title }) } }}>
-              <Lantern className="size-5 text-foreground" />
-              {t("askRafiq")}
-            </Link>
-          </Button>
-          {canAct && mine.me !== post.authorId && <ReportControl target={{ type: "post", id: post.id }} />}
+          <HelpedButton target={{ type: "post", id: post.id }} count={post.helped} mine={mine.helped.has(post.id)} canReact={canAct && !post.isSample} />
+          <AskRafiq post={post} />
+          {canAct && !post.isSample && mine.me !== post.authorId && <ReportControl target={{ type: "post", id: post.id }} />}
         </div>
         {isModerator(standing) && <ModeratorBar post={post.id} hidden={post.hidden} pinned={post.pinned} onChanged={onReplied} />}
       </article>
@@ -116,14 +112,41 @@ export function ThreadBody({ thread, standing, onReplied }: { thread: Thread; st
         ) : (
           <ol className="grid gap-3">
             {replies.map((reply) => (
-              <ReplyItem key={reply.id} reply={reply} helped={mine.helped.has(reply.id)} canAct={canAct} own={mine.me !== null && mine.me === reply.authorId} />
+              <ReplyItem
+                key={reply.id}
+                post={post}
+                reply={reply}
+                helped={mine.helped.has(reply.id)}
+                canAct={canAct}
+                own={mine.me !== null && mine.me === reply.authorId}
+              />
             ))}
           </ol>
         )}
       </section>
 
-      <ReplyArea post={post.id} standing={standing} onReplied={onReplied} />
+      {post.isSample ? (
+        <p className="rounded-2xl border border-dashed border-hairline p-5 text-muted-foreground">{t("sample.closed")}</p>
+      ) : (
+        <ReplyArea post={post.id} standing={standing} onReplied={onReplied} />
+      )}
     </>
+  );
+}
+
+/** Opens Rafiq privately with the post (and the reply, when asked from one) as quoted context. */
+function AskRafiq({ post, reply }: { post: Post; reply?: Reply }) {
+  const t = useTranslations("Community");
+  return (
+    <Button asChild variant="outline" size="sm">
+      <Link
+        href={{ pathname: "/rafiq", query: { about: reply ? "reply" : "post" } }}
+        onClick={() => sharedPostStore.set(fitSharedPost({ title: post.title, body: post.body, reply: reply?.body }))}
+      >
+        <Lantern className="size-5 text-foreground" />
+        {reply ? t("askRafiqReply") : t("askRafiq")}
+      </Link>
+    </Button>
   );
 }
 
@@ -148,13 +171,14 @@ function ModeratorBar({ post, hidden, pinned, onChanged }: { post: string; hidde
   );
 }
 
-function ReplyItem({ reply, helped, canAct, own }: { reply: Reply; helped: boolean; canAct: boolean; own: boolean }) {
+function ReplyItem({ post, reply, helped, canAct, own }: { post: Post; reply: Reply; helped: boolean; canAct: boolean; own: boolean }) {
   const t = useTranslations("Community");
   return (
     <li className={cn("grid gap-3 rounded-2xl border border-hairline bg-card p-4 sm:p-5", reply.hidden && "border-dashed opacity-80")}>
       <AuthorLine author={reply.author} createdAt={reply.createdAt} />
-      {(reply.needsSpecialist || reply.hidden) && (
+      {(reply.needsSpecialist || reply.hidden || reply.isSample) && (
         <p className="flex flex-wrap gap-2 text-sm">
+          {reply.isSample && <SampleBadge />}
           {reply.needsSpecialist && <span className="rounded-full border border-terracotta/40 px-3 py-1 font-medium text-terracotta-text">{t("specialistTag")}</span>}
           {reply.hidden && <span className="rounded-full bg-muted px-3 py-1 font-medium">{t("hiddenTag")}</span>}
         </p>
@@ -163,8 +187,9 @@ function ReplyItem({ reply, helped, canAct, own }: { reply: Reply; helped: boole
         {reply.body}
       </p>
       <div className="flex flex-wrap items-center gap-2">
-        <HelpedButton target={{ type: "reply", id: reply.id }} count={reply.helped} mine={helped} canReact={canAct} />
-        {canAct && !own && <ReportControl target={{ type: "reply", id: reply.id }} />}
+        <HelpedButton target={{ type: "reply", id: reply.id }} count={reply.helped} mine={helped} canReact={canAct && !reply.isSample} />
+        <AskRafiq post={post} reply={reply} />
+        {canAct && !own && !reply.isSample && <ReportControl target={{ type: "reply", id: reply.id }} />}
       </div>
     </li>
   );

@@ -31,6 +31,8 @@ export type Post = {
   pinned: boolean;
   helped: number;
   replies: number;
+  /** Written by the Rehla team to illustrate the space (supabase/seed/community_samples.sql). */
+  isSample: boolean;
 };
 
 export type Reply = {
@@ -43,6 +45,7 @@ export type Reply = {
   createdAt: string;
   hidden: boolean;
   helped: number;
+  isSample: boolean;
 };
 
 export type Membership = { name: string; showCountry: boolean; role: Role; joinedAt: string };

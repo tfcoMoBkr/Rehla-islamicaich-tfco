@@ -133,7 +133,11 @@ async def ask(body: AskRequest, request: Request) -> RafiqAnswer:
     rafiq, _ = await _services(request)
     try:
         return await rafiq.run(
-            body.question, body.locale, history=body.history, scope=body.reached_lesson_ids
+            body.question,
+            body.locale,
+            history=body.history,
+            scope=body.reached_lesson_ids,
+            shared=body.shared,
         )
     except ModelUnavailableError as error:
         raise ApiError(503, "unavailable") from error

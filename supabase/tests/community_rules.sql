@@ -1,5 +1,6 @@
 -- Checks Rehla Community's rules in the database itself. Run the whole file at once after the
--- community migrations (20261006000000_community.sql, 20261006010000_community_guard.sql):
+-- community migrations (20261006000000_community.sql, 20261006010000_community_guard.sql,
+-- 20261006020000_community_samples.sql):
 --
 --   Supabase SQL Editor: paste it and run.
 --   psql:                psql -1 -f supabase/tests/community_rules.sql   (one transaction)
@@ -28,7 +29,10 @@ declare
   reply_a constant uuid := '00000000-0000-4000-8000-00000000a002';
   post_c constant uuid := '00000000-0000-4000-8000-00000000c001';
   reply_c constant uuid := '00000000-0000-4000-8000-00000000c002';
-  total constant integer := 13;
+  reply_c2 constant uuid := '00000000-0000-4000-8000-00000000c003';
+  sample_post constant uuid := '00000000-0000-4000-8000-00000000e001';
+  sample_reply constant uuid := '00000000-0000-4000-8000-00000000e002';
+  total constant integer := 15;
   passed integer := 0;
   reporter_id uuid;
 begin
@@ -179,7 +183,68 @@ begin
     execute 'reset role';
     passed := passed + 1;
 
-    -- 7. Someone who has not joined can read but not write.
+    -- 7. Samples: only the database marks them, nobody sets or clears the flag through the API, and
+    --     sample items are closed to replies, reactions and reports.
+    insert into public.community_posts (id, author, category, title, body, language, is_sample)
+      values (sample_post, null, 'encouragement', 'A sample', 'Sample body', 'en', true);
+    insert into public.community_replies (id, post, author, body, is_sample)
+      values (sample_reply, sample_post, ud, 'A sample reply', true);
+    perform set_config('request.jwt.claims', json_build_object('sub', uc, 'role', 'authenticated')::text, true);
+    execute 'set local role authenticated';
+    insert into public.community_replies (id, post, author, body, is_sample) values (reply_c2, post_c, uc, 'Not a sample', true);
+    if (select is_sample from public.community_replies where id = reply_c2) then
+      raise exception 'FAIL: a member wrote a reply marked as a sample';
+    end if;
+    begin
+      update public.community_posts set is_sample = true where id = post_c;
+      raise exception 'FAIL: a member marked their post as a sample';
+    exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+    begin
+      update public.community_members set is_sample = true where user_id = uc;
+      raise exception 'FAIL: a member marked themselves as a sample';
+    exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+    begin
+      insert into public.community_replies (post, author, body) values (sample_post, uc, 'Hello');
+      raise exception 'FAIL: a member replied to a sample post';
+    exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+    begin
+      insert into public.community_reactions (member, post) values (uc, sample_post);
+      raise exception 'FAIL: a member reacted to a sample post';
+    exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+    begin
+      insert into public.community_reactions (member, reply) values (uc, sample_reply);
+      raise exception 'FAIL: a member reacted to a sample reply';
+    exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+    begin
+      insert into public.community_reports (target_type, target_id, reporter, reason) values ('post', sample_post, uc, 'spam');
+      raise exception 'FAIL: a member reported a sample post';
+    exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+    execute 'reset role';
+    perform set_config('request.jwt.claims', json_build_object('sub', um, 'role', 'authenticated')::text, true);
+    execute 'set local role authenticated';
+    begin
+      update public.community_posts set is_sample = false where id = sample_post;
+      raise exception 'FAIL: a moderator cleared the sample flag';
+    exception when others then if sqlerrm like 'FAIL%' then raise; end if; end;
+    execute 'reset role';
+    passed := passed + 1;
+
+    -- 8. Samples never count toward a member's hourly limit.
+    for i in 1..5 loop
+      insert into public.community_posts (author, category, title, body, language, is_sample)
+        values (ud, 'everydayLife', 'Sample ' || i, 'Body', 'en', true);
+    end loop;
+    perform set_config('request.jwt.claims', json_build_object('sub', ud, 'role', 'authenticated')::text, true);
+    execute 'set local role authenticated';
+    begin
+      insert into public.community_posts (author, category, title, body, language) values (ud, 'everydayLife', 'D''s post', 'Body', 'en');
+    exception when others then
+      raise exception 'FAIL: sample posts counted toward a member''s hourly limit (%)', sqlerrm;
+    end;
+    execute 'reset role';
+    passed := passed + 1;
+
+    -- 9. Someone who has not joined can read but not write.
     perform set_config('request.jwt.claims', json_build_object('sub', un, 'role', 'authenticated')::text, true);
     execute 'set local role authenticated';
     if not exists (select 1 from public.community_posts where id = post_a) then
@@ -192,7 +257,7 @@ begin
     execute 'reset role';
     passed := passed + 1;
 
-    -- 8. Three members report A's post: it is hidden.
+    -- 10. Three members report A's post: it is hidden.
     foreach reporter_id in array array[ub, uc, ud] loop
       perform set_config('request.jwt.claims', json_build_object('sub', reporter_id, 'role', 'authenticated')::text, true);
       execute 'set local role authenticated';
@@ -204,7 +269,7 @@ begin
     end if;
     passed := passed + 1;
 
-    -- 9. A guest reads visible posts only, writes nothing, and cannot see members or who reacted.
+    -- 11. A guest reads visible posts only, writes nothing, and cannot see members or who reacted.
     perform set_config('request.jwt.claims', '{"role":"anon"}', true);
     execute 'set local role anon';
     if exists (select 1 from public.community_posts where id = post_a) then
@@ -229,7 +294,7 @@ begin
     execute 'reset role';
     passed := passed + 1;
 
-    -- 10. The author still sees their hidden post, and cannot unhide it.
+    -- 12. The author still sees their hidden post, and cannot unhide it.
     perform set_config('request.jwt.claims', json_build_object('sub', ua, 'role', 'authenticated')::text, true);
     execute 'set local role authenticated';
     if not exists (select 1 from public.community_posts where id = post_a) then
@@ -242,7 +307,7 @@ begin
     execute 'reset role';
     passed := passed + 1;
 
-    -- 11. The moderator sees the reports, unhides and pins, clears reports, assigns a role, and
+    -- 13. The moderator sees the reports, unhides and pins, clears reports, assigns a role, and
     --     still cannot change who wrote a post.
     perform set_config('request.jwt.claims', json_build_object('sub', um, 'role', 'authenticated')::text, true);
     execute 'set local role authenticated';
@@ -265,7 +330,7 @@ begin
     execute 'reset role';
     passed := passed + 1;
 
-    -- 12. One reaction per member and item; leaving and deleting removes posts and reactions.
+    -- 14. One reaction per member and item; leaving and deleting removes posts and reactions.
     perform set_config('request.jwt.claims', json_build_object('sub', ub, 'role', 'authenticated')::text, true);
     execute 'set local role authenticated';
     insert into public.community_reactions (member, post) values (ub, post_a);
@@ -284,7 +349,7 @@ begin
     execute 'reset role';
     passed := passed + 1;
 
-    -- 13. The author cannot unpin; leaving and keeping makes posts and replies a former member's.
+    -- 15. The author cannot unpin; leaving and keeping makes posts and replies a former member's.
     perform set_config('request.jwt.claims', json_build_object('sub', ua, 'role', 'authenticated')::text, true);
     execute 'set local role authenticated';
     begin
@@ -317,7 +382,7 @@ begin
 end
 $test$;
 
-select case when current_setting('rehla.community_rules_passed', true) = '13'
+select case when current_setting('rehla.community_rules_passed', true) = '15'
             then 'all community rules hold'
             else 'FAIL: the checks did not run in this transaction (in psql, use -1)'
        end as result,

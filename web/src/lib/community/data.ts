@@ -14,8 +14,8 @@ import type { Author, Category, CommunityError, Membership, Post, Reply, ReportR
 
 type Result<T> = { ok: true; value: T } | { ok: false; error: CommunityError };
 
-const POST_COLUMNS = "id, author, category, title, body, language, needs_specialist, created_at, edited_at, hidden, pinned";
-const REPLY_COLUMNS = "id, post, author, body, needs_specialist, created_at, hidden";
+const POST_COLUMNS = "id, author, category, title, body, language, needs_specialist, created_at, edited_at, hidden, pinned, is_sample";
+const REPLY_COLUMNS = "id, post, author, body, needs_specialist, created_at, hidden, is_sample";
 
 const postRow = z.object({
   id: z.string(),
@@ -29,6 +29,7 @@ const postRow = z.object({
   edited_at: z.nullable(z.string()),
   hidden: z.boolean(),
   pinned: z.boolean(),
+  is_sample: z.boolean(),
 });
 const replyRow = z.object({
   id: z.string(),
@@ -38,6 +39,7 @@ const replyRow = z.object({
   needs_specialist: z.boolean(),
   created_at: z.string(),
   hidden: z.boolean(),
+  is_sample: z.boolean(),
 });
 const authorRow = z.object({ user_id: z.string(), name: z.string(), role: z.enum(["member", "moderator", "guide"]), country: z.nullable(z.string()) });
 const memberRow = z.object({ name: z.string(), show_country: z.boolean(), role: z.enum(["member", "moderator", "guide"]), joined_at: z.string() });
@@ -117,6 +119,7 @@ async function withDetails(client: SupabaseClient, rows: z.infer<typeof postRow>
     pinned: row.pinned,
     helped: helped.get(row.id) ?? 0,
     replies: replies.get(row.id) ?? 0,
+    isSample: row.is_sample,
   }));
 }
 
@@ -131,6 +134,13 @@ export function listPosts(filter: PostFilter = {}, limit = 30): Promise<Result<P
     return withDetails(client, z.array(postRow).parse(must(await query)));
   });
 }
+
+/** Whether the team's sample posts are shown, so the home can say so. */
+export const samplesShown = () =>
+  attempt(async (client) => {
+    const rows = must(await client.from("community_posts").select("id").eq("is_sample", true).limit(1)) as unknown[];
+    return rows.length > 0;
+  });
 
 export type Thread = { post: Post; replies: Reply[]; mine: { helped: Set<string>; me: string | null } };
 
@@ -162,6 +172,7 @@ export function getThread(id: string): Promise<Result<Thread | null>> {
         createdAt: row.created_at,
         hidden: row.hidden,
         helped: helped.get(row.id) ?? 0,
+        isSample: row.is_sample,
       })),
       mine: { helped: mine, me },
     };

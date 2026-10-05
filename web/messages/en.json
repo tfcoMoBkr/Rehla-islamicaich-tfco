@@ -613,7 +613,16 @@
     "memoryNameUnused": "Rafiq does not use your name.",
     "useNameAgain": "Use my name again",
     "nameSaveFailed": "Your name could not be saved. Try again.",
-    "memoryNoteAccount": "Your name is in your account; everything else here stays on this device. Rafiq keeps nothing about you anywhere else, and infers nothing about you."
+    "memoryNoteAccount": "Your name is in your account; everything else here stays on this device. Rafiq keeps nothing about you anywhere else, and infers nothing about you.",
+    "shared": {
+      "from": "From Rehla Community",
+      "note": "another member's words, for context",
+      "reply": "A reply",
+      "shortened": "Shortened to fit: the title and the start of the text are kept.",
+      "remove": "Remove",
+      "questionPost": "Can you help me understand this post?",
+      "questionReply": "Can you help me understand this reply?"
+    }
   },
   "Specialist": {
     "title": "Talk to a specialist",
@@ -855,6 +864,7 @@
     "communityTitle": "Rehla Community",
     "communityBody": "Joining the community is a separate choice after you sign in. Others see only the community name you choose (it need not be your real name), a badge if the team gave you one, and your country only if you switch it on. There are no profile pages, member lists or private messages, and nothing is inferred from what you write.",
     "communityChecks": "Before a post or reply is shared, its text is sent to the AI service to look for distress or a request for a ruling; the service keeps and logs none of it. Personal details such as phone numbers are spotted on your device. You always decide whether to share.",
+    "communityAsk": "“Ask Rafiq about this” keeps the post on this device until you send a question; it never goes into a link. When you send it, the post's title and text go to the AI service with your question, like any question, and are not kept.",
     "communityLeave": "You can leave at any time and choose to delete your posts and replies or keep them as from a “Former member”. Deleting your account removes them, and “Download my data” includes them."
   },
   "AccountChoice": {
@@ -1121,6 +1131,7 @@
     "noReplies": "No replies yet.",
     "helped": "This helped me",
     "askRafiq": "Ask Rafiq about this",
+    "askRafiqReply": "Ask Rafiq about this reply",
     "replyBox": {
       "label": "Your reply",
       "hint": "Share your experience kindly. Up to {max} characters.",
@@ -1229,6 +1240,10 @@
     "countryNames": {
       "PS": "Palestine"
     },
-    "askAboutPost": "I read a community post titled “{title}”. What do the sources say about this?"
+    "sample": {
+      "badge": "Sample",
+      "note": "Sample posts are shown to illustrate the space. They were written by the Rehla team, not by real members.",
+      "closed": "This is a sample post: replies, reactions and reports are closed."
+    }
   }
 }

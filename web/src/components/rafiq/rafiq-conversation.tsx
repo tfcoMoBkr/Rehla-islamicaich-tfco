@@ -9,10 +9,12 @@ import { useProgress } from "@/lib/learn/progress-store";
 import type { RafiqResult } from "@/lib/rafiq/answer";
 import { askRafiq, QUESTION_MAX_LENGTH } from "@/lib/rafiq/ask";
 import { conversationStore, keepExchange, OPENED_AT, type StoredExchange } from "@/lib/rafiq/memory";
+import { sharedPostStore, type SharedPost } from "@/lib/rafiq/shared-post";
 
 import type { LessonLink } from "./answer-view";
 import { MeetRafiq } from "./meet-rafiq";
 import { NamePrompt, RafiqMemory, RafiqWelcome, type RoadLesson } from "./rafiq-memory";
+import { SharedPostQuote } from "./shared-post-quote";
 import { ExchangeView, historyBefore, RafiqSays, type Exchange } from "./thread";
 
 const STARTERS = ["tawhid", "wudu", "wuduBreakers", "prayers"] as const;
@@ -22,6 +24,10 @@ const NO_EXCHANGES: StoredExchange[] = [];
 
 const noSubscription = () => () => undefined;
 const askedInAddress = () => new URLSearchParams(window.location.search).get("ask")?.slice(0, QUESTION_MAX_LENGTH) ?? null;
+const aboutInAddress = () => {
+  const about = new URLSearchParams(window.location.search).get("about");
+  return about === "post" || about === "reply" ? about : null;
+};
 
 /**
  * Ask Rafiq: a conversation between the learner and their companion. It is kept on this device in
@@ -48,8 +54,14 @@ export function RafiqConversation({
   // Opened from Lens with a question ready (?ask=…): it waits in the box and is sent only when the
   // learner chooses to, so it goes through every check like any question they type.
   const asked = useSyncExternalStore(noSubscription, askedInAddress, () => null);
+  // Opened from a community post (?about=post|reply): the post waits above a question the learner
+  // can change, and both are sent only when they choose to.
+  const about = useSyncExternalStore(noSubscription, aboutInAddress, () => null);
+  const handed = sharedPostStore.use();
+  const shared = about ? handed : null;
   const [typed, setDraft] = useState<string | null>(null);
-  const draft = typed ?? asked ?? "";
+  const prefilled = shared ? t(about === "reply" ? "shared.questionReply" : "shared.questionPost") : null;
+  const draft = typed ?? asked ?? prefilled ?? "";
   const [asking, setAsking] = useState<Omit<Exchange, "result"> | null>(null);
   const [announcement, setAnnouncement] = useState("");
   const pending = useRef<AbortController | null>(null);
@@ -57,9 +69,10 @@ export function RafiqConversation({
 
   useEffect(() => () => pending.current?.abort(), []);
 
+  const waiting = Boolean(asked || shared);
   useEffect(() => {
-    if (asked) input.current?.focus();
-  }, [asked]);
+    if (waiting) input.current?.focus();
+  }, [waiting]);
 
   const exchanges: Exchange[] = stored.map((exchange) => (exchange.id === asking?.id ? { ...exchange, result: null } : exchange));
   if (asking && !stored.some((exchange) => exchange.id === asking.id)) exchanges.push({ ...asking, result: null });
@@ -72,9 +85,13 @@ export function RafiqConversation({
     const id = retrying ?? Math.max(0, ...current.map((exchange) => exchange.id)) + 1;
     const position = current.findIndex((exchange) => exchange.id === id);
     const before = position === -1 ? current : current.slice(0, position);
-    setAsking({ id, question: text });
+    const post: SharedPost | undefined = retrying === undefined ? (shared ?? undefined) : current[position]?.shared;
+    setAsking({ id, question: text, shared: post });
     setAnnouncement(t("thinking"));
-    if (retrying === undefined) setDraft("");
+    if (retrying === undefined) {
+      setDraft("");
+      sharedPostStore.set(null);
+    }
     requestAnimationFrame(() =>
       replies.current.get(id)?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "center" }),
     );
@@ -90,6 +107,7 @@ export function RafiqConversation({
           locale,
           reachedLessonIds: Object.keys(progress.completedLessons),
           history: historyBefore(before),
+          shared: post,
         },
         { signal: controller.signal },
       );
@@ -98,7 +116,7 @@ export function RafiqConversation({
       result = { kind: "error" };
     }
     if (controller.signal.aborted) return;
-    keepExchange(locale, { id, question: text, result });
+    keepExchange(locale, { id, question: text, result, ...(post ? { shared: post } : {}) });
     setAsking(null);
     setAnnouncement(result.kind === "answer" ? t("answered") : t(`errors.${result.kind}`));
   }
@@ -123,6 +141,7 @@ export function RafiqConversation({
   function startAgain() {
     stopAsking();
     store.set(null);
+    sharedPostStore.set(null);
     setDraft("");
     setAnnouncement("");
   }
@@ -200,6 +219,7 @@ export function RafiqConversation({
         <label htmlFor={inputId} className="font-display text-lg font-semibold">
           {exchanges.length ? t("askAnother") : t("questionLabel")}
         </label>
+        {shared && <SharedPostQuote post={shared} onRemove={() => sharedPostStore.set(null)} />}
         <textarea
           id={inputId}
           ref={input}

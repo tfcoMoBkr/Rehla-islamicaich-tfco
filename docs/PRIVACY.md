@@ -86,6 +86,8 @@ A new Muslim may not have told their family, so the community is built to show a
 - **Before sharing**, the text of a post or reply is sent to the AI service, which looks for danger or distress (the danger check runs in code first) and for a request for a ruling on the writer's own situation. The service stores and logs none of the text: logs carry the flags and the timing only. Personal details (phone numbers, emails, addresses) are spotted by patterns in the browser. Each check only offers help; the writer decides whether to share. Rafiq never posts.
 - **Leaving** is possible at any time, from the account page: the member's posts and replies are deleted, or kept and shown as from a "Former member", as they choose. Their reactions and reports are removed either way. **Deleting the account** removes the membership and everything written under it. **Download my data** includes the membership, posts and replies.
 - **No inference.** Nothing about a member is worked out from what they write, and there are no analytics on post content.
+- **Asking Rafiq about a post.** "Ask Rafiq about this" keeps the post's text on this device until the learner sends a question; it never goes into a link. When the question is sent, the post's title and text (and the reply asked about) go to the AI service with it, like any question, and are not kept or logged. Nothing about the post's writer is sent.
+- **Sample posts.** The team may show sample posts to illustrate the space. They are written by the team, marked "Sample" on every post and reply, announced on the home, and belong to sample accounts that cannot sign in. They hold no one's personal data.
 
 ## Photos shown to Lens
 

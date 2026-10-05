@@ -94,6 +94,7 @@ export default async function PrivacyPage({ params }: PageProps<"/[locale]/priva
           <Part id="privacy-community" icon={Users} title={t("communityTitle")}>
             <p>{t("communityBody")}</p>
             <p>{t("communityChecks")}</p>
+            <p>{t("communityAsk")}</p>
             <p>{t("communityLeave")}</p>
           </Part>
         )}
