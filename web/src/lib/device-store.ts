@@ -2,8 +2,9 @@ import { useSyncExternalStore } from "react";
 
 /*
  * A value kept in this browser only (localStorage), read through useSyncExternalStore so every
- * component that shows it updates together. Nothing here is ever sent to a server. When storage is
- * blocked, the value still holds in memory until the page is left.
+ * component that shows it updates together. This module sends nothing to a server; of the stores
+ * built on it, only the tour flag is carried to an account (src/lib/account/sync.ts). When storage
+ * is blocked, the value still holds in memory until the page is left.
  */
 
 export type DeviceStore<T> = {

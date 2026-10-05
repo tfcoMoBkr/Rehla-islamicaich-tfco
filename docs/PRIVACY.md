@@ -1,14 +1,31 @@
 # Privacy
 
-Rehla serves people at a sensitive moment in their lives. It is built so that it never needs to know who they are, and never works out anything about them.
+Rehla serves people at a sensitive moment in their lives. It is built so that it never needs to know who they are, and never works out anything about them. The page `/[locale]/privacy` says the same to learners, in both languages.
 
-- **No account.** No name, email, phone number or other contact detail is required anywhere.
-- **Nothing inferred.** No field stores or infers a religious or sensitive attribute. The learner chooses their own starting point; nothing is concluded from their behaviour, their questions or their language.
-- **On the device.** What the product remembers stays in the learner's own browser.
+- **No account needed.** Everything works without one, and a guest's data stays on the device. An account is optional and asks only for an email, a password, a display name and, if the learner wishes, a country.
+- **Nothing inferred.** No field, column or log stores or infers a religious background, a date of conversion, a former faith, family, health or any other sensitive attribute. The learner chooses their own starting point; nothing is concluded from their behaviour, their questions or their language. A country is never guessed from an address, a language or anything else.
+- **On the device by default.** What the product remembers stays in the learner's own browser, unless they create an account; even then, conversations with Rafiq stay on the device.
+
+## Optional accounts
+
+Accounts exist only when the Supabase project is configured (`docs/DEPLOY.md`). An account holds:
+
+| Where | What | Why |
+|---|---|---|
+| Supabase Auth | Email and password (the password only as a hash) | To sign in |
+| `profiles` | Display name (1–40 characters, any name the learner likes), country (ISO code, optional, picked from a list), page language, created and updated times | To show the learner's name and country in their account |
+| `progress_items` | One row per progress item, under the ids the device uses: completed lessons, chosen starting station, question histories, quiz, baseline and exam results, the sentence kept in the journal, provisions earned and best rounds, the tour-seen flag | So progress follows the learner to any device |
+
+- **Row level security** on both tables: a signed-in learner reaches only their own rows; anonymous visitors reach nothing. The tables stay owner-only: a later community section will show display name and country through a separate view of those two columns.
+- **Never in the account:** Rafiq's conversations, the conversations beside lesson boards, the name given to Rafiq, the chosen city, personal checklists and the anonymous session id.
+- **Never sent to the AI service:** the display name, the country, the email or anything else from the account. A test (`web/src/lib/account/boundaries.test.ts`) checks that no module that talks to the AI service reads the account.
+- **Download:** the account page's "Download my data" gives a JSON file of the profile and every progress row.
+- **Delete:** "Delete my account and data", confirmed by typing a word, deletes the user through `POST /api/account/delete` (which checks the learner's own session first); the profile and progress rows go with it by cascade, and the device is emptied.
+- **Sign-out** sends anything waiting, then removes the account's data from the device. Only the language, the board sound setting and the dismissed invitation remain.
 
 ## What is kept on the device
 
-Everything below lives in the browser's `localStorage` and is never sent to a server. If storage is blocked (a private window, for example), each value holds in memory until the page is left.
+Everything below lives in the browser's `localStorage`. For a guest, none of it is sent to a server. For a signed-in learner, the progress record and the tour flag are also kept in the account (above); nothing else is. If storage is blocked (a private window, for example), each value holds in memory until the page is left.
 
 | Key | What it holds | Shown and cleared in |
 |---|---|---|
@@ -20,6 +37,9 @@ Everything below lives in the browser's `localStorage` and is never sent to a se
 | `rehla.name.asked.v1` | That the name prompt was answered or skipped, so it is asked only once. | "Clear everything" |
 | `rehla.city.v1` | The city chosen in the specialist card, to show that city's associations. | "What Rafiq remembers", and the card itself |
 | `rehla:board-sounds` | Whether the lesson board plays its sounds. | The sound switch on the board |
+| `rehla.auth.v1` | The account session (supabase-js), only when signed in. | Sign out, or delete the account |
+| `rehla.account.v1` | The display name and country to show in the header, only when signed in. | Sign out |
+| `rehla.invite.v1` | That the invitation to create an account was dismissed, so it is not shown again. | Kept on sign-out |
 
 ### The name
 

@@ -1,6 +1,7 @@
 /*
- * The learner's progress. It lives only on this device, under an anonymous random session id:
- * no name, no contact data, nothing inferred about the person.
+ * The learner's progress. It lives on this device, under an anonymous random session id: no name,
+ * no contact data, nothing inferred about the person. A learner who signs in to an optional account
+ * also keeps it there (src/lib/account/sync.ts).
  */
 
 export type ScoreRecord = {

@@ -5,6 +5,7 @@ import { ArrowRight, BookOpen, ExternalLink } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 
+import { AccountInvite } from "@/components/account/account-invite";
 import { ActivityRunner } from "@/components/learn/activities/activity-runner";
 import { ListenControls } from "@/components/learn/audio/listen-controls";
 import { AssessmentRunner } from "@/components/learn/assessment/assessment-runner";
@@ -522,6 +523,7 @@ export function LessonPlayer({ lesson, visual, provisionsPool, next }: LessonPla
                     </Link>
                   </Button>
                 </div>
+                <AccountInvite />
                 <PreviousBoard onBack={goBack} />
               </>
             )}

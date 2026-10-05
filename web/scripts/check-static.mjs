@@ -5,10 +5,17 @@
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 
+import nextEnv from "@next/env";
+
 const web = path.resolve(import.meta.dirname, "..");
 const content = path.resolve(web, "..", "content");
 const LOCALES = ["ar", "en"];
-const PAGES = ["", "/learn", "/learn/journal", "/practice", "/rafiq", "/sources", "/talk-to-a-specialist"];
+const PAGES = ["", "/learn", "/learn/journal", "/practice", "/rafiq", "/sources", "/talk-to-a-specialist", "/privacy"];
+const ACCOUNT_PAGES = ["/account", "/account/sign-in", "/account/sign-up", "/account/reset", "/account/new-password"];
+
+// The same variables `next build` saw: the account pages exist only when Supabase is configured (src/config/accounts.ts).
+nextEnv.loadEnvConfig(web);
+const accountsEnabled = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY);
 
 async function lessonPaths() {
   const files = (await readdir(path.join(content, "lessons"), { recursive: true })).filter((file) => file.endsWith(".json"));
@@ -42,7 +49,7 @@ async function assetPaths() {
 
 const manifest = JSON.parse(await readFile(path.join(web, ".next", "prerender-manifest.json"), "utf8"));
 const prerendered = new Set(Object.keys(manifest.routes));
-const pages = [...PAGES, ...(await lessonPaths())];
+const pages = [...PAGES, ...(accountsEnabled ? ACCOUNT_PAGES : []), ...(await lessonPaths())];
 const expected = LOCALES.flatMap((locale) => pages.map((page) => `/${locale}${page}`));
 const assets = await assetPaths();
 const missing = [...expected, ...assets].filter((route) => !prerendered.has(route));

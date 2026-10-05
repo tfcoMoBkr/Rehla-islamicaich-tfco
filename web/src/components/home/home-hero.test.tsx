@@ -44,7 +44,9 @@ describe("the home hero", () => {
     expect(links.map((link) => link.href)).toEqual(["/learn", "/talk-to-a-specialist"]);
     expect(links[0]?.text).toContain(home.startRoad);
     expect(links[1]?.text).toContain(home.askSpecialist);
-    expect(html).toContain(home.askSpecialistLine);
+    // The specialists' introduction belongs to their page; on the home page it would read as Rehla's own.
+    expect(html).not.toContain(MESSAGES[language].Specialist.intro);
+    expect(html.match(/<p[ >]/g)).toHaveLength(2);
   });
 
   it("sets the tagline in the full foreground colour, not a muted one", async () => {

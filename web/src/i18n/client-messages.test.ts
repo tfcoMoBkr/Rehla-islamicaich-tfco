@@ -18,6 +18,12 @@ const PAGE_FILES: Record<ClientPage, string> = {
   practiceRound: "app/[locale]/practice/[lesson]/[activity]/page.tsx",
   sources: "app/[locale]/sources/page.tsx",
   specialists: "app/[locale]/talk-to-a-specialist/page.tsx",
+  account: "app/[locale]/account/page.tsx",
+  signIn: "app/[locale]/account/sign-in/page.tsx",
+  signUp: "app/[locale]/account/sign-up/page.tsx",
+  passwordReset: "app/[locale]/account/reset/page.tsx",
+  newPassword: "app/[locale]/account/new-password/page.tsx",
+  privacy: "app/[locale]/privacy/page.tsx",
 };
 
 const missing = (needed: Set<string>, sent: readonly string[]) => [...needed].filter((namespace) => !sent.includes(namespace)).sort();

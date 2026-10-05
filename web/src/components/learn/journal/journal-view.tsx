@@ -4,11 +4,13 @@ import { Check, ShieldCheck } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
+import { SyncStatus } from "@/components/account/sync-status";
 import { Stamp } from "@/components/journey/stamp";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Link } from "@/i18n/navigation";
+import { useAccount } from "@/lib/account/session";
 import { gain, ratio } from "@/lib/learn/progress";
 import { progressActions, useProgress } from "@/lib/learn/progress-store";
 
@@ -26,6 +28,7 @@ type JournalViewProps = {
 export function JournalView({ lessons, stations, pickable }: JournalViewProps) {
   const t = useTranslations("Journal");
   const progress = useProgress();
+  const signedIn = useAccount() !== null;
   const [confirming, setConfirming] = useState(false);
 
   const completed = lessons.filter((lesson) => progress.completedLessons[lesson.id]);
@@ -131,12 +134,13 @@ export function JournalView({ lessons, stations, pickable }: JournalViewProps) {
       <section aria-labelledby="journal-privacy" className="rounded-2xl border border-dashed border-hairline p-6">
         <h2 id="journal-privacy" className="flex items-center gap-2 font-semibold">
           <ShieldCheck aria-hidden className="size-5 text-oasis-text" />
-          {t("privacyTitle")}
+          {signedIn ? t("privacyTitleAccount") : t("privacyTitle")}
         </h2>
-        <p className="mt-2 text-muted-foreground">{t("privacyBody")}</p>
+        <p className="mt-2 text-muted-foreground">{signedIn ? t("privacyBodyAccount") : t("privacyBody")}</p>
+        <SyncStatus className="mt-2" />
         {confirming ? (
           <div className="mt-4 flex flex-wrap items-center gap-3">
-            <p className="font-medium">{t("forgetConfirm")}</p>
+            <p className="font-medium">{signedIn ? t("forgetConfirmAccount") : t("forgetConfirm")}</p>
             <Button
               variant="destructive"
               size="sm"

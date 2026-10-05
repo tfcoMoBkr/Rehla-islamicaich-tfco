@@ -178,6 +178,7 @@ export function RafiqMemory({
             {cityName ? t("memoryCity", { city: shown(cityName, locale).text }) : t("memoryNoCity")}
           </li>
         </ul>
+        <p className="text-sm font-medium">{t("memoryDeviceOnly")}</p>
         <p className="text-sm text-muted-foreground">{t("memoryNote")}</p>
         <p className="text-sm text-muted-foreground">{t("memoryProgress")}</p>
         <div className="flex flex-wrap gap-2">

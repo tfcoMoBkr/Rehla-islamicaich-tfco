@@ -11,6 +11,7 @@ export type Namespace = keyof typeof en;
 
 /** Read by client components in the locale layout (header, footer, loading states). */
 export const LAYOUT_NAMESPACES = [
+  "AccountEntry",
   "AiServiceStatus",
   "Common",
   "Error",
@@ -24,8 +25,9 @@ export const PAGE_NAMESPACES = {
   home: ["MeetRafiq"],
   /** The road, and the tour's working previews. */
   learn: ["Activity", "Learn", "Learning", "Question"],
-  journal: ["Journal", "Practice"],
+  journal: ["AccountStatus", "Journal", "Practice"],
   lesson: [
+    "AccountInvite",
     "Activity",
     "Assessment",
     "Board",
@@ -46,6 +48,12 @@ export const PAGE_NAMESPACES = {
   practiceRound: ["Activity", "Board", "Learning", "Lesson", "LineHelp", "Listen", "Practice", "Question"],
   sources: [],
   specialists: [],
+  account: ["Account", "AccountStatus"],
+  signIn: ["Account"],
+  signUp: ["Account"],
+  passwordReset: ["Account"],
+  newPassword: ["Account"],
+  privacy: [],
 } as const satisfies Record<string, readonly Namespace[]>;
 
 export type ClientPage = keyof typeof PAGE_NAMESPACES;

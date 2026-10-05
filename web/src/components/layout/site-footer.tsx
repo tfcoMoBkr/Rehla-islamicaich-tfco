@@ -25,6 +25,9 @@ export function SiteFooter() {
             <Link href="/sources" className="font-medium underline underline-offset-4 hover:text-dawn">
               {t("sources")}
             </Link>
+            <Link href="/privacy" className="font-medium underline underline-offset-4 hover:text-dawn">
+              {t("privacy")}
+            </Link>
             <GuideReplay className="min-h-6 font-medium underline underline-offset-4 hover:text-dawn" />
           </div>
         </div>

@@ -31,8 +31,6 @@ class Settings(BaseSettings):
     embedding_model: str | None = None
     # OpenRouter's provider preference: "deny" keeps prompts away from providers that store them.
     openrouter_data_collection: Literal["allow", "deny"] = "deny"
-    supabase_url: str | None = None
-    supabase_service_role_key: SecretStr | None = None
 
     mcp_url: str = "https://mcp.islamiccontent.org/mcp"
     # Built by `uv run python -m app.ingest`; committed, so the deployed service needs no content/.

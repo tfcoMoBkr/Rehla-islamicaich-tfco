@@ -63,6 +63,9 @@ function subscribe(listener: () => void): () => void {
 /** The learner's progress as stored, for code outside a component. */
 export const readProgress = (): Progress => read();
 
+/** Called after every change, in this tab or another; for code outside a component. */
+export const subscribeProgress = subscribe;
+
 /** The server never sees progress, so it always renders the empty journey first. */
 export function useProgress(): Progress {
   return useSyncExternalStore(subscribe, read, () => EMPTY_PROGRESS);
@@ -111,6 +114,10 @@ export const progressActions = {
   },
   bestRound(key: string, correct: number, total: number) {
     update((progress) => withBestRound(progress, key, correct, total, Date.now()));
+  },
+  /** Puts merged progress in place, as when an account's progress joins this device's. */
+  replace(progress: Progress) {
+    update(() => progress);
   },
   forget() {
     snapshot = EMPTY_PROGRESS;

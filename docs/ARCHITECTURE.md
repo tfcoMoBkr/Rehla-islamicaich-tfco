@@ -2,6 +2,7 @@
 
 ```
 web/       Next.js (App Router, TypeScript, Tailwind, next-intl): the product, in Arabic (RTL) and English (LTR)
+supabase/  SQL for the optional accounts (profiles and progress, row level security)
 ai/        FastAPI + LangGraph (Python): Rafiq
 content/   Lessons, sources, the stored source corpus (data, not code)
 eval/      Rafiq's reliability cases, runner and results
@@ -22,9 +23,46 @@ Every main page is rendered at build time: the home page, Khutuwat (road, lesson
 ## Khutuwat tour and Practice
 
 - **The tour** (`src/components/guide/`) opens the first time the learner enters `/learn`, as a panel at the bottom of the screen with no backdrop: one idea per step, each beside the real thing in miniature (the stations, a board line with its source, the shortest ordering activity of the road, one of the lessons' own questions, Rafiq). "Skip" or Escape closes it for good on the device; "How Rehla works" on the learn page and in the footer opens it again.
-- **Practice** (`/[locale]/practice`, flag `practice`) gathers every activity of the road's lessons by station, from the same lesson data and components (`src/lib/learn/practice.ts`), except reflections and private checklists. Each activity has its own static page: the activity full width, then its lesson's short questions (card checks and quiz). Provisions are earned once per activity (3) and per question answered right (1), are never taken away, and are kept in the learner's progress record (`practice.earned`, `practice.best`, keyed by id so two devices can merge later).
+- **Practice** (`/[locale]/practice`, flag `practice`) gathers every activity of the road's lessons by station, from the same lesson data and components (`src/lib/learn/practice.ts`), except reflections and private checklists. Each activity has its own static page: the activity full width, then its lesson's short questions (card checks and quiz). Provisions are earned once per activity (3) and per question answered right (1), are never taken away, and are kept in the learner's progress record (`practice.earned`, `practice.best`, keyed by id, so an account joins two devices' provisions without counting any twice).
 
 The browser talks only to the web app. A route handler (`web/src/app/api/ai/[path]/route.ts`, `web/src/lib/ai-proxy.ts`) forwards `/api/ai/ask`, `/api/ai/lesson-help` and `/api/ai/health` to the AI service at `AI_SERVICE_URL`, adding the shared key `AI_SERVICE_KEY` and the learner's address; the key and the provider keys never reach the browser. The service refuses any request without the key when `AI_SERVICE_KEY` is set (`ai/app/security.py`) and sends no CORS headers, so no page can call it directly. Sections are switched on in `web/src/config/features.ts`; navigation shows only the sections that are on.
+
+## Optional accounts
+
+A learner can keep progress in an account, so it follows them across devices. Nothing requires one: without an account Rehla works exactly as before, with everything on the device.
+
+- **On only when configured.** `src/config/accounts.ts` turns accounts on when `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` are both set. Without them, the header entry, the invitation and the account pages are gone (the pages answer 404), and no Supabase code is loaded.
+- **Authentication lives in the browser.** supabase-js keeps the session in `localStorage` (`rehla.auth.v1`) and is downloaded only when a stored session exists or a form is sent (`src/lib/account/client.ts`). There is no auth middleware and no per-request session on the server, so every page stays rendered at build time, account pages included (`check-static.mjs` checks them when accounts are on).
+- **One server route.** `POST /api/account/delete` checks the learner's access token, sent in the `Authorization` header, then deletes the user with `SUPABASE_SECRET_KEY` (`src/lib/account/admin.ts`, `server-only`). That is the only place the secret key is read; a test keeps it so.
+- **Data** (`supabase/migrations/`): `profiles` (display name, optional country from the app's list, which the database enforces for IL too, page language) and `progress_items` (one row per item the device already records by id), both with row level security: each signed-in learner reaches only their own rows; anonymous visitors reach nothing. A future community view can expose display name and country without loosening these tables.
+- **What is never carried:** Rafiq's conversations, the conversations beside lesson boards, the name given to Rafiq, the chosen city, personal checklists and the anonymous session id. The display name is never sent to the AI service; a test checks that no module that talks to it reads the account.
+
+### Sync
+
+`src/lib/account/sync.ts` keeps the account in step with the device:
+
+- **On sign-in and on each page load with a session,** it reads the account's rows, joins them with the device's progress (`src/lib/account/items.ts`), writes the result to the device, and sends the difference.
+- **While signed in,** the device is written first; changes go to the account about two seconds after the last one, in batches of 500. Offline, they wait on the device and are sent when the connection returns. The journal shows "Saved", "Saving…" or "Offline".
+- **Erasing the journal** while signed in erases it from the account too.
+- **On sign-out,** everything waiting is sent first; if it cannot be, the learner is told and chooses. Then the device is emptied of personal data, keeping only the language (in the address), the board sound setting and the dismissed invitation.
+- **Another tab signing out** never empties the account: nothing is sent once the stored session is gone.
+
+Joining rules, for an item both sides hold:
+
+| Item id | What it is | Which wins |
+|---|---|---|
+| `lesson:{lessonId}` | a completed lesson | the earlier completion |
+| `start` | the station the learner chose to start from | this device's choice, or the account's if the device has none |
+| `question:{questionId}` | a question's history | the latest answer; the higher "seen" count |
+| `quiz:{lessonId}` | a lesson quiz | the more recent |
+| `baseline:{stationId}` | "what do I already know?" | the earlier: it records what was known before |
+| `exam:{stationId}` | a station exam | passed over not passed; otherwise the more recent |
+| `pick:{lessonId}` | the sentence kept in the journal | this device's |
+| `earned:{id}` | provisions earned | one entry per id: the higher points, the earlier date. Never counted twice, never fewer than either side had |
+| `best:{activityKey}` | an activity's best round | the higher share right; on a tie, the later |
+| `tour` | the Khutuwat tour was seen | seen if either side saw it |
+
+Items only one side holds are kept.
 
 ## Rafiq
 
@@ -145,4 +183,4 @@ The proxy allows 90 seconds per request (`AI_TIMEOUT_MS`, and `maxDuration = 90`
 Two Vercel projects come from this repository: `web` (root `web/`) and `ai` (root `ai/`). `docs/DEPLOY.md` has the settings, the environment variables and the checks.
 
 - **What each project reads at runtime.** The web project's pages, drawings and images are all built from `../content` at build time; nothing in `content/` is read once it runs. The AI service reads only `ai/data/` (the committed index, and the copies `app/prepare.py` makes in the build step).
-- **State that does not survive serverless instances.** The per-address rate limit (`ASKS_PER_MINUTE`) and the MCP client's cache live in memory. Each instance keeps its own and loses it when it stops, so the rate limit is a best-effort guard rather than a hard quota, and the cache only saves repeat calls within one instance. Neither holds anything about a learner, and no database is used for them.
+- **State that does not survive serverless instances.** The per-address rate limit (`ASKS_PER_MINUTE`) and the MCP client's cache live in memory. Each instance keeps its own and loses it when it stops, so the rate limit is a best-effort guard rather than a hard quota, and the cache only saves repeat calls within one instance. Neither holds anything about a learner, and no database is used for them. The only database is the optional accounts' Supabase project, used by the web project alone.

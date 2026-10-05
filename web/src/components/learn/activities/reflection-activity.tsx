@@ -7,6 +7,7 @@ import { useRafiqReaction } from "@/components/learn/board/rafiq-context";
 import { DragHandle } from "@/components/learn/interactions/drag-handle";
 import { optionClassName } from "@/components/learn/interactions/option-styles";
 import { useDragDrop } from "@/components/learn/interactions/use-drag-drop";
+import { useAccount } from "@/lib/account/session";
 import { progressActions, useProgress } from "@/lib/learn/progress-store";
 import type { ActivityView } from "@/lib/learn/types";
 import { cn } from "@/lib/utils";
@@ -19,11 +20,12 @@ type ReflectionActivityProps = {
 
 /**
  * The learner keeps one card in their journal: tap it, or drag it into the journal. Stored on this
- * device only, never sent anywhere.
+ * device, and in the learner's account if they are signed in.
  */
 export function ReflectionActivity({ activity, lessonId, onChoose }: ReflectionActivityProps) {
   const t = useTranslations("Activity");
   const chosen = useProgress().picks[lessonId];
+  const signedIn = useAccount() !== null;
   const react = useRafiqReaction();
   const { itemProps, targetProps } = useDragDrop((itemId) => choose(itemId));
   const kept = activity.items.find((item) => item.id === chosen);
@@ -43,7 +45,7 @@ export function ReflectionActivity({ activity, lessonId, onChoose }: ReflectionA
       >
         <p className="flex items-center gap-2 text-sm text-muted-foreground">
           <BookHeart aria-hidden className="size-4 text-success" />
-          {kept ? t("savedToJournal") : t("journalZone")}
+          {kept ? t(signedIn ? "savedToJournalAccount" : "savedToJournal") : t("journalZone")}
         </p>
         {kept && <p className="animate-rise-in leading-relaxed font-medium">{kept.text}</p>}
       </div>

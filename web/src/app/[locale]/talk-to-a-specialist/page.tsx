@@ -37,7 +37,7 @@ export default async function TalkToASpecialistPage({ params }: PageProps<"/[loc
   return (
     <PageMessages page="specialists">
       <div className="mx-auto max-w-3xl px-4 pt-20 pb-32 sm:px-6 md:pt-24">
-        <SectionHeading as="h1" title={t("title")} description={t("description")} />
+        <SectionHeading as="h1" title={t("title")} description={t("intro")} />
 
         <div role="note" className="mt-8 flex items-start gap-3 rounded-2xl border border-hairline border-s-4 border-s-dawn bg-paper p-5">
           <Lantern className="size-10 shrink-0 text-ink" />

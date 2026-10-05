@@ -41,3 +41,11 @@ export function closeGuide(): void {
 }
 
 export const wasAskedFor = () => askedFor;
+
+/** Whether the tour was finished or skipped on this device; an account carries it to other devices. */
+export const tourSeen = {
+  read: () => seen.read() !== null,
+  mark: () => seen.set("seen"),
+  forget: () => seen.set(null),
+  subscribe: seen.subscribe,
+};

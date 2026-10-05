@@ -32,7 +32,7 @@ Nothing to configure beyond the root directory; the repository carries the rest.
 | `MCP_URL` | no | Defaults to `https://mcp.islamiccontent.org/mcp`. |
 | `RAFIQ_DEBUG` | no | Leave unset. It is ignored on Vercel anyway (`VERCEL` is set). |
 
-`SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` exist in the settings but nothing uses them yet: leave them unset.
+The AI service never talks to Supabase and has no Supabase variables.
 
 ## The `web` project
 
@@ -50,8 +50,48 @@ Nothing to configure beyond the root directory; the repository carries the rest.
 |---|---|---|
 | `AI_SERVICE_URL` | yes | The `ai` project's production URL, e.g. `https://rehla-ai.vercel.app` (no trailing slash needed). |
 | `AI_SERVICE_KEY` | yes | The same value as in `ai`. Secret: never prefix it with `NEXT_PUBLIC_`. |
+| `NEXT_PUBLIC_SUPABASE_URL` | for accounts | The project URL, `https://<project-ref>.supabase.co`. |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | for accounts | The publishable key, `sb_publishable_…`. Public by design: row level security decides what it can reach. |
+| `SUPABASE_SECRET_KEY` | for accounts | A secret key, `sb_secret_…`. Server only: used by `/api/account/delete` and nowhere else. Never prefix it with `NEXT_PUBLIC_`. |
+| `NEXT_PUBLIC_PASSWORD_RESET_EMAILS` | no | `on` once SMTP is set up in Supabase (see below); otherwise leave unset. |
 
 `ISLAMHOUSE_API_KEY` is used only by the content scripts on a developer's machine; neither project needs it.
+
+Set the variables for **Production** and **Preview** under the `web` project's **Settings → Environment Variables**, then redeploy: the `NEXT_PUBLIC_` values are built into the pages, so a change needs a new build. Accounts are on only when both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` are set.
+
+## Accounts (Supabase)
+
+Accounts are optional. Without the Supabase variables the web project builds and runs with no account entry points at all; with them, learners can create an account. Only the `web` project talks to Supabase.
+
+### 1. Create the tables
+
+In the Supabase dashboard, open **SQL Editor** and run each file in `supabase/migrations/` in name order, pasting the whole file each time: `20261005000000_accounts.sql` (the tables and their security), then `20261005010000_profiles_country_not_il.sql` (the country list's rule, kept by the database too). Each is safe to run again. Then check that row level security is on:
+
+```sql
+select c.relname as table_name, c.relrowsecurity as rls_on,
+       (select count(*) from pg_policies p where p.schemaname = 'public' and p.tablename = c.relname) as policies
+from pg_class c join pg_namespace n on n.oid = c.relnamespace
+where n.nspname = 'public' and c.relname in ('profiles', 'progress_items');
+```
+
+Expect two rows, both with `rls_on = true`: `profiles` with 2 policies and `progress_items` with 4.
+
+### 2. Dashboard settings
+
+- **Authentication → Sign In / Providers → Email:** enabled. **Confirm email** may be off (a new account is signed in at once) or on (the learner is asked to check their email first); both work.
+- **Authentication → URL Configuration:**
+  - **Site URL:** `https://rehla-islamicaich-tfco-6igd.vercel.app`
+  - **Redirect URLs:** add
+    - `https://rehla-islamicaich-tfco-6igd.vercel.app/ar/account/new-password`
+    - `https://rehla-islamicaich-tfco-6igd.vercel.app/en/account/new-password`
+    - `https://rehla-islamicaich-tfco-6igd.vercel.app/ar/account`
+    - `https://rehla-islamicaich-tfco-6igd.vercel.app/en/account`
+    - for local work, `http://localhost:3000/**`
+- **Project Settings → API Keys:** copy the **publishable** key (`sb_publishable_…`) and create or copy a **secret** key (`sb_secret_…`). Do not use the legacy `anon` and `service_role` keys.
+
+### 3. Password reset needs email
+
+Supabase's built-in email service only sends to the project team's own addresses, a few an hour. To let learners reset a forgotten password, set up an SMTP provider under **Authentication → Emails → SMTP Settings**, then set `NEXT_PUBLIC_PASSWORD_RESET_EMAILS=on` in the `web` project and redeploy. Until then, the reset screen says reset is not available and offers to create a new account; no button sends an email that would never arrive.
 
 ## Order
 
@@ -68,6 +108,7 @@ Nothing to configure beyond the root directory; the repository carries the rest.
    - A `503` with `"status": null` means the web project cannot reach `AI_SERVICE_URL`.
 2. **One question to Rafiq.** On `/<locale>/rafiq`, ask «ما أركان الإسلام؟» or "What are the pillars of Islam?". Expect a cited answer with numbered source cards. The first question on a cold instance takes longer, because it loads the index once (about 0.3 s locally).
 3. **One lesson.** Open `/<locale>/learn`, skip the tour, and play a lesson from start to end. Check the board writes, an activity completes, and the journal shows the lesson's stamp.
+4. **Accounts** (when on). Create an account from the header's "Sign in", then open the journal: it should say "Saved". In Supabase, **Table Editor → progress_items** shows the lesson. Sign out, sign in again on another browser, and the stamp is there.
 
 ## Rolling back
 

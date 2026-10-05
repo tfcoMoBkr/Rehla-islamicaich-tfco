@@ -44,10 +44,6 @@ export async function HomeHero() {
             <Link href="/talk-to-a-specialist">{t("askSpecialist")}</Link>
           </Button>
         </div>
-        {/* On its own night panel: the scene's bands behind it change with the screen's height. */}
-        <p className="animate-rise-in mt-4 max-w-md rounded-2xl bg-night/80 px-4 py-2.5 text-base leading-relaxed text-foreground [animation-delay:440ms]">
-          {t("askSpecialistLine")}
-        </p>
       </div>
     </section>
   );

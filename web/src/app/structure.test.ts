@@ -17,6 +17,12 @@ const MAIN_PAGES = [
   "app/[locale]/rafiq/page.tsx",
   "app/[locale]/sources/page.tsx",
   "app/[locale]/talk-to-a-specialist/page.tsx",
+  "app/[locale]/privacy/page.tsx",
+  "app/[locale]/account/page.tsx",
+  "app/[locale]/account/sign-in/page.tsx",
+  "app/[locale]/account/sign-up/page.tsx",
+  "app/[locale]/account/reset/page.tsx",
+  "app/[locale]/account/new-password/page.tsx",
 ];
 
 const WORKING_PARTS = ["components/learn/activities/", "components/learn/interactions/", "components/learn/questions/", "components/learn/board/", "components/guide/guide-panel"];
