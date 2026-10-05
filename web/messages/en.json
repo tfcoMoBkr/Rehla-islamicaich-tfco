@@ -67,7 +67,7 @@
       },
       "community": {
         "name": "Rehla Community",
-        "body": "A place to ask alongside other learners, and a directory of nearby mosques and centres."
+        "body": "A calm place where new Muslims, and the people who support them, share experiences and encourage each other."
       },
       "aqim": {
         "name": "Aqim",
@@ -776,6 +776,7 @@
     "inAccountTitle": "In your account",
     "inAccountProfile": "Your profile: email, display name, your country if you gave one, and the site language.",
     "inAccountProgress": "Your progress: lessons completed, the station you chose to start from, checks, quizzes and station exams, the sentences kept in your journal, practice results and provisions, and whether you have seen the tour.",
+    "inAccountCommunity": "If you join the community: your community name, whether your country is shown, and what you write there.",
     "inAccountPassword": "Your password is held by the sign-in service in a protected form that no one can read.",
     "onDeviceTitle": "On this device only",
     "onDeviceRafiq": "Your conversations with Rafiq stay on this device only.",
@@ -850,7 +851,11 @@
     "lensTitle": "Photos you show Lens",
     "lensBody": "The photo is sent to an AI model provider to be read; nothing is kept. Lens never describes people, does not read out personal documents, and infers nothing about you from a photo.",
     "mawqifTitle": "Replies you write in Mawqif",
-    "mawqifBody": "A reply you write in a role-play is sent to the AI model provider to be checked against that turn's points, and is not kept. Nothing about you is inferred from it. Choosing one of the written replies sends nothing."
+    "mawqifBody": "A reply you write in a role-play is sent to the AI model provider to be checked against that turn's points, and is not kept. Nothing about you is inferred from it. Choosing one of the written replies sends nothing.",
+    "communityTitle": "Rehla Community",
+    "communityBody": "Joining the community is a separate choice after you sign in. Others see only the community name you choose (it need not be your real name), a badge if the team gave you one, and your country only if you switch it on. There are no profile pages, member lists or private messages, and nothing is inferred from what you write.",
+    "communityChecks": "Before a post or reply is shared, its text is sent to the AI service to look for distress or a request for a ruling; the service keeps and logs none of it. Personal details such as phone numbers are spotted on your device. You always decide whether to share.",
+    "communityLeave": "You can leave at any time and choose to delete your posts and replies or keep them as from a “Former member”. Deleting your account removes them, and “Download my data” includes them."
   },
   "AccountChoice": {
     "title": "Before you set off",
@@ -1039,5 +1044,191 @@
     "reviewRight": "answered right",
     "reviewWrong": "to look at again",
     "testAgain": "Take the test again"
+  },
+  "Community": {
+    "title": "Rehla Community",
+    "description": "A calm place where new Muslims, and the people who support them, share experience, encourage each other and learn together.",
+    "calmLine": "Replies here are members' own experience, not rulings. For a question about your own situation, ask Rafiq privately or a specialist.",
+    "unavailable": {
+      "title": "The community is not available here",
+      "body": "This copy of Rehla runs without accounts, so the community is switched off. Everything else works as usual."
+    },
+    "loading": "Loading the community…",
+    "error": "The community could not be reached. Check your connection and try again.",
+    "retry": "Try again",
+    "rules": {
+      "title": "How we talk here",
+      "kind": "Be kind and patient: everyone here is on their own road.",
+      "experience": "Share experience and encouragement, not rulings. Point religious questions to Rafiq or a specialist.",
+      "source": "If you pass on religious information, name its source.",
+      "privacy": "Keep privacy, yours and others': no phone numbers, addresses or anything that identifies anyone.",
+      "noAds": "No advertising and no commercial links.",
+      "report": "Report what breaks these rules. Anything reported by three members is hidden until the team reviews it.",
+      "care": "If you are going through something hard or are in danger, do not wait for replies: contact a specialist or emergency services."
+    },
+    "categories": {
+      "firstSteps": "My first steps",
+      "everydayLife": "Everyday life",
+      "encouragement": "Encouragement",
+      "learningTogether": "Learning together",
+      "askCommunity": "Ask the community"
+    },
+    "categoryHints": {
+      "firstSteps": "Your first days, what surprised you, what helped.",
+      "everydayLife": "Work, family, food, time: practical experience.",
+      "encouragement": "A kind word for someone on the road.",
+      "learningTogether": "Lessons, study partners, what helped you understand.",
+      "askCommunity": "Practical questions about members' experience. Not rulings."
+    },
+    "filters": {
+      "category": "Category",
+      "language": "Language",
+      "all": "All",
+      "bothLanguages": "Both"
+    },
+    "languages": {
+      "ar": "العربية",
+      "en": "English"
+    },
+    "pinned": "Pinned",
+    "latest": "Latest posts",
+    "empty": {
+      "title": "Nothing here yet",
+      "body": "No posts match this choice yet.",
+      "member": "Be the first to write one."
+    },
+    "join": "Join the community",
+    "write": "Write a post",
+    "review": "Review reports",
+    "guestNote": "Anyone can read. To write, reply or say a post helped you, sign in and join with a community name you choose.",
+    "joinNote": "You are signed in. Join the community from your account page to write and reply.",
+    "badges": {
+      "moderator": "Rehla team",
+      "guide": "Guide"
+    },
+    "formerMember": "Former member",
+    "edited": "edited",
+    "replyCount": "{count, plural, =0 {No replies} one {# reply} other {# replies}}",
+    "helpedCount": "{count, plural, one {# found this helpful} other {# found this helpful}}",
+    "specialistTag": "Better answered by a specialist",
+    "hiddenTag": "Hidden: only you and the moderators can see this",
+    "back": "Back to the community",
+    "notFound": {
+      "title": "This post is not here",
+      "body": "It may have been removed by its writer or hidden by the team."
+    },
+    "replies": "Replies",
+    "noReplies": "No replies yet.",
+    "helped": "This helped me",
+    "askRafiq": "Ask Rafiq about this",
+    "replyBox": {
+      "label": "Your reply",
+      "hint": "Share your experience kindly. Up to {max} characters.",
+      "submit": "Reply",
+      "sent": "Your reply is shared.",
+      "joinToReply": "Join the community to reply."
+    },
+    "composer": {
+      "title": "Write a post",
+      "description": "Share an experience, a tip or a word of encouragement, or ask members how they handled something practical.",
+      "category": "Category",
+      "language": "Language of your post",
+      "titleLabel": "Title",
+      "bodyLabel": "Your post",
+      "counter": "{count} of {max}",
+      "submit": "Share",
+      "checking": "Looking over your words…",
+      "sending": "Sharing…",
+      "missing": "Write a title and a few words first.",
+      "notMember": "Join the community first, from your account page, to write a post."
+    },
+    "notices": {
+      "step": "Before you share: {current} of {total}",
+      "careNote": "You can still share it, or keep it to yourself for now.",
+      "personalDataTitle": "Your words may include personal details",
+      "personalDataBody": "It looks like {found}. Anyone can read the community, so think about removing it.",
+      "found": {
+        "phone": "a phone number",
+        "email": "an email address",
+        "address": "an address"
+      },
+      "rulingTitle": "This sounds like a question about your own situation",
+      "rulingBody": "Members can share experience, but a ruling for your situation should come from someone qualified. You can ask Rafiq privately, or a specialist.",
+      "askRafiq": "Ask Rafiq privately",
+      "askSpecialist": "Ask a specialist",
+      "postTagged": "Share with the tag “Better answered by a specialist”",
+      "edit": "Edit",
+      "postAnyway": "Share anyway"
+    },
+    "report": {
+      "button": "Report",
+      "title": "Why are you reporting this?",
+      "reasons": {
+        "unkind": "Unkind or hurtful",
+        "rulingWithoutSource": "A ruling without a source",
+        "personalData": "Personal data",
+        "spam": "Spam or advertising",
+        "other": "Something else"
+      },
+      "submit": "Send report",
+      "cancel": "Cancel",
+      "done": "Thank you. The Rehla team will look at it."
+    },
+    "errors": {
+      "notMember": "Join the community first.",
+      "nameTaken": "That community name is taken. Try another.",
+      "rateLimited": "You have shared a lot in the last hour. Please wait a little and try again.",
+      "notAllowed": "Your account cannot do this.",
+      "network": "No connection. Your words are kept here; try again.",
+      "unknown": "Something went wrong. Try again."
+    },
+    "account": {
+      "title": "Community",
+      "intro": "Joining is optional. Others see only the community name you choose, and your country if you switch it on. Nothing else from your account is shown, and there are no profiles, member lists or private messages.",
+      "nameLabel": "Community name",
+      "nameHint": "{min} to {max} characters. It does not have to be your real name; a nickname is fine.",
+      "nameInvalid": "Use {min} to {max} characters.",
+      "showCountry": "Show my country next to my name",
+      "noCountry": "Your account has no country, so none would be shown.",
+      "rulesTitle": "The community rules",
+      "accept": "I have read the rules and will follow them",
+      "acceptMissing": "Please read and accept the rules first.",
+      "joinSubmit": "Join",
+      "joined": "Welcome to the community.",
+      "badge": "Your badge: {badge}",
+      "settingsTitle": "Your community settings",
+      "save": "Save",
+      "saved": "Saved.",
+      "open": "Open the community",
+      "myPosts": "My posts",
+      "noPosts": "You have not written a post yet.",
+      "leaveTitle": "Leave the community",
+      "leaveBody": "You can leave at any time. Choose what happens to what you wrote:",
+      "leaveKeep": "Keep my posts and replies, shown as from a “Former member”",
+      "leaveDelete": "Delete my posts and replies",
+      "leaveConfirm": "Leave the community",
+      "left": "You have left the community.",
+      "working": "Working…"
+    },
+    "moderation": {
+      "title": "Review",
+      "description": "Hidden and reported posts and replies, oldest concerns first.",
+      "notModerator": "This page is for the Rehla team.",
+      "empty": "Nothing to review.",
+      "post": "Post",
+      "reply": "Reply",
+      "reports": "{count, plural, =0 {No reports} one {# report} other {# reports}}",
+      "hidden": "Hidden",
+      "unhide": "Unhide",
+      "keepHidden": "Keep hidden",
+      "hide": "Hide",
+      "pin": "Pin",
+      "unpin": "Unpin",
+      "openThread": "Open the thread"
+    },
+    "countryNames": {
+      "PS": "Palestine"
+    },
+    "askAboutPost": "I read a community post titled “{title}”. What do the sources say about this?"
   }
 }

@@ -34,7 +34,7 @@ A learner can keep progress in an account, so it follows them across devices. No
 - **On only when configured.** `src/config/accounts.ts` turns accounts on when `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` are both set. Without them, the header entry, the invitation and the account pages are gone (the pages answer 404), and no Supabase code is loaded.
 - **Authentication lives in the browser.** supabase-js keeps the session in `localStorage` (`rehla.auth.v1`) and is downloaded only when a stored session exists or a form is sent (`src/lib/account/client.ts`). There is no auth middleware and no per-request session on the server, so every page stays rendered at build time, account pages included (`check-static.mjs` checks them when accounts are on).
 - **One server route.** `POST /api/account/delete` checks the learner's access token, sent in the `Authorization` header, then deletes the user with `SUPABASE_SECRET_KEY` (`src/lib/account/admin.ts`, `server-only`). That is the only place the secret key is read; a test keeps it so.
-- **Data** (`supabase/migrations/`): `profiles` (display name, optional country from the app's list, which the database enforces for IL too, page language) and `progress_items` (one row per item the device already records by id), both with row level security: each signed-in learner reaches only their own rows; anonymous visitors reach nothing. A future community view can expose display name and country without loosening these tables.
+- **Data** (`supabase/migrations/`): `profiles` (display name, optional country from the app's list, which the database enforces for IL too, page language) and `progress_items` (one row per item the device already records by id), both with row level security: each signed-in learner reaches only their own rows; anonymous visitors reach nothing. Rehla Community has its own tables and never loosens these (below).
 - **What is never carried:** Rafiq's conversations, the conversations beside lesson boards, the name given to Rafiq, the chosen city, personal checklists and the anonymous session id. The display name is never sent to the AI service; a test checks that no module that talks to it reads the account.
 
 ### Sync
@@ -73,6 +73,31 @@ A new Muslim practises everyday situations before meeting them (`/[locale]/mawqi
 - **The role-play.** The learner replies by choosing one of the written replies (no AI) or by writing their own. Feedback is built by the page from fixed lines and the quoted sources of the missing key points; «رفيق» stands beside the learner as the coach, with the `{{name}}` placeholder filled on the device.
 - **Evaluating a written reply** (`POST /mawqif/evaluate`, `ai/app/mawqif/`): the reply first passes the danger check in code; then one model call reports which of the turn's key points it covers (by id), its tone, whether it is a religious question instead of a reply (offered to Rafiq) or distress (the specialist card), and one encouraging sentence, which must pass Rafiq's warm-line checks or is dropped. A 20-second budget; when the service is unavailable, the turn falls back to the written choices. The key points reach the service through `app/prepare.py` (`ai/data/index/mawqif-turns.json`). Nothing typed is stored or logged.
 - **Progress** is kept like Practice's: provisions once per turn answered with the best reply and per right answer, and the best round of each check and test, in the learner's progress record (device for guests, account when signed in).
+
+## Rehla Community («مجتمع رحلة»)
+
+An opt-in place where new Muslims, and people who support them, share experience and encourage each other (`/[locale]/community`, flag `community`). Support and experience only: no rulings; religious questions are pointed to Rafiq or a specialist. The team's only content is the seed (`supabase/seed/community.sql`): a welcome, the rules and one prompt per category, under the "Rehla team" badge.
+
+- **Data** (`supabase/migrations/20261006000000_community.sql`, with the guards replaced by `20261006010000_community_guard.sql`):
+  - Tables: `community_members` (community name, show-country switch, role: member, moderator or guide), `community_posts` (category, title ≤ 120, body ≤ 2000, language, "better answered by a specialist" tag, hidden, pinned), `community_replies` (≤ 1000, flat, in time order), `community_reactions` (one kind, "this helped me", once per member and item) and `community_reports` (a reason, once per reporter and item).
+  - Row level security on every table; members write only as themselves.
+  - Triggers keep the rules in the database: hourly limits; new items visible, unpinned and dated by the database; `hidden`, `pinned` and `role` changed only by moderators; the author, a reply's post and creation dates never changed through the API; and an item hidden once three different members report it. The guards trust only the database's own functions, the SQL editor and the server key (any role other than `anon` and `authenticated`), never a setting a session could set.
+  - `community_leave(keep_posts)` deletes or anonymises a leaving member's posts.
+  - Two public views: `community_authors` (name, role, opt-in country, for members with something visible posted) and `community_helped` (counts only).
+  - `supabase/tests/community_rules.sql` checks the rules as a guest, members, an author and a moderator.
+- **Pages** (all rendered at build time; the data is read in the browser with the Supabase client, `web/src/lib/community/data.ts`):
+  - the home: rules, category and language filters, pinned then latest posts;
+  - a thread (`/community/post?id=…`): the post, replies, "this helped me", report, a reply box, one calm line saying replies are experience not rulings, and "Ask Rafiq about this", which opens Rafiq privately with a question ready;
+  - writing (`/community/write`);
+  - the moderators' review list (`/community/review`): unhide, keep hidden, hide, pin.
+
+  Joining, community settings, "My posts" and leaving are on the account page. Without the Supabase variables every community page shows "not available here".
+- **Checks before sharing** (`web/src/lib/community/checks.ts`), in order, one notice at a time; the writer may pass each one:
+  1. danger or distress, with the same emergency and specialist cards as Rafiq;
+  2. personal data by pattern, in the browser, with "Edit" and "Share anyway";
+  3. a request for a ruling on one's own situation, with "Ask Rafiq privately", "Ask a specialist", or sharing with the specialist tag.
+
+  Checks 1 and 3 come from `POST /community/check` (`ai/app/community/`): the danger check in code, then one strict-JSON model call with a 10-second budget. On timeout or error the answer is "unchecked" and the post goes through. The service keeps and logs nothing of the text, and has its own rate limit.
 
 ## Lens («عدسة»)
 

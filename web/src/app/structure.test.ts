@@ -25,6 +25,10 @@ const MAIN_PAGES = [
   "app/[locale]/account/page.tsx",
   "app/[locale]/account/sign-in/page.tsx",
   "app/[locale]/account/sign-up/page.tsx",
+  "app/[locale]/community/page.tsx",
+  "app/[locale]/community/post/page.tsx",
+  "app/[locale]/community/write/page.tsx",
+  "app/[locale]/community/review/page.tsx",
 ];
 
 const WORKING_PARTS = ["components/learn/activities/", "components/learn/interactions/", "components/learn/questions/", "components/learn/board/", "components/guide/guide-panel"];

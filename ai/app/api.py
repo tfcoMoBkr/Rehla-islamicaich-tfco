@@ -1,4 +1,5 @@
-"""Rafiq's HTTP API: POST /ask, POST /lesson-help, POST /lens and POST /mawqif/evaluate.
+"""Rafiq's HTTP API: POST /ask, POST /lesson-help, POST /lens, POST /mawqif/evaluate and
+POST /community/check.
 
 Questions and answers are neither stored nor logged; logs carry only the outcome, timings and
 counts. Errors share one shape: {"error": {"code": "...", ...}}.
@@ -17,6 +18,8 @@ from fastapi.concurrency import run_in_threadpool
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
+from app.community.check import Checker
+from app.community.schemas import CheckRequest, CheckResponse
 from app.lens.lens import Lens
 from app.lens.schemas import LensRequest, LensResponse
 from app.llm import ModelUnavailableError
@@ -68,6 +71,8 @@ class Services:
     mawqif_limiter: RateLimiter = field(default_factory=lambda: RateLimiter(10))
     evaluator: Evaluator | None = None
     load_evaluator: Callable[[Rafiq], Evaluator | None] | None = None
+    community_limiter: RateLimiter = field(default_factory=lambda: RateLimiter(10))
+    checker: Checker | None = None
     _lock: threading.Lock = field(default_factory=threading.Lock, repr=False)
 
     def get(self) -> Rafiq | None:
@@ -84,6 +89,14 @@ class Services:
                 if self.evaluator is None and self.load_evaluator is not None:
                     self.evaluator, self.load_evaluator = self.load_evaluator(rafiq), None
         return self.evaluator
+
+    def get_checker(self) -> Checker | None:
+        rafiq = self.get()
+        if self.checker is None and rafiq is not None:
+            with self._lock:
+                if self.checker is None:
+                    self.checker = Checker(rafiq.chat)
+        return self.checker
 
     def get_lens(self) -> Lens | None:
         rafiq = self.get()
@@ -202,6 +215,18 @@ async def mawqif_evaluate(body: EvaluateRequest, request: Request) -> EvaluateRe
     if evaluator is None:
         raise ApiError(503, "unavailable")
     return await evaluator.evaluate(body)
+
+
+@router.post("/community/check", response_model=CheckResponse, response_model_by_alias=True)
+async def community_check(body: CheckRequest, request: Request) -> CheckResponse:
+    """A post or reply before it is shared: danger, distress, or a ruling on one's own situation."""
+    services: Services = request.app.state.services
+    services.community_limiter.check(_client(request))
+    checker = await run_in_threadpool(services.get_checker)
+    if checker is None:
+        # No model at all: the post goes through unchecked, as when the model is slow.
+        return CheckResponse(checked=False)
+    return await checker.check(body)
 
 
 def install_error_handlers(app: FastAPI) -> None:

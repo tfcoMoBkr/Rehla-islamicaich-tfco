@@ -16,7 +16,7 @@ Accounts exist only when the Supabase project is configured (`docs/DEPLOY.md`). 
 | `profiles` | Display name (1–40 characters, any name the learner likes), country (ISO code, optional, picked from a list), page language, created and updated times | To show the learner's name and country in their account |
 | `progress_items` | One row per progress item, under the ids the device uses: completed lessons, chosen starting station, question histories, quiz, baseline and exam results, the sentence kept in the journal, provisions earned and best rounds, the tour-seen flag | So progress follows the learner to any device |
 
-- **Row level security** on both tables: a signed-in learner reaches only their own rows; anonymous visitors reach nothing. The tables stay owner-only: a later community section will show display name and country through a separate view of those two columns.
+- **Row level security** on both tables: a signed-in learner reaches only their own rows; anonymous visitors reach nothing. The tables stay owner-only: Rehla Community never reads the display name, and shows the country only through its own view, for a member who switched it on (below).
 - **Never in the account:** Rafiq's conversations, the conversations beside lesson boards, the name given to Rafiq, the chosen city, personal checklists and the anonymous session id.
 - **Never sent to the AI service:** the display name, the country, the email or anything else from the account. A test (`web/src/lib/account/boundaries.test.ts`) checks that no module that talks to the AI service reads the account.
 - **Download:** the account page's "Download my data" gives a JSON file of the profile and every progress row.
@@ -75,6 +75,17 @@ The service keeps none of it after replying: it holds no conversation state and 
 ## Replies written in Mawqif
 
 A reply the learner writes in a Mawqif role-play is sent to the AI model provider to be checked against that turn's points, and is not kept. It is not logged (logs carry counts and timings only), and nothing about the learner is inferred from it. Choosing one of the written replies sends nothing. Mawqif progress (provisions and best rounds) is kept like the rest of the learner's progress: on the device, and in the account when signed in.
+
+## Rehla Community
+
+A new Muslim may not have told their family, so the community is built to show as little as possible.
+
+- **Joining is its own choice**, after signing in: the member picks a community name (empty by default, never the account's display name; a nickname is fine) and reads and accepts the rules. Nothing else from the account is shown. The country appears next to the name only if the member switches it on.
+- **No profile pages, no member list, no private messages.** Others see a writer only as community name, a badge if the team gave one ("Rehla team" for moderators, "Guide"), and the opt-in country. The public view of members (`community_authors`) lists only members with something visible posted, and "this helped me" is shown as a count (`community_helped`): who reacted is readable only by that member.
+- **Reading is open to everyone**, guests included. Posting, replying, reacting and reporting need an account that has joined. The database enforces this with row level security on every table (`supabase/migrations/20261006000000_community.sql` and `20261006010000_community_guard.sql`), together with length limits, hourly limits (5 posts, 30 replies) and the rule that an item reported by three different members is hidden until a moderator reviews it. A hidden item is visible only to its writer and the moderators.
+- **Before sharing**, the text of a post or reply is sent to the AI service, which looks for danger or distress (the danger check runs in code first) and for a request for a ruling on the writer's own situation. The service stores and logs none of the text: logs carry the flags and the timing only. Personal details (phone numbers, emails, addresses) are spotted by patterns in the browser. Each check only offers help; the writer decides whether to share. Rafiq never posts.
+- **Leaving** is possible at any time, from the account page: the member's posts and replies are deleted, or kept and shown as from a "Former member", as they choose. Their reactions and reports are removed either way. **Deleting the account** removes the membership and everything written under it. **Download my data** includes the membership, posts and replies.
+- **No inference.** Nothing about a member is worked out from what they write, and there are no analytics on post content.
 
 ## Photos shown to Lens
 

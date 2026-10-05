@@ -13,7 +13,7 @@ export const features: Readonly<Record<Feature, boolean>> = {
   rafiq: true,
   mawqif: true,
   adasa: true,
-  community: false,
+  community: true,
   aqim: false,
 };
 

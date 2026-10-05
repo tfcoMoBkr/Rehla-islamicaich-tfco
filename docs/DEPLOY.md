@@ -89,6 +89,45 @@ Expect two rows, both with `rls_on = true`: `profiles` with 2 policies and `prog
     - for local work, `http://localhost:3000/**`
 - **Project Settings → API Keys:** copy the **publishable** key (`sb_publishable_…`) and create or copy a **secret** key (`sb_secret_…`). Do not use the legacy `anon` and `service_role` keys.
 
+### 3. Rehla Community
+
+The community uses the same Supabase project. Without the Supabase variables the community pages show a calm "not available here" state, and the build still passes.
+
+1. **Create its tables.** In **SQL Editor**, run the whole of `supabase/migrations/20261006000000_community.sql`, then the whole of `supabase/migrations/20261006010000_community_guard.sql` (after the account migrations, in that order). Each is safe to run again. Check row level security:
+
+   ```sql
+   select c.relname as table_name, c.relrowsecurity as rls_on,
+          (select count(*) from pg_policies p where p.schemaname = 'public' and p.tablename = c.relname) as policies
+   from pg_class c join pg_namespace n on n.oid = c.relnamespace
+   where n.nspname = 'public'
+     and c.relname in ('community_members', 'community_posts', 'community_replies', 'community_reactions', 'community_reports')
+   order by 1;
+   ```
+
+   Expect five rows, all with `rls_on = true`: `community_members` 4, `community_posts` 4, `community_reactions` 3, `community_replies` 4, `community_reports` 3.
+
+2. **Check the rules** (optional, recommended). Paste the whole of `supabase/tests/community_rules.sql` into the SQL Editor and run it (with psql: `psql -1 -f supabase/tests/community_rules.sql`). It acts as a guest, four members, someone who has not joined and a moderator, then undoes everything it wrote, so it leaves nothing behind. The result is one row: `all community rules hold` with `13` checks. If a rule does not hold, it stops with an error naming it (`FAIL: …`).
+
+3. **Seed the team's posts.** Sign up in the site with the account the Rehla team will post from. In `supabase/seed/community.sql`, replace `TEAM_EMAIL` with that account's email and run the whole file. It makes that account a member named «فريق رحلة» with the moderator role (badge "Rehla team") and adds, in both languages, a pinned welcome post, the pinned full rules, and one discussion prompt per category. It is safe to run again.
+
+4. **Assign roles.** Roles are changed only in the SQL editor (or by a moderator); a member can never raise their own. The person must have joined the community first, from their account page.
+
+   ```sql
+   -- "Rehla team" badge: may pin, hide, unhide and review reports.
+   update public.community_members set role = 'moderator'
+   where user_id = (select id from auth.users where email = 'person@example.org');
+
+   -- "Guide" badge: a badge only, with no moderation rights.
+   update public.community_members set role = 'guide'
+   where user_id = (select id from auth.users where email = 'person@example.org');
+
+   -- Back to a plain member.
+   update public.community_members set role = 'member'
+   where user_id = (select id from auth.users where email = 'person@example.org');
+   ```
+
+   Give the guide role only to real people whose role the team has confirmed. The product never claims that a scholar or da'iyah is present.
+
 ## Order
 
 1. **Generate the key**, for example `openssl rand -hex 32`.
@@ -105,6 +144,8 @@ Expect two rows, both with `rls_on = true`: `profiles` with 2 policies and `prog
 2. **One question to Rafiq.** On `/<locale>/rafiq`, ask «ما أركان الإسلام؟» or "What are the pillars of Islam?". Expect a cited answer with numbered source cards. The first question on a cold instance takes longer, because it loads the index once (about 0.3 s locally).
 3. **One lesson.** Open `/<locale>/learn`, skip the tour, and play a lesson from start to end. Check the board writes, an activity completes, and the journal shows the lesson's stamp.
 4. **Accounts** (when on). Create an account from the header's "Sign in", then open the journal: it should say "Saved". In Supabase, **Table Editor → progress_items** shows the lesson. Sign out, sign in again on another browser, and the stamp is there.
+
+5. **Community** (when accounts are on). Sign in, open your account page, join the community with a community name and accept the rules, then write a post on `/<locale>/community/write`. Open `/<locale>/community` in a private window: as a guest you can read the post but not reply or react.
 
 ## Rolling back
 

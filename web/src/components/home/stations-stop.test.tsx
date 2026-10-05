@@ -72,18 +72,18 @@ describe("the stations of the journey", () => {
     expect(after.stations.filter((_, position) => position !== index)).toEqual(before.stations.filter((_, position) => position !== index));
   });
 
-  it.each(["ar", "en"] as const)("shows Lens and Mawqif lit, linked and no longer «قريبًا», while Community and Aqim keep it (%s)", async (locale) => {
+  it.each(["ar", "en"] as const)("shows Lens, Mawqif and Community lit, linked and no longer «قريبًا», while Aqim keeps it (%s)", async (locale) => {
     language.current = locale;
     const { sections, stations } = await render();
     language.current = "en";
     const soon = `>${(locale === "ar" ? ar : en).Home.stations.soon}<`;
     const at = (feature: string) => stations[sections.findIndex((section) => section.feature === feature)] ?? "";
 
-    for (const [built, href] of [["adasa", "/lens"], ["mawqif", "/mawqif"]] as const) {
+    for (const [built, href] of [["adasa", "/lens"], ["mawqif", "/mawqif"], ["community", "/community"]] as const) {
       expect(at(built), built).toContain(`href="${href}"`);
       expect(at(built), built).toContain('data-light="reach"');
       expect(at(built), built).not.toContain(soon);
     }
-    for (const unbuilt of ["community", "aqim"]) expect(at(unbuilt), unbuilt).toContain(soon);
+    expect(at("aqim")).toContain(soon);
   });
 });

@@ -137,7 +137,7 @@ A bilingual web platform (Arabic and English) led by one AI companion, **Rafiq**
 | **Ask Rafiq** | Answers cited to their sources, with abstention and referral when needed | Available |
 | **Adasa** (Lens) | Photograph something around you (a sign in a mosque, a prayer mat, Arabic writing) and see what it is and what it means from the approved sources, with a clear decline when it should not answer | Available |
 | **Mawqif** (Situations) | Practise everyday situations (greeting, the mosque, a meal, visiting the sick…): what to say, why and when from the sources, then a role-play with feedback and a test | Available |
-| **Rehla Community** | An opt-in forum with verified da'wah guides, and a directory of nearby mosques and centers | Coming soon |
+| **Rehla Community** | An opt-in place to share experience and encourage each other under a chosen community name: no rulings, no profiles or private messages, checks before sharing, reports and moderation | Available |
 | **Aqim** | A camera-based practice prayer that ends with a performance report | Coming soon |
 
 ### Principles

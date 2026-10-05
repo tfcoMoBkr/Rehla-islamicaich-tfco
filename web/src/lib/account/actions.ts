@@ -213,7 +213,11 @@ export async function exportData(): Promise<Result<{ data: object }>> {
     const client = await accountClient();
     const user = await currentUser(client);
     if (!user) return { ok: false, error: "sessionEnded" };
-    const [profile, progress] = await Promise.all([loadProfile(client, user.id), readProgressRows(client, user.id)]);
+    const [profile, progress, community] = await Promise.all([
+      loadProfile(client, user.id),
+      readProgressRows(client, user.id),
+      readCommunityRows(client, user.id),
+    ]);
     return {
       ok: true,
       data: {
@@ -221,11 +225,29 @@ export async function exportData(): Promise<Result<{ data: object }>> {
         account: { email: user.email ?? null, createdAt: user.created_at },
         profile,
         progress,
+        community,
       },
     };
   } catch (error) {
     return fail(error);
   }
+}
+
+/** The member's community name and settings, and what they wrote (null when they never joined). */
+async function readCommunityRows(client: SupabaseClient, userId: string): Promise<object | null> {
+  const read = async (table: string, columns: string, column: string) => {
+    const { data, error } = await client.from(table).select(columns).eq(column, userId);
+    // A project that has not run the community migration has nothing to export from it.
+    if (error?.code === "PGRST205" || error?.code === "42P01") return [];
+    if (error) throw error;
+    return data;
+  };
+  const [member, posts, replies] = await Promise.all([
+    read("community_members", "name, show_country, role, joined_at", "user_id"),
+    read("community_posts", "id, category, title, body, language, created_at, edited_at, hidden", "author"),
+    read("community_replies", "id, post, body, created_at, hidden", "author"),
+  ]);
+  return member.length === 0 && posts.length === 0 ? null : { member: member[0] ?? null, posts, replies };
 }
 
 /** Deletes the account and everything in it (the server checks the session first), then empties this device. */

@@ -6,10 +6,12 @@ import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { features } from "@/config/features";
 import { Link } from "@/i18n/navigation";
 import { readAccount, signOut, type Profile } from "@/lib/account/actions";
 import { hasStoredSession } from "@/lib/account/session";
 
+import { CommunitySection } from "./community-section";
 import { DataSection } from "./data-section";
 import { FormMessage } from "./fields";
 import { PasswordSection } from "./password-section";
@@ -67,6 +69,7 @@ export function AccountView() {
           onSaved={(name, country) => setView({ ...view, profile: { ...profile, display_name: name, country } })}
         />
         <StoredSection />
+        {features.community && <CommunitySection hasCountry={profile.country !== null} />}
         <PasswordSection />
         <DataSection onDeleted={() => signedOut("deleted")} />
         <SignOutSection onSignedOut={() => signedOut("signedOut")} />
@@ -116,6 +119,7 @@ function StoredSection() {
           <ul className="grid list-inside list-disc gap-2 text-sm marker:text-oasis">
             <li>{t("inAccountProfile")}</li>
             <li>{t("inAccountProgress")}</li>
+            {features.community && <li>{t("inAccountCommunity")}</li>}
           </ul>
           <p className="text-sm text-muted-foreground">{t("inAccountPassword")}</p>
         </div>

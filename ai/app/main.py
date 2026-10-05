@@ -75,6 +75,7 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
             load_lens=lambda rafiq: load_lens(settings, client, rafiq),
             mawqif_limiter=RateLimiter(settings.asks_per_minute),
             load_evaluator=lambda rafiq: load_evaluator(settings, rafiq),
+            community_limiter=RateLimiter(settings.asks_per_minute),
         )
         yield
 

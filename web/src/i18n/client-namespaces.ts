@@ -49,7 +49,7 @@ export const PAGE_NAMESPACES = {
   practiceRound: ["Activity", "Board", "Learning", "Lesson", "LineHelp", "Listen", "Practice", "Question"],
   sources: [],
   specialists: [],
-  account: ["Account", "AccountStatus"],
+  account: ["Account", "AccountStatus", "Community"],
   signIn: ["Account"],
   signUp: ["Account"],
   privacy: [],
@@ -57,6 +57,10 @@ export const PAGE_NAMESPACES = {
   mawqif: ["Mawqif", "Practice"],
   situation: ["Lesson", "Listen", "Mawqif", "Rafiq", "Specialist"],
   mawqifTest: ["Lesson", "Listen", "Mawqif"],
+  community: ["Community"],
+  communityPost: ["Community", "Rafiq", "Specialist"],
+  communityWrite: ["Community", "Rafiq", "Specialist"],
+  communityReview: ["Community"],
 } as const satisfies Record<string, readonly Namespace[]>;
 
 export type ClientPage = keyof typeof PAGE_NAMESPACES;

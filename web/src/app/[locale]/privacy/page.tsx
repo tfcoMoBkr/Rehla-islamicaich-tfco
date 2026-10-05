@@ -1,4 +1,4 @@
-import { Camera, HardDrive, MessageCircle, ShieldCheck, Trash2, UserRound, type LucideIcon } from "lucide-react";
+import { Camera, HardDrive, MessageCircle, ShieldCheck, Trash2, UserRound, Users, type LucideIcon } from "lucide-react";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { ReactNode } from "react";
@@ -87,6 +87,14 @@ export default async function PrivacyPage({ params }: PageProps<"/[locale]/priva
         {features.adasa && (
           <Part id="privacy-lens" icon={Camera} title={t("lensTitle")}>
             <p>{t("lensBody")}</p>
+          </Part>
+        )}
+
+        {features.community && accounts && (
+          <Part id="privacy-community" icon={Users} title={t("communityTitle")}>
+            <p>{t("communityBody")}</p>
+            <p>{t("communityChecks")}</p>
+            <p>{t("communityLeave")}</p>
           </Part>
         )}
 
