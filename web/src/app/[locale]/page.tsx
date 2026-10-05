@@ -1,11 +1,9 @@
 import { setRequestLocale } from "next-intl/server";
 
-import { ClosingStop } from "@/components/home/closing-stop";
 import { HomeHero } from "@/components/home/home-hero";
 import { MeetRafiqStop } from "@/components/home/meet-rafiq-stop";
-import { OffersStop } from "@/components/home/offers-stop";
+import { StationsStop } from "@/components/home/stations-stop";
 import { TrustStop } from "@/components/home/trust-stop";
-import { WhyStop } from "@/components/home/why-stop";
 import { RoadJourney } from "@/components/journey/road-journey";
 import { features } from "@/config/features";
 import { PageMessages } from "@/i18n/client-messages";
@@ -23,11 +21,9 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
     <PageMessages page="home">
       <HomeHero />
       <RoadJourney>
-        <WhyStop />
-        <OffersStop />
+        <StationsStop />
         {features.rafiq && <MeetRafiqStop />}
         <TrustStop />
-        <ClosingStop />
       </RoadJourney>
     </PageMessages>
   );

@@ -57,6 +57,8 @@ type StationProps = {
   meta?: ReactNode;
   /** Who stands at this stop, e.g. Rafiq walking beside the learner's current lesson. */
   companion?: ReactNode;
+  /** Fade the card; by default a locked station that is not a link is faded. */
+  dimmed?: boolean;
   children?: ReactNode;
 };
 
@@ -72,6 +74,7 @@ export function Station({
   side,
   meta,
   companion,
+  dimmed = state === "locked" && href === undefined,
   children,
 }: StationProps) {
   const heading = (
@@ -95,7 +98,7 @@ export function Station({
         className={cn(
           "relative gap-2 px-5 py-5 sm:px-6",
           href && "transition-shadow focus-within:shadow-md hover:shadow-md",
-          state === "locked" && href === undefined && "opacity-80",
+          dimmed && "opacity-80",
           companion && "min-h-28 pe-24 sm:pe-28",
         )}
       >

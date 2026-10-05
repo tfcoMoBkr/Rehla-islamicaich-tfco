@@ -17,9 +17,10 @@ export const features: Readonly<Record<Feature, boolean>> = {
   aqim: false,
 };
 
-type Section = { feature: Feature; href: `/${string}` };
+export type Section = { feature: Feature; href: `/${string}` };
 
-const sections: readonly Section[] = [
+/** Every section of the product in its planned order, built or not. */
+export const sections: readonly Section[] = [
   { feature: "learn", href: "/learn" },
   { feature: "practice", href: "/practice" },
   { feature: "rafiq", href: "/rafiq" },
