@@ -1,0 +1,295 @@
+{
+  "id": "friday",
+  "order": 11,
+  "status": "published",
+  "reviewed": false,
+  "art": "friday",
+  "title": {
+    "ar": "أول صلاة جمعة",
+    "en": "Your first Friday prayer"
+  },
+  "scene": {
+    "ar": "اليوم أول جمعة لك. يتصل بك صديقك صباحًا ليتفق معك على الذهاب، وتصلان إلى المسجد والإمام قد بدأ الخطبة.",
+    "en": "Today is your first Friday. A friend calls in the morning to go together, and you reach the mosque just after the imam has begun the sermon."
+  },
+  "character": {
+    "ar": "طارق، صديقك",
+    "en": "Tariq, your friend"
+  },
+  "learn": {
+    "say": [
+      {
+        "ref": "h3107",
+        "ar": "إذا قُلْتَ لِصَاحِبِكَ: أَنْصِتْ، يومَ الجمعةِ، والْإِمامُ يَخْطُبُ، فَقَدْ لَغَوْتَ",
+        "en": "If you say to your companion 'listen' on Friday while the Imām is delivering the sermon, you have thus engaged in idle talk"
+      }
+    ],
+    "why": [
+      {
+        "ref": "h5433",
+        "ar": "فَاسْتَمَعَ وَأَنْصَتَ غُفِرَ لَهُ مَا بَيْنَهُ وَبَيْنَ الْجُمُعَةِ وَزِيَادَةُ ثَلَاثَةِ أَيَّامٍ",
+        "en": "listens to it attentively and keeps silent, his sins between that Friday and the following Friday will be forgiven, with the addition of three more days"
+      }
+    ],
+    "when": [
+      {
+        "ref": "h5394",
+        "ar": "مَنْ ‌جَاءَ ‌مِنْكُمُ ‌الْجُمُعَةَ فَلْيَغْتَسِلْ",
+        "en": "Whoever of you comes to attend the Friday prayer, let him take a shower"
+      },
+      {
+        "ref": "h5205",
+        "ar": "قم فاركع ركعتين",
+        "en": "Get up and pray two Rak‘ahs"
+      }
+    ]
+  },
+  "exchanges": [
+    {
+      "id": "t1",
+      "says": [
+        {
+          "text": {
+            "ar": "صباح الخير! سأمرّ عليك قبل الظهر. هل استعددت؟",
+            "en": "Good morning! I'll pick you up before noon. Are you getting ready?"
+          }
+        }
+      ],
+      "keyPoints": [
+        {
+          "id": "k1",
+          "quote": {
+            "ref": "h5394",
+            "ar": "مَنْ ‌جَاءَ ‌مِنْكُمُ ‌الْجُمُعَةَ فَلْيَغْتَسِلْ",
+            "en": "Whoever of you comes to attend the Friday prayer, let him take a shower"
+          }
+        }
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "quality": "best",
+          "reply": [
+            {
+              "text": {
+                "ar": "نعم، سأغتسل وأتجهز؛ جاء في الحديث:",
+                "en": "Yes, I'll take a shower and get ready. The hadith says:"
+              }
+            },
+            {
+              "quote": {
+                "ref": "h5394",
+                "ar": "مَنْ ‌جَاءَ ‌مِنْكُمُ ‌الْجُمُعَةَ فَلْيَغْتَسِلْ",
+                "en": "Whoever of you comes to attend the Friday prayer, let him take a shower"
+              }
+            }
+          ],
+          "meets": [
+            "k1"
+          ]
+        },
+        {
+          "id": "b",
+          "quality": "acceptable",
+          "reply": [
+            {
+              "text": {
+                "ar": "نعم، سأكون جاهزًا في الموعد.",
+                "en": "Yes, I'll be ready on time."
+              }
+            }
+          ],
+          "meets": []
+        },
+        {
+          "id": "c",
+          "quality": "avoid",
+          "reply": [
+            {
+              "text": {
+                "ar": "سأذهب بملابس الرياضة بعد التمرين مباشرة.",
+                "en": "I'll come straight from the gym in my sports kit."
+              }
+            }
+          ],
+          "meets": []
+        }
+      ]
+    },
+    {
+      "id": "t2",
+      "says": [
+        {
+          "text": {
+            "ar": "(تدخلان والإمام يخطب، فيهمس لك طارق:) اجلس هنا.",
+            "en": "(You go in while the imam is speaking, and Tariq whispers:) Sit here."
+          }
+        }
+      ],
+      "keyPoints": [
+        {
+          "id": "k1",
+          "quote": {
+            "ref": "h5205",
+            "ar": "قم فاركع ركعتين",
+            "en": "Get up and pray two Rak‘ahs"
+          }
+        },
+        {
+          "id": "k2",
+          "quote": {
+            "ref": "h5433",
+            "ar": "فَاسْتَمَعَ وَأَنْصَتَ",
+            "en": "listens to it attentively and keeps silent"
+          }
+        }
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "quality": "best",
+          "reply": [
+            {
+              "text": {
+                "ar": "(تصلي ركعتين خفيفتين، ثم تجلس وتنصت للخطبة دون كلام.)",
+                "en": "(You pray two short rak'ahs, then sit and listen to the sermon without talking.)"
+              }
+            }
+          ],
+          "meets": [
+            "k1",
+            "k2"
+          ]
+        },
+        {
+          "id": "b",
+          "quality": "acceptable",
+          "reply": [
+            {
+              "text": {
+                "ar": "(تجلس مباشرة وتنصت للخطبة.)",
+                "en": "(You sit straight down and listen to the sermon.)"
+              }
+            }
+          ],
+          "meets": [
+            "k2"
+          ]
+        },
+        {
+          "id": "c",
+          "quality": "avoid",
+          "reply": [
+            {
+              "text": {
+                "ar": "(تجلس وتسأل طارق بصوت منخفض عن معنى ما يقوله الإمام.)",
+                "en": "(You sit down and quietly ask Tariq what the imam is saying.)"
+              }
+            }
+          ],
+          "meets": []
+        }
+      ]
+    }
+  ],
+  "check": [
+    {
+      "id": "c1",
+      "prompt": {
+        "ar": "دخلت المسجد والإمام يخطب. ماذا تفعل قبل أن تجلس؟",
+        "en": "You come in while the imam is giving the sermon. What do you do before sitting?"
+      },
+      "options": [
+        {
+          "quote": {
+            "ref": "h5205",
+            "ar": "قم فاركع ركعتين",
+            "en": "Get up and pray two Rak‘ahs"
+          },
+          "correct": true
+        },
+        {
+          "text": {
+            "ar": "تجلس فورًا دون صلاة",
+            "en": "Sit straight down without praying"
+          },
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "prompt": {
+        "ar": "قلت لمن بجانبك «أنصت» والإمام يخطب. ماذا يقول الحديث عن ذلك؟",
+        "en": "During the sermon you told the person beside you “listen”. What does the hadith say about it?"
+      },
+      "options": [
+        {
+          "quote": {
+            "ref": "h3107",
+            "ar": "فَقَدْ لَغَوْتَ",
+            "en": "you have thus engaged in idle talk"
+          },
+          "correct": true
+        },
+        {
+          "text": {
+            "ar": "هذا من حسن الأدب",
+            "en": "That is good manners"
+          },
+          "correct": false
+        }
+      ]
+    }
+  ],
+  "relatedLessons": [
+    "3.8"
+  ],
+  "sources": [],
+  "items": [
+    {
+      "id": "h5394",
+      "type": "hadith",
+      "hadeethencId": 5394,
+      "citation": "متفق عليه",
+      "availableIn": [
+        "ar",
+        "en"
+      ],
+      "publisher": "hadeethenc.com"
+    },
+    {
+      "id": "h5205",
+      "type": "hadith",
+      "hadeethencId": 5205,
+      "citation": "متفق عليه",
+      "availableIn": [
+        "ar",
+        "en"
+      ],
+      "publisher": "hadeethenc.com"
+    },
+    {
+      "id": "h3107",
+      "type": "hadith",
+      "hadeethencId": 3107,
+      "citation": "متفق عليه",
+      "availableIn": [
+        "ar",
+        "en"
+      ],
+      "publisher": "hadeethenc.com"
+    },
+    {
+      "id": "h5433",
+      "type": "hadith",
+      "hadeethencId": 5433,
+      "citation": "رواه مسلم",
+      "availableIn": [
+        "ar",
+        "en"
+      ],
+      "publisher": "hadeethenc.com"
+    }
+  ]
+}

@@ -1,0 +1,320 @@
+{
+  "id": "eating",
+  "order": 4,
+  "status": "published",
+  "reviewed": false,
+  "art": "eating",
+  "title": {
+    "ar": "قبل الطعام وبعده",
+    "en": "Before and after eating"
+  },
+  "scene": {
+    "ar": "تجلس مع زميلة لك على غداء العمل. هي مسلمة منذ صغرها، وأنت تتعلم أن للطعام آدابًا لم تعرفها من قبل.",
+    "en": "You sit down to a work lunch with a colleague who has been Muslim all her life. You are learning that eating has manners you did not know before."
+  },
+  "character": {
+    "ar": "مريم، زميلتك",
+    "en": "Maryam, a colleague"
+  },
+  "learn": {
+    "say": [
+      {
+        "ref": "h58120",
+        "ar": "سَمِّ اللهَ",
+        "en": "mention Allah's name"
+      },
+      {
+        "ref": "h5431",
+        "ar": "الحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلاَ قُوَّةٍ",
+        "en": "Alhamdulillah al-ladhi at‘amani hadha wa razaqneih min ghayri hawl li wala quwwah (Praise be to Allah who fed me and provided me with this food through no might or power on my part)"
+      }
+    ],
+    "why": [
+      {
+        "ref": "b-eating",
+        "ar": "والأكل باليمين والشرب بها، والتسمية عند الابتداء، والحمد عند الفراغ",
+        "en": "eating and drinking with the right hand, saying Bismillāh (in the Name of Allah) at the beginning, and Alhamdulillāh (praise be to Allah) upon finishing"
+      }
+    ],
+    "when": [
+      {
+        "ref": "h58120",
+        "ar": "سَمِّ اللهَ، وَكُلْ بِيَمِينِكَ، وَكُلْ مِمَّا يَلِيكَ",
+        "en": "mention Allah's name, eat with your right hand, and eat from what is nearer to you"
+      },
+      {
+        "ref": "h58122",
+        "ar": "إِذَا أَكَلَ أَحَدُكُمْ فَلْيَأْكُلْ بِيَمِينِهِ، وَإِذَا شَرِبَ فَلْيَشْرَبْ بِيَمِينِهِ",
+        "en": "If anyone of you eats, let him eat with his right hand, and if he drinks, let him drink with his right hand"
+      }
+    ]
+  },
+  "exchanges": [
+    {
+      "id": "t1",
+      "says": [
+        {
+          "text": {
+            "ar": "وصل الطعام أخيرًا! تفضّل، ابدأ.",
+            "en": "The food is here at last! Go ahead, start."
+          }
+        }
+      ],
+      "keyPoints": [
+        {
+          "id": "k1",
+          "quote": {
+            "ref": "h58120",
+            "ar": "سَمِّ اللهَ",
+            "en": "mention Allah's name"
+          }
+        },
+        {
+          "id": "k2",
+          "quote": {
+            "ref": "h58122",
+            "ar": "فَلْيَأْكُلْ بِيَمِينِهِ",
+            "en": "let him eat with his right hand"
+          }
+        }
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "quality": "best",
+          "reply": [
+            {
+              "text": {
+                "ar": "(تقول «بسم الله» وتأكل بيدك اليمنى مما يليك.)",
+                "en": "(You say “Bismillah”, then start with your right hand, from the dish in front of you.)"
+              }
+            }
+          ],
+          "meets": [
+            "k1",
+            "k2"
+          ]
+        },
+        {
+          "id": "b",
+          "quality": "acceptable",
+          "reply": [
+            {
+              "text": {
+                "ar": "(تأكل بيدك اليمنى، وتنسى أن تسمّي.)",
+                "en": "(You start with your right hand but forget to say anything first.)"
+              }
+            }
+          ],
+          "meets": [
+            "k2"
+          ]
+        },
+        {
+          "id": "c",
+          "quality": "avoid",
+          "reply": [
+            {
+              "text": {
+                "ar": "(تبدأ الأكل بيدك اليسرى من طرف الطبق البعيد.)",
+                "en": "(You start eating with your left hand from the far side of the plate.)"
+              }
+            }
+          ],
+          "meets": []
+        }
+      ]
+    },
+    {
+      "id": "t2",
+      "says": [
+        {
+          "text": {
+            "ar": "الحمد لله، كان طعامًا طيبًا. هل شبعت؟",
+            "en": "That was a good meal. Are you full?"
+          }
+        }
+      ],
+      "keyPoints": [
+        {
+          "id": "k1",
+          "quote": {
+            "ref": "h5431",
+            "ar": "الحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلاَ قُوَّةٍ",
+            "en": "Alhamdulillah al-ladhi at‘amani hadha wa razaqneih min ghayri hawl li wala quwwah (Praise be to Allah who fed me and provided me with this food through no might or power on my part)"
+          }
+        }
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "quality": "best",
+          "reply": [
+            {
+              "text": {
+                "ar": "نعم، شبعت.",
+                "en": "Yes, I'm full."
+              }
+            },
+            {
+              "quote": {
+                "ref": "h5431",
+                "ar": "الحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلاَ قُوَّةٍ",
+                "en": "Alhamdulillah al-ladhi at‘amani hadha wa razaqneih min ghayri hawl li wala quwwah (Praise be to Allah who fed me and provided me with this food through no might or power on my part)"
+              }
+            }
+          ],
+          "meets": [
+            "k1"
+          ]
+        },
+        {
+          "id": "b",
+          "quality": "acceptable",
+          "reply": [
+            {
+              "text": {
+                "ar": "نعم، شكرًا لك على صحبتك.",
+                "en": "Yes, thank you for the company."
+              }
+            }
+          ],
+          "meets": []
+        },
+        {
+          "id": "c",
+          "quality": "avoid",
+          "reply": [
+            {
+              "text": {
+                "ar": "(تقوم دون كلمة.)",
+                "en": "(You get up without a word.)"
+              }
+            }
+          ],
+          "meets": []
+        }
+      ]
+    }
+  ],
+  "check": [
+    {
+      "id": "c1",
+      "prompt": {
+        "ar": "بأي يد تأكل وتشرب؟",
+        "en": "Which hand do you eat and drink with?"
+      },
+      "options": [
+        {
+          "quote": {
+            "ref": "h58122",
+            "ar": "فَلْيَأْكُلْ بِيَمِينِهِ",
+            "en": "let him eat with his right hand"
+          },
+          "correct": true
+        },
+        {
+          "text": {
+            "ar": "بأيّهما شئت",
+            "en": "Whichever you like"
+          },
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "prompt": {
+        "ar": "ماذا تقول بعد أن تفرغ من الطعام؟",
+        "en": "What do you say once you have finished eating?"
+      },
+      "options": [
+        {
+          "quote": {
+            "ref": "h5431",
+            "ar": "الحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلاَ قُوَّةٍ",
+            "en": "Alhamdulillah al-ladhi at‘amani hadha wa razaqneih min ghayri hawl li wala quwwah (Praise be to Allah who fed me and provided me with this food through no might or power on my part)"
+          },
+          "correct": true
+        },
+        {
+          "text": {
+            "ar": "لا يُقال شيء بعده",
+            "en": "Nothing is said after it"
+          },
+          "correct": false
+        }
+      ]
+    }
+  ],
+  "relatedLessons": [],
+  "sources": [
+    {
+      "key": "ibnbaz-lessons",
+      "title": {
+        "ar": "الدروس المهمة لعامة الأمة",
+        "en": "Important Lessons for the General Ummah"
+      },
+      "publisher": "IslamHouse.com",
+      "url": {
+        "ar": "https://islamhouse.com/ar/books/1871/",
+        "en": "https://islamhouse.com/en/books/2842316/"
+      },
+      "use": "Shown verbatim by reference (textRef)."
+    }
+  ],
+  "items": [
+    {
+      "id": "h58120",
+      "type": "hadith",
+      "hadeethencId": 58120,
+      "citation": "متفق عليه",
+      "availableIn": [
+        "ar",
+        "en"
+      ],
+      "publisher": "hadeethenc.com"
+    },
+    {
+      "id": "h58122",
+      "type": "hadith",
+      "hadeethencId": 58122,
+      "citation": "رواه مسلم",
+      "availableIn": [
+        "ar",
+        "en"
+      ],
+      "publisher": "hadeethenc.com"
+    },
+    {
+      "id": "h5431",
+      "type": "hadith",
+      "hadeethencId": 5431,
+      "citation": "رواه أبو داود والترمذي وابن ماجه وأحمد",
+      "availableIn": [
+        "ar",
+        "en"
+      ],
+      "publisher": "hadeethenc.com"
+    },
+    {
+      "id": "b-eating",
+      "type": "book",
+      "source": "ibnbaz-lessons",
+      "textRef": {
+        "ar": {
+          "book": "1871",
+          "section": "t20",
+          "paragraph": 1,
+          "excerpt": "والأكل باليمين والشرب بها، والتسمية عند الابتداء، والحمد عند الفراغ"
+        },
+        "en": {
+          "book": "2842316",
+          "section": "s19",
+          "paragraph": 1,
+          "excerpt": "eating and drinking with the right hand, saying Bismillāh (in the Name of Allah) at the beginning, and Alhamdulillāh (praise be to Allah) upon finishing"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,275 @@
+{
+  "id": "colleague",
+  "order": 10,
+  "status": "published",
+  "reviewed": false,
+  "art": "colleague",
+  "title": {
+    "ar": "حين يسألك زميل عن الإسلام",
+    "en": "When a colleague asks about Islam"
+  },
+  "scene": {
+    "ar": "زميلتك في العمل ليست مسلمة، ولاحظت أنك تغيّرت في الأسابيع الماضية. تسألك بفضول ولطف عن دينك الجديد.",
+    "en": "A colleague who is not Muslim has noticed a change in you over the past weeks. She asks, kindly and curiously, about your new faith."
+  },
+  "character": {
+    "ar": "سارة، زميلتك",
+    "en": "Sarah, a colleague"
+  },
+  "learn": {
+    "say": [
+      {
+        "ref": "h4563",
+        "ar": "الْإِسْلَامُ أَنْ تَشْهَدَ أَنْ لَا إِلَهَ إِلَّا اللهُ، وَأَنَّ مُحَمَّدًا رَسُولُ اللهِ، وَتُقِيمَ الصَّلَاةَ، وَتُؤْتِيَ الزَّكَاةَ، وَتَصُومَ رَمَضَانَ، وَتَحُجَّ الْبَيْتَ إِنِ اسْتَطَعْتَ إِلَيْهِ سَبِيلًا",
+        "en": "Islam is to testify that there is no god but Allah and that Muhammad is the Messenger of Allah, to establish prayer, to pay Zakah, to fast Ramadan, and to perform Hajj to the House if you are able to find a way thereto"
+      }
+    ],
+    "why": [
+      {
+        "ref": "h66512",
+        "ar": "بُنِيَ الإِسْلَامُ عَلَى خَمْسٍ",
+        "en": "Islam is built on five"
+      }
+    ],
+    "when": [
+      {
+        "ref": "h3390",
+        "ar": "فَادْعُهُمْ إِلَى أَنْ يَشْهَدُوا أَنْ لَا إِلَهَ إِلَّا اللهُ، وَأَنَّ مُحَمَّدًا رَسُولُ اللهِ",
+        "en": "invite them to testify that none is worthy of worship except Allah and that Muhammad is the Messenger of Allah"
+      }
+    ]
+  },
+  "exchanges": [
+    {
+      "id": "t1",
+      "says": [
+        {
+          "text": {
+            "ar": "سمعت أنك أسلمت. أرجو ألا يكون السؤال محرجًا: ما الإسلام باختصار؟",
+            "en": "I heard you became Muslim. I hope you don't mind me asking: what is Islam, in a few words?"
+          }
+        }
+      ],
+      "keyPoints": [
+        {
+          "id": "k1",
+          "quote": {
+            "ref": "h4563",
+            "ar": "الْإِسْلَامُ أَنْ تَشْهَدَ أَنْ لَا إِلَهَ إِلَّا اللهُ، وَأَنَّ مُحَمَّدًا رَسُولُ اللهِ، وَتُقِيمَ الصَّلَاةَ، وَتُؤْتِيَ الزَّكَاةَ، وَتَصُومَ رَمَضَانَ، وَتَحُجَّ الْبَيْتَ إِنِ اسْتَطَعْتَ إِلَيْهِ سَبِيلًا",
+            "en": "Islam is to testify that there is no god but Allah and that Muhammad is the Messenger of Allah, to establish prayer, to pay Zakah, to fast Ramadan, and to perform Hajj to the House if you are able to find a way thereto"
+          }
+        }
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "quality": "best",
+          "reply": [
+            {
+              "text": {
+                "ar": "لا أبدًا، يسعدني سؤالك. سُئل النبي ﷺ السؤال نفسه فقال:",
+                "en": "Not at all, I'm glad you asked. The Prophet ﷺ was asked the same question, and he said:"
+              }
+            },
+            {
+              "quote": {
+                "ref": "h4563",
+                "ar": "الْإِسْلَامُ أَنْ تَشْهَدَ أَنْ لَا إِلَهَ إِلَّا اللهُ، وَأَنَّ مُحَمَّدًا رَسُولُ اللهِ، وَتُقِيمَ الصَّلَاةَ، وَتُؤْتِيَ الزَّكَاةَ، وَتَصُومَ رَمَضَانَ، وَتَحُجَّ الْبَيْتَ إِنِ اسْتَطَعْتَ إِلَيْهِ سَبِيلًا",
+                "en": "Islam is to testify that there is no god but Allah and that Muhammad is the Messenger of Allah, to establish prayer, to pay Zakah, to fast Ramadan, and to perform Hajj to the House if you are able to find a way thereto"
+              }
+            }
+          ],
+          "meets": [
+            "k1"
+          ]
+        },
+        {
+          "id": "b",
+          "quality": "acceptable",
+          "reply": [
+            {
+              "text": {
+                "ar": "لا أبدًا. ما زلت أتعلم، لكن يسعدني أن أريك ما تعلمته.",
+                "en": "Not at all. I'm still learning, but I'm happy to show you what I've learned."
+              }
+            }
+          ],
+          "meets": []
+        },
+        {
+          "id": "c",
+          "quality": "avoid",
+          "reply": [
+            {
+              "text": {
+                "ar": "هذا أمر شخصي، لا أريد الحديث عنه.",
+                "en": "That's personal; I'd rather not talk about it."
+              }
+            }
+          ],
+          "meets": []
+        }
+      ]
+    },
+    {
+      "id": "t2",
+      "says": [
+        {
+          "text": {
+            "ar": "هذا مثير للاهتمام. وبماذا يبدأ من يريد أن يفهم أكثر؟",
+            "en": "That's interesting. Where would someone start, if they wanted to understand more?"
+          }
+        }
+      ],
+      "keyPoints": [
+        {
+          "id": "k1",
+          "quote": {
+            "ref": "h3390",
+            "ar": "فَادْعُهُمْ إِلَى أَنْ يَشْهَدُوا أَنْ لَا إِلَهَ إِلَّا اللهُ، وَأَنَّ مُحَمَّدًا رَسُولُ اللهِ",
+            "en": "invite them to testify that none is worthy of worship except Allah and that Muhammad is the Messenger of Allah"
+          }
+        }
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "quality": "best",
+          "reply": [
+            {
+              "text": {
+                "ar": "يبدأ بأصل الإسلام كله، كما أوصى النبي ﷺ أحد أصحابه:",
+                "en": "With the root of it all, as the Prophet ﷺ advised one of his companions:"
+              }
+            },
+            {
+              "quote": {
+                "ref": "h3390",
+                "ar": "فَادْعُهُمْ إِلَى أَنْ يَشْهَدُوا أَنْ لَا إِلَهَ إِلَّا اللهُ، وَأَنَّ مُحَمَّدًا رَسُولُ اللهِ",
+                "en": "invite them to testify that none is worthy of worship except Allah and that Muhammad is the Messenger of Allah"
+              }
+            }
+          ],
+          "meets": [
+            "k1"
+          ]
+        },
+        {
+          "id": "b",
+          "quality": "acceptable",
+          "reply": [
+            {
+              "text": {
+                "ar": "أستطيع أن أدلّك على كتاب مترجم يشرحه بهدوء.",
+                "en": "I can point you to a translated book that explains it calmly."
+              }
+            }
+          ],
+          "meets": []
+        },
+        {
+          "id": "c",
+          "quality": "avoid",
+          "reply": [
+            {
+              "text": {
+                "ar": "عليك أن تسلمي أولًا ثم تسألي.",
+                "en": "You'd have to become Muslim first, then ask."
+              }
+            }
+          ],
+          "meets": []
+        }
+      ]
+    }
+  ],
+  "check": [
+    {
+      "id": "c1",
+      "prompt": {
+        "ar": "على كم بُني الإسلام؟",
+        "en": "On how many pillars is Islam built?"
+      },
+      "options": [
+        {
+          "quote": {
+            "ref": "h66512",
+            "ar": "بُنِيَ الإِسْلَامُ عَلَى خَمْسٍ",
+            "en": "Islam is built on five"
+          },
+          "correct": true
+        },
+        {
+          "text": {
+            "ar": "على ثلاثة",
+            "en": "On three"
+          },
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "prompt": {
+        "ar": "بماذا أوصى النبي ﷺ معاذًا أن يبدأ دعوة أهل الكتاب؟",
+        "en": "What did the Prophet ﷺ tell Mu'adh to begin with when inviting the People of the Scripture?"
+      },
+      "options": [
+        {
+          "quote": {
+            "ref": "h3390",
+            "ar": "فَادْعُهُمْ إِلَى أَنْ يَشْهَدُوا أَنْ لَا إِلَهَ إِلَّا اللهُ",
+            "en": "invite them to testify that none is worthy of worship except Allah"
+          },
+          "correct": true
+        },
+        {
+          "text": {
+            "ar": "بتفاصيل الأحكام",
+            "en": "The details of rulings"
+          },
+          "correct": false
+        }
+      ]
+    }
+  ],
+  "relatedLessons": [
+    "1.4"
+  ],
+  "sources": [],
+  "items": [
+    {
+      "id": "h4563",
+      "type": "hadith",
+      "hadeethencId": 4563,
+      "citation": "رواه مسلم",
+      "availableIn": [
+        "ar",
+        "en"
+      ],
+      "publisher": "hadeethenc.com"
+    },
+    {
+      "id": "h66512",
+      "type": "hadith",
+      "hadeethencId": 66512,
+      "citation": "رواه البخاري ومسلم",
+      "availableIn": [
+        "ar",
+        "en"
+      ],
+      "publisher": "hadeethenc.com"
+    },
+    {
+      "id": "h3390",
+      "type": "hadith",
+      "hadeethencId": 3390,
+      "citation": "متفق عليه",
+      "availableIn": [
+        "ar",
+        "en"
+      ],
+      "publisher": "hadeethenc.com"
+    }
+  ]
+}

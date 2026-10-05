@@ -1,4 +1,4 @@
-"""Rafiq's HTTP API: POST /ask, POST /lesson-help and POST /lens.
+"""Rafiq's HTTP API: POST /ask, POST /lesson-help, POST /lens and POST /mawqif/evaluate.
 
 Questions and answers are neither stored nor logged; logs carry only the outcome, timings and
 counts. Errors share one shape: {"error": {"code": "...", ...}}.
@@ -20,6 +20,8 @@ from fastapi.responses import JSONResponse
 from app.lens.lens import Lens
 from app.lens.schemas import LensRequest, LensResponse
 from app.llm import ModelUnavailableError
+from app.mawqif.evaluate import Evaluator
+from app.mawqif.schemas import EvaluateRequest, EvaluateResponse
 from app.rafiq.graph import Rafiq
 from app.rafiq.schemas import AskRequest, LessonHelpRequest, RafiqAnswer
 from app.security import CLIENT_HEADER, key_required
@@ -62,6 +64,10 @@ class Services:
     lens_limiter: RateLimiter = field(default_factory=lambda: RateLimiter(5))
     lens: Lens | None = None
     load_lens: Callable[[Rafiq], Lens | None] | None = None
+    # Mawqif judges written replies with Rafiq's chat models, under its own limit.
+    mawqif_limiter: RateLimiter = field(default_factory=lambda: RateLimiter(10))
+    evaluator: Evaluator | None = None
+    load_evaluator: Callable[[Rafiq], Evaluator | None] | None = None
     _lock: threading.Lock = field(default_factory=threading.Lock, repr=False)
 
     def get(self) -> Rafiq | None:
@@ -70,6 +76,14 @@ class Services:
                 if self.rafiq is None and self.load is not None:
                     self.rafiq, self.load = self.load(), None
         return self.rafiq
+
+    def get_evaluator(self) -> Evaluator | None:
+        rafiq = self.get()
+        if self.evaluator is None and rafiq is not None and self.load_evaluator is not None:
+            with self._lock:
+                if self.evaluator is None and self.load_evaluator is not None:
+                    self.evaluator, self.load_evaluator = self.load_evaluator(rafiq), None
+        return self.evaluator
 
     def get_lens(self) -> Lens | None:
         rafiq = self.get()
@@ -177,6 +191,17 @@ async def lens(body: LensRequest, request: Request) -> LensResponse:
         )
     except ModelUnavailableError as error:
         raise ApiError(503, "unavailable") from error
+
+
+@router.post("/mawqif/evaluate", response_model=EvaluateResponse, response_model_by_alias=True)
+async def mawqif_evaluate(body: EvaluateRequest, request: Request) -> EvaluateResponse:
+    """A learner's written reply in a role-play, judged against that turn's key points only."""
+    services: Services = request.app.state.services
+    services.mawqif_limiter.check(_client(request))
+    evaluator = await run_in_threadpool(services.get_evaluator)
+    if evaluator is None:
+        raise ApiError(503, "unavailable")
+    return await evaluator.evaluate(body)
 
 
 def install_error_handlers(app: FastAPI) -> None:

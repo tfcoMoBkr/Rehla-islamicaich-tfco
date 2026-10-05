@@ -72,6 +72,10 @@ The service keeps none of it after replying: it holds no conversation state and 
 
 **The model provider** (OpenRouter) receives the question and the passages Rafiq retrieved. Provider data collection is refused by default (`OPENROUTER_DATA_COLLECTION=deny`).
 
+## Replies written in Mawqif
+
+A reply the learner writes in a Mawqif role-play is sent to the AI model provider to be checked against that turn's points, and is not kept. It is not logged (logs carry counts and timings only), and nothing about the learner is inferred from it. Choosing one of the written replies sends nothing. Mawqif progress (provisions and best rounds) is kept like the rest of the learner's progress: on the device, and in the account when signed in.
+
 ## Photos shown to Lens
 
 The photo is sent to an AI model provider to be read; nothing is kept.

@@ -9,8 +9,11 @@ import { aiServiceUrl } from "@/config/ai-service";
  */
 
 /** The service's endpoints the browser may reach, and the one method each accepts. */
-export const AI_ROUTES = { ask: "POST", "lesson-help": "POST", lens: "POST", health: "GET" } as const;
+export const AI_ROUTES = { ask: "POST", "lesson-help": "POST", lens: "POST", "mawqif-evaluate": "POST", health: "GET" } as const;
 export type AiRoute = keyof typeof AI_ROUTES;
+
+/** Where a route lives on the service, when that is not its own name. */
+const SERVICE_PATHS: Partial<Record<AiRoute, string>> = { "mawqif-evaluate": "mawqif/evaluate" };
 
 /** Rafiq checks every answer against its sources before replying, which can take a while. */
 export const AI_TIMEOUT_MS = 90_000;
@@ -37,7 +40,7 @@ export function callAiService(route: AiRoute, { body, contentType, client, signa
   const key = process.env.AI_SERVICE_KEY;
   if (key) headers.set(KEY_HEADER, key);
   const timeout = AbortSignal.timeout(timeoutMs);
-  return fetch(`${aiServiceUrl()}/${route}`, {
+  return fetch(`${aiServiceUrl()}/${SERVICE_PATHS[route] ?? route}`, {
     method: AI_ROUTES[route],
     headers,
     body: AI_ROUTES[route] === "POST" ? body : undefined,

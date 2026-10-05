@@ -1,0 +1,316 @@
+{
+  "id": "adhan",
+  "order": 3,
+  "status": "published",
+  "reviewed": false,
+  "art": "adhan",
+  "title": {
+    "ar": "سماع الأذان",
+    "en": "Hearing the call to prayer"
+  },
+  "scene": {
+    "ar": "أنت في بيت صديقك حين يُرفع أذان المغرب من المسجد القريب. يخفض صديقك صوت التلفاز ويصمت.",
+    "en": "You are at a friend's home when the call to prayer for Maghrib rises from the nearby mosque. Your friend turns the television down and falls quiet."
+  },
+  "character": {
+    "ar": "سامر، صديقك",
+    "en": "Samer, your friend"
+  },
+  "learn": {
+    "say": [
+      {
+        "ref": "h3013",
+        "ar": "فَقُولُوا مِثْلَ مَا يَقُولُ المُؤَذِّنُ",
+        "en": "repeat what the Muezzin says"
+      },
+      {
+        "ref": "h10635",
+        "ar": "اللَّهُمَّ رَبَّ هَذِهِ الدَّعْوَةِ التَّامَّةِ، وَالصَّلاَةِ القَائِمَةِ، آتِ مُحَمَّدًا الوَسِيلَةَ وَالفَضِيلَةَ، وَابْعَثْهُ مَقَامًا مَحْمُودًا الَّذِي وَعَدْتَهُ",
+        "en": "O Allah, Lord of this perfect call and the prayer that is to be established, grant Muhammad Al-Wasīlah and Al-Fadīlah and resurrect him to the Praiseworthy Station that You have promised him"
+      }
+    ],
+    "why": [
+      {
+        "ref": "h10635",
+        "ar": "حَلَّتْ لَهُ شَفَاعَتِي يَوْمَ القِيَامَةِ",
+        "en": "he will be granted my intercession on the Day of Judgment"
+      }
+    ],
+    "when": [
+      {
+        "ref": "h3013",
+        "ar": "إِذَا سَمِعْتُمُ النِّدَاءَ",
+        "en": "When you hear the Adhan"
+      },
+      {
+        "ref": "h65087",
+        "ar": "ثُمَّ صَلُّوا عَلَيَّ",
+        "en": "and then invoke Allah's blessings upon me"
+      }
+    ]
+  },
+  "exchanges": [
+    {
+      "id": "t1",
+      "says": [
+        {
+          "text": {
+            "ar": "هذا أذان المغرب. هل تعرف ما يُقال حين يُسمع؟",
+            "en": "That is the Maghrib adhan. Do you know what to say when you hear it?"
+          }
+        }
+      ],
+      "keyPoints": [
+        {
+          "id": "k1",
+          "quote": {
+            "ref": "h3013",
+            "ar": "فَقُولُوا مِثْلَ مَا يَقُولُ المُؤَذِّنُ",
+            "en": "repeat what the Muezzin says"
+          }
+        }
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "quality": "best",
+          "reply": [
+            {
+              "text": {
+                "ar": "نعم، جاء في الحديث:",
+                "en": "Yes, the hadith says:"
+              }
+            },
+            {
+              "quote": {
+                "ref": "h3013",
+                "ar": "فَقُولُوا مِثْلَ مَا يَقُولُ المُؤَذِّنُ",
+                "en": "repeat what the Muezzin says"
+              }
+            }
+          ],
+          "meets": [
+            "k1"
+          ]
+        },
+        {
+          "id": "b",
+          "quality": "acceptable",
+          "reply": [
+            {
+              "text": {
+                "ar": "لست متأكدًا، لكني سأنصت معك.",
+                "en": "I am not sure, but I will listen with you."
+              }
+            }
+          ],
+          "meets": []
+        },
+        {
+          "id": "c",
+          "quality": "avoid",
+          "reply": [
+            {
+              "text": {
+                "ar": "ارفع صوت التلفاز، لن يطول.",
+                "en": "Turn the TV back up; it won't take long."
+              }
+            }
+          ],
+          "meets": []
+        }
+      ]
+    },
+    {
+      "id": "t2",
+      "says": [
+        {
+          "text": {
+            "ar": "انتهى الأذان. هل هناك شيء يُقال بعده؟",
+            "en": "The adhan has ended. Is there something to say after it?"
+          }
+        }
+      ],
+      "keyPoints": [
+        {
+          "id": "k1",
+          "quote": {
+            "ref": "h65087",
+            "ar": "ثُمَّ صَلُّوا عَلَيَّ",
+            "en": "and then invoke Allah's blessings upon me"
+          }
+        },
+        {
+          "id": "k2",
+          "quote": {
+            "ref": "h10635",
+            "ar": "اللَّهُمَّ رَبَّ هَذِهِ الدَّعْوَةِ التَّامَّةِ، وَالصَّلاَةِ القَائِمَةِ، آتِ مُحَمَّدًا الوَسِيلَةَ وَالفَضِيلَةَ، وَابْعَثْهُ مَقَامًا مَحْمُودًا الَّذِي وَعَدْتَهُ",
+            "en": "O Allah, Lord of this perfect call and the prayer that is to be established, grant Muhammad Al-Wasīlah and Al-Fadīlah and resurrect him to the Praiseworthy Station that You have promised him"
+          }
+        }
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "quality": "best",
+          "reply": [
+            {
+              "text": {
+                "ar": "نعم، كما في الحديث:",
+                "en": "Yes, as the hadith says:"
+              }
+            },
+            {
+              "quote": {
+                "ref": "h65087",
+                "ar": "ثُمَّ صَلُّوا عَلَيَّ",
+                "en": "and then invoke Allah's blessings upon me"
+              }
+            },
+            {
+              "text": {
+                "ar": "ثم الدعاء:",
+                "en": "and then the supplication:"
+              }
+            },
+            {
+              "quote": {
+                "ref": "h10635",
+                "ar": "اللَّهُمَّ رَبَّ هَذِهِ الدَّعْوَةِ التَّامَّةِ، وَالصَّلاَةِ القَائِمَةِ، آتِ مُحَمَّدًا الوَسِيلَةَ وَالفَضِيلَةَ، وَابْعَثْهُ مَقَامًا مَحْمُودًا الَّذِي وَعَدْتَهُ",
+                "en": "O Allah, Lord of this perfect call and the prayer that is to be established, grant Muhammad Al-Wasīlah and Al-Fadīlah and resurrect him to the Praiseworthy Station that You have promised him"
+              }
+            }
+          ],
+          "meets": [
+            "k1",
+            "k2"
+          ]
+        },
+        {
+          "id": "b",
+          "quality": "acceptable",
+          "reply": [
+            {
+              "text": {
+                "ar": "نعم، هذا الدعاء:",
+                "en": "Yes, this supplication:"
+              }
+            },
+            {
+              "quote": {
+                "ref": "h10635",
+                "ar": "اللَّهُمَّ رَبَّ هَذِهِ الدَّعْوَةِ التَّامَّةِ، وَالصَّلاَةِ القَائِمَةِ، آتِ مُحَمَّدًا الوَسِيلَةَ وَالفَضِيلَةَ، وَابْعَثْهُ مَقَامًا مَحْمُودًا الَّذِي وَعَدْتَهُ",
+                "en": "O Allah, Lord of this perfect call and the prayer that is to be established, grant Muhammad Al-Wasīlah and Al-Fadīlah and resurrect him to the Praiseworthy Station that You have promised him"
+              }
+            }
+          ],
+          "meets": [
+            "k2"
+          ]
+        },
+        {
+          "id": "c",
+          "quality": "avoid",
+          "reply": [
+            {
+              "text": {
+                "ar": "لا، انتهى كل شيء.",
+                "en": "No, that's all over now."
+              }
+            }
+          ],
+          "meets": []
+        }
+      ]
+    }
+  ],
+  "check": [
+    {
+      "id": "c1",
+      "prompt": {
+        "ar": "ماذا تفعل حين تسمع الأذان؟",
+        "en": "The call to prayer begins. What do you do?"
+      },
+      "options": [
+        {
+          "quote": {
+            "ref": "h3013",
+            "ar": "فَقُولُوا مِثْلَ مَا يَقُولُ المُؤَذِّنُ",
+            "en": "repeat what the Muezzin says"
+          },
+          "correct": true
+        },
+        {
+          "text": {
+            "ar": "تبقى صامتًا حتى ينتهي",
+            "en": "Stay silent until it ends"
+          },
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "prompt": {
+        "ar": "ما الدعاء الذي يُقال بعد الأذان؟",
+        "en": "Which supplication is said after the adhan?"
+      },
+      "options": [
+        {
+          "quote": {
+            "ref": "h10635",
+            "ar": "اللَّهُمَّ رَبَّ هَذِهِ الدَّعْوَةِ التَّامَّةِ، وَالصَّلاَةِ القَائِمَةِ، آتِ مُحَمَّدًا الوَسِيلَةَ وَالفَضِيلَةَ، وَابْعَثْهُ مَقَامًا مَحْمُودًا الَّذِي وَعَدْتَهُ",
+            "en": "O Allah, Lord of this perfect call and the prayer that is to be established, grant Muhammad Al-Wasīlah and Al-Fadīlah and resurrect him to the Praiseworthy Station that You have promised him"
+          },
+          "correct": true
+        },
+        {
+          "text": {
+            "ar": "لا دعاء بعده",
+            "en": "There is none"
+          },
+          "correct": false
+        }
+      ]
+    }
+  ],
+  "relatedLessons": [
+    "3.3"
+  ],
+  "sources": [],
+  "items": [
+    {
+      "id": "h3013",
+      "type": "hadith",
+      "hadeethencId": 3013,
+      "citation": "متفق عليه",
+      "availableIn": [
+        "ar",
+        "en"
+      ],
+      "publisher": "hadeethenc.com"
+    },
+    {
+      "id": "h65087",
+      "type": "hadith",
+      "hadeethencId": 65087,
+      "citation": "رواه مسلم",
+      "availableIn": [
+        "ar",
+        "en"
+      ],
+      "publisher": "hadeethenc.com"
+    },
+    {
+      "id": "h10635",
+      "type": "hadith",
+      "hadeethencId": 10635,
+      "citation": "رواه البخاري",
+      "availableIn": [
+        "ar",
+        "en"
+      ],
+      "publisher": "hadeethenc.com"
+    }
+  ]
+}

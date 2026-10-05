@@ -6,6 +6,7 @@ import type { z } from "zod";
 
 import { memo } from "./memo";
 import { cleanSvg } from "./scene-svg";
+import { situationSchema, type Situation } from "./situation-schema";
 import {
   artManifestSchema,
   fetchedAyahSchema,
@@ -157,6 +158,13 @@ async function readOptional<T>(file: string, schema: z.ZodType<T>): Promise<T | 
     throw error;
   }
 }
+
+/** The published Mawqif situations, in their order on the road (content/situations/). */
+export const loadSituations = memo(async (): Promise<Situation[]> => {
+  const files = await jsonFiles(path.join(CONTENT_DIR, "situations"));
+  const situations = await Promise.all(files.map((file) => readValidated(file, situationSchema)));
+  return situations.filter((situation) => situation.status === "published").sort((a, b) => a.order - b.order);
+});
 
 /* Evidence saved by scripts/fetch-content.mjs. A missing file means it has not been fetched yet. */
 

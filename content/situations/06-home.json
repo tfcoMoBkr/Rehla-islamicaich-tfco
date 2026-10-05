@@ -1,0 +1,284 @@
+{
+  "id": "home",
+  "order": 6,
+  "status": "published",
+  "reviewed": false,
+  "art": "home",
+  "title": {
+    "ar": "دخول البيت",
+    "en": "Coming home"
+  },
+  "scene": {
+    "ar": "تعود إلى البيت بعد يوم طويل، ومعك أخوك الصغير الذي يسألك عن كل ما تفعله منذ أسلمت.",
+    "en": "You come home after a long day with your younger brother, who asks about everything you have done since you became Muslim."
+  },
+  "character": {
+    "ar": "زياد، أخوك الصغير",
+    "en": "Ziyad, your younger brother"
+  },
+  "learn": {
+    "say": [
+      {
+        "ref": "h3037",
+        "ar": "فَذَكَرَ اللهَ عِنْدَ دُخُولِهِ وَعِنْدَ طَعَامِهِ",
+        "en": "When one mentions Allah's name upon entering his house and upon eating"
+      }
+    ],
+    "why": [
+      {
+        "ref": "h3037",
+        "ar": "قَالَ الشَّيْطَانُ: لَا مَبِيتَ لَكُمْ، وَلَا عَشَاءَ",
+        "en": "the devil says (to his companions): 'There is no night shelter nor supper here for you.'"
+      }
+    ],
+    "when": [
+      {
+        "ref": "b-mosque",
+        "ar": "أو المنزل والخروج منهما",
+        "en": "or home"
+      }
+    ]
+  },
+  "exchanges": [
+    {
+      "id": "t1",
+      "says": [
+        {
+          "text": {
+            "ar": "وصلنا أخيرًا! لماذا توقفت عند الباب؟",
+            "en": "We're home at last! Why did you stop at the door?"
+          }
+        }
+      ],
+      "keyPoints": [
+        {
+          "id": "k1",
+          "quote": {
+            "ref": "h3037",
+            "ar": "فَذَكَرَ اللهَ عِنْدَ دُخُولِهِ",
+            "en": "When one mentions Allah's name upon entering his house"
+          }
+        }
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "quality": "best",
+          "reply": [
+            {
+              "text": {
+                "ar": "أذكر الله وأنا أدخل؛ جاء في الحديث:",
+                "en": "I mention Allah as I come in. The hadith says:"
+              }
+            },
+            {
+              "quote": {
+                "ref": "h3037",
+                "ar": "فَذَكَرَ اللهَ عِنْدَ دُخُولِهِ وَعِنْدَ طَعَامِهِ",
+                "en": "When one mentions Allah's name upon entering his house and upon eating"
+              }
+            }
+          ],
+          "meets": [
+            "k1"
+          ]
+        },
+        {
+          "id": "b",
+          "quality": "acceptable",
+          "reply": [
+            {
+              "text": {
+                "ar": "لا شيء، كنت أبحث عن المفتاح.",
+                "en": "Nothing, I was looking for the key."
+              }
+            }
+          ],
+          "meets": []
+        },
+        {
+          "id": "c",
+          "quality": "avoid",
+          "reply": [
+            {
+              "text": {
+                "ar": "لا شأن لك بهذا.",
+                "en": "That's none of your business."
+              }
+            }
+          ],
+          "meets": []
+        }
+      ]
+    },
+    {
+      "id": "t2",
+      "says": [
+        {
+          "text": {
+            "ar": "وهل تفعل هذا عند الطعام أيضًا؟ العشاء جاهز.",
+            "en": "And do you do that for food too? Dinner's ready."
+          }
+        }
+      ],
+      "keyPoints": [
+        {
+          "id": "k1",
+          "quote": {
+            "ref": "h3037",
+            "ar": "وَعِنْدَ طَعَامِهِ",
+            "en": "and upon eating"
+          }
+        }
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "quality": "best",
+          "reply": [
+            {
+              "text": {
+                "ar": "نعم، الحديث نفسه يذكر الطعام:",
+                "en": "Yes, the same hadith mentions food:"
+              }
+            },
+            {
+              "quote": {
+                "ref": "h3037",
+                "ar": "وَعِنْدَ طَعَامِهِ",
+                "en": "and upon eating"
+              }
+            }
+          ],
+          "meets": [
+            "k1"
+          ]
+        },
+        {
+          "id": "b",
+          "quality": "acceptable",
+          "reply": [
+            {
+              "text": {
+                "ar": "نعم، سأريك حين نجلس.",
+                "en": "Yes, I'll show you when we sit down."
+              }
+            }
+          ],
+          "meets": []
+        },
+        {
+          "id": "c",
+          "quality": "avoid",
+          "reply": [
+            {
+              "text": {
+                "ar": "لا، هذا للمسجد فقط.",
+                "en": "No, that's only for the mosque."
+              }
+            }
+          ],
+          "meets": []
+        }
+      ]
+    }
+  ],
+  "check": [
+    {
+      "id": "c1",
+      "prompt": {
+        "ar": "متى تذكر الله في البيت بحسب الحديث؟",
+        "en": "According to the hadith, when do you mention Allah at home?"
+      },
+      "options": [
+        {
+          "quote": {
+            "ref": "h3037",
+            "ar": "عِنْدَ دُخُولِهِ وَعِنْدَ طَعَامِهِ",
+            "en": "upon entering his house and upon eating"
+          },
+          "correct": true
+        },
+        {
+          "text": {
+            "ar": "عند النوم فقط",
+            "en": "Only at bedtime"
+          },
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "prompt": {
+        "ar": "ماذا يقول الشيطان إذا ذُكر الله عند الدخول والطعام؟",
+        "en": "What does the devil say when Allah is mentioned on entering and at food?"
+      },
+      "options": [
+        {
+          "quote": {
+            "ref": "h3037",
+            "ar": "لَا مَبِيتَ لَكُمْ، وَلَا عَشَاءَ",
+            "en": "There is no night shelter nor supper here for you"
+          },
+          "correct": true
+        },
+        {
+          "text": {
+            "ar": "لا يقول شيئًا",
+            "en": "Nothing"
+          },
+          "correct": false
+        }
+      ]
+    }
+  ],
+  "relatedLessons": [],
+  "sources": [
+    {
+      "key": "ibnbaz-lessons",
+      "title": {
+        "ar": "الدروس المهمة لعامة الأمة",
+        "en": "Important Lessons for the General Ummah"
+      },
+      "publisher": "IslamHouse.com",
+      "url": {
+        "ar": "https://islamhouse.com/ar/books/1871/",
+        "en": "https://islamhouse.com/en/books/2842316/"
+      },
+      "use": "Shown verbatim by reference (textRef)."
+    }
+  ],
+  "items": [
+    {
+      "id": "h3037",
+      "type": "hadith",
+      "hadeethencId": 3037,
+      "citation": "رواه مسلم",
+      "availableIn": [
+        "ar",
+        "en"
+      ],
+      "publisher": "hadeethenc.com"
+    },
+    {
+      "id": "b-mosque",
+      "type": "book",
+      "source": "ibnbaz-lessons",
+      "textRef": {
+        "ar": {
+          "book": "1871",
+          "section": "t20",
+          "paragraph": 1,
+          "excerpt": "والآداب الشرعية عند دخول المسجد، أو المنزل والخروج منهما"
+        },
+        "en": {
+          "book": "2842316",
+          "section": "s19",
+          "paragraph": 1,
+          "excerpt": "observing the Islamic etiquettes when entering or leaving the mosque or home"
+        }
+      }
+    }
+  ]
+}

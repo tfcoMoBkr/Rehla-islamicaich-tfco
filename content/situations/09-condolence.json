@@ -1,0 +1,295 @@
+{
+  "id": "condolence",
+  "order": 9,
+  "status": "published",
+  "reviewed": false,
+  "art": "condolence",
+  "title": {
+    "ar": "التعزية في المصاب",
+    "en": "Offering condolences"
+  },
+  "scene": {
+    "ar": "توفي والد زميلك في العمل. تذهب مع الزملاء إلى بيت العائلة، وتجد زميلك عند الباب يستقبل المعزّين.",
+    "en": "A colleague's father has passed away. You go with others from work to the family home, and find your colleague at the door receiving people."
+  },
+  "character": {
+    "ar": "علي، زميلك",
+    "en": "Ali, your colleague"
+  },
+  "learn": {
+    "say": [
+      {
+        "ref": "q2-156",
+        "ar": "إِنَّا لِلَّهِ وَإِنَّآ إِلَيۡهِ رَٰجِعُونَ",
+        "en": "Indeed we belong to Allāh, and indeed to Him we will return"
+      },
+      {
+        "ref": "h3290",
+        "ar": "إنَّ لِلَّه ما أَخَذ ولَهُ ما أَعطَى، وكلُّ شَيءٍ عِنده بِأجَل مُسمَّى فَلتَصبِر ولتَحتَسِب",
+        "en": "To Allah belongs what He takes, and to Him belongs what He gives, and for everything He sets a specific term. So she should have patience and seek the reward from Allah"
+      }
+    ],
+    "why": [
+      {
+        "ref": "b-condolence",
+        "ar": "والتعزية في المصاب",
+        "en": "offering condolences in times of affliction"
+      }
+    ],
+    "when": [
+      {
+        "ref": "q2-156",
+        "ar": "ٱلَّذِينَ إِذَآ أَصَٰبَتۡهُم مُّصِيبَةٞ",
+        "en": "Who, when disaster strikes them"
+      }
+    ]
+  },
+  "exchanges": [
+    {
+      "id": "t1",
+      "says": [
+        {
+          "text": {
+            "ar": "(يصافحك علي بصوت متعب.) شكرًا لمجيئك.",
+            "en": "(Ali shakes your hand, his voice tired.) Thank you for coming."
+          }
+        }
+      ],
+      "keyPoints": [
+        {
+          "id": "k1",
+          "quote": {
+            "ref": "h3290",
+            "ar": "إنَّ لِلَّه ما أَخَذ ولَهُ ما أَعطَى، وكلُّ شَيءٍ عِنده بِأجَل مُسمَّى فَلتَصبِر ولتَحتَسِب",
+            "en": "To Allah belongs what He takes, and to Him belongs what He gives, and for everything He sets a specific term. So she should have patience and seek the reward from Allah"
+          }
+        }
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "quality": "best",
+          "reply": [
+            {
+              "text": {
+                "ar": "أنا آسف جدًا لمصابك. أقول لك ما قاله النبي ﷺ:",
+                "en": "I am so sorry for your loss. Let me say to you what the Prophet ﷺ said:"
+              }
+            },
+            {
+              "quote": {
+                "ref": "h3290",
+                "ar": "إنَّ لِلَّه ما أَخَذ ولَهُ ما أَعطَى، وكلُّ شَيءٍ عِنده بِأجَل مُسمَّى",
+                "en": "To Allah belongs what He takes, and to Him belongs what He gives, and for everything He sets a specific term"
+              }
+            }
+          ],
+          "meets": [
+            "k1"
+          ]
+        },
+        {
+          "id": "b",
+          "quality": "acceptable",
+          "reply": [
+            {
+              "text": {
+                "ar": "أنا آسف جدًا لفقدك. إن احتجت شيئًا فأنا هنا.",
+                "en": "I'm so sorry for your loss. If you need anything, I'm here."
+              }
+            }
+          ],
+          "meets": []
+        },
+        {
+          "id": "c",
+          "quality": "avoid",
+          "reply": [
+            {
+              "text": {
+                "ar": "لا تحزن، كان كبيرًا في السن على أي حال.",
+                "en": "Don't be sad; he was old anyway."
+              }
+            }
+          ],
+          "meets": []
+        }
+      ]
+    },
+    {
+      "id": "t2",
+      "says": [
+        {
+          "text": {
+            "ar": "كان الأمر مفاجئًا. لا أعرف ماذا أقول.",
+            "en": "It was so sudden. I don't know what to say."
+          }
+        }
+      ],
+      "keyPoints": [
+        {
+          "id": "k1",
+          "quote": {
+            "ref": "q2-156",
+            "ar": "إِنَّا لِلَّهِ وَإِنَّآ إِلَيۡهِ رَٰجِعُونَ",
+            "en": "Indeed we belong to Allāh, and indeed to Him we will return"
+          }
+        }
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "quality": "best",
+          "reply": [
+            {
+              "text": {
+                "ar": "لا بأس ألّا تجد كلامًا. جاء في القرآن:",
+                "en": "It's all right to have no words. The Quran says:"
+              }
+            },
+            {
+              "quote": {
+                "ref": "q2-156",
+                "ar": "إِنَّا لِلَّهِ وَإِنَّآ إِلَيۡهِ رَٰجِعُونَ",
+                "en": "Indeed we belong to Allāh, and indeed to Him we will return"
+              }
+            }
+          ],
+          "meets": [
+            "k1"
+          ]
+        },
+        {
+          "id": "b",
+          "quality": "acceptable",
+          "reply": [
+            {
+              "text": {
+                "ar": "لا بأس، أنا معك.",
+                "en": "That's all right. I'm with you."
+              }
+            }
+          ],
+          "meets": []
+        },
+        {
+          "id": "c",
+          "quality": "avoid",
+          "reply": [
+            {
+              "text": {
+                "ar": "عليك أن تتجاوز هذا بسرعة.",
+                "en": "You need to get over this quickly."
+              }
+            }
+          ],
+          "meets": []
+        }
+      ]
+    }
+  ],
+  "check": [
+    {
+      "id": "c1",
+      "prompt": {
+        "ar": "ماذا يقول من أصابته مصيبة؟",
+        "en": "What does someone struck by a loss say?"
+      },
+      "options": [
+        {
+          "quote": {
+            "ref": "q2-156",
+            "ar": "إِنَّا لِلَّهِ وَإِنَّآ إِلَيۡهِ رَٰجِعُونَ",
+            "en": "Indeed we belong to Allāh, and indeed to Him we will return"
+          },
+          "correct": true
+        },
+        {
+          "text": {
+            "ar": "لا شيء، يكفي الصمت",
+            "en": "Nothing; silence is enough"
+          },
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "prompt": {
+        "ar": "بماذا عزّى النبي ﷺ ابنته؟",
+        "en": "With what words did the Prophet ﷺ console his daughter?"
+      },
+      "options": [
+        {
+          "quote": {
+            "ref": "h3290",
+            "ar": "إنَّ لِلَّه ما أَخَذ ولَهُ ما أَعطَى",
+            "en": "To Allah belongs what He takes, and to Him belongs what He gives"
+          },
+          "correct": true
+        },
+        {
+          "text": {
+            "ar": "بأن تنسى ما حدث",
+            "en": "That she should forget what happened"
+          },
+          "correct": false
+        }
+      ]
+    }
+  ],
+  "relatedLessons": [],
+  "sources": [
+    {
+      "key": "ibnbaz-lessons",
+      "title": {
+        "ar": "الدروس المهمة لعامة الأمة",
+        "en": "Important Lessons for the General Ummah"
+      },
+      "publisher": "IslamHouse.com",
+      "url": {
+        "ar": "https://islamhouse.com/ar/books/1871/",
+        "en": "https://islamhouse.com/en/books/2842316/"
+      },
+      "use": "Shown verbatim by reference (textRef)."
+    }
+  ],
+  "items": [
+    {
+      "id": "h3290",
+      "type": "hadith",
+      "hadeethencId": 3290,
+      "citation": "متفق عليه",
+      "availableIn": [
+        "ar",
+        "en"
+      ],
+      "publisher": "hadeethenc.com"
+    },
+    {
+      "id": "q2-156",
+      "type": "quran",
+      "ref": "2:156",
+      "publisher": "quranenc.com"
+    },
+    {
+      "id": "b-condolence",
+      "type": "book",
+      "source": "ibnbaz-lessons",
+      "textRef": {
+        "ar": {
+          "book": "1871",
+          "section": "t20",
+          "paragraph": 1,
+          "excerpt": "والتعزية في المصاب"
+        },
+        "en": {
+          "book": "2842316",
+          "section": "s19",
+          "paragraph": 1,
+          "excerpt": "offering condolences in times of affliction"
+        }
+      }
+    }
+  ]
+}

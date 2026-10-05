@@ -23,6 +23,9 @@ const PAGE_FILES: Record<ClientPage, string> = {
   signUp: "app/[locale]/account/sign-up/page.tsx",
   privacy: "app/[locale]/privacy/page.tsx",
   lens: "app/[locale]/lens/page.tsx",
+  mawqif: "app/[locale]/mawqif/page.tsx",
+  situation: "app/[locale]/mawqif/[situation]/page.tsx",
+  mawqifTest: "app/[locale]/mawqif/test/[group]/page.tsx",
 };
 
 const missing = (needed: Set<string>, sent: readonly string[]) => [...needed].filter((namespace) => !sent.includes(namespace)).sort();

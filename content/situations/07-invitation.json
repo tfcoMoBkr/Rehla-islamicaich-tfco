@@ -1,0 +1,281 @@
+{
+  "id": "invitation",
+  "order": 7,
+  "status": "published",
+  "reviewed": false,
+  "art": "invitation",
+  "title": {
+    "ar": "حين تُدعى إلى طعام",
+    "en": "When you are invited to a meal"
+  },
+  "scene": {
+    "ar": "يدعوك جارك المسلم إلى وليمة عرس أخيه نهاية الأسبوع. تتردد قليلًا لأنك لا تعرف أحدًا هناك.",
+    "en": "Your Muslim neighbour invites you to his brother's wedding meal at the weekend. You hesitate a little, because you will not know anyone there."
+  },
+  "character": {
+    "ar": "حسن، جارك",
+    "en": "Hassan, your neighbour"
+  },
+  "learn": {
+    "say": [
+      {
+        "ref": "h58120",
+        "ar": "سَمِّ اللهَ، وَكُلْ بِيَمِينِكَ، وَكُلْ مِمَّا يَلِيكَ",
+        "en": "mention Allah's name, eat with your right hand, and eat from what is nearer to you"
+      }
+    ],
+    "why": [
+      {
+        "ref": "h3706",
+        "ar": "وَإِجَابَةُ الدَّعْوَةِ",
+        "en": "accepting invitations"
+      }
+    ],
+    "when": [
+      {
+        "ref": "h58112",
+        "ar": "إذا دُعِيَ أحدكم إلى الوَلِيمَة فَلْيَأْتِهَا",
+        "en": "If one of you is invited to a wedding banquet, he should attend"
+      }
+    ]
+  },
+  "exchanges": [
+    {
+      "id": "t1",
+      "says": [
+        {
+          "text": {
+            "ar": "أخي يتزوج يوم الجمعة، ويسرّنا أن تحضر الوليمة.",
+            "en": "My brother is getting married on Friday, and we would love you to come to the wedding meal."
+          }
+        }
+      ],
+      "keyPoints": [
+        {
+          "id": "k1",
+          "quote": {
+            "ref": "h58112",
+            "ar": "فَلْيَأْتِهَا",
+            "en": "he should attend"
+          }
+        },
+        {
+          "id": "k2",
+          "quote": {
+            "ref": "h3706",
+            "ar": "وَإِجَابَةُ الدَّعْوَةِ",
+            "en": "accepting invitations"
+          }
+        }
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "quality": "best",
+          "reply": [
+            {
+              "text": {
+                "ar": "شكرًا لدعوتك، سأحضر بكل سرور.",
+                "en": "Thank you for inviting me; I will gladly come."
+              }
+            }
+          ],
+          "meets": [
+            "k1",
+            "k2"
+          ]
+        },
+        {
+          "id": "b",
+          "quality": "acceptable",
+          "reply": [
+            {
+              "text": {
+                "ar": "شكرًا لك، سأحاول أن أحضر.",
+                "en": "Thank you, I'll try to come."
+              }
+            }
+          ],
+          "meets": [
+            "k2"
+          ]
+        },
+        {
+          "id": "c",
+          "quality": "avoid",
+          "reply": [
+            {
+              "text": {
+                "ar": "لا أظن، لا أعرف أحدًا هناك.",
+                "en": "I don't think so; I won't know anyone."
+              }
+            }
+          ],
+          "meets": []
+        }
+      ]
+    },
+    {
+      "id": "t2",
+      "says": [
+        {
+          "text": {
+            "ar": "(في الوليمة) تفضّل، هذا طبقك.",
+            "en": "(At the meal) Here, this plate is for you."
+          }
+        }
+      ],
+      "keyPoints": [
+        {
+          "id": "k1",
+          "quote": {
+            "ref": "h58120",
+            "ar": "سَمِّ اللهَ",
+            "en": "mention Allah's name"
+          }
+        },
+        {
+          "id": "k2",
+          "quote": {
+            "ref": "h58120",
+            "ar": "وَكُلْ مِمَّا يَلِيكَ",
+            "en": "and eat from what is nearer to you"
+          }
+        }
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "quality": "best",
+          "reply": [
+            {
+              "text": {
+                "ar": "شكرًا لك. (تسمّي الله وتأكل مما يليك.)",
+                "en": "Thank you. (You say Bismillah, then start from the side of the dish in front of you.)"
+              }
+            }
+          ],
+          "meets": [
+            "k1",
+            "k2"
+          ]
+        },
+        {
+          "id": "b",
+          "quality": "acceptable",
+          "reply": [
+            {
+              "text": {
+                "ar": "شكرًا لك. (تسمّي الله وتبدأ.)",
+                "en": "Thank you. (You say Bismillah and start.)"
+              }
+            }
+          ],
+          "meets": [
+            "k1"
+          ]
+        },
+        {
+          "id": "c",
+          "quality": "avoid",
+          "reply": [
+            {
+              "text": {
+                "ar": "(تمدّ يدك إلى أطباق الآخرين قبل أن تسمّي.)",
+                "en": "(You reach across to other people's dishes before saying anything.)"
+              }
+            }
+          ],
+          "meets": []
+        }
+      ]
+    }
+  ],
+  "check": [
+    {
+      "id": "c1",
+      "prompt": {
+        "ar": "دعاك أحد إلى وليمة. ماذا تفعل؟",
+        "en": "Someone invites you to a wedding meal. What do you do?"
+      },
+      "options": [
+        {
+          "quote": {
+            "ref": "h58112",
+            "ar": "إذا دُعِيَ أحدكم إلى الوَلِيمَة فَلْيَأْتِهَا",
+            "en": "If one of you is invited to a wedding banquet, he should attend"
+          },
+          "correct": true
+        },
+        {
+          "text": {
+            "ar": "الأفضل أن تعتذر",
+            "en": "It is better to decline"
+          },
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "prompt": {
+        "ar": "ما من حقوق المسلم على المسلم في هذا الموقف؟",
+        "en": "Which right of a Muslim on another Muslim applies here?"
+      },
+      "options": [
+        {
+          "quote": {
+            "ref": "h3706",
+            "ar": "وَإِجَابَةُ الدَّعْوَةِ",
+            "en": "accepting invitations"
+          },
+          "correct": true
+        },
+        {
+          "text": {
+            "ar": "أن تهدي إليه شيئًا",
+            "en": "Giving them a gift"
+          },
+          "correct": false
+        }
+      ]
+    }
+  ],
+  "relatedLessons": [],
+  "sources": [],
+  "items": [
+    {
+      "id": "h58112",
+      "type": "hadith",
+      "hadeethencId": 58112,
+      "citation": "متفق عليه",
+      "availableIn": [
+        "ar",
+        "en"
+      ],
+      "publisher": "hadeethenc.com"
+    },
+    {
+      "id": "h3706",
+      "type": "hadith",
+      "hadeethencId": 3706,
+      "citation": "متفق عليه",
+      "availableIn": [
+        "ar",
+        "en"
+      ],
+      "publisher": "hadeethenc.com"
+    },
+    {
+      "id": "h58120",
+      "type": "hadith",
+      "hadeethencId": 58120,
+      "citation": "متفق عليه",
+      "availableIn": [
+        "ar",
+        "en"
+      ],
+      "publisher": "hadeethenc.com"
+    }
+  ]
+}

@@ -1,0 +1,239 @@
+{
+ "greeting": {
+  "t1": [
+   {
+    "id": "k1",
+    "ar": "والمارُّ على القاعدِ",
+    "en": "the passer-by should greet the one who is sitting"
+   },
+   {
+    "id": "k2",
+    "ar": "السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ",
+    "en": "As-salāmu ‘alaykum wa rahmatullāh"
+   }
+  ],
+  "t2": [
+   {
+    "id": "k1",
+    "ar": "فَحَيُّواْ بِأَحۡسَنَ مِنۡهَآ أَوۡ رُدُّوهَآۗ",
+    "en": "greet [in return] with one better than it or [at least] return it"
+   },
+   {
+    "id": "k2",
+    "ar": "رَدُّ السَّلَامِ",
+    "en": "returning the greeting of peace"
+   }
+  ]
+ },
+ "mosque": {
+  "t1": [
+   {
+    "id": "k1",
+    "ar": "اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ",
+    "en": "'Allahumma iftah li abwāba rahmatik' (O Allah, open for me the gates of Your mercy)"
+   }
+  ],
+  "t2": [
+   {
+    "id": "k1",
+    "ar": "اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ",
+    "en": "'Allahumma inni as’aluka min fadlik' (O Allah, I ask You of Your bounty)"
+   }
+  ]
+ },
+ "adhan": {
+  "t1": [
+   {
+    "id": "k1",
+    "ar": "فَقُولُوا مِثْلَ مَا يَقُولُ المُؤَذِّنُ",
+    "en": "repeat what the Muezzin says"
+   }
+  ],
+  "t2": [
+   {
+    "id": "k1",
+    "ar": "ثُمَّ صَلُّوا عَلَيَّ",
+    "en": "and then invoke Allah's blessings upon me"
+   },
+   {
+    "id": "k2",
+    "ar": "اللَّهُمَّ رَبَّ هَذِهِ الدَّعْوَةِ التَّامَّةِ، وَالصَّلاَةِ القَائِمَةِ، آتِ مُحَمَّدًا الوَسِيلَةَ وَالفَضِيلَةَ، وَابْعَثْهُ مَقَامًا مَحْمُودًا الَّذِي وَعَدْتَهُ",
+    "en": "O Allah, Lord of this perfect call and the prayer that is to be established, grant Muhammad Al-Wasīlah and Al-Fadīlah and resurrect him to the Praiseworthy Station that You have promised him"
+   }
+  ]
+ },
+ "eating": {
+  "t1": [
+   {
+    "id": "k1",
+    "ar": "سَمِّ اللهَ",
+    "en": "mention Allah's name"
+   },
+   {
+    "id": "k2",
+    "ar": "فَلْيَأْكُلْ بِيَمِينِهِ",
+    "en": "let him eat with his right hand"
+   }
+  ],
+  "t2": [
+   {
+    "id": "k1",
+    "ar": "الحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلاَ قُوَّةٍ",
+    "en": "Alhamdulillah al-ladhi at‘amani hadha wa razaqneih min ghayri hawl li wala quwwah (Praise be to Allah who fed me and provided me with this food through no might or power on my part)"
+   }
+  ]
+ },
+ "sneezing": {
+  "t1": [
+   {
+    "id": "k1",
+    "ar": "يَرْحَمُكَ الله",
+    "en": "'yarhamuk Allah' (may Allah have mercy on you)"
+   }
+  ],
+  "t2": [
+   {
+    "id": "k1",
+    "ar": "فَلْيَقُل: الحَمْدُ للهِ",
+    "en": "he should say 'alhamdu-lillāh' (praise be to Allah)"
+   },
+   {
+    "id": "k2",
+    "ar": "يَهْدِيكُم الله ويُصْلِحُ بَالَكُم",
+    "en": "'yahdīkum Allah wa yuslih bālakum!' (may Allah guide you and grant you well being)"
+   }
+  ]
+ },
+ "home": {
+  "t1": [
+   {
+    "id": "k1",
+    "ar": "فَذَكَرَ اللهَ عِنْدَ دُخُولِهِ",
+    "en": "When one mentions Allah's name upon entering his house"
+   }
+  ],
+  "t2": [
+   {
+    "id": "k1",
+    "ar": "وَعِنْدَ طَعَامِهِ",
+    "en": "and upon eating"
+   }
+  ]
+ },
+ "invitation": {
+  "t1": [
+   {
+    "id": "k1",
+    "ar": "فَلْيَأْتِهَا",
+    "en": "he should attend"
+   },
+   {
+    "id": "k2",
+    "ar": "وَإِجَابَةُ الدَّعْوَةِ",
+    "en": "accepting invitations"
+   }
+  ],
+  "t2": [
+   {
+    "id": "k1",
+    "ar": "سَمِّ اللهَ",
+    "en": "mention Allah's name"
+   },
+   {
+    "id": "k2",
+    "ar": "وَكُلْ مِمَّا يَلِيكَ",
+    "en": "and eat from what is nearer to you"
+   }
+  ]
+ },
+ "sick": {
+  "t1": [
+   {
+    "id": "k1",
+    "ar": "لا بأس؛ طَهُور إن شاء الله",
+    "en": "No harm, (it will be) purification (from sins) if Allah wills"
+   }
+  ],
+  "t2": [
+   {
+    "id": "k1",
+    "ar": "وَعِيَادَةُ الْمَرِيضِ",
+    "en": "visiting the sick"
+   }
+  ]
+ },
+ "condolence": {
+  "t1": [
+   {
+    "id": "k1",
+    "ar": "إنَّ لِلَّه ما أَخَذ ولَهُ ما أَعطَى، وكلُّ شَيءٍ عِنده بِأجَل مُسمَّى فَلتَصبِر ولتَحتَسِب",
+    "en": "To Allah belongs what He takes, and to Him belongs what He gives, and for everything He sets a specific term. So she should have patience and seek the reward from Allah"
+   }
+  ],
+  "t2": [
+   {
+    "id": "k1",
+    "ar": "إِنَّا لِلَّهِ وَإِنَّآ إِلَيۡهِ رَٰجِعُونَ",
+    "en": "Indeed we belong to Allāh, and indeed to Him we will return"
+   }
+  ]
+ },
+ "colleague": {
+  "t1": [
+   {
+    "id": "k1",
+    "ar": "الْإِسْلَامُ أَنْ تَشْهَدَ أَنْ لَا إِلَهَ إِلَّا اللهُ، وَأَنَّ مُحَمَّدًا رَسُولُ اللهِ، وَتُقِيمَ الصَّلَاةَ، وَتُؤْتِيَ الزَّكَاةَ، وَتَصُومَ رَمَضَانَ، وَتَحُجَّ الْبَيْتَ إِنِ اسْتَطَعْتَ إِلَيْهِ سَبِيلًا",
+    "en": "Islam is to testify that there is no god but Allah and that Muhammad is the Messenger of Allah, to establish prayer, to pay Zakah, to fast Ramadan, and to perform Hajj to the House if you are able to find a way thereto"
+   }
+  ],
+  "t2": [
+   {
+    "id": "k1",
+    "ar": "فَادْعُهُمْ إِلَى أَنْ يَشْهَدُوا أَنْ لَا إِلَهَ إِلَّا اللهُ، وَأَنَّ مُحَمَّدًا رَسُولُ اللهِ",
+    "en": "invite them to testify that none is worthy of worship except Allah and that Muhammad is the Messenger of Allah"
+   }
+  ]
+ },
+ "friday": {
+  "t1": [
+   {
+    "id": "k1",
+    "ar": "مَنْ ‌جَاءَ ‌مِنْكُمُ ‌الْجُمُعَةَ فَلْيَغْتَسِلْ",
+    "en": "Whoever of you comes to attend the Friday prayer, let him take a shower"
+   }
+  ],
+  "t2": [
+   {
+    "id": "k1",
+    "ar": "قم فاركع ركعتين",
+    "en": "Get up and pray two Rak‘ahs"
+   },
+   {
+    "id": "k2",
+    "ar": "فَاسْتَمَعَ وَأَنْصَتَ",
+    "en": "listens to it attentively and keeps silent"
+   }
+  ]
+ },
+ "fasting": {
+  "t1": [
+   {
+    "id": "k1",
+    "ar": "تَسَحَّرُوا، فَإِنَّ فِي السَّحُورِ بَرَكَةً",
+    "en": "Have Sahūr (pre-dawn meal) for, indeed, there is a blessing in Sahūr"
+   },
+   {
+    "id": "k2",
+    "ar": "مــن طلــوع الفجــر \nإلــى غــروبِ الشــمسِ",
+    "en": "from dawn to sunset"
+   }
+  ],
+  "t2": [
+   {
+    "id": "k1",
+    "ar": "مَنْ نَسِيَ وَهُوَ صَائِمٌ، فَأَكَلَ أَوْ شَرِبَ، فَلْيُتِمَّ صَوْمَهُ",
+    "en": "Whoever forgets while fasting and eats or drinks, let him complete his fast"
+   }
+  ]
+ }
+}

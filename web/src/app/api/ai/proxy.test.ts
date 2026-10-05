@@ -77,6 +77,12 @@ describe("the proxy to the AI service", () => {
     expect(seen).toEqual([]);
   });
 
+  it("forwards a Mawqif reply to the service's /mawqif/evaluate", async () => {
+    const seen = upstream(() => Response.json({ status: "evaluated" }));
+    await POST(ask({ reply: "salam" }), params("mawqif-evaluate"));
+    expect(seen[0]?.url).toBe("http://localhost:8000/mawqif/evaluate");
+  });
+
   it("says the service is unavailable when it cannot be reached", async () => {
     vi.stubGlobal("fetch", async () => {
       throw new TypeError("fetch failed");

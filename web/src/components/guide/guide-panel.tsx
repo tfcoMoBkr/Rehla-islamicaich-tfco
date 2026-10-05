@@ -9,6 +9,7 @@ import { Stamp } from "@/components/journey/stamp";
 import { StationMarker } from "@/components/journey/station";
 import { ChalkBoard } from "@/components/learn/board/chalk-board";
 import { Feedback } from "@/components/learn/feedback";
+import { SituationArt } from "@/components/mawqif/situation-art";
 import { RafiqFigure } from "@/components/rafiq/rafiq-figure";
 import { useReferralCentres } from "@/components/specialists/centres-context";
 import { Button } from "@/components/ui/button";
@@ -23,7 +24,7 @@ import { cn } from "@/lib/utils";
 const SequenceBuilder = dynamic(() => import("@/components/learn/interactions/sequence-builder").then((module) => module.SequenceBuilder));
 const QuestionCard = dynamic(() => import("@/components/learn/questions/question-card").then((module) => module.QuestionCard));
 
-const STEPS = ["road", "class", "hands", "question", "together"] as const;
+const STEPS = ["road", "class", "hands", "question", "situations", "together"] as const;
 type Step = (typeof STEPS)[number];
 
 /**
@@ -37,7 +38,9 @@ export function GuidePanel({ sample, focus }: { sample: TourSample; focus: boole
   const titleId = useId();
   const heading = useRef<HTMLHeadingElement>(null);
   const [index, setIndex] = useState(0);
-  const steps = STEPS.filter((step) => (step !== "hands" || sample.activity) && (step !== "question" || sample.question));
+  const steps = STEPS.filter(
+    (step) => (step !== "hands" || sample.activity) && (step !== "question" || sample.question) && (step !== "situations" || features.mawqif),
+  );
   const step = steps[index] ?? "road";
   const last = index === steps.length - 1;
 
@@ -160,6 +163,20 @@ function Preview({ step, sample }: { step: Step; sample: TourSample }) {
           <Stamp ringText={`${t("steps.question.title")} ·`} icon={Check} tone="oasis" rotate={-8} appear className="size-24 justify-self-center" />
         )}
       </div>
+    );
+  }
+  if (step === "situations") {
+    return (
+      <Frame className="grid-cols-[7rem_minmax(0,1fr)] items-center gap-4">
+        <span className="overflow-hidden rounded-2xl bg-sand">
+          <SituationArt art="greeting" />
+        </span>
+        <Button asChild size="sm" className="justify-self-start">
+          <Link href="/mawqif" onClick={closeGuide}>
+            {t("openMawqif")}
+          </Link>
+        </Button>
+      </Frame>
     );
   }
   const national = nationalChannels(centers)[0];

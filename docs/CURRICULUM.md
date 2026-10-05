@@ -42,6 +42,10 @@ Every lesson has the same six parts, so the learner always knows where they are:
 
 Under its title, every fiqh lesson (stations 2 and 3) shows a fixed line naming the books it follows, saying that scholars differ on some of its details, and linking to the matching sections of the fiqh encyclopedia on dorar.net (`content/fiqh-encyclopedia.json`).
 
+## Mawqif: practising what the lessons teach
+
+Mawqif («موقف», `/[locale]/mawqif`) sits beside the road, not on it: it is open at any point, and each situation names the lessons it draws on (for example the mosque with 3.7, the first Friday with 3.8, a colleague's question and the first day of fasting with 1.4). A learner who has done a lesson can practise its manners in an everyday situation; a learner who starts with Mawqif is pointed to those lessons in each summary and in the analysis of the final tests. The situations, and the source of every statement in them, are in `docs/MAWQIF_COVERAGE.md`.
+
 ## Question system
 
 | Level | When | Scored | Behaviour |

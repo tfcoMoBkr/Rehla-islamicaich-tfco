@@ -1,0 +1,296 @@
+{
+  "id": "mosque",
+  "order": 2,
+  "status": "published",
+  "reviewed": false,
+  "art": "mosque",
+  "title": {
+    "ar": "دخول المسجد والخروج منه",
+    "en": "Entering and leaving the mosque"
+  },
+  "scene": {
+    "ar": "تصل إلى المسجد قبل صلاة العصر بدقائق. عند الباب رجل كبير يرحّب بالمصلين، ويلاحظ أنك تتمهّل قليلًا قبل أن تدخل.",
+    "en": "You reach the mosque a few minutes before the 'Asr prayer. An older man at the door is welcoming people, and he notices you pause for a moment before going in."
+  },
+  "character": {
+    "ar": "أبو خالد، من رواد المسجد",
+    "en": "Abu Khalid, who prays at this mosque"
+  },
+  "learn": {
+    "say": [
+      {
+        "ref": "h65092",
+        "ar": "اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ",
+        "en": "'Allahumma iftah li abwāba rahmatik' (O Allah, open for me the gates of Your mercy)"
+      },
+      {
+        "ref": "h65092",
+        "ar": "اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ",
+        "en": "'Allahumma inni as’aluka min fadlik' (O Allah, I ask You of Your bounty)"
+      }
+    ],
+    "why": [
+      {
+        "ref": "b-mosque",
+        "ar": "والآداب الشرعية عند دخول المسجد، أو المنزل والخروج منهما",
+        "en": "observing the Islamic etiquettes when entering or leaving the mosque or home"
+      }
+    ],
+    "when": [
+      {
+        "ref": "h65092",
+        "ar": "إِذَا دَخَلَ أَحَدُكُمُ الْمَسْجِدَ فَلْيَقُلِ",
+        "en": "When any of you enters the mosque, let him say"
+      },
+      {
+        "ref": "h65092",
+        "ar": "وَإِذَا خَرَجَ فَلْيَقُلِ",
+        "en": "And when he leaves, let him say"
+      }
+    ]
+  },
+  "exchanges": [
+    {
+      "id": "t1",
+      "says": [
+        {
+          "text": {
+            "ar": "أهلًا بك! تفضّل بالدخول، الصلاة بعد قليل.",
+            "en": "Welcome! Do come in; the prayer is about to start."
+          }
+        }
+      ],
+      "keyPoints": [
+        {
+          "id": "k1",
+          "quote": {
+            "ref": "h65092",
+            "ar": "اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ",
+            "en": "'Allahumma iftah li abwāba rahmatik' (O Allah, open for me the gates of Your mercy)"
+          }
+        }
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "quality": "best",
+          "reply": [
+            {
+              "text": {
+                "ar": "شكرًا لك. (وتقول وأنت تدخل:)",
+                "en": "Thank you. (And as you go in, you say:)"
+              }
+            },
+            {
+              "quote": {
+                "ref": "h65092",
+                "ar": "اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ",
+                "en": "'Allahumma iftah li abwāba rahmatik' (O Allah, open for me the gates of Your mercy)"
+              }
+            }
+          ],
+          "meets": [
+            "k1"
+          ]
+        },
+        {
+          "id": "b",
+          "quality": "acceptable",
+          "reply": [
+            {
+              "text": {
+                "ar": "شكرًا لك. (وتدخل بهدوء.)",
+                "en": "Thank you. (And you go in quietly.)"
+              }
+            }
+          ],
+          "meets": []
+        },
+        {
+          "id": "c",
+          "quality": "avoid",
+          "reply": [
+            {
+              "text": {
+                "ar": "(تدخل مسرعًا وأنت تتحدث في الهاتف.)",
+                "en": "(You hurry in, still talking on the phone.)"
+              }
+            }
+          ],
+          "meets": []
+        }
+      ]
+    },
+    {
+      "id": "t2",
+      "says": [
+        {
+          "text": {
+            "ar": "(بعد الصلاة يلقاك أبو خالد عند الباب.) سعدت برؤيتك. هل أنت ذاهب؟",
+            "en": "(After the prayer, Abu Khalid meets you at the door.) It was good to see you. Are you leaving?"
+          }
+        }
+      ],
+      "keyPoints": [
+        {
+          "id": "k1",
+          "quote": {
+            "ref": "h65092",
+            "ar": "اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ",
+            "en": "'Allahumma inni as’aluka min fadlik' (O Allah, I ask You of Your bounty)"
+          }
+        }
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "quality": "best",
+          "reply": [
+            {
+              "text": {
+                "ar": "نعم، إلى اللقاء. (وتقول وأنت تخرج:)",
+                "en": "Yes, see you soon. (And as you step out, you say:)"
+              }
+            },
+            {
+              "quote": {
+                "ref": "h65092",
+                "ar": "اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ",
+                "en": "'Allahumma inni as’aluka min fadlik' (O Allah, I ask You of Your bounty)"
+              }
+            }
+          ],
+          "meets": [
+            "k1"
+          ]
+        },
+        {
+          "id": "b",
+          "quality": "acceptable",
+          "reply": [
+            {
+              "text": {
+                "ar": "نعم، شكرًا لترحيبك. إلى اللقاء.",
+                "en": "Yes, thank you for the welcome. See you soon."
+              }
+            }
+          ],
+          "meets": []
+        },
+        {
+          "id": "c",
+          "quality": "avoid",
+          "reply": [
+            {
+              "text": {
+                "ar": "(تخرج دون أن تردّ عليه.)",
+                "en": "(You walk out without answering him.)"
+              }
+            }
+          ],
+          "meets": []
+        }
+      ]
+    }
+  ],
+  "check": [
+    {
+      "id": "c1",
+      "prompt": {
+        "ar": "ماذا تقول حين تدخل المسجد؟",
+        "en": "What do you say as you enter the mosque?"
+      },
+      "options": [
+        {
+          "quote": {
+            "ref": "h65092",
+            "ar": "اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ",
+            "en": "'Allahumma iftah li abwāba rahmatik' (O Allah, open for me the gates of Your mercy)"
+          },
+          "correct": true
+        },
+        {
+          "text": {
+            "ar": "لا يُقال شيء عند الدخول",
+            "en": "Nothing is said on entering"
+          },
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "prompt": {
+        "ar": "ماذا تقول حين تخرج من المسجد؟",
+        "en": "What do you say as you leave the mosque?"
+      },
+      "options": [
+        {
+          "quote": {
+            "ref": "h65092",
+            "ar": "اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ",
+            "en": "'Allahumma inni as’aluka min fadlik' (O Allah, I ask You of Your bounty)"
+          },
+          "correct": true
+        },
+        {
+          "text": {
+            "ar": "الكلمات نفسها التي تقولها عند الدخول",
+            "en": "The same words you say on entering"
+          },
+          "correct": false
+        }
+      ]
+    }
+  ],
+  "relatedLessons": [
+    "3.7"
+  ],
+  "sources": [
+    {
+      "key": "ibnbaz-lessons",
+      "title": {
+        "ar": "الدروس المهمة لعامة الأمة",
+        "en": "Important Lessons for the General Ummah"
+      },
+      "publisher": "IslamHouse.com",
+      "url": {
+        "ar": "https://islamhouse.com/ar/books/1871/",
+        "en": "https://islamhouse.com/en/books/2842316/"
+      },
+      "use": "Shown verbatim by reference (textRef)."
+    }
+  ],
+  "items": [
+    {
+      "id": "h65092",
+      "type": "hadith",
+      "hadeethencId": 65092,
+      "citation": "رواه مسلم",
+      "availableIn": [
+        "ar",
+        "en"
+      ],
+      "publisher": "hadeethenc.com"
+    },
+    {
+      "id": "b-mosque",
+      "type": "book",
+      "source": "ibnbaz-lessons",
+      "textRef": {
+        "ar": {
+          "book": "1871",
+          "section": "t20",
+          "paragraph": 1,
+          "excerpt": "والآداب الشرعية عند دخول المسجد، أو المنزل والخروج منهما"
+        },
+        "en": {
+          "book": "2842316",
+          "section": "s19",
+          "paragraph": 1,
+          "excerpt": "observing the Islamic etiquettes when entering or leaving the mosque or home"
+        }
+      }
+    }
+  ]
+}

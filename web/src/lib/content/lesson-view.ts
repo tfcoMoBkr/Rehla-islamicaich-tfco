@@ -190,7 +190,7 @@ export function mediaView(media: readonly Media[] | undefined, locale: Locale, s
   });
 }
 
-async function evidenceView(evidence: Evidence, locale: Locale): Promise<EvidenceView> {
+export async function evidenceView(evidence: Evidence, locale: Locale): Promise<EvidenceView> {
   if (evidence.type === "hadith") {
     const fetched =
       evidence.hadeethencId && evidence.availableIn.includes(locale) ? await readFetchedHadith(evidence.hadeethencId) : null;

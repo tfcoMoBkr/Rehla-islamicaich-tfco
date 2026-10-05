@@ -1,9 +1,10 @@
 """Prepares ai/data/ so the service reads nothing outside ai/ at runtime.
 
 On Vercel the project root is ai/, so only what lies under it is bundled. This script copies the
-two content files the service reads while running (the surah names that label verse blocks, and
-the ids of the referral bodies) from ../content into ai/data/index/, and checks that the index
-built by `app.ingest` (committed) is complete. It needs no model and no network.
+content the service reads while running (the surah names that label verse blocks, the ids of the
+referral bodies, and the key points of each Mawqif turn) from ../content into ai/data/index/,
+and checks that the index built by `app.ingest` (committed) is complete. It needs no model and no
+network.
 
 Run it locally with `uv run python -m app.prepare`; Vercel runs it as the build step
 (`[tool.vercel.scripts] build` in pyproject.toml). It stops with a clear message if a file
@@ -20,6 +21,7 @@ CONTENT = REPOSITORY_ROOT / "content"
 INDEX = AI_ROOT / "data" / "index"
 SURAHS_FILE = "surahs.json"
 REFERRALS_FILE = "referral-centers.json"
+MAWQIF_FILE = "mawqif-turns.json"
 # Built by `uv run python -m app.ingest` (it embeds text) and committed with the code.
 INDEX_FILES = ("chunks.jsonl", "vectors.npy", "meta.json")
 
@@ -59,6 +61,24 @@ def copy_referral_ids(content: Path, index_dir: Path) -> None:
     _write(index_dir / REFERRALS_FILE, {"ids": ids})
 
 
+def copy_mawqif_turns(content: Path, index_dir: Path) -> None:
+    """Each Mawqif turn's key points, in both languages, for judging a written reply. Only the
+    quoted words the learner is asked to cover, never a whole source."""
+    turns: dict[str, dict[str, list[dict[str, str]]]] = {}
+    for path in sorted((content / "situations").glob("*.json")):
+        situation = _read(path)
+        if situation.get("status") != "published":
+            continue
+        turns[situation["id"]] = {
+            exchange["id"]: [
+                {"id": point["id"], "ar": point["quote"]["ar"], "en": point["quote"]["en"]}
+                for point in exchange["keyPoints"]
+            ]
+            for exchange in situation["exchanges"]
+        }
+    _write(index_dir / MAWQIF_FILE, turns)
+
+
 def check_index(index_dir: Path) -> None:
     missing = [name for name in INDEX_FILES if not (index_dir / name).is_file()]
     if missing:
@@ -71,6 +91,7 @@ def check_index(index_dir: Path) -> None:
 def prepare(content: Path = CONTENT, index_dir: Path = INDEX) -> list[str]:
     copy_surah_names(content, index_dir)
     copy_referral_ids(content, index_dir)
+    copy_mawqif_turns(content, index_dir)
     check_index(index_dir)
     return sorted(path.name for path in index_dir.iterdir() if path.is_file())
 

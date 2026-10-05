@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Fetches the Quran verses (with the recitation timings of their surahs) and hadiths that lesson files reference into
+// Fetches the Quran verses (with the recitation timings of their surahs) and hadiths that lesson and situation files reference into
 // content/fetched/, verbatim, with source URL, date and version, and the lesson source books from IslamHouse
 // (scripts/islamhouse.mjs). Nothing here is typed by hand: the web app only ever shows what this script saved.
 //
@@ -24,6 +24,7 @@ try {
   process.loadEnvFile(path.join(root, ".env"));
 } catch {}
 const lessonsDir = path.join(root, "content", "lessons");
+const situationsDir = path.join(root, "content", "situations");
 const fetchedDir = path.join(root, "content", "fetched");
 const refresh = process.argv.includes("--refresh");
 
@@ -339,9 +340,18 @@ async function fetchSurahNames() {
   return 1;
 }
 
+async function situationFiles() {
+  if (!(await exists(situationsDir))) return [];
+  return (await readdir(situationsDir)).filter((name) => name.endsWith(".json")).map((name) => path.join(situationsDir, name));
+}
+
 async function fetchLessonContent() {
   const found = { ayahs: new Set(), hadiths: new Map(), recitations: new Set(), tafsir: new Set() };
   for (const file of await lessonFiles(lessonsDir)) {
+    collectReferences(JSON.parse(await readFile(file, "utf8")), found);
+  }
+  // Mawqif situations cite verses and hadiths the same way (content/situations/*.json).
+  for (const file of await situationFiles()) {
     collectReferences(JSON.parse(await readFile(file, "utf8")), found);
   }
   // Every verse shown in a lesson can be heard in a real recitation, so fetch timings for each surah cited.

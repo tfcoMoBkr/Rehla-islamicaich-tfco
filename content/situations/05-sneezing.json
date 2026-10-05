@@ -1,0 +1,338 @@
+{
+  "id": "sneezing",
+  "order": 5,
+  "status": "published",
+  "reviewed": false,
+  "art": "sneezing",
+  "title": {
+    "ar": "حين يعطس أحد",
+    "en": "When someone sneezes"
+  },
+  "scene": {
+    "ar": "في اجتماع صباحي يعطس زميلك المسلم ويقول شيئًا بصوت منخفض. وبعد قليل تعطس أنت أيضًا.",
+    "en": "In a morning meeting, your Muslim colleague sneezes and says something quietly. A little later, you sneeze too."
+  },
+  "character": {
+    "ar": "عمر، زميلك",
+    "en": "Omar, a colleague"
+  },
+  "learn": {
+    "say": [
+      {
+        "ref": "h3433",
+        "ar": "فَلْيَقُل: الحَمْدُ للهِ",
+        "en": "he should say 'alhamdu-lillāh' (praise be to Allah)"
+      },
+      {
+        "ref": "h3433",
+        "ar": "يَرْحَمُكَ الله",
+        "en": "'yarhamuk Allah' (may Allah have mercy on you)"
+      },
+      {
+        "ref": "h3433",
+        "ar": "يَهْدِيكُم الله ويُصْلِحُ بَالَكُم",
+        "en": "'yahdīkum Allah wa yuslih bālakum!' (may Allah guide you and grant you well being)"
+      }
+    ],
+    "why": [
+      {
+        "ref": "h3706",
+        "ar": "وَتَشْمِيتُ الْعَاطِسِ",
+        "en": "saying tashmīt (yarhamuk Allah) (may Allah show mercy to you) to the person who sneezes"
+      }
+    ],
+    "when": [
+      {
+        "ref": "b-sneezing",
+        "ar": "وتشميت العاطس إذا حمد الله",
+        "en": "responding to the sneezer if they praise Allah"
+      }
+    ]
+  },
+  "exchanges": [
+    {
+      "id": "t1",
+      "says": [
+        {
+          "text": {
+            "ar": "(يعطس عمر ويقول:)",
+            "en": "(Omar sneezes and says:)"
+          }
+        },
+        {
+          "quote": {
+            "ref": "h3433",
+            "ar": "الحَمْدُ للهِ",
+            "en": "alhamdu-lillāh"
+          }
+        }
+      ],
+      "keyPoints": [
+        {
+          "id": "k1",
+          "quote": {
+            "ref": "h3433",
+            "ar": "يَرْحَمُكَ الله",
+            "en": "'yarhamuk Allah' (may Allah have mercy on you)"
+          }
+        }
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "quality": "best",
+          "reply": [
+            {
+              "quote": {
+                "ref": "h3433",
+                "ar": "يَرْحَمُكَ الله",
+                "en": "'yarhamuk Allah' (may Allah have mercy on you)"
+              }
+            }
+          ],
+          "meets": [
+            "k1"
+          ]
+        },
+        {
+          "id": "b",
+          "quality": "acceptable",
+          "reply": [
+            {
+              "text": {
+                "ar": "(تبتسم له.)",
+                "en": "(You smile at him.)"
+              }
+            }
+          ],
+          "meets": []
+        },
+        {
+          "id": "c",
+          "quality": "avoid",
+          "reply": [
+            {
+              "text": {
+                "ar": "(تتجاهله وتتابع العرض.)",
+                "en": "(You ignore it and carry on with the slides.)"
+              }
+            }
+          ],
+          "meets": []
+        }
+      ]
+    },
+    {
+      "id": "t2",
+      "says": [
+        {
+          "text": {
+            "ar": "(تعطس أنت. فيلتفت إليك عمر.)",
+            "en": "(Now you sneeze. Omar turns to you.)"
+          }
+        }
+      ],
+      "keyPoints": [
+        {
+          "id": "k1",
+          "quote": {
+            "ref": "h3433",
+            "ar": "فَلْيَقُل: الحَمْدُ للهِ",
+            "en": "he should say 'alhamdu-lillāh' (praise be to Allah)"
+          }
+        },
+        {
+          "id": "k2",
+          "quote": {
+            "ref": "h3433",
+            "ar": "يَهْدِيكُم الله ويُصْلِحُ بَالَكُم",
+            "en": "'yahdīkum Allah wa yuslih bālakum!' (may Allah guide you and grant you well being)"
+          }
+        }
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "quality": "best",
+          "reply": [
+            {
+              "quote": {
+                "ref": "h3433",
+                "ar": "الحَمْدُ للهِ",
+                "en": "alhamdu-lillāh"
+              }
+            },
+            {
+              "text": {
+                "ar": "(فيقول لك:)",
+                "en": "(He says to you:)"
+              }
+            },
+            {
+              "quote": {
+                "ref": "h3433",
+                "ar": "يَرْحَمُكَ الله",
+                "en": "'yarhamuk Allah' (may Allah have mercy on you)"
+              }
+            },
+            {
+              "text": {
+                "ar": "(فتجيبه:)",
+                "en": "(and you answer:)"
+              }
+            },
+            {
+              "quote": {
+                "ref": "h3433",
+                "ar": "يَهْدِيكُم الله ويُصْلِحُ بَالَكُم",
+                "en": "'yahdīkum Allah wa yuslih bālakum!' (may Allah guide you and grant you well being)"
+              }
+            }
+          ],
+          "meets": [
+            "k1",
+            "k2"
+          ]
+        },
+        {
+          "id": "b",
+          "quality": "acceptable",
+          "reply": [
+            {
+              "quote": {
+                "ref": "h3433",
+                "ar": "الحَمْدُ للهِ",
+                "en": "alhamdu-lillāh"
+              }
+            }
+          ],
+          "meets": [
+            "k1"
+          ]
+        },
+        {
+          "id": "c",
+          "quality": "avoid",
+          "reply": [
+            {
+              "text": {
+                "ar": "عذرًا. (وتكمل.)",
+                "en": "Sorry. (And you carry on.)"
+              }
+            }
+          ],
+          "meets": []
+        }
+      ]
+    }
+  ],
+  "check": [
+    {
+      "id": "c1",
+      "prompt": {
+        "ar": "ماذا يقول من عطس؟",
+        "en": "What does someone who sneezes say?"
+      },
+      "options": [
+        {
+          "quote": {
+            "ref": "h3433",
+            "ar": "فَلْيَقُل: الحَمْدُ للهِ",
+            "en": "he should say 'alhamdu-lillāh' (praise be to Allah)"
+          },
+          "correct": true
+        },
+        {
+          "text": {
+            "ar": "يعتذر فقط",
+            "en": "Only “sorry”"
+          },
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "prompt": {
+        "ar": "عطستَ فحمدتَ الله، فأجابك من سمعك. بماذا ترد عليه؟",
+        "en": "You sneezed and praised Allah, and someone who heard you answered you. How do you reply?"
+      },
+      "options": [
+        {
+          "quote": {
+            "ref": "h3433",
+            "ar": "يَهْدِيكُم الله ويُصْلِحُ بَالَكُم",
+            "en": "'yahdīkum Allah wa yuslih bālakum!' (may Allah guide you and grant you well being)"
+          },
+          "correct": true
+        },
+        {
+          "text": {
+            "ar": "لا يحتاج إلى جواب",
+            "en": "It needs no answer"
+          },
+          "correct": false
+        }
+      ]
+    }
+  ],
+  "relatedLessons": [],
+  "sources": [
+    {
+      "key": "ibnbaz-lessons",
+      "title": {
+        "ar": "الدروس المهمة لعامة الأمة",
+        "en": "Important Lessons for the General Ummah"
+      },
+      "publisher": "IslamHouse.com",
+      "url": {
+        "ar": "https://islamhouse.com/ar/books/1871/",
+        "en": "https://islamhouse.com/en/books/2842316/"
+      },
+      "use": "Shown verbatim by reference (textRef)."
+    }
+  ],
+  "items": [
+    {
+      "id": "h3433",
+      "type": "hadith",
+      "hadeethencId": 3433,
+      "citation": "رواه البخاري",
+      "availableIn": [
+        "ar",
+        "en"
+      ],
+      "publisher": "hadeethenc.com"
+    },
+    {
+      "id": "h3706",
+      "type": "hadith",
+      "hadeethencId": 3706,
+      "citation": "متفق عليه",
+      "availableIn": [
+        "ar",
+        "en"
+      ],
+      "publisher": "hadeethenc.com"
+    },
+    {
+      "id": "b-sneezing",
+      "type": "book",
+      "source": "ibnbaz-lessons",
+      "textRef": {
+        "ar": {
+          "book": "1871",
+          "section": "t20",
+          "paragraph": 1,
+          "excerpt": "والحمد بعد العطاس، وتشميت العاطس إذا حمد الله"
+        },
+        "en": {
+          "book": "2842316",
+          "section": "s19",
+          "paragraph": 1,
+          "excerpt": "praising Allah (saying Alhamdulillāh) after sneezing, responding to the sneezer if they praise Allah"
+        }
+      }
+    }
+  ]
+}

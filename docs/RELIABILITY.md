@@ -227,6 +227,10 @@ The ruling guard of a fatwa or a personal case does not apply to warm lines: the
 
 In Urdu, Bengali and French the model writes no warm lines. The page shows fixed lines from `web/messages/answer-languages.json`, marked for native review.
 
+## Mawqif: written replies
+
+A reply the learner writes in a Mawqif role-play is judged against that turn's key points only (`ai/app/mawqif/evaluate.py`). The model writes no religious content: it returns key point ids, a tone, two flags and at most one encouraging sentence. The page builds the feedback from fixed strings and the quoted sources of the missing points. The encouraging sentence passes the same warm-line checks as Rafiq's openings (code, then the model check); otherwise it is dropped. Signs of danger are caught in code before any model is asked; distress gets the specialist card; a religious question is not judged and is offered to Rafiq, where every check applies.
+
 ## Lens: the decision table
 
 Lens (`ai/app/lens/`) answers when it should, declines when it should, and never guesses. The vision model only reports what it sees; `decide.py` applies this table in code, and `ai/tests/test_lens.py` has one test per row. EXPLAIN is never called for rows 7 to 11.

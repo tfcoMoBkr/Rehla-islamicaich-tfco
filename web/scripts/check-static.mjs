@@ -10,7 +10,7 @@ import nextEnv from "@next/env";
 const web = path.resolve(import.meta.dirname, "..");
 const content = path.resolve(web, "..", "content");
 const LOCALES = ["ar", "en"];
-const PAGES = ["", "/learn", "/learn/journal", "/practice", "/rafiq", "/sources", "/talk-to-a-specialist", "/privacy", "/lens"];
+const PAGES = ["", "/learn", "/learn/journal", "/practice", "/rafiq", "/sources", "/talk-to-a-specialist", "/privacy", "/lens", "/mawqif"];
 const ACCOUNT_PAGES = ["/account", "/account/sign-in", "/account/sign-up"];
 
 // The same variables `next build` saw: the account pages exist only when Supabase is configured (src/config/accounts.ts).
@@ -36,6 +36,15 @@ async function lessonPaths() {
   ];
 }
 
+/** Each Mawqif situation, and its tests: one after every four situations, and one for the section (situation-view.ts). */
+async function mawqifPaths() {
+  const files = (await readdir(path.join(content, "situations"))).filter((file) => file.endsWith(".json"));
+  const situations = await Promise.all(files.map(async (file) => JSON.parse(await readFile(path.join(content, "situations", file), "utf8"))));
+  const published = situations.filter((situation) => situation.status === "published");
+  const groups = Array.from({ length: Math.ceil(published.length / 4) }, (_, index) => String(index + 1));
+  return [...published.map((situation) => `/mawqif/${situation.id}`), ...[...groups, "all"].map((group) => `/mawqif/test/${group}`)];
+}
+
 /** The drawings, poses and images, served as static files so nothing in content/ is read at runtime. */
 async function assetPaths() {
   const read = async (relative) => JSON.parse(await readFile(path.join(content, relative), "utf8"));
@@ -49,7 +58,7 @@ async function assetPaths() {
 
 const manifest = JSON.parse(await readFile(path.join(web, ".next", "prerender-manifest.json"), "utf8"));
 const prerendered = new Set(Object.keys(manifest.routes));
-const pages = [...PAGES, ...(accountsEnabled ? ACCOUNT_PAGES : []), ...(await lessonPaths())];
+const pages = [...PAGES, ...(accountsEnabled ? ACCOUNT_PAGES : []), ...(await lessonPaths()), ...(await mawqifPaths())];
 const expected = LOCALES.flatMap((locale) => pages.map((page) => `/${locale}${page}`));
 const assets = await assetPaths();
 const missing = [...expected, ...assets].filter((route) => !prerendered.has(route));

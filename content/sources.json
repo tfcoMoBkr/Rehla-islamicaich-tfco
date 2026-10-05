@@ -11,8 +11,8 @@
       "url": "https://quranenc.com",
       "alsoAt": [],
       "usedFor": {
-        "ar": "آيات القرآن الكريم التي تستشهد بها بطاقات الدروس، وآيات نشاط «آية آية»: تُجلب بمراجعها كما هي ولا تُكتب يدويًا. تُعرض الآية بنصها العربي، ومعها في الواجهة الإنجليزية ترجمة مركز نور الدولي (english_saheeh). ويعرض رفيق كل آية بنصها العربي مع ترجمة منشورة واحدة بلغة الجواب، باسمها ورقم إصدارها: english_saheeh (ترجمة مركز نور الدولي الإنجليزية، 1.1.2)، وurdu_junagarhi (الترجمة الأردية لمحمد جوناكري، 1.1.3)، وfrench_montada (ترجمة مركز نور الدولي الفرنسية، 1.0.0)، اختيرت عبر list_quran_translations في 2026-10-04. ولا يدرج الموقع ترجمة بنغالية، فتُعرض الآية في الجواب البنغالي بالترجمة الإنجليزية مع التنبيه على ذلك.",
-        "en": "The Quran verses cited by lesson cards and the verses of the \"Ayah by ayah\" activity, fetched by reference and never typed. Each verse is shown in Arabic, with the Noor International Center translation (english_saheeh) in the English interface. Rafiq shows every verse in Arabic with one published translation in the answer's language, with its name and version: english_saheeh (English Translation - Noor International Center, 1.1.2), urdu_junagarhi (Urdu Translation - Muhammad Junagarhi, 1.1.3) and french_montada (French translation - Noor International Center, 1.0.0), chosen with list_quran_translations on 2026-10-04. QuranEnc lists no Bengali translation, so a verse in a Bengali answer shows the English one, labelled as such."
+        "ar": "آيات القرآن الكريم التي تستشهد بها بطاقات الدروس، وآيات نشاط «آية آية»: تُجلب بمراجعها كما هي ولا تُكتب يدويًا. تُعرض الآية بنصها العربي، ومعها في الواجهة الإنجليزية ترجمة مركز نور الدولي (english_saheeh). ويعرض رفيق كل آية بنصها العربي مع ترجمة منشورة واحدة بلغة الجواب، باسمها ورقم إصدارها: english_saheeh (ترجمة مركز نور الدولي الإنجليزية، 1.1.2)، وurdu_junagarhi (الترجمة الأردية لمحمد جوناكري، 1.1.3)، وfrench_montada (ترجمة مركز نور الدولي الفرنسية، 1.0.0)، اختيرت عبر list_quran_translations في 2026-10-04. ولا يدرج الموقع ترجمة بنغالية، فتُعرض الآية في الجواب البنغالي بالترجمة الإنجليزية مع التنبيه على ذلك. وفي «موقف» تُقتبس كلمات من آيتين (2:156 و4:86) بنصها، وتُعرض الآية كاملة عند الطلب.",
+        "en": "The Quran verses cited by lesson cards and the verses of the \"Ayah by ayah\" activity, fetched by reference and never typed. Each verse is shown in Arabic, with the Noor International Center translation (english_saheeh) in the English interface. Rafiq shows every verse in Arabic with one published translation in the answer's language, with its name and version: english_saheeh (English Translation - Noor International Center, 1.1.2), urdu_junagarhi (Urdu Translation - Muhammad Junagarhi, 1.1.3) and french_montada (French translation - Noor International Center, 1.0.0), chosen with list_quran_translations on 2026-10-04. QuranEnc lists no Bengali translation, so a verse in a Bengali answer shows the English one, labelled as such. In Mawqif, words of two verses (2:156, 4:86) are quoted exactly, and the whole verse is shown on request."
       },
       "licence": {
         "ar": "شروط QuranEnc.com المنشورة (صفحتا «حول المشروع» و«خدمات المطورين»، رُوجعت في 2026-10-04): يتاح تنزيل محتوى الترجمات وإعادة نشره، بالشروط والضوابط التالية: 1. عدم التعديل أو الإضافة أو الحذف على المحتوى. 2. الإشارة بوضوح للناشر وللمصدر (QuranEnc.com). 3. ذكر رقم الإصدار عند إعادة نشر الترجمة. 4. إبقاء معلومات نسخة الترجمة الموجودة داخل المستند. 5. إفادة المصدر (QuranEnc.com) بأي ملاحظة على الترجمة. 6. تطوير الترجمات وفق النسخ الجديدة الصادرة من المصدر (QuranEnc.com). 7. عدم تضمين إعلانات لا تليق بترجمات معاني القرآن الكريم عند العرض. وتُعرض النصوص في رحلة دون تعديل، ويُذكر تحت كل آية اسم الترجمة ورقم إصدارها، أو أن QuranEnc لا ينشر لها رقم إصدار، ولا إعلانات في المنصة.",
@@ -53,8 +53,8 @@
       "url": "https://hadeethenc.com",
       "alsoAt": [],
       "usedFor": {
-        "ar": "الأحاديث التي تستشهد بها بطاقات الدروس، مع درجتها وتخريجها وشرحها: تُجلب برقمها كما هي. يُعرض الحديث بلغة المتعلم إن وُجدت له نسخة بها، وإلا اكتُفي بذكر مرجعه. وفي مدونة رفيق فهرس بعناوين الأحاديث وتصنيفاتها فقط، بلا نصوص. ويعرض رفيق الحديث بنصه العربي مع ترجمته المنشورة بلغة الجواب (العربية أو الإنجليزية أو الأردية أو البنغالية أو الفرنسية)، ومعه في الأجوبة الأردية والبنغالية والفرنسية شرحُ الموسوعة نفسها؛ وإن لم تكن للحديث نسخة بتلك اللغة عُرض بنسخته الإنجليزية مع التنبيه على ذلك.",
-        "en": "The hadiths cited by lesson cards, with their grade, attribution and explanation, fetched verbatim by ID. A hadith is shown in the learner's language when the source has a version in it; otherwise only its reference is given. Rafiq's corpus also keeps a catalogue of hadith and category titles only, without texts. Rafiq shows a hadith in Arabic with its published translation in the answer's language (Arabic, English, Urdu, Bengali or French) and, in Urdu, Bengali and French answers, HadeethEnc's own explanation; a hadith with no version in that language is shown with its English one, labelled as such."
+        "ar": "الأحاديث التي تستشهد بها بطاقات الدروس، مع درجتها وتخريجها وشرحها: تُجلب برقمها كما هي. يُعرض الحديث بلغة المتعلم إن وُجدت له نسخة بها، وإلا اكتُفي بذكر مرجعه. وفي مدونة رفيق فهرس بعناوين الأحاديث وتصنيفاتها فقط، بلا نصوص. ويعرض رفيق الحديث بنصه العربي مع ترجمته المنشورة بلغة الجواب (العربية أو الإنجليزية أو الأردية أو البنغالية أو الفرنسية)، ومعه في الأجوبة الأردية والبنغالية والفرنسية شرحُ الموسوعة نفسها؛ وإن لم تكن للحديث نسخة بتلك اللغة عُرض بنسخته الإنجليزية مع التنبيه على ذلك. وفي «موقف» تُقتبس كلمات كل موقف وأسبابه وأوقاته من الأحاديث بنصها، مع تخريجها ودرجتها، ويُعرض الحديث كاملًا عند الطلب.",
+        "en": "The hadiths cited by lesson cards, with their grade, attribution and explanation, fetched verbatim by ID. A hadith is shown in the learner's language when the source has a version in it; otherwise only its reference is given. Rafiq's corpus also keeps a catalogue of hadith and category titles only, without texts. Rafiq shows a hadith in Arabic with its published translation in the answer's language (Arabic, English, Urdu, Bengali or French) and, in Urdu, Bengali and French answers, HadeethEnc's own explanation; a hadith with no version in that language is shown with its English one, labelled as such. In Mawqif, each situation's words, reasons and times are quoted exactly from hadiths, with their attribution and grade, and the whole hadith is shown on request."
       },
       "licence": {
         "ar": "لا تنشر HadeethEnc.com شروطًا لإعادة الاستخدام غير ما في صفحة «حول الموسوعة» (رُوجعت في 2026-10-04) من أنها تتيح ترجماتها «مجاناً بكل الوسائل المتاحة». وتنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره، ويُعرض كل حديث بدرجته وتخريجه ورابطه وتاريخ جلبه.",
@@ -74,8 +74,8 @@
       "url": "https://islamhouse.com/ar/books/1871/",
       "alsoAt": [],
       "usedFor": {
-        "ar": "نص مرجعي للفريق الذي يكتب دروس «خطوات»: الكتاب بالعربية محفوظًا بنصه كما نُشر، قسمًا قسمًا. تقتبس بطاقات الدروس نصه حرفيًّا بالإحالة إليه (الكتاب والقسم والفقرة ومقتطف مطابق يتحقق منه اختبار آلي).",
-        "en": "Reference text for the team writing the Khutuwat lessons: the Arabic book, kept word for word as published, section by section. Lesson cards quote it verbatim by reference (book, section, paragraph and an exact excerpt, checked by a test)."
+        "ar": "نص مرجعي للفريق الذي يكتب دروس «خطوات»: الكتاب بالعربية محفوظًا بنصه كما نُشر، قسمًا قسمًا. تقتبس بطاقات الدروس نصه حرفيًّا بالإحالة إليه (الكتاب والقسم والفقرة ومقتطف مطابق يتحقق منه اختبار آلي). وفي «موقف» تُقتبس عبارات من درس الآداب الإسلامية بنصها.",
+        "en": "Reference text for the team writing the Khutuwat lessons: the Arabic book, kept word for word as published, section by section. Lesson cards quote it verbatim by reference (book, section, paragraph and an exact excerpt, checked by a test). In Mawqif, phrases of its lesson on Islamic manners are quoted exactly."
       },
       "licence": {
         "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره. الناشر: مؤسسة الشيخ عبد العزيز بن باز الخيرية. للاستخدام غير الربحي فقط.",
@@ -95,8 +95,8 @@
       "url": "https://islamhouse.com/en/books/2842316/",
       "alsoAt": [],
       "usedFor": {
-        "ar": "نص مرجعي للفريق الذي يكتب دروس «خطوات»: الترجمة الإنجليزية كما استُخرجت من ملف PDF، درسًا درسًا. الاقتباسات العربية في الملف لا تُستخرج بترتيب حروفها، فلا تُستعمل. تقتبس بطاقات الدروس نصه حرفيًّا بالإحالة إليه (الكتاب والقسم والفقرة ومقتطف مطابق يتحقق منه اختبار آلي).",
-        "en": "Reference text for the team writing the Khutuwat lessons: the English translation as extracted from its PDF, lesson by lesson. Arabic quotations in the PDF do not extract in letter order and are not used. Lesson cards quote it verbatim by reference (book, section, paragraph and an exact excerpt, checked by a test)."
+        "ar": "نص مرجعي للفريق الذي يكتب دروس «خطوات»: الترجمة الإنجليزية كما استُخرجت من ملف PDF، درسًا درسًا. الاقتباسات العربية في الملف لا تُستخرج بترتيب حروفها، فلا تُستعمل. تقتبس بطاقات الدروس نصه حرفيًّا بالإحالة إليه (الكتاب والقسم والفقرة ومقتطف مطابق يتحقق منه اختبار آلي). وفي «موقف» تُقتبس عبارات من درس الآداب الإسلامية بنصها.",
+        "en": "Reference text for the team writing the Khutuwat lessons: the English translation as extracted from its PDF, lesson by lesson. Arabic quotations in the PDF do not extract in letter order and are not used. Lesson cards quote it verbatim by reference (book, section, paragraph and an exact excerpt, checked by a test). In Mawqif, phrases of its lesson on Islamic manners are quoted exactly."
       },
       "licence": {
         "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره. ناشر الترجمة موقع risala.prh.gov.sa. للاستخدام غير الربحي فقط.",
@@ -207,8 +207,8 @@
       "url": "https://byenah.com/en/muslim-content/4784",
       "alsoAt": [],
       "usedFor": {
-        "ar": "نص مرجعي لإجابات رفيق (بالإنجليزية): الكتاب كما نُشر، قسمًا قسمًا، محفوظًا في مدونة رفيق. تقتبس بطاقات الدروس نصه حرفيًّا بالإحالة إليه (الكتاب والقسم والفقرة ومقتطف مطابق يتحقق منه اختبار آلي).",
-        "en": "Reference text for Rafiq's answers (English): the book as published, section by section, kept in Rafiq's corpus. Lesson cards quote it verbatim by reference (book, section, paragraph and an exact excerpt, checked by a test)."
+        "ar": "نص مرجعي لإجابات رفيق (بالإنجليزية): الكتاب كما نُشر، قسمًا قسمًا، محفوظًا في مدونة رفيق. تقتبس بطاقات الدروس نصه حرفيًّا بالإحالة إليه (الكتاب والقسم والفقرة ومقتطف مطابق يتحقق منه اختبار آلي). وفي «موقف» يُقتبس تعريف صوم رمضان بنصه.",
+        "en": "Reference text for Rafiq's answers (English): the book as published, section by section, kept in Rafiq's corpus. Lesson cards quote it verbatim by reference (book, section, paragraph and an exact excerpt, checked by a test). In Mawqif, its definition of fasting Ramadan is quoted exactly."
       },
       "licence": {
         "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره.",
@@ -228,8 +228,8 @@
       "url": "https://islamhouse.com/ar/books/2831443/",
       "alsoAt": [],
       "usedFor": {
-        "ar": "نص مرجعي لإجابات رفيق (بالعربية): الكتاب كما نُشر، قسمًا قسمًا، محفوظًا في مدونة رفيق. الآيات فيه مرسومة بخط لا يُستخرج نصًّا، فتُؤخذ الآيات من مصدرها. تقتبس بطاقات الدروس نصه حرفيًّا بالإحالة إليه (الكتاب والقسم والفقرة ومقتطف مطابق يتحقق منه اختبار آلي).",
-        "en": "Reference text for Rafiq's answers (Arabic): the book as published, section by section, kept in Rafiq's corpus. Its verses are set in a glyph font that does not extract as text, so verses are taken from their own source. Lesson cards quote it verbatim by reference (book, section, paragraph and an exact excerpt, checked by a test)."
+        "ar": "نص مرجعي لإجابات رفيق (بالعربية): الكتاب كما نُشر، قسمًا قسمًا، محفوظًا في مدونة رفيق. الآيات فيه مرسومة بخط لا يُستخرج نصًّا، فتُؤخذ الآيات من مصدرها. تقتبس بطاقات الدروس نصه حرفيًّا بالإحالة إليه (الكتاب والقسم والفقرة ومقتطف مطابق يتحقق منه اختبار آلي). وفي «موقف» يُقتبس تعريف صوم رمضان بنصه.",
+        "en": "Reference text for Rafiq's answers (Arabic): the book as published, section by section, kept in Rafiq's corpus. Its verses are set in a glyph font that does not extract as text, so verses are taken from their own source. Lesson cards quote it verbatim by reference (book, section, paragraph and an exact excerpt, checked by a test). In Mawqif, its definition of fasting Ramadan is quoted exactly."
       },
       "licence": {
         "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره. للاستخدام غير الربحي فقط.",
@@ -290,8 +290,8 @@
       "url": "https://mcp.islamiccontent.org/mcp",
       "alsoAt": [],
       "usedFor": {
-        "ar": "استرجاع مباشر، لا يُخزَّن شيء: يقرأ رفيق منه نصوص الآيات والأحاديث وقت السؤال، بروابطها.",
-        "en": "Live retrieval, nothing stored: Rafiq reads verse and hadith texts from it at the time of the question, with their links."
+        "ar": "استرجاع مباشر، لا يُخزَّن شيء: يقرأ رفيق منه نصوص الآيات والأحاديث وقت السؤال، بروابطها. وبه بُحث عن أحاديث مواقف «موقف» قبل جلبها من موسوعة الأحاديث (scripts/sources/mawqif-search.mjs).",
+        "en": "Live retrieval, nothing stored: Rafiq reads verse and hadith texts from it at the time of the question, with their links. It was used to find the hadiths of the Mawqif situations before they were fetched from HadeethEnc (scripts/sources/mawqif-search.mjs)."
       },
       "licence": {
         "ar": "يُعرض ما يُسترجع بنصه ورابطه كما أُعيد، ولا يُحفظ.",

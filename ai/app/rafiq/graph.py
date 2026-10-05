@@ -210,6 +210,10 @@ class Rafiq:
     def retriever(self) -> Retriever:
         return self._retriever
 
+    @property
+    def chat(self) -> ChatModel:
+        return self._chat
+
     async def _keywords(self, question: str, language: Language) -> list[str]:
         try:
             result = await self._chat.json(

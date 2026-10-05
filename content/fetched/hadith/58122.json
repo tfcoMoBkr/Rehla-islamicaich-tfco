@@ -1,0 +1,34 @@
+{
+  "id": 58122,
+  "publisher": "hadeethenc.com",
+  "languages": {
+    "ar": {
+      "title": "إذا أكل أحدكم فليأكل بيمينه، وإذا شرب فليشرب بيمينه، فإن الشيطان يأكل بشماله، ويشرب بشماله",
+      "hadeeth": "عن ابن عمر رضي الله عنهما أن رسول الله صلى الله عليه وسلم قال: «إِذَا أَكَلَ أَحَدُكُمْ فَلْيَأْكُلْ بِيَمِينِهِ، وَإِذَا شَرِبَ فَلْيَشْرَبْ بِيَمِينِهِ، فَإِنَّ الشَّيْطَانَ يَأْكُلُ بِشِمَالِهِ، وَيَشْرَبُ بِشِمَالِهِ».",
+      "attribution": "رواه مسلم",
+      "grade": "صحيح",
+      "explanation": "يَأمُرُ النبيُّ صلى الله عليه وسلم أنْ يأكلَ المسلمُ ويشربَ بيدِهِ اليمين، وينهى عن الأكل والشرب بالشمال؛ وذلك لأن الشيطان يأكل ويشرب بها.",
+      "hints": [
+        "النهي عن التشبه بالشيطان بالأكل أو الشرب بالشمال."
+      ],
+      "url": "https://hadeethenc.com/ar/browse/hadith/58122",
+      "apiUrl": "https://hadeethenc.com/api/v1/hadeeths/one/?language=ar&id=58122",
+      "version": null,
+      "fetchedOn": "2026-10-05"
+    },
+    "en": {
+      "title": "If anyone of you eats, let him eat with his right hand, and if he drinks, let him drink with his right hand, for indeed the devil eats with his left hand and drinks with his left hand",
+      "hadeeth": "Ibn ‘Umar (may Allah be pleased with him) reported: The Messenger of Allah (may Allah's peace and blessings be upon him) said: \"If anyone of you eats, let him eat with his right hand, and if he drinks, let him drink with his right hand, for indeed the devil eats with his left hand and drinks with his left hand.\"",
+      "attribution": "Narrated by Muslim",
+      "grade": "Authentic",
+      "explanation": "The Prophet (may Allah's peace and blessings be upon him) enjoins that Muslims should eat and drink with their right hand and forbade eating and drinking with their left hand. This is because the devil eats and drinks with the left hand.",
+      "hints": [
+        "It is prohibited to imitate the devil in eating or drinking with the left hand."
+      ],
+      "url": "https://hadeethenc.com/en/browse/hadith/58122",
+      "apiUrl": "https://hadeethenc.com/api/v1/hadeeths/one/?language=en&id=58122",
+      "version": null,
+      "fetchedOn": "2026-10-05"
+    }
+  }
+}

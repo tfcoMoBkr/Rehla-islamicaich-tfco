@@ -1,0 +1,368 @@
+{
+  "id": "greeting",
+  "order": 1,
+  "status": "published",
+  "reviewed": false,
+  "art": "greeting",
+  "title": {
+    "ar": "إلقاء السلام وردّه",
+    "en": "Giving and returning the greeting"
+  },
+  "scene": {
+    "ar": "تدخل غرفة الاستراحة في عملك، وفيها مجموعة من زملائك المسلمين جالسون يتحدثون. لم تعتد بعدُ على التحية التي يتبادلونها، وتحب أن تبدأ بها أنت.",
+    "en": "You walk into the break room at work, where a group of Muslim colleagues are sitting and talking. You are not used to the greeting they exchange yet, and you would like to be the one who starts it."
+  },
+  "character": {
+    "ar": "يوسف، زميلك في العمل",
+    "en": "Yusuf, a colleague"
+  },
+  "learn": {
+    "say": [
+      {
+        "ref": "h3587",
+        "ar": "السَّلَامُ عَلَيْكُمْ",
+        "en": "As-salāmu ‘alaykum (peace be upon you)"
+      },
+      {
+        "ref": "h3587",
+        "ar": "السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ",
+        "en": "As-salāmu ‘alaykum wa rahmatullāh (may the peace and mercy of Allah be upon you)"
+      }
+    ],
+    "why": [
+      {
+        "ref": "h5808",
+        "ar": "تُطْعِمُ الطَّعَامَ، وَتَقْرَأُ السَّلاَمَ عَلَى مَنْ عَرَفْتَ وَمَنْ لَمْ تَعْرِفْ",
+        "en": "Feeding people and extending the greeting of peace to those you know and those you do not know"
+      },
+      {
+        "ref": "b-greeting",
+        "ar": "ومنها: السلام",
+        "en": "Among them are: greeting with peace"
+      }
+    ],
+    "when": [
+      {
+        "ref": "h5352",
+        "ar": "لِيُسَلِّمِ الصغيرُ على الكبيرِ، والمارُّ على القاعدِ",
+        "en": "The young should greet the old, the passer-by should greet the one who is sitting"
+      },
+      {
+        "ref": "q4-86",
+        "ar": "وَإِذَا حُيِّيتُم بِتَحِيَّةٖ فَحَيُّواْ بِأَحۡسَنَ مِنۡهَآ أَوۡ رُدُّوهَآۗ",
+        "en": "And when you are greeted with a greeting, greet [in return] with one better than it or [at least] return it"
+      }
+    ]
+  },
+  "exchanges": [
+    {
+      "id": "t1",
+      "says": [
+        {
+          "text": {
+            "ar": "(يرفع يوسف رأسه حين تدخل ويبتسم.) أهلًا! تعال اجلس معنا.",
+            "en": "(Yusuf looks up and smiles as you come in.) Oh, hello! Come and sit with us."
+          }
+        }
+      ],
+      "keyPoints": [
+        {
+          "id": "k1",
+          "quote": {
+            "ref": "h5352",
+            "ar": "والمارُّ على القاعدِ",
+            "en": "the passer-by should greet the one who is sitting"
+          }
+        },
+        {
+          "id": "k2",
+          "quote": {
+            "ref": "h3587",
+            "ar": "السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ",
+            "en": "As-salāmu ‘alaykum wa rahmatullāh"
+          }
+        }
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "quality": "best",
+          "reply": [
+            {
+              "quote": {
+                "ref": "h3587",
+                "ar": "السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ",
+                "en": "As-salāmu ‘alaykum wa rahmatullāh"
+              }
+            },
+            {
+              "text": {
+                "ar": "شكرًا لك.",
+                "en": "Thank you."
+              }
+            }
+          ],
+          "meets": [
+            "k1",
+            "k2"
+          ]
+        },
+        {
+          "id": "b",
+          "quality": "acceptable",
+          "reply": [
+            {
+              "quote": {
+                "ref": "h3587",
+                "ar": "السَّلَامُ عَلَيْكُمْ",
+                "en": "As-salāmu ‘alaykum"
+              }
+            },
+            {
+              "text": {
+                "ar": "شكرًا لك.",
+                "en": "Thank you."
+              }
+            }
+          ],
+          "meets": [
+            "k1"
+          ]
+        },
+        {
+          "id": "c",
+          "quality": "avoid",
+          "reply": [
+            {
+              "text": {
+                "ar": "أهلًا، كيف الحال؟",
+                "en": "Hey, how's it going?"
+              }
+            }
+          ],
+          "meets": []
+        }
+      ]
+    },
+    {
+      "id": "t2",
+      "says": [
+        {
+          "text": {
+            "ar": "(تدخل زميلتكم هدى وتقول لك:)",
+            "en": "(Your colleague Huda comes in and says to you:)"
+          }
+        },
+        {
+          "quote": {
+            "ref": "h3587",
+            "ar": "السَّلَامُ عَلَيْكُمْ",
+            "en": "As-salāmu ‘alaykum"
+          }
+        }
+      ],
+      "keyPoints": [
+        {
+          "id": "k1",
+          "quote": {
+            "ref": "q4-86",
+            "ar": "فَحَيُّواْ بِأَحۡسَنَ مِنۡهَآ أَوۡ رُدُّوهَآۗ",
+            "en": "greet [in return] with one better than it or [at least] return it"
+          }
+        },
+        {
+          "id": "k2",
+          "quote": {
+            "ref": "h3706",
+            "ar": "رَدُّ السَّلَامِ",
+            "en": "returning the greeting of peace"
+          }
+        }
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "quality": "best",
+          "reply": [
+            {
+              "quote": {
+                "ref": "h3587",
+                "ar": "السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ",
+                "en": "As-salāmu ‘alaykum wa rahmatullāh"
+              }
+            }
+          ],
+          "meets": [
+            "k1",
+            "k2"
+          ]
+        },
+        {
+          "id": "b",
+          "quality": "acceptable",
+          "reply": [
+            {
+              "text": {
+                "ar": "(تكتفي بالابتسامة وهزّ الرأس.)",
+                "en": "(You smile and nod.)"
+              }
+            }
+          ],
+          "meets": [
+            "k1"
+          ]
+        },
+        {
+          "id": "c",
+          "quality": "avoid",
+          "reply": [
+            {
+              "text": {
+                "ar": "(تتابع حديثك دون أن تلتفت إليها.)",
+                "en": "(You carry on talking without turning to her.)"
+              }
+            }
+          ],
+          "meets": []
+        }
+      ]
+    }
+  ],
+  "check": [
+    {
+      "id": "c1",
+      "prompt": {
+        "ar": "تدخل على قوم جالسين. من يبدأ بالسلام؟",
+        "en": "You walk in on people who are sitting. Who greets first?"
+      },
+      "options": [
+        {
+          "quote": {
+            "ref": "h5352",
+            "ar": "والمارُّ على القاعدِ",
+            "en": "the passer-by should greet the one who is sitting"
+          },
+          "correct": true
+        },
+        {
+          "text": {
+            "ar": "ينتظر الداخل حتى يُسلَّم عليه",
+            "en": "The one coming in waits to be greeted"
+          },
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "prompt": {
+        "ar": "سلّم عليك أحد. ماذا تفعل؟",
+        "en": "Someone greets you. What do you do?"
+      },
+      "options": [
+        {
+          "quote": {
+            "ref": "q4-86",
+            "ar": "فَحَيُّواْ بِأَحۡسَنَ مِنۡهَآ أَوۡ رُدُّوهَآۗ",
+            "en": "greet [in return] with one better than it or [at least] return it"
+          },
+          "correct": true
+        },
+        {
+          "text": {
+            "ar": "تكفي الابتسامة",
+            "en": "A smile is enough"
+          },
+          "correct": false
+        }
+      ]
+    }
+  ],
+  "relatedLessons": [],
+  "sources": [
+    {
+      "key": "ibnbaz-lessons",
+      "title": {
+        "ar": "الدروس المهمة لعامة الأمة",
+        "en": "Important Lessons for the General Ummah"
+      },
+      "publisher": "IslamHouse.com",
+      "url": {
+        "ar": "https://islamhouse.com/ar/books/1871/",
+        "en": "https://islamhouse.com/en/books/2842316/"
+      },
+      "use": "Shown verbatim by reference (textRef)."
+    }
+  ],
+  "items": [
+    {
+      "id": "h3587",
+      "type": "hadith",
+      "hadeethencId": 3587,
+      "citation": "رواه أبو داود والترمذي وأحمد والدارمي",
+      "availableIn": [
+        "ar",
+        "en"
+      ],
+      "publisher": "hadeethenc.com"
+    },
+    {
+      "id": "h5352",
+      "type": "hadith",
+      "hadeethencId": 5352,
+      "citation": "متفق عليه",
+      "availableIn": [
+        "ar",
+        "en"
+      ],
+      "publisher": "hadeethenc.com"
+    },
+    {
+      "id": "h5808",
+      "type": "hadith",
+      "hadeethencId": 5808,
+      "citation": "متفق عليه",
+      "availableIn": [
+        "ar",
+        "en"
+      ],
+      "publisher": "hadeethenc.com"
+    },
+    {
+      "id": "q4-86",
+      "type": "quran",
+      "ref": "4:86",
+      "publisher": "quranenc.com"
+    },
+    {
+      "id": "h3706",
+      "type": "hadith",
+      "hadeethencId": 3706,
+      "citation": "متفق عليه",
+      "availableIn": [
+        "ar",
+        "en"
+      ],
+      "publisher": "hadeethenc.com"
+    },
+    {
+      "id": "b-greeting",
+      "type": "book",
+      "source": "ibnbaz-lessons",
+      "textRef": {
+        "ar": {
+          "book": "1871",
+          "section": "t20",
+          "paragraph": 1,
+          "excerpt": "ومنها: السلام"
+        },
+        "en": {
+          "book": "2842316",
+          "section": "s19",
+          "paragraph": 1,
+          "excerpt": "Among them are: greeting with peace"
+        }
+      }
+    }
+  ]
+}

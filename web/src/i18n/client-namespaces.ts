@@ -54,6 +54,9 @@ export const PAGE_NAMESPACES = {
   signUp: ["Account"],
   privacy: [],
   lens: ["Lens", "Lesson", "Rafiq", "Specialist"],
+  mawqif: ["Mawqif", "Practice"],
+  situation: ["Lesson", "Listen", "Mawqif", "Rafiq", "Specialist"],
+  mawqifTest: ["Lesson", "Listen", "Mawqif"],
 } as const satisfies Record<string, readonly Namespace[]>;
 
 export type ClientPage = keyof typeof PAGE_NAMESPACES;

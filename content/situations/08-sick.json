@@ -1,0 +1,300 @@
+{
+  "id": "sick",
+  "order": 8,
+  "status": "published",
+  "reviewed": false,
+  "art": "sick",
+  "title": {
+    "ar": "زيارة المريض",
+    "en": "Visiting someone who is ill"
+  },
+  "scene": {
+    "ar": "زميلك في المسجد في المستشفى منذ أيام. تذهب لزيارته وتحمل له بعض الفاكهة، ولا تعرف ماذا تقول حين تدخل.",
+    "en": "A friend from the mosque has been in hospital for a few days. You go to visit him with some fruit, not sure what to say when you walk in."
+  },
+  "character": {
+    "ar": "إبراهيم، صديقك المريض",
+    "en": "Ibrahim, your friend in hospital"
+  },
+  "learn": {
+    "say": [
+      {
+        "ref": "h6009",
+        "ar": "لا بأس؛ طَهُور إن شاء الله",
+        "en": "No harm, (it will be) purification (from sins) if Allah wills"
+      }
+    ],
+    "why": [
+      {
+        "ref": "h3706",
+        "ar": "وَعِيَادَةُ الْمَرِيضِ",
+        "en": "visiting the sick"
+      },
+      {
+        "ref": "b-sick",
+        "ar": "وعيادة المريض",
+        "en": "visiting the sick"
+      }
+    ],
+    "when": [
+      {
+        "ref": "h6009",
+        "ar": "وكان إذا دَخَلَ على مَن يَعودُه",
+        "en": "whenever he visited a sick person"
+      }
+    ]
+  },
+  "exchanges": [
+    {
+      "id": "t1",
+      "says": [
+        {
+          "text": {
+            "ar": "(يبتسم إبراهيم حين يراك.) أنت هنا! لم أتوقع زيارتك.",
+            "en": "(Ibrahim smiles when he sees you.) You came! I didn't expect a visit."
+          }
+        }
+      ],
+      "keyPoints": [
+        {
+          "id": "k1",
+          "quote": {
+            "ref": "h6009",
+            "ar": "لا بأس؛ طَهُور إن شاء الله",
+            "en": "No harm, (it will be) purification (from sins) if Allah wills"
+          }
+        }
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "quality": "best",
+          "reply": [
+            {
+              "text": {
+                "ar": "كيف حالك؟",
+                "en": "How are you?"
+              }
+            },
+            {
+              "quote": {
+                "ref": "h6009",
+                "ar": "لا بأس؛ طَهُور إن شاء الله",
+                "en": "No harm, (it will be) purification (from sins) if Allah wills"
+              }
+            }
+          ],
+          "meets": [
+            "k1"
+          ]
+        },
+        {
+          "id": "b",
+          "quality": "acceptable",
+          "reply": [
+            {
+              "text": {
+                "ar": "كيف حالك اليوم؟ أحضرت لك بعض الفاكهة.",
+                "en": "How are you today? I brought you some fruit."
+              }
+            }
+          ],
+          "meets": []
+        },
+        {
+          "id": "c",
+          "quality": "avoid",
+          "reply": [
+            {
+              "text": {
+                "ar": "تبدو متعبًا جدًا، هذا مقلق.",
+                "en": "You look really unwell; that's worrying."
+              }
+            }
+          ],
+          "meets": []
+        }
+      ]
+    },
+    {
+      "id": "t2",
+      "says": [
+        {
+          "text": {
+            "ar": "شكرًا لك. أشعر أن زيارتك خفّفت عني.",
+            "en": "Thank you. Your visit has lifted my spirits."
+          }
+        }
+      ],
+      "keyPoints": [
+        {
+          "id": "k1",
+          "quote": {
+            "ref": "h3706",
+            "ar": "وَعِيَادَةُ الْمَرِيضِ",
+            "en": "visiting the sick"
+          }
+        }
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "quality": "best",
+          "reply": [
+            {
+              "text": {
+                "ar": "هذا من حقك عليّ؛ جاء في الحديث:",
+                "en": "It is your right over me. The hadith says:"
+              }
+            },
+            {
+              "quote": {
+                "ref": "h3706",
+                "ar": "وَعِيَادَةُ الْمَرِيضِ",
+                "en": "visiting the sick"
+              }
+            }
+          ],
+          "meets": [
+            "k1"
+          ]
+        },
+        {
+          "id": "b",
+          "quality": "acceptable",
+          "reply": [
+            {
+              "text": {
+                "ar": "يسعدني ذلك. سأعود لزيارتك.",
+                "en": "I'm glad. I'll come and see you again."
+              }
+            }
+          ],
+          "meets": []
+        },
+        {
+          "id": "c",
+          "quality": "avoid",
+          "reply": [
+            {
+              "text": {
+                "ar": "(تنظر إلى ساعتك وتستعجل الخروج.)",
+                "en": "(You check your watch and rush to leave.)"
+              }
+            }
+          ],
+          "meets": []
+        }
+      ]
+    }
+  ],
+  "check": [
+    {
+      "id": "c1",
+      "prompt": {
+        "ar": "ماذا كان يقول النبي ﷺ لمن يعوده من المرضى؟",
+        "en": "What did the Prophet ﷺ say to a sick person he visited?"
+      },
+      "options": [
+        {
+          "quote": {
+            "ref": "h6009",
+            "ar": "لا بأس؛ طَهُور إن شاء الله",
+            "en": "No harm, (it will be) purification (from sins) if Allah wills"
+          },
+          "correct": true
+        },
+        {
+          "text": {
+            "ar": "لا يُقال شيء",
+            "en": "Nothing"
+          },
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "prompt": {
+        "ar": "زيارة المريض من…",
+        "en": "Visiting the sick is one of…"
+      },
+      "options": [
+        {
+          "quote": {
+            "ref": "h3706",
+            "ar": "حَقُّ الْمُسْلِمِ عَلَى الْمُسْلِمِ خَمْسٌ",
+            "en": "A Muslim owes another Muslim five rights"
+          },
+          "correct": true
+        },
+        {
+          "text": {
+            "ar": "أمور لا علاقة لها بالدين",
+            "en": "Things that have nothing to do with religion"
+          },
+          "correct": false
+        }
+      ]
+    }
+  ],
+  "relatedLessons": [],
+  "sources": [
+    {
+      "key": "ibnbaz-lessons",
+      "title": {
+        "ar": "الدروس المهمة لعامة الأمة",
+        "en": "Important Lessons for the General Ummah"
+      },
+      "publisher": "IslamHouse.com",
+      "url": {
+        "ar": "https://islamhouse.com/ar/books/1871/",
+        "en": "https://islamhouse.com/en/books/2842316/"
+      },
+      "use": "Shown verbatim by reference (textRef)."
+    }
+  ],
+  "items": [
+    {
+      "id": "h6009",
+      "type": "hadith",
+      "hadeethencId": 6009,
+      "citation": "رواه البخاري",
+      "availableIn": [
+        "ar",
+        "en"
+      ],
+      "publisher": "hadeethenc.com"
+    },
+    {
+      "id": "h3706",
+      "type": "hadith",
+      "hadeethencId": 3706,
+      "citation": "متفق عليه",
+      "availableIn": [
+        "ar",
+        "en"
+      ],
+      "publisher": "hadeethenc.com"
+    },
+    {
+      "id": "b-sick",
+      "type": "book",
+      "source": "ibnbaz-lessons",
+      "textRef": {
+        "ar": {
+          "book": "1871",
+          "section": "t20",
+          "paragraph": 1,
+          "excerpt": "وعيادة المريض"
+        },
+        "en": {
+          "book": "2842316",
+          "section": "s19",
+          "paragraph": 1,
+          "excerpt": "visiting the sick"
+        }
+      }
+    }
+  ]
+}

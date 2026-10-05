@@ -15,6 +15,7 @@ from app.health import router as health_router
 from app.index import Index
 from app.lens.lens import Lens
 from app.llm import ModelUnavailableError, OpenRouterChat, OpenRouterEmbedder
+from app.mawqif.evaluate import Evaluator, load_key_points
 from app.rafiq.graph import Rafiq
 from app.retrieval.mcp import McpClient
 from app.retrieval.retriever import Retriever
@@ -52,6 +53,15 @@ def load_lens(settings: Settings, client: httpx.AsyncClient, rafiq: Rafiq) -> Le
     return Lens(vision, rafiq, rafiq.retriever)
 
 
+def load_evaluator(settings: Settings, rafiq: Rafiq) -> Evaluator | None:
+    """Mawqif's reply evaluation, on Rafiq's chat models; None when the key points are missing."""
+    path = settings.index_dir / "mawqif-turns.json"
+    if not path.is_file():
+        log.warning("Mawqif evaluation is unavailable: %s is missing", path.name)
+        return None
+    return Evaluator(rafiq.chat, load_key_points(path))
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     settings = get_settings()
@@ -63,6 +73,8 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
             load=lambda: load_rafiq(settings, client),
             lens_limiter=RateLimiter(settings.lens_per_minute),
             load_lens=lambda rafiq: load_lens(settings, client, rafiq),
+            mawqif_limiter=RateLimiter(settings.asks_per_minute),
+            load_evaluator=lambda rafiq: load_evaluator(settings, rafiq),
         )
         yield
 

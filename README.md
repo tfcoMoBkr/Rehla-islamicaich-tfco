@@ -37,7 +37,7 @@
 | **تدرَّب** | أنشطة الدروس كلها في مكان واحد، يجرّبها المتعلم متى شاء ويجمع بها زادًا لطريقه | متاح |
 | **اسأل «رفيق»** | إجابات مسندة إلى مصادرها، مع الامتناع والإحالة عند الحاجة | متاح |
 | **عدسة** | صوّر شيئًا مما حولك (لافتة في مسجد، سجادة صلاة، كتابة عربية) لتعرف ما هو وما معناه من المصادر المعتمدة، مع امتناع واضح عند الحاجة | متاح |
-| **موقف** | تدريب تفاعلي على مواقف الحياة اليومية للمسلم، مع تقييم وتصحيح | قريبًا |
+| **موقف** | تدرّب على مواقف يومية (السلام، المسجد، الطعام، زيارة المريض…): ماذا تقول ولماذا ومتى من المصادر، ثم حوار مع ملاحظات واختبار | متاح |
 | **مجتمع رحلة** | منتدى اختياري يشارك فيه دعاة موثّقون، ودليل للمساجد والمراكز القريبة | قريبًا |
 | **أقم** | صلاة تدريبية بالكاميرا تنتهي بتقرير عن الأداء | قريبًا |
 
@@ -136,7 +136,7 @@ A bilingual web platform (Arabic and English) led by one AI companion, **Rafiq**
 | **Practice** | Every lesson activity in one place, to try at any time and gather provisions for the road | Available |
 | **Ask Rafiq** | Answers cited to their sources, with abstention and referral when needed | Available |
 | **Adasa** (Lens) | Photograph something around you (a sign in a mosque, a prayer mat, Arabic writing) and see what it is and what it means from the approved sources, with a clear decline when it should not answer | Available |
-| **Mawqif** (Situation) | Interactive practice of everyday situations, with evaluation and correction | Coming soon |
+| **Mawqif** (Situations) | Practise everyday situations (greeting, the mosque, a meal, visiting the sick…): what to say, why and when from the sources, then a role-play with feedback and a test | Available |
 | **Rehla Community** | An opt-in forum with verified da'wah guides, and a directory of nearby mosques and centers | Coming soon |
 | **Aqim** | A camera-based practice prayer that ends with a performance report | Coming soon |
 

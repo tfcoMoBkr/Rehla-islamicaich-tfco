@@ -64,6 +64,16 @@ Joining rules, for an item both sides hold:
 
 Items only one side holds are kept.
 
+## Mawqif («موقف»)
+
+A new Muslim practises everyday situations before meeting them (`/[locale]/mawqif`, flag `mawqif`): the greeting, the mosque, the adhan, a meal, a sneeze, coming home, an invitation, visiting the sick, condolences, a colleague's question, the first Friday, the first day of fasting. `docs/MAWQIF_COVERAGE.md` lists each situation and the source behind every statement in it.
+
+- **Content** (`content/situations/*.json`, schema in `web/src/lib/content/situation-schema.ts`): a scene (team wording, labelled), "what to say", "why" and "when" as quotes, two role-play turns, and two checks. Every religious item is a quote: an exact excerpt, in each language, of a stored HadeethEnc hadith, a QuranEnc verse or an approved book (textRef). Each turn has key points (quotes) and three written replies (best, acceptable, to avoid) that name the key points they meet. `situation-content.test.ts` checks every quote against the stored text byte for byte, both languages, citations against HadeethEnc's own attribution, and that no team line repeats words of a verse or hadith. `scripts/fetch-content.mjs` fetches the hadiths and verses the situations cite.
+- **Pages** (all rendered at build time): the map of situations as stops on the road (not started, practised, mastered), one page per situation (scene, learn, role-play, summary, check), and the final tests after every four situations and for the whole section, with a score, every question's answer and source, and an analysis (handled well, practise again, lessons to revisit).
+- **The role-play.** The learner replies by choosing one of the written replies (no AI) or by writing their own. Feedback is built by the page from fixed lines and the quoted sources of the missing key points; «رفيق» stands beside the learner as the coach, with the `{{name}}` placeholder filled on the device.
+- **Evaluating a written reply** (`POST /mawqif/evaluate`, `ai/app/mawqif/`): the reply first passes the danger check in code; then one model call reports which of the turn's key points it covers (by id), its tone, whether it is a religious question instead of a reply (offered to Rafiq) or distress (the specialist card), and one encouraging sentence, which must pass Rafiq's warm-line checks or is dropped. A 20-second budget; when the service is unavailable, the turn falls back to the written choices. The key points reach the service through `app/prepare.py` (`ai/data/index/mawqif-turns.json`). Nothing typed is stored or logged.
+- **Progress** is kept like Practice's: provisions once per turn answered with the best reply and per right answer, and the best round of each check and test, in the learner's progress record (device for guests, account when signed in).
+
 ## Lens («عدسة»)
 
 A learner photographs something around them (a sign in a mosque, a prayer mat, a wudu area, Arabic writing) and Lens says what it is and what it means, from the approved sources. Page: `/[locale]/lens` (flag `adasa`). Service: `POST /lens` (`ai/app/lens/`), reached through the web proxy (`/api/ai/lens`).

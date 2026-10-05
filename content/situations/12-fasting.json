@@ -1,0 +1,324 @@
+{
+  "id": "fasting",
+  "order": 12,
+  "status": "published",
+  "reviewed": false,
+  "art": "fasting",
+  "title": {
+    "ar": "أول يوم من رمضان",
+    "en": "Your first day of Ramadan"
+  },
+  "scene": {
+    "ar": "هذا أول رمضان لك. تتصل بك صديقة أسلمت قبلك بعامين لتطمئن عليك في الليلة الأولى.",
+    "en": "This is your first Ramadan. A friend who became Muslim two years before you calls on the first evening to see how you are."
+  },
+  "character": {
+    "ar": "ليلى، صديقتك",
+    "en": "Layla, your friend"
+  },
+  "learn": {
+    "say": [
+      {
+        "ref": "b-fasting",
+        "ar": "صــوم رمضــان هــو: التعبُّــد لله \nتعالــى بالإِمســاك عــن الطعــام \nوالشــراب والجمــاع",
+        "en": "Fasting Ramadan means worshiping Allah by abstaining from eating, drinking, and sexual intercourse"
+      }
+    ],
+    "why": [
+      {
+        "ref": "h4498",
+        "ar": "تَسَحَّرُوا، فَإِنَّ فِي السَّحُورِ بَرَكَةً",
+        "en": "Have Sahūr (pre-dawn meal) for, indeed, there is a blessing in Sahūr"
+      }
+    ],
+    "when": [
+      {
+        "ref": "b-fasting",
+        "ar": "مــن طلــوع الفجــر \nإلــى غــروبِ الشــمسِ",
+        "en": "from dawn to sunset"
+      },
+      {
+        "ref": "h4525",
+        "ar": "مَنْ نَسِيَ وَهُوَ صَائِمٌ، فَأَكَلَ أَوْ شَرِبَ، فَلْيُتِمَّ صَوْمَهُ",
+        "en": "Whoever forgets while fasting and eats or drinks, let him complete his fast"
+      }
+    ]
+  },
+  "exchanges": [
+    {
+      "id": "t1",
+      "says": [
+        {
+          "text": {
+            "ar": "غدًا أول يوم صيام لك! هل ستستيقظ للسحور؟",
+            "en": "Tomorrow is your first day of fasting! Will you get up for suhoor?"
+          }
+        }
+      ],
+      "keyPoints": [
+        {
+          "id": "k1",
+          "quote": {
+            "ref": "h4498",
+            "ar": "تَسَحَّرُوا، فَإِنَّ فِي السَّحُورِ بَرَكَةً",
+            "en": "Have Sahūr (pre-dawn meal) for, indeed, there is a blessing in Sahūr"
+          }
+        },
+        {
+          "id": "k2",
+          "quote": {
+            "ref": "b-fasting",
+            "ar": "مــن طلــوع الفجــر \nإلــى غــروبِ الشــمسِ",
+            "en": "from dawn to sunset"
+          }
+        }
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "quality": "best",
+          "reply": [
+            {
+              "text": {
+                "ar": "نعم، سأتسحر قبل الفجر، ففي الحديث:",
+                "en": "Yes, I'll eat before dawn. The hadith says:"
+              }
+            },
+            {
+              "quote": {
+                "ref": "h4498",
+                "ar": "تَسَحَّرُوا، فَإِنَّ فِي السَّحُورِ بَرَكَةً",
+                "en": "Have Sahūr (pre-dawn meal) for, indeed, there is a blessing in Sahūr"
+              }
+            },
+            {
+              "text": {
+                "ar": "والصوم كما تعلّمت:",
+                "en": "And the fast, as I learned, is"
+              }
+            },
+            {
+              "quote": {
+                "ref": "b-fasting",
+                "ar": "مــن طلــوع الفجــر \nإلــى غــروبِ الشــمسِ",
+                "en": "from dawn to sunset"
+              }
+            }
+          ],
+          "meets": [
+            "k1",
+            "k2"
+          ]
+        },
+        {
+          "id": "b",
+          "quality": "acceptable",
+          "reply": [
+            {
+              "text": {
+                "ar": "سأحاول، فأنا أنام بعمق.",
+                "en": "I'll try; I sleep very deeply."
+              }
+            }
+          ],
+          "meets": []
+        },
+        {
+          "id": "c",
+          "quality": "avoid",
+          "reply": [
+            {
+              "text": {
+                "ar": "لا، سأتناول فطوري المعتاد حين أستيقظ صباحًا.",
+                "en": "No, I'll have my usual breakfast when I wake up."
+              }
+            }
+          ],
+          "meets": []
+        }
+      ]
+    },
+    {
+      "id": "t2",
+      "says": [
+        {
+          "text": {
+            "ar": "وماذا ستفعل لو نسيت وشربت ماءً في النهار؟",
+            "en": "And what would you do if you forgot and drank some water during the day?"
+          }
+        }
+      ],
+      "keyPoints": [
+        {
+          "id": "k1",
+          "quote": {
+            "ref": "h4525",
+            "ar": "مَنْ نَسِيَ وَهُوَ صَائِمٌ، فَأَكَلَ أَوْ شَرِبَ، فَلْيُتِمَّ صَوْمَهُ",
+            "en": "Whoever forgets while fasting and eats or drinks, let him complete his fast"
+          }
+        }
+      ],
+      "choices": [
+        {
+          "id": "a",
+          "quality": "best",
+          "reply": [
+            {
+              "text": {
+                "ar": "أكمل صومي، ففي الحديث:",
+                "en": "I would carry on fasting. The hadith says:"
+              }
+            },
+            {
+              "quote": {
+                "ref": "h4525",
+                "ar": "مَنْ نَسِيَ وَهُوَ صَائِمٌ، فَأَكَلَ أَوْ شَرِبَ، فَلْيُتِمَّ صَوْمَهُ",
+                "en": "Whoever forgets while fasting and eats or drinks, let him complete his fast"
+              }
+            }
+          ],
+          "meets": [
+            "k1"
+          ]
+        },
+        {
+          "id": "b",
+          "quality": "acceptable",
+          "reply": [
+            {
+              "text": {
+                "ar": "لا أعرف، سأسأل حين يحدث.",
+                "en": "I'm not sure; I'd ask when it happens."
+              }
+            }
+          ],
+          "meets": []
+        },
+        {
+          "id": "c",
+          "quality": "avoid",
+          "reply": [
+            {
+              "text": {
+                "ar": "سيفسد صومي، فأكمل الأكل.",
+                "en": "My fast would be ruined, so I'd keep eating."
+              }
+            }
+          ],
+          "meets": []
+        }
+      ]
+    }
+  ],
+  "check": [
+    {
+      "id": "c1",
+      "prompt": {
+        "ar": "من متى إلى متى يكون الصيام؟",
+        "en": "From when to when do you fast?"
+      },
+      "options": [
+        {
+          "quote": {
+            "ref": "b-fasting",
+            "ar": "مــن طلــوع الفجــر \nإلــى غــروبِ الشــمسِ",
+            "en": "from dawn to sunset"
+          },
+          "correct": true
+        },
+        {
+          "text": {
+            "ar": "من الظهر إلى العشاء",
+            "en": "From noon until night"
+          },
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "prompt": {
+        "ar": "أكلت ناسيًا وأنت صائم. ماذا تفعل؟",
+        "en": "You ate by mistake while fasting. What do you do?"
+      },
+      "options": [
+        {
+          "quote": {
+            "ref": "h4525",
+            "ar": "فَلْيُتِمَّ صَوْمَهُ",
+            "en": "let him complete his fast"
+          },
+          "correct": true
+        },
+        {
+          "text": {
+            "ar": "تقطع صومك ذلك اليوم",
+            "en": "Break your fast for that day"
+          },
+          "correct": false
+        }
+      ]
+    }
+  ],
+  "relatedLessons": [
+    "1.4"
+  ],
+  "sources": [
+    {
+      "key": "mukhtasar",
+      "title": {
+        "ar": "المختصر المفيد للمسلم الجديد",
+        "en": "New Muslim Guideline"
+      },
+      "publisher": "IslamHouse.com / byenah.com",
+      "url": {
+        "ar": "https://islamhouse.com/ar/books/2831443/",
+        "en": "https://byenah.com/en/muslim-content/4784"
+      },
+      "use": "Shown verbatim by reference (textRef)."
+    }
+  ],
+  "items": [
+    {
+      "id": "b-fasting",
+      "type": "book",
+      "source": "mukhtasar",
+      "textRef": {
+        "ar": {
+          "book": "islamhouse-2831443",
+          "section": "s5",
+          "paragraph": 12,
+          "excerpt": "صــوم رمضــان هــو: التعبُّــد لله \nتعالــى بالإِمســاك عــن الطعــام \nوالشــراب والجمــاع، وســائر \nالمفطــرات مــن طلــوع الفجــر \nإلــى غــروبِ الشــمسِ"
+        },
+        "en": {
+          "book": "byenah-4784",
+          "section": "s9",
+          "paragraph": 5,
+          "excerpt": "Fasting Ramadan means worshiping Allah by abstaining from eating, drinking, and sexual intercourse from dawn to sunset"
+        }
+      }
+    },
+    {
+      "id": "h4498",
+      "type": "hadith",
+      "hadeethencId": 4498,
+      "citation": "متفق عليه",
+      "availableIn": [
+        "ar",
+        "en"
+      ],
+      "publisher": "hadeethenc.com"
+    },
+    {
+      "id": "h4525",
+      "type": "hadith",
+      "hadeethencId": 4525,
+      "citation": "متفق عليه",
+      "availableIn": [
+        "ar",
+        "en"
+      ],
+      "publisher": "hadeethenc.com"
+    }
+  ]
+}

@@ -59,7 +59,7 @@
       },
       "mawqif": {
         "name": "Mawqif · Situations",
-        "body": "Practice for everyday situations in a Muslim's life."
+        "body": "Practise everyday situations, the greeting, the mosque, a meal, a visit, with the words from the sources, in a short role-play."
       },
       "adasa": {
         "name": "Adasa · Lens",
@@ -681,6 +681,10 @@
         "title": "Try a question",
         "body": "This is how the short questions come after a lesson. Answer it; a mistake does not count against you, and every lesson you finish is stamped in your journal."
       },
+      "situations": {
+        "title": "Practise everyday situations",
+        "body": "In Mawqif you practise moments you will meet, like greeting people or visiting someone who is ill: what to say, why and when, from the sources, then a short role-play."
+      },
       "together": {
         "title": "You are not alone",
         "body": "Ask Rafiq whenever you need something explained, and when your question needs a specialist we point you to one."
@@ -690,7 +694,8 @@
     "previewStations": "The three stations of the road",
     "previewNational": "National channel · 1933",
     "tryHere": "Try it here once.",
-    "askRafiq": "Ask Rafiq"
+    "askRafiq": "Ask Rafiq",
+    "openMawqif": "Open Mawqif"
   },
   "Practice": {
     "title": "Practice",
@@ -843,7 +848,9 @@
     "toSignUp": "Create an account",
     "nameBody": "The name Rafiq calls you by stays on this device, or in your own profile if you have an account. It is never sent to the AI model provider: Rafiq leaves a place for it, and your device fills it in.",
     "lensTitle": "Photos you show Lens",
-    "lensBody": "The photo is sent to an AI model provider to be read; nothing is kept. Lens never describes people, does not read out personal documents, and infers nothing about you from a photo."
+    "lensBody": "The photo is sent to an AI model provider to be read; nothing is kept. Lens never describes people, does not read out personal documents, and infers nothing about you from a photo.",
+    "mawqifTitle": "Replies you write in Mawqif",
+    "mawqifBody": "A reply you write in a role-play is sent to the AI model provider to be checked against that turn's points, and is not kept. Nothing about you is inferred from it. Choosing one of the written replies sends nothing."
   },
   "AccountChoice": {
     "title": "Before you set off",
@@ -933,5 +940,104 @@
       "unavailable": "Lens is not available right now. Try again in a moment.",
       "error": "Something went wrong. Try again."
     }
+  },
+  "Mawqif": {
+    "title": "Mawqif · Situations",
+    "description": "Practise everyday situations before you meet them: what to say, why, and when, from the sources, then a short role-play.",
+    "howItWorks": "Each situation: a short scene, what to say, why and when, a role-play with feedback, then a check. Every word to say is quoted from its source.",
+    "upNext": "Up next",
+    "stopLabel": "Stop {number}",
+    "status": {
+      "notStarted": "Not started",
+      "practised": "Practised",
+      "mastered": "Mastered"
+    },
+    "testAfter": "Test {number}",
+    "testAll": "The whole section test",
+    "testBest": "Best score: {percent}%",
+    "testCount": "{count, plural, one {# situation} other {# situations}}",
+    "testIntro": "{count, plural, one {# question} other {# questions}} from the situations of this part. A wrong answer costs nothing.",
+    "progressLabel": "Your way through this situation",
+    "steps": {
+      "scene": "Scene",
+      "learn": "Learn",
+      "roleplay": "Role-play",
+      "summary": "Summary",
+      "check": "Check"
+    },
+    "sceneTitle": "The scene",
+    "youWillMeet": "You will talk with {character}",
+    "teamWording": "Wording by the Rehla team",
+    "begin": "Begin",
+    "learn": {
+      "say": "What to say",
+      "why": "Why",
+      "when": "When"
+    },
+    "next": "Next",
+    "startRoleplay": "Start the role-play",
+    "readWholeSource": "Read the whole source",
+    "sourceHadith": "Hadith · {citation} · {grade} · HadeethEnc.com",
+    "sourceHadithShort": "Hadith · {citation}",
+    "gradeUnknown": "grade not stated",
+    "sourceQuran": "Quran {ref} · QuranEnc.com",
+    "turnTitle": "Turn {number} of {total}",
+    "conversation": "The conversation",
+    "you": "You",
+    "coachPrompt": "Rafiq is beside you. How would you reply?",
+    "modeLabel": "How to reply",
+    "modeChoose": "Choose a reply",
+    "modeWrite": "Write my own",
+    "writeLabel": "Your reply",
+    "writeHint": "Write it as you would say it. Your reply is sent to the AI model provider to be checked against this turn's points, and is not kept.",
+    "checkReply": "Check my reply",
+    "checking": "Checking…",
+    "fallbackNote": "Checking a written reply is not available just now. You can choose one of the replies instead.",
+    "rateLimited": "You have checked several replies in a short time. Wait a minute, then try again.",
+    "questionNote": "That sounds like a question rather than a reply. Rafiq can answer it from the sources.",
+    "askRafiqThis": "Ask Rafiq this",
+    "feedbackBest": "That covers it",
+    "feedbackAcceptable": "A good start",
+    "feedbackAvoid": "Let's look at this one together",
+    "feedbackBestLine": "You covered every point, {name}.",
+    "feedbackAcceptableLine": "You are on the right way, {name}. Here is what would complete it.",
+    "feedbackAvoidLine": "No harm in trying, {name}. Here is what this moment calls for.",
+    "gentler": "It could also sound a little gentler.",
+    "whatWasGood": "What was good",
+    "whatWasMissing": "What was missing",
+    "continue": "Continue",
+    "tryAgain": "Try another reply",
+    "summaryTitle": "What you practised",
+    "summaryBody": "You gave the fullest reply in {best} of {total} turns.",
+    "summarySay": "The words to remember",
+    "toCheck": "Go to the check",
+    "askRafiq": "Ask Rafiq about this",
+    "askAboutSituation": "I am practising this situation: {title}. What do the sources say about it?",
+    "checkTitle": "A short check",
+    "questionOf": "Question {number} of {total}",
+    "rightAnswer": "That's right.",
+    "notQuite": "Not quite. Here is the answer, from its source.",
+    "nextQuestion": "Next question",
+    "seeResult": "See the result",
+    "checkScore": "{correct} of {total}",
+    "checkAllRight": "Every answer right: this situation is mastered.",
+    "checkSome": "Well done for finishing. You can practise it again whenever you like.",
+    "stampLabel": "Stamp: {title} mastered",
+    "relatedLessons": "Lessons to revisit",
+    "lessonLink": "Lesson {number}: {title}",
+    "nextSituation": "Next: {title}",
+    "backToMap": "Back to the situations",
+    "practiseAgain": "Practise again",
+    "testStamp": "Stamp: every test answer right",
+    "testScoreNote": "Your first answer to each question counts. Provisions are added once for each right answer.",
+    "analysisTitle": "What comes next",
+    "handlesWell": "You handle these well",
+    "practiseAgainTitle": "Practise these again",
+    "nothingToPractise": "Nothing to practise again: every situation here went well.",
+    "lessonsToRevisit": "Lessons to revisit",
+    "reviewTitle": "The questions and their answers",
+    "reviewRight": "answered right",
+    "reviewWrong": "to look at again",
+    "testAgain": "Take the test again"
   }
 }

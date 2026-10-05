@@ -78,6 +78,12 @@ export default async function PrivacyPage({ params }: PageProps<"/[locale]/priva
           <p>{t("nameBody")}</p>
         </Part>
 
+        {features.mawqif && (
+          <Part id="privacy-mawqif" icon={MessageCircle} title={t("mawqifTitle")}>
+            <p>{t("mawqifBody")}</p>
+          </Part>
+        )}
+
         {features.adasa && (
           <Part id="privacy-lens" icon={Camera} title={t("lensTitle")}>
             <p>{t("lensBody")}</p>
