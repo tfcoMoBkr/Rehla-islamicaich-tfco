@@ -42,7 +42,21 @@ describe("requestLessonHelp", () => {
       return new Response(JSON.stringify(answered));
     };
     await requestLessonHelp(request, { fetcher });
-    expect(sent).toEqual({ url: LESSON_HELP_PATH, body: request });
+    expect(sent).toEqual({ url: LESSON_HELP_PATH, body: { ...request, history: [] } });
+  });
+
+  it("carries the thread so far, at most eight turns, and the lessons reached", async () => {
+    let body: Record<string, unknown> = {};
+    const fetcher: typeof fetch = async (_url, init) => {
+      body = JSON.parse(String(init?.body)) as Record<string, unknown>;
+      return new Response(JSON.stringify(answered));
+    };
+    const history = Array.from({ length: 10 }, (_, index) => ({ role: index % 2 ? "assistant" : "user", text: `t${index}` }) as const);
+    await requestLessonHelp({ ...request, mode: "explain", reachedLessonIds: ["1.1", "1.2"], history }, { fetcher });
+
+    expect(body.mode).toBe("explain");
+    expect(body.reachedLessonIds).toEqual(["1.1", "1.2"]);
+    expect(body.history).toEqual(history.slice(2));
   });
 
   it("returns an answer with its sources", async () => {

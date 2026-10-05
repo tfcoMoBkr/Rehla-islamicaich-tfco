@@ -20,9 +20,14 @@ WARM_FIELDS = tuple(LIMITS)
 
 
 def _short(field: str, text: str) -> str | None:
-    sentences, longest = LIMITS[field]
-    kept = " ".join(split_sentences(text.strip())[:sentences])
-    return kept if kept and len(kept) <= longest else None
+    """The most whole sentences, up to the field's count, that fit within its length."""
+    count, longest = LIMITS[field]
+    sentences = split_sentences(text.strip())[:count]
+    for end in range(len(sentences), 0, -1):
+        kept = " ".join(sentences[:end])
+        if kept and len(kept) <= longest:
+            return kept
+    return None
 
 
 def _repeats(text: str, earlier: str | None) -> bool:

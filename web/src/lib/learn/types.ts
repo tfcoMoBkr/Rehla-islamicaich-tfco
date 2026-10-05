@@ -77,6 +77,16 @@ export type EvidenceView =
       } | null;
     };
 
+/** A TerminologyEnc term a card uses: its published title, definition and explanation, verbatim. */
+export type TermView = {
+  id: number;
+  word: string;
+  title: string;
+  definition: string | null;
+  explanation: string | null;
+  url: string;
+};
+
 export type CardView = {
   id: string;
   /** Null for a card that is its verse or hadith alone. */
@@ -85,6 +95,7 @@ export type CardView = {
   sources: LessonSource[];
   evidence: EvidenceView | null;
   evidenceFirst: boolean;
+  terms: TermView[];
   check: QuestionView | null;
   media: MediaView[];
 };
@@ -173,7 +184,6 @@ export type LessonView = {
   slug: string;
   stationId: string;
   title: string;
-  reviewed: boolean;
   demo: boolean;
   objectives: string[];
   /** The books the lesson's text quotes. */
@@ -187,9 +197,7 @@ export type LessonView = {
   quiz: QuestionView[];
   readMore: string[];
   laterTopics: { topic: string; number: string; href: string | null }[];
-  /** Notes for reviewers from the lesson file; shown only while it awaits review. */
-  reviewNotes: string[];
-  /** Parts of the lesson file the engine could not render, so a reviewer can see them. */
+  /** Parts of the lesson file the engine could not render (checked by the content tests). */
   issues: string[];
 };
 
@@ -209,14 +217,12 @@ export type LessonVisualView = {
   ambience: "water" | null;
   /** Mirrored in right-to-left pages (the day's arc runs in the reading direction). */
   mirrorRtl: boolean;
-  needsReview: boolean;
 };
 
 export type LessonStop = {
   id: string;
   slug: string;
   title: string;
-  reviewed: boolean;
   demo: boolean;
   hasQuiz: boolean;
 };

@@ -15,7 +15,6 @@ afterEach(() => {
 
 describe("content/", () => {
   it("loads every station and lesson file and links lessons to stations", async () => {
-    vi.stubEnv("CONTENT_SHOW_DRAFTS", "true");
     const { road, practice, lessons } = await loadKhutuwat();
     expect(road.map((station) => station.id)).toEqual(["1", "2", "3"]);
     expect(road.map((station) => station.lessonIds.length)).toEqual([6, 5, 8]);
@@ -23,16 +22,15 @@ describe("content/", () => {
     expect(lessons.size).toBe(20);
   });
 
-  it("hides every lesson awaiting review in production, but keeps the practice road", async () => {
-    vi.stubEnv("CONTENT_SHOW_DRAFTS", "false");
-    const { road, practice, lessons } = await loadKhutuwat();
-    expect(road).toEqual([]);
-    expect(practice.map((station) => station.id)).toEqual(["demo"]);
-    expect([...lessons.values()].every((lesson) => lesson.reviewed || lesson.status === "demo")).toBe(true);
+  it("publishes every lesson without claiming a scholarly review", async () => {
+    const { lessons } = await loadKhutuwat();
+    for (const lesson of lessons.values()) {
+      expect(["published", "demo"], lesson.id).toContain(lesson.status);
+      expect(lesson.reviewedBy, lesson.id).toBeNull();
+    }
   });
 
   it("renders every lesson in both languages", async () => {
-    vi.stubEnv("CONTENT_SHOW_DRAFTS", "true");
     const [khutuwat, sources, encyclopedia] = await Promise.all([loadKhutuwat(), loadSources(), loadFiqhEncyclopedia()]);
     for (const lesson of khutuwat.lessons.values()) {
       for (const locale of ["ar", "en"] as const) {
@@ -45,7 +43,6 @@ describe("content/", () => {
   });
 
   it("shows a hadith only in a language its source has, and the citation otherwise", async () => {
-    vi.stubEnv("CONTENT_SHOW_DRAFTS", "true");
     const [khutuwat, sources, encyclopedia] = await Promise.all([loadKhutuwat(), loadSources(), loadFiqhEncyclopedia()]);
     for (const lesson of khutuwat.lessons.values()) {
       for (const locale of ["ar", "en"] as const) {
@@ -98,7 +95,6 @@ describe("content/", () => {
   });
 
   it("gives every lesson a drawing whose named parts exist in its scenes", async () => {
-    vi.stubEnv("CONTENT_SHOW_DRAFTS", "true");
     const [visuals, { lessons }] = await Promise.all([loadVisuals(), loadKhutuwat()]);
     for (const lesson of lessons.values()) {
       if (lesson.status === "demo") continue;
@@ -107,15 +103,7 @@ describe("content/", () => {
     }
   });
 
-  it("shows a drawing awaiting review only where drafts are shown", async () => {
-    vi.stubEnv("CONTENT_SHOW_DRAFTS", "false");
-    const pending = (await loadVisuals()).filter((visual) => visual.needsReview);
-    expect(pending.map((visual) => visual.lesson)).toEqual(["3.4"]);
-    for (const visual of pending) expect(await toVisualView(visual.lesson)).toBeNull();
-  });
-
   it("keeps docs/SOURCES.md in step with content/sources.json and the media in lessons", async () => {
-    vi.stubEnv("CONTENT_SHOW_DRAFTS", "true");
     const [sources, { lessons }] = await Promise.all([loadSources(), loadKhutuwat()]);
     const doc = await readFile(path.resolve(process.cwd(), "..", "docs", "SOURCES.md"), "utf8");
     expect(doc).toBe(renderSourcesDoc(sources, collectMedia([...lessons.values()])));

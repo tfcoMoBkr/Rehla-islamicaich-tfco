@@ -1,4 +1,5 @@
-import { z } from "zod";
+// zod/mini: the same checks as zod, small enough for every page that talks to Rafiq.
+import * as z from "zod/mini";
 
 import { ANSWER_LANGUAGES } from "./languages";
 
@@ -41,48 +42,51 @@ export const REPLY_KINDS = ["answer", "referral", "chat", "clarify", "danger"] a
 const textBlockSchema = z.object({ type: z.literal("text"), text: z.string() });
 
 const answerLanguageSchema = z.enum(ANSWER_LANGUAGES);
+const counter = z.int().check(z.positive());
+const filled = z.string().check(z.minLength(1));
+const optionalText = z.nullish(z.string());
 
 const quranBlockSchema = z.object({
   type: z.literal("quran"),
-  n: z.number().int().positive(),
+  n: counter,
   /** surah:ayah */
-  ref: z.string().min(1),
-  surah: z.number().int().positive(),
-  ayah: z.number().int().positive(),
+  ref: filled,
+  surah: counter,
+  ayah: counter,
   /** The surah's name in the answer's language, as mp3quran.net publishes it. */
-  surahName: z.string().nullish(),
-  arabic: z.string().min(1),
-  translation: z.string().nullish(),
+  surahName: optionalText,
+  arabic: filled,
+  translation: optionalText,
   /** The translation's own language: it differs from the answer's when none is published in it. */
-  translationLanguage: answerLanguageSchema.nullish(),
+  translationLanguage: z.nullish(answerLanguageSchema),
   /** The QuranEnc translation it is taken from, such as english_saheeh, with its name and version. */
-  translationKey: z.string().nullish(),
-  translationName: z.string().nullish(),
-  translationVersion: z.string().nullish(),
+  translationKey: optionalText,
+  translationName: optionalText,
+  translationVersion: optionalText,
   url: z.url(),
 });
 
 const hadithBlockSchema = z.object({
   type: z.literal("hadith"),
-  n: z.number().int().positive(),
-  id: z.number().int(),
+  n: counter,
+  id: z.int(),
   title: z.string(),
-  arabic: z.string().min(1),
+  arabic: filled,
   /** The published translation (absent when the answer is in Arabic). */
-  text: z.string().nullish(),
-  textLanguage: answerLanguageSchema.nullish(),
+  text: optionalText,
+  textLanguage: z.nullish(answerLanguageSchema),
   grade: z.string(),
   attribution: z.string(),
   /** HadeethEnc's own explanation, shown with extractive answers. */
-  explanation: z.string().nullish(),
+  explanation: optionalText,
   url: z.url(),
 });
 
 const sourceCardSchema = z.object({
-  n: z.number().int().positive(),
+  n: counter,
   /** The source's entry in content/sources.json, shown on the sources page. */
-  sourceId: z.string().min(1),
-  title: z.string().min(1),
+  sourceId: filled,
+  title: filled,
   reference: z.string(),
   url: z.url(),
   publisher: z.string(),
@@ -90,26 +94,26 @@ const sourceCardSchema = z.object({
 
 export const rafiqAnswerSchema = z.object({
   language: answerLanguageSchema,
-  level: z.enum(["A", "B", "C", "D"]).nullable(),
+  level: z.nullable(z.enum(["A", "B", "C", "D"])),
   referred: z.boolean(),
-  kind: z.enum(REPLY_KINDS).default("answer"),
+  kind: z._default(z.enum(REPLY_KINDS), "answer"),
   /** Warm lines around the cited answer, checked by the service to carry no religious statement. */
-  opening: z.string().nullish(),
+  opening: optionalText,
   blocks: z.array(z.discriminatedUnion("type", [textBlockSchema, quranBlockSchema, hadithBlockSchema])),
   sources: z.array(sourceCardSchema),
-  followUp: z.string().nullish(),
-  referral: z
-    .object({
+  followUp: optionalText,
+  referral: z.nullish(
+    z.object({
       reason: z.enum(REFERRAL_REASONS),
       links: z.array(z.string()),
       /** Referral bodies to show, by id in content/referral-centers.json. */
-      centers: z.array(z.string()).default([]),
-    })
-    .nullish(),
+      centers: z._default(z.array(z.string()), []),
+    }),
+  ),
   /** A lesson further along the learner's road that covers the question. */
-  laterLessonId: z.string().nullish(),
+  laterLessonId: optionalText,
   /** The question was in a language Rafiq does not answer in; the answer is in `language`. */
-  languageFallback: z.boolean().default(false),
+  languageFallback: z._default(z.boolean(), false),
 });
 
 export type RafiqAnswer = z.infer<typeof rafiqAnswerSchema>;

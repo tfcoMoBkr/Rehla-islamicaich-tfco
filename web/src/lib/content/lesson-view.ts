@@ -15,9 +15,10 @@ import type {
   MediaView,
   QuestionView,
   StationView,
+  TermView,
 } from "@/lib/learn/types";
 
-import { readFetchedAyah, readFetchedHadith, readFetchedRecitation, type Khutuwat, type StationEntry } from "./load";
+import { readFetchedAyah, readFetchedHadith, readFetchedRecitation, readFetchedTerm, type Khutuwat, type StationEntry } from "./load";
 import type {
   Activity,
   Bilingual,
@@ -37,7 +38,7 @@ export const KNOWN_REPEATS = new Set(["once", "onceOnly", "onceRequiredThreeReco
 
 export const checkId = (lessonId: string, cardId: string) => `${lessonId}:${cardId}:check`;
 export const situationId = (lessonId: string) => `${lessonId}:situation`;
-export const lessonHref = (lesson: Pick<Lesson, "station" | "slug">) => `/learn/${lesson.station}/${lesson.slug}`;
+export const lessonHref = (lesson: Pick<Lesson, "station" | "slug">): `/${string}` => `/learn/${lesson.station}/${lesson.slug}`;
 
 type Context = {
   lesson: Lesson;
@@ -257,9 +258,33 @@ async function cardView(card: Lesson["cards"][number], context: Context): Promis
     sources: sourcesFor(card.source, `cards.${card.id}.source`, context),
     evidence: card.evidence ? await evidenceView(card.evidence, locale) : null,
     evidenceFirst: card.display === "evidenceFirst",
+    terms: await termViews(card, context),
     check: card.check ? checkView(card.check, checkId(lesson.id, card.id), lesson.id, text, locale) : null,
     media: mediaView(card.media, locale, context.sources),
   };
+}
+
+async function termViews(card: Lesson["cards"][number], context: Context): Promise<TermView[]> {
+  const views = await Promise.all(
+    (card.terms ?? []).map(async (term): Promise<TermView | null> => {
+      const stored = await readFetchedTerm(term.terminologyencId);
+      const page = stored?.languages[context.locale];
+      const field = (name: string) => page?.fields.find((candidate) => candidate.field === name)?.text ?? null;
+      if (!stored || !page) {
+        context.issues.push(`cards.${card.id}.terms: term ${term.terminologyencId} is not stored (run scripts/fetch-content.mjs --lesson-terms)`);
+        return null;
+      }
+      return {
+        id: stored.id,
+        word: pick(term.word, context.locale),
+        title: field("title") ?? pick(term.word, context.locale),
+        definition: field("idio_def"),
+        explanation: field("brief_expl"),
+        url: page.url,
+      };
+    }),
+  );
+  return views.filter((view) => view !== null);
 }
 
 function guidedSteps(keys: string[], context: Context): GuidedStep[] {
@@ -578,7 +603,6 @@ export async function toLessonView(
     slug: lesson.slug,
     stationId: lesson.station,
     title: pick(lesson.title, locale),
-    reviewed: lesson.reviewed,
     demo: lesson.status === "demo",
     objectives: lesson.objectives[locale],
     sources: books,
@@ -612,7 +636,6 @@ export async function toLessonView(
       const target = khutuwat.lessons.get(entry.lesson);
       return { topic: pick(entry.topic, locale), number: entry.lesson, href: target ? lessonHref(target) : null };
     }),
-    reviewNotes: lesson.reviewed ? [] : (lesson.reviewNotes ?? []),
     issues: context.issues,
   };
 }
@@ -656,7 +679,6 @@ export function toStationView(station: StationEntry, lessons: ReadonlyMap<string
               id: lesson.id,
               slug: lesson.slug,
               title: pick(lesson.title, locale),
-              reviewed: lesson.reviewed,
               demo: lesson.status === "demo",
               hasQuiz: (lesson.quiz?.length ?? 0) > 0,
             },

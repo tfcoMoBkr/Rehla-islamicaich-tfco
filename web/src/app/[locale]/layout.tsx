@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { SiteFooter } from "@/components/layout/site-footer";
@@ -11,6 +10,7 @@ import {
 } from "@/components/rafiq/rafiq-figure";
 import { ReferralCentresProvider } from "@/components/specialists/centres-context";
 import { DirectionProvider } from "@/components/ui/direction";
+import { LayoutMessages } from "@/i18n/client-messages";
 import { localeDirection, resolveLocale } from "@/i18n/locale";
 import { routing } from "@/i18n/routing";
 import { loadRafiqManifest, loadReferralCentres } from "@/lib/content/load";
@@ -52,7 +52,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} dir={dir} className={fontVariables}>
       <body className="flex min-h-dvh flex-col">
-        <NextIntlClientProvider>
+        <LayoutMessages>
           <DirectionProvider dir={dir}>
             <RafiqPosesProvider poses={rafiq}>
               <ReferralCentresProvider value={centres}>
@@ -69,7 +69,7 @@ export default async function LocaleLayout({
               </ReferralCentresProvider>
             </RafiqPosesProvider>
           </DirectionProvider>
-        </NextIntlClientProvider>
+        </LayoutMessages>
       </body>
     </html>
   );

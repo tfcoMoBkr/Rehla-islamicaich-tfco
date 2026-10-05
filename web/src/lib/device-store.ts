@@ -10,6 +10,8 @@ export type DeviceStore<T> = {
   use: () => T | null;
   read: () => T | null;
   set: (value: T | null) => void;
+  /** For stores built on this one; components use `use`. */
+  subscribe: (listener: () => void) => () => void;
 };
 
 export function deviceStore<T>(key: string, parse: (raw: string) => T | null, serialize: (value: T) => string): DeviceStore<T> {
@@ -63,7 +65,7 @@ export function deviceStore<T>(key: string, parse: (raw: string) => T | null, se
     };
   }
 
-  return { use: () => useSyncExternalStore(subscribe, read, () => null), read, set };
+  return { use: () => useSyncExternalStore(subscribe, read, () => null), read, set, subscribe };
 }
 
 export const textStore = (key: string) => deviceStore<string>(key, (raw) => raw, (value) => value);

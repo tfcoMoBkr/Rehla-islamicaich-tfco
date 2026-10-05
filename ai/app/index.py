@@ -16,6 +16,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from app.text import tokens
 
 Language = Literal["ar", "en"]
+SUBHEADING = 90
 ChunkType = Literal["book", "hadith", "quran", "term", "catalogue"]
 
 
@@ -37,6 +38,22 @@ class Chunk(BaseModel):
     hash: str
     # Type-specific data: hadithId, surah/ayah, part, grade, attribution, heading, categoryIds…
     extra: dict[str, object] = Field(default_factory=dict)
+
+
+def is_subheading(paragraph: str) -> bool:
+    """A short line that introduces what follows, such as "When ablution is due:"."""
+    return len(paragraph) <= SUBHEADING and paragraph.rstrip().endswith(":")
+
+
+def opens_with_subheading(text: str) -> bool:
+    return is_subheading(text.split("\n\n", 1)[0])
+
+
+def searchable(chunk: Chunk) -> str:
+    """What BM25 reads: the title, a book piece's section heading, and the text. A piece that
+    opens with its own subheading ("They are six:") names its subject only in the heading."""
+    heading = str(chunk.extra.get("heading") or "") if chunk.type == "book" else ""
+    return " ".join(part for part in (chunk.title, heading, chunk.text) if part)
 
 
 class IndexMeta(BaseModel):
@@ -84,7 +101,7 @@ class Index:
         self.chunks = chunks
         self.vectors = vectors.astype(np.float32)
         self.meta = meta
-        self.bm25 = Bm25([tokens(f"{chunk.title} {chunk.text}") for chunk in chunks])
+        self.bm25 = Bm25([tokens(searchable(chunk)) for chunk in chunks])
         self.by_id = {chunk.id: position for position, chunk in enumerate(chunks)}
 
     @classmethod

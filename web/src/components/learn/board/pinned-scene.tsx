@@ -1,6 +1,5 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useRef } from "react";
 
 import type { LessonVisualView } from "@/lib/learn/types";
@@ -27,7 +26,6 @@ const PART = "data-scene-part";
  * in focus. The drawing is decorative: the board's text carries the lesson.
  */
 export function PinnedScene({ visual, state, className }: PinnedSceneProps) {
-  const t = useTranslations("Board");
   const root = useRef<HTMLDivElement>(null);
   const progress = Math.min(Math.max(state.progress, 0), 1);
   const scene = visual.scenes[Math.min(Math.floor(progress * visual.scenes.length), visual.scenes.length - 1)];
@@ -75,9 +73,6 @@ export function PinnedScene({ visual, state, className }: PinnedSceneProps) {
           visual.mirrorRtl && "rtl:-scale-x-100",
         )}
       />
-      {visual.needsReview && (
-        <figcaption className="mt-2 text-center text-xs font-semibold text-dawn">{t("drawingAwaitingReview")}</figcaption>
-      )}
     </figure>
   );
 }

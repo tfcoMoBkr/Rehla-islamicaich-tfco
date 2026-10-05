@@ -4,10 +4,11 @@ import logging
 
 import pytest
 
+from app.languages import Language
 from app.rafiq.graph import Rafiq
 from app.rafiq.schemas import Classification, Draft, Level, QuranBlock, RafiqAnswer, TextBlock
 from app.retrieval import retriever as retriever_module
-from app.retrieval.retriever import Retriever
+from app.retrieval.retriever import Retrieval, Retriever
 
 from .fakes import VERSE, WUDU, DownMcp, FakeChat, FakeEmbedder, ScriptedMcp, index
 
@@ -261,3 +262,31 @@ async def test_a_language_rafiq_does_not_answer_in_gets_english() -> None:
 
     assert answer.language == "en"
     assert answer.language_fallback
+
+
+async def test_the_support_check_reads_where_a_book_passage_sits() -> None:
+    chat = FakeChat(classified("A"), [GOOD])
+    await rafiq(chat).run(QUESTION, "en")
+
+    check = next(user for user in chat.users if user.startswith("Sentence 1:"))
+    assert f"[1] ({WUDU.reference}) {WUDU.text}" in check
+
+
+class RecordingRetriever(Retriever):
+    def __init__(self) -> None:
+        super().__init__(index(WUDU, VERSE), FakeEmbedder(), DownMcp())
+        self.list_questions: list[bool] = []
+
+    async def retrieve(
+        self, question: str, language: Language, *, list_question: bool = False, **options: object
+    ) -> Retrieval:
+        self.list_questions.append(list_question)
+        return await super().retrieve(question, language, list_question=list_question, **options)  # type: ignore[arg-type]
+
+
+async def test_a_list_question_is_retrieved_as_a_list() -> None:
+    retriever = RecordingRetriever()
+    chat = FakeChat(classified("A", questionType="list"), [GOOD])
+    await Rafiq(chat, retriever).run("What are the steps of wudu?", "en")
+
+    assert retriever.list_questions == [True]

@@ -9,6 +9,8 @@ Rafiq is the product's AI companion. The rules it has to keep are in `CLAUDE.md`
 
 This document explains how the code in `ai/app/rafiq/` and `ai/app/retrieval/` enforces those rules. The prompts describe the policy to the model; the **code** decides what reaches the user. Every check and repair below works on the structure of an answer (paragraphs, list items, sentences, markers, blocks) and on what retrieval returned. None of them refers to a particular question, topic, verse or hadith, so they hold for any question, in any of the five languages, whatever model `LLM_MODEL` names.
 
+**Lesson text.** Lesson text is taken verbatim from the approved sources named on each lesson, or is marked as the team's wording («صياغة فريق رحلة» / "Wording by the Rehla team") and rests on a cited verse or hadith. The team checked every lesson. No scholarly review is claimed: `reviewed` stays `false` and `reviewedBy` is empty in every lesson file.
+
 These guarantees never bend:
 
 - No religious statement is shown without a source among the retrieved passages.
@@ -48,12 +50,12 @@ flowchart LR
 | Node | What it does | Where |
 |---|---|---|
 | `safety` | A code check of every message for signs of danger, before any model is asked (see Danger and distress). It cannot be skipped. | `safety.py` |
-| `classify` | One model call that returns a validated `Classification`: the question's language, level A–D, intent (including small talk, feelings and distress), question type, personal case, hostile tone, request for evidence, a quoted verse, up to two search phrases, and the question rewritten to stand alone (see Conversation). A lesson's "simpler" and "example" requests skip this step: they explain a lesson line and ask for no ruling. | `prompts/classify.md`, `schemas.py` |
+| `classify` | One model call that returns a validated `Classification`: the question's language, level A–D, intent (including small talk, feelings and distress), question type, personal case, hostile tone, request for evidence, a quoted verse, up to two search phrases, and the question rewritten to stand alone (see Conversation). A lesson's "explain", "simpler" and "example" requests skip this step: they explain a lesson line and ask for no ruling. | `prompts/classify.md`, `schemas.py` |
 | `retrieve` | Collects at most 10 numbered passages from approved sources (see Retrieval). | `retrieval/retriever.py` |
 | `generate` | Writes the answer from those passages only, in the shape that fits the question type. Every sentence carries a `[n]` marker. A verse or hadith appears only as a placeholder, such as `{{quran:2:256}}` or `{{hadith:3064}}`. | `prompts/generate.md`, `prompts/shapes/*.md`, `prompts/rules/*.md` |
 | `verify` | Code checks, then one model check of support. The first time it finds problems the draft is written again; the second time they are repaired in code. | `draft.py`, `check.py`, `repair.py`, `prompts/verify.md` |
 | `respond` | Shows every verse or hadith the answer relies on and puts the published texts in place of the placeholders. It numbers the source cards and, for level D or a personal case, adds the referral. | `repair.py` (`finish`), `compose.py` |
-| `refer` | Returns no religious content: a kind opening (if it passes the warmth checks) and a referral that states its reason. | `graph.py`, `policy.py` |
+| `refer` | Returns no religious content: a kind opening (if it passes the warmth checks), on every path that ends here, and a referral that states its reason. | `graph.py`, `policy.py` |
 | `chat` | Small talk and feelings: a short human reply and, where it fits, an offer to help. No sources, no referral card. | `prompts/chat.md` |
 | `clarify` | An unclear follow-up: one short question back instead of a guess. | `graph.py` |
 | `danger` | A fixed message and the specialist card. No model writes any of it. | `graph.py`, `web/messages/*.json` |
@@ -102,6 +104,10 @@ Retrieval uses only the approved sources (`content/sources.json`):
    - the HadeethEnc catalogue titles.
 
    Search is hybrid: cosine similarity (`EMBEDDING_MODEL`) and BM25 with Arabic normalisation, merged by reciprocal rank fusion. It searches first within the lessons the learner has reached. The question is searched together with the classifier's search phrases, and English transliterations such as "wudu" are paired with their English names from the stored TerminologyEnc entries. Book paragraphs that hold Quran text are not indexed: verses come only from the Quran sources.
+
+   Each book piece is searched, embedded and shown with its section heading, and its reference names that heading and the piece's own subheading. A piece that opens with "They are six:" names its subject only in the heading, so without it neither the search, nor the model, nor the support check could tell what the list is about.
+
+   **List questions** (`questionType: "list"`) read book pieces before hadiths and verses: a book gives the whole list, a hadith one item of it. The two best book pieces come with the rest of their list: the pieces of the same section from the subheading that opens it to the next one (at most three). A list the chunk size cut is read whole.
 2. **Hadiths through the catalogue.** A catalogue title that matches well leads to the hadith itself. A stored hadith is read locally; any other is read through MCP `get_hadith` (at most 3).
 3. **A quoted verse** is looked up on the MCP server (`search`, then `get_quran_verses`). If the quoted wording differs from the verse, the real verse is shown and the answer says gently that the wording is different.
 4. **Only when local results are weak** (best cosine below 0.50), the server's search is used:
@@ -170,7 +176,7 @@ The translations used, with their keys and versions, are recorded in `docs/SOURC
 | `verseBrackets` | Quran brackets ﴿﴾ appear in the prose. |
 | `wrongLanguage` | A sentence of twelve letters or more is not mostly in the script of the answer's language (Arabic script for Arabic and Urdu, Latin for English and French, Bengali for Bengali). A term or name in another script is allowed. |
 | `missingVerse` | A misquoted verse is not shown. |
-| `unsupported` | The model check (`prompts/verify.md`) finds a cited sentence its passages do not support. For a fatwa or a personal case it also lists every sentence that states a ruling (allowed, forbidden, obligatory, valid, what the asker should do), even one its passage supports (`prompts/rules/verify-general.md`): there, general information may explain, never rule. |
+| `unsupported` | The model check (`prompts/verify.md`) finds a cited sentence its passages do not support. For a fatwa or a personal case it also lists every sentence that states a ruling (allowed, forbidden, obligatory, valid, what the asker should do), even one its passage supports (`prompts/rules/verify-general.md`): there, general information may explain, never rule. This ruling guard applies to the cited sentences only, never to the warm lines. |
 
 **First draft:** any problem sends it back to `generate` once, with the problems listed.
 
@@ -181,7 +187,7 @@ The translations used, with their keys and versions, are recorded in `docs/SOURC
 - A sentence that copies a verse or hadith is replaced by that passage's block, placed once.
 - Before anything is removed, each sentence's covering markers are written onto it. Removing the sentence that closes a paragraph then never leaves the others without their source.
 
-The code checks run again after each round, for up to three rounds. The draft is referred (`verification`) only if problems remain or nothing cited is left: neither a cited sentence nor a verse or hadith block. A published block shown alone, with its source card, is a valid answer. The model check then runs on what is left, and unsupported sentences are removed the same way.
+The code checks run again after each round, for up to three rounds. The draft is referred (`verification`) only if problems remain or nothing cited is left: neither a cited sentence nor a verse or hadith block. For a fatwa, a personal case or distress the referral keeps that reason instead (`fatwa`, `personalCase`, `distress`): a guard that removes every ruling is the policy working, not a failed answer. A published block shown alone, with its source card, is a valid answer. The model check then runs on what is left, and unsupported sentences are removed the same way.
 
 The browser adds one more guard (`web/src/lib/rafiq/answer.ts`): a reply that carries content without sources is turned into a `noSource` referral before it is rendered.
 
@@ -213,9 +219,11 @@ The opening and the follow-up have no source markers, so nothing could show wher
 - shares a run of words with a retrieved verse or hadith (the same `copiedSacred` test as the answer);
 - is not written in the reply's language (the same `wrongLanguage` test as the answer);
 - repeats a line from an earlier reply in the history;
-- is longer than its limit once cut to whole sentences.
+- is longer than its limit even when cut to its first sentence (a line keeps the most whole sentences that fit).
 
 Then the same single model check that tests the answer's support (`prompts/verify.md`) lists any warm line that makes a religious statement (`religious`), and that line is dropped too. If that check cannot run, every warm line is dropped. A dropped line is simply not shown: it never causes a referral, and the cited answer stands on its own.
+
+The ruling guard of a fatwa or a personal case does not apply to warm lines: they keep only the religious-statement test. An opening that passes is shown whichever way the reply ends: an answer with the referral after it, an answer whose every sentence the guard removed, or a draft the model marked inadequate.
 
 In Urdu, Bengali and French the model writes no warm lines. The page shows fixed lines from `web/messages/answer-languages.json`, marked for native review.
 

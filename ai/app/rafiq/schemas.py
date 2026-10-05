@@ -96,13 +96,21 @@ class AskRequest(Camel):
     history: Annotated[list[Turn], Field(max_length=8)] = []
 
 
+# What the learner asks of a lesson line: Rafiq's first explanation of it, a simpler wording, an
+# example, or their own question about it.
+HelpMode = Literal["explain", "simpler", "example", "question"]
+
+
 class LessonHelpRequest(Camel):
     lesson_id: Annotated[str, Field(min_length=1, max_length=20)]
     card_id: Annotated[str, Field(min_length=1, max_length=40)]
     line_text: Annotated[str, Field(min_length=1, max_length=1000)]
-    mode: Literal["simpler", "example", "question"]
+    mode: HelpMode
     question: Annotated[str, Field(max_length=1000)] | None = None
     locale: PageLocale
+    reached_lesson_ids: list[str] | None = None
+    # The last turns of this conversation about the line, kept on the learner's device.
+    history: Annotated[list[Turn], Field(max_length=8)] = []
 
 
 class TextBlock(Camel):

@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 import { TeamWordingLabel } from "@/components/learn/wording";
 
 import { StepDots } from "@/components/learn/assessment/step-dots";
-import { LineHelpButton } from "@/components/learn/board/line-help-button";
+import { AskRafiqControl } from "@/components/learn/board/ask-rafiq-control";
 import { useRafiqReaction } from "@/components/learn/board/rafiq-context";
 import { ListenControls } from "@/components/learn/audio/listen-controls";
 import { MediaGallery } from "@/components/learn/media-gallery";
@@ -55,13 +55,18 @@ export function GuidedWalk({ steps, note, onFinish, onProgress, onLineHelp }: Gu
           {step.title && <p className={cn("text-xl leading-snug font-semibold", lit(0))}>{step.title}</p>}
           <div className="grid gap-2 text-lg leading-relaxed">
             {sentences.map((sentence, position) => (
-              <p key={`${position}-${sentence}`} className="flex items-start gap-1">
-                <span className={cn("min-w-0 flex-1", lit(position + offset))}>{sentence}</span>
-                {onLineHelp && <LineHelpButton onOpen={() => onLineHelp(sentence, step.id)} />}
+              <p key={`${position}-${sentence}`} className={lit(position + offset)}>
+                {sentence}
               </p>
             ))}
           </div>
           <TeamWordingLabel wording={step.wording} />
+          {onLineHelp && (
+            <AskRafiqControl
+              onOpen={() => onLineHelp([step.title, ...sentences].filter(Boolean).join(" "), step.id)}
+              className="justify-self-start"
+            />
+          )}
           <ListenControls reader={reader} />
           <MediaGallery media={step.media} />
           {step.repeat && (

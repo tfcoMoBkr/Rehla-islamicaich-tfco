@@ -12,7 +12,9 @@ Everything below lives in the browser's `localStorage` and is never sent to a se
 
 | Key | What it holds | Shown and cleared in |
 |---|---|---|
-| `rehla.journey.v1` | Lesson progress: lessons completed, quiz and baseline scores, choices made in activities, and a random session id. | The journal ("forget my journey") |
+| `rehla.journey.v1` | Lesson progress: lessons completed, quiz and baseline scores, choices made in activities, the provisions earned in Practice and each activity's best round, and a random session id. | The journal ("forget my journey") |
+| `rehla.lessons.v1` | The conversation with Rafiq beside each lesson's board, by lesson. | "What Rafiq remembers": "Clear everything" |
+| `rehla.guide.v1` | That the Khutuwat tour was finished or skipped, so it is shown only once. | Asked for again with "How Rehla works" |
 | `rehla.rafiq.v1.ar`, `rehla.rafiq.v1.en` | The conversation with Rafiq in each page language: each question, Rafiq's reply as the service returned it, and when it came. | Rafiq: "Start again" clears the current language; "Clear everything" clears both |
 | `rehla.name.v1` | The name the learner chose to give Rafiq, if any (at most 40 characters). | "What Rafiq remembers": change, remove, or clear everything |
 | `rehla.name.asked.v1` | That the name prompt was answered or skipped, so it is asked only once. | "Clear everything" |
@@ -50,5 +52,5 @@ The service keeps none of it after replying: it holds no conversation state and 
 
 ## Clearing everything
 
-On the Rafiq page, "What Rafiq remembers" lists what is kept: the name, the learner's place in the lessons, the size of this conversation and the chosen city. "Clear everything" (with a confirmation) removes the name, both conversations and the city. Lesson progress is kept in the journal and cleared there, so that clearing a chat never erases a learner's road by surprise.
+On the Rafiq page, "What Rafiq remembers" lists what is kept: the name, the learner's place in the lessons, the size of this conversation and the chosen city. "Clear everything" (with a confirmation) removes the name, both conversations, the conversations beside lesson boards and the city. Lesson progress is kept in the journal and cleared there, so that clearing a chat never erases a learner's road by surprise.
 

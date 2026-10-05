@@ -22,7 +22,7 @@ from dataclasses import dataclass, field
 
 import numpy as np
 
-from app.index import Chunk, ChunkType, Index
+from app.index import Chunk, ChunkType, Index, opens_with_subheading
 from app.index import Language as IndexLanguage
 from app.languages import FALLBACK, Language, quran_translation, spec
 from app.llm import Embedder
@@ -46,6 +46,10 @@ log = logging.getLogger("rafiq.retrieval")
 WEAK_COSINE = 0.50
 MAX_PASSAGES = 10
 LOCAL_PASSAGES = 7
+# For a list question, the best LIST_SECTIONS book hits are read with the pieces around them
+# that belong to the same list, at most LIST_RUN pieces each.
+LIST_SECTIONS = 2
+LIST_RUN = 3
 CATALOGUE_HADITHS = 3
 # Verses and hadiths read live for a language without local books.
 LIVE_HADITHS = 3
@@ -85,6 +89,15 @@ def _later_lesson(hits: list[Hit], scope: list[str]) -> str | None:
             return None
         return hit.chunk.lesson_ids[0]
     return None
+
+
+def _same_section(piece: Chunk, other: Chunk) -> bool:
+    return (
+        other.type == "book"
+        and other.lang == piece.lang
+        and other.extra.get("book") == piece.extra.get("book")
+        and other.extra.get("anchor") == piece.extra.get("anchor")
+    )
 
 
 def _contains(verse: str, quoted: str) -> bool:
@@ -171,13 +184,20 @@ class Retriever:
         language: IndexLanguage,
         scope: list[str] | None,
         types: set[ChunkType],
+        focus: str | None = None,
     ) -> tuple[list[Hit], str | None]:
-        """Hits within the lessons in scope; all hits when those are weak, with the later lesson."""
+        """Hits within the lessons in scope; all hits when those are weak, with the later lesson.
+        Within the scope, the `focus` lesson is searched a second time on its own, so its passages
+        rank first when they match."""
 
         def ranked(lesson_ids: list[str] | None) -> list[Hit]:
+            searched = [lesson_ids]
+            if lesson_ids and focus:
+                searched.append([focus])
             return fuse(
                 [
-                    search(self._index, text, vector, language, lesson_ids=lesson_ids, types=types)
+                    search(self._index, text, vector, language, lesson_ids=ids, types=types)
+                    for ids in searched
                     for text, vector in queries
                 ]
             )
@@ -189,24 +209,57 @@ class Retriever:
         hits = ranked(None)
         return hits, _later_lesson(hits, scope) if scope else None
 
-    def _local_passages(self, hits: list[Hit], language: Language) -> list[Passage]:
+    def _list_run(self, chunk: Chunk) -> list[Chunk]:
+        """The part of a book section a piece belongs to, in order: from the subheading that opens
+        it ("They are six:") to the next one, at most LIST_RUN pieces. A list the chunk size cut
+        runs on across these pieces. Pieces of a section are stored next to each other."""
+        chunks = self._index.chunks
+        hit = self._index.by_id[chunk.id]
+
+        def continues(position: int) -> bool:
+            """Whether the piece at `position` carries on the part before it."""
+            return _same_section(chunk, chunks[position]) and not opens_with_subheading(
+                chunks[position].text
+            )
+
+        start = hit
+        while start > 0 and continues(start) and _same_section(chunk, chunks[start - 1]):
+            start -= 1
+        end = hit
+        while end + 1 < len(chunks) and continues(end + 1):
+            end += 1
+        first = start if hit - start < LIST_RUN else hit - 1
+        return chunks[first : min(end, first + LIST_RUN - 1) + 1]
+
+    def _local_passages(
+        self, hits: list[Hit], language: Language, *, list_question: bool = False
+    ) -> list[Passage]:
+        """The best local passages. For a list question the book pieces come first, the best ones
+        with the rest of their list: a book gives the whole list, a hadith one item of it."""
+        if list_question:
+            hits = sorted(hits, key=lambda hit: hit.chunk.type != "book")
         passages: list[Passage] = []
-        seen_hadiths: set[int] = set()
-        for hit in hits:
+        seen: set[str] = set()
+        for rank, hit in enumerate(hits):
             chunk = hit.chunk
             if chunk.type == "hadith":
                 hadith_id = int(str(chunk.extra["hadithId"]))
-                if hadith_id in seen_hadiths:
+                if f"hadith:{hadith_id}" in seen:
                     continue
-                seen_hadiths.add(hadith_id)
+                seen.add(f"hadith:{hadith_id}")
                 stored = self._stored_hadith(hadith_id, language)
                 if stored:
                     passages.append(stored)
             else:
-                passages.append(from_chunk(chunk))
+                whole = list_question and chunk.type == "book" and rank < LIST_SECTIONS
+                run = self._list_run(chunk) if whole else [chunk]
+                for piece in run:
+                    if piece.id not in seen:
+                        seen.add(piece.id)
+                        passages.append(from_chunk(piece))
             if len(passages) >= LOCAL_PASSAGES:
                 break
-        return passages
+        return passages[:LOCAL_PASSAGES]
 
     async def _live_passages(self, hits: list[Hit], language: Language) -> list[Passage]:
         """For a language without local books: the verses and hadiths found, read in it."""
@@ -284,8 +337,12 @@ class Retriever:
         phrases: list[str] | None = None,
         quoted_verse: str | None = None,
         keywords: KeywordMaker | None = None,
+        list_question: bool = False,
+        focus: str | None = None,
     ) -> Retrieval:
-        """`phrases` are other wordings of the question, searched alongside it."""
+        """`phrases` are other wordings of the question, searched alongside it. A list question
+        reads book sections first, each with the rest of its list. `focus` is the lesson being
+        read: its own passages come first within the scope."""
         calls_before = self._mcp.calls
         local = spec(language).local
         passages: list[Passage] = []
@@ -294,13 +351,13 @@ class Retriever:
         catalogue_ids: list[int] = []
         for index_language in _index_languages(language):
             queries = await self._queries(question, phrases or [], index_language, local)
-            hits, later = self._ranked(queries, index_language, scope, PASSAGE_TYPES)
+            hits, later = self._ranked(queries, index_language, scope, PASSAGE_TYPES, focus)
             # Catalogue titles only point to hadiths; ranked with passages, they crowd them out.
-            catalogue, _ = self._ranked(queries, index_language, scope, {"catalogue"})
+            catalogue, _ = self._ranked(queries, index_language, scope, {"catalogue"}, focus)
             top_cosine = max([top_cosine, *(hit.cosine for hit in [*hits, *catalogue])])
             later_lesson = later_lesson or later
             if local:
-                passages.extend(self._local_passages(hits, language))
+                passages.extend(self._local_passages(hits, language, list_question=list_question))
             else:
                 passages.extend(await self._live_passages(hits, language))
             for hit in catalogue[:10]:

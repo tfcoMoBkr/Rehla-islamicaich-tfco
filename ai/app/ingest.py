@@ -18,14 +18,13 @@ import httpx
 import numpy as np
 
 from app.config import get_settings
-from app.index import Chunk, Index, IndexMeta, Language
+from app.index import Chunk, Index, IndexMeta, Language, is_subheading
 from app.llm import OpenRouterEmbedder
 from app.rafiq.specialists import FILE as REFERRALS_FILE
 from app.retrieval.surahs import FILE as SURAHS_FILE
 
 TARGET = 800
 LONG_PARAGRAPH = 1200
-SUBHEADING = 90
 LANGUAGES: tuple[Language, ...] = ("ar", "en")
 
 # content/sources.json ids of the books, by their id in content/corpus/index.json.
@@ -53,22 +52,20 @@ def digest(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
-def is_subheading(paragraph: str) -> bool:
-    """A short line that introduces what follows, such as "When ablution is due:"."""
-    return len(paragraph) <= SUBHEADING and paragraph.rstrip().endswith(":")
-
-
 def book_context(heading: str, text: str) -> str:
-    """What a book piece is embedded with: its own opening subheading, or else the section's."""
-    if not heading or is_subheading(text.split("\n\n", 1)[0]):
-        return text
-    return f"{heading}\n{text}"
+    """What a book piece is embedded with: the section heading, then the piece. A piece's own
+    opening subheading, such as "They are six:", may not name its subject."""
+    return f"{heading}\n{text}" if heading else text
 
 
 def book_reference(heading: str, text: str) -> str:
-    """Where a piece sits in its book: its own opening subheading, or else the section heading."""
-    lead = text.split("\n\n", 1)[0]
-    return (lead if is_subheading(lead) else heading).rstrip(" :")
+    """Where a piece sits in its book: the section heading, then the piece's own opening
+    subheading when it has one."""
+    first = text.split("\n\n", 1)[0]
+    heading, lead = heading.rstrip(" :"), first.rstrip(" :")
+    if not is_subheading(first) or lead in heading:
+        return heading
+    return f"{heading} — {lead}" if heading and heading not in lead else lead
 
 
 def pieces(paragraphs: list[str]) -> list[str]:
@@ -117,7 +114,8 @@ class Sources:
         self.lesson_refs = self._lesson_references()
 
     def _lesson_references(self) -> dict[str, set[str]]:
-        """Which lessons cite each hadith ("hadith:ID") and verse ("quran:S:A")."""
+        """Which lessons cite each hadith ("hadith:ID"), verse ("quran:S:A") and TerminologyEnc
+        term ("term:ID")."""
         found: dict[str, set[str]] = {}
 
         def visit(value: object, lesson: str) -> None:
@@ -129,6 +127,8 @@ class Sources:
                 return
             if value.get("type") == "hadith" and value.get("hadeethencId"):
                 found.setdefault(f"hadith:{value['hadeethencId']}", set()).add(lesson)
+            if value.get("terminologyencId"):
+                found.setdefault(f"term:{value['terminologyencId']}", set()).add(lesson)
             # Lesson files give every verse reference as "ref": "s:a" or "s:a-b".
             ref = value.get("ref")
             match = re.fullmatch(r"(\d+):(\d+)(?:-(\d+))?", ref) if isinstance(ref, str) else None
@@ -139,7 +139,7 @@ class Sources:
             for item in value.values():
                 visit(item, lesson)
 
-        for path in sorted((self.content / "lessons" / "drafts").glob("*.json")):
+        for path in sorted((self.content / "lessons").glob("*.json")):
             lesson = read(path)
             visit(lesson, lesson["id"])
         return found
@@ -222,6 +222,7 @@ def term_chunks(sources: Sources) -> list[Chunk]:
                     reference=f"#{term['id']}",
                     url=page["url"],
                     publisher=term["source"]["publisher"],
+                    lesson_ids=sorted(sources.lesson_refs.get(f"term:{term['id']}", set())),
                     text=text,
                     hash=digest(text),
                     extra={"termId": term["id"]},

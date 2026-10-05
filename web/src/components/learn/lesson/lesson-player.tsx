@@ -1,8 +1,9 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { ArrowRight, BookOpen, ExternalLink } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 
 import { ActivityRunner } from "@/components/learn/activities/activity-runner";
 import { ListenControls } from "@/components/learn/audio/listen-controls";
@@ -11,7 +12,7 @@ import { ReviewList } from "@/components/learn/assessment/review-list";
 import { ScoreSummary } from "@/components/learn/assessment/score-summary";
 import { CardBoard } from "@/components/learn/board/card-board";
 import { ChalkBoard } from "@/components/learn/board/chalk-board";
-import { LessonHelpDialog, type HelpTarget } from "@/components/learn/board/lesson-help-dialog";
+import type { HelpTarget } from "@/components/learn/board/lesson-rafiq-panel";
 import { LessonStage } from "@/components/learn/board/lesson-stage";
 import { PaperSlip } from "@/components/learn/board/paper-slip";
 import { PinnedScene, type SceneState } from "@/components/learn/board/pinned-scene";
@@ -19,7 +20,6 @@ import { RafiqAtBoard } from "@/components/learn/board/rafiq-at-board";
 import { RafiqReactionProvider } from "@/components/learn/board/rafiq-context";
 import { SoundToggle } from "@/components/learn/board/sound-toggle";
 import { useRafiqMood } from "@/components/learn/board/use-rafiq-mood";
-import { AwaitingReviewBadge } from "@/components/learn/content-badges";
 import { MediaGallery } from "@/components/learn/media-gallery";
 import { QuestionCard } from "@/components/learn/questions/question-card";
 import { SourceLine } from "@/components/learn/source-line";
@@ -28,6 +28,7 @@ import { SourceLinks } from "@/components/learn/source-links";
 import { VideoCard } from "@/components/learn/video-card";
 import { Stamp } from "@/components/journey/stamp";
 import { Button } from "@/components/ui/button";
+import { features } from "@/config/features";
 import { PROVISIONS_LIMIT } from "@/config/learning";
 import { Link } from "@/i18n/navigation";
 import { playPaper, startWater } from "@/lib/audio/natural-sounds";
@@ -41,6 +42,11 @@ import { cn } from "@/lib/utils";
 
 import { LessonBanner } from "./lesson-banner";
 import { PartStepper, type LessonPart } from "./part-stepper";
+
+// The conversation with Rafiq loads only when the learner opens it.
+const LessonRafiqPanel = dynamic(() =>
+  import("@/components/learn/board/lesson-rafiq-panel").then((module) => module.LessonRafiqPanel),
+);
 
 type Screen =
   | { kind: "intro" }
@@ -236,9 +242,9 @@ export function LessonPlayer({ lesson, visual, provisionsPool, next }: LessonPla
           </div>
         </div>
 
-        {screen.kind === "intro" && (lesson.demo || !lesson.reviewed) && (
+        {screen.kind === "intro" && lesson.demo && (
           <div className="tone-day mt-4 rounded-xl bg-paper *:mt-0">
-            <LessonBanner lesson={lesson} showDetails />
+            <LessonBanner />
           </div>
         )}
 
@@ -253,11 +259,6 @@ export function LessonPlayer({ lesson, visual, provisionsPool, next }: LessonPla
               <div className="grid min-w-0 gap-1.5">
                 <p className="flex flex-wrap items-center gap-2 text-sm font-medium text-muted-foreground">
                   {lesson.demo ? t("practiceLesson") : t("lessonNumber", { number: lesson.id })}
-                  {!lesson.reviewed && !lesson.demo && screen.kind !== "intro" && (
-                    <span className="tone-day rounded-full bg-paper">
-                      <AwaitingReviewBadge />
-                    </span>
-                  )}
                 </p>
                 <h1
                   className={cn(
@@ -343,7 +344,7 @@ export function LessonPlayer({ lesson, visual, provisionsPool, next }: LessonPla
                   narrate={narrate}
                   onNarrateChange={setNarrate}
                   onWritten={markWritten}
-                  onLineHelp={(line) => setHelp({ lessonId: lesson.id, cardId: card.id, line })}
+                  onLineHelp={features.rafiq ? (line) => setHelp({ lessonId: lesson.id, cardId: card.id, line }) : undefined}
                 />
                 <BoardNav>
                   {goBack && (
@@ -402,7 +403,7 @@ export function LessonPlayer({ lesson, visual, provisionsPool, next }: LessonPla
                       current?.board === board ? { ...current, focus } : { board, done: 0, total: 1, focus },
                     )
                   }
-                  onLineHelp={(line, stepId) => setHelp({ lessonId: lesson.id, cardId: stepId, line })}
+                  onLineHelp={features.rafiq ? (line, stepId) => setHelp({ lessonId: lesson.id, cardId: stepId, line }) : undefined}
                 />
                 <PreviousBoard onBack={goBack} />
               </>
@@ -527,7 +528,12 @@ export function LessonPlayer({ lesson, visual, provisionsPool, next }: LessonPla
           </ChalkBoard>
         </div>
       </LessonStage>
-      <LessonHelpDialog target={help} onClose={() => setHelp(null)} />
+      {help && (
+        // Its own boundary: the board stays as it is while the panel's code arrives.
+        <Suspense fallback={null}>
+          <LessonRafiqPanel key={`${help.cardId}:${help.line}`} target={help} onClose={() => setHelp(null)} />
+        </Suspense>
+      )}
     </RafiqReactionProvider>
   );
 }

@@ -1,13 +1,15 @@
-import { z } from "zod";
+import * as z from "zod/mini";
 
 import { deviceStore, textStore } from "@/lib/device-store";
 import { chooseCity } from "@/lib/referral/chosen-city";
 
 import { rafiqAnswerSchema, type RafiqResult } from "./answer";
+import { forgetLessonThreads } from "./lesson-threads";
 
 /*
  * What Rafiq remembers, all on this device: the name the learner chose to give (optional, never
- * sent to the service), the conversation in each language, and the city chosen for referrals.
+ * sent to the service), the conversation in each language, the conversations beside lesson boards,
+ * and the city chosen for referrals.
  * Nothing is inferred from them, and "Clear everything" removes them all.
  */
 
@@ -25,7 +27,7 @@ const resultSchema = z.discriminatedUnion("kind", [
 ]);
 
 /** One question and its reply; `at` is when the reply came, in milliseconds since the epoch. */
-export const exchangeSchema = z.object({ id: z.number().int(), at: z.number(), question: z.string(), result: resultSchema });
+export const exchangeSchema = z.object({ id: z.int(), at: z.number(), question: z.string(), result: resultSchema });
 export type StoredExchange = { id: number; at: number; question: string; result: RafiqResult };
 
 /** When this page was opened: a conversation that began earlier is one the learner returns to. */
@@ -56,4 +58,5 @@ export function forgetEverything(): void {
   conversations.ar.set(null);
   conversations.en.set(null);
   chooseCity(null);
+  forgetLessonThreads();
 }

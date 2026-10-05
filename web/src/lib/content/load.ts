@@ -2,14 +2,15 @@ import "server-only";
 
 import { access, readdir, readFile } from "node:fs/promises";
 import path from "node:path";
-import { cache } from "react";
 import type { z } from "zod";
 
+import { memo } from "./memo";
 import { cleanSvg } from "./scene-svg";
 import {
   artManifestSchema,
   fetchedAyahSchema,
   fetchedHadithSchema,
+  fetchedTermSchema,
   fetchedRecitationSchema,
   fiqhEncyclopediaSchema,
   lessonSchema,
@@ -22,19 +23,18 @@ import {
   type ArtManifest,
   type FetchedAyah,
   type FetchedHadith,
+  type FetchedTerm,
   type FetchedRecitation,
   type FiqhEncyclopedia,
   type Lesson,
   type LessonVisual,
   type Media,
   type MediaManifest,
-  type Question,
   type RafiqManifest,
   type ReferralCentres,
   type Source,
   type Station,
 } from "./schema";
-import { showDrafts } from "./visibility";
 
 const CONTENT_DIR = path.resolve(process.cwd(), "..", "content");
 const MEDIA_DIR = path.join(CONTENT_DIR, "media");
@@ -67,7 +67,7 @@ export function compareLessonIds(a: string, b: string): number {
   return a.localeCompare(b, "en", { numeric: true });
 }
 
-export const loadSources = cache(async (): Promise<Source[]> => {
+export const loadSources = memo(async (): Promise<Source[]> => {
   const { sources } = await readValidated(path.join(CONTENT_DIR, "sources.json"), sourcesSchema);
   return sources;
 });
@@ -94,7 +94,7 @@ function assertConsistent(stations: Station[], lessons: Lesson[]): void {
   }
 }
 
-export const loadMediaManifest = cache(
+export const loadMediaManifest = memo(
   (): Promise<MediaManifest> => readValidated(path.join(MEDIA_DIR, "manifest.json"), mediaManifestSchema),
 );
 
@@ -124,15 +124,7 @@ async function assertMediaPresent(lessons: Lesson[], manifest: MediaManifest): P
   }
 }
 
-function isVisible(lesson: Lesson, drafts: boolean): boolean {
-  return drafts || lesson.reviewed || lesson.status === "demo";
-}
-
-function reviewedQuestions(questions: Question[], drafts: boolean): Question[] {
-  return drafts ? questions : questions.filter((question) => question.reviewed);
-}
-
-export const loadKhutuwat = cache(async (): Promise<Khutuwat> => {
+export const loadKhutuwat = memo(async (): Promise<Khutuwat> => {
   const [stations, lessons] = await Promise.all([
     Promise.all((await jsonFiles(path.join(CONTENT_DIR, "stations"))).map((file) => readValidated(file, stationSchema))),
     Promise.all((await jsonFiles(path.join(CONTENT_DIR, "lessons"))).map((file) => readValidated(file, lessonSchema))),
@@ -140,18 +132,12 @@ export const loadKhutuwat = cache(async (): Promise<Khutuwat> => {
   assertConsistent(stations, lessons);
   await assertMediaPresent(lessons, await loadMediaManifest());
 
-  const drafts = showDrafts();
-  const visible = lessons
-    .filter((lesson) => isVisible(lesson, drafts))
-    .map((lesson) => ({ ...lesson, quiz: lesson.quiz && reviewedQuestions(lesson.quiz, drafts) }))
-    .sort((a, b) => compareLessonIds(a.id, b.id));
+  const ordered = [...lessons].sort((a, b) => compareLessonIds(a.id, b.id));
 
   const entries = stations
     .map((station) => ({
       ...station,
-      baseline: reviewedQuestions(station.baseline, drafts),
-      exam: reviewedQuestions(station.exam, drafts),
-      lessonIds: visible.filter((lesson) => lesson.station === station.id).map((lesson) => lesson.id),
+      lessonIds: ordered.filter((lesson) => lesson.station === station.id).map((lesson) => lesson.id),
     }))
     .filter((station) => station.lessonIds.length > 0)
     .sort((a, b) => a.order - b.order);
@@ -159,7 +145,7 @@ export const loadKhutuwat = cache(async (): Promise<Khutuwat> => {
   return {
     road: entries.filter((station) => !station.demo),
     practice: entries.filter((station) => station.demo),
-    lessons: new Map(visible.map((lesson) => [lesson.id, lesson])),
+    lessons: new Map(ordered.map((lesson) => [lesson.id, lesson])),
   };
 });
 
@@ -174,26 +160,31 @@ async function readOptional<T>(file: string, schema: z.ZodType<T>): Promise<T | 
 
 /* Evidence saved by scripts/fetch-content.mjs. A missing file means it has not been fetched yet. */
 
-export const readFetchedAyah = cache(
+export const readFetchedAyah = memo(
   (surah: number, ayah: number): Promise<FetchedAyah | null> =>
     readOptional(path.join(CONTENT_DIR, "fetched", "quran", `${surah}-${ayah}.json`), fetchedAyahSchema),
 );
 
-export const readFetchedHadith = cache(
+export const readFetchedHadith = memo(
   (id: number): Promise<FetchedHadith | null> =>
     readOptional(path.join(CONTENT_DIR, "fetched", "hadith", `${id}.json`), fetchedHadithSchema),
 );
 
-export const readFetchedRecitation = cache(
+export const readFetchedTerm = memo(
+  (id: number): Promise<FetchedTerm | null> =>
+    readOptional(path.join(CONTENT_DIR, "fetched", "terms", `${id}.json`), fetchedTermSchema),
+);
+
+export const readFetchedRecitation = memo(
   (surah: number): Promise<FetchedRecitation | null> =>
     readOptional(path.join(CONTENT_DIR, "fetched", "recitation", `${surah}.json`), fetchedRecitationSchema),
 );
 
-export const loadFiqhEncyclopedia = cache(
+export const loadFiqhEncyclopedia = memo(
   (): Promise<FiqhEncyclopedia> => readValidated(path.join(CONTENT_DIR, "fiqh-encyclopedia.json"), fiqhEncyclopediaSchema),
 );
 
-export const loadReferralCentres = cache(
+export const loadReferralCentres = memo(
   (): Promise<ReferralCentres> => readValidated(path.join(CONTENT_DIR, "referral-centers.json"), referralCentresSchema),
 );
 
@@ -205,16 +196,16 @@ const IMAGE_TYPES: Record<string, string> = {
   ".avif": "image/avif",
 };
 
-export const loadArtManifest = cache(
+export const loadArtManifest = memo(
   (): Promise<ArtManifest> => readValidated(path.join(ART_DIR, "manifest.json"), artManifestSchema),
 );
 
-export const loadVisuals = cache(async (): Promise<LessonVisual[]> => {
+export const loadVisuals = memo(async (): Promise<LessonVisual[]> => {
   const { lessons } = await readValidated(path.join(CONTENT_DIR, "visuals.json"), visualsSchema);
   return lessons;
 });
 
-export const loadRafiqManifest = cache(
+export const loadRafiqManifest = memo(
   (): Promise<RafiqManifest> => readValidated(path.join(ART_DIR, "rafiq", "manifest.json"), rafiqManifestSchema),
 );
 
@@ -230,7 +221,7 @@ export async function readRafiqPose(file: string): Promise<Buffer | null> {
 }
 
 /** A drawing from content/art/, cleaned for inline use, only if the art manifest lists it. */
-export const readArtSvg = cache(async (file: string): Promise<string | null> => {
+export const readArtSvg = memo(async (file: string): Promise<string | null> => {
   const manifest = await loadArtManifest();
   if (!manifest.items.some((item) => item.file === file)) return null;
   try {

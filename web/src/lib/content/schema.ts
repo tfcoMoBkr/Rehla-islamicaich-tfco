@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 /*
- * The shape of content/. Lesson files are written by the team (content/lessons/drafts/) and
+ * The shape of content/. Lesson files are written by the team (content/lessons/) and
  * define this schema; the engine renders them as they are. Station files and the practice
  * lesson are the engine's own.
  */
@@ -229,7 +229,7 @@ export const lessonSchema = z.object({
   id: z.string().regex(/^[\w.-]+$/),
   station: z.union([z.number().int(), z.string()]).transform(String),
   slug: z.string().regex(/^[a-z0-9-]+$/),
-  status: z.enum(["draft", "demo"]),
+  status: z.enum(["published", "demo"]),
   reviewed: z.boolean(),
   reviewedBy: z.string().nullable(),
   title: bilingual,
@@ -247,6 +247,8 @@ export const lessonSchema = z.object({
         textRef: textRefSchema.optional(),
         authoring: teamWording.optional(),
         evidence: evidenceSchema.optional(),
+        /** TerminologyEnc terms the card's text uses, shown with their published definition. */
+        terms: z.array(z.object({ terminologyencId: z.number().int(), word: bilingual })).optional(),
         check: checkSchema.optional(),
         display: z.literal("evidenceFirst").optional(),
         media: mediaList,
@@ -393,8 +395,6 @@ export const visualsSchema = z.object({
       ambience: z.enum(["water"]).optional(),
       /** Mirror the drawing in right-to-left pages, where time and reading run the other way. */
       mirrorRtl: z.boolean().default(false),
-      /** Shown only where drafts are shown, labelled as awaiting review. */
-      needsReview: z.boolean().default(false),
     }),
   ),
 });
@@ -509,6 +509,17 @@ export const fetchedHadithSchema = z.object({
   languages: z.object({ ar: fetchedHadithVersion.optional(), en: fetchedHadithVersion.optional() }),
 });
 
+/** A TerminologyEnc term as stored by scripts/fetch-content.mjs --lesson-terms: each field verbatim. */
+const termLanguage = z.object({
+  url: z.url(),
+  fields: z.array(z.object({ field: z.string(), section: z.string().nullable(), text: z.string() })),
+});
+export const fetchedTermSchema = z.object({
+  id: z.number(),
+  source: z.object({ publisher: z.string(), url: z.url(), fetchedOn: z.string() }),
+  languages: z.object({ ar: termLanguage.optional(), en: termLanguage.optional() }),
+});
+
 export const fetchedRecitationSchema = z.object({
   surah: z.number(),
   read: z.number(),
@@ -531,6 +542,7 @@ export type TextRef = z.infer<typeof textRefSchema>;
 export type SourceType = Source["type"];
 export type FetchedAyah = z.infer<typeof fetchedAyahSchema>;
 export type FetchedHadith = z.infer<typeof fetchedHadithSchema>;
+export type FetchedTerm = z.infer<typeof fetchedTermSchema>;
 export type FetchedRecitation = z.infer<typeof fetchedRecitationSchema>;
 export type Media = z.infer<typeof mediaSchema>;
 export type MediaManifest = z.infer<typeof mediaManifestSchema>;

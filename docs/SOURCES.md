@@ -36,7 +36,7 @@ Every source Rehla uses. Generated from `content/sources.json` by `npm run conte
 
 | Source | Link | Used for | Licence | Status | Checked on |
 | --- | --- | --- | --- | --- | --- |
-| Encyclopedia of Translated Islamic Terms (TerminologyEnc.com) (`terminologyenc`) | <https://terminologyenc.com> | The definitions of eight terms in Arabic and English, kept as published in Rafiq's corpus, each with the link to its page. | The organisers' package states that the content of the Association's platforms is free for individuals and organisations; text is kept unmodified and attributed. | Approved | 2026-10-04 |
+| Encyclopedia of Translated Islamic Terms (TerminologyEnc.com) (`terminologyenc`) | <https://terminologyenc.com> | The definitions of nine terms in Arabic and English, kept as published in Rafiq's corpus, each with the link to its page. | The organisers' package states that the content of the Association's platforms is free for individuals and organisations; text is kept unmodified and attributed. | Approved | 2026-10-04 |
 
 ## Referral
 

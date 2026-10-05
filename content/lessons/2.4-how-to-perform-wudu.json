@@ -1,0 +1,499 @@
+{
+  "id": "2.4",
+  "station": 2,
+  "slug": "how-to-perform-wudu",
+  "status": "published",
+  "reviewed": false,
+  "reviewedBy": null,
+  "authoring": "Cards with textRef show the named book verbatim; cards marked authoring: team keep the team's wording and rest only on their verse or hadith.",
+  "title": {
+    "ar": "كيف أتوضأ؟",
+    "en": "How do I perform wudu?"
+  },
+  "objectives": {
+    "ar": [
+      "أن يعرف المتعلم أن النية محلها القلب",
+      "أن يرتب خطوات الوضوء ترتيبًا صحيحًا",
+      "أن يميز ما يُفعل مرة واحدة مما يُستحب تكراره ثلاثًا"
+    ],
+    "en": [
+      "Know that the intention is made in the heart",
+      "Put the steps of wudu in the correct order",
+      "Tell apart what is done once from what is recommended three times"
+    ]
+  },
+  "sources": [
+    {
+      "key": "mukhtasar",
+      "title": {
+        "ar": "المختصر المفيد للمسلم الجديد",
+        "en": "New Muslim Guideline"
+      },
+      "publisher": "IslamHouse.com / byenah.com",
+      "url": {
+        "ar": "https://islamhouse.com/ar/books/2831443/",
+        "en": "https://byenah.com/en/muslim-content/4784"
+      },
+      "use": "Shown verbatim by reference (textRef)."
+    },
+    {
+      "key": "ibnbaz-lessons",
+      "title": {
+        "ar": "الدروس المهمة لعامة الأمة",
+        "en": "Important Lessons for the General Ummah"
+      },
+      "publisher": "IslamHouse.com",
+      "url": {
+        "ar": "https://islamhouse.com/ar/books/1871/",
+        "en": "https://islamhouse.com/en/books/2842316/"
+      },
+      "use": "Shown verbatim by reference (textRef)."
+    }
+  ],
+  "cards": [
+    {
+      "id": "c1",
+      "source": [],
+      "text": {
+        "ar": "الوضوء من أفضل الأعمال، وبه يغفر الله الذنوب.",
+        "en": "Wudu is one of the best deeds, and through it Allah forgives sins."
+      },
+      "evidence": {
+        "type": "hadith",
+        "hadeethencId": 3284,
+        "citation": "رواه مسلم",
+        "availableIn": [
+          "ar",
+          "en"
+        ],
+        "publisher": "hadeethenc.com"
+      },
+      "check": {
+        "type": "trueFalse",
+        "prompt": {
+          "ar": "الوضوء مجرد نظافة للجسد وليس له أجر.",
+          "en": "Wudu is only physical cleanliness and carries no reward."
+        },
+        "answer": false
+      },
+      "authoring": "team"
+    },
+    {
+      "id": "c2",
+      "source": [],
+      "text": {
+        "ar": "أمر الله بالوضوء قبل الصلاة في كتابه.",
+        "en": "Allah commands wudu before prayer in His Book."
+      },
+      "evidence": {
+        "type": "quran",
+        "ref": "5:6",
+        "publisher": "quranenc.com"
+      },
+      "authoring": "team"
+    },
+    {
+      "id": "c3",
+      "source": [
+        "mukhtasar"
+      ],
+      "evidence": {
+        "type": "hadith",
+        "hadeethencId": 4560,
+        "citation": "متفق عليه",
+        "availableIn": [
+          "ar",
+          "en"
+        ],
+        "publisher": "hadeethenc.com"
+      },
+      "check": {
+        "type": "single",
+        "prompt": {
+          "ar": "أين تكون النية؟",
+          "en": "Where is the intention made?"
+        },
+        "options": [
+          {
+            "ar": "في القلب",
+            "en": "In the heart",
+            "correct": true
+          },
+          {
+            "ar": "بعبارة تُقال بصوت مرتفع",
+            "en": "In a phrase said aloud",
+            "correct": false
+          }
+        ]
+      },
+      "textRef": {
+        "ar": {
+          "book": "islamhouse-2831443",
+          "section": "s7",
+          "paragraph": 4,
+          "excerpt": "النيَّة \nومحلهــا القلــب، ومعنــى النيــة: عــزم \nالقلــب علــى فعــل العبــادة تقربًــا إلــى \nالله تعالــى."
+        },
+        "en": {
+          "book": "byenah-4784",
+          "section": "s18",
+          "paragraph": 13,
+          "excerpt": "Making niyyah (intention) in the heart. niyyah refers to the resolve in the heart to perform the worship in order to get close to Allah."
+        }
+      }
+    },
+    {
+      "id": "c4",
+      "source": [
+        "ibnbaz-lessons"
+      ],
+      "textRef": {
+        "ar": {
+          "book": "1871",
+          "section": "t17",
+          "paragraph": 1,
+          "excerpt": "غسل الوجه ومنه المضمضة والاستنشاق، وغسل اليدين مع المرفقين، ومسح جميع الرأس ومنه الأذنان، وغسل الرجلين مع الكعبين، والترتيب، والموالاة. ويستحب تكرار غسل الوجه، واليدين، والرجلين ثلاث مرات، وهكذا المضمضة، والاستنشاق، والفرض من ذلك مرة واحدة، أما مسح الرأس فلا يستحب تكراره كما دلت على ذلك الأحاديث الصحيحة."
+        },
+        "en": {
+          "book": "2842316",
+          "section": "s16",
+          "paragraph": 2,
+          "excerpt": "Washing the face, which includes rinsing the mouth and sniffing water into the nostrils, washing the hands including the elbows, wiping over the whole head including the ears, washing the feet including the ankles, observing the prescribed order, and doing all this in succession. It is recommended to repeat the washing of the face, hands, and feet three times, as well as rinsing the mouth and sniffing water into the nostrils, while the obligatory act is to do each action once. As for wiping over the head, it is not recommended to repeat it, as indicated by authentic Hadīths."
+        }
+      }
+    }
+  ],
+  "steps": [
+    {
+      "n": 1,
+      "source": [],
+      "repeat": "once",
+      "title": {
+        "ar": "التسمية",
+        "en": "Say bismillah"
+      },
+      "text": {
+        "ar": "تقول: بسم الله.",
+        "en": "You say: bismillah (in the name of Allah)."
+      },
+      "authoring": "team"
+    },
+    {
+      "n": 2,
+      "source": [
+        "mukhtasar"
+      ],
+      "repeat": "three",
+      "title": {
+        "ar": "غسل الكفين",
+        "en": "Wash the hands"
+      },
+      "textRef": {
+        "ar": {
+          "book": "islamhouse-2831443",
+          "section": "s7",
+          "paragraph": 5,
+          "excerpt": "غسل الكفين"
+        },
+        "en": {
+          "book": "byenah-4784",
+          "section": "s18",
+          "paragraph": 14,
+          "excerpt": "Washing the two hands up to the wrists."
+        }
+      }
+    },
+    {
+      "n": 3,
+      "source": [
+        "mukhtasar"
+      ],
+      "repeat": "onceRequiredThreeRecommended",
+      "title": {
+        "ar": "المضمضة",
+        "en": "Rinse the mouth"
+      },
+      "textRef": {
+        "ar": {
+          "book": "islamhouse-2831443",
+          "section": "s7",
+          "paragraph": 6,
+          "excerpt": "المضمضــة هــي: إدخــال المــاء فــي \nالفــم وإدارتــه فيــه، ثــم إخراجــه."
+        },
+        "en": {
+          "book": "byenah-4784",
+          "section": "s18",
+          "paragraph": 16,
+          "excerpt": "Rinsing the mouth means to let water into the mouth and swirl it inside then spit it out."
+        }
+      }
+    },
+    {
+      "n": 4,
+      "source": [
+        "mukhtasar"
+      ],
+      "repeat": "onceRequiredThreeRecommended",
+      "title": {
+        "ar": "الاستنشاق",
+        "en": "Clean the nose"
+      },
+      "textRef": {
+        "ar": {
+          "book": "islamhouse-2831443",
+          "section": "s7",
+          "paragraph": 7,
+          "excerpt": "الاستنشــاق: وهــو اجتــذاب المــاء \nبالنفــس إلــى أقصــى الأنــف."
+        },
+        "en": {
+          "book": "byenah-4784",
+          "section": "s18",
+          "paragraph": 18,
+          "excerpt": "Istinshāq is to sniff water deep inside the nose."
+        }
+      }
+    },
+    {
+      "n": 5,
+      "source": [],
+      "repeat": "onceRequiredThreeRecommended",
+      "title": {
+        "ar": "غسل الوجه",
+        "en": "Wash the face"
+      },
+      "text": {
+        "ar": "تغسل وجهك كله: من أعلى الجبهة إلى أسفل الذقن، ومن الأذن إلى الأذن. والأذنان ليستا من الوجه. الواجب مرة، والمستحب ثلاث.",
+        "en": "You wash the whole face: from the top of the forehead to the bottom of the chin, and from ear to ear. The ears are not part of the face. Once is required; three times is recommended."
+      },
+      "authoring": "team"
+    },
+    {
+      "n": 6,
+      "source": [
+        "mukhtasar"
+      ],
+      "repeat": "onceRequiredThreeRecommended",
+      "title": {
+        "ar": "غسل اليدين إلى المرفقين",
+        "en": "Wash the arms to the elbows"
+      },
+      "textRef": {
+        "ar": {
+          "book": "islamhouse-2831443",
+          "section": "s7",
+          "paragraph": 10,
+          "excerpt": "ابتــداءً مــن رؤوس أصابــع اليديــن \nإلــى المرفقيــن."
+        },
+        "en": {
+          "book": "byenah-4784",
+          "section": "s19",
+          "paragraph": 8,
+          "excerpt": "Washing the hands, from the fingertips to the elbows."
+        }
+      }
+    },
+    {
+      "n": 7,
+      "source": [
+        "mukhtasar"
+      ],
+      "repeat": "onceOnly",
+      "title": {
+        "ar": "مسح الرأس",
+        "en": "Wipe the head"
+      },
+      "textRef": {
+        "ar": {
+          "book": "islamhouse-2831443",
+          "section": "s7",
+          "paragraph": 12,
+          "excerpt": "يبــدأ بمقــدم رأســه ذاهبًــا بهمــا إلــى \nقفــاه ثــم يردهمــا."
+        },
+        "en": {
+          "book": "byenah-4784",
+          "section": "s19",
+          "paragraph": 11,
+          "excerpt": "One starts at the hairline and moves his hands back to the nape and then all the way back."
+        }
+      }
+    },
+    {
+      "n": 8,
+      "source": [],
+      "repeat": "onceOnly",
+      "title": {
+        "ar": "مسح الأذنين",
+        "en": "Wipe the ears"
+      },
+      "text": {
+        "ar": "تمسح داخل أذنيك بالسبابتين وظاهرهما بالإبهامين، مرة واحدة.",
+        "en": "You wipe the inside of the ears with the forefingers and the outside with the thumbs, once."
+      },
+      "authoring": "team"
+    },
+    {
+      "n": 9,
+      "source": [
+        "mukhtasar"
+      ],
+      "repeat": "onceRequiredThreeRecommended",
+      "title": {
+        "ar": "غسل القدمين إلى الكعبين",
+        "en": "Wash the feet to the ankles"
+      },
+      "textRef": {
+        "ar": {
+          "book": "islamhouse-2831443",
+          "section": "s7",
+          "paragraph": 13,
+          "excerpt": "مــن بدايــة أصابــع القدميــن إلــى \nالكعبيــن، ويدخــل الكعبــان فــي \nغســل الرجليــن المفــروض."
+        },
+        "en": {
+          "book": "byenah-4784",
+          "section": "s19",
+          "paragraph": 14,
+          "excerpt": "Washing the feet from the toes up to the ankles, given that washing the ankles is included in the obligatory washing of the feet."
+        }
+      }
+    }
+  ],
+  "activities": [
+    {
+      "id": "a1",
+      "type": "order",
+      "title": {
+        "ar": "رتّب خطوات الوضوء",
+        "en": "Put the steps of wudu in order"
+      },
+      "items": "steps",
+      "correctOrder": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    {
+      "id": "a2",
+      "type": "sort",
+      "title": {
+        "ar": "مرة واحدة أم ثلاث؟",
+        "en": "Once or three times?"
+      },
+      "groups": [
+        {
+          "key": "onceOnly",
+          "label": {
+            "ar": "مرة واحدة فقط",
+            "en": "Once only"
+          },
+          "steps": [
+            7,
+            8
+          ]
+        },
+        {
+          "key": "three",
+          "label": {
+            "ar": "يُستحب ثلاثًا",
+            "en": "Recommended three times"
+          },
+          "steps": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a3",
+      "type": "guided",
+      "title": {
+        "ar": "توضأ معي",
+        "en": "Wudu with me"
+      },
+      "items": "steps",
+      "note": {
+        "ar": "خذ وقتك. انتقل إلى الخطوة التالية حين تنتهي.",
+        "en": "Take your time. Move to the next step when you are done."
+      }
+    }
+  ],
+  "situation": {
+    "source": [
+      "ibnbaz-lessons"
+    ],
+    "prompt": {
+      "ar": "توضأتَ وغسلت وجهك ثم مسحت رأسك، ثم تذكرت أنك لم تغسل يديك إلى المرفقين. أي قاعدة في الدرس تخص هذه الحالة؟",
+      "en": "You washed your face and then wiped your head, and then remembered you had not washed your arms to the elbows. Which rule from the lesson applies here?"
+    },
+    "options": [
+      {
+        "ar": "أن الأعضاء تُغسل بالترتيب",
+        "en": "The parts are washed in order",
+        "correct": true
+      },
+      {
+        "ar": "أن الرأس يُمسح مرة واحدة",
+        "en": "The head is wiped once",
+        "correct": false
+      },
+      {
+        "ar": "أن النية في القلب",
+        "en": "The intention is in the heart",
+        "correct": false
+      }
+    ],
+    "followUp": {
+      "ar": "الدرس يبيّن القاعدة. أما ما تفعله في حالتك تحديدًا فاسأل عنه مختصًا عبر صفحة «تحدث إلى إنسان».",
+      "en": "The lesson gives the rule. For what to do in your specific case, ask a qualified person through the \"Talk to a human\" page."
+    }
+  },
+  "explainToRafiq": {
+    "prompt": {
+      "ar": "اشرح لـ«رفيق» بكلماتك: كيف تتوضأ من البداية إلى النهاية؟",
+      "en": "Explain to Rafiq in your own words: how do you perform wudu from start to finish?"
+    },
+    "scope": [
+      "cards",
+      "steps"
+    ]
+  },
+  "laterTopics": [
+    {
+      "topic": {
+        "ar": "ما ينقض الوضوء",
+        "en": "What breaks wudu"
+      },
+      "lesson": "2.3"
+    }
+  ],
+  "suggestedVideo": {
+    "ar": {
+      "source": "islamhouse-videos",
+      "page": "https://islamhouse.com/ar/videos/2834583/",
+      "file": "https://d1.islamhouse.com/data/ar/ih_videos/mp4/single/ar-sifat-alwoduo.mp4",
+      "position": "beforeActivity"
+    },
+    "en": {
+      "source": "islamhouse-videos",
+      "page": "https://islamhouse.com/en/videos/2834586/",
+      "file": "https://d1.islamhouse.com/data/en/ih_videos/mp4/single/en-how-to-perform-wudu.mp4",
+      "position": "beforeActivity"
+    }
+  },
+  "reviewNotes": [
+    "Arabic wording was written from the English page of the source because the Arabic page did not load; a reviewer must compare it with the Arabic edition of the book.",
+    "The two hadith IDs on hadeethenc.com are not resolved yet.",
+    "The situation question deliberately asks which rule applies and does not give a ruling for the case."
+  ],
+  "readMore": []
+}

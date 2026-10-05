@@ -44,8 +44,7 @@
     },
     {
       "lesson": "3.4",
-      "scenes": ["posture-standing-takbir", "posture-standing", "posture-bowing", "posture-prostrating", "posture-sitting"],
-      "needsReview": true
+      "scenes": ["posture-standing-takbir", "posture-standing", "posture-bowing", "posture-prostrating", "posture-sitting"]
     },
     {
       "lesson": "3.5",

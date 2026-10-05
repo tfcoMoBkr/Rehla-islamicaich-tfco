@@ -9,6 +9,7 @@
 //   node scripts/fetch-content.mjs --mcp-probe  list the MCP server's tools and time sample calls (docs/MCP_TOOLS.md)
 //   node scripts/fetch-content.mjs --surahs     surah names in Rafiq's answer languages (content/fetched/surahs.json)
 //   node scripts/fetch-content.mjs --lesson-books  copy the corpus books lessons quote into content/fetched/books
+//   node scripts/fetch-content.mjs --lesson-terms  copy the TerminologyEnc terms lesson cards mark into content/fetched/terms
 //
 // Keys are read from the environment or from a .env file at the repository root (see .env.example).
 
@@ -307,6 +308,21 @@ async function copyLessonBooks() {
   return copied;
 }
 
+/** Terms a lesson card marks (`terms[].terminologyencId`), copied verbatim from the stored corpus. */
+async function copyLessonTerms() {
+  const ids = new Set();
+  for (const name of await readdir(path.join(root, "content", "lessons"))) {
+    if (!name.endsWith(".json")) continue;
+    const lesson = JSON.parse(await readFile(path.join(root, "content", "lessons", name), "utf8"));
+    for (const card of lesson.cards) for (const term of card.terms ?? []) ids.add(term.terminologyencId);
+  }
+  for (const id of ids) {
+    const data = JSON.parse(await readFile(path.join(root, "content", "corpus", "terms", `${id}.json`), "utf8"));
+    await save(path.join(fetchedDir, "terms", `${id}.json`), data);
+  }
+  return ids.size;
+}
+
 /** Surah names as mp3quran.net publishes them: the label of every verse Rafiq shows. */
 async function fetchSurahNames() {
   const file = path.join(fetchedDir, "surahs.json");
@@ -351,6 +367,8 @@ async function fetchLessonContent() {
 if (process.argv.includes("--corpus")) {
   const { buildCorpus } = await import("./sources/corpus.mjs");
   await buildCorpus({ refresh });
+} else if (process.argv.includes("--lesson-terms")) {
+  console.log(`Lesson terms copied: ${await copyLessonTerms()}.`);
 } else if (process.argv.includes("--lesson-books")) {
   console.log(`Lesson book sections copied: ${await copyLessonBooks()}.`);
 } else if (process.argv.includes("--surahs")) {

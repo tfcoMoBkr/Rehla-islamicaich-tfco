@@ -1,0 +1,104 @@
+{
+  "id": "3.7",
+  "station": 3,
+  "slug": "congregational-prayer",
+  "status": "published",
+  "reviewed": false,
+  "reviewedBy": null,
+  "authoring": "No approved book in the store states these points in both languages: cards marked authoring: team keep the team's wording and rest only on their hadith, and a card with no text shows only its hadith.",
+  "title": {
+    "ar": "صلاة الجماعة",
+    "en": "Congregational prayer"
+  },
+  "objectives": {
+    "ar": [
+      "أن يعرف المتعلم فضل صلاة الجماعة",
+      "أن يعرف كيف يتابع الإمام",
+      "أن يعرف ماذا يفعل إذا جاء متأخرًا"
+    ],
+    "en": [
+      "Know the virtue of praying in congregation",
+      "Know how to follow the imam",
+      "Know what to do when arriving late"
+    ]
+  },
+  "sources": [],
+  "suggestedVideo": {
+    "ar": null,
+    "en": null
+  },
+  "cards": [
+    {
+      "id": "c1",
+      "source": [],
+      "evidence": {
+        "type": "hadith",
+        "hadeethencId": 3441,
+        "citation": "متفق عليه",
+        "availableIn": [
+          "ar",
+          "en"
+        ],
+        "publisher": "hadeethenc.com"
+      },
+      "check": {
+        "type": "single",
+        "prompt": {
+          "ar": "بكم تفضل صلاة الجماعة صلاة المنفرد؟",
+          "en": "By how much is congregational prayer greater than praying alone?"
+        },
+        "options": [
+          {
+            "ar": "سبع وعشرين درجة",
+            "en": "Twenty-seven times",
+            "correct": true
+          },
+          {
+            "ar": "ثلاث درجات",
+            "en": "Three times",
+            "correct": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "c3",
+      "source": [],
+      "authoring": "team",
+      "text": {
+        "ar": "المأموم يتابع الإمام: يفعل بعده مباشرة، ولا يسبقه.",
+        "en": "The follower follows the imam: acting right after him, never before him."
+      },
+      "evidence": {
+        "type": "hadith",
+        "hadeethencId": 6029,
+        "citation": "متفق عليه",
+        "availableIn": [
+          "ar",
+          "en"
+        ],
+        "publisher": "hadeethenc.com"
+      },
+      "check": {
+        "type": "trueFalse",
+        "prompt": {
+          "ar": "يجوز أن أركع قبل الإمام.",
+          "en": "I may bow before the imam."
+        },
+        "answer": false
+      }
+    }
+  ],
+  "activities": [],
+  "situation": null,
+  "explainToRafiq": {
+    "prompt": {
+      "ar": "اشرح لـ«رفيق» بكلماتك أهم ما فهمته من هذا الدرس.",
+      "en": "Explain to Rafiq in your own words the most important thing you understood from this lesson."
+    },
+    "scope": [
+      "cards"
+    ]
+  },
+  "readMore": []
+}

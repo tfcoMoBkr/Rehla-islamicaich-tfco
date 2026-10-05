@@ -1,7 +1,7 @@
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import { z } from "zod";
 
 import { toLessonView } from "./lesson-view";
@@ -16,7 +16,6 @@ const sectionSchema = z.object({
 });
 
 async function lessons(): Promise<Lesson[]> {
-  vi.stubEnv("CONTENT_SHOW_DRAFTS", "true");
   return [...(await loadKhutuwat()).lessons.values()];
 }
 
@@ -123,5 +122,28 @@ describe("what a lesson is allowed to show", () => {
       expect(view.fiqhNote?.books, lesson.id).toEqual(view.sources.map((source) => source.title));
       expect(view.fiqhNote?.links.every((link) => link.startsWith("https://dorar.net/feqhia/")), lesson.id).toBe(true);
     }
+  });
+});
+
+describe("terms a card uses", () => {
+  it("are words of the card's own text, stored verbatim and shown with their TerminologyEnc page", async () => {
+    const [khutuwat, sources, encyclopedia] = await Promise.all([loadKhutuwat(), loadSources(), loadFiqhEncyclopedia()]);
+    let marked = 0;
+    for (const lesson of khutuwat.lessons.values()) {
+      for (const card of lesson.cards.filter((candidate) => candidate.terms?.length)) {
+        for (const locale of ["ar", "en"] as const) {
+          const view = await toLessonView(lesson, khutuwat, locale, sources, encyclopedia);
+          const shown = view.cards.find((candidate) => candidate.id === card.id);
+          for (const term of card.terms ?? []) {
+            marked += 1;
+            expect(shown?.text, `${lesson.id} ${card.id} ${locale}`).toContain(term.word[locale]);
+            const termView = shown?.terms.find((candidate) => candidate.id === term.terminologyencId);
+            expect(termView?.url, `${lesson.id} ${card.id} ${locale}`).toMatch(/^https:\/\/terminologyenc\.com\//);
+            expect(termView?.definition).toBeTruthy();
+          }
+        }
+      }
+    }
+    expect(marked).toBeGreaterThan(0);
   });
 });

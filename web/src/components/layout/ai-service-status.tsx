@@ -1,11 +1,14 @@
-import { useTranslations } from "next-intl";
-import { getTranslations } from "next-intl/server";
-import type { ReactNode } from "react";
+"use client";
 
-import { isAiServiceReachable } from "@/lib/ai-service";
+import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
+
 import { cn } from "@/lib/utils";
 
 type Tone = "pending" | "online" | "offline";
+
+const HEALTH_PATH = "/api/ai/health";
+const TIMEOUT_MS = 4000;
 
 const toneClassName: Record<Tone, string> = {
   pending: "bg-muted-foreground motion-safe:animate-pulse",
@@ -13,30 +16,38 @@ const toneClassName: Record<Tone, string> = {
   offline: "bg-terracotta",
 };
 
-function StatusLine({ tone, children }: { tone: Tone; children: ReactNode }) {
+// One check per page session, shared by every page the visitor opens.
+let check: Promise<boolean> | null = null;
+
+function reachable(): Promise<boolean> {
+  check ??= fetch(HEALTH_PATH, { cache: "no-store", signal: AbortSignal.timeout(TIMEOUT_MS) })
+    .then((response) => response.ok)
+    .catch(() => false);
+  return check;
+}
+
+/**
+ * Whether the AI service answers, checked from the browser through the same-origin rewrite. It
+ * runs after the page is shown, so no page waits for it and every page can be rendered statically.
+ */
+export function AiServiceStatus() {
+  const t = useTranslations("AiServiceStatus");
+  const [tone, setTone] = useState<Tone>("pending");
+
+  useEffect(() => {
+    let current = true;
+    void reachable().then((ok) => {
+      if (current) setTone(ok ? "online" : "offline");
+    });
+    return () => {
+      current = false;
+    };
+  }, []);
+
   return (
-    <p className="flex items-center gap-2 text-sm text-muted-foreground">
+    <p role="status" className="flex items-center gap-2 text-sm text-muted-foreground">
       <span aria-hidden className={cn("size-2 shrink-0 rounded-full", toneClassName[tone])} />
-      {children}
+      {t(tone === "pending" ? "checking" : tone)}
     </p>
   );
-}
-
-export async function AiServiceStatus() {
-  const [t, reachable] = await Promise.all([
-    getTranslations("AiServiceStatus"),
-    isAiServiceReachable(),
-  ]);
-
-  return reachable ? (
-    <StatusLine tone="online">{t("online")}</StatusLine>
-  ) : (
-    <StatusLine tone="offline">{t("offline")}</StatusLine>
-  );
-}
-
-export function AiServiceStatusFallback() {
-  const t = useTranslations("AiServiceStatus");
-
-  return <StatusLine tone="pending">{t("checking")}</StatusLine>;
 }

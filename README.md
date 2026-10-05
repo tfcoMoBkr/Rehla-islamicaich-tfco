@@ -2,8 +2,8 @@
 
 # رحلة · Rehla
 
-**رفيقك في طريق النور**
-*Your companion on the path of light*
+**رفيقك في الطريق إلى النور**
+*Your companion on the road to the light*
 
 [العربية](#العربية) · [English](#english)
 
@@ -34,7 +34,8 @@
 | القسم | الوصف |
 |---|---|
 | **خطوات** | مسار تعلّم متدرج: دروس، واختبارات قصيرة، وشرح لكل خطأ |
-| **اسأل رفيق** | إجابات مسندة إلى مصادرها، مع الامتناع والإحالة عند الحاجة |
+| **تدرَّب** | أنشطة الدروس كلها في مكان واحد، يجرّبها المتعلم متى شاء ويجمع بها زادًا لطريقه |
+| **اسأل «رفيق»** | إجابات مسندة إلى مصادرها، مع الامتناع والإحالة عند الحاجة |
 | **موقف** | تدريب تفاعلي على مواقف الحياة اليومية للمسلم، مع تقييم وتصحيح |
 | **عدسة** | تصوير النصوص العربية في المحيط وشرحها بلغة المستخدم |
 | **مجتمع رحلة** | منتدى اختياري يشارك فيه دعاة موثّقون، ودليل للمساجد والمراكز القريبة |
@@ -132,6 +133,7 @@ A bilingual web platform (Arabic and English) led by one AI companion, **Rafiq**
 | Section | Description |
 |---|---|
 | **Khutuwat** (Steps) | A graded learning path: lessons, short quizzes, and an explanation for every mistake |
+| **Practice** | Every lesson activity in one place, to try at any time and gather provisions for the road |
 | **Ask Rafiq** | Answers cited to their sources, with abstention and referral when needed |
 | **Mawqif** (Situation) | Interactive practice of everyday situations, with evaluation and correction |
 | **Adasa** (Lens) | Photograph Arabic text in your surroundings and have it explained in your language |

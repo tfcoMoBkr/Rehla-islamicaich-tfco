@@ -4,6 +4,8 @@ import {
   EMPTY_PROGRESS,
   summarize,
   withAnswer,
+  withBestRound,
+  withProvisions,
   type ExamRecord,
   type Progress,
   type ScoreRecord,
@@ -18,7 +20,9 @@ function load(): Progress {
   try {
     const stored: unknown = JSON.parse(window.localStorage.getItem(STORAGE_KEY) ?? "null");
     if (stored && typeof stored === "object" && "version" in stored && stored.version === 1) {
-      return { ...EMPTY_PROGRESS, ...(stored as Partial<Progress>) };
+      const progress = { ...EMPTY_PROGRESS, ...(stored as Partial<Progress>) };
+      // Records from before practice existed have none yet.
+      return { ...progress, practice: { ...EMPTY_PROGRESS.practice, ...progress.practice } };
     }
   } catch {
     // Unreadable or blocked storage: start a fresh journey rather than fail.
@@ -55,6 +59,9 @@ function subscribe(listener: () => void): () => void {
     window.removeEventListener("storage", onStorage);
   };
 }
+
+/** The learner's progress as stored, for code outside a component. */
+export const readProgress = (): Progress => read();
 
 /** The server never sees progress, so it always renders the empty journey first. */
 export function useProgress(): Progress {
@@ -94,6 +101,16 @@ export const progressActions = {
   },
   setChecklist(key: string, itemIds: string[]) {
     update((progress) => ({ ...progress, checklists: { ...progress.checklists, [key]: itemIds } }));
+  },
+  /** Provisions for an activity completed or a question answered right; true when they are new. */
+  earn(id: string, points: number): boolean {
+    const before = read().practice.earned[id];
+    if (before) return false;
+    update((progress) => withProvisions(progress, id, points, Date.now()));
+    return true;
+  },
+  bestRound(key: string, correct: number, total: number) {
+    update((progress) => withBestRound(progress, key, correct, total, Date.now()));
   },
   forget() {
     snapshot = EMPTY_PROGRESS;

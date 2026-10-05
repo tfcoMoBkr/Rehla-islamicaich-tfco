@@ -15,12 +15,14 @@ sentence is supported and whether a warm line (opening, follow-up) makes a relig
 The first time it finds problems in the answer the draft is written again with them listed; the
 second time they are repaired in code (repair.py) and checked again, and only what still fails, or
 a draft with nothing cited left, is referred. A warm line that fails is dropped, never referred.
+For a fatwa or a personal case the ruling guard makes the check stricter for the answer's sentences
+only: the opening is judged as everywhere else, and it opens the referral whichever way it ends.
 """
 
 import logging
 import time
 from pathlib import Path
-from typing import Literal, TypedDict
+from typing import TypedDict
 
 from langgraph.graph import END, START, StateGraph
 
@@ -36,6 +38,7 @@ from app.rafiq.schemas import (
     ChatReply,
     Classification,
     Draft,
+    HelpMode,
     KeywordQueries,
     PageLocale,
     RafiqAnswer,
@@ -53,7 +56,6 @@ from app.retrieval.retriever import Retrieval, Retriever
 log = logging.getLogger("rafiq")
 PROMPTS = Path(__file__).parent / "prompts"
 MAX_ATTEMPTS = 2
-HelpMode = Literal["simpler", "example", "question"]
 
 
 def prompt(name: str, **values: str) -> str:
@@ -98,6 +100,8 @@ class State(TypedDict, total=False):
     draft: Draft | None
     units: list[Unit]
     warm: dict[str, str]
+    # Whether `warm` has passed the model check for the current draft.
+    warm_checked: bool
     problems: list[Problem]
     attempts: int
     answer: RafiqAnswer
@@ -119,7 +123,16 @@ def _passages_text(passages: list[Passage]) -> str:
     return "\n\n".join(lines)
 
 
+def _checked(passage: Passage) -> str:
+    """A passage as the support check reads it. A book or term piece comes with where it sits in
+    its source: a piece such as "They are six: ..." names its subject only in its heading."""
+    if passage.sacred:
+        return passage.text[:1200]
+    return f"({passage.reference}) {passage.text[:1200]}"
+
+
 LESSON_TASKS = {
+    "explain": "explain this line in plain words",
     "simpler": "explain this line more simply",
     "example": "give one short example of what this line means, using only the passages",
     "question": "answer the learner's question about this line",
@@ -207,7 +220,8 @@ class Rafiq:
     async def _classify(self, state: State) -> State:
         lesson = state.get("lesson")
         if lesson and lesson["mode"] != "question":
-            # Explaining a lesson line: no ruling is asked, the answer is in the page's language.
+            # Explaining a lesson line (explain, simpler, example): no ruling is asked, and the
+            # answer is in the page's language.
             classification = Classification(language=state["locale"], level="B", intent="religious")
         else:
             classification = await self._chat.json(
@@ -238,6 +252,8 @@ class Rafiq:
             phrases=classification.search_phrases,
             quoted_verse=classification.quoted_verse,
             keywords=self._keywords,
+            list_question=classification.question_type == "list",
+            focus=lesson["lesson_id"] if lesson else None,
         )
         return {"retrieval": retrieval}
 
@@ -262,7 +278,13 @@ class Rafiq:
         )
         system = prompt("generate", language_name=language_name, mode_rules=_mode_rules(state))
         draft = await self._chat.json(system, user, Draft)
-        return {"draft": draft, "attempts": attempts, "problems": []}
+        return {
+            "draft": draft,
+            "attempts": attempts,
+            "problems": [],
+            "warm": {},
+            "warm_checked": False,
+        }
 
     async def _model_check(
         self,
@@ -280,7 +302,7 @@ class Rafiq:
         by_number = {passage.n: passage for passage in passages}
         listing = "\n\n".join(
             f"Sentence {index}: {units[u].sentences[s] if units else ''}\nCited passages:\n"
-            + "\n".join(f"[{n}] {by_number[n].text[:1200]}" for n in numbers if n in by_number)
+            + "\n".join(f"[{n}] {_checked(by_number[n])}" for n in numbers if n in by_number)
             for index, (u, s, numbers) in enumerate(sentences, start=1)
         )
         listing += "".join(f"\n\nWarm line {field}: {text}" for field, text in warm.items())
@@ -323,6 +345,7 @@ class Rafiq:
         last_try = state.get("attempts", 0) >= MAX_ATTEMPTS
         units = parse(draft.answer)
         warm = self._warm_lines(state, draft)
+        checked = False
         problems = code_problems(units, passages, required, state["language"])
         self._log_problems(state, "code", draft.answer, problems)
         if problems and last_try:
@@ -337,12 +360,13 @@ class Rafiq:
                 warm,
                 ruling_guard=policy.needs_ruling_guard(state["classification"]),
             )
+            checked = True
             self._log_problems(state, "support", render(units), problems)
             if problems and last_try:
                 repaired = repair(units, problems, passages, required, state["language"])
                 problems = [] if repaired is not None else problems
                 units = repaired if repaired is not None else units
-        return {"problems": problems, "units": units, "warm": warm}
+        return {"problems": problems, "units": units, "warm": warm, "warm_checked": checked}
 
     def _log_problems(self, state: State, stage: str, text: str, problems: list[Problem]) -> None:
         # Without RAFIQ_DEBUG only categories and counts are logged, never the question or answer.
@@ -384,7 +408,7 @@ class Rafiq:
         classification = state["classification"]
         reason: ReferralReason
         if state.get("problems"):
-            reason = "verification"
+            reason = policy.referral_after_failed_check(classification)
         else:
             reason = (
                 policy.referral_without_answer(classification, state.get("draft")) or "noSource"
@@ -393,7 +417,9 @@ class Rafiq:
         draft = state.get("draft")
         if draft is not None:
             # Even a referral opens kindly: the opening the model wrote, if it passes the checks.
-            _, warm = await self._model_check(None, [], self._warm_lines(state, draft))
+            warm = state.get("warm", {})
+            if not state.get("warm_checked"):
+                _, warm = await self._model_check(None, [], self._warm_lines(state, draft))
             answer = answer.model_copy(update={"opening": warm.get("opening")})
         return {"answer": self._decorated(state, answer)}
 

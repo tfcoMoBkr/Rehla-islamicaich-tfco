@@ -3,7 +3,7 @@
 Data, not code. Everything a learner reads in Khutuwat comes from these files, in both languages. The app validates every file when it loads it (`web/src/lib/content/schema.ts`); an invalid file stops it with the file name and the field at fault.
 
 ```
-lessons/drafts/<id>-<slug>.json   Lessons, written by the team. They define the lesson format; the engine renders them as they are.
+lessons/<id>-<slug>.json         Lessons, written by the team. They define the lesson format; the engine renders them as they are.
 lessons/practice/*.json           The practice lesson: neutral, non-religious sample content that shows how the engine works.
 stations/<id>.json                A station: title, order, "what do I know?" and exam questions. Its lessons are those whose "station" matches.
 evidence/station-<n>.json         The team's evidence research per station (references only).
@@ -16,9 +16,8 @@ sources.json                      Every source the product uses (rendered at /so
 
 ## How lessons appear
 
-- A lesson with `"reviewed": false` carries a "Draft · awaiting review" label and is **hidden in production**. Set `CONTENT_SHOW_DRAFTS=true` to preview drafts on a deployed build.
+- Every lesson with `"status": "published"` (and every demo lesson) is shown. Its text is taken verbatim from the approved sources it names, or is marked as the team's wording, and was checked by the team. `reviewed` and `reviewedBy` claim no scholarly review: they stay `false` and empty.
 - The lesson URL is `/<locale>/learn/<station>/<slug>`.
-- While a lesson awaits review, its intro screen lists its `reviewNotes` and anything in the file the engine could not render.
 - Every source a lesson names (`sources[].url`, video `channel`) must belong to a source in `sources.json`; otherwise the engine reports it and does not show it.
 
 ## Evidence
@@ -60,7 +59,7 @@ Station files hold the scored questions: `baseline` ("what do I know?") and `exa
 
 - **Media slots.** A lesson, a card or a step may carry `"media": [...]`. Each item is `{ "type": "image", "src": "<file in content/media>" }` or `{ "type": "video", "youtubeId": "..." }`, plus `alt` (`ar`, `en`), `credit`, `sourceUrl` and `licence`. Every image must also be listed in `media/manifest.json` and present in `media/`; an image without credit, source or licence stops the app. Every item appears on the sources page. An empty slot shows nothing.
 - **Rafiq.** `art/rafiq/` holds his poses as transparent PNGs, listed with their pixel sizes, credit and licence in `art/rafiq/manifest.json` (the app checks every pose is there at its stated size). At the board he waves at a lesson's start, then points; he is happy after a right answer, thinks while the learner chooses, and encourages after a wrong try. The "writing" pose carries its own small board and is not used beside the big one.
-- **The board's drawing.** `visuals.json` names, for each lesson, the scene from `art/` pinned on its board, the parts that light up in order as the learner advances (`reveal`), those that fade away (`clear`), a part that moves to the step in focus (`follow`, e.g. the sun along the day's arc), the natural sound behind it (`ambience`), and `needsReview` for a drawing shown only where drafts are. Every part it names must exist in the scene; the app checks this. `art/manifest.json` lists every drawing with its credit and licence.
+- **The board's drawing.** `visuals.json` names, for each lesson, the scene from `art/` pinned on its board, the parts that light up in order as the learner advances (`reveal`), those that fade away (`clear`), a part that moves to the step in focus (`follow`, e.g. the sun along the day's arc), and the natural sound behind it (`ambience`). Every part it names must exist in the scene; the app checks this. `art/manifest.json` lists every drawing with its credit and licence.
 - **Listening.** Cards, steps and the lesson intro can be read aloud by the device's own voice, in the page language. Quran text is never read by that voice: verses play their real recitation (mp3quran.net, timings fetched by `scripts/fetch-content.mjs`). A hadith's Arabic text is not read aloud; its explanation is.
 
 ## Referral centres

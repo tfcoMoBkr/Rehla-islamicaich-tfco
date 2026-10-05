@@ -1,4 +1,4 @@
-import { z } from "zod";
+import * as z from "zod/mini";
 
 import messages from "../../../messages/answer-languages.json";
 import { REFERRAL_REASONS } from "./answer";
@@ -11,16 +11,17 @@ import type { AnswerLanguage } from "./languages";
  * Interface labels stay in the page's locale. The texts await native review (messages/answer-languages.json).
  */
 
-const card = z.object({ title: z.string().min(1), body: z.string().min(1) });
+const filled = z.string().check(z.minLength(1));
+const card = z.object({ title: filled, body: filled });
 const referralReasons = REFERRAL_REASONS.filter((reason) => reason !== "smalltalk");
 
 const answerMessagesSchema = z.object({
-  disclosure: z.string().min(1),
-  smalltalk: z.string().min(1),
+  disclosure: filled,
+  smalltalk: filled,
   /** The fixed warm lines around a cited answer, and the question back when a follow-up is unclear. */
-  opening: z.string().min(1),
-  followUp: z.string().min(1),
-  clarify: z.string().min(1),
+  opening: filled,
+  followUp: filled,
+  clarify: filled,
   referral: z.object(Object.fromEntries(referralReasons.map((reason) => [reason, card])) as Record<(typeof referralReasons)[number], typeof card>),
 });
 

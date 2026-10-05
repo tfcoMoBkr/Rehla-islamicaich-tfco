@@ -1,10 +1,11 @@
 import { useTranslations } from "next-intl";
-import { Suspense } from "react";
 
 import { Logo } from "@/components/brand/logo";
 import { Link } from "@/i18n/navigation";
 
-import { AiServiceStatus, AiServiceStatusFallback } from "./ai-service-status";
+import { GuideReplay } from "@/components/guide/guide-replay";
+
+import { AiServiceStatus } from "./ai-service-status";
 import { DuneEdge } from "./dune-edge";
 
 export function SiteFooter() {
@@ -24,11 +25,10 @@ export function SiteFooter() {
             <Link href="/sources" className="font-medium underline underline-offset-4 hover:text-dawn">
               {t("sources")}
             </Link>
+            <GuideReplay className="min-h-6 font-medium underline underline-offset-4 hover:text-dawn" />
           </div>
         </div>
-        <Suspense fallback={<AiServiceStatusFallback />}>
-          <AiServiceStatus />
-        </Suspense>
+        <AiServiceStatus />
       </div>
     </footer>
   );

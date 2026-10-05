@@ -5,11 +5,16 @@ import { getFormatter, getTranslations, setRequestLocale } from "next-intl/serve
 import { Card } from "@/components/ui/card";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { resolveLocale } from "@/i18n/locale";
+import { PageMessages } from "@/i18n/client-messages";
 import { RafiqFigure } from "@/components/rafiq/rafiq-figure";
 import { lessonMedia, loadArtManifest, loadKhutuwat, loadRafiqManifest, loadSources } from "@/lib/content/load";
 import type { Media, RafiqManifest } from "@/lib/content/schema";
 import type { SourceType } from "@/lib/content/schema";
 import { cn } from "@/lib/utils";
+
+// Rendered at build time: a request-time API here fails the build instead of making the page
+// dynamic (and slow to open). See scripts/check-static.mjs.
+export const dynamic = "error";
 
 const GROUP_ORDER: readonly SourceType[] = [
   "quran",
@@ -57,6 +62,9 @@ export default async function SourcesPage({ params }: PageProps<"/[locale]/sourc
   return (
     <div className="mx-auto max-w-4xl px-4 pt-20 pb-32 sm:px-6 md:pt-24">
       <SectionHeading as="h1" title={tr("title")} description={tr("description")} />
+      <p role="note" className="mt-6 rounded-xl border border-hairline border-s-4 border-s-oasis bg-paper px-5 py-4 leading-relaxed">
+        {tr("lessonText")}
+      </p>
       <div className="mt-12 grid gap-14">
         {GROUP_ORDER.map((type) => {
           const group = sources.filter((source) => source.type === type);
@@ -155,41 +163,43 @@ async function ArtGallery({ items, rafiq }: { items: readonly { file: string; de
   ] as const;
 
   return (
-    <div className="grid gap-5">
-      <section aria-label={tr("artRafiq")} className="grid gap-3">
-        <h4 className="font-medium">
-          {tr("artRafiq")} <span className="text-muted-foreground">· {tr("artCount", { count: rafiq.poses.length })}</span>
-        </h4>
-        <p className="text-sm text-muted-foreground">
-          {tr("artCredit")}: <span lang="en">{rafiq.credit}</span> · <span lang="en">{rafiq.licence}</span>
-        </p>
-        <ul className="flex flex-wrap items-end gap-3">
-          {rafiq.poses.map(({ pose }) => (
-            <li key={pose} className="rounded-lg bg-night px-2 pt-2">
-              <RafiqFigure pose={pose} height={pose === "hello" ? 120 : 96} />
-            </li>
-          ))}
-        </ul>
-      </section>
-      {groups.map((group) => {
-        const files = items.filter((item) => item.file.startsWith(`${group.key}/`));
-        if (files.length === 0) return null;
-        return (
-          <section key={group.key} aria-label={group.title} className="grid gap-3">
-            <h4 className="font-medium">
-              {group.title} <span className="text-muted-foreground">· {tr("artCount", { count: files.length })}</span>
-            </h4>
-            <ul className={group.key === "scenes" ? "grid grid-cols-2 gap-3 sm:grid-cols-4" : "flex flex-wrap gap-2"}>
-              {files.map((item) => (
-                <li key={item.file} className="overflow-hidden rounded-lg border border-border bg-paper">
-                  {/* eslint-disable-next-line @next/next/no-img-element -- static SVG drawings, nothing for the image optimiser to do */}
-                  <img src={`/art/${item.file}`} alt={item.description} lang="en" loading="lazy" className={group.tile} />
-                </li>
-              ))}
-            </ul>
-          </section>
-        );
-      })}
-    </div>
+    <PageMessages page="sources">
+      <div className="grid gap-5">
+        <section aria-label={tr("artRafiq")} className="grid gap-3">
+          <h4 className="font-medium">
+            {tr("artRafiq")} <span className="text-muted-foreground">· {tr("artCount", { count: rafiq.poses.length })}</span>
+          </h4>
+          <p className="text-sm text-muted-foreground">
+            {tr("artCredit")}: <span lang="en">{rafiq.credit}</span> · <span lang="en">{rafiq.licence}</span>
+          </p>
+          <ul className="flex flex-wrap items-end gap-3">
+            {rafiq.poses.map(({ pose }) => (
+              <li key={pose} className="rounded-lg bg-night px-2 pt-2">
+                <RafiqFigure pose={pose} height={pose === "hello" ? 120 : 96} />
+              </li>
+            ))}
+          </ul>
+        </section>
+        {groups.map((group) => {
+          const files = items.filter((item) => item.file.startsWith(`${group.key}/`));
+          if (files.length === 0) return null;
+          return (
+            <section key={group.key} aria-label={group.title} className="grid gap-3">
+              <h4 className="font-medium">
+                {group.title} <span className="text-muted-foreground">· {tr("artCount", { count: files.length })}</span>
+              </h4>
+              <ul className={group.key === "scenes" ? "grid grid-cols-2 gap-3 sm:grid-cols-4" : "flex flex-wrap gap-2"}>
+                {files.map((item) => (
+                  <li key={item.file} className="overflow-hidden rounded-lg border border-border bg-paper">
+                    {/* eslint-disable-next-line @next/next/no-img-element -- static SVG drawings, nothing for the image optimiser to do */}
+                    <img src={`/art/${item.file}`} alt={item.description} lang="en" loading="lazy" className={group.tile} />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          );
+        })}
+      </div>
+    </PageMessages>
   );
 }

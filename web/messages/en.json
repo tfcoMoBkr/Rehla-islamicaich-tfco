@@ -1,11 +1,12 @@
 {
   "Metadata": {
-    "title": "Rehla — Your companion on the path of light",
+    "title": "Rehla — Your companion on the road to the light",
     "titleTemplate": "%s · Rehla",
     "description": "An AI-powered platform that accompanies new Muslims from the moment they declare the Shahada to confident practice and belonging, in their own language and grounded in approved sources."
   },
   "Common": {
-    "backHome": "Back to home"
+    "backHome": "Back to home",
+    "loading": "Opening…"
   },
   "Brand": {
     "name": "Rehla",
@@ -19,6 +20,7 @@
     "label": "Main sections",
     "sections": {
       "learn": "Steps",
+      "practice": "Practice",
       "rafiq": "Ask Rafiq",
       "mawqif": "Situations",
       "adasa": "Lens",
@@ -33,75 +35,48 @@
   "Home": {
     "eyebrow": "For new Muslims, after the Shahada",
     "title": "Rehla",
-    "tagline": "Your companion on the path of light",
+    "tagline": "Your companion on the road to the light",
     "intro": "Rehla is an AI-powered platform that accompanies new Muslims from the moment they declare the Shahada to confident practice and belonging, in their own language and grounded in approved sources.",
-    "cta": "Take your first steps",
     "why": {
       "title": "Why Rehla",
       "body": "Right after the Shahada, a new Muslim faces practical questions that cannot wait: how to purify and pray, how to behave in a mosque for the first time, what the Arabic texts around them mean, and who to turn to when stuck. Human follow-up alone cannot be present in their every day.",
       "eyebrow": "Where the road begins"
     },
-    "stations": {
-      "eyebrow": "Along the road",
-      "title": "Stations of the journey",
-      "description": "What the journey offers, one station at a time.",
-      "label": "Station {number}",
-      "learn": {
-        "name": "Khutuwat · Steps",
-        "body": "A graded learning path: lessons, short quizzes, and an explanation for every mistake."
-      },
-      "rafiq": {
-        "name": "Ask Rafiq",
-        "body": "Answers cited to their sources, with abstention and referral when needed."
-      },
-      "mawqif": {
-        "name": "Mawqif · Situations",
-        "body": "Practise everyday situations interactively, with evaluation and correction."
-      },
-      "adasa": {
-        "name": "Adasa · Lens",
-        "body": "Photograph the Arabic text around you and have it explained in your language."
-      },
-      "community": {
-        "name": "Rehla Community",
-        "body": "An opt-in forum with verified da’wah guides, and a directory of nearby mosques and centers."
-      },
-      "aqim": {
-        "name": "Aqim",
-        "body": "A camera-based practice prayer that ends with a report on your performance."
-      }
-    },
-    "principles": {
-      "title": "Our commitments",
-      "attribution": {
-        "title": "Every statement is sourced",
-        "body": "Every religious statement is shown with its source; nothing is attributed to a reference that does not contain it."
-      },
-      "referral": {
-        "title": "Abstention and referral",
-        "body": "When no reference is found, or for personal and disputed matters, Rafiq abstains and refers you to a specialist. The system does not issue fatwas."
-      },
-      "verbatim": {
-        "title": "Sacred text is never generated",
-        "body": "Quran verses and hadiths are displayed verbatim from their approved sources."
-      },
-      "transparency": {
-        "title": "Transparency",
-        "body": "Rafiq discloses that it is an AI tool, not a human specialist."
-      },
-      "privacy": {
-        "title": "Privacy",
-        "body": "You state your own stage; the system does not infer any religious or sensitive attribute about you."
-      },
-      "eyebrow": "At first light",
-      "stamp": {
-        "ring": "Rehla · Our pledge · Rehla · Our pledge ·",
-        "center": "Pledge"
-      }
-    },
     "closing": {
       "title": "The road is ahead of you",
       "body": "Start at the first station, at your own pace."
+    },
+    "startRoad": "Start your road",
+    "continueRoad": "Continue your road",
+    "askSpecialist": "Ask a specialist",
+    "askSpecialistLine": "A question that troubles you, or need a trusted body to ask? These licensed organisations in Saudi Arabia can answer.",
+    "offers": {
+      "eyebrow": "What you will find",
+      "title": "Four doors on one road",
+      "learn": {
+        "title": "Steps",
+        "line": "Short lessons along a road of three stations, starting wherever you choose."
+      },
+      "practice": {
+        "title": "Practice",
+        "line": "Try what you learned with your own hands, and gather provisions for the road."
+      },
+      "rafiq": {
+        "title": "Ask Rafiq",
+        "line": "Ask about your lesson or a word you did not understand; he shows the source of every answer."
+      },
+      "specialists": {
+        "title": "Specialists",
+        "line": "Licensed organisations that answer when your question needs a specialist."
+      }
+    },
+    "trust": {
+      "title": "How we keep it trustworthy",
+      "verbatim": "Text from approved sources, shown word for word",
+      "source": "The source under every statement",
+      "noRulings": "No rulings from the AI",
+      "specialists": "Specialists for what needs them",
+      "link": "See every source"
     }
   },
   "AiNotice": {
@@ -130,15 +105,11 @@
   },
   "Learning": {
     "fromTheLesson": "From the lesson",
-    "demoBadge": "Demo",
-    "awaitingReview": "Draft · awaiting review"
+    "demoBadge": "Demo"
   },
   "Learn": {
     "title": "Khutuwat · Steps",
     "description": "A graded learning path: lessons, short quizzes, and an explanation for every mistake.",
-    "draftPreview": "Draft preview: these lessons are waiting for their approved text and review. Drafts are never shown in production.",
-    "emptyRoadTitle": "The first stations are being prepared",
-    "emptyRoadBody": "Their lessons are being taken from approved sources and reviewed before they appear here. Meanwhile, the practice road below shows how a lesson works.",
     "chooseStartTitle": "Where would you like to begin?",
     "chooseStartBody": "Choose for yourself. You can start somewhere else at any time.",
     "startFromBeginning": "Start at the beginning",
@@ -214,7 +185,6 @@
     "demoSource": "Sample text written for this demonstration. It is not taken from a religious source.",
     "videoPrivacy": "The video plays from IslamHouse.com's own servers, and nothing loads until you press play.",
     "demoNotice": "Demo lesson: neutral sample content, written to show how a lesson works. It is not religious material.",
-    "draftNotice": "Draft, awaiting review: the team wrote this lesson from its sources and a reviewer has not approved it yet. Unreviewed lessons are never shown in production.",
     "practiceLesson": "Practice lesson",
     "objectivesTitle": "What this lesson aims for",
     "cardOf": "Card {current} of {total}",
@@ -228,8 +198,6 @@
     "footnotes": "Translator's notes",
     "evidenceHadith": "From the Sunnah",
     "citationOnly": "Only the reference is shown: the source has no version of this hadith in this language yet, or its reference is still being confirmed.",
-    "reviewNotesTitle": "{count, plural, one {# note for reviewers} other {# notes for reviewers}}",
-    "issuesTitle": "{count, plural, one {# part the app could not show} other {# parts the app could not show}}",
     "recitedBy": "Recitation:",
     "showVideo": "Show the video",
     "videoLanguageLabel": "Language:",
@@ -251,7 +219,9 @@
     "publishedNoVersion": "{name} (QuranEnc publishes no version number for it)",
     "translationLabel": "Translation",
     "hadithFetched": "fetched on {date}",
-    "talkToSpecialist": "Talk to a specialist"
+    "talkToSpecialist": "Talk to a specialist",
+    "termLabel": "Term",
+    "termSource": "Definition from TerminologyEnc.com"
   },
   "Activity": {
     "continue": "Continue",
@@ -422,7 +392,8 @@
     "artIcons": "Icons",
     "artCount": "{count, plural, one {# drawing} other {# drawings}}",
     "artRafiq": "Rafiq, the travelling lantern",
-    "artCredit": "Credit"
+    "artCredit": "Credit",
+    "lessonText": "Lesson text is taken word for word from the approved sources named on each lesson, or is marked as the team's wording. The team checked every lesson."
   },
   "Listen": {
     "listen": "Listen",
@@ -446,8 +417,7 @@
     "sounds": "Sounds",
     "soundsOn": "on",
     "soundsOff": "off",
-    "rafiqSays": "Rafiq says:",
-    "drawingAwaitingReview": "Drawing awaiting review"
+    "rafiqSays": "Rafiq says:"
   },
   "RafiqCaptions": {
     "intro": [
@@ -486,22 +456,20 @@
     ]
   },
   "LineHelp": {
-    "open": "I didn't understand this line",
-    "title": "Didn't understand this line?",
-    "choose": "What would help?",
-    "modes": {
-      "simpler": "Explain it more simply",
+    "askAbout": "Need this explained? Ask Rafiq",
+    "panelTitle": "Rafiq beside the board",
+    "subject": "About this line",
+    "quick": {
+      "simpler": "Simpler",
       "example": "Give me an example",
-      "question": "I have a question"
+      "another": "I have another question"
     },
-    "questionLabel": "Your question",
-    "ask": "Ask Rafiq",
-    "thinking": "Rafiq is thinking…",
-    "comingTitle": "Rafiq's help is coming",
-    "comingBody": "Soon Rafiq will be able to explain a line more simply, give an example or answer your question, right here. Until then, a specialist can help you.",
-    "retry": "Try again",
-    "close": "Close",
-    "talkToSpecialist": "Talk to a specialist"
+    "replyLabel": "Your reply",
+    "replyPlaceholder": "Write your question or reply",
+    "send": "Send",
+    "continueOnRafiq": "Continue on Rafiq's page",
+    "newSubject": "A new line from the lesson",
+    "close": "Close"
   },
   "RafiqCharacter": {
     "name": "Rafiq, the travelling lantern",
@@ -655,5 +623,77 @@
     "source": "Source: {name}. Details verified on {date}.",
     "aboutSource": "About this source",
     "privacy": "Rehla shares nothing about you with these bodies. Whether and how you contact them is entirely your choice."
+  },
+  "MeetRafiq": {
+    "title": "Meet Rafiq",
+    "lines": {
+      "lantern": "I'm Rafiq, a small lantern walking with you on the road to the light.",
+      "light": "The light I carry is not knowledge of my own: when you ask, I look in approved sources and show you where each answer comes from.",
+      "limits": "I am not a scholar and I do not give rulings. When your question needs a specialist, I will say so and point you to one.",
+      "ask": "Ask me about your lesson, a word you did not understand, or how to do an act of worship. No question is too small; lanterns do not get tired."
+    },
+    "chips": {
+      "simple": "Explains simply",
+      "source": "Names his source",
+      "specialist": "Refers you to a specialist when needed"
+    },
+    "start": "Start talking to Rafiq",
+    "who": "Who is Rafiq?",
+    "close": "Close"
+  },
+  "Guide": {
+    "label": "How Rehla works",
+    "stepOf": "Step {current} of {total}",
+    "next": "Next",
+    "skip": "Skip",
+    "start": "Start the road",
+    "replay": "How Rehla works",
+    "steps": {
+      "road": {
+        "title": "Your road, step by step",
+        "body": "Three stations: the beginning, then purification, then prayer. You choose where to start and continue whenever you like."
+      },
+      "class": {
+        "title": "Every lesson is a small class",
+        "body": "A board where the lesson is written line by line, with Rafiq beside you. The text comes from approved sources, and its source is written under it."
+      },
+      "hands": {
+        "title": "You learn with your hands",
+        "body": "You put the steps of wudu in order, build a rak'ah, and move the sun to find each prayer's time. Then short questions fix what you learned, and a stamp in your journal for every lesson you finish."
+      },
+      "question": {
+        "title": "Try a question",
+        "body": "This is how the short questions come after a lesson. Answer it; a mistake does not count against you, and every lesson you finish is stamped in your journal."
+      },
+      "together": {
+        "title": "You are not alone",
+        "body": "Ask Rafiq whenever you need something explained, and when your question needs a specialist we point you to one."
+      }
+    },
+    "previewSource": "Source: {title}",
+    "previewStations": "The three stations of the road",
+    "previewNational": "National channel · 1933",
+    "tryHere": "Try it here once.",
+    "askRafiq": "Ask Rafiq"
+  },
+  "Practice": {
+    "title": "Practice",
+    "description": "Try with your own hands what you have learned and gather provisions for your road. Mistakes here do not count against you.",
+    "provisions": "Your provisions: {count}",
+    "best": "Best result: {score}",
+    "bestDone": "Completed",
+    "bestNone": "Not tried yet",
+    "score": "{correct} of {total}",
+    "fromLesson": "From the lesson: {lesson}",
+    "tryAgain": "Try again",
+    "earned": "Well done. New provisions in your bag.",
+    "open": "Practise this",
+    "notYet": "This comes from a lesson you have not taken yet. It may help to read it first, but the choice is yours.",
+    "questionsTitle": "A few short questions",
+    "noQuestions": "This lesson has no short questions for this activity.",
+    "roundDone": "Round complete",
+    "roundScore": "{correct} of {total} right on the first try.",
+    "backToPractice": "Back to practice",
+    "howPoints": "A completed activity adds 3 provisions, and each question you answer right adds 1, the first time. Nothing is taken away."
   }
 }

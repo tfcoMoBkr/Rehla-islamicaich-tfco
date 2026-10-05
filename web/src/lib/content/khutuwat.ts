@@ -94,3 +94,15 @@ export function afterExam({ route, khutuwat }: StationContext, stationId: string
   const first = khutuwat.lessons.get(next.lessonIds[0] ?? "");
   return first ? lessonHref(first) : "/learn";
 }
+
+/** Every station with a page of its own (the road and the practice road), for static rendering. */
+export async function stationParams(): Promise<{ station: string }[]> {
+  const { road, practice } = await loadKhutuwat();
+  return [...road, ...practice].map((station) => ({ station: station.id }));
+}
+
+/** Every lesson's URL segments, for static rendering. */
+export async function lessonParams(): Promise<{ station: string; lesson: string }[]> {
+  const { lessons } = await loadKhutuwat();
+  return [...lessons.values()].map((lesson) => ({ station: lesson.station, lesson: lesson.slug }));
+}

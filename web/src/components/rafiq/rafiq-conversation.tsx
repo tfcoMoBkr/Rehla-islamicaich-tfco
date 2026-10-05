@@ -1,54 +1,24 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { useEffect, useId, useRef, useState, type FormEvent, type KeyboardEvent, type ReactNode } from "react";
+import { useEffect, useId, useRef, useState, type FormEvent, type KeyboardEvent } from "react";
 
 import { Button } from "@/components/ui/button";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
-import { Link } from "@/i18n/navigation";
-import type { RafiqPose } from "@/lib/content/schema";
 import { useProgress } from "@/lib/learn/progress-store";
-import { replyText, type RafiqResult } from "@/lib/rafiq/answer";
-import { askRafiq, HISTORY_TURNS, QUESTION_MAX_LENGTH, type Turn } from "@/lib/rafiq/ask";
+import type { RafiqResult } from "@/lib/rafiq/answer";
+import { askRafiq, QUESTION_MAX_LENGTH } from "@/lib/rafiq/ask";
 import { conversationStore, keepExchange, OPENED_AT, type StoredExchange } from "@/lib/rafiq/memory";
 
-import { AnswerView, type LessonLink } from "./answer-view";
+import type { LessonLink } from "./answer-view";
+import { MeetRafiq } from "./meet-rafiq";
 import { NamePrompt, RafiqMemory, RafiqWelcome, type RoadLesson } from "./rafiq-memory";
-import { RafiqStage } from "./rafiq-stage";
+import { ExchangeView, historyBefore, RafiqSays, type Exchange } from "./thread";
 
 const STARTERS = ["tawhid", "wudu", "wuduBreakers", "prayers"] as const;
 /** The counter appears when a question nears the limit. */
 const COUNTER_FROM = 800;
 const NO_EXCHANGES: StoredExchange[] = [];
-
-type Exchange = { id: number; question: string; result: RafiqResult | null };
-
-function poseFor(result: RafiqResult | null): RafiqPose {
-  if (!result) return "thinking";
-  if (result.kind !== "answer") return "encouraging";
-  switch (result.answer.kind) {
-    case "chat":
-      return "happy";
-    case "clarify":
-      return "listening";
-    case "answer":
-      return result.answer.blocks.length > 0 ? "pointing" : "encouraging";
-    default:
-      return "encouraging";
-  }
-}
-
-/** The turns before a question, as the service reads them: what was asked and what Rafiq said. */
-function historyBefore(exchanges: readonly Exchange[]): Turn[] {
-  const turns: Turn[] = [];
-  for (const { question, result } of exchanges) {
-    if (result?.kind !== "answer") continue;
-    const text = replyText(result.answer);
-    if (!text) continue;
-    turns.push({ role: "user", text: question }, { role: "assistant", text });
-  }
-  return turns.slice(-HISTORY_TURNS);
-}
 
 /**
  * Ask Rafiq: a conversation between the learner and their companion. It is kept on this device in
@@ -63,6 +33,8 @@ export function RafiqConversation({
   road: readonly RoadLesson[];
 }) {
   const t = useTranslations("Rafiq");
+  const tm = useTranslations("MeetRafiq");
+  const input = useRef<HTMLTextAreaElement>(null);
   const locale = useLocale();
   const store = conversationStore(locale);
   const stored = store.use() ?? NO_EXCHANGES;
@@ -155,6 +127,20 @@ export function RafiqConversation({
         {announcement}
       </p>
 
+      {exchanges.length === 0 && (
+        <section aria-labelledby="meet-rafiq-intro" className="rounded-3xl border border-hairline bg-paper/60 p-5 sm:p-6">
+          <MeetRafiq
+            id="meet-rafiq-intro"
+            layout="intro"
+            action={
+              <Button className="justify-self-start" onClick={() => input.current?.focus()}>
+                {tm("start")}
+              </Button>
+            }
+          />
+        </section>
+      )}
+
       <ol className="grid grid-cols-1 gap-6">
         <RafiqSays pose={exchanges.length ? "waving" : "hello"}>
           <div className="grid gap-4">
@@ -205,6 +191,7 @@ export function RafiqConversation({
         </label>
         <textarea
           id={inputId}
+          ref={input}
           value={draft}
           onChange={(event) => setDraft(event.target.value)}
           onKeyDown={onKeyDown}
@@ -239,91 +226,3 @@ export function RafiqConversation({
   );
 }
 
-/** Rafiq's turn: his figure and name at the start side, what he says beside them. */
-function RafiqSays({
-  pose,
-  thinking = false,
-  articleRef,
-  children,
-}: {
-  pose: RafiqPose;
-  thinking?: boolean;
-  articleRef?: (element: HTMLElement | null) => void;
-  children: ReactNode;
-}) {
-  const t = useTranslations("Rafiq");
-  return (
-    <li className="flex items-start gap-3">
-      <div className="flex w-14 shrink-0 flex-col items-center gap-1 pt-1">
-        <RafiqStage pose={pose} thinking={thinking} height={56} decorative />
-        <span className="text-xs font-semibold text-muted-foreground">{t("rafiqName")}</span>
-      </div>
-      <article
-        ref={articleRef}
-        aria-label={t("rafiqAnswer")}
-        aria-busy={thinking}
-        className="min-w-0 flex-1 scroll-mt-24 rounded-2xl rounded-ss-sm border border-hairline bg-paper p-5 shadow-sm sm:p-6"
-      >
-        {children}
-      </article>
-    </li>
-  );
-}
-
-/** The learner's turn, on the end side. */
-function YouSaid({ children }: { children: string }) {
-  const t = useTranslations("Rafiq");
-  return (
-    <li className="flex justify-end ps-12">
-      <div className="grid max-w-full gap-1 rounded-2xl rounded-se-sm bg-ink px-4 py-3 text-paper">
-        <span className="text-xs font-semibold opacity-80">{t("you")}</span>
-        <p dir="auto" className="text-lg leading-relaxed whitespace-pre-line">
-          {children}
-        </p>
-      </div>
-    </li>
-  );
-}
-
-function ExchangeView({
-  exchange,
-  lessons,
-  replyRef,
-  onRetry,
-}: {
-  exchange: Exchange;
-  lessons: Readonly<Record<string, LessonLink>>;
-  replyRef: (element: HTMLElement | null) => void;
-  onRetry: () => void;
-}) {
-  const t = useTranslations("Rafiq");
-  const { result } = exchange;
-  return (
-    <>
-      <YouSaid>{exchange.question}</YouSaid>
-      <RafiqSays pose={poseFor(result)} thinking={!result} articleRef={replyRef}>
-        {!result ? (
-          <p className="font-medium text-muted-foreground">{t("thinking")}</p>
-        ) : result.kind === "answer" ? (
-          <AnswerView answer={result.answer} id={`rafiq-${exchange.id}`} lessons={lessons} />
-        ) : (
-          <div className="grid gap-3">
-            <p className="leading-relaxed">{t(`errors.${result.kind}`)}</p>
-            <div className="flex flex-wrap items-center gap-4">
-              {result.kind !== "rateLimited" && (
-                <Button variant="outline" onClick={onRetry}>
-                  {t("retry")}
-                </Button>
-              )}
-              {result.kind === "unavailable" && (
-                <Link href="/talk-to-a-specialist" className="font-semibold underline underline-offset-4">
-                  {t("talkToSpecialist")}
-                </Link>
-              )}
-            </div>
-          </div>
-        )}
-      </RafiqSays>
-    </>
-  );
-}

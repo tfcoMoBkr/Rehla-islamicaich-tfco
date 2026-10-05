@@ -3,7 +3,7 @@
 import { BookOpen, Check, Signpost } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-import { AwaitingReviewBadge, DemoBadge } from "@/components/learn/content-badges";
+import { DemoBadge } from "@/components/learn/content-badges";
 import { RoadJourney } from "@/components/journey/road-journey";
 import { Station, type StationState } from "@/components/journey/station";
 import { RafiqFigure } from "@/components/rafiq/rafiq-figure";
@@ -41,12 +41,7 @@ export function LearnRoad({ road, practice }: LearnRoadProps) {
 
   return (
     <div className="grid gap-12">
-      {road.length === 0 ? (
-        <Card className="px-6 sm:px-8">
-          <h2 className="font-display text-xl font-semibold">{t("emptyRoadTitle")}</h2>
-          <p className="text-muted-foreground">{t("emptyRoadBody")}</p>
-        </Card>
-      ) : progress.startStation === null ? (
+      {progress.startStation === null ? (
         <StartChooser stations={road} />
       ) : (
         <ContinueCard step={step} road={road} />
@@ -170,7 +165,6 @@ function RoadStationStops({ station, number, status, previousTitle, nextLessonId
                 {lesson.hasQuiz && (
                   <span className="rounded-full bg-dawn/15 px-2 py-0.5 text-xs font-semibold text-ink">{t("quizBadge")}</span>
                 )}
-                {!lesson.reviewed && !lesson.demo && <AwaitingReviewBadge />}
               </>
             }
           />

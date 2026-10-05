@@ -1,5 +1,6 @@
 export type Feature =
   | "learn"
+  | "practice"
   | "rafiq"
   | "mawqif"
   | "adasa"
@@ -8,6 +9,7 @@ export type Feature =
 
 export const features: Readonly<Record<Feature, boolean>> = {
   learn: true,
+  practice: true,
   rafiq: true,
   mawqif: false,
   adasa: false,
@@ -19,6 +21,7 @@ type Section = { feature: Feature; href: `/${string}` };
 
 const sections: readonly Section[] = [
   { feature: "learn", href: "/learn" },
+  { feature: "practice", href: "/practice" },
   { feature: "rafiq", href: "/rafiq" },
   { feature: "mawqif", href: "/mawqif" },
   { feature: "adasa", href: "/adasa" },

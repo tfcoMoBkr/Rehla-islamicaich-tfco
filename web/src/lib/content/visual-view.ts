@@ -4,15 +4,11 @@ import type { LessonVisualView } from "@/lib/learn/types";
 
 import { loadVisuals, readArtSvg } from "./load";
 import { prefixSvgIds, svgIds } from "./scene-svg";
-import { showDrafts } from "./visibility";
 
-/**
- * The drawing pinned on a lesson's board, from content/visuals.json. A drawing still awaiting
- * review is shown only where drafts are. Every part the file names must exist in its scenes.
- */
+/** The drawing pinned on a lesson's board, from content/visuals.json. Every part the file names must exist in its scenes. */
 export async function toVisualView(lessonId: string): Promise<LessonVisualView | null> {
   const entry = (await loadVisuals()).find((candidate) => candidate.lesson === lessonId);
-  if (!entry || (entry.needsReview && !showDrafts())) return null;
+  if (!entry) return null;
 
   const scenes = await Promise.all(
     entry.scenes.map(async (name) => {
@@ -36,6 +32,5 @@ export async function toVisualView(lessonId: string): Promise<LessonVisualView |
     follow: entry.follow ?? null,
     ambience: entry.ambience ?? null,
     mirrorRtl: entry.mirrorRtl,
-    needsReview: entry.needsReview,
   };
 }

@@ -8,6 +8,22 @@ eval/      Rafiq's reliability cases, runner and results
 docs/      This file, RELIABILITY, EVALUATION, SOURCES, CURRICULUM, COVERAGE, MCP_TOOLS
 ```
 
+## Rendering and speed
+
+Every main page is rendered at build time: the home page, Khutuwat (road, lessons, station checks and exams, journal), Practice (index and each activity), Rafiq, the specialists and the sources, in both locales. Moving between them is instant because `<Link>` prefetches each one in full.
+
+- **Static by rule.** Each main page exports `dynamic = "error"`, so a request-time API (headers, cookies, an uncached fetch) fails the build instead of quietly making the page dynamic. `scripts/check-static.mjs` runs after `next build` and fails it if any main page is missing from the prerender manifest.
+- **Nothing per request in the layout.** The footer's AI status is checked from the browser (`/api/ai/health`, once per visit), never on the server.
+- **Content once per process.** `src/lib/content/memo.ts` reads and validates each content file once per process in production (and per request in development, so edits show up).
+- **Only the messages a page needs.** The layout sends its client components' namespaces; each page adds its own (`src/i18n/client-namespaces.ts`). A test follows each page's imports (`src/i18n/client-graph.ts`) and fails when a client component reads a namespace its page does not send.
+- **Heavy parts load when used.** The lesson conversation panel, the Khutuwat tour and its previews load only when opened, each in its own Suspense boundary so the page never waits for them. The browser validates Rafiq's replies with `zod/mini`.
+- **A designed wait.** Each route segment has a loading state in the shape of its page (`src/components/layout/page-loading.tsx`): the header stays, and Rafiq's lantern breathes (still under reduced motion).
+
+## Khutuwat tour and Practice
+
+- **The tour** (`src/components/guide/`) opens the first time the learner enters `/learn`, as a panel at the bottom of the screen with no backdrop: one idea per step, each beside the real thing in miniature (the stations, a board line with its source, the shortest ordering activity of the road, one of the lessons' own questions, Rafiq). "Skip" or Escape closes it for good on the device; "How Rehla works" on the learn page and in the footer opens it again.
+- **Practice** (`/[locale]/practice`, flag `practice`) gathers every activity of the road's lessons by station, from the same lesson data and components (`src/lib/learn/practice.ts`), except reflections and private checklists. Each activity has its own static page: the activity full width, then its lesson's short questions (card checks and quiz). Provisions are earned once per activity (3) and per question answered right (1), are never taken away, and are kept in the learner's progress record (`practice.earned`, `practice.best`, keyed by id so two devices can merge later).
+
 The browser talks only to the web app. The web app forwards `/api/ai/*` to the AI service through a same-origin rewrite (`web/next.config.ts`, `AI_SERVICE_URL`), so provider keys never leave the server side. Sections are switched on in `web/src/config/features.ts`; navigation shows only the sections that are on.
 
 ## Rafiq
@@ -92,7 +108,12 @@ Each chunk carries `lang`, `type`, `sourceId`, `title`, `reference`, `url`, `pub
 
 - `/ask` takes `{question, locale, reachedLessonIds?, history?}`. `history` holds at most 8 turns, and `reachedLessonIds` are the lessons the learner completed.
 - `referral.centers` are ids in `content/referral-centers.json`; the page renders the bodies from that file (the ingest copies the ids to `ai/data/index/referral-centers.json`).
-- `/lesson-help` takes `{lessonId, cardId, lineText, mode: simpler | example | question, question?, locale}`. It searches the lesson's own sources first. The lesson line is context for the answer, never one of its sources.
+- `/lesson-help` is a short conversation about one lesson line. It takes `{lessonId, cardId, lineText, mode: explain | simpler | example | question, question?, locale, reachedLessonIds?, history?}`:
+  - `explain` is Rafiq's first message about the line; `simpler` and `example` ask again about it. These three are not classified: they ask for no ruling and are answered in the page's language.
+  - `question` carries the learner's own `question` (required). It is classified with the `history`, so a follow-up such as "and why?" is rewritten to stand alone, as on `/ask`.
+  - `history` holds at most 8 turns of this conversation, kept on the device; more is refused (422).
+  - The search scope is the lesson, then `reachedLessonIds` (without repeats). The lesson's own passages rank first within that scope; when the scope holds nothing strong, the whole index is searched and a later lesson that covers the question is named (`laterLessonId`).
+  - The lesson line is context for the answer, never one of its sources.
 
 How each answer is checked is described in `docs/RELIABILITY.md`; how that is measured is in `docs/EVALUATION.md`.
 
@@ -103,6 +124,8 @@ How each answer is checked is described in `docs/RELIABILITY.md`; how that is me
 | `src/lib/rafiq/answer.ts` | The response schema (zod), `postToRafiq` (answer, rate-limited, unavailable or error), and the client guard that turns an unsourced reply into a referral. |
 | `src/lib/rafiq/ask.ts`, `lesson-help.ts` | Typed clients for the two endpoints. |
 | `src/app/[locale]/rafiq/page.tsx` | The page, behind the `rafiq` flag. It passes lesson titles and links so that a later lesson can be named, and the lessons of the road in order for "continue your road". |
+| `src/components/rafiq/thread.tsx` | The conversation's parts, shared by Rafiq's page and the lesson panel: the learner's turn, Rafiq's turn with his pose, and his reply (thinking, answer, or what went wrong). |
+| `src/components/rafiq/meet-rafiq.tsx`, `who-is-rafiq.tsx` | Rafiq introduces himself (home page, top of his page before the first message, and "Who is Rafiq?"), his pose following each line. |
 | `src/components/rafiq/rafiq-conversation.tsx` | The conversation between the learner and Rafiq, kept on the device per language (`src/lib/rafiq/memory.ts`), restored on return and cleared by "Start again". Each question carries the last 8 turns. Rafiq's pose follows each reply: thinking while waiting, pointing at a cited answer, happy in small talk, listening when he asks back, encouraging at a referral or an error. |
 | `src/components/rafiq/rafiq-memory.tsx` | The greeting and next lesson (built from the message files), the optional name prompt (asked once, skippable), and "What Rafiq remembers" with a clear-everything control. |
 | `src/lib/device-store.ts` | Values kept in this browser only, shared by every component that shows them. |
@@ -111,6 +134,6 @@ How each answer is checked is described in `docs/RELIABILITY.md`; how that is me
 | `src/components/rafiq/answer-blocks.tsx` | The verse block (Arabic in the Quran face, surah and ayah, the published translation with its name and version) and the hadith block (Arabic, published translation, grade, attribution, HadeethEnc's explanation in extractive answers). Long texts collapse with "show all"; nothing is trimmed. |
 | `src/lib/rafiq/languages.ts`, `src/lib/answer-fonts.ts`, `messages/answer-languages.json` | The answer languages: direction and face (Urdu and Bengali faces load only with such an answer), and the referral, disclosure and small-talk texts in Urdu, Bengali and French (awaiting native review). |
 | `src/components/rafiq/source-cards.tsx`, `referral-card.tsx`, `rafiq-stage.tsx` | Source cards, each with links to the source and to its entry on `/sources`; the referral card for each reason; Rafiq in his own light, which breathes while he thinks (off under `prefers-reduced-motion`). |
-| `src/components/learn/board/lesson-help-dialog.tsx` | "I didn't understand this line" on the lesson board, answered through `/lesson-help` and shown with the same `AnswerView`. |
+| `src/components/learn/board/ask-rafiq-control.tsx`, `lesson-rafiq-panel.tsx`, `src/lib/rafiq/lesson-conversation.ts`, `lesson-threads.ts` | "Need this explained? Ask Rafiq" under the board: a conversation panel beside it (a sheet on a phone). Rafiq's first message explains the line (`explain` mode); the learner can ask for it simpler, for an example, or anything else, and each request carries the thread so far. The thread is kept on the device per lesson, cleared with the rest of Rafiq's memory, and can be carried over to Rafiq's page. |
 
 The rewrite allows 90 seconds per request (`experimental.proxyTimeout`): every answer is verified before it is sent, and free model tiers can be slow.

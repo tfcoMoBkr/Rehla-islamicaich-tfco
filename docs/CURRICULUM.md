@@ -7,10 +7,13 @@ Status: **proposed, pending scholarly review**. Nothing in this file is lesson c
 1. **Text.** A card, a guided step or a post-rak'ah line shows one of these:
    - **Book text, verbatim.** It points at a stored paragraph of an approved book (`textRef`: book, section, paragraph and an exact excerpt), and the engine shows that excerpt word for word. A test checks every excerpt against the stored paragraph byte for byte.
    - **Team wording, labelled.** Where no approved book states the card's point in both Arabic and English, the card keeps the team's wording with the visible label «صياغة فريق رحلة» / "Wording by the Rehla team". It rests only on its verse or hadith; a team-worded card without one is removed.
+   - **Terms.** A word in a card may be marked with the TerminologyEnc term that defines it (`terms`: the term's `terminologyencId` and the exact `word` as the card's text writes it in each language). The term is stored verbatim with its page URL (`content/corpus/terms/`) and indexed for Rafiq with the lesson, so inside that lesson Rafiq can explain the word from its published definition.
 2. **Evidence.** Qur'an verses (quranenc.com) and hadiths with grade, attribution and explanation (hadeethenc.com) are fetched verbatim by script and never typed. A hadith is used only if it has both an Arabic and an English version.
 3. **Practice.** Checks, activities and questions are built from layers 1 and 2 only. An activity left without enough items is dropped for that lesson; nothing is invented to fill it.
 
-Lesson files live in `content/lessons/drafts/` and carry `"reviewed": false` until a human reviewer approves them. Unreviewed lessons are labelled as drafts and hidden in production. Coding agents may point a card at stored book text, remove text, or add labels; they never write or change lesson wording (CLAUDE.md, rule 1). What changed in the 2026-10 content audit, card by card, is in `docs/CONTENT_REVIEW.md`.
+The **Practice** section (`/practice`) runs the same activities again outside the lesson flow, from the same lesson files and components, followed by the lesson's own short questions; nothing is copied or added for it. Reflections and private checklists stay in their lessons only.
+
+Lesson files live in `content/lessons/` and are published. Their text is taken verbatim from the approved sources each lesson names, or is marked as the team's wording, and was checked by the team; no scholarly review is claimed (`reviewed` stays `false`, `reviewedBy` empty). Coding agents may point a card at stored book text, remove text, or add labels; they never write or change lesson wording (CLAUDE.md, rule 1). What changed in the 2026-10 content audit, card by card, is in `docs/CONTENT_REVIEW.md`.
 
 ## Sources
 

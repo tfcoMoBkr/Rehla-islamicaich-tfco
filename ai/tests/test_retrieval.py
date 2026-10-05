@@ -109,3 +109,51 @@ async def test_a_hadith_with_no_version_in_the_language_comes_in_the_fallback() 
         "en",
     )
     assert mcp.arguments == [{"id": 42, "language": ["ar", "bn", "en"]}]
+
+
+SECTION = {"book": "b", "anchor": "s1", "heading": "Lesson Nine: The breakers of the thing"}
+LIST_START = chunk(
+    id="book:b:s1:1", text="They are three:\n\nalpha; beta; and the start of gamma", extra=SECTION
+)
+LIST_END = chunk(id="book:b:s1:2", text="gamma ends here, and that is all.", extra=SECTION)
+NEXT_TOPIC = chunk(id="book:b:s1:3", text="Another matter:\n\nepsilon.", extra=SECTION)
+TERM = chunk(
+    id="term:9:en",
+    type="term",
+    sourceId="terminologyenc",
+    text="The thing: breakers of the thing are named here, the thing and its breakers.",
+)
+
+
+async def test_a_book_piece_is_found_by_its_section_heading() -> None:
+    retriever = Retriever(index(LIST_START, TERM), None, DownMcp())
+
+    result = await retriever.retrieve("the breakers of the thing", "en")
+
+    assert LIST_START.text in [passage.text for passage in result.passages]
+
+
+async def test_a_list_question_reads_the_book_list_first_and_whole() -> None:
+    retriever = Retriever(index(LIST_START, LIST_END, NEXT_TOPIC, TERM), FakeEmbedder(), DownMcp())
+
+    plain = await retriever.retrieve("What are the breakers of the thing?", "en")
+    listed = await retriever.retrieve(
+        "What are the breakers of the thing?", "en", list_question=True
+    )
+
+    assert plain.passages[0].text == TERM.text
+    assert [passage.text for passage in listed.passages[:2]] == [LIST_START.text, LIST_END.text]
+    assert listed.passages[-1].text == TERM.text
+
+
+async def test_the_lesson_being_read_ranks_first_within_the_scope() -> None:
+    earlier = chunk(id="book:a:1", lessonIds=["1.1"], text="Washing the face and the hands, twice.")
+    current = chunk(id="book:b:1", lessonIds=["2.4"], text="Washing the hands and then the feet.")
+    retriever = Retriever(index(earlier, current), FakeEmbedder(), DownMcp())
+    question = "Washing the face and the hands"
+
+    plain = await retriever.retrieve(question, "en", scope=["1.1", "2.4"])
+    focused = await retriever.retrieve(question, "en", scope=["2.4", "1.1"], focus="2.4")
+
+    assert plain.passages[0].text == earlier.text
+    assert focused.passages[0].text == current.text

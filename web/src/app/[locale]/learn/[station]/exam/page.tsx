@@ -7,8 +7,19 @@ import { ExamFlow } from "@/components/learn/station/exam-flow";
 import { StationGate } from "@/components/learn/station/station-gate";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { resolveLocale } from "@/i18n/locale";
-import { afterExam, getStationContext, stationQuestions, stationReviewPool, toRoadStations } from "@/lib/content/khutuwat";
+import { PageMessages } from "@/i18n/client-messages";
+import { afterExam, getStationContext, stationParams, stationQuestions, stationReviewPool, toRoadStations } from "@/lib/content/khutuwat";
 import { requireFeature } from "@/lib/require-feature";
+
+// Rendered at build time: a request-time API here fails the build instead of making the page
+// dynamic (and slow to open). See scripts/check-static.mjs.
+export const dynamic = "error";
+
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return stationParams();
+}
 
 type Props = PageProps<"/[locale]/learn/[station]/exam">;
 
@@ -31,20 +42,22 @@ export default async function ExamPage({ params }: Props) {
   const title = station.title[locale];
 
   return (
-    <StationGate route={toRoadStations(context)} stationId={station.id} stationTitle={title}>
-      <div className="mx-auto max-w-2xl px-4 pt-14 pb-32 sm:px-6 md:pt-20">
-        <BackToRoad />
-        <SectionHeading as="h1" eyebrow={title} title={tr("title")} className="mt-6" />
-        <div className="mt-8">
-          <ExamFlow
-            stationId={station.id}
-            stationTitle={title}
-            questions={stationQuestions(context, "exam", locale)}
-            reviewPool={stationReviewPool(context, locale)}
-            nextHref={afterExam(context, station.id)}
-          />
+    <PageMessages page="exam">
+      <StationGate route={toRoadStations(context)} stationId={station.id} stationTitle={title}>
+        <div className="mx-auto max-w-2xl px-4 pt-14 pb-32 sm:px-6 md:pt-20">
+          <BackToRoad />
+          <SectionHeading as="h1" eyebrow={title} title={tr("title")} className="mt-6" />
+          <div className="mt-8">
+            <ExamFlow
+              stationId={station.id}
+              stationTitle={title}
+              questions={stationQuestions(context, "exam", locale)}
+              reviewPool={stationReviewPool(context, locale)}
+              nextHref={afterExam(context, station.id)}
+            />
+          </div>
         </div>
-      </div>
-    </StationGate>
+      </StationGate>
+    </PageMessages>
   );
 }

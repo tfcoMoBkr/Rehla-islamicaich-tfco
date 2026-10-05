@@ -7,12 +7,13 @@ import { ListenControls } from "@/components/learn/audio/listen-controls";
 import { EvidenceBlock } from "@/components/learn/evidence-block";
 import { MediaGallery } from "@/components/learn/media-gallery";
 import { SourceLinks } from "@/components/learn/source-links";
+import { TermNote } from "@/components/learn/term-note";
 import { TeamWordingLabel } from "@/components/learn/wording";
 import { splitSentences, type ReadAloud } from "@/lib/audio/speech";
 import type { CardView } from "@/lib/learn/types";
 
 import { ChalkLines } from "./chalk-lines";
-import { LineHelpButton } from "./line-help-button";
+import { AskRafiqControl } from "./ask-rafiq-control";
 import { PaperSlip } from "./paper-slip";
 import { useChalkWriting } from "./use-chalk-writing";
 
@@ -25,7 +26,8 @@ type CardBoardProps = {
   narrate: boolean;
   onNarrateChange: (narrate: boolean) => void;
   onWritten: () => void;
-  onLineHelp: (line: string) => void;
+  /** Ask Rafiq about the text on this board; absent while Rafiq is switched off. */
+  onLineHelp?: (line: string) => void;
 };
 
 /**
@@ -72,10 +74,10 @@ export function CardBoard({ card, instant, sounds, narrate, onNarrateChange, onW
           cursor={writing.cursor}
           wordMs={writing.wordMs}
           reading={reader.current}
-          after={(line) => <LineHelpButton onOpen={() => onLineHelp(line)} />}
         />
       </div>
       <TeamWordingLabel wording={card.wording} />
+      {onLineHelp && card.text && <AskRafiqControl onOpen={() => onLineHelp(card.text ?? "")} className="justify-self-start" />}
       <div className="flex flex-wrap items-center gap-2">
         <ListenControls reader={listen} />
         {!writing.done && (
@@ -96,6 +98,9 @@ export function CardBoard({ card, instant, sounds, narrate, onNarrateChange, onW
               <EvidenceBlock evidence={card.evidence} />
             </PaperSlip>
           )}
+          {card.terms.map((term) => (
+            <TermNote key={term.id} term={term} />
+          ))}
           <SourceLinks sources={card.sources} />
         </>
       )}

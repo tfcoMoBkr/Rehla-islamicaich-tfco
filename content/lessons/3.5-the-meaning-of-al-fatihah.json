@@ -1,0 +1,153 @@
+{
+  "id": "3.5",
+  "station": 3,
+  "slug": "the-meaning-of-al-fatihah",
+  "status": "published",
+  "reviewed": false,
+  "reviewedBy": null,
+  "authoring": "Cards with textRef show the named book verbatim; cards marked authoring: team keep the team's wording and rest only on their verse or hadith.",
+  "title": {
+    "ar": "معنى سورة الفاتحة",
+    "en": "The meaning of Al-Fatihah"
+  },
+  "objectives": {
+    "ar": [
+      "أن يفهم المتعلم معنى كل آية من الفاتحة",
+      "أن يعرف مكانتها في الصلاة"
+    ],
+    "en": [
+      "Understand the meaning of each verse of Al-Fatihah",
+      "Know its place in the prayer"
+    ]
+  },
+  "sources": [
+    {
+      "key": "ibnbaz-lessons",
+      "title": {
+        "ar": "الدروس المهمة لعامة الأمة",
+        "en": "Important Lessons for the General Ummah"
+      },
+      "publisher": "IslamHouse.com",
+      "url": {
+        "ar": "https://islamhouse.com/ar/books/1871/",
+        "en": "https://islamhouse.com/en/books/2842316/"
+      },
+      "use": "Shown verbatim by reference (textRef)."
+    }
+  ],
+  "suggestedVideo": {
+    "ar": null,
+    "en": null
+  },
+  "cards": [
+    {
+      "id": "c1",
+      "source": [
+        "ibnbaz-lessons"
+      ],
+      "textRef": {
+        "ar": {
+          "book": "1871",
+          "section": "t11",
+          "paragraph": 1,
+          "excerpt": "القيام مع القدرة، وتكبيرة الإحرام، وقراءة الفاتحة، والركوع، والاعتدال بعد الركوع، والسجود على الأعضاء السبعة، والرفع منه، والجلسة بين السجدتين، والطمأنينة في جميع الأفعال، والترتيب بين الأركان، والتشهد الأخير، والجلوس له، والصلاة على النبي - صلى الله عليه وسلم - والتسليمتان."
+        },
+        "en": {
+          "book": "2842316",
+          "section": "s10",
+          "paragraph": 2,
+          "excerpt": "Standing if one is able to, the opening Takbīr, recitation of Surat al-Fātihah, bowing, standing upright after bowing, prostration on seven body parts, rising from prostration, sitting between the two prostrations, tranquility in all actions, observing the prescribed order among the pillars, the final Tashahhud, sitting for it, invoking Allah’s peace and blessings upon the Prophet (ﷺ), and making two Taslīms."
+        }
+      },
+      "evidence": {
+        "type": "quran",
+        "ref": "15:87",
+        "publisher": "quranenc.com"
+      },
+      "check": {
+        "type": "trueFalse",
+        "prompt": {
+          "ar": "قراءة الفاتحة ركن في الصلاة.",
+          "en": "Reciting Al-Fatihah is a pillar of the prayer."
+        },
+        "answer": true
+      }
+    }
+  ],
+  "ayat": [
+    {
+      "ref": "1:1",
+      "meaning": null
+    },
+    {
+      "ref": "1:2",
+      "meaning": null
+    },
+    {
+      "ref": "1:3",
+      "meaning": null
+    },
+    {
+      "ref": "1:4",
+      "meaning": null
+    },
+    {
+      "ref": "1:5",
+      "meaning": null
+    },
+    {
+      "ref": "1:6",
+      "meaning": null
+    },
+    {
+      "ref": "1:7",
+      "meaning": null
+    }
+  ],
+  "activities": [
+    {
+      "id": "a1",
+      "type": "ayahByAyah",
+      "title": {
+        "ar": "آية آية",
+        "en": "Ayah by ayah"
+      },
+      "instruction": {
+        "ar": "اضغط على الآية لتسمعها وتقرأ معناها.",
+        "en": "Tap an ayah to hear it and read its meaning."
+      },
+      "items": "ayat",
+      "text": "quranenc.com",
+      "audio": "mp3quran.net"
+    },
+    {
+      "id": "a2",
+      "type": "match",
+      "title": {
+        "ar": "طابق الآية بمعناها",
+        "en": "Match the ayah to its meaning"
+      },
+      "items": "ayat",
+      "leftFrom": "ref",
+      "rightFrom": "meaning",
+      "exclude": [
+        "1:1"
+      ]
+    }
+  ],
+  "situation": null,
+  "reviewNotes": [
+    "Verse text and audio are fetched by reference; no verse is typed here.",
+    "The meanings are simplified from the source's explanation; the source's naming of specific groups under 1:7 is left out. Reviewer to confirm."
+  ],
+  "explainToRafiq": {
+    "prompt": {
+      "ar": "اشرح لـ«رفيق» بكلماتك أهم ما فهمته من هذا الدرس.",
+      "en": "Explain to Rafiq in your own words the most important thing you understood from this lesson."
+    },
+    "scope": [
+      "cards"
+    ]
+  },
+  "readMore": []
+}

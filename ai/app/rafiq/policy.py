@@ -74,6 +74,14 @@ def referral_after_answer(classification: Classification) -> ReferralReason | No
     return None
 
 
+def referral_after_failed_check(classification: Classification) -> ReferralReason:
+    """Why a draft with nothing verified left is referred. A guarded question keeps its own reason:
+    the ruling guard removing every sentence is the policy working, not a failed answer."""
+    if needs_ruling_guard(classification) or classification.intent == "distress":
+        return referral_after_answer(classification) or "verification"
+    return "verification"
+
+
 def referral_without_answer(
     classification: Classification, draft: Draft | None
 ) -> ReferralReason | None:

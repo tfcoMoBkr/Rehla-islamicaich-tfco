@@ -15,6 +15,16 @@ export type ExamRecord = ScoreRecord & { passed: boolean };
 
 export type QuestionHistory = { seen: number; lastCorrect: boolean; lastSeenAt: number };
 
+/**
+ * Practice: the provisions earned, keyed by what earned them ("activity:2.4:a1", "question:…"),
+ * each once, and the best round of each activity. Records keyed by id merge without conflict, so
+ * an account added later can join two devices' practice.
+ */
+export type PracticeRecord = {
+  earned: Record<string, { points: number; at: number }>;
+  best: Record<string, { correct: number; total: number; at: number }>;
+};
+
 export type Progress = {
   version: 1;
   sessionId: string | null;
@@ -28,6 +38,7 @@ export type Progress = {
   /** The sentence the learner chose on a lesson's journal page, by lesson id. */
   picks: Record<string, string>;
   checklists: Record<string, string[]>;
+  practice: PracticeRecord;
 };
 
 export const EMPTY_PROGRESS: Progress = Object.freeze({
@@ -41,6 +52,7 @@ export const EMPTY_PROGRESS: Progress = Object.freeze({
   exams: {},
   picks: {},
   checklists: {},
+  practice: { earned: {}, best: {} },
 });
 
 export function withAnswer(progress: Progress, questionId: string, correct: boolean, now: number): Progress {
@@ -51,6 +63,29 @@ export function withAnswer(progress: Progress, questionId: string, correct: bool
       ...progress.questions,
       [questionId]: { seen: (previous?.seen ?? 0) + 1, lastCorrect: correct, lastSeenAt: now },
     },
+  };
+}
+
+/** Adds provisions for something done right, once: a second time changes nothing, and nothing is ever taken away. */
+export function withProvisions(progress: Progress, id: string, points: number, now: number): Progress {
+  if (progress.practice.earned[id] || points <= 0) return progress;
+  return {
+    ...progress,
+    practice: { ...progress.practice, earned: { ...progress.practice.earned, [id]: { points, at: now } } },
+  };
+}
+
+export function provisionsOf(progress: Progress): number {
+  return Object.values(progress.practice.earned).reduce((total, earned) => total + earned.points, 0);
+}
+
+/** Keeps an activity's best round: the higher share right, the later one on a tie. */
+export function withBestRound(progress: Progress, key: string, correct: number, total: number, now: number): Progress {
+  const previous = progress.practice.best[key];
+  if (previous && ratio(previous) > ratio({ correct, total })) return progress;
+  return {
+    ...progress,
+    practice: { ...progress.practice, best: { ...progress.practice.best, [key]: { correct, total, at: now } } },
   };
 }
 

@@ -1,0 +1,210 @@
+{
+  "id": "1.6",
+  "station": 1,
+  "slug": "your-new-life",
+  "status": "published",
+  "reviewed": false,
+  "reviewedBy": null,
+  "authoring": "No passage of the approved books states these cards' points cleanly in both languages, so every card is marked authoring: team: it keeps the team's wording and rests only on its verse or hadith.",
+  "title": {
+    "ar": "حياتك الجديدة",
+    "en": "Your new life"
+  },
+  "objectives": {
+    "ar": [
+      "أن يعرف المتعلم كيف يدخل الإنسان في الإسلام",
+      "أن يعرف شروط التوبة الصادقة وما يكون بعدها",
+      "أن يعرف كيف يثبت على دينه"
+    ],
+    "en": [
+      "Know how a person enters Islam",
+      "Know the conditions of sincere repentance and what follows it",
+      "Know how to stay firm in faith"
+    ]
+  },
+  "sources": [],
+  "suggestedVideo": {
+    "ar": null,
+    "en": null
+  },
+  "cards": [
+    {
+      "id": "c3",
+      "authoring": "team",
+      "source": [],
+      "text": {
+        "ar": "التوبة هي الرجوع الصادق إلى الله. ولها شروط: أن تترك الذنب، وأن تندم عليه، وأن تعزم على ألا تعود إليه.",
+        "en": "Repentance is sincerely turning back to Allah. Its conditions: giving up the sin, feeling remorse for it, and resolving not to return to it."
+      },
+      "evidence": {
+        "type": "hadith",
+        "hadeethencId": 5344,
+        "citation": "رواه الترمذي وابن ماجه",
+        "availableIn": [
+          "ar",
+          "en"
+        ],
+        "publisher": "hadeethenc.com"
+      }
+    },
+    {
+      "id": "c4",
+      "authoring": "team",
+      "source": [],
+      "text": {
+        "ar": "من تاب تاب الله عليه مهما عظم ذنبه، فرحمته وسعت كل شيء.",
+        "en": "Whoever repents, Allah forgives, however great the sin. His mercy encompasses all things."
+      },
+      "evidence": {
+        "type": "quran",
+        "ref": "39:53",
+        "publisher": "quranenc.com"
+      },
+      "check": {
+        "type": "trueFalse",
+        "prompt": {
+          "ar": "هناك ذنوب لا يغفرها الله حتى لو تاب صاحبها توبة صادقة.",
+          "en": "There are sins Allah will not forgive even if a person sincerely repents."
+        },
+        "answer": false
+      }
+    },
+    {
+      "id": "c5",
+      "authoring": "team",
+      "source": [],
+      "text": {
+        "ar": "ومن فضل الله أنه يبدّل سيئات التائب حسنات.",
+        "en": "And out of Allah's bounty, He turns the bad deeds of the one who repents into good ones."
+      },
+      "evidence": {
+        "type": "quran",
+        "ref": "25:70",
+        "publisher": "quranenc.com"
+      }
+    },
+    {
+      "id": "c7",
+      "authoring": "team",
+      "source": [],
+      "text": {
+        "ar": "قد تلقى صعوبات بعد إسلامك، وهذا من ابتلاء الله لعباده، وقد ابتلى الأنبياء من قبل. فتمسّك بدينك واصبر، وادعُ الله أن يثبتك.",
+        "en": "You may face hardship after embracing Islam. This is part of how Allah tests His servants, as He tested the prophets before. Hold fast to your religion, be patient, and ask Allah to keep you firm."
+      },
+      "evidence": {
+        "type": "quran",
+        "ref": "29:2-3",
+        "publisher": "quranenc.com"
+      }
+    },
+    {
+      "id": "c8",
+      "authoring": "team",
+      "source": [],
+      "text": {
+        "ar": "من دعاء الثبات في القرآن:",
+        "en": "A supplication for steadfastness from the Qur'an:"
+      },
+      "evidence": {
+        "type": "quran",
+        "ref": "3:8",
+        "publisher": "quranenc.com"
+      },
+      "display": "evidenceFirst"
+    }
+  ],
+  "activities": [
+    {
+      "id": "a1",
+      "type": "select",
+      "title": {
+        "ar": "شروط التوبة الصادقة",
+        "en": "The conditions of sincere repentance"
+      },
+      "instruction": {
+        "ar": "اختر الشروط الثلاثة المذكورة في الدرس.",
+        "en": "Choose the three conditions mentioned in the lesson."
+      },
+      "items": [
+        {
+          "ar": "ترك الذنب",
+          "en": "Giving up the sin",
+          "correct": true
+        },
+        {
+          "ar": "الندم عليه",
+          "en": "Feeling remorse for it",
+          "correct": true
+        },
+        {
+          "ar": "العزم على عدم العودة إليه",
+          "en": "Resolving not to return to it",
+          "correct": true
+        },
+        {
+          "ar": "التحدث عن الذنب أمام الناس",
+          "en": "Talking about the sin in front of people",
+          "correct": false
+        },
+        {
+          "ar": "تأجيل التوبة إلى وقت لاحق",
+          "en": "Postponing repentance to a later time",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "a2",
+      "type": "checklist",
+      "title": {
+        "ar": "خطواتي الأولى",
+        "en": "My first steps"
+      },
+      "instruction": {
+        "ar": "قائمة لك وحدك، تُحفظ على جهازك فقط.",
+        "en": "A list for you alone, kept on your device only."
+      },
+      "storage": "deviceOnly",
+      "items": [
+        {
+          "ar": "تبت إلى الله",
+          "en": "I turned to Allah in repentance",
+          "card": "c3"
+        },
+        {
+          "ar": "حفظت دعاء للثبات",
+          "en": "I learned a supplication for steadfastness",
+          "card": "c8"
+        }
+      ]
+    }
+  ],
+  "situation": {
+    "prompt": {
+      "ar": "تذكرت أخطاء كثيرة من حياتك السابقة وشعرت بالحزن. ماذا يقول الدرس؟",
+      "en": "You remember many mistakes from your earlier life and feel sad. What does the lesson say?"
+    },
+    "options": [
+      {
+        "ar": "لا أيأس من رحمة الله؛ من تاب تاب الله عليه",
+        "en": "I do not despair of Allah's mercy; whoever repents, Allah forgives",
+        "correct": true
+      },
+      {
+        "ar": "ما مضى لا يُغفر",
+        "en": "What is past cannot be forgiven",
+        "correct": false
+      }
+    ]
+  },
+  "explainToRafiq": {
+    "prompt": {
+      "ar": "اشرح لـ«رفيق» بكلماتك أهم ما فهمته من هذا الدرس.",
+      "en": "Explain to Rafiq in your own words the most important thing you understood from this lesson."
+    },
+    "scope": [
+      "cards"
+    ]
+  },
+  "readMore": []
+}

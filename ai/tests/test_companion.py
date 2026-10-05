@@ -5,7 +5,7 @@ import logging
 
 import pytest
 
-from app.rafiq.graph import Rafiq
+from app.rafiq.graph import Rafiq, prompt
 from app.rafiq.schemas import ChatReply, Classification, Draft, Turn
 from app.rafiq.specialists import referral_centres
 from app.rafiq.warmth import screened
@@ -175,3 +175,60 @@ async def test_under_the_ruling_guard_the_check_also_removes_stated_rulings() ->
 
     assert any("states a ruling" in system for system in guarded.systems)
     assert not any("states a ruling" in system for system in plain.systems)
+
+
+def test_the_ruling_rule_is_scoped_to_the_numbered_sentences() -> None:
+    rule = prompt("rules/verify-general")
+    system = prompt("verify", ruling_rule=rule)
+
+    assert "numbered sentences only" in rule
+    assert "never judge it by this rule" in rule
+    assert system.index(rule) < system.index("2. For each warm line")
+
+
+@pytest.mark.parametrize(
+    ("fields", "reason"),
+    [({"personalCase": True, "level": "D"}, "personalCase"), ({"level": "D"}, "fatwa")],
+)
+async def test_a_guarded_answer_keeps_its_opening_and_its_reason(
+    fields: dict[str, object], reason: str
+) -> None:
+    answer = await rafiq(FakeChat(classified(**fields), [WARM])).run(
+        "My situation is complicated; what should I do?", "en"
+    )
+
+    assert answer.opening == "That is a good thing to ask."
+    assert answer.referral is not None
+    assert answer.referral.reason == reason
+
+
+async def test_a_guarded_answer_with_every_sentence_removed_keeps_its_opening_and_reason() -> None:
+    chat = FakeChat(classified(personalCase=True, level="D"), [WARM], unsupported=[1])
+    answer = await rafiq(chat).run("My situation is complicated; what should I do?", "en")
+
+    assert answer.kind == "referral"
+    assert answer.opening == "That is a good thing to ask."
+    assert answer.referral is not None
+    assert answer.referral.reason == "personalCase"
+    assert answer.blocks == []
+    assert answer.sources == []
+
+
+async def test_a_guarded_question_without_an_adequate_draft_keeps_its_opening() -> None:
+    kind = Draft(opening="I can hear that this matters to you.", adequate=False)
+    answer = await rafiq(FakeChat(classified(personalCase=True, level="D"), [kind])).run(
+        "My situation is complicated; what should I do?", "en"
+    )
+
+    assert answer.opening == "I can hear that this matters to you."
+    assert answer.referral is not None
+    assert answer.referral.reason == "personalCase"
+    assert answer.blocks == []
+
+
+def test_an_opening_too_long_for_two_sentences_keeps_its_first() -> None:
+    first = "I can hear how much this weighs on you, and it is good that you asked."
+    second = "Your situation deserves care " + "and patience " * 16 + "from someone who can listen."
+    kept = screened({"opening": f"{first} {second}"}, [], "en")
+
+    assert kept == {"opening": first}

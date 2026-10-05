@@ -1,0 +1,235 @@
+{
+  "id": "1.5",
+  "station": 1,
+  "slug": "the-six-pillars-of-faith",
+  "status": "published",
+  "reviewed": false,
+  "reviewedBy": null,
+  "authoring": "Cards with textRef show the named book verbatim; cards marked authoring: team keep the team's wording and rest only on their verse or hadith.",
+  "title": {
+    "ar": "أركان الإيمان الستة",
+    "en": "The six pillars of faith"
+  },
+  "objectives": {
+    "ar": [
+      "أن يعدّد المتعلم أركان الإيمان الستة",
+      "أن يعرف معنى كل ركن بإيجاز"
+    ],
+    "en": [
+      "Name the six pillars of faith",
+      "Know briefly what each one means"
+    ]
+  },
+  "sources": [
+    {
+      "key": "ibnbaz-lessons",
+      "title": {
+        "ar": "الدروس المهمة لعامة الأمة",
+        "en": "Important Lessons for the General Ummah"
+      },
+      "publisher": "IslamHouse.com",
+      "url": {
+        "ar": "https://islamhouse.com/ar/books/1871/",
+        "en": "https://islamhouse.com/en/books/2842316/"
+      },
+      "use": "Shown verbatim by reference (textRef)."
+    },
+    {
+      "key": "mukhtasar",
+      "title": {
+        "ar": "المختصر المفيد للمسلم الجديد",
+        "en": "New Muslim Guideline"
+      },
+      "publisher": "IslamHouse.com / byenah.com",
+      "url": {
+        "ar": "https://islamhouse.com/ar/books/2831443/",
+        "en": "https://byenah.com/en/muslim-content/4784"
+      },
+      "use": "Shown verbatim by reference (textRef)."
+    }
+  ],
+  "suggestedVideo": {
+    "ar": null,
+    "en": null
+  },
+  "cards": [
+    {
+      "id": "c1",
+      "source": [
+        "ibnbaz-lessons"
+      ],
+      "textRef": {
+        "ar": {
+          "book": "1871",
+          "section": "t7",
+          "paragraph": 1,
+          "excerpt": "وهي ستة: أن تؤمن بالله وملائكته، وكتبه، ورسله، وباليوم الآخر، وتؤمن بالقدر خيره وشره من الله تعالى."
+        },
+        "en": {
+          "book": "2842316",
+          "section": "s6",
+          "paragraph": 1,
+          "excerpt": "They are six: to believe in Allah, His angels, His books, His messengers, the Last Day, and to believe that predestination, with its good and bad aspects, is from Allah Almighty."
+        }
+      },
+      "evidence": {
+        "type": "hadith",
+        "hadeethencId": 4563,
+        "citation": "رواه مسلم",
+        "availableIn": [
+          "ar",
+          "en"
+        ],
+        "publisher": "hadeethenc.com"
+      }
+    },
+    {
+      "id": "c3",
+      "authoring": "team",
+      "source": [],
+      "text": {
+        "ar": "الإيمان بالملائكة: أنهم موجودون في عالم الغيب، عباد مكرمون يطيعون الله ولا يعصونه.",
+        "en": "Belief in the angels: that they exist in the unseen world, honoured servants who obey Allah and never disobey Him."
+      },
+      "evidence": {
+        "type": "quran",
+        "ref": "21:26-27",
+        "publisher": "quranenc.com"
+      }
+    },
+    {
+      "id": "c4",
+      "authoring": "team",
+      "source": [],
+      "text": {
+        "ar": "الإيمان بالكتب: أن الله أنزل كتبًا على رسله، فيها الحق والنور والهدى.",
+        "en": "Belief in the books: that Allah sent down books to His messengers, containing truth, light and guidance."
+      },
+      "evidence": {
+        "type": "quran",
+        "ref": "4:136",
+        "publisher": "quranenc.com"
+      }
+    },
+    {
+      "id": "c5",
+      "source": [
+        "mukhtasar"
+      ],
+      "textRef": {
+        "ar": {
+          "book": "islamhouse-2831443",
+          "section": "s6",
+          "paragraph": 14,
+          "excerpt": "وقــد اتفقــت دعوتهــم مــن أولهــم \nإلــى آخرهــم فــي أصــل الديــن، \nوهــو توحيــد الله عــزَّ وجــلَّ فــي \nالعبــادة وعــدم الإشــراك بــه."
+        },
+        "en": {
+          "book": "byenah-4784",
+          "section": "s15",
+          "paragraph": 4,
+          "excerpt": "The call of all of them was the same with regard to the core of the religion, which is to worship Allah Almighty alone and not associate anything with Him."
+        }
+      },
+      "check": {
+        "type": "single",
+        "prompt": {
+          "ar": "إلى ماذا دعا كل الرسل؟",
+          "en": "What did all the messengers call to?"
+        },
+        "options": [
+          {
+            "ar": "عبادة الله وحده",
+            "en": "Worshipping Allah alone",
+            "correct": true
+          },
+          {
+            "ar": "عبادة الرسل",
+            "en": "Worshipping the messengers",
+            "correct": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "c6",
+      "authoring": "team",
+      "source": [],
+      "text": {
+        "ar": "الإيمان باليوم الآخر: أن الله يبعث الناس من قبورهم ويحاسبهم على أعمالهم.",
+        "en": "Belief in the Last Day: that Allah will raise people from their graves and judge them by their deeds."
+      },
+      "evidence": {
+        "type": "quran",
+        "ref": "2:177",
+        "publisher": "quranenc.com"
+      }
+    }
+  ],
+  "activities": [
+    {
+      "id": "a1",
+      "type": "match",
+      "title": {
+        "ar": "طابق كل ركن بمعناه",
+        "en": "Match each pillar to its meaning"
+      },
+      "pairs": [
+        {
+          "left": {
+            "ar": "الإيمان بالملائكة",
+            "en": "Belief in the angels"
+          },
+          "right": {
+            "ar": "عباد مكرمون من عالم الغيب لا يعصون الله",
+            "en": "Honoured servants of the unseen world who never disobey Allah"
+          },
+          "card": "c3"
+        },
+        {
+          "left": {
+            "ar": "الإيمان بالكتب",
+            "en": "Belief in the books"
+          },
+          "right": {
+            "ar": "أنزلها الله على رسله وفيها الهدى",
+            "en": "Sent down by Allah to His messengers, containing guidance"
+          },
+          "card": "c4"
+        },
+        {
+          "left": {
+            "ar": "الإيمان بالرسل",
+            "en": "Belief in the messengers"
+          },
+          "right": {
+            "ar": "أرسلهم الله إلى الأمم يدعون إلى عبادته وحده",
+            "en": "Sent by Allah to the nations, calling to His worship alone"
+          },
+          "card": "c5"
+        },
+        {
+          "left": {
+            "ar": "الإيمان باليوم الآخر",
+            "en": "Belief in the Last Day"
+          },
+          "right": {
+            "ar": "البعث من القبور والحساب على الأعمال",
+            "en": "Resurrection from the graves and judgement of deeds"
+          },
+          "card": "c6"
+        }
+      ]
+    }
+  ],
+  "situation": null,
+  "explainToRafiq": {
+    "prompt": {
+      "ar": "اشرح لـ«رفيق» بكلماتك أهم ما فهمته من هذا الدرس.",
+      "en": "Explain to Rafiq in your own words the most important thing you understood from this lesson."
+    },
+    "scope": [
+      "cards"
+    ]
+  },
+  "readMore": []
+}

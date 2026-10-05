@@ -1,0 +1,306 @@
+{
+  "id": "3.6",
+  "station": 3,
+  "slug": "pillars-obligations-and-invalidators",
+  "status": "published",
+  "reviewed": false,
+  "reviewedBy": null,
+  "authoring": "Cards with textRef show the named book verbatim; cards marked authoring: team keep the team's wording and rest only on their verse or hadith.",
+  "title": {
+    "ar": "أركان الصلاة وواجباتها ومبطلاتها",
+    "en": "Pillars, obligations and invalidators of prayer"
+  },
+  "objectives": {
+    "ar": [
+      "أن يفرّق المتعلم بين الركن والواجب والسنة",
+      "أن يعرف مبطلات الصلاة ومكروهاتها",
+      "أن يعرف سجود السهو"
+    ],
+    "en": [
+      "Tell apart a pillar, an obligation and a recommended act",
+      "Know what invalidates prayer and what is disliked in it",
+      "Know the prostration of forgetfulness"
+    ]
+  },
+  "sources": [
+    {
+      "key": "ibnbaz-lessons",
+      "title": {
+        "ar": "الدروس المهمة لعامة الأمة",
+        "en": "Important Lessons for the General Ummah"
+      },
+      "publisher": "IslamHouse.com",
+      "url": {
+        "ar": "https://islamhouse.com/ar/books/1871/",
+        "en": "https://islamhouse.com/en/books/2842316/"
+      },
+      "use": "Shown verbatim by reference (textRef)."
+    }
+  ],
+  "suggestedVideo": {
+    "ar": null,
+    "en": null
+  },
+  "cards": [
+    {
+      "id": "c1",
+      "source": [
+        "ibnbaz-lessons"
+      ],
+      "textRef": {
+        "ar": {
+          "book": "1871",
+          "section": "t11",
+          "paragraph": 1,
+          "excerpt": "القيام مع القدرة، وتكبيرة الإحرام، وقراءة الفاتحة، والركوع، والاعتدال بعد الركوع، والسجود على الأعضاء السبعة، والرفع منه، والجلسة بين السجدتين، والطمأنينة في جميع الأفعال، والترتيب بين الأركان، والتشهد الأخير، والجلوس له، والصلاة على النبي - صلى الله عليه وسلم - والتسليمتان."
+        },
+        "en": {
+          "book": "2842316",
+          "section": "s10",
+          "paragraph": 2,
+          "excerpt": "Standing if one is able to, the opening Takbīr, recitation of Surat al-Fātihah, bowing, standing upright after bowing, prostration on seven body parts, rising from prostration, sitting between the two prostrations, tranquility in all actions, observing the prescribed order among the pillars, the final Tashahhud, sitting for it, invoking Allah’s peace and blessings upon the Prophet (ﷺ), and making two Taslīms."
+        }
+      }
+    },
+    {
+      "id": "c2",
+      "source": [
+        "ibnbaz-lessons"
+      ],
+      "textRef": {
+        "ar": {
+          "book": "1871",
+          "section": "t12",
+          "paragraph": 1,
+          "excerpt": "جميع التكبيرات غير تكبيرة الإحرام، وقول: (سمع الله لمن حمده) للإمام والمنفرد،، وقول: (ربنا ولك الحمد) للكل، وقول: (سبحان ربي العظيم) في الركوع، وقول: (سبحان ربي الأعلى) في السجود، وقول: (رب اغفر لي) بين السجدتين، والتشهد الأول، والجلوس له."
+        },
+        "en": {
+          "book": "2842316",
+          "section": "s11",
+          "paragraph": 2,
+          "excerpt": "All the Takbīrs except the opening Takbīr; saying: \"Sami‘allāhu liman hamidah (Allah hears whoever praises Him)\" by the Imam and the one praying alone; saying: \"Rabbana wa laka al-hamd (Our Lord, to You belongs all praise)\" by everyone; saying: \"Subhāna Rabbi Al-‘Azhīm (Glory be to my Lord, the Most Magnificent)\" during bowing; saying: \"Subhāna Rabbi Al-A‘la (Glory be to my Lord, the Most High)\" during prostration; saying: \"Rabbi ighfir li (O Lord, forgive me)\" between the two prostrations; the first Tashahhud; and sitting for it."
+        }
+      }
+    },
+    {
+      "id": "c5",
+      "source": [
+        "ibnbaz-lessons"
+      ],
+      "textRef": {
+        "ar": [
+          {
+            "book": "1871",
+            "section": "t15",
+            "paragraph": 1,
+            "excerpt": "وهي ثمانية:"
+          },
+          {
+            "book": "1871",
+            "section": "t15",
+            "paragraph": 2,
+            "excerpt": "1- الكلام العمد مع الذكر والعلم، أما الناسي والجاهل فلا تبطل صلاته بذلك."
+          },
+          {
+            "book": "1871",
+            "section": "t15",
+            "paragraph": 3,
+            "excerpt": "2- الضحك."
+          },
+          {
+            "book": "1871",
+            "section": "t15",
+            "paragraph": 4,
+            "excerpt": "3- الأكل."
+          },
+          {
+            "book": "1871",
+            "section": "t15",
+            "paragraph": 5,
+            "excerpt": "4- الشرب."
+          },
+          {
+            "book": "1871",
+            "section": "t15",
+            "paragraph": 6,
+            "excerpt": "5- انكشاف العورة."
+          },
+          {
+            "book": "1871",
+            "section": "t15",
+            "paragraph": 7,
+            "excerpt": "6- الانحراف الكثير عن جهة القبلة."
+          },
+          {
+            "book": "1871",
+            "section": "t15",
+            "paragraph": 8,
+            "excerpt": "7- العبث الكثير المتوالي في الصلاة."
+          },
+          {
+            "book": "1871",
+            "section": "t15",
+            "paragraph": 9,
+            "excerpt": "8- انتقاض الطهارة."
+          }
+        ],
+        "en": [
+          {
+            "book": "2842316",
+            "section": "s14",
+            "paragraph": 1,
+            "excerpt": "They are eight:"
+          },
+          {
+            "book": "2842316",
+            "section": "s14",
+            "paragraph": 2,
+            "excerpt": "1. Intentional talking while remembering and being aware (of its prohibition). However, the prayer of the one who forgot or was unaware (of its prohibition) is not invalidated by that."
+          },
+          {
+            "book": "2842316",
+            "section": "s14",
+            "paragraph": 3,
+            "excerpt": "2. Laughing."
+          },
+          {
+            "book": "2842316",
+            "section": "s14",
+            "paragraph": 4,
+            "excerpt": "3. Eating."
+          },
+          {
+            "book": "2842316",
+            "section": "s14",
+            "paragraph": 5,
+            "excerpt": "4. Drinking."
+          },
+          {
+            "book": "2842316",
+            "section": "s14",
+            "paragraph": 6,
+            "excerpt": "5. Exposure of ‘Awrah (must-cover body parts)."
+          },
+          {
+            "book": "2842316",
+            "section": "s14",
+            "paragraph": 7,
+            "excerpt": "6. Excessive diversion from the Qiblah direction."
+          },
+          {
+            "book": "2842316",
+            "section": "s14",
+            "paragraph": 8,
+            "excerpt": "7. Excessive and continuous fiddling during the prayer."
+          },
+          {
+            "book": "2842316",
+            "section": "s14",
+            "paragraph": 9,
+            "excerpt": "8. Nullification of Tahārah (ritual purity)."
+          }
+        ]
+      }
+    },
+    {
+      "id": "c6",
+      "source": [],
+      "authoring": "team",
+      "text": {
+        "ar": "ويُكره في الصلاة: الالتفات، والعبث باليدين أو الوجه، والصلاة وأنت مشغول بحاجة كالطعام الحاضر أو الحاجة إلى الخلاء.",
+        "en": "Disliked in prayer: turning the head, fiddling with the hands or face, and praying while distracted by a need such as food that is served or needing the toilet."
+      },
+      "evidence": {
+        "type": "hadith",
+        "hadeethencId": 10878,
+        "citation": "رواه البخاري",
+        "availableIn": [
+          "ar",
+          "en"
+        ],
+        "publisher": "hadeethenc.com"
+      }
+    }
+  ],
+  "activities": [
+    {
+      "id": "a1",
+      "type": "sort",
+      "title": {
+        "ar": "ركن أم واجب أم مبطل؟",
+        "en": "Pillar, obligation or invalidator?"
+      },
+      "groups": [
+        {
+          "key": "rukn",
+          "label": {
+            "ar": "ركن",
+            "en": "Pillar"
+          }
+        },
+        {
+          "key": "wajib",
+          "label": {
+            "ar": "واجب",
+            "en": "Obligation"
+          }
+        },
+        {
+          "key": "mubtil",
+          "label": {
+            "ar": "مبطل",
+            "en": "Invalidator"
+          }
+        }
+      ],
+      "items": [
+        {
+          "ar": "تكبيرة الإحرام",
+          "en": "The opening takbir",
+          "group": "rukn"
+        },
+        {
+          "ar": "قراءة الفاتحة",
+          "en": "Reciting Al-Fatihah",
+          "group": "rukn"
+        },
+        {
+          "ar": "الركوع",
+          "en": "Bowing",
+          "group": "rukn"
+        },
+        {
+          "ar": "السجود",
+          "en": "Prostrating",
+          "group": "rukn"
+        },
+        {
+          "ar": "التشهد الأول",
+          "en": "The first tashahhud",
+          "group": "wajib"
+        },
+        {
+          "ar": "قول: سبحان ربي العظيم",
+          "en": "Saying: Subhana rabbiyal-'adheem",
+          "group": "wajib"
+        },
+        {
+          "ar": "تعمّد الكلام",
+          "en": "Deliberately speaking",
+          "group": "mubtil"
+        }
+      ]
+    }
+  ],
+  "situation": null,
+  "explainToRafiq": {
+    "prompt": {
+      "ar": "اشرح لـ«رفيق» بكلماتك أهم ما فهمته من هذا الدرس.",
+      "en": "Explain to Rafiq in your own words the most important thing you understood from this lesson."
+    },
+    "scope": [
+      "cards"
+    ]
+  },
+  "readMore": []
+}

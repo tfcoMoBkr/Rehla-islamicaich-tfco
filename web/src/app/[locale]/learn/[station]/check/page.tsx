@@ -7,9 +7,20 @@ import { BaselineFlow } from "@/components/learn/station/baseline-flow";
 import { StationGate } from "@/components/learn/station/station-gate";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { resolveLocale } from "@/i18n/locale";
-import { getStationContext, stationQuestions, toRoadStations } from "@/lib/content/khutuwat";
+import { PageMessages } from "@/i18n/client-messages";
+import { getStationContext, stationParams, stationQuestions, toRoadStations } from "@/lib/content/khutuwat";
 import { lessonHref } from "@/lib/content/lesson-view";
 import { requireFeature } from "@/lib/require-feature";
+
+// Rendered at build time: a request-time API here fails the build instead of making the page
+// dynamic (and slow to open). See scripts/check-static.mjs.
+export const dynamic = "error";
+
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return stationParams();
+}
 
 type Props = PageProps<"/[locale]/learn/[station]/check">;
 
@@ -33,19 +44,21 @@ export default async function BaselinePage({ params }: Props) {
   const firstLesson = context.khutuwat.lessons.get(station.lessonIds[0] ?? "");
 
   return (
-    <StationGate route={toRoadStations(context)} stationId={station.id} stationTitle={title}>
-      <div className="mx-auto max-w-2xl px-4 pt-14 pb-32 sm:px-6 md:pt-20">
-        <BackToRoad />
-        <SectionHeading as="h1" eyebrow={title} title={tr("title")} className="mt-6" />
-        <div className="mt-8">
-          <BaselineFlow
-            stationId={station.id}
-            stationTitle={title}
-            questions={stationQuestions(context, "baseline", locale)}
-            nextHref={firstLesson ? lessonHref(firstLesson) : "/learn"}
-          />
+    <PageMessages page="check">
+      <StationGate route={toRoadStations(context)} stationId={station.id} stationTitle={title}>
+        <div className="mx-auto max-w-2xl px-4 pt-14 pb-32 sm:px-6 md:pt-20">
+          <BackToRoad />
+          <SectionHeading as="h1" eyebrow={title} title={tr("title")} className="mt-6" />
+          <div className="mt-8">
+            <BaselineFlow
+              stationId={station.id}
+              stationTitle={title}
+              questions={stationQuestions(context, "baseline", locale)}
+              nextHref={firstLesson ? lessonHref(firstLesson) : "/learn"}
+            />
+          </div>
         </div>
-      </div>
-    </StationGate>
+      </StationGate>
+    </PageMessages>
   );
 }

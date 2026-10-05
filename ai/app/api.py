@@ -81,11 +81,14 @@ async def lesson_help(body: LessonHelpRequest, request: Request) -> RafiqAnswer:
     question = (
         body.question.strip() if body.mode == "question" and body.question else body.line_text
     )
+    # The lesson first, then the lessons the learner has reached.
+    scope = list(dict.fromkeys([body.lesson_id, *(body.reached_lesson_ids or [])]))
     try:
         return await rafiq.run(
             question,
             body.locale,
-            scope=[body.lesson_id],
+            history=body.history,
+            scope=scope,
             lesson={"lesson_id": body.lesson_id, "line": body.line_text, "mode": body.mode},
         )
     except ModelUnavailableError as error:
