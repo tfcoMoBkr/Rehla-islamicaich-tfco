@@ -1,4 +1,14 @@
-import { readArtSvg, readRafiqPose } from "@/lib/content/load";
+import { loadArtManifest, loadRafiqManifest, readArtSvg, readRafiqPose } from "@/lib/content/load";
+
+// Every listed drawing and pose is rendered at build time and served as a static file; nothing
+// in content/ is read at runtime, and an unlisted path is a 404.
+export const dynamic = "force-static";
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  const [{ items }, { poses }] = await Promise.all([loadArtManifest(), loadRafiqManifest()]);
+  return [...items.map((item) => item.file), ...poses.map((pose) => pose.file)].map((file) => ({ path: file.split("/") }));
+}
 
 /**
  * Serves the team's art in content/art/: Rafiq's poses (PNG, listed in content/art/rafiq/manifest.json)

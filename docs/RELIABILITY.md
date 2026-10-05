@@ -117,7 +117,7 @@ Retrieval uses only the approved sources (`content/sources.json`):
    Library hits carry no text and are ignored.
 5. **Later lessons.** When the learner's reached lessons have nothing strong and a later lesson does, the answer names that lesson (`laterLessonId`).
 
-The MCP client (`retrieval/mcp.py`) makes one request at a time with an 8-second timeout. It backs off on 429 and caches replies in memory. If the server is down, Rafiq continues with the local sources and logs only the failure.
+The MCP client (`retrieval/mcp.py`) makes one request at a time with an 8-second timeout. It backs off on 429 and caches replies in memory (per serverless instance, so the cache is best effort). If the server is down, Rafiq continues with the local sources and logs only the failure.
 
 ## Languages and the extractive mode
 

@@ -5,7 +5,7 @@ web/       Next.js (App Router, TypeScript, Tailwind, next-intl): the product, i
 ai/        FastAPI + LangGraph (Python): Rafiq
 content/   Lessons, sources, the stored source corpus (data, not code)
 eval/      Rafiq's reliability cases, runner and results
-docs/      This file, RELIABILITY, EVALUATION, SOURCES, CURRICULUM, COVERAGE, MCP_TOOLS
+docs/      This file, DEPLOY, RELIABILITY, EVALUATION, PRIVACY, SOURCES, CURRICULUM, COVERAGE, MCP_TOOLS
 ```
 
 ## Rendering and speed
@@ -24,7 +24,7 @@ Every main page is rendered at build time: the home page, Khutuwat (road, lesson
 - **The tour** (`src/components/guide/`) opens the first time the learner enters `/learn`, as a panel at the bottom of the screen with no backdrop: one idea per step, each beside the real thing in miniature (the stations, a board line with its source, the shortest ordering activity of the road, one of the lessons' own questions, Rafiq). "Skip" or Escape closes it for good on the device; "How Rehla works" on the learn page and in the footer opens it again.
 - **Practice** (`/[locale]/practice`, flag `practice`) gathers every activity of the road's lessons by station, from the same lesson data and components (`src/lib/learn/practice.ts`), except reflections and private checklists. Each activity has its own static page: the activity full width, then its lesson's short questions (card checks and quiz). Provisions are earned once per activity (3) and per question answered right (1), are never taken away, and are kept in the learner's progress record (`practice.earned`, `practice.best`, keyed by id so two devices can merge later).
 
-The browser talks only to the web app. The web app forwards `/api/ai/*` to the AI service through a same-origin rewrite (`web/next.config.ts`, `AI_SERVICE_URL`), so provider keys never leave the server side. Sections are switched on in `web/src/config/features.ts`; navigation shows only the sections that are on.
+The browser talks only to the web app. A route handler (`web/src/app/api/ai/[path]/route.ts`, `web/src/lib/ai-proxy.ts`) forwards `/api/ai/ask`, `/api/ai/lesson-help` and `/api/ai/health` to the AI service at `AI_SERVICE_URL`, adding the shared key `AI_SERVICE_KEY` and the learner's address; the key and the provider keys never reach the browser. The service refuses any request without the key when `AI_SERVICE_KEY` is set (`ai/app/security.py`) and sends no CORS headers, so no page can call it directly. Sections are switched on in `web/src/config/features.ts`; navigation shows only the sections that are on.
 
 ## Rafiq
 
@@ -32,10 +32,10 @@ The browser talks only to the web app. The web app forwards `/api/ai/*` to the A
 flowchart LR
     subgraph Browser
       P["/[locale]/rafiq<br/>RafiqConversation"]
-      H["Lesson board<br/>LessonHelpDialog"]
+      H["Lesson board<br/>LessonRafiqPanel"]
     end
     subgraph web["web (Next.js)"]
-      RW["rewrite /api/ai/*"]
+      RW["route /api/ai/[path]<br/>+ AI_SERVICE_KEY"]
     end
     subgraph ai["ai (FastAPI)"]
       API["POST /ask<br/>POST /lesson-help"]
@@ -56,7 +56,9 @@ flowchart LR
 
 | Module | Responsibility |
 |---|---|
-| `app/main.py` | Builds the services at start-up: index, embedder, MCP client, chat models, Rafiq, rate limiter. |
+| `app/main.py` | The FastAPI app (Vercel's entrypoint, `app.main:app`). The rate limiter starts with the app; the index, embedder, MCP client, chat models and Rafiq are built on the first question, so a cold instance answers `/health` at once. |
+| `app/security.py` | The shared key with the web app's proxy (`AI_SERVICE_KEY`), and the learner's address the proxy passes along. |
+| `app/prepare.py` | Copies what the service reads at runtime from `content/` into `ai/data/index/` and checks the index is complete; Vercel's build step, also run locally. |
 | `app/api.py` | `POST /ask` and `POST /lesson-help`: validation, per-IP rate limit, error shapes. Nothing about a question is logged. |
 | `app/rafiq/graph.py` | The LangGraph graph and its nodes. |
 | `app/rafiq/policy.py` | The reliability levels A–D as code. |
@@ -136,4 +138,11 @@ How each answer is checked is described in `docs/RELIABILITY.md`; how that is me
 | `src/components/rafiq/source-cards.tsx`, `referral-card.tsx`, `rafiq-stage.tsx` | Source cards, each with links to the source and to its entry on `/sources`; the referral card for each reason; Rafiq in his own light, which breathes while he thinks (off under `prefers-reduced-motion`). |
 | `src/components/learn/board/ask-rafiq-control.tsx`, `lesson-rafiq-panel.tsx`, `src/lib/rafiq/lesson-conversation.ts`, `lesson-threads.ts` | "Need this explained? Ask Rafiq" under the board: a conversation panel beside it (a sheet on a phone). Rafiq's first message explains the line (`explain` mode); the learner can ask for it simpler, for an example, or anything else, and each request carries the thread so far. The thread is kept on the device per lesson, cleared with the rest of Rafiq's memory, and can be carried over to Rafiq's page. |
 
-The rewrite allows 90 seconds per request (`experimental.proxyTimeout`): every answer is verified before it is sent, and free model tiers can be slow.
+The proxy allows 90 seconds per request (`AI_TIMEOUT_MS`, and `maxDuration = 90` on its route): every answer is verified before it is sent, and free model tiers can be slow. The reply is streamed through as it arrives.
+
+## Deployment
+
+Two Vercel projects come from this repository: `web` (root `web/`) and `ai` (root `ai/`). `docs/DEPLOY.md` has the settings, the environment variables and the checks.
+
+- **What each project reads at runtime.** The web project's pages, drawings and images are all built from `../content` at build time; nothing in `content/` is read once it runs. The AI service reads only `ai/data/` (the committed index, and the copies `app/prepare.py` makes in the build step).
+- **State that does not survive serverless instances.** The per-address rate limit (`ASKS_PER_MINUTE`) and the MCP client's cache live in memory. Each instance keeps its own and loses it when it stops, so the rate limit is a best-effort guard rather than a hard quota, and the cache only saves repeat calls within one instance. Neither holds anything about a learner, and no database is used for them.

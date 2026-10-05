@@ -1,0 +1,17 @@
+Rehla (رحلة)
+Copyright (c) 2026 Thakaa Flow
+
+The code in this repository is licensed under the MIT License (see LICENSE).
+
+The MIT License does not cover the texts under content/. Quran verses and their
+translations, hadiths and their explanations, lesson books, terms, recitation
+timings and other source texts belong to their publishers (among them
+quranenc.com, hadeethenc.com, islamhouse.com, byenah.com, terminologyenc.com and
+mp3quran.net). They are stored unmodified, attributed, and used under the terms
+recorded for each source in content/sources.json (also listed in
+docs/SOURCES.md). Any reuse of those texts is governed by their publishers'
+terms, not by this repository's licence.
+
+The illustrations and Rafiq's character under content/art/ were produced for
+this project; their credit and licence are recorded in content/art/manifest.json
+and content/art/rafiq/manifest.json.

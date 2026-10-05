@@ -2,9 +2,12 @@
   "name": "rehla-web",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "dev": "next dev",
-    "build": "next build && node scripts/check-static.mjs",
+    "build": "node scripts/check-content.mjs && next build && node scripts/check-static.mjs",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit",

@@ -1,4 +1,14 @@
-import { readMediaFile } from "@/lib/content/load";
+import { loadMediaManifest, readMediaFile } from "@/lib/content/load";
+
+// Every listed image is rendered at build time and served as a static file; nothing in content/
+// is read at runtime, and an unlisted path is a 404.
+export const dynamic = "force-static";
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  const { images } = await loadMediaManifest();
+  return images.map((image) => ({ path: image.src.split("/") }));
+}
 
 /** Serves the images in content/media/. Only files listed in its manifest are served. */
 export async function GET(_request: Request, { params }: RouteContext<"/media/[...path]">) {

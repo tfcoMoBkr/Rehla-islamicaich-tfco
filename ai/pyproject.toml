@@ -36,6 +36,10 @@ packages = ["app"]
 [tool.vercel]
 entrypoint = "app.main:app"
 
+# Vercel's build step: copies what the service reads at runtime into ai/data (app/prepare.py).
+[tool.vercel.scripts]
+build = "python -m app.prepare"
+
 [tool.ruff]
 line-length = 100
 target-version = "py312"
