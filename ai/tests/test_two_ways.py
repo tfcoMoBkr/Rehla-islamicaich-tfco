@@ -349,7 +349,6 @@ async def test_a_relevant_answer_is_not_widened() -> None:
         ({"misconception": True}, "corrects it gently"),
         ({"hostileTone": True}, "Find the actual question"),
         ({"plainTerm": True}, "plain, everyday words first"),
-        ({"consensus": True}, "never imply an agreement"),
         ({"worshipWorry": True}, "reassurance"),
     ],
 )

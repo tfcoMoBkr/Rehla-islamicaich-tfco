@@ -42,6 +42,7 @@ from langgraph.graph.state import CompiledStateGraph
 from app.languages import DEFAULT, LANGUAGES, Language, spec
 from app.llm import ChatModel, ModelUnavailableError
 from app.rafiq import policy, scope
+from app.rafiq.amounts import asks_amount
 from app.rafiq.check import Problem, cited, code_problems, counts, find_passage
 from app.rafiq.compose import compose
 from app.rafiq.draft import (
@@ -85,7 +86,7 @@ from app.rafiq.schemas import (
     Turn,
 )
 from app.rafiq.specialists import SPECIALIST_PAGE, referral_centres
-from app.rafiq.voice import name_due, voiced
+from app.rafiq.voice import feminine, name_due, voiced
 from app.rafiq.warmth import screened
 from app.retrieval.passages import Passage
 from app.retrieval.retriever import TOPIC_LESSONS, Retrieval, Retriever
@@ -399,6 +400,14 @@ class Rafiq:
             classification = _by_scope(classification, state["question"])
             if state.get("history"):
                 classification = _by_own_topic(classification, state["question"])
+            if (
+                classification.personal_case
+                and not classification.religious
+                and not scope.personal_by_form(state["question"])
+            ):
+                # A message with no religious part (a tiring day, a feeling) is conversation,
+                # never a personal case.
+                classification = classification.model_copy(update={"personal_case": False})
             if classification.personal_case and classification.level != "D":
                 # A personal case is level D, whatever level the classifier gave it.
                 classification = classification.model_copy(update={"level": "D"})
@@ -553,6 +562,9 @@ class Rafiq:
         same checks as everyday talk: the code checks, then the model check for any religious
         claim. A line that fails is dropped."""
         kept = screened(lines, [], locale)
+        if locale == "ar":
+            # The learner is addressed in the masculine, as the site's copy is.
+            kept = {field: line for field, line in kept.items() if not feminine(line)}
         _, kept, _ = await self._model_check(None, [], kept)
         return kept
 
@@ -680,6 +692,10 @@ class Rafiq:
         reason = policy.referral_after_answer(classification) or (
             "unexplained" if state.get("unexplained") else None
         )
+        if reason == "disputed" and asks_amount(state["question"]):
+            # The amount was found stated by a cited passage (the amount check passed): an
+            # answer, not a disputed matter.
+            reason = None
         language = state["language"]
         extractive = not spec(language).local
         passages = state["retrieval"].passages
@@ -690,6 +706,7 @@ class Rafiq:
             required_hadith=_required(state, "hadith"),
             extractive=extractive,
         )
+        units = _with_words(units)
         if state.get("unexplained"):
             # Only the sources are shown: no explanation of them was found reliable.
             units = [unit for unit in units if unit.kind == "block"]
@@ -808,10 +825,10 @@ class Rafiq:
         return lines.get("talk")
 
     async def _not_found(self, state: State) -> State:
-        """A text asked about as a verse or a hadith that the approved sources do not have."""
-        classification = state["classification"]
+        """A text asked about as a verse or a hadith that the approved sources do not have: said
+        to be no hadith only when a hadith was asked for ("which surah?" is about a verse)."""
         reason: ReferralReason = (
-            "hadithNotFound" if classification.quoted_hadith else "verseNotFound"
+            "hadithNotFound" if HADITH_WORD.search(state["question"]) else "verseNotFound"
         )
         return {"answer": self._decorated(state, self._bare(state, reason, "referral"))}
 
@@ -964,6 +981,7 @@ class Rafiq:
         if (
             scope.referred_at_once(state["question"])
             or policy.needs_ruling_guard(classification)
+            or policy.disputed(classification)
             or scope.WHICH_SCHOOL.search(state["question"])
         ):
             # Nothing generated, only a kind word and the card: a personal case or a ruling question
@@ -1281,6 +1299,20 @@ def _aids(forms: Normalized | None) -> str:
     )
 
 
+def _with_words(units: list[Unit]) -> list[Unit]:
+    """No line without words: a sentence that is only a marker ("[1].") goes, and a line left
+    empty goes with it; blocks stay."""
+    kept: list[Unit] = []
+    for unit in units:
+        if unit.kind == "block":
+            kept.append(unit)
+            continue
+        sentences = [s for s in unit.sentences if words(strip_markers(s))]
+        if sentences:
+            kept.append(replace(unit, sentences=sentences))
+    return kept
+
+
 def _answered(units: list[Unit]) -> bool:
     """Whether the draft states a direct answer before its explanation."""
     return any(unit.kind != "block" and unit.role == "answer" and unit.sentences for unit in units)
@@ -1443,6 +1475,14 @@ def _by_scope(classification: Classification, question: str) -> Classification:
         and "D" not in (update.get("level"), classification.level)
     ):
         update |= {"level": "C", "consensus": True}
+    if (
+        asks_amount(question)
+        and classification.level == "C"
+        and not scope.disputed_by_form(question)
+        and not update
+    ):
+        # How many or how much is answered from a passage that states it, not disputed.
+        update |= {"level": "B", "consensus": False}
     asked = scope.asked_text(question)
     if asked:
         # The question's own form decides, over the classifier: "…, is it a verse?" is looked up

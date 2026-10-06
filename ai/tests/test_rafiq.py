@@ -52,16 +52,6 @@ async def test_levels_a_and_b_are_answered_with_their_sources(level: Level) -> N
     assert answer.sources[0].url == WUDU.url
 
 
-async def test_level_c_answers_under_the_disputed_rule_and_refers() -> None:
-    chat = FakeChat(classified("C"), [GOOD])
-    answer = await rafiq(chat).run(QUESTION, "en")
-
-    assert any("Scholars may differ" in system for system in chat.systems)
-    assert answer.sources[0].url == WUDU.url
-    assert answer.referred
-    assert reason(answer) == "disputed"
-
-
 async def test_level_c_without_an_adequate_source_is_referred() -> None:
     answer = await rafiq(FakeChat(classified("C"), [Draft(adequate=False)])).run(QUESTION, "en")
 

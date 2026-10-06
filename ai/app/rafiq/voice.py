@@ -60,7 +60,24 @@ FOREIGN_VOCATIVE = re.compile(r"(?:\b[Yy]a|يا)\s*(\{\{\s*name\s*\}\})")
 
 
 def is_stock(sentence: str) -> bool:
-    return any(pattern.search(sentence) for pattern in STOCK)
+    plain = TASHKEEL.sub("", sentence)
+    return any(pattern.search(sentence) or pattern.search(plain) for pattern in STOCK)
+
+
+# The learner addressed in the feminine: vowelled («أنكِ»، «بدأتِ») or by its form («تشعرين»،
+# «لا تقلقي»، «تفضلي»). The site addresses the learner in the masculine.
+FEMININE = re.compile(
+    r"[\u0643\u062a]\u0650(?![\u0621-\u064a])"
+    r"|(?<![\u0621-\u064a])ت(?!مرين|كوين|عيين|حسين|زيين|أمين|دوين|لوين|خزين|مكين|بيين)"
+    r"[\u0621-\u064a]{2,6}ين(?![\u0621-\u064a])"
+    r"|(?:لا|ألا)\s+ت[\u0621-\u064a]{2,6}ي(?![\u0621-\u064a])|تفضلي|(?<![\u0621-\u064a])أنتِ"
+)
+TASHKEEL = re.compile(r"[\u064b-\u065f\u0670]")
+
+
+def feminine(line: str) -> bool:
+    """Whether an Arabic line addresses the learner in the feminine."""
+    return bool(FEMININE.search(line) or FEMININE.search(TASHKEEL.sub("", line)))
 
 
 def without_stock(line: str) -> str:
@@ -178,6 +195,10 @@ def voiced(
         if language != "ar":
             # «يا» / "ya" belongs before a name only in Arabic.
             line = FOREIGN_VOCATIVE.sub(r"\1", line)
+        else:
+            # Addressed in the masculine: a sentence in the feminine goes (the reply is asked
+            # for again when nothing is left).
+            line = " ".join(s for s in split_sentences(line) if not feminine(s))
         line = fresh(line, history, opens=field == opening, asked=asked)
         if not line:
             continue

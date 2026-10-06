@@ -7,11 +7,11 @@ import pytest
 from app.lens.lens import defines
 from app.rafiq import scope
 from app.rafiq.check import TARJIH, code_problems
-from app.rafiq.draft import parse
-from app.rafiq.graph import Rafiq, _by_own_topic, _by_scope, _without_yes_no
+from app.rafiq.draft import Unit, parse
+from app.rafiq.graph import Rafiq, _by_own_topic, _by_scope, _with_words, _without_yes_no
 from app.rafiq.policy import SPECIALIST_REASONS
 from app.rafiq.schemas import ChatReply, Classification, Draft, RafiqAnswer, SourceCard, Turn
-from app.rafiq.voice import voiced
+from app.rafiq.voice import feminine, is_stock, voiced
 from app.retrieval import retriever as retriever_module
 from app.retrieval.passages import Passage, from_chunk
 from app.retrieval.retriever import Retriever
@@ -248,3 +248,73 @@ async def test_which_school_is_right_is_referred_at_once() -> None:
     assert answer.referral is not None
     assert answer.referral.reason == "disputed"
     assert answer.blocks == []
+
+
+# The micro round.
+
+
+def test_no_answer_line_is_only_a_marker() -> None:
+    units = [
+        *parse("[1]."),
+        Unit("block", block=("quran", "1:5")),
+        *parse("A sentence with words [1]."),
+    ]
+    kept = _with_words(units)
+    assert [unit.kind for unit in kept] == ["block", "paragraph"]
+    assert _with_words(parse("[1].")) == []
+
+
+@pytest.mark.parametrize(
+    ("line", "addressed"),
+    [
+        ("يبدو أنكِ تشعرين ببعض القلق", True),
+        ("لا تقلقي، هذا يحدث", True),
+        ("لقد بدأتِ حديثك بتحية جميلة", True),
+        ("هل تحتاجين شيئًا؟", True),
+        ("لا تقلق، هذا يحدث", False),
+        ("أنت تبذل جهدًا جيدًا في تمرين اليوم", False),
+    ],
+)
+def test_the_learner_is_addressed_in_the_masculine(line: str, addressed: bool) -> None:
+    assert feminine(line) is addressed
+
+
+def test_a_feminine_or_vowelled_feeling_line_is_dropped() -> None:
+    lines = {"talk": "يبدو أنكِ تشعرين بالقلق. خذ نفسًا وابدأ بخطوة صغيرة."}
+    kept = voiced(lines, [], "ar", opening="talk")["talk"]
+    assert kept.endswith("خذ نفسًا وابدأ بخطوة صغيرة.")
+    assert "أنكِ" not in kept
+    assert is_stock("أتفهّمُ شعورَك بالتوتر")
+
+
+async def test_a_disputed_matter_goes_to_its_card_on_the_short_path() -> None:
+    chat = FakeChat(classified(level="C"), [Draft(answer="Scholars say [1].", adequate=True)])
+    answer = await rafiq(chat).run("هل يتفق العلماء على حكم الموسيقى؟", "ar")
+    assert answer.referral is not None
+    assert answer.referral.reason == "disputed"
+    assert not any("Passages:" in user for user in chat.users)
+
+
+async def test_not_found_says_verse_unless_a_hadith_was_asked_for() -> None:
+    chat = FakeChat(classified(quotedHadith="النظافة من الإيمان"), [Draft()])
+    answer = await rafiq(chat).run("«النظافة من الإيمان» في أي سورة؟", "ar")
+    assert answer.referral is not None
+    assert answer.referral.reason == "verseNotFound"
+
+
+def test_an_amount_question_is_not_a_disputed_matter_unless_it_asks_about_agreement() -> None:
+    disputed = classified(level="C", religiousPart="x")
+    assert _by_scope(disputed, "How many rak'ahs are in each prayer?").level == "B"
+    assert _by_scope(disputed, "Do all scholars agree how many rak'ahs?").level == "C"
+
+
+async def test_a_message_with_no_religious_part_is_never_a_personal_case() -> None:
+    chat = FakeChat(
+        classified(intent="feelings", talk=True, personalCase=True, religiousPart=None),
+        [Draft()],
+        chat=ChatReply(opening="يوم طويل حقًا. ماذا ستفعل لترتاح الليلة؟"),
+    )
+    answer = await rafiq(chat).run("كيف يومك يا رفيق؟ أنا رجعت من الشغل تعبان", "ar")
+    assert answer.kind == "chat"
+    assert answer.referral is not None
+    assert answer.referral.reason == "smalltalk"
