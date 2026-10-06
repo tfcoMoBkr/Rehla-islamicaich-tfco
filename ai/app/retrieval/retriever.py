@@ -48,6 +48,8 @@ MAX_PASSAGES = 10
 LOCAL_PASSAGES = 7
 # Book passages taken from the other index language, after the answer language's own.
 OTHER_LANGUAGE_BOOKS = 3
+# Lessons named on a card that has no answer: the ones the closest passages belong to.
+TOPIC_LESSONS = 2
 # For a list question, the best LIST_SECTIONS book hits are read with the pieces around them
 # that belong to the same list, at most LIST_RUN pieces each.
 LIST_SECTIONS = 2
@@ -82,6 +84,8 @@ class Retrieval:
     mcp_calls: int = 0
     # A lesson beyond the learner's reach that covers the question.
     later_lesson: str | None = None
+    # The lessons the closest passages belong to, for a card that has no answer to give.
+    topic_lessons: list[str] = field(default_factory=list)
     notes: list[str] = field(default_factory=list)
 
 
@@ -331,6 +335,7 @@ class Retriever:
             misquote=retrieval.misquote,
             mcp_calls=retrieval.mcp_calls + self._mcp.calls - calls_before,
             later_lesson=retrieval.later_lesson,
+            topic_lessons=retrieval.topic_lessons,
             notes=[*retrieval.notes, "widened"],
         )
 
@@ -426,6 +431,7 @@ class Retriever:
         top_cosine = 0.0
         later_lesson = None
         catalogue_ids: list[int] = []
+        topic_lessons: list[str] = []
         for index_language in _index_languages(language):
             queries = await self._queries(question, phrases or [], index_language)
             hits, later = self._ranked(queries, index_language, scope, PASSAGE_TYPES, focus)
@@ -433,6 +439,7 @@ class Retriever:
             catalogue, _ = self._ranked(queries, index_language, scope, {"catalogue"}, focus)
             top_cosine = max([top_cosine, *(hit.cosine for hit in [*hits, *catalogue])])
             later_lesson = later_lesson or later
+            topic_lessons += [lesson for hit in hits[:5] for lesson in hit.chunk.lesson_ids]
             if local and index_language == language:
                 passages.extend(self._local_passages(hits, language, list_question=list_question))
             elif local:
@@ -487,4 +494,5 @@ class Retriever:
             misquote=misquote,
             mcp_calls=self._mcp.calls - calls_before,
             later_lesson=later_lesson,
+            topic_lessons=list(dict.fromkeys(topic_lessons))[:TOPIC_LESSONS],
         )

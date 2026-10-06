@@ -91,6 +91,9 @@ from app.text import has_arabic, tokens, words
 log = logging.getLogger("rafiq")
 PROMPTS = Path(__file__).parent / "prompts"
 MAX_ATTEMPTS = 2
+# How much of each passage the writer reads; the support check reads the same, since a sentence
+# drawn from text the check could not see would be judged unsupported.
+PASSAGE_CHARS = 2500
 # Words in quotation marks: a term or a text the message quotes, not the message's own words.
 QUOTED = re.compile(r"«[^»]*»|“[^”]*”|\"[^\"]*\"")
 # The whole of one question, from classification to the checked answer.
@@ -180,7 +183,7 @@ def _passages_text(passages: list[Passage]) -> str:
             label = f"hadith {hadith.id}, grade: {hadith.grade}; show it with {show}"
         else:
             label = f"{passage.type}: {passage.title} — {passage.reference}"
-        lines.append(f"[{passage.n}] ({label}, in {passage.lang})\n{passage.text[:1500]}")
+        lines.append(f"[{passage.n}] ({label}, in {passage.lang})\n{passage.text[:PASSAGE_CHARS]}")
     return "\n\n".join(lines)
 
 
@@ -188,8 +191,8 @@ def _checked(passage: Passage) -> str:
     """A passage as the support check reads it. A book or term piece comes with where it sits in
     its source: a piece such as "They are six: ..." names its subject only in its heading."""
     if passage.sacred:
-        return passage.text[:1200]
-    return f"({passage.reference}) {passage.text[:1200]}"
+        return passage.text[:PASSAGE_CHARS]
+    return f"({passage.reference}) {passage.text[:PASSAGE_CHARS]}"
 
 
 LESSON_TASKS = {
@@ -648,7 +651,7 @@ class Rafiq:
         units, passages = await place_quotes(units, passages, match)
         guarded_reply = policy.needs_ruling_guard(classification)
         units = (
-            guarded(units, passages)
+            guarded(units, passages, language)
             if guarded_reply
             else _with_book_passage(units, passages, language)
         )
@@ -811,9 +814,12 @@ class Rafiq:
     @staticmethod
     def _decorated(state: State, answer: RafiqAnswer) -> RafiqAnswer:
         later = state["retrieval"].later_lesson if "retrieval" in state else None
+        unanswered = answer.referral is not None and answer.referral.reason == "noSource"
+        topics = state["retrieval"].topic_lessons if unanswered and "retrieval" in state else []
         return answer.model_copy(
             update={
                 "later_lesson_id": later,
+                "topic_lesson_ids": topics,
                 "language_fallback": state.get("language_fallback", False),
             }
         )
@@ -922,7 +928,9 @@ class Rafiq:
         quoted = classification.quoted_verse or classification.quoted_hadith
         # Asked whether a text is a verse or a hadith: only the text itself counts as found.
         misquote = state["retrieval"].misquote
-        if classification.asks_if_quoted and quoted and (misquote is None or not misquote.exact):
+        # Asked whether a text is a verse or a hadith with nothing to look up, or no exact match:
+        # it is said plainly that it was not found.
+        if classification.asks_if_quoted and (not quoted or misquote is None or not misquote.exact):
             return "notFound"
         language = state["language"]
         if spec(language).local:
@@ -1083,8 +1091,9 @@ def _without_wording(units: list[Unit], quoted: str) -> list[Unit]:
 
 def _with_book_passage(units: list[Unit], passages: list[Passage], language: str) -> list[Unit]:
     """A book passage the answer cites shown verbatim, once, right after the direct answer, when
-    it is a question-and-answer book's own answer, or is in another language than the reply (it
-    is then labelled with its own language)."""
+    it is a question-and-answer book's own answer. Only a passage whose text can be quoted as it
+    is (not one extracted from a PDF out of order), in the answer's own language: any other is
+    cited by its source card only."""
     if any(unit.kind == "block" and unit.block and unit.block[0] == "book" for unit in units):
         return units
     by_number = {passage.n: passage for passage in passages}
@@ -1095,7 +1104,9 @@ def _with_book_passage(units: list[Unit], passages: list[Passage], language: str
             for n in cited
             if n in by_number
             and by_number[n].type == "book"
-            and (by_number[n].answers_a_question or by_number[n].lang != language)
+            and by_number[n].answers_a_question
+            and by_number[n].quotable
+            and by_number[n].lang == language
         ),
         None,
     )
@@ -1160,6 +1171,11 @@ HADITH_WORD = re.compile(r"\b(?:hadith|hadeeth|prophet said)\b|حديث|قال\s
 # Asked as "is it one?": a question about what a quoted text means is not.
 QUESTION_FORM = re.compile(r"^\s*(?:is|was|are|did|هل)\b", re.IGNORECASE)
 # A question whether something is forbidden or allowed: a request for a ruling.
+# A request for a proof text, by its words: "give me a hadith proving…", "what is the evidence…".
+EVIDENCE_REQUEST = re.compile(
+    r"\b(?:evidence|proof|prove|proving|proves|dalil|daleel)\b|دليل|أدلة|برهان|أثبت|يثبت",
+    re.IGNORECASE,
+)
 RULING_QUESTION = re.compile(
     r"\b(?:is|are|was)\b.{0,80}\b(?:haram|halal|forbidden|allowed|permissible|permitted|"
     r"prohibited|makruh)\b|هل.{0,80}(?:حرام|حلال|يجوز|محرم|محرّم|مباح)|(?:حرام|حلال)\s*[؟?]",
@@ -1174,11 +1190,19 @@ def _by_question_form(classification: Classification, question: str) -> Classifi
     update: dict[str, object] = {}
     quoted = QUOTED_TEXT.search(question)
     outside = QUOTED_TEXT.sub(" ", question)
-    if quoted and QUESTION_FORM.search(question) and not classification.asks_if_quoted:
+    already = classification.quoted_verse or classification.quoted_hadith
+    if (
+        quoted
+        and QUESTION_FORM.search(question)
+        and not (classification.asks_if_quoted and already)
+    ):
         if HADITH_WORD.search(outside):
             update = {"asks_if_quoted": True, "quoted_hadith": quoted.group(1)}
         elif VERSE_WORD.search(outside):
             update = {"asks_if_quoted": True, "quoted_verse": quoted.group(1)}
+    if classification.asks_for_evidence and not EVIDENCE_REQUEST.search(question):
+        # Asking why something is so is not asking for a proof text.
+        update["asks_for_evidence"] = False
     if classification.level == "C" and RULING_QUESTION.search(outside):
         update["level"] = "D"
     return classification.model_copy(update=update) if update else classification

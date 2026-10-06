@@ -162,6 +162,8 @@ export const rafiqAnswerSchema = z.object({
   ),
   /** A lesson further along the learner's road that covers the question. */
   laterLessonId: optionalText,
+  /** On a card for want of a source: the lessons that cover the topic. */
+  topicLessonIds: z.optional(z.array(z.string())),
   /** The question was in a language Rafiq does not answer in; the answer is in `language`. */
   languageFallback: z._default(z.boolean(), false),
 });

@@ -42,6 +42,7 @@ const REASSURED = new Set(["personalCase", "fatwa"]);
 export function AnswerView({ answer, id, lessons, onFollowUp }: AnswerViewProps) {
   const t = useTranslations("Rafiq");
   const later = answer.laterLessonId ? lessons?.[answer.laterLessonId] : undefined;
+  const topics = (answer.topicLessonIds ?? []).flatMap((lessonId) => (lessons?.[lessonId] ? [lessons[lessonId]] : []));
   const own = answerMessages(answer.language);
   const voice = inLanguage(answer.language);
   const fonts = ANSWER_FONT_VARIABLES[answer.language];
@@ -90,6 +91,20 @@ export function AnswerView({ answer, id, lessons, onFollowUp }: AnswerViewProps)
       )}
       {referral && SPECIALIST_REASONS.has(referral.reason) && (
         <SpecialistCard ids={referral.centers.length > 0 ? referral.centers : undefined} outside={referral.region === "outside"} />
+      )}
+      {topics.length > 0 && (
+        <div className="rounded-xl border border-oasis/30 bg-oasis/6 px-4 py-3">
+          <p className="font-semibold">{t("topicTitle")}</p>
+          <ul className="mt-1 grid gap-1">
+            {topics.map((lesson) => (
+              <li key={lesson.href}>
+                <Link href={lesson.href} className="font-semibold underline underline-offset-4">
+                  {lesson.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
       {later && (
         <p className="rounded-xl border border-oasis/30 bg-oasis/6 px-4 py-3">

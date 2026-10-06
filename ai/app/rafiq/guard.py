@@ -5,7 +5,7 @@ Whatever the model wrote, such a reply holds only:
 - at most one plain sentence saying what the topic is, kept only if it applies nothing to the
   asker: no ruling word (valid, forbidden, must, halal, «يجوز», «باطل»…) and no "you" or «ك»;
 - at most one verbatim source block, as background: a verse or hadith it showed, else the
-  most relevant book passage it cited;
+  most relevant book passage it cited that can be quoted as it is, in the reply's language;
 - the fixed line that this is general information, not a ruling on the asker's situation;
 then the specialist card, which says that the answer depends on details a specialist must hear.
 The model check's ruling guard (prompts/rules/verify-general.md) still runs; this holds whatever
@@ -41,7 +41,7 @@ def applies_to_the_asker(sentence: str) -> bool:
     )
 
 
-def guarded(units: list[Unit], passages: list[Passage]) -> list[Unit]:
+def guarded(units: list[Unit], passages: list[Passage], language: str) -> list[Unit]:
     """A ruling or personal-case reply cut down to what the module's text allows."""
     sentence = next(
         (
@@ -58,12 +58,12 @@ def guarded(units: list[Unit], passages: list[Passage]) -> list[Unit]:
     block = next((unit.block for unit in units if unit.kind == "block" and unit.block), None)
     if block is None:
         cited = [n for unit in units for text in unit.sentences for n in markers(text)]
-        books = {p.n: p for p in passages if p.type == "book"}
+        # Only a book passage that can be quoted as it is, in the reply's own language.
+        books = {p.n: p for p in passages if p.type == "book" and p.quotable and p.lang == language}
         number = next((n for n in cited if n in books), None)
         block = ("book", str(number)) if number is not None else None
-    if block is None:
-        return kept
-    return [*kept, Unit("block", block=block), Unit("block", block=NOTE)]
+    shown = [Unit("block", block=block)] if block else []
+    return [*kept, *shown, Unit("block", block=NOTE)] if kept or shown else []
 
 
 def without_rulings(lines: dict[str, str]) -> dict[str, str]:

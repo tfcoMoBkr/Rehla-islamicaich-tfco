@@ -56,6 +56,9 @@ class Passage(BaseModel):
     hadith: HadithText | None = None
     # A question-and-answer book's answer to one question (one chunk per question).
     answers_a_question: bool = False
+    # Whether the passage's text can be quoted to the reader as it is (False for text extracted
+    # from a PDF out of order): it is still searched and cited by a source card.
+    quotable: bool = True
 
     @property
     def key(self) -> str:
@@ -115,6 +118,7 @@ def from_chunk(chunk: Chunk) -> Passage:
         text=text,
         verse=verse,
         answers_a_question=bool(chunk.extra.get("question")),
+        quotable=chunk.type != "book" or bool(chunk.extra.get("verbatim")),
     )
 
 

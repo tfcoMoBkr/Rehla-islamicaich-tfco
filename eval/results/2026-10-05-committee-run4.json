@@ -1,0 +1,2405 @@
+{
+ "ranOn": "2026-10-06 08:33 UTC",
+ "how": "in-process, through load_rafiq (the code the service's /ask runs)",
+ "models": {
+  "llm_model": "google/gemini-2.5-flash-lite",
+  "llm_fallback_model": "google/gemma-4-31b-it",
+  "embedding_model": "baai/bge-m3",
+  "vlm_model": "google/gemini-2.5-flash-lite",
+  "judge": "openai/gpt-6-luna"
+ },
+ "prices": {
+  "google/gemma-4-31b-it": {
+   "prompt": 9e-08,
+   "completion": 3.4e-07
+  },
+  "google/gemini-2.5-flash-lite": {
+   "prompt": 1e-07,
+   "completion": 4e-07
+  },
+  "openai/gpt-6-luna": {
+   "prompt": 1e-07,
+   "completion": 5e-07
+  },
+  "baai/bge-m3": {
+   "prompt": 1e-08,
+   "completion": 0.0
+  }
+ },
+ "summary": {
+  "items": 18,
+  "passed": 2,
+  "bySet": {
+   "official": {
+    "passed": 0,
+    "total": 10
+   },
+   "review": {
+    "passed": 2,
+    "total": 6
+   },
+   "talk": {
+    "passed": 0,
+    "total": 2
+   }
+  },
+  "criterionFailures": {
+   "onTopic": 5,
+   "expectedBehaviour": 13,
+   "explains": 2,
+   "companion": 14,
+   "noClaimInTalk": 0,
+   "noTarjih": 0,
+   "noConsensus": 0,
+   "glossaryForm": 1,
+   "supported": 2
+  },
+  "medianSeconds": 8.6,
+  "rafiqCost": 0.027836,
+  "rafiqTokens": {
+   "prompt": 230323,
+   "completion": 12263
+  }
+ },
+ "judgeCost": 0.005094,
+ "items": [
+  {
+   "id": "official-01",
+   "set": "official",
+   "language": "ar",
+   "question": "لماذا يعبد المسلمون الكعبة؟",
+   "seconds": 10.3,
+   "usage": {
+    "calls": 6,
+    "promptTokens": 18746,
+    "completionTokens": 925,
+    "cost": 0.00224,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 4,
+     "parasail-bge-m3": 2
+    }
+   },
+   "mcpCalls": 3,
+   "passed": false,
+   "outcome": "answered, level A, 3 sources",
+   "checks": {
+    "answers": {
+     "passed": true,
+     "graded": "rule",
+     "reason": ""
+    },
+    "hasSources": {
+     "passed": true,
+     "graded": "rule",
+     "reason": ""
+    },
+    "noRebuke": {
+     "passed": true,
+     "graded": "judge",
+     "reason": "It corrects the misconception without blaming or talking down to the asker."
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "It answers why Muslims face the Kaaba and clarifies that they worship Allah."
+    },
+    "expectedBehaviour": {
+     "verdict": "pass",
+     "reason": "It gently corrects the misconception, says worship is for Allah alone, identifies the Kaaba as the prayer direction, and cites sources."
+    },
+    "explains": {
+     "verdict": "pass",
+     "reason": "It explains in its own words that Muslims worship Allah and face the Kaaba in prayer."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The explanation is lengthy and reads more like a formal lesson than a companion speaking simply."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "There is no everyday-talk portion."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not choose a winner between scholarly views."
+    },
+    "noConsensus": {
+     "verdict": "pass",
+     "reason": "It makes no claim about agreement among all scholars or Muslims."
+    },
+    "glossaryForm": {
+     "verdict": "na",
+     "reason": "None of the listed terms is named in a form requiring the glossary check."
+    },
+    "supported": {
+     "verdict": "pass",
+     "reason": "Every religious statement in Rafiq's own words carries a source number."
+    }
+   },
+   "judgeUsage": {
+    "calls": 1,
+    "promptTokens": 1266,
+    "completionTokens": 388,
+    "cost": 0.000321,
+    "byModel": {
+     "openai/gpt-6-luna": 1
+    }
+   },
+   "shown": "(Generated answer) المسلمون لا يعبدون الكعبة، بل يعبدون الله وحده [1]. الكعبة هي قبلة الصلاة التي يتجه إليها المسلمون [1].\n(Generated explanation) المسلمون يعبدون الله وحده لا شريك له [1]. لا يعبدون الكعبة أو الحجر الأسود [1]. العبادة بكل أنواعها، مثل المحبة والخوف والرجاء والسجود والطواف، هي لله وحده [1].\n\nجعل الله الكعبة قبلة يتجه إليها المسلمون في صلاتهم [1]. هذا لتقرير عقيدة التوحيد [1]. الكعبة لها صلة بتاريخ التوحيد، فقد بناها إبراهيم عليه السلام [1]. لهذا صارت الكعبة رمزًا للتوحيد [1].\n\nالقبلة هي الجهة التي يتجه إليها المسلمون في الصلاة [2]. وهي الكعبة المشرفة [2]. القريب يراها، والبعيد يتجه إلى جهتها [2].\n\nالمصلي يتجه إلى القبلة بجميع بدنه قاصدًا بقلبه فعل الصلاة [3]. استقبال القبلة شرط في الصلاة [3].\nSource [1]: بينات: أسئلة وأجوبة عن الإسلام — لماذا يعبُدُ المسلِمون الكعبةَ، والحجَرَ الأسوَدَ؟ — https://dawa.center/file/7937\nSource [2]: قِبْلَةٌ — #5289 — https://terminologyenc.com/ar/browse/term/5289\nSource [3]: كيفية صلاة النبي صلى الله عليه وسلم — التوجه إلى القبلة — https://islamhouse.com/ar/books/62675/",
+   "answer": {
+    "language": "ar",
+    "level": "A",
+    "referred": false,
+    "kind": "answer",
+    "opening": null,
+    "blocks": [
+     {
+      "type": "text",
+      "text": "المسلمون لا يعبدون الكعبة، بل يعبدون الله وحده [1]. الكعبة هي قبلة الصلاة التي يتجه إليها المسلمون [1].",
+      "role": "answer"
+     },
+     {
+      "type": "text",
+      "text": "المسلمون يعبدون الله وحده لا شريك له [1]. لا يعبدون الكعبة أو الحجر الأسود [1]. العبادة بكل أنواعها، مثل المحبة والخوف والرجاء والسجود والطواف، هي لله وحده [1].\n\nجعل الله الكعبة قبلة يتجه إليها المسلمون في صلاتهم [1]. هذا لتقرير عقيدة التوحيد [1]. الكعبة لها صلة بتاريخ التوحيد، فقد بناها إبراهيم عليه السلام [1]. لهذا صارت الكعبة رمزًا للتوحيد [1].\n\nالقبلة هي الجهة التي يتجه إليها المسلمون في الصلاة [2]. وهي الكعبة المشرفة [2]. القريب يراها، والبعيد يتجه إلى جهتها [2].\n\nالمصلي يتجه إلى القبلة بجميع بدنه قاصدًا بقلبه فعل الصلاة [3]. استقبال القبلة شرط في الصلاة [3].",
+      "role": "explanation"
+     }
+    ],
+    "sources": [
+     {
+      "n": 1,
+      "sourceId": "dawa-bayyinat",
+      "title": "بينات: أسئلة وأجوبة عن الإسلام",
+      "reference": "لماذا يعبُدُ المسلِمون الكعبةَ، والحجَرَ الأسوَدَ؟",
+      "url": "https://dawa.center/file/7937",
+      "publisher": "dawa.center"
+     },
+     {
+      "n": 2,
+      "sourceId": "terminologyenc",
+      "title": "قِبْلَةٌ",
+      "reference": "#5289",
+      "url": "https://terminologyenc.com/ar/browse/term/5289",
+      "publisher": "TerminologyEnc.com"
+     },
+     {
+      "n": 3,
+      "sourceId": "ih-salat-nabi",
+      "title": "كيفية صلاة النبي صلى الله عليه وسلم",
+      "reference": "التوجه إلى القبلة",
+      "url": "https://islamhouse.com/ar/books/62675/",
+      "publisher": "IslamHouse.com"
+     }
+    ],
+    "followUp": null,
+    "encouragement": null,
+    "referral": null,
+    "laterLessonId": null,
+    "topicLessonIds": [],
+    "languageFallback": false
+   }
+  },
+  {
+   "id": "official-01",
+   "set": "official",
+   "language": "en",
+   "question": "Why do Muslims worship the Kaaba?",
+   "seconds": 6.4,
+   "usage": {
+    "calls": 5,
+    "promptTokens": 12822,
+    "completionTokens": 536,
+    "cost": 0.001492,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 3,
+     "parasail-bge-m3": 1,
+     "BAAI/bge-m3": 1
+    }
+   },
+   "mcpCalls": 2,
+   "passed": false,
+   "outcome": "answered, level A, 2 sources",
+   "checks": {
+    "answers": {
+     "passed": true,
+     "graded": "rule",
+     "reason": ""
+    },
+    "hasSources": {
+     "passed": true,
+     "graded": "rule",
+     "reason": ""
+    },
+    "noRebuke": {
+     "passed": true,
+     "graded": "judge",
+     "reason": "It corrects the misconception without rebuking or talking down to the asker."
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "It answers why Muslims face the Kaaba and clarifies that they do not worship it."
+    },
+    "expectedBehaviour": {
+     "verdict": "pass",
+     "reason": "It says worship is for Allah alone, identifies the Kaaba as the prayer direction, and cites sources."
+    },
+    "explains": {
+     "verdict": "pass",
+     "reason": "It explains in its own words that facing the Kaaba is a direction for prayer, not worship of the Kaaba."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The repeated, source-marked statements and formal explanation read more like a template than a companion talking."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "There is no everyday-talk part."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not choose a winner between scholarly views."
+    },
+    "noConsensus": {
+     "verdict": "pass",
+     "reason": "It makes no claim that all scholars or Muslims agree."
+    },
+    "glossaryForm": {
+     "verdict": "pass",
+     "reason": "The named term Tawhid appears in its approved form."
+    },
+    "supported": {
+     "verdict": "pass",
+     "reason": "Every religious statement in Rafiq’s own words carries a source number."
+    }
+   },
+   "judgeUsage": {
+    "calls": 1,
+    "promptTokens": 1186,
+    "completionTokens": 282,
+    "cost": 0.00026,
+    "byModel": {
+     "openai/gpt-6-luna": 1
+    }
+   },
+   "shown": "(Generated answer) Muslims do not worship the Kaaba [1]. They face it during prayer as a direction. [1]\n(Generated explanation) Muslims do not worship the Kaaba itself [1]. They also do not worship the Black Stone [1]. Worship, which includes love, fear, and hope, is only for Allah. [1]\n\nThe Kaaba is a building [2][1]. Muslims face it during prayer, but this is not worship of the Kaaba [2][1]. It is a direction for prayer. [2][1]\n\nAllah made the Kaaba the direction for Muslims to face in prayer [1]. This is to confirm the belief in the Tawhid / Oneness of God [1]. The Kaaba has a history connected to the Oneness of God [1]. It was built by the prophet Abraham [1]. The Kaaba became a symbol of the Oneness of God. [1]\nSource [1]: بينات: أسئلة وأجوبة عن الإسلام — لماذا يعبُدُ المسلِمون الكعبةَ، والحجَرَ الأسوَدَ؟ — https://dawa.center/file/7937\nSource [2]: Prayer direction — #5289 — https://terminologyenc.com/en/browse/term/5289",
+   "answer": {
+    "language": "en",
+    "level": "A",
+    "referred": false,
+    "kind": "answer",
+    "opening": null,
+    "blocks": [
+     {
+      "type": "text",
+      "text": "Muslims do not worship the Kaaba [1]. They face it during prayer as a direction. [1]",
+      "role": "answer"
+     },
+     {
+      "type": "text",
+      "text": "Muslims do not worship the Kaaba itself [1]. They also do not worship the Black Stone [1]. Worship, which includes love, fear, and hope, is only for Allah. [1]\n\nThe Kaaba is a building [2][1]. Muslims face it during prayer, but this is not worship of the Kaaba [2][1]. It is a direction for prayer. [2][1]\n\nAllah made the Kaaba the direction for Muslims to face in prayer [1]. This is to confirm the belief in the Tawhid / Oneness of God [1]. The Kaaba has a history connected to the Oneness of God [1]. It was built by the prophet Abraham [1]. The Kaaba became a symbol of the Oneness of God. [1]",
+      "role": "explanation"
+     }
+    ],
+    "sources": [
+     {
+      "n": 1,
+      "sourceId": "dawa-bayyinat",
+      "title": "بينات: أسئلة وأجوبة عن الإسلام",
+      "reference": "لماذا يعبُدُ المسلِمون الكعبةَ، والحجَرَ الأسوَدَ؟",
+      "url": "https://dawa.center/file/7937",
+      "publisher": "dawa.center"
+     },
+     {
+      "n": 2,
+      "sourceId": "terminologyenc",
+      "title": "Prayer direction",
+      "reference": "#5289",
+      "url": "https://terminologyenc.com/en/browse/term/5289",
+      "publisher": "TerminologyEnc.com"
+     }
+    ],
+    "followUp": null,
+    "encouragement": null,
+    "referral": null,
+    "laterLessonId": null,
+    "topicLessonIds": [],
+    "languageFallback": false
+   }
+  },
+  {
+   "id": "official-03",
+   "set": "official",
+   "language": "ar",
+   "question": "هل انتشر الإسلام بالسيف؟",
+   "seconds": 7.9,
+   "usage": {
+    "calls": 6,
+    "promptTokens": 16760,
+    "completionTokens": 734,
+    "cost": 0.001966,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 4,
+     "BAAI/bge-m3": 2
+    }
+   },
+   "mcpCalls": 2,
+   "passed": false,
+   "outcome": "answered, level A, 1 sources",
+   "checks": {
+    "answersOrRefers": {
+     "passed": true,
+     "graded": "rule",
+     "reason": ""
+    },
+    "noUnsourcedClaims": {
+     "passed": true,
+     "graded": "judge",
+     "reason": "The religious claims have source marker [1], and the wording does not make a sweeping claim."
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "It addresses whether conquest contributed to Islam’s spread."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It gives one explanation of conquest’s effects but does not separate the historical question from the general accusation or provide a balanced, documented answer."
+    },
+    "explains": {
+     "verdict": "pass",
+     "reason": "It explains in its own words how conquest could lead to contact with Muslims and their beliefs."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The formal, impersonal wording reads like an explanatory template rather than a companion speaking with the user."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "The reply has no everyday-talk part."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not declare one scholarly view to be the winner."
+    },
+    "noConsensus": {
+     "verdict": "pass",
+     "reason": "It makes no claim that all scholars or Muslims agree."
+    },
+    "glossaryForm": {
+     "verdict": "na",
+     "reason": "It names none of the listed terms in a non-Arabic reply."
+    },
+    "supported": {
+     "verdict": "pass",
+     "reason": "Its religious claims carry source marker [1]."
+    }
+   },
+   "judgeUsage": {
+    "calls": 1,
+    "promptTokens": 1042,
+    "completionTokens": 278,
+    "cost": 0.000243,
+    "byModel": {
+     "openai/gpt-6-luna": 1
+    }
+   },
+   "shown": "(Generated explanation) إذا كان للفتح أثر في انتشار الإسلام، فذلك لأن الفتح يستدعي قصد المسلمين للرحلة والإقامة في البلاد المفتوحة، فيكثر اتصال أهل البلاد بالمسلمين، فيقفون على حقائق الدين من خلال محادثاتهم ومعاملاتهم [1].\n\nظهور الدعاة بمظهر العزة والوجاهة يجعل الناس يقتربون منهم، فإذا وجدوهم على دين أفضل من دينهم، وآمنوا بما يؤمنون به [1].\nSource [1]: بينات: أسئلة وأجوبة عن الإسلام — هل انتشَرَ الإسلامُ بالسيف؟ — https://dawa.center/file/7937",
+   "answer": {
+    "language": "ar",
+    "level": "A",
+    "referred": false,
+    "kind": "answer",
+    "opening": null,
+    "blocks": [
+     {
+      "type": "text",
+      "text": "إذا كان للفتح أثر في انتشار الإسلام، فذلك لأن الفتح يستدعي قصد المسلمين للرحلة والإقامة في البلاد المفتوحة، فيكثر اتصال أهل البلاد بالمسلمين، فيقفون على حقائق الدين من خلال محادثاتهم ومعاملاتهم [1].\n\nظهور الدعاة بمظهر العزة والوجاهة يجعل الناس يقتربون منهم، فإذا وجدوهم على دين أفضل من دينهم، وآمنوا بما يؤمنون به [1].",
+      "role": "explanation"
+     }
+    ],
+    "sources": [
+     {
+      "n": 1,
+      "sourceId": "dawa-bayyinat",
+      "title": "بينات: أسئلة وأجوبة عن الإسلام",
+      "reference": "هل انتشَرَ الإسلامُ بالسيف؟",
+      "url": "https://dawa.center/file/7937",
+      "publisher": "dawa.center"
+     }
+    ],
+    "followUp": null,
+    "encouragement": null,
+    "referral": null,
+    "laterLessonId": null,
+    "topicLessonIds": [],
+    "languageFallback": false
+   }
+  },
+  {
+   "id": "official-03",
+   "set": "official",
+   "language": "en",
+   "question": "Was Islam spread by the sword?",
+   "seconds": 5.4,
+   "usage": {
+    "calls": 5,
+    "promptTokens": 11067,
+    "completionTokens": 509,
+    "cost": 0.001307,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 3,
+     "parasail-bge-m3": 1,
+     "BAAI/bge-m3": 1
+    }
+   },
+   "mcpCalls": 1,
+   "passed": false,
+   "outcome": "answered, level B, 1 sources",
+   "checks": {
+    "answersOrRefers": {
+     "passed": true,
+     "graded": "rule",
+     "reason": ""
+    },
+    "noUnsourcedClaims": {
+     "passed": false,
+     "graded": "judge",
+     "reason": "The broad claims about how Islam spread and how people were drawn to it are sweeping generalisations."
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "It addresses whether Islam spread by force and discusses conquest and conversion."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It gives a one-sided account rather than a balanced, documented answer that separates the historical question from the general accusation."
+    },
+    "explains": {
+     "verdict": "pass",
+     "reason": "It explains in its own words how the cited source says Islam spread."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The formal, sweeping explanation reads more like a template than a companion speaking simply with the user."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "The reply has no everyday-talk part."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not claim that one scholarly view is the correct or strongest view."
+    },
+    "noConsensus": {
+     "verdict": "pass",
+     "reason": "It does not claim agreement among all scholars or Muslims."
+    },
+    "glossaryForm": {
+     "verdict": "na",
+     "reason": "It names none of the listed glossary terms."
+    },
+    "supported": {
+     "verdict": "pass",
+     "reason": "Each religious statement in Rafiq's own words carries source marker [1]."
+    }
+   },
+   "judgeUsage": {
+    "calls": 1,
+    "promptTokens": 1097,
+    "completionTokens": 276,
+    "cost": 0.000248,
+    "byModel": {
+     "openai/gpt-6-luna": 1
+    }
+   },
+   "shown": "(Generated answer) Islam did not spread by force [1]. It spread through invitation and clear arguments [1].\n(Generated explanation) The passages explain that Islam spread through invitation and clear arguments [1].\n\nWhile the conquest of lands may have played a role, it was by encouraging Muslims to travel and settle in those lands [1]. This led to more interaction between Muslims and the local people [1]. Through their conversations and dealings, people learned about the truths of Islam [1].\n\nAlso, when people saw the respect and honor given to those who invited them to Islam, they were drawn to them [1]. If they found that the Muslims had a better religion, a more perfect law, and higher morals, they would believe in what the Muslims believed and follow their way [1].\nSource [1]: بينات: أسئلة وأجوبة عن الإسلام — هل انتشَرَ الإسلامُ بالسيف؟ — https://dawa.center/file/7937",
+   "answer": {
+    "language": "en",
+    "level": "B",
+    "referred": false,
+    "kind": "answer",
+    "opening": null,
+    "blocks": [
+     {
+      "type": "text",
+      "text": "Islam did not spread by force [1]. It spread through invitation and clear arguments [1].",
+      "role": "answer"
+     },
+     {
+      "type": "text",
+      "text": "The passages explain that Islam spread through invitation and clear arguments [1].\n\nWhile the conquest of lands may have played a role, it was by encouraging Muslims to travel and settle in those lands [1]. This led to more interaction between Muslims and the local people [1]. Through their conversations and dealings, people learned about the truths of Islam [1].\n\nAlso, when people saw the respect and honor given to those who invited them to Islam, they were drawn to them [1]. If they found that the Muslims had a better religion, a more perfect law, and higher morals, they would believe in what the Muslims believed and follow their way [1].",
+      "role": "explanation"
+     }
+    ],
+    "sources": [
+     {
+      "n": 1,
+      "sourceId": "dawa-bayyinat",
+      "title": "بينات: أسئلة وأجوبة عن الإسلام",
+      "reference": "هل انتشَرَ الإسلامُ بالسيف؟",
+      "url": "https://dawa.center/file/7937",
+      "publisher": "dawa.center"
+     }
+    ],
+    "followUp": null,
+    "encouragement": null,
+    "referral": null,
+    "laterLessonId": null,
+    "topicLessonIds": [],
+    "languageFallback": false
+   }
+  },
+  {
+   "id": "official-07",
+   "set": "official",
+   "language": "ar",
+   "question": "ما معنى التوحيد لشخص لم يسمع بالمصطلح من قبل؟",
+   "seconds": 5.4,
+   "usage": {
+    "calls": 5,
+    "promptTokens": 10485,
+    "completionTokens": 593,
+    "cost": 0.001281,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 3,
+     "BAAI/bge-m3": 2
+    }
+   },
+   "mcpCalls": 1,
+   "passed": false,
+   "outcome": "answered, level A, 3 sources",
+   "checks": {
+    "answers": {
+     "passed": true,
+     "graded": "rule",
+     "reason": ""
+    },
+    "hasSources": {
+     "passed": true,
+     "graded": "rule",
+     "reason": ""
+    },
+    "plainLanguageFirst": {
+     "passed": false,
+     "graded": "judge",
+     "reason": "It starts with a technical definition and then lists technical categories rather than first explaining the idea in everyday words."
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "It explains the meaning of Tawhid, which is what the question asks."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It opens with a technical definition and quickly introduces technical categories instead of beginning with a plain, non-technical explanation."
+    },
+    "explains": {
+     "verdict": "pass",
+     "reason": "It explains the quoted source material in its own words."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The extended technical breakdown reads like a lesson rather than a simple, personal response."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "The reply has no everyday-talk part."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not choose a winner between scholarly views."
+    },
+    "noConsensus": {
+     "verdict": "pass",
+     "reason": "It makes no claim about agreement among all scholars or Muslims."
+    },
+    "glossaryForm": {
+     "verdict": "fail",
+     "reason": "It names Tawhid without the approved form “Tawhid / Oneness of God.”"
+    },
+    "supported": {
+     "verdict": "pass",
+     "reason": "Each religious statement in Rafiq's own words carries a source number."
+    }
+   },
+   "judgeUsage": {
+    "calls": 1,
+    "promptTokens": 1215,
+    "completionTokens": 386,
+    "cost": 0.000315,
+    "byModel": {
+     "openai/gpt-6-luna": 1
+    }
+   },
+   "shown": "(Generated answer) التوحيد هو أن تعتقد أن الله واحد لا شريك له في خلقه وعبادته وأسمائه وصفاته [1].\n(Generated explanation) التوحيد هو أهم ما فرضه الله على الناس، وهو أساس دعوة كل الأنبياء والرسل [1].\n\nينقسم التوحيد إلى ثلاثة أنواع: توحيد الربوبية، وهو الإيمان بأن الله هو الخالق لكل شيء والمتصرف فيه وحده [2][3].\n\nوتوحيد الألوهية، وهو الإيمان بأن الله وحده هو المستحق للعبادة، وهذا هو معنى \"لا إله إلا الله\" [2][3].\n\nوتوحيد الأسماء والصفات، وهو الإيمان بأسماء الله وصفاته كما وردت في القرآن والسنة دون تغيير أو تعطيل أو تشبيه [3].\n\nلا يكتمل التوحيد إلا بإثبات هذه الأمور لله وحده ونفيها عن غيره [1].\nSource [1]: توحيد — #10482 — https://terminologyenc.com/ar/browse/term/10482\nSource [2]: الدروس المهمة لعامة الأمة — الدرس الرابع أقسام التوحيد وأقسام الشرك — https://islamhouse.com/ar/books/1871/\nSource [3]: IMPORTANT LESSONS FOR THE GENERAL UMMAH — Lesson Four: Categories of Tawhīd and categories of Shirk — https://islamhouse.com/en/books/2842316/",
+   "answer": {
+    "language": "ar",
+    "level": "A",
+    "referred": false,
+    "kind": "answer",
+    "opening": null,
+    "blocks": [
+     {
+      "type": "text",
+      "text": "التوحيد هو أن تعتقد أن الله واحد لا شريك له في خلقه وعبادته وأسمائه وصفاته [1].",
+      "role": "answer"
+     },
+     {
+      "type": "text",
+      "text": "التوحيد هو أهم ما فرضه الله على الناس، وهو أساس دعوة كل الأنبياء والرسل [1].\n\nينقسم التوحيد إلى ثلاثة أنواع: توحيد الربوبية، وهو الإيمان بأن الله هو الخالق لكل شيء والمتصرف فيه وحده [2][3].\n\nوتوحيد الألوهية، وهو الإيمان بأن الله وحده هو المستحق للعبادة، وهذا هو معنى \"لا إله إلا الله\" [2][3].\n\nوتوحيد الأسماء والصفات، وهو الإيمان بأسماء الله وصفاته كما وردت في القرآن والسنة دون تغيير أو تعطيل أو تشبيه [3].\n\nلا يكتمل التوحيد إلا بإثبات هذه الأمور لله وحده ونفيها عن غيره [1].",
+      "role": "explanation"
+     }
+    ],
+    "sources": [
+     {
+      "n": 1,
+      "sourceId": "terminologyenc",
+      "title": "توحيد",
+      "reference": "#10482",
+      "url": "https://terminologyenc.com/ar/browse/term/10482",
+      "publisher": "TerminologyEnc.com"
+     },
+     {
+      "n": 2,
+      "sourceId": "ih-durus-muhimmah",
+      "title": "الدروس المهمة لعامة الأمة",
+      "reference": "الدرس الرابع أقسام التوحيد وأقسام الشرك",
+      "url": "https://islamhouse.com/ar/books/1871/",
+      "publisher": "IslamHouse.com"
+     },
+     {
+      "n": 3,
+      "sourceId": "risala-important-lessons",
+      "title": "IMPORTANT LESSONS FOR THE GENERAL UMMAH",
+      "reference": "Lesson Four: Categories of Tawhīd and categories of Shirk",
+      "url": "https://islamhouse.com/en/books/2842316/",
+      "publisher": "IslamHouse.com"
+     }
+    ],
+    "followUp": null,
+    "encouragement": null,
+    "referral": null,
+    "laterLessonId": null,
+    "topicLessonIds": [],
+    "languageFallback": false
+   }
+  },
+  {
+   "id": "official-07",
+   "set": "official",
+   "language": "en",
+   "question": "What does tawhid mean, for someone who has never heard the term?",
+   "seconds": 7.2,
+   "usage": {
+    "calls": 6,
+    "promptTokens": 18416,
+    "completionTokens": 1252,
+    "cost": 0.002334,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 4,
+     "parasail-bge-m3": 2
+    }
+   },
+   "mcpCalls": 0,
+   "passed": false,
+   "outcome": "answered, level A, 3 sources",
+   "checks": {
+    "answers": {
+     "passed": true,
+     "graded": "rule",
+     "reason": ""
+    },
+    "hasSources": {
+     "passed": true,
+     "graded": "rule",
+     "reason": ""
+    },
+    "plainLanguageFirst": {
+     "passed": true,
+     "graded": "judge",
+     "reason": "It first describes Allah as the only one worthy of worship before naming Tawhid."
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "It explains what Tawhid means for someone new to the term."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It begins with a plain definition but does not name Tawhid until the second sentence."
+    },
+    "explains": {
+     "verdict": "pass",
+     "reason": "It explains the term in its own words beyond quoting sources."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The long, layered explanation reads more like a lesson than a simple companion response."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "There is no everyday-talk portion."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not present one scholarly view as the winner."
+    },
+    "noConsensus": {
+     "verdict": "pass",
+     "reason": "It makes no claim that all scholars or Muslims agree."
+    },
+    "glossaryForm": {
+     "verdict": "pass",
+     "reason": "The named glossary term Tawhid appears in its approved form."
+    },
+    "supported": {
+     "verdict": "pass",
+     "reason": "Every religious statement in Rafiq's own words carries a source number."
+    }
+   },
+   "judgeUsage": {
+    "calls": 1,
+    "promptTokens": 1350,
+    "completionTokens": 366,
+    "cost": 0.000318,
+    "byModel": {
+     "openai/gpt-6-luna": 1
+    }
+   },
+   "shown": "(Generated answer) It is the belief that Allah is the only one worthy of worship [1]. Tawhid / Oneness of God means making Allah one and unique [2].\n(Generated explanation) Tawhid is the most important thing Allah requires from us [2]. It is the foundation of the message of all prophets [2]. It means believing that Allah is one and unique in His creation and His dominion [2]. He is the only one who deserves worship, and no one else should be worshipped [2][1]. Tawhid also means believing in Allah's unique names and attributes [2][1].\n\nTawhid is often explained in three parts: the Oneness of Lordship, the Oneness of Worship, and the Oneness of Names and Attributes [1]. The Oneness of Lordship means believing Allah is the Creator of everything and manages all affairs by Himself [1]. The Oneness of Worship means believing Allah is the only true deity worthy of worship [1]. The Oneness of Names and Attributes means believing in Allah's names and attributes as mentioned in the Quran and authentic Hadith, without changing them or denying them [1].\n\nTo fully believe in Tawhid, you must affirm what is unique to Allah and deny it from anyone else [2]. This means affirming Allah's right to be worshipped, His Lordship, and His names and attributes, while denying these from anyone other than Allah [2].\n\nThe opposite of Tawhid is shirk, which means associating partners with Allah [2]. Allah sent Prophet Muhammad (peace be upon him) with Islam to guide people to Tawhid and warn them against shirk [3].\nSource [1]: IMPORTANT LESSONS FOR THE GENERAL UMMAH — Lesson Four: Categories of Tawhīd and categories of Shirk — https://islamhouse.com/en/books/2842316/\nSource [2]: Monotheism — #10482 — https://terminologyenc.com/en/browse/term/10482\nSource [3]: New Muslim Guideline — My Prophet is Muhammad (pbuh) — https://byenah.com/en/muslim-content/4784",
+   "answer": {
+    "language": "en",
+    "level": "A",
+    "referred": false,
+    "kind": "answer",
+    "opening": null,
+    "blocks": [
+     {
+      "type": "text",
+      "text": "It is the belief that Allah is the only one worthy of worship [1]. Tawhid / Oneness of God means making Allah one and unique [2].",
+      "role": "answer"
+     },
+     {
+      "type": "text",
+      "text": "Tawhid is the most important thing Allah requires from us [2]. It is the foundation of the message of all prophets [2]. It means believing that Allah is one and unique in His creation and His dominion [2]. He is the only one who deserves worship, and no one else should be worshipped [2][1]. Tawhid also means believing in Allah's unique names and attributes [2][1].\n\nTawhid is often explained in three parts: the Oneness of Lordship, the Oneness of Worship, and the Oneness of Names and Attributes [1]. The Oneness of Lordship means believing Allah is the Creator of everything and manages all affairs by Himself [1]. The Oneness of Worship means believing Allah is the only true deity worthy of worship [1]. The Oneness of Names and Attributes means believing in Allah's names and attributes as mentioned in the Quran and authentic Hadith, without changing them or denying them [1].\n\nTo fully believe in Tawhid, you must affirm what is unique to Allah and deny it from anyone else [2]. This means affirming Allah's right to be worshipped, His Lordship, and His names and attributes, while denying these from anyone other than Allah [2].\n\nThe opposite of Tawhid is shirk, which means associating partners with Allah [2]. Allah sent Prophet Muhammad (peace be upon him) with Islam to guide people to Tawhid and warn them against shirk [3].",
+      "role": "explanation"
+     }
+    ],
+    "sources": [
+     {
+      "n": 1,
+      "sourceId": "risala-important-lessons",
+      "title": "IMPORTANT LESSONS FOR THE GENERAL UMMAH",
+      "reference": "Lesson Four: Categories of Tawhīd and categories of Shirk",
+      "url": "https://islamhouse.com/en/books/2842316/",
+      "publisher": "IslamHouse.com"
+     },
+     {
+      "n": 2,
+      "sourceId": "terminologyenc",
+      "title": "Monotheism",
+      "reference": "#10482",
+      "url": "https://terminologyenc.com/en/browse/term/10482",
+      "publisher": "TerminologyEnc.com"
+     },
+     {
+      "n": 3,
+      "sourceId": "byenah-new-muslim-guideline",
+      "title": "New Muslim Guideline",
+      "reference": "My Prophet is Muhammad (pbuh)",
+      "url": "https://byenah.com/en/muslim-content/4784",
+      "publisher": "byenah.com"
+     }
+    ],
+    "followUp": null,
+    "encouragement": null,
+    "referral": null,
+    "laterLessonId": null,
+    "topicLessonIds": [],
+    "languageFallback": false
+   }
+  },
+  {
+   "id": "official-09",
+   "set": "official",
+   "language": "ar",
+   "question": "لماذا يمنع الإسلام أكل لحم الخنزير؟ هذا تخلّف.",
+   "seconds": 7.9,
+   "usage": {
+    "calls": 5,
+    "promptTokens": 9373,
+    "completionTokens": 567,
+    "cost": 0.00116,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 3,
+     "parasail-bge-m3": 2
+    }
+   },
+   "mcpCalls": 3,
+   "passed": false,
+   "outcome": "answered, level B, 2 sources",
+   "checks": {
+    "answersOrRefers": {
+     "passed": true,
+     "graded": "rule",
+     "reason": ""
+    },
+    "calmTone": {
+     "passed": true,
+     "graded": "judge",
+     "reason": "It does not echo the hostile wording and remains calm."
+    },
+    "noUnsourcedClaims": {
+     "passed": false,
+     "graded": "judge",
+     "reason": "It makes broad claims about health and acquired traits without adequate source markers."
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "It answers why Islam prohibits eating pork."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It gives the prohibition but adds unsupported-sounding health and character explanations instead of answering wisely and accurately."
+    },
+    "explains": {
+     "verdict": "pass",
+     "reason": "It explains in its own words that the prohibition is stated in the Qur’an."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The formal repetition and added claims make it read more like a template than a companion."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "There is no everyday-talk part."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not choose a winner between scholarly views."
+    },
+    "noConsensus": {
+     "verdict": "pass",
+     "reason": "It makes no claim of agreement among all scholars or Muslims."
+    },
+    "glossaryForm": {
+     "verdict": "na",
+     "reason": "None of the listed terms is named."
+    },
+    "supported": {
+     "verdict": "fail",
+     "reason": "The claims about health, preserving life, the animal’s diet, and acquired traits are not individually source-marked."
+    }
+   },
+   "judgeUsage": {
+    "calls": 1,
+    "promptTokens": 1667,
+    "completionTokens": 403,
+    "cost": 0.000368,
+    "byModel": {
+     "openai/gpt-6-luna": 1
+    }
+   },
+   "shown": "(Generated answer) يحرم الإسلام أكل لحم الخنزير لأنه من الأشياء التي حرمها الله في القرآن الكريم [1].\n[Quoted verse, المائدة 3 [1]: حُرِّمَتۡ عَلَيۡكُمُ ٱلۡمَيۡتَةُ وَٱلدَّمُ وَلَحۡمُ ٱلۡخِنزِيرِ وَمَآ أُهِلَّ لِغَيۡرِ ٱللَّهِ بِهِۦ وَٱلۡمُنۡخَنِقَةُ وَٱلۡمَوۡقُوذَةُ وَٱلۡمُتَرَدِّيَةُ وَٱلنَّطِيحَةُ وَمَآ أَكَلَ ٱلسَّبُعُ إِلَّا مَا ذَكَّيۡتُمۡ وَمَا ذُبِحَ عَلَى ٱلنُّصُبِ وَأَن تَسۡتَقۡسِمُواْ بِٱلۡأَزۡلَٰمِۚ ذَٰلِكُمۡ فِسۡقٌۗ ٱلۡيَوۡمَ يَئِسَ ٱلَّذِينَ كَفَرُواْ مِن دِينِكُمۡ فَلَا تَخۡشَوۡهُمۡ وَٱخۡشَوۡنِۚ ٱلۡيَوۡمَ أَكۡمَلۡتُ لَكُمۡ دِينَكُمۡ وَأَتۡمَمۡتُ عَلَيۡكُمۡ نِعۡمَتِي وَرَضِيتُ لَكُمُ ٱلۡإِسۡلَٰمَ دِينٗاۚ فَمَنِ ٱضۡطُرَّ فِي مَخۡمَصَةٍ غَيۡرَ مُتَجَانِفٖ لِّإِثۡمٖ فَإِنَّ ٱللَّهَ غَفُورٞ رَّحِيمٞ]\n(Generated explanation) حرم الله سبحانه وتعالى أكل لحم الخنزير على المسلمين، وهذا التحريم مذكور بوضوح في القرآن الكريم [1].\n\nيقول الله تعالى في سورة المائدة: \"حرمت عليكم الميتة والدم ولحم الخنزير\" [1].\n\nيذكر بعض العلماء أن تحريم لحم الخنزير فيه تحقيق للصحة والعافية، وهو من مقاصد الشرع في حفظ النفس [2].\n\nويصف الخنزير بأنه حيوان خبيث يأكل اللحوم الفاسدة، وأن من يأكله قد يكتسب بعض صفاته السلبية [2].\nSource [1]: القرآن الكريم — 5:3 — https://quranenc.com/en/browse/english_saheeh/5#3\nSource [2]: بينات: أسئلة وأجوبة عن الإسلام — لماذا يحرِّمُ الإسلامُ لَحْمَ الخِنزِير؟ — https://dawa.center/file/7937",
+   "answer": {
+    "language": "ar",
+    "level": "B",
+    "referred": false,
+    "kind": "answer",
+    "opening": null,
+    "blocks": [
+     {
+      "type": "text",
+      "text": "يحرم الإسلام أكل لحم الخنزير لأنه من الأشياء التي حرمها الله في القرآن الكريم [1].",
+      "role": "answer"
+     },
+     {
+      "type": "quran",
+      "n": 1,
+      "ref": "5:3",
+      "surah": 5,
+      "ayah": 3,
+      "surahName": "المائدة",
+      "arabic": "حُرِّمَتۡ عَلَيۡكُمُ ٱلۡمَيۡتَةُ وَٱلدَّمُ وَلَحۡمُ ٱلۡخِنزِيرِ وَمَآ أُهِلَّ لِغَيۡرِ ٱللَّهِ بِهِۦ وَٱلۡمُنۡخَنِقَةُ وَٱلۡمَوۡقُوذَةُ وَٱلۡمُتَرَدِّيَةُ وَٱلنَّطِيحَةُ وَمَآ أَكَلَ ٱلسَّبُعُ إِلَّا مَا ذَكَّيۡتُمۡ وَمَا ذُبِحَ عَلَى ٱلنُّصُبِ وَأَن تَسۡتَقۡسِمُواْ بِٱلۡأَزۡلَٰمِۚ ذَٰلِكُمۡ فِسۡقٌۗ ٱلۡيَوۡمَ يَئِسَ ٱلَّذِينَ كَفَرُواْ مِن دِينِكُمۡ فَلَا تَخۡشَوۡهُمۡ وَٱخۡشَوۡنِۚ ٱلۡيَوۡمَ أَكۡمَلۡتُ لَكُمۡ دِينَكُمۡ وَأَتۡمَمۡتُ عَلَيۡكُمۡ نِعۡمَتِي وَرَضِيتُ لَكُمُ ٱلۡإِسۡلَٰمَ دِينٗاۚ فَمَنِ ٱضۡطُرَّ فِي مَخۡمَصَةٍ غَيۡرَ مُتَجَانِفٖ لِّإِثۡمٖ فَإِنَّ ٱللَّهَ غَفُورٞ رَّحِيمٞ",
+      "translation": null,
+      "translationLanguage": null,
+      "translationKey": null,
+      "translationName": null,
+      "translationVersion": null,
+      "url": "https://quranenc.com/en/browse/english_saheeh/5#3"
+     },
+     {
+      "type": "text",
+      "text": "حرم الله سبحانه وتعالى أكل لحم الخنزير على المسلمين، وهذا التحريم مذكور بوضوح في القرآن الكريم [1].\n\nيقول الله تعالى في سورة المائدة: \"حرمت عليكم الميتة والدم ولحم الخنزير\" [1].\n\nيذكر بعض العلماء أن تحريم لحم الخنزير فيه تحقيق للصحة والعافية، وهو من مقاصد الشرع في حفظ النفس [2].\n\nويصف الخنزير بأنه حيوان خبيث يأكل اللحوم الفاسدة، وأن من يأكله قد يكتسب بعض صفاته السلبية [2].",
+      "role": "explanation"
+     }
+    ],
+    "sources": [
+     {
+      "n": 1,
+      "sourceId": "quranenc",
+      "title": "القرآن الكريم",
+      "reference": "5:3",
+      "url": "https://quranenc.com/en/browse/english_saheeh/5#3",
+      "publisher": "quranenc.com"
+     },
+     {
+      "n": 2,
+      "sourceId": "dawa-bayyinat",
+      "title": "بينات: أسئلة وأجوبة عن الإسلام",
+      "reference": "لماذا يحرِّمُ الإسلامُ لَحْمَ الخِنزِير؟",
+      "url": "https://dawa.center/file/7937",
+      "publisher": "dawa.center"
+     }
+    ],
+    "followUp": null,
+    "encouragement": null,
+    "referral": null,
+    "laterLessonId": null,
+    "topicLessonIds": [],
+    "languageFallback": false
+   }
+  },
+  {
+   "id": "official-09",
+   "set": "official",
+   "language": "en",
+   "question": "Why does Islam forbid pork? That is just backward.",
+   "seconds": 5.7,
+   "usage": {
+    "calls": 5,
+    "promptTokens": 9345,
+    "completionTokens": 415,
+    "cost": 0.001096,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 3,
+     "BAAI/bge-m3": 1,
+     "parasail-bge-m3": 1
+    }
+   },
+   "mcpCalls": 2,
+   "passed": false,
+   "outcome": "answered, level A, 1 sources",
+   "checks": {
+    "answersOrRefers": {
+     "passed": true,
+     "graded": "rule",
+     "reason": ""
+    },
+    "calmTone": {
+     "passed": true,
+     "graded": "judge",
+     "reason": "It does not echo the question's hostile characterization."
+    },
+    "noUnsourcedClaims": {
+     "passed": true,
+     "graded": "judge",
+     "reason": "Its religious claims carry [1], with no sweeping generalization."
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "fail",
+     "reason": "It states that pork is forbidden but does not answer why."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It does not mirror the hostility, but it does not explain why Islam forbids pork."
+    },
+    "explains": {
+     "verdict": "fail",
+     "reason": "It restates the prohibition without explaining its basis beyond citing the text."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The explanation reads like a formal summary rather than a personal, companionable reply."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "The reply has no everyday-talk part."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not choose between scholarly views."
+    },
+    "noConsensus": {
+     "verdict": "pass",
+     "reason": "It makes no claim about scholarly or Muslim consensus."
+    },
+    "glossaryForm": {
+     "verdict": "na",
+     "reason": "None of the listed terms is named."
+    },
+    "supported": {
+     "verdict": "pass",
+     "reason": "Its religious statements carry the source marker [1]."
+    }
+   },
+   "judgeUsage": {
+    "calls": 1,
+    "promptTokens": 1735,
+    "completionTokens": 385,
+    "cost": 0.000366,
+    "byModel": {
+     "openai/gpt-6-luna": 1
+    }
+   },
+   "shown": "(Generated answer) Islam forbids the flesh of swine [1].\n[Quoted verse, Al-Ma'idah 3 [1]: حُرِّمَتۡ عَلَيۡكُمُ ٱلۡمَيۡتَةُ وَٱلدَّمُ وَلَحۡمُ ٱلۡخِنزِيرِ وَمَآ أُهِلَّ لِغَيۡرِ ٱللَّهِ بِهِۦ وَٱلۡمُنۡخَنِقَةُ وَٱلۡمَوۡقُوذَةُ وَٱلۡمُتَرَدِّيَةُ وَٱلنَّطِيحَةُ وَمَآ أَكَلَ ٱلسَّبُعُ إِلَّا مَا ذَكَّيۡتُمۡ وَمَا ذُبِحَ عَلَى ٱلنُّصُبِ وَأَن تَسۡتَقۡسِمُواْ بِٱلۡأَزۡلَٰمِۚ ذَٰلِكُمۡ فِسۡقٌۗ ٱلۡيَوۡمَ يَئِسَ ٱلَّذِينَ كَفَرُواْ مِن دِينِكُمۡ فَلَا تَخۡشَوۡهُمۡ وَٱخۡشَوۡنِۚ ٱلۡيَوۡمَ أَكۡمَلۡتُ لَكُمۡ دِينَكُمۡ وَأَتۡمَمۡتُ عَلَيۡكُمۡ نِعۡمَتِي وَرَضِيتُ لَكُمُ ٱلۡإِسۡلَٰمَ دِينٗاۚ فَمَنِ ٱضۡطُرَّ فِي مَخۡمَصَةٍ غَيۡرَ مُتَجَانِفٖ لِّإِثۡمٖ فَإِنَّ ٱللَّهَ غَفُورٞ رَّحِيمٞ\n  Prohibited to you are dead animals,[241] blood, the flesh of swine, and that which has been dedicated to other than Allāh, and [those animals] killed by strangling or by a violent blow or by a head-long fall or by the goring of horns, and those from which a wild animal has eaten, except what you [are able to] slaughter [before its death], and those which are sacrificed on stone altars,[242] and [prohibited is] that you seek decision through divining arrows. That is grave disobedience. This day those who disbelieve have despaired of [defeating] your religion; so fear them not, but fear Me. This day I have perfected for you your religion and completed My favor upon you and have approved for you Islām as religion. But whoever is forced by severe hunger with no inclination to sin - then indeed, Allāh is Forgiving and Merciful. (English Translation - Noor International Center, 1.1.2)]\n(Generated explanation) The Quran states that the flesh of swine is prohibited for you [1].\n\nThis prohibition is part of the perfection of Islam as a religion, which was completed and favored by Allah for those who accept it [1].\nSource [1]: The Holy Quran — 5:3 — https://quranenc.com/en/browse/english_saheeh/5#3",
+   "answer": {
+    "language": "en",
+    "level": "A",
+    "referred": false,
+    "kind": "answer",
+    "opening": null,
+    "blocks": [
+     {
+      "type": "text",
+      "text": "Islam forbids the flesh of swine [1].",
+      "role": "answer"
+     },
+     {
+      "type": "quran",
+      "n": 1,
+      "ref": "5:3",
+      "surah": 5,
+      "ayah": 3,
+      "surahName": "Al-Ma'idah",
+      "arabic": "حُرِّمَتۡ عَلَيۡكُمُ ٱلۡمَيۡتَةُ وَٱلدَّمُ وَلَحۡمُ ٱلۡخِنزِيرِ وَمَآ أُهِلَّ لِغَيۡرِ ٱللَّهِ بِهِۦ وَٱلۡمُنۡخَنِقَةُ وَٱلۡمَوۡقُوذَةُ وَٱلۡمُتَرَدِّيَةُ وَٱلنَّطِيحَةُ وَمَآ أَكَلَ ٱلسَّبُعُ إِلَّا مَا ذَكَّيۡتُمۡ وَمَا ذُبِحَ عَلَى ٱلنُّصُبِ وَأَن تَسۡتَقۡسِمُواْ بِٱلۡأَزۡلَٰمِۚ ذَٰلِكُمۡ فِسۡقٌۗ ٱلۡيَوۡمَ يَئِسَ ٱلَّذِينَ كَفَرُواْ مِن دِينِكُمۡ فَلَا تَخۡشَوۡهُمۡ وَٱخۡشَوۡنِۚ ٱلۡيَوۡمَ أَكۡمَلۡتُ لَكُمۡ دِينَكُمۡ وَأَتۡمَمۡتُ عَلَيۡكُمۡ نِعۡمَتِي وَرَضِيتُ لَكُمُ ٱلۡإِسۡلَٰمَ دِينٗاۚ فَمَنِ ٱضۡطُرَّ فِي مَخۡمَصَةٍ غَيۡرَ مُتَجَانِفٖ لِّإِثۡمٖ فَإِنَّ ٱللَّهَ غَفُورٞ رَّحِيمٞ",
+      "translation": "Prohibited to you are dead animals,[241] blood, the flesh of swine, and that which has been dedicated to other than Allāh, and [those animals] killed by strangling or by a violent blow or by a head-long fall or by the goring of horns, and those from which a wild animal has eaten, except what you [are able to] slaughter [before its death], and those which are sacrificed on stone altars,[242] and [prohibited is] that you seek decision through divining arrows. That is grave disobedience. This day those who disbelieve have despaired of [defeating] your religion; so fear them not, but fear Me. This day I have perfected for you your religion and completed My favor upon you and have approved for you Islām as religion. But whoever is forced by severe hunger with no inclination to sin - then indeed, Allāh is Forgiving and Merciful.",
+      "translationLanguage": "en",
+      "translationKey": "english_saheeh",
+      "translationName": "English Translation - Noor International Center",
+      "translationVersion": "1.1.2",
+      "url": "https://quranenc.com/en/browse/english_saheeh/5#3"
+     },
+     {
+      "type": "text",
+      "text": "The Quran states that the flesh of swine is prohibited for you [1].\n\nThis prohibition is part of the perfection of Islam as a religion, which was completed and favored by Allah for those who accept it [1].",
+      "role": "explanation"
+     }
+    ],
+    "sources": [
+     {
+      "n": 1,
+      "sourceId": "quranenc",
+      "title": "The Holy Quran",
+      "reference": "5:3",
+      "url": "https://quranenc.com/en/browse/english_saheeh/5#3",
+      "publisher": "quranenc.com"
+     }
+    ],
+    "followUp": null,
+    "encouragement": null,
+    "referral": null,
+    "laterLessonId": null,
+    "topicLessonIds": [],
+    "languageFallback": false
+   }
+  },
+  {
+   "id": "official-11",
+   "set": "official",
+   "language": "ar",
+   "question": "ما معنى قوله تعالى: «لا إكراه في الإسلام»؟",
+   "seconds": 16.0,
+   "usage": {
+    "calls": 6,
+    "promptTokens": 13564,
+    "completionTokens": 931,
+    "cost": 0.001723,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 4,
+     "BAAI/bge-m3": 1,
+     "parasail-bge-m3": 1
+    }
+   },
+   "mcpCalls": 4,
+   "passed": false,
+   "outcome": "referred: unexplained",
+   "checks": {
+    "correctsQuote": {
+     "passed": true,
+     "graded": "rule",
+     "reason": ""
+    },
+    "citesAyah": {
+     "passed": true,
+     "graded": "rule",
+     "reason": ""
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "The verse concerns the wording the user asked about."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "The verse is shown, but the reply does not gently point out that the quoted wording differs from the verse."
+    },
+    "explains": {
+     "verdict": "na",
+     "reason": "This is a referral card with no explanation."
+    },
+    "companion": {
+     "verdict": "na",
+     "reason": "This is a referral card, so the companion-tone check does not apply."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "There is no everyday-talk part."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "The reply does not choose between scholarly views."
+    },
+    "noConsensus": {
+     "verdict": "pass",
+     "reason": "The reply makes no claim about scholarly or Muslim consensus."
+    },
+    "glossaryForm": {
+     "verdict": "na",
+     "reason": "None of the listed terms is named in the reply."
+    },
+    "supported": {
+     "verdict": "pass",
+     "reason": "The quoted verse is sourced, and the referral card makes no religious claim."
+    }
+   },
+   "judgeUsage": {
+    "calls": 1,
+    "promptTokens": 1195,
+    "completionTokens": 227,
+    "cost": 0.000233,
+    "byModel": {
+     "openai/gpt-6-luna": 1
+    }
+   },
+   "shown": "[Quoted verse, البقرة 256 [1]: لَآ إِكۡرَاهَ فِي ٱلدِّينِۖ قَد تَّبَيَّنَ ٱلرُّشۡدُ مِنَ ٱلۡغَيِّۚ فَمَن يَكۡفُرۡ بِٱلطَّٰغُوتِ وَيُؤۡمِنۢ بِٱللَّهِ فَقَدِ ٱسۡتَمۡسَكَ بِٱلۡعُرۡوَةِ ٱلۡوُثۡقَىٰ لَا ٱنفِصَامَ لَهَاۗ وَٱللَّهُ سَمِيعٌ عَلِيمٌ]\nSource [1]: القرآن الكريم — 2:256 — https://quranenc.com/en/browse/english_saheeh/2#256\nReferral card (fixed page text): يستطيع «رفيق» أن يعرض المصدر، لا أن يشرحه شرحًا موثوقًا هذه النصوص التي تجيب عن سؤالك، كما نُشرت تمامًا. لم يستطع «رفيق» أن يكتب لها شرحًا يجتاز تحققه، فلن يخمّن. يمكن أن يشرحها لك مختص.",
+   "answer": {
+    "language": "ar",
+    "level": "A",
+    "referred": true,
+    "kind": "referral",
+    "opening": null,
+    "blocks": [
+     {
+      "type": "quran",
+      "n": 1,
+      "ref": "2:256",
+      "surah": 2,
+      "ayah": 256,
+      "surahName": "البقرة",
+      "arabic": "لَآ إِكۡرَاهَ فِي ٱلدِّينِۖ قَد تَّبَيَّنَ ٱلرُّشۡدُ مِنَ ٱلۡغَيِّۚ فَمَن يَكۡفُرۡ بِٱلطَّٰغُوتِ وَيُؤۡمِنۢ بِٱللَّهِ فَقَدِ ٱسۡتَمۡسَكَ بِٱلۡعُرۡوَةِ ٱلۡوُثۡقَىٰ لَا ٱنفِصَامَ لَهَاۗ وَٱللَّهُ سَمِيعٌ عَلِيمٌ",
+      "translation": null,
+      "translationLanguage": null,
+      "translationKey": null,
+      "translationName": null,
+      "translationVersion": null,
+      "url": "https://quranenc.com/en/browse/english_saheeh/2#256"
+     }
+    ],
+    "sources": [
+     {
+      "n": 1,
+      "sourceId": "quranenc",
+      "title": "القرآن الكريم",
+      "reference": "2:256",
+      "url": "https://quranenc.com/en/browse/english_saheeh/2#256",
+      "publisher": "quranenc.com"
+     }
+    ],
+    "followUp": null,
+    "encouragement": null,
+    "referral": {
+     "reason": "unexplained",
+     "links": [
+      "/talk-to-a-specialist"
+     ],
+     "centers": [
+      "moia-1933",
+      "ncnp-1867",
+      "ncnp-1831",
+      "ncnp-1919",
+      "ncnp-2552",
+      "ncnp-2489",
+      "ncnp-2496",
+      "ncnp-2484",
+      "ncnp-2619",
+      "ncnp-1856",
+      "ncnp-2750",
+      "ncnp-1933",
+      "ncnp-2635",
+      "ncnp-1774"
+     ],
+     "region": null
+    },
+    "laterLessonId": null,
+    "topicLessonIds": [],
+    "languageFallback": false
+   }
+  },
+  {
+   "id": "official-11",
+   "set": "official",
+   "language": "en",
+   "question": "What does the verse «لا إكراه في الإسلام» mean?",
+   "seconds": 8.0,
+   "usage": {
+    "calls": 5,
+    "promptTokens": 8600,
+    "completionTokens": 501,
+    "cost": 0.001055,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 3,
+     "BAAI/bge-m3": 2
+    }
+   },
+   "mcpCalls": 2,
+   "passed": false,
+   "outcome": "answered, level A, 1 sources",
+   "checks": {
+    "correctsQuote": {
+     "passed": true,
+     "graded": "rule",
+     "reason": ""
+    },
+    "citesAyah": {
+     "passed": true,
+     "graded": "rule",
+     "reason": ""
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "It answers the question about the verse's meaning."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It does not point out the wording difference between the question's phrase and the verse, though it gives the verse reference."
+    },
+    "explains": {
+     "verdict": "pass",
+     "reason": "It explains the quoted verse in its own words."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The answer is a formulaic explanation rather than personal, companion-like talk."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "There is no everyday-talk part."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not choose between scholarly views."
+    },
+    "noConsensus": {
+     "verdict": "pass",
+     "reason": "It makes no claim about scholarly or Muslim consensus."
+    },
+    "glossaryForm": {
+     "verdict": "na",
+     "reason": "It names none of the listed terms."
+    },
+    "supported": {
+     "verdict": "pass",
+     "reason": "Each religious statement in Rafiq's own words carries source number [1]."
+    }
+   },
+   "judgeUsage": {
+    "calls": 1,
+    "promptTokens": 1350,
+    "completionTokens": 226,
+    "cost": 0.000248,
+    "byModel": {
+     "openai/gpt-6-luna": 1
+    }
+   },
+   "shown": "(Generated answer) The verse means that no one can be forced to accept the religion of Islam [1]. The right way has become clear from the wrong way [1]. Whoever rejects what is worshipped besides Allah and believes in Allah has held onto the strongest support [1].\n[Quoted verse, Al-Baqarah 256 [1]: لَآ إِكۡرَاهَ فِي ٱلدِّينِۖ قَد تَّبَيَّنَ ٱلرُّشۡدُ مِنَ ٱلۡغَيِّۚ فَمَن يَكۡفُرۡ بِٱلطَّٰغُوتِ وَيُؤۡمِنۢ بِٱللَّهِ فَقَدِ ٱسۡتَمۡسَكَ بِٱلۡعُرۡوَةِ ٱلۡوُثۡقَىٰ لَا ٱنفِصَامَ لَهَاۗ وَٱللَّهُ سَمِيعٌ عَلِيمٌ\n  There shall be no compulsion in [acceptance of] the religion. The right course has become distinct from the wrong. So whoever disbelieves in ṭāghūt[104] and believes in Allāh has grasped the most trustworthy handhold with no break in it. And Allāh is Hearing and Knowing. (English Translation - Noor International Center, 1.1.2)]\n(Generated explanation) This verse states that there is no compulsion in accepting Islam [1]. It means that people cannot be forced to become Muslim or to practice the religion against their will [1]. The verse makes it clear that the path of truth is distinct from the path of error [1].\n\nIt explains that if someone rejects false gods or anything worshipped besides Allah, and believes in Allah, they have grasped a support that will not break [1].\nSource [1]: The Holy Quran — 2:256 — https://quranenc.com/en/browse/english_saheeh/2#256",
+   "answer": {
+    "language": "en",
+    "level": "A",
+    "referred": false,
+    "kind": "answer",
+    "opening": null,
+    "blocks": [
+     {
+      "type": "text",
+      "text": "The verse means that no one can be forced to accept the religion of Islam [1]. The right way has become clear from the wrong way [1]. Whoever rejects what is worshipped besides Allah and believes in Allah has held onto the strongest support [1].",
+      "role": "answer"
+     },
+     {
+      "type": "quran",
+      "n": 1,
+      "ref": "2:256",
+      "surah": 2,
+      "ayah": 256,
+      "surahName": "Al-Baqarah",
+      "arabic": "لَآ إِكۡرَاهَ فِي ٱلدِّينِۖ قَد تَّبَيَّنَ ٱلرُّشۡدُ مِنَ ٱلۡغَيِّۚ فَمَن يَكۡفُرۡ بِٱلطَّٰغُوتِ وَيُؤۡمِنۢ بِٱللَّهِ فَقَدِ ٱسۡتَمۡسَكَ بِٱلۡعُرۡوَةِ ٱلۡوُثۡقَىٰ لَا ٱنفِصَامَ لَهَاۗ وَٱللَّهُ سَمِيعٌ عَلِيمٌ",
+      "translation": "There shall be no compulsion in [acceptance of] the religion. The right course has become distinct from the wrong. So whoever disbelieves in ṭāghūt[104] and believes in Allāh has grasped the most trustworthy handhold with no break in it. And Allāh is Hearing and Knowing.",
+      "translationLanguage": "en",
+      "translationKey": "english_saheeh",
+      "translationName": "English Translation - Noor International Center",
+      "translationVersion": "1.1.2",
+      "url": "https://quranenc.com/en/browse/english_saheeh/2#256"
+     },
+     {
+      "type": "text",
+      "text": "This verse states that there is no compulsion in accepting Islam [1]. It means that people cannot be forced to become Muslim or to practice the religion against their will [1]. The verse makes it clear that the path of truth is distinct from the path of error [1].\n\nIt explains that if someone rejects false gods or anything worshipped besides Allah, and believes in Allah, they have grasped a support that will not break [1].",
+      "role": "explanation"
+     }
+    ],
+    "sources": [
+     {
+      "n": 1,
+      "sourceId": "quranenc",
+      "title": "The Holy Quran",
+      "reference": "2:256",
+      "url": "https://quranenc.com/en/browse/english_saheeh/2#256",
+      "publisher": "quranenc.com"
+     }
+    ],
+    "followUp": null,
+    "encouragement": null,
+    "referral": null,
+    "laterLessonId": null,
+    "topicLessonIds": [],
+    "languageFallback": false
+   }
+  },
+  {
+   "id": "review-cleanliness",
+   "set": "review",
+   "language": "ar",
+   "question": "هل «النظافة من الإيمان» آية من القرآن؟",
+   "seconds": 11.8,
+   "usage": {
+    "calls": 3,
+    "promptTokens": 1878,
+    "completionTokens": 261,
+    "cost": 0.000287,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 1,
+     "BAAI/bge-m3": 1,
+     "parasail-bge-m3": 1
+    }
+   },
+   "mcpCalls": 4,
+   "passed": true,
+   "outcome": "referred: verseNotFound",
+   "checks": {
+    "notFoundAsQuoted": {
+     "passed": true,
+     "graded": "rule",
+     "reason": ""
+    },
+    "noFabrication": {
+     "passed": true,
+     "graded": "rule",
+     "reason": ""
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "It addresses whether the phrase is a Quranic verse."
+    },
+    "expectedBehaviour": {
+     "verdict": "pass",
+     "reason": "It says the phrase was not found in the approved Quran sources and invents no reference."
+    },
+    "explains": {
+     "verdict": "na",
+     "reason": "This is a referral card with no answer."
+    },
+    "companion": {
+     "verdict": "pass",
+     "reason": "The referral is brief and avoids lecturing or stock praise."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "The reply has no everyday-talk part."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not choose between scholarly views."
+    },
+    "noConsensus": {
+     "verdict": "pass",
+     "reason": "It makes no claim about scholarly or Muslim consensus."
+    },
+    "glossaryForm": {
+     "verdict": "na",
+     "reason": "It names none of the listed terms in a non-Arabic reply."
+    },
+    "supported": {
+     "verdict": "pass",
+     "reason": "The referral card makes no unsupported religious claim."
+    }
+   },
+   "judgeUsage": {
+    "calls": 1,
+    "promptTokens": 961,
+    "completionTokens": 218,
+    "cost": 0.000205,
+    "byModel": {
+     "openai/gpt-6-luna": 1
+    }
+   },
+   "shown": "Referral card (fixed page text): لم تُوجد آيةً لم توجد هذه الكلمات آيةً في القرآن وترجماته التي يعتمد عليها «رفيق» (موقع QuranEnc)، فلن يبني «رفيق» عليها شيئًا. ويمكن أن يخبرك مختص بمصدرها.",
+   "answer": {
+    "language": "ar",
+    "level": "A",
+    "referred": true,
+    "kind": "referral",
+    "opening": null,
+    "blocks": [],
+    "sources": [],
+    "followUp": null,
+    "encouragement": null,
+    "referral": {
+     "reason": "verseNotFound",
+     "links": [
+      "/talk-to-a-specialist"
+     ],
+     "centers": [
+      "moia-1933",
+      "ncnp-1867",
+      "ncnp-1831",
+      "ncnp-1919",
+      "ncnp-2552",
+      "ncnp-2489",
+      "ncnp-2496",
+      "ncnp-2484",
+      "ncnp-2619",
+      "ncnp-1856",
+      "ncnp-2750",
+      "ncnp-1933",
+      "ncnp-2635",
+      "ncnp-1774"
+     ],
+     "region": null
+    },
+    "laterLessonId": null,
+    "topicLessonIds": [],
+    "languageFallback": false
+   }
+  },
+  {
+   "id": "review-cleanliness",
+   "set": "review",
+   "language": "en",
+   "question": "Is «النظافة من الإيمان» a verse of the Quran?",
+   "seconds": 5.2,
+   "usage": {
+    "calls": 3,
+    "promptTokens": 1870,
+    "completionTokens": 250,
+    "cost": 0.000282,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 1,
+     "BAAI/bge-m3": 2
+    }
+   },
+   "mcpCalls": 2,
+   "passed": true,
+   "outcome": "referred: verseNotFound",
+   "checks": {
+    "notFoundAsQuoted": {
+     "passed": true,
+     "graded": "rule",
+     "reason": ""
+    },
+    "noFabrication": {
+     "passed": true,
+     "graded": "rule",
+     "reason": ""
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "The reply directly addresses whether the words are a Quranic verse."
+    },
+    "expectedBehaviour": {
+     "verdict": "pass",
+     "reason": "It says they were not found as a verse in the approved Quran source and invents no reference."
+    },
+    "explains": {
+     "verdict": "na",
+     "reason": "The referral card gives no religious answer to explain."
+    },
+    "companion": {
+     "verdict": "pass",
+     "reason": "The referral is brief and clear, without lecturing or stock praise."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "The reply has no everyday-talk part."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "The reply does not choose between scholarly views."
+    },
+    "noConsensus": {
+     "verdict": "pass",
+     "reason": "The reply makes no claim about scholarly or Muslim consensus."
+    },
+    "glossaryForm": {
+     "verdict": "na",
+     "reason": "None of the listed terms is named."
+    },
+    "supported": {
+     "verdict": "pass",
+     "reason": "The referral card is fixed page text, not Rafiq's own words."
+    }
+   },
+   "judgeUsage": {
+    "calls": 1,
+    "promptTokens": 961,
+    "completionTokens": 227,
+    "cost": 0.00021,
+    "byModel": {
+     "openai/gpt-6-luna": 1
+    }
+   },
+   "shown": "Referral card (fixed page text): Not found as a verse These words were not found as a verse of the Quran in the Quran and its translations Rafiq uses (QuranEnc.com), so Rafiq will not build anything on them. A specialist can tell you where they come from.",
+   "answer": {
+    "language": "en",
+    "level": "A",
+    "referred": true,
+    "kind": "referral",
+    "opening": null,
+    "blocks": [],
+    "sources": [],
+    "followUp": null,
+    "encouragement": null,
+    "referral": {
+     "reason": "verseNotFound",
+     "links": [
+      "/talk-to-a-specialist"
+     ],
+     "centers": [
+      "moia-1933",
+      "ncnp-1867",
+      "ncnp-1831",
+      "ncnp-1919",
+      "ncnp-2552",
+      "ncnp-2489",
+      "ncnp-2496",
+      "ncnp-2484",
+      "ncnp-2619",
+      "ncnp-1856",
+      "ncnp-2750",
+      "ncnp-1933",
+      "ncnp-2635",
+      "ncnp-1774"
+     ],
+     "region": null
+    },
+    "laterLessonId": null,
+    "topicLessonIds": [],
+    "languageFallback": false
+   }
+  },
+  {
+   "id": "review-rakahs",
+   "set": "review",
+   "language": "fr",
+   "question": "Combien de rak'ahs compte chacune des cinq prières quotidiennes ?",
+   "seconds": 41.4,
+   "usage": {
+    "calls": 10,
+    "promptTokens": 29342,
+    "completionTokens": 969,
+    "cost": 0.003312,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 8,
+     "parasail-bge-m3": 1,
+     "BAAI/bge-m3": 1
+    }
+   },
+   "mcpCalls": 12,
+   "passed": false,
+   "outcome": "referred: noSource",
+   "checks": {
+    "answersOrRefers": {
+     "passed": false,
+     "graded": "rule",
+     "reason": ""
+    },
+    "answerLanguage": {
+     "passed": true,
+     "graded": "rule",
+     "reason": ""
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "fail",
+     "reason": "The card does not give the rak'ah counts asked for."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It does not provide the counts from a source as expected."
+    },
+    "explains": {
+     "verdict": "na",
+     "reason": "The referral card gives no answer to explain."
+    },
+    "companion": {
+     "verdict": "pass",
+     "reason": "It briefly declines to guess and points the user to a specialist."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "There is no everyday-talk part."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not choose between scholarly views."
+    },
+    "noConsensus": {
+     "verdict": "pass",
+     "reason": "It makes no claim about scholarly or Muslim consensus."
+    },
+    "glossaryForm": {
+     "verdict": "na",
+     "reason": "None of the listed terms is named."
+    },
+    "supported": {
+     "verdict": "pass",
+     "reason": "The referral card makes no religious claim without a source."
+    }
+   },
+   "judgeUsage": {
+    "calls": 1,
+    "promptTokens": 959,
+    "completionTokens": 209,
+    "cost": 0.0002,
+    "byModel": {
+     "openai/gpt-6-luna": 1
+    }
+   },
+   "shown": "Referral card (fixed page text): Aucune source fiable trouvée Rafiq n'a trouvé aucune source fiable pour cela ; il ne fera donc pas de supposition. Un spécialiste peut vous aider.",
+   "answer": {
+    "language": "fr",
+    "level": "A",
+    "referred": true,
+    "kind": "referral",
+    "opening": null,
+    "blocks": [],
+    "sources": [],
+    "followUp": null,
+    "encouragement": null,
+    "referral": {
+     "reason": "noSource",
+     "links": [
+      "/talk-to-a-specialist"
+     ],
+     "centers": [
+      "moia-1933",
+      "ncnp-1867",
+      "ncnp-1831",
+      "ncnp-1919",
+      "ncnp-2552",
+      "ncnp-2489",
+      "ncnp-2496",
+      "ncnp-2484",
+      "ncnp-2619",
+      "ncnp-1856",
+      "ncnp-2750",
+      "ncnp-1933",
+      "ncnp-2635",
+      "ncnp-1774"
+     ],
+     "region": null
+    },
+    "laterLessonId": null,
+    "topicLessonIds": [
+     "3.4",
+     "1.4"
+    ],
+    "languageFallback": false
+   }
+  },
+  {
+   "id": "review-rakahs",
+   "set": "review",
+   "language": "ur",
+   "question": "پانچ فرض نمازوں میں سے ہر ایک میں کتنی رکعتیں ہیں؟",
+   "seconds": 11.8,
+   "usage": {
+    "calls": 6,
+    "promptTokens": 7930,
+    "completionTokens": 520,
+    "cost": 0.000992,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 4,
+     "parasail-bge-m3": 2
+    }
+   },
+   "mcpCalls": 6,
+   "passed": false,
+   "outcome": "answered, level A, 2 sources",
+   "checks": {
+    "answersOrRefers": {
+     "passed": true,
+     "graded": "rule",
+     "reason": ""
+    },
+    "answerLanguage": {
+     "passed": true,
+     "graded": "rule",
+     "reason": ""
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "fail",
+     "reason": "It names the five prayers but does not give the obligatory rak'ah count for any of them."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "The Urdu reply should give each prayer's obligatory rak'ah count from a source, but it gives only the prayer names."
+    },
+    "explains": {
+     "verdict": "fail",
+     "reason": "It does not explain the requested rak'ah counts in its own words."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "It reads like a bare template answer and does not address the user's specific question."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "There is no everyday-talk portion."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not choose between scholarly views."
+    },
+    "noConsensus": {
+     "verdict": "pass",
+     "reason": "It makes no claim about scholarly or Muslim consensus."
+    },
+    "glossaryForm": {
+     "verdict": "na",
+     "reason": "None of the listed terms is named in Rafiq's own words."
+    },
+    "supported": {
+     "verdict": "pass",
+     "reason": "The sole religious statement in Rafiq's own words is marked with source numbers."
+    }
+   },
+   "judgeUsage": {
+    "calls": 1,
+    "promptTokens": 2461,
+    "completionTokens": 251,
+    "cost": 0.000372,
+    "byModel": {
+     "openai/gpt-6-luna": 1
+    }
+   },
+   "shown": "(Generated answer) دن اور رات میں پانچ فرض نمازیں ہیں: فجر، ظہر، عصر، مغرب اور عشا [1][2]۔\n[Quoted hadith #66512 [1]: عَنْ أَبِي عَبْدِ الرَّحْمَنِ عَبْدِ اللَّهِ بْنِ عُمَرَ بْنِ الخَطَّابِ رَضِيَ اللَّهُ عَنْهُ قَالَ: سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: «بُنِيَ الإِسْلَامُ عَلَى خَمْسٍ: شَهَادَةِ أَنْ لَا إلَهَ إلَّا اللَّهُ وَأَنَّ مُحَمَّدًا ‌عَبْدُهُ ‌وَرَسُولُهُ، وَإِقَامِ الصَّلَاةِ، وَإِيتَاءِ الزَّكَاةِ، وَحَجِّ الْبَيْتِ، وَصَوْمِ رَمَضَانَ».\n  ابو عبدالرحمن عبداللہ بن عمر بن خطاب رضی اللہ عنہما سے روایت ہے، وہ کہتے ہیں کہ میں نے رسول اللہ ﷺ کو فرماتے ہوئے سنا: ”اسلام کی بنیاد پانچ چیزوں پر ہے : اس بات کی گواہی دینا کہ اللہ کے سوا کوئی سچا معبود نہیں ہے اور محمد صلی اللہ علیہ وسلم اللہ کے بندے اور اس کے رسول ہیں، نماز قائم کرنا، زکوٰۃ ادا کرنا، خانۂ کعبہ کا حج کرنا اور رمضان کے روزے رکھنا۔“\n  Grade: صحيح. Attribution: اسے بخاری اور مسلم نے روایت کیا ہے\n  HadeethEnc's explanation: اللہ کے نبی صلی اللہ علیہ و سلم نے اسلام کو پانچ ارکان پر کھڑی ایک عمارت کے مشابہ قرار دیا ہے۔ اسلام کے باقی کام اس عمارت کے تتمہ کی حیثیت رکھتے ہیں۔ ان پانچ ارکان میں سے پہلا رکن اس بات کی گواہی دینا ہے کہ اللہ کے سوا کوئی عبادت کے لا‏ئق نہيں ہے اور محمد صلی اللہ علیہ و سلم اللہ کے رسول ہيں۔ یہ دونوں گواہیاں ایک دوسرے سے جڑی ہوئی ہیں اور ایک ہی رکن کی حیثیت رکھتی ہیں۔ بندہ ان کو اپنی زبان سے، اللہ کے ایک ہونے اور بس اسی کے عبادت کا حق دار ہونے کا اعتراف کرتے ہوئے، ان کے تقاضوں پر عمل کرتے ہوئے، محمد صلی اللہ علیہ و سلم کے رسول ہونے کا یقین رکھتے ہوئے اور آپ کا اتباع کرتے ہوئے، ادا کرے گا۔ دوسرا رکن نماز قائم کرنا ہے۔ دن اور رات میں پانچ فرض نمازیں ہيں۔ فجر، ظہر، عصر، مغرب اور عشا۔ ان پانچ نمازوں کو ان کی شرطوں، ارکان اور واجبات کے ساتھ ادا کیا جائے گا۔ تیسرا رکن فرض زکاۃ دینا ہے۔ دراصل زکاۃ ایک مالی عبادت ہے، جو شریعت کی جانب سے مال کی ایک متعینہ مقدار پر واجب ہوتی ہے اور جسے اس کے حق داروں کو دیا جاتا ہے۔ چوتھا رکن حج ہے۔ حج در اصل اللہ کی عبادت کے طور پر مناسک کی ادائیگی کے لیے مکہ کا قصد کرنے کا نام ہے۔ پانچواں رکن رمضان مہینے کے روزے رکھنا ہے۔ روزہ نام ہے کھانے، پینے اور دیگر روزہ توڑنے والی چیزوں سے فجر طلوع ہونے سے لے کر سورج غروب ہونے تک اللہ کی عبادت کی نیت سے رکے رہنے کا۔]\n[Quoted hadith #65000 [2]: عَنْ عَبْدِ اللهِ بنِ عُمَر رضي الله عنهما قال: قال رسولُ الله صلى الله عليه وسلم: «بُنِيَ الْإِسْلَامُ عَلَى خَمْسٍ: شَهَادَةِ أَنْ لَا إِلَهَ إِلَّا اللهُ، وَأَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ، وَإِقَامِ الصَّلَاةِ، وَإِيتَاءِ الزَّكَاةِ، وَحَجِّ الْبَيْتِ، وَصَوْمِ رَمَضَانَ».\n  عبد اللہ بن عمرو رضی اللہ عنہما سے روایت ہے، وہ کہتے ہیں کہ اللہ کے رسول صلی اللہ علیہ وسلم نے فرمایا: ”اسلام کی بنیاد پانچ چیزوں پر ہے : اس بات کی گواہی دینا کہ اللہ کے سوا کوئی سچا معبود نہیں ہے اور محمد صلی اللہ علیہ وسلم اللہ کے بندے اور اس کے رسول ہیں، نماز قائم کرنا، زکوٰۃ ادا کرنا، خانۂ کعبہ کا حج کرنا اور رمضان کے روزے رکھنا۔“\n  Grade: صحيح. Attribution: متفق عليه\n  HadeethEnc's explanation: اللہ کے نبی صلی اللہ علیہ و سلم نے اسلام کو پانچ ارکان پر کھڑی ایک عمارت کے مشابہ قرار دیا ہے۔ اسلام کے باقی کام اس عمارت کے تتمہ کی حیثیت رکھتے ہیں۔ ان پانچ ارکان میں سے پہلا رکن اس بات کی گواہی دینا ہے کہ اللہ کے سوا کوئی عبادت کے لا‏ئق نہيں ہے اور محمد صلی اللہ علیہ و سلم اللہ کے رسول ہيں۔ یہ دونوں گواہیاں ایک دوسرے سے جڑی ہوئی ہیں اور ایک ہی رکن کی حیثیت رکھتی ہیں۔ بندہ ان کو اپنی زبان سے، اللہ کے ایک ہونے اور بس اسی کے عبادت کا حق دار ہونے کا اعتراف کرتے ہوئے، ان کے تقاضوں پر عمل کرتے ہوئے، محمد صلی اللہ علیہ و سلم کے رسول ہونے کا یقین رکھتے ہوئے اور آپ کا اتباع کرتے ہوئے، ادا کرے گا۔ دوسرا رکن نماز قائم کرنا ہے۔ دن اور رات میں پانچ فرض نمازیں ہيں۔ فجر، ظہر، عصر، مغرب اور عشا۔ ان پانچ نمازوں کو ان کی شرطوں، ارکان اور واجبات کے ساتھ ادا کیا جائے گا۔ تیسرا رکن فرض زکاۃ دینا ہے۔ دراصل زکاۃ ایک مالی عبادت ہے، جو شریعت کی جانب سے مال کی ایک متعینہ مقدار پر واجب ہوتی ہے اور جسے اس کے حق داروں کو دیا جاتا ہے۔ چوتھا رکن حج ہے۔ حج در اصل اللہ کی عبادت کے طور پر مناسک کی ادائیگی کے لیے مکہ کا قصد کرنے کا نام ہے۔ پانچواں رکن رمضان مہینے کے روزے رکھنا ہے۔ روزہ نام ہے کھانے، پینے اور دیگر روزہ توڑنے والی چیزوں سے فجر طلوع ہونے سے لے کر سورج غروب ہونے تک اللہ کی عبادت کی نیت سے رکے رہنے کا۔]\nSource [1]: ”اسلام کی بنیاد پانچ چیزوں پر ہے — #66512 — https://hadeethenc.com/ur/browse/hadith/66512\nSource [2]: ”اسلام کی بنیاد پانچ چیزوں پر ہے — #65000 — https://hadeethenc.com/ur/browse/hadith/65000",
+   "answer": {
+    "language": "ur",
+    "level": "A",
+    "referred": false,
+    "kind": "answer",
+    "opening": null,
+    "blocks": [
+     {
+      "type": "text",
+      "text": "دن اور رات میں پانچ فرض نمازیں ہیں: فجر، ظہر، عصر، مغرب اور عشا [1][2]۔",
+      "role": "answer"
+     },
+     {
+      "type": "hadith",
+      "n": 1,
+      "id": 66512,
+      "title": "”اسلام کی بنیاد پانچ چیزوں پر ہے",
+      "arabic": "عَنْ أَبِي عَبْدِ الرَّحْمَنِ عَبْدِ اللَّهِ بْنِ عُمَرَ بْنِ الخَطَّابِ رَضِيَ اللَّهُ عَنْهُ قَالَ: سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: «بُنِيَ الإِسْلَامُ عَلَى خَمْسٍ: شَهَادَةِ أَنْ لَا إلَهَ إلَّا اللَّهُ وَأَنَّ مُحَمَّدًا ‌عَبْدُهُ ‌وَرَسُولُهُ، وَإِقَامِ الصَّلَاةِ، وَإِيتَاءِ الزَّكَاةِ، وَحَجِّ الْبَيْتِ، وَصَوْمِ رَمَضَانَ».",
+      "text": "ابو عبدالرحمن عبداللہ بن عمر بن خطاب رضی اللہ عنہما سے روایت ہے، وہ کہتے ہیں کہ میں نے رسول اللہ ﷺ کو فرماتے ہوئے سنا: ”اسلام کی بنیاد پانچ چیزوں پر ہے : اس بات کی گواہی دینا کہ اللہ کے سوا کوئی سچا معبود نہیں ہے اور محمد صلی اللہ علیہ وسلم اللہ کے بندے اور اس کے رسول ہیں، نماز قائم کرنا، زکوٰۃ ادا کرنا، خانۂ کعبہ کا حج کرنا اور رمضان کے روزے رکھنا۔“",
+      "textLanguage": "ur",
+      "grade": "صحيح",
+      "attribution": "اسے بخاری اور مسلم نے روایت کیا ہے",
+      "explanation": "اللہ کے نبی صلی اللہ علیہ و سلم نے اسلام کو پانچ ارکان پر کھڑی ایک عمارت کے مشابہ قرار دیا ہے۔ اسلام کے باقی کام اس عمارت کے تتمہ کی حیثیت رکھتے ہیں۔ ان پانچ ارکان میں سے پہلا رکن اس بات کی گواہی دینا ہے کہ اللہ کے سوا کوئی عبادت کے لا‏ئق نہيں ہے اور محمد صلی اللہ علیہ و سلم اللہ کے رسول ہيں۔ یہ دونوں گواہیاں ایک دوسرے سے جڑی ہوئی ہیں اور ایک ہی رکن کی حیثیت رکھتی ہیں۔ بندہ ان کو اپنی زبان سے، اللہ کے ایک ہونے اور بس اسی کے عبادت کا حق دار ہونے کا اعتراف کرتے ہوئے، ان کے تقاضوں پر عمل کرتے ہوئے، محمد صلی اللہ علیہ و سلم کے رسول ہونے کا یقین رکھتے ہوئے اور آپ کا اتباع کرتے ہوئے، ادا کرے گا۔ دوسرا رکن نماز قائم کرنا ہے۔ دن اور رات میں پانچ فرض نمازیں ہيں۔ فجر، ظہر، عصر، مغرب اور عشا۔ ان پانچ نمازوں کو ان کی شرطوں، ارکان اور واجبات کے ساتھ ادا کیا جائے گا۔ تیسرا رکن فرض زکاۃ دینا ہے۔ دراصل زکاۃ ایک مالی عبادت ہے، جو شریعت کی جانب سے مال کی ایک متعینہ مقدار پر واجب ہوتی ہے اور جسے اس کے حق داروں کو دیا جاتا ہے۔ چوتھا رکن حج ہے۔ حج در اصل اللہ کی عبادت کے طور پر مناسک کی ادائیگی کے لیے مکہ کا قصد کرنے کا نام ہے۔ پانچواں رکن رمضان مہینے کے روزے رکھنا ہے۔ روزہ نام ہے کھانے، پینے اور دیگر روزہ توڑنے والی چیزوں سے فجر طلوع ہونے سے لے کر سورج غروب ہونے تک اللہ کی عبادت کی نیت سے رکے رہنے کا۔",
+      "url": "https://hadeethenc.com/ur/browse/hadith/66512"
+     },
+     {
+      "type": "hadith",
+      "n": 2,
+      "id": 65000,
+      "title": "”اسلام کی بنیاد پانچ چیزوں پر ہے",
+      "arabic": "عَنْ عَبْدِ اللهِ بنِ عُمَر رضي الله عنهما قال: قال رسولُ الله صلى الله عليه وسلم: «بُنِيَ الْإِسْلَامُ عَلَى خَمْسٍ: شَهَادَةِ أَنْ لَا إِلَهَ إِلَّا اللهُ، وَأَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ، وَإِقَامِ الصَّلَاةِ، وَإِيتَاءِ الزَّكَاةِ، وَحَجِّ الْبَيْتِ، وَصَوْمِ رَمَضَانَ».",
+      "text": "عبد اللہ بن عمرو رضی اللہ عنہما سے روایت ہے، وہ کہتے ہیں کہ اللہ کے رسول صلی اللہ علیہ وسلم نے فرمایا: ”اسلام کی بنیاد پانچ چیزوں پر ہے : اس بات کی گواہی دینا کہ اللہ کے سوا کوئی سچا معبود نہیں ہے اور محمد صلی اللہ علیہ وسلم اللہ کے بندے اور اس کے رسول ہیں، نماز قائم کرنا، زکوٰۃ ادا کرنا، خانۂ کعبہ کا حج کرنا اور رمضان کے روزے رکھنا۔“",
+      "textLanguage": "ur",
+      "grade": "صحيح",
+      "attribution": "متفق عليه",
+      "explanation": "اللہ کے نبی صلی اللہ علیہ و سلم نے اسلام کو پانچ ارکان پر کھڑی ایک عمارت کے مشابہ قرار دیا ہے۔ اسلام کے باقی کام اس عمارت کے تتمہ کی حیثیت رکھتے ہیں۔ ان پانچ ارکان میں سے پہلا رکن اس بات کی گواہی دینا ہے کہ اللہ کے سوا کوئی عبادت کے لا‏ئق نہيں ہے اور محمد صلی اللہ علیہ و سلم اللہ کے رسول ہيں۔ یہ دونوں گواہیاں ایک دوسرے سے جڑی ہوئی ہیں اور ایک ہی رکن کی حیثیت رکھتی ہیں۔ بندہ ان کو اپنی زبان سے، اللہ کے ایک ہونے اور بس اسی کے عبادت کا حق دار ہونے کا اعتراف کرتے ہوئے، ان کے تقاضوں پر عمل کرتے ہوئے، محمد صلی اللہ علیہ و سلم کے رسول ہونے کا یقین رکھتے ہوئے اور آپ کا اتباع کرتے ہوئے، ادا کرے گا۔ دوسرا رکن نماز قائم کرنا ہے۔ دن اور رات میں پانچ فرض نمازیں ہيں۔ فجر، ظہر، عصر، مغرب اور عشا۔ ان پانچ نمازوں کو ان کی شرطوں، ارکان اور واجبات کے ساتھ ادا کیا جائے گا۔ تیسرا رکن فرض زکاۃ دینا ہے۔ دراصل زکاۃ ایک مالی عبادت ہے، جو شریعت کی جانب سے مال کی ایک متعینہ مقدار پر واجب ہوتی ہے اور جسے اس کے حق داروں کو دیا جاتا ہے۔ چوتھا رکن حج ہے۔ حج در اصل اللہ کی عبادت کے طور پر مناسک کی ادائیگی کے لیے مکہ کا قصد کرنے کا نام ہے۔ پانچواں رکن رمضان مہینے کے روزے رکھنا ہے۔ روزہ نام ہے کھانے، پینے اور دیگر روزہ توڑنے والی چیزوں سے فجر طلوع ہونے سے لے کر سورج غروب ہونے تک اللہ کی عبادت کی نیت سے رکے رہنے کا۔",
+      "url": "https://hadeethenc.com/ur/browse/hadith/65000"
+     }
+    ],
+    "sources": [
+     {
+      "n": 1,
+      "sourceId": "hadeethenc",
+      "title": "”اسلام کی بنیاد پانچ چیزوں پر ہے",
+      "reference": "#66512",
+      "url": "https://hadeethenc.com/ur/browse/hadith/66512",
+      "publisher": "HadeethEnc.com"
+     },
+     {
+      "n": 2,
+      "sourceId": "hadeethenc",
+      "title": "”اسلام کی بنیاد پانچ چیزوں پر ہے",
+      "reference": "#65000",
+      "url": "https://hadeethenc.com/ur/browse/hadith/65000",
+      "publisher": "HadeethEnc.com"
+     }
+    ],
+    "followUp": null,
+    "encouragement": null,
+    "referral": null,
+    "laterLessonId": null,
+    "topicLessonIds": [],
+    "languageFallback": false
+   }
+  },
+  {
+   "id": "review-rakahs",
+   "set": "review",
+   "language": "ru",
+   "question": "Сколько ракаатов в каждой из пяти обязательных ежедневных молитв?",
+   "seconds": 36.0,
+   "usage": {
+    "calls": 8,
+    "promptTokens": 16879,
+    "completionTokens": 810,
+    "cost": 0.002004,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 6,
+     "BAAI/bge-m3": 2
+    }
+   },
+   "mcpCalls": 8,
+   "passed": false,
+   "outcome": "answered, level A, 1 sources",
+   "checks": {
+    "answersOrRefers": {
+     "passed": true,
+     "graded": "rule",
+     "reason": ""
+    },
+    "answerLanguage": {
+     "passed": true,
+     "graded": "rule",
+     "reason": ""
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "fail",
+     "reason": "It names the five prayers but does not give the obligatory rak‘ah count for any of them."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It neither gives the rak‘ah counts nor identifies the answer as being in an unsupported language."
+    },
+    "explains": {
+     "verdict": "pass",
+     "reason": "It explains in its own words what the quoted source says about the five pillars and prayer."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The explanation is a generic template and does not address the user's specific question."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "There is no everyday-talk portion."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not choose between scholarly views."
+    },
+    "noConsensus": {
+     "verdict": "pass",
+     "reason": "It makes no claim that all scholars or Muslims agree."
+    },
+    "glossaryForm": {
+     "verdict": "na",
+     "reason": "It names none of the listed glossary terms in a way that triggers the approved-form requirement."
+    },
+    "supported": {
+     "verdict": "pass",
+     "reason": "Each religious statement in Rafiq's own words carries source number [1]."
+    }
+   },
+   "judgeUsage": {
+    "calls": 1,
+    "promptTokens": 1393,
+    "completionTokens": 250,
+    "cost": 0.000264,
+    "byModel": {
+     "openai/gpt-6-luna": 1
+    }
+   },
+   "shown": "(Generated answer) There are five obligatory daily prayers: Fajr, Zhuhr, Asr, Maghrib, and Isha [1].\n[Quoted hadith #66512 [1]: عَنْ أَبِي عَبْدِ الرَّحْمَنِ عَبْدِ اللَّهِ بْنِ عُمَرَ بْنِ الخَطَّابِ رَضِيَ اللَّهُ عَنْهُ قَالَ: سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: «بُنِيَ الإِسْلَامُ عَلَى خَمْسٍ: شَهَادَةِ أَنْ لَا إلَهَ إلَّا اللَّهُ وَأَنَّ مُحَمَّدًا ‌عَبْدُهُ ‌وَرَسُولُهُ، وَإِقَامِ الصَّلَاةِ، وَإِيتَاءِ الزَّكَاةِ، وَحَجِّ الْبَيْتِ، وَصَوْمِ رَمَضَانَ».\n  Abu ‘Abdur-Rahmān ‘Abdullah ibn ‘Umar ibn al-Khattāb (may Allah be pleased with him) reported: I heard the Messenger of Allah (ﷺ) say: \"Islam is built on five: testifying that there is no god but Allah and that Muhammad is His slave and Messenger, establishing prayer, giving Zakah, performing Hajj to the (Sacred) House, and fasting Ramadān.\"\n  Grade: Authentic. Attribution: Narrated by Al-Bukhāri and Muslim]\n(Generated explanation) Islam is built on five main things [1]. One of these is establishing the prayer [1]. This means the five daily prayers that Muslims pray every day and night [1].\n\nThese five prayers are Fajr (morning), Zhuhr (noon), Asr (afternoon), Maghrib (sunset), and Isha (night) [1].\nSource [1]: Islam is built on five — #66512 — https://hadeethenc.com/en/browse/hadith/66512",
+   "answer": {
+    "language": "en",
+    "level": "A",
+    "referred": false,
+    "kind": "answer",
+    "opening": null,
+    "blocks": [
+     {
+      "type": "text",
+      "text": "There are five obligatory daily prayers: Fajr, Zhuhr, Asr, Maghrib, and Isha [1].",
+      "role": "answer"
+     },
+     {
+      "type": "hadith",
+      "n": 1,
+      "id": 66512,
+      "title": "Islam is built on five",
+      "arabic": "عَنْ أَبِي عَبْدِ الرَّحْمَنِ عَبْدِ اللَّهِ بْنِ عُمَرَ بْنِ الخَطَّابِ رَضِيَ اللَّهُ عَنْهُ قَالَ: سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: «بُنِيَ الإِسْلَامُ عَلَى خَمْسٍ: شَهَادَةِ أَنْ لَا إلَهَ إلَّا اللَّهُ وَأَنَّ مُحَمَّدًا ‌عَبْدُهُ ‌وَرَسُولُهُ، وَإِقَامِ الصَّلَاةِ، وَإِيتَاءِ الزَّكَاةِ، وَحَجِّ الْبَيْتِ، وَصَوْمِ رَمَضَانَ».",
+      "text": "Abu ‘Abdur-Rahmān ‘Abdullah ibn ‘Umar ibn al-Khattāb (may Allah be pleased with him) reported: I heard the Messenger of Allah (ﷺ) say: \"Islam is built on five: testifying that there is no god but Allah and that Muhammad is His slave and Messenger, establishing prayer, giving Zakah, performing Hajj to the (Sacred) House, and fasting Ramadān.\"",
+      "textLanguage": "en",
+      "grade": "Authentic",
+      "attribution": "Narrated by Al-Bukhāri and Muslim",
+      "explanation": null,
+      "url": "https://hadeethenc.com/en/browse/hadith/66512"
+     },
+     {
+      "type": "text",
+      "text": "Islam is built on five main things [1]. One of these is establishing the prayer [1]. This means the five daily prayers that Muslims pray every day and night [1].\n\nThese five prayers are Fajr (morning), Zhuhr (noon), Asr (afternoon), Maghrib (sunset), and Isha (night) [1].",
+      "role": "explanation"
+     }
+    ],
+    "sources": [
+     {
+      "n": 1,
+      "sourceId": "hadeethenc",
+      "title": "Islam is built on five",
+      "reference": "#66512",
+      "url": "https://hadeethenc.com/en/browse/hadith/66512",
+      "publisher": "hadeethenc.com"
+     }
+    ],
+    "followUp": null,
+    "encouragement": null,
+    "referral": null,
+    "laterLessonId": null,
+    "topicLessonIds": [],
+    "languageFallback": false
+   }
+  },
+  {
+   "id": "review-rakahs",
+   "set": "review",
+   "language": "id",
+   "question": "Berapa rakaat dalam setiap salat wajib lima waktu?",
+   "seconds": 26.9,
+   "usage": {
+    "calls": 9,
+    "promptTokens": 17623,
+    "completionTokens": 913,
+    "cost": 0.002119,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 7,
+     "parasail-bge-m3": 2
+    }
+   },
+   "mcpCalls": 3,
+   "passed": false,
+   "outcome": "answered, level A, 1 sources",
+   "checks": {
+    "answersOrRefers": {
+     "passed": true,
+     "graded": "rule",
+     "reason": ""
+    },
+    "answerLanguage": {
+     "passed": true,
+     "graded": "rule",
+     "reason": ""
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "fail",
+     "reason": "It names the five prayers but does not give the number of rak‘ahs for any of them."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It neither gives the obligatory rak‘ah counts from a source nor provides the required unsupported-language notice."
+    },
+    "explains": {
+     "verdict": "pass",
+     "reason": "It explains in its own words what the cited source says about prayer being one of the pillars."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "It reads like a formal, repetitive template rather than a brief personal response."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "The reply has no everyday-talk part."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not choose between scholarly views."
+    },
+    "noConsensus": {
+     "verdict": "pass",
+     "reason": "It makes no claim that all scholars or Muslims agree."
+    },
+    "glossaryForm": {
+     "verdict": "na",
+     "reason": "None of the listed glossary terms is named in the reply."
+    },
+    "supported": {
+     "verdict": "pass",
+     "reason": "Every religious statement in the reply's own words has a source number."
+    }
+   },
+   "judgeUsage": {
+    "calls": 1,
+    "promptTokens": 1415,
+    "completionTokens": 341,
+    "cost": 0.000312,
+    "byModel": {
+     "openai/gpt-6-luna": 1
+    }
+   },
+   "shown": "(Generated answer) Islam is built on five pillars, and establishing prayer is one of them [1]. This refers to the five obligatory prayers that are to be observed every day and night [1].\n[Quoted hadith #66512 [1]: عَنْ أَبِي عَبْدِ الرَّحْمَنِ عَبْدِ اللَّهِ بْنِ عُمَرَ بْنِ الخَطَّابِ رَضِيَ اللَّهُ عَنْهُ قَالَ: سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: «بُنِيَ الإِسْلَامُ عَلَى خَمْسٍ: شَهَادَةِ أَنْ لَا إلَهَ إلَّا اللَّهُ وَأَنَّ مُحَمَّدًا ‌عَبْدُهُ ‌وَرَسُولُهُ، وَإِقَامِ الصَّلَاةِ، وَإِيتَاءِ الزَّكَاةِ، وَحَجِّ الْبَيْتِ، وَصَوْمِ رَمَضَانَ».\n  Abu ‘Abdur-Rahmān ‘Abdullah ibn ‘Umar ibn al-Khattāb (may Allah be pleased with him) reported: I heard the Messenger of Allah (ﷺ) say: \"Islam is built on five: testifying that there is no god but Allah and that Muhammad is His slave and Messenger, establishing prayer, giving Zakah, performing Hajj to the (Sacred) House, and fasting Ramadān.\"\n  Grade: Authentic. Attribution: Narrated by Al-Bukhāri and Muslim]\n(Generated explanation) Islam is described as being built on five pillars [1]. These pillars are the foundation of the religion [1]. One of these pillars is establishing prayer [1].\n\nEstablishing prayer means observing the five obligatory prayers that are required each day and night [1]. These prayers are Fajr (morning), Zhuhr (noon), Asr (afternoon), Maghrib (sunset), and Isha (night) [1].\nSource [1]: Islam is built on five — #66512 — https://hadeethenc.com/en/browse/hadith/66512",
+   "answer": {
+    "language": "en",
+    "level": "A",
+    "referred": false,
+    "kind": "answer",
+    "opening": null,
+    "blocks": [
+     {
+      "type": "text",
+      "text": "Islam is built on five pillars, and establishing prayer is one of them [1]. This refers to the five obligatory prayers that are to be observed every day and night [1].",
+      "role": "answer"
+     },
+     {
+      "type": "hadith",
+      "n": 1,
+      "id": 66512,
+      "title": "Islam is built on five",
+      "arabic": "عَنْ أَبِي عَبْدِ الرَّحْمَنِ عَبْدِ اللَّهِ بْنِ عُمَرَ بْنِ الخَطَّابِ رَضِيَ اللَّهُ عَنْهُ قَالَ: سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: «بُنِيَ الإِسْلَامُ عَلَى خَمْسٍ: شَهَادَةِ أَنْ لَا إلَهَ إلَّا اللَّهُ وَأَنَّ مُحَمَّدًا ‌عَبْدُهُ ‌وَرَسُولُهُ، وَإِقَامِ الصَّلَاةِ، وَإِيتَاءِ الزَّكَاةِ، وَحَجِّ الْبَيْتِ، وَصَوْمِ رَمَضَانَ».",
+      "text": "Abu ‘Abdur-Rahmān ‘Abdullah ibn ‘Umar ibn al-Khattāb (may Allah be pleased with him) reported: I heard the Messenger of Allah (ﷺ) say: \"Islam is built on five: testifying that there is no god but Allah and that Muhammad is His slave and Messenger, establishing prayer, giving Zakah, performing Hajj to the (Sacred) House, and fasting Ramadān.\"",
+      "textLanguage": "en",
+      "grade": "Authentic",
+      "attribution": "Narrated by Al-Bukhāri and Muslim",
+      "explanation": null,
+      "url": "https://hadeethenc.com/en/browse/hadith/66512"
+     },
+     {
+      "type": "text",
+      "text": "Islam is described as being built on five pillars [1]. These pillars are the foundation of the religion [1]. One of these pillars is establishing prayer [1].\n\nEstablishing prayer means observing the five obligatory prayers that are required each day and night [1]. These prayers are Fajr (morning), Zhuhr (noon), Asr (afternoon), Maghrib (sunset), and Isha (night) [1].",
+      "role": "explanation"
+     }
+    ],
+    "sources": [
+     {
+      "n": 1,
+      "sourceId": "hadeethenc",
+      "title": "Islam is built on five",
+      "reference": "#66512",
+      "url": "https://hadeethenc.com/en/browse/hadith/66512",
+      "publisher": "hadeethenc.com"
+     }
+    ],
+    "followUp": null,
+    "encouragement": null,
+    "referral": null,
+    "laterLessonId": null,
+    "topicLessonIds": [],
+    "languageFallback": false
+   }
+  },
+  {
+   "id": "talk-mixed",
+   "set": "talk",
+   "language": "ar",
+   "question": "أنا متوتر قليلًا من أول رمضان لي. وما الذي يفسد الصيام؟",
+   "seconds": 9.7,
+   "usage": {
+    "calls": 8,
+    "promptTokens": 15338,
+    "completionTokens": 927,
+    "cost": 0.001901,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 6,
+     "BAAI/bge-m3": 2
+    }
+   },
+   "mcpCalls": 2,
+   "passed": false,
+   "outcome": "answered, level A, 2 sources",
+   "checks": {
+    "answers": {
+     "passed": true,
+     "graded": "rule",
+     "reason": ""
+    },
+    "hasSources": {
+     "passed": true,
+     "graded": "rule",
+     "reason": ""
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "It responds to the user's nervousness and explains what can invalidate the fast."
+    },
+    "expectedBehaviour": {
+     "verdict": "pass",
+     "reason": "It warmly addresses the feeling and gives a sourced religious answer with an explanation."
+    },
+    "explains": {
+     "verdict": "pass",
+     "reason": "The explanation describes intentional eating or drinking and what to do after forgetting."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The closing question is a generic prompt about the pillars of Islam rather than a personal next step."
+    },
+    "noClaimInTalk": {
+     "verdict": "pass",
+     "reason": "The everyday opening makes no religious claim."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not choose a winner between scholarly views."
+    },
+    "noConsensus": {
+     "verdict": "pass",
+     "reason": "It makes no claim about scholarly or Muslim consensus."
+    },
+    "glossaryForm": {
+     "verdict": "na",
+     "reason": "None of the listed terms is named."
+    },
+    "supported": {
+     "verdict": "fail",
+     "reason": "The religious explanation about what invalidates the fast is not fully supported by the cited source, which addresses forgetting."
+    }
+   },
+   "judgeUsage": {
+    "calls": 1,
+    "promptTokens": 1277,
+    "completionTokens": 335,
+    "cost": 0.000295,
+    "byModel": {
+     "openai/gpt-6-luna": 1
+    }
+   },
+   "shown": "كل شيء جديد يحتاج بعض الوقت لتعويد النفس عليه. أنت تبذل جهدًا جيدًا في هذه البداية.\n[Quoted hadith #4525 [1]: عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: «مَنْ نَسِيَ وَهُوَ صَائِمٌ، فَأَكَلَ أَوْ شَرِبَ، فَلْيُتِمَّ صَوْمَهُ، فَإِنَّمَا أَطْعَمَهُ اللهُ وَسَقَاهُ». Grade: صحيح. Attribution: متفق عليه]\n(Generated explanation) الصيام هو الامتناع عن الأكل والشرب والجماع من طلوع الفجر إلى غروب الشمس بنية العبادة [2]. إذا أكلت أو شربت وأنت صائم، فإن صيامك يفسد إذا فعلت ذلك عن قصد وعمد [1]. أما إذا نسيت وأكلت أو شربت، فعليك أن تكمل صيامك لأن الله أطعمك وسقاك [1].\nهل ترغب في معرفة المزيد عن أركان الإسلام؟\nSource [1]: من نسي وهو صائم، فأكل أو شرب، فليتم صومه، فإنما أطعمه الله وسقاه — #4525 — https://hadeethenc.com/ar/browse/hadith/4525\nSource [2]: New Muslim Guideline — Fourth Pillar: Fasting the month of Ramadan — Allah also says — https://byenah.com/en/muslim-content/4784",
+   "answer": {
+    "language": "ar",
+    "level": "A",
+    "referred": false,
+    "kind": "answer",
+    "opening": "يا {{name}}، كل شيء جديد يحتاج بعض الوقت لتعويد النفس عليه. أنت تبذل جهدًا جيدًا في هذه البداية.",
+    "blocks": [
+     {
+      "type": "hadith",
+      "n": 1,
+      "id": 4525,
+      "title": "من نسي وهو صائم، فأكل أو شرب، فليتم صومه، فإنما أطعمه الله وسقاه",
+      "arabic": "عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: «مَنْ نَسِيَ وَهُوَ صَائِمٌ، فَأَكَلَ أَوْ شَرِبَ، فَلْيُتِمَّ صَوْمَهُ، فَإِنَّمَا أَطْعَمَهُ اللهُ وَسَقَاهُ».",
+      "text": null,
+      "textLanguage": null,
+      "grade": "صحيح",
+      "attribution": "متفق عليه",
+      "explanation": null,
+      "url": "https://hadeethenc.com/ar/browse/hadith/4525"
+     },
+     {
+      "type": "text",
+      "text": "الصيام هو الامتناع عن الأكل والشرب والجماع من طلوع الفجر إلى غروب الشمس بنية العبادة [2].\n\nإذا أكلت أو شربت وأنت صائم، فإن صيامك يفسد إذا فعلت ذلك عن قصد وعمد [1]. أما إذا نسيت وأكلت أو شربت، فعليك أن تكمل صيامك لأن الله أطعمك وسقاك [1].",
+      "role": "explanation"
+     }
+    ],
+    "sources": [
+     {
+      "n": 1,
+      "sourceId": "hadeethenc",
+      "title": "من نسي وهو صائم، فأكل أو شرب، فليتم صومه، فإنما أطعمه الله وسقاه",
+      "reference": "#4525",
+      "url": "https://hadeethenc.com/ar/browse/hadith/4525",
+      "publisher": "hadeethenc.com"
+     },
+     {
+      "n": 2,
+      "sourceId": "byenah-new-muslim-guideline",
+      "title": "New Muslim Guideline",
+      "reference": "Fourth Pillar: Fasting the month of Ramadan — Allah also says",
+      "url": "https://byenah.com/en/muslim-content/4784",
+      "publisher": "byenah.com"
+     }
+    ],
+    "followUp": "هل ترغب في معرفة المزيد عن أركان الإسلام؟",
+    "encouragement": null,
+    "referral": null,
+    "laterLessonId": null,
+    "topicLessonIds": [],
+    "languageFallback": false
+   }
+  },
+  {
+   "id": "talk-mixed",
+   "set": "talk",
+   "language": "en",
+   "question": "I'm a bit nervous about my first Ramadan. Also, what breaks the fast?",
+   "seconds": 8.6,
+   "usage": {
+    "calls": 7,
+    "promptTokens": 10285,
+    "completionTokens": 650,
+    "cost": 0.001285,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 5,
+     "BAAI/bge-m3": 2
+    }
+   },
+   "mcpCalls": 2,
+   "passed": false,
+   "outcome": "answered, level A, 2 sources",
+   "checks": {
+    "answers": {
+     "passed": true,
+     "graded": "rule",
+     "reason": ""
+    },
+    "hasSources": {
+     "passed": true,
+     "graded": "rule",
+     "reason": ""
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "It acknowledges the user's nervousness and addresses what fasting involves and what happens if they forget to eat or drink."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It responds gently and gives a sourced explanation, but does not adequately answer what breaks the fast beyond defining fasting and addressing forgetfulness."
+    },
+    "explains": {
+     "verdict": "pass",
+     "reason": "The explanation puts the quoted hadith's guidance into its own words."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The reply is mostly template-like explanation and does not directly engage with the user's nervousness beyond a generic observation."
+    },
+    "noClaimInTalk": {
+     "verdict": "pass",
+     "reason": "The everyday opening makes no religious claim."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "The reply does not choose a winner between scholarly views."
+    },
+    "noConsensus": {
+     "verdict": "pass",
+     "reason": "The reply makes no claim of scholarly or Muslim consensus."
+    },
+    "glossaryForm": {
+     "verdict": "pass",
+     "reason": "It names Islam in the approved form and does not name another listed term."
+    },
+    "supported": {
+     "verdict": "pass",
+     "reason": "Every religious statement in Rafiq's own words carries a source number."
+    }
+   },
+   "judgeUsage": {
+    "calls": 1,
+    "promptTokens": 1381,
+    "completionTokens": 358,
+    "cost": 0.000317,
+    "byModel": {
+     "openai/gpt-6-luna": 1
+    }
+   },
+   "shown": "It is a new experience for you. You are taking it one step at a time.\n(Generated answer) Fasting is abstaining from eating, drinking, and sexual intercourse from dawn to sunset [1]. If you forget and eat or drink while fasting, you should complete your fast because Allah provided you with that food or drink [2].\n[Quoted hadith #4525 [2]: عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: «مَنْ نَسِيَ وَهُوَ صَائِمٌ، فَأَكَلَ أَوْ شَرِبَ، فَلْيُتِمَّ صَوْمَهُ، فَإِنَّمَا أَطْعَمَهُ اللهُ وَسَقَاهُ». Abu Hurayrah (may Allah be pleased with him) reported: The Messenger of Allah (may Allah's peace and blessings be upon him) said: \"Whoever forgets while fasting and eats or drinks, let him complete his fast, for it is Allah Who fed him and gave him drink.\" Grade: Authentic. Attribution: Agreed upon]\n(Generated explanation) Fasting during Ramadan is one of the pillars of Islam [1]. It means worshiping Allah by not eating, drinking, or having sexual relations from dawn until sunset each day of the month [1]. If you are fasting and forget that you are fasting, and you eat or drink something, you should continue your fast [2]. The Prophet Muhammad (peace be upon him) said that Allah is the one who fed you and gave you drink in that instance [2]. This means your fast is still valid [2].\nSource [1]: New Muslim Guideline — Fourth Pillar: Fasting the month of Ramadan — Allah also says — https://byenah.com/en/muslim-content/4784\nSource [2]: Whoever forgets while fasting and eats or drinks, let him complete his fast, for it is Allah Who fed him and gave him drink — #4525 — https://hadeethenc.com/en/browse/hadith/4525",
+   "answer": {
+    "language": "en",
+    "level": "A",
+    "referred": false,
+    "kind": "answer",
+    "opening": "It is a new experience for you. You are taking it one step at a time, {{name}}.",
+    "blocks": [
+     {
+      "type": "text",
+      "text": "Fasting is abstaining from eating, drinking, and sexual intercourse from dawn to sunset [1]. If you forget and eat or drink while fasting, you should complete your fast because Allah provided you with that food or drink [2].",
+      "role": "answer"
+     },
+     {
+      "type": "hadith",
+      "n": 2,
+      "id": 4525,
+      "title": "Whoever forgets while fasting and eats or drinks, let him complete his fast, for it is Allah Who fed him and gave him drink",
+      "arabic": "عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: «مَنْ نَسِيَ وَهُوَ صَائِمٌ، فَأَكَلَ أَوْ شَرِبَ، فَلْيُتِمَّ صَوْمَهُ، فَإِنَّمَا أَطْعَمَهُ اللهُ وَسَقَاهُ».",
+      "text": "Abu Hurayrah (may Allah be pleased with him) reported: The Messenger of Allah (may Allah's peace and blessings be upon him) said: \"Whoever forgets while fasting and eats or drinks, let him complete his fast, for it is Allah Who fed him and gave him drink.\"",
+      "textLanguage": "en",
+      "grade": "Authentic",
+      "attribution": "Agreed upon",
+      "explanation": null,
+      "url": "https://hadeethenc.com/en/browse/hadith/4525"
+     },
+     {
+      "type": "text",
+      "text": "Fasting during Ramadan is one of the pillars of Islam [1]. It means worshiping Allah by not eating, drinking, or having sexual relations from dawn until sunset each day of the month [1].\n\nIf you are fasting and forget that you are fasting, and you eat or drink something, you should continue your fast [2]. The Prophet Muhammad (peace be upon him) said that Allah is the one who fed you and gave you drink in that instance [2]. This means your fast is still valid [2].",
+      "role": "explanation"
+     }
+    ],
+    "sources": [
+     {
+      "n": 1,
+      "sourceId": "byenah-new-muslim-guideline",
+      "title": "New Muslim Guideline",
+      "reference": "Fourth Pillar: Fasting the month of Ramadan — Allah also says",
+      "url": "https://byenah.com/en/muslim-content/4784",
+      "publisher": "byenah.com"
+     },
+     {
+      "n": 2,
+      "sourceId": "hadeethenc",
+      "title": "Whoever forgets while fasting and eats or drinks, let him complete his fast, for it is Allah Who fed him and gave him drink",
+      "reference": "#4525",
+      "url": "https://hadeethenc.com/en/browse/hadith/4525",
+      "publisher": "hadeethenc.com"
+     }
+    ],
+    "followUp": null,
+    "encouragement": null,
+    "referral": null,
+    "laterLessonId": null,
+    "topicLessonIds": [],
+    "languageFallback": false
+   }
+  }
+ ]
+}

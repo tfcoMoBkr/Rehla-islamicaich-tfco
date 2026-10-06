@@ -524,6 +524,7 @@
     "aboutSource": "About this source",
     "laterTitle": "This comes later on your road",
     "laterBody": "It is covered in the lesson “<lesson></lesson>”.",
+    "topicTitle": "My sources here do not state this. Your lessons cover it:",
     "smalltalk": "Rafiq is with you on the road. Ask him about a lesson, a word you came across, or how to do an act of worship.",
     "retry": "Try again",
     "errors": {

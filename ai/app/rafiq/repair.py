@@ -28,6 +28,7 @@ REMOVED_WITH_SENTENCE = {
     "wrongLanguage",
     "tarjih",
     "consensus",
+    "attribution",
 }
 
 

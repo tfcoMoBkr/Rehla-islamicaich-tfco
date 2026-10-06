@@ -337,5 +337,8 @@ class RafiqAnswer(Camel):
     referral: Referral | None = None
     # The lesson ahead on the learner's road that covers this question.
     later_lesson_id: str | None = None
+    # On a card for want of a source: the lessons that cover the topic, where the learner
+    # can read it.
+    topic_lesson_ids: list[str] = Field(default_factory=list)
     # The question was in a language Rafiq does not answer in; this answer is in `language`.
     language_fallback: bool = False

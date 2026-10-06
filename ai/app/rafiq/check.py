@@ -43,6 +43,7 @@ ProblemKind = Literal[
     "consensus",
     "offTopic",
     "unexplained",
+    "attribution",
 ]
 
 MIN_CITED_WORDS = 4
@@ -83,6 +84,16 @@ DIFFERENCE = re.compile(
     flags=re.IGNORECASE,
 )
 AGREEMENT_IN_SOURCE = re.compile(r"أجمع|إجماع|اتفق|اتفاق|consensus|agree|unanim", re.IGNORECASE)
+# Words attributed to the Prophet ﷺ or to the Quran: only where the answer shows the matched
+# verse or hadith block itself.
+ATTRIBUTION = re.compile(
+    r"\b(?:the\s+)?(?:prophet|messenger)\b[^.]{0,40}\b(?:said|says|stated|states)\b"
+    r"|\b(?:a|is\s+a|is\s+the)\s+(?:saying|hadith)\s+of\s+the\s+(?:prophet|messenger)"
+    r"|\bis\s+a\s+hadith\b|\b(?:allah|the\s+quran)\s+says\b|\bis\s+a\s+verse\b"
+    r"|قال\s+(?:النبي|رسول\s+الله|الرسول)|حديث\s+(?:نبوي|عن\s+النبي)|قال\s+(?:الله|تعالى)"
+    r"|يقول\s+(?:الله|تعالى)|من\s+كلام\s+النبي",
+    re.IGNORECASE,
+)
 DIFFERENCE_IN_SOURCE = re.compile(r"اختلف|اختلاف|خلاف|differ|disagree", re.IGNORECASE)
 
 
@@ -182,6 +193,16 @@ def code_problems(
             problems.extend(
                 _sentence_problems(units, u, s, sentence, passages, numbers, book_runs, language)
             )
+            if not blocks and ATTRIBUTION.search(sentence):
+                problems.append(
+                    Problem(
+                        "attribution",
+                        "This sentence attributes words to the Prophet or the Quran, but no "
+                        f"matched verse or hadith is shown: «{sentence[:120]}»",
+                        unit=u,
+                        sentence=s,
+                    )
+                )
     return problems
 
 

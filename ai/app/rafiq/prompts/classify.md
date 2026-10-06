@@ -52,7 +52,7 @@ level, for the religious part:
 
 questionType: what shape of answer the religious part wants: definition (what a word or concept means), howTo (how to do something), evidence (a proof, a virtue or a reward, or what a verse or hadith says), list (parts, kinds, conditions or causes), comparison (how two things differ or relate), other.
 
-personalCase: the asker describes their own circumstances and wants to know what applies to them.
+personalCase: the asker describes their own circumstances and wants to know what applies to them. A feeling (nervous, worried, happy) together with a general question is not a personal case: the question is about Islam in general, and the feeling is the everyday part.
 worshipWorry: the learner worries whether their own worship counts while they cannot yet do it fully (for example they cannot read Al-Fatihah yet).
 outsideKingdom: the learner says they live in a country other than Saudi Arabia.
 hostileTone: insulting, mocking or accusing wording (the message may still be sincere).

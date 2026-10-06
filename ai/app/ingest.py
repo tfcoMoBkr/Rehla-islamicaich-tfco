@@ -36,6 +36,9 @@ BOOK_SOURCES = {
     "1261": "ih-salat-nabi",
     "dawa-7937": "dawa-bayyinat",
 }
+# Books whose text comes from a PDF text layer that extracts lines or letters out of order: they
+# are searched and cited, but never quoted to the reader as a verbatim block.
+FROM_PDF = {"dawa-7937", "islamhouse-2831443", "1261", "2842316"}
 # The parts of a question-and-answer book's question that are indexed.
 QUESTION_PARTS = ("question", "summary")
 # A verse in a private-use glyph font, with the brackets around it.
@@ -200,6 +203,7 @@ def question_chunk(book: Json, section: Json, lessons: list[str]) -> Chunk:
             "anchor": section["anchor"],
             "heading": heading,
             "question": True,
+            "verbatim": book["id"] not in FROM_PDF,
         },
     )
 
@@ -243,7 +247,12 @@ def book_chunks(sources: Sources) -> list[Chunk]:
                         lesson_ids=lessons,
                         text=text,
                         hash=digest(book_context(heading, text)),
-                        extra={"book": book["id"], "anchor": section["anchor"], "heading": heading},
+                        extra={
+                            "book": book["id"],
+                            "anchor": section["anchor"],
+                            "heading": heading,
+                            "verbatim": book["id"] not in FROM_PDF,
+                        },
                     )
                 )
     return chunks

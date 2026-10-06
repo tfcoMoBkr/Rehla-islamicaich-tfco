@@ -13,6 +13,8 @@ from app.rafiq.graph import (
     Rafiq,
     _arabic_or_english,
     _by_question_form,
+    _checked,
+    _passages_text,
     _plain_first,
     _with_book_passage,
     _without_wording,
@@ -67,15 +69,19 @@ def test_a_personal_case_reply_is_one_plain_sentence_one_source_and_the_fixed_li
         Unit("block", block=("hadith", "7")),
         *parse("This means your marriage is invalid [1]."),
     ]
-    shaped = guarded(units, [hadith(1, 7, "نص", "text")])
+    shaped = guarded(units, [hadith(1, 7, "نص", "text")], "en")
     assert [(u.kind, u.sentences, u.block) for u in shaped] == [
         ("paragraph", ["Marriage has conditions set out in the sources [1]."], None),
         ("block", [], ("hadith", "7")),
         ("block", [], NOTE),
     ]
     ruling_first = [*parse("Your marriage is invalid [1]."), *parse("More [1].")]
-    shaped = guarded(ruling_first, [book(1, "A passage about marriage.")])
+    shaped = guarded(ruling_first, [book(1, "A passage about marriage.")], "en")
     assert [u.block for u in shaped] == [("book", "1"), NOTE]
+    # A passage extracted from a PDF out of order, or in another language, is never quoted.
+    scrambled = book(1, "Out of order.").model_copy(update={"quotable": False})
+    assert [u.block for u in guarded(ruling_first, [scrambled], "en")] == []
+    assert [u.block for u in guarded(ruling_first, [book(1, "نص", lang="ar")], "en")] == []
     assert without_rulings({"opening": "This is hard.", "talk": "It is haram for you."}) == {
         "opening": "This is hard."
     }
@@ -153,9 +159,13 @@ def test_a_cited_question_and_answer_passage_is_shown_once_after_the_answer() ->
         unit.role = "explanation"
     shown = _with_book_passage(units, [book(1, "Other."), qa], "en")
     assert [u.block for u in shown] == [None, ("book", "2"), None]
-    arabic = book(3, "نص الكتاب", lang="ar")
-    other = _with_book_passage(parse("The answer [3]."), [arabic], "en")
-    assert [u.block for u in other] == [None, ("book", "3")]
+    # Never in another language than the answer, never a passage that cannot be quoted as it is.
+    arabic = book(3, "نص الكتاب", lang="ar").model_copy(update={"answers_a_question": True})
+    assert [u.block for u in _with_book_passage(parse("The answer [3]."), [arabic], "en")] == [None]
+    scrambled = qa.model_copy(update={"quotable": False})
+    assert [u.block for u in _with_book_passage(parse("The answer [2]."), [scrambled], "en")] == [
+        None
+    ]
     assert _with_book_passage(parse("The answer [1]."), [book(1, "Plain.")], "en")[-1].block is None
 
 
@@ -283,3 +293,55 @@ def test_everyday_talk_returns_a_greeting_but_carries_no_other_formula(
     line: str, kept: str
 ) -> None:
     assert without_formulas(line) == kept
+
+
+# Stabilising: attribution, quoted texts, evidence requests, the card with no answer.
+
+
+@pytest.mark.parametrize(
+    "sentence",
+    [
+        "It is a saying of the Prophet Muhammad [1].",
+        "The Prophet (pbuh) said that cleanliness is part of faith [1].",
+        "قال رسول الله إن النظافة من الإيمان [1].",
+    ],
+)
+def test_words_are_attributed_to_the_prophet_or_the_quran_only_beside_a_matched_block(
+    sentence: str,
+) -> None:
+    passages = [book(1, "A passage."), hadith(2, 7, "نص", "text")]
+    assert "attribution" in [p.kind for p in code_problems(parse(sentence), passages)]
+    with_block = [*parse(sentence), Unit("block", block=("hadith", "7"))]
+    assert "attribution" not in [p.kind for p in code_problems(with_block, passages)]
+
+
+async def test_asked_whether_a_text_is_a_verse_with_nothing_to_look_up_it_is_not_found() -> None:
+    chat = FakeChat(classified(asksIfQuoted=True, level="A"), [Draft(answer="x [1].")])
+    answer = await Rafiq(chat, Retriever(index(WUDU, VERSE), FakeEmbedder(), DownMcp())).run(
+        "Is this a verse of the Quran?", "en"
+    )
+    assert answer.referral is not None
+    assert answer.referral.reason in ("verseNotFound", "hadithNotFound")
+
+
+def test_asking_why_is_not_asking_for_evidence() -> None:
+    why = _by_question_form(classified(asksForEvidence=True), "Why does Islam forbid pork?")
+    assert not why.asks_for_evidence
+    proof = _by_question_form(classified(asksForEvidence=True), "Give me a hadith proving it.")
+    assert proof.asks_for_evidence
+
+
+async def test_a_card_for_want_of_a_source_names_the_lessons_that_cover_the_topic() -> None:
+    prayer = WUDU.model_copy(update={"lesson_ids": ["3.3", "3.4"]})
+    chat = FakeChat(classified(), [Draft(relevant=[], answer="")])
+    answer = await Rafiq(chat, Retriever(index(prayer, VERSE), FakeEmbedder(), DownMcp())).run(
+        "How do I perform wudu?", "en"
+    )
+    assert answer.referral is not None
+    assert answer.referral.reason == "noSource"
+    assert answer.topic_lesson_ids == ["3.3", "3.4"]
+
+
+def test_the_support_check_reads_as_much_of_a_passage_as_the_writer() -> None:
+    long = book(1, "word " * 1000)
+    assert len(_checked(long)) >= len(_passages_text([long]).split("\n", 1)[1]) - 1
