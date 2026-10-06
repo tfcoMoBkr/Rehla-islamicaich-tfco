@@ -4,36 +4,66 @@
     "bn.clarify",
     "bn.followUp",
     "bn.opening",
+    "bn.referral.dailyCap.body",
+    "bn.referral.dailyCap.title",
     "bn.referral.danger",
     "bn.referral.disputed.body",
     "bn.referral.disputed.title",
     "bn.referral.distress",
+    "bn.referral.hadithNotFound.body",
+    "bn.referral.hadithNotFound.title",
     "bn.referral.noSource.body",
     "bn.referral.personalCase.body",
     "bn.referral.personalCase.title",
+    "bn.referral.timeout.body",
+    "bn.referral.timeout.title",
+    "bn.referral.unexplained.body",
+    "bn.referral.unexplained.title",
     "bn.referral.verification.body",
+    "bn.referral.verseNotFound.body",
+    "bn.referral.verseNotFound.title",
     "fr.clarify",
     "fr.followUp",
     "fr.opening",
+    "fr.referral.dailyCap.body",
+    "fr.referral.dailyCap.title",
     "fr.referral.danger",
     "fr.referral.disputed.body",
     "fr.referral.disputed.title",
     "fr.referral.distress",
+    "fr.referral.hadithNotFound.body",
+    "fr.referral.hadithNotFound.title",
     "fr.referral.noSource.body",
     "fr.referral.personalCase.body",
     "fr.referral.personalCase.title",
+    "fr.referral.timeout.body",
+    "fr.referral.timeout.title",
+    "fr.referral.unexplained.body",
+    "fr.referral.unexplained.title",
     "fr.referral.verification.body",
+    "fr.referral.verseNotFound.body",
+    "fr.referral.verseNotFound.title",
     "ur.clarify",
     "ur.followUp",
     "ur.opening",
+    "ur.referral.dailyCap.body",
+    "ur.referral.dailyCap.title",
     "ur.referral.danger",
     "ur.referral.disputed.body",
     "ur.referral.disputed.title",
     "ur.referral.distress",
+    "ur.referral.hadithNotFound.body",
+    "ur.referral.hadithNotFound.title",
     "ur.referral.noSource.body",
     "ur.referral.personalCase.body",
     "ur.referral.personalCase.title",
-    "ur.referral.verification.body"
+    "ur.referral.timeout.body",
+    "ur.referral.timeout.title",
+    "ur.referral.unexplained.body",
+    "ur.referral.unexplained.title",
+    "ur.referral.verification.body",
+    "ur.referral.verseNotFound.body",
+    "ur.referral.verseNotFound.title"
   ],
   "ur": {
     "disclosure": "رفیق مصنوعی ذہانت کا ایک آلہ ہے، عالم نہیں۔ اس کی باتوں کو اس کے ماخذ سے ملا کر دیکھیں۔",
@@ -74,6 +104,26 @@
       "danger": {
         "title": "ابھی مدد حاصل کریں",
         "body": "اگر آپ یا کوئی اور خطرے میں ہے تو ابھی اپنے ملک کی ہنگامی خدمات سے یا کسی قابلِ اعتماد شخص سے رابطہ کریں۔ آپ ان ماہرین سے بھی رابطہ کر سکتے ہیں۔"
+      },
+      "unexplained": {
+        "title": "رفیق ماخذ دکھا سکتا ہے، مگر اس کی قابلِ اعتماد وضاحت نہیں کر سکتا",
+        "body": "یہ وہ عبارتیں ہیں جو آپ کے سوال کا جواب دیتی ہیں، بالکل ویسے ہی جیسے شائع ہوئیں۔ رفیق ان کی کوئی ایسی وضاحت نہیں لکھ سکا جو اس کی جانچ میں پوری اترے، اس لیے وہ اندازہ نہیں لگائے گا۔ کوئی ماہر آپ کو ان کی وضاحت کر سکتا ہے۔"
+      },
+      "verseNotFound": {
+        "title": "یہ آیت کے طور پر نہیں ملی",
+        "body": "یہ الفاظ منظور شدہ ماخذوں میں قرآن کی آیت کے طور پر نہیں ملے۔ رفیق ان پر کچھ نہیں بنائے گا۔ کوئی ماہر آپ کو مزید بتا سکتا ہے۔"
+      },
+      "hadithNotFound": {
+        "title": "یہ حدیث کے طور پر نہیں ملی",
+        "body": "یہ الفاظ منظور شدہ ماخذوں میں حدیث کے طور پر نہیں ملے۔ رفیق ان پر کچھ نہیں بنائے گا۔ کوئی ماہر آپ کو مزید بتا سکتا ہے۔"
+      },
+      "timeout": {
+        "title": "رفیق وقت پر اپنے جواب کی تصدیق نہیں کر سکا",
+        "body": "ماخذ تلاش کرنے اور جانچنے میں بہت وقت لگا، اس لیے رفیق غیر تصدیق شدہ جواب نہیں دکھائے گا۔ تھوڑی دیر بعد دوبارہ پوچھیں، یا کسی ماہر سے پوچھیں۔"
+      },
+      "dailyCap": {
+        "title": "رفیق آج جتنے سوالوں کے جواب دے سکتا تھا، دے چکا ہے",
+        "body": "سب کے لیے یہ سہولت جاری رکھنے کے لیے رفیق ہر دن محدود تعداد میں سوالوں کے جواب دیتا ہے۔ براہ کرم کل دوبارہ پوچھیں۔ اسباق اور آپ کی ڈائری پہلے کی طرح کھلی ہیں۔"
       }
     },
     "opening": "آپ کے سوال کا شکریہ۔",
@@ -119,6 +169,26 @@
       "danger": {
         "title": "এখনই সাহায্য নিন",
         "body": "আপনি বা অন্য কেউ বিপদে থাকলে এখনই আপনার দেশের জরুরি সেবা বা বিশ্বস্ত কারও সঙ্গে যোগাযোগ করুন। এই বিশেষজ্ঞদের সঙ্গেও যোগাযোগ করতে পারেন।"
+      },
+      "unexplained": {
+        "title": "রফিক উৎস দেখাতে পারে, কিন্তু নির্ভরযোগ্যভাবে ব্যাখ্যা করতে পারে না",
+        "body": "এগুলো সেই অংশ যা আপনার প্রশ্নের উত্তর দেয়, ঠিক যেভাবে প্রকাশিত হয়েছে। রফিক এগুলোর এমন কোনো ব্যাখ্যা লিখতে পারেনি যা তার যাচাইয়ে টেকে, তাই সে অনুমান করবে না। একজন বিশেষজ্ঞ আপনাকে এগুলো ব্যাখ্যা করতে পারেন।"
+      },
+      "verseNotFound": {
+        "title": "আয়াত হিসেবে পাওয়া যায়নি",
+        "body": "এই কথাগুলো অনুমোদিত উৎসে কুরআনের আয়াত হিসেবে পাওয়া যায়নি। রফিক এগুলোর উপর কিছু দাঁড় করাবে না। একজন বিশেষজ্ঞ আপনাকে আরও বলতে পারেন।"
+      },
+      "hadithNotFound": {
+        "title": "হাদিস হিসেবে পাওয়া যায়নি",
+        "body": "এই কথাগুলো অনুমোদিত উৎসে হাদিস হিসেবে পাওয়া যায়নি। রফিক এগুলোর উপর কিছু দাঁড় করাবে না। একজন বিশেষজ্ঞ আপনাকে আরও বলতে পারেন।"
+      },
+      "timeout": {
+        "title": "রফিক সময়মতো তার উত্তর যাচাই করতে পারেনি",
+        "body": "উৎস খোঁজা ও যাচাই করতে অনেক সময় লেগেছে, তাই রফিক যাচাই না করা উত্তর দেখাবে না। একটু পরে আবার জিজ্ঞাসা করুন, অথবা একজন বিশেষজ্ঞকে জিজ্ঞাসা করুন।"
+      },
+      "dailyCap": {
+        "title": "রফীক আজ যত প্রশ্নের উত্তর দিতে পারে, সবগুলো দিয়ে ফেলেছে",
+        "body": "সবার জন্য সেবাটি চালু রাখতে রফীক প্রতিদিন সীমিত সংখ্যক প্রশ্নের উত্তর দেয়। অনুগ্রহ করে আগামীকাল আবার জিজ্ঞাসা করুন। পাঠগুলো আর আপনার ডায়েরি আগের মতোই খোলা আছে।"
       }
     },
     "opening": "আপনার প্রশ্নের জন্য ধন্যবাদ।",
@@ -164,6 +234,26 @@
       "danger": {
         "title": "Demandez de l'aide maintenant",
         "body": "Si vous ou quelqu'un d'autre êtes en danger, contactez maintenant les services d'urgence de votre pays, ou une personne de confiance. Vous pouvez aussi joindre ces spécialistes."
+      },
+      "unexplained": {
+        "title": "Rafiq peut montrer la source, mais pas l'expliquer de façon fiable",
+        "body": "Voici les passages qui répondent à votre question, tels qu'ils sont publiés. Rafiq n'a pas pu en écrire une explication qui passe ses vérifications ; il ne fera donc pas de supposition. Un spécialiste peut vous les expliquer."
+      },
+      "verseNotFound": {
+        "title": "Introuvable comme verset",
+        "body": "Ces mots n'ont pas été trouvés comme verset du Coran dans les sources approuvées. Rafiq ne construira rien dessus. Un spécialiste peut vous en dire plus."
+      },
+      "hadithNotFound": {
+        "title": "Introuvable comme hadith",
+        "body": "Ces mots n'ont pas été trouvés comme hadith dans les sources approuvées. Rafiq ne construira rien dessus. Un spécialiste peut vous en dire plus."
+      },
+      "timeout": {
+        "title": "Rafiq n'a pas pu vérifier sa réponse à temps",
+        "body": "La recherche et la vérification des sources ont pris trop de temps ; Rafiq n'affichera donc pas de réponse non vérifiée. Reposez la question dans un instant, ou demandez à un spécialiste."
+      },
+      "dailyCap": {
+        "title": "Rafiq a répondu à toutes les questions qu’il pouvait aujourd’hui",
+        "body": "Pour que le service reste ouvert à tous, Rafiq répond chaque jour à un nombre limité de questions. Merci de poser la vôtre demain. Les leçons et votre carnet restent ouverts comme d’habitude."
       }
     },
     "opening": "Merci pour votre question.",

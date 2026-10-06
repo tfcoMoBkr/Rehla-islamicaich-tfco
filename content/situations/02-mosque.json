@@ -29,13 +29,7 @@
         "en": "'Allahumma inni as’aluka min fadlik' (O Allah, I ask You of Your bounty)"
       }
     ],
-    "why": [
-      {
-        "ref": "b-mosque",
-        "ar": "والآداب الشرعية عند دخول المسجد، أو المنزل والخروج منهما",
-        "en": "observing the Islamic etiquettes when entering or leaving the mosque or home"
-      }
-    ],
+    "why": [],
     "when": [
       {
         "ref": "h65092",
@@ -272,25 +266,6 @@
         "en"
       ],
       "publisher": "hadeethenc.com"
-    },
-    {
-      "id": "b-mosque",
-      "type": "book",
-      "source": "ibnbaz-lessons",
-      "textRef": {
-        "ar": {
-          "book": "1871",
-          "section": "t20",
-          "paragraph": 1,
-          "excerpt": "والآداب الشرعية عند دخول المسجد، أو المنزل والخروج منهما"
-        },
-        "en": {
-          "book": "2842316",
-          "section": "s19",
-          "paragraph": 1,
-          "excerpt": "observing the Islamic etiquettes when entering or leaving the mosque or home"
-        }
-      }
     }
   ]
 }

@@ -1,0 +1,162 @@
+[
+ {
+  "station": "1",
+  "title": {
+   "ar": "البداية",
+   "en": "The Beginning"
+  },
+  "lessons": [
+   {
+    "id": "1.1",
+    "title": {
+     "ar": "أعظم نعمة في الوجود",
+     "en": "The greatest blessing"
+    }
+   },
+   {
+    "id": "1.2",
+    "title": {
+     "ar": "شهادة أن لا إله إلا الله",
+     "en": "The testimony: no deity but Allah"
+    }
+   },
+   {
+    "id": "1.3",
+    "title": {
+     "ar": "شهادة أن محمدًا رسول الله",
+     "en": "The testimony: Muhammad is the Messenger of Allah"
+    }
+   },
+   {
+    "id": "1.4",
+    "title": {
+     "ar": "أركان الإسلام الخمسة",
+     "en": "The five pillars of Islam"
+    }
+   },
+   {
+    "id": "1.5",
+    "title": {
+     "ar": "أركان الإيمان الستة",
+     "en": "The six pillars of faith"
+    }
+   },
+   {
+    "id": "1.6",
+    "title": {
+     "ar": "حياتك الجديدة",
+     "en": "Your new life"
+    }
+   }
+  ]
+ },
+ {
+  "station": "2",
+  "title": {
+   "ar": "الطهارة",
+   "en": "Purification"
+  },
+  "lessons": [
+   {
+    "id": "2.1",
+    "title": {
+     "ar": "معنى الطهارة",
+     "en": "The meaning of purification"
+    }
+   },
+   {
+    "id": "2.2",
+    "title": {
+     "ar": "التطهر من النجاسة وآداب قضاء الحاجة",
+     "en": "Removing impurity and toilet etiquette"
+    }
+   },
+   {
+    "id": "2.3",
+    "title": {
+     "ar": "الحدث ونواقض الوضوء",
+     "en": "Ritual impurity and what breaks wudu"
+    }
+   },
+   {
+    "id": "2.4",
+    "title": {
+     "ar": "كيف أتوضأ؟",
+     "en": "How do I perform wudu?"
+    }
+   },
+   {
+    "id": "2.5",
+    "title": {
+     "ar": "الغسل والتيمم",
+     "en": "Ghusl and tayammum"
+    }
+   }
+  ]
+ },
+ {
+  "station": "3",
+  "title": {
+   "ar": "الصلاة",
+   "en": "Prayer"
+  },
+  "lessons": [
+   {
+    "id": "3.1",
+    "title": {
+     "ar": "منزلة الصلاة وفضلها",
+     "en": "The status and virtues of prayer"
+    }
+   },
+   {
+    "id": "3.2",
+    "title": {
+     "ar": "شروط الصلاة ومكانها",
+     "en": "Conditions and place of prayer"
+    }
+   },
+   {
+    "id": "3.3",
+    "title": {
+     "ar": "الصلوات الخمس وأوقاتها",
+     "en": "The five prayers and their times"
+    }
+   },
+   {
+    "id": "3.4",
+    "title": {
+     "ar": "كيف أصلي؟",
+     "en": "How do I pray?"
+    }
+   },
+   {
+    "id": "3.5",
+    "title": {
+     "ar": "معنى سورة الفاتحة",
+     "en": "The meaning of Al-Fatihah"
+    }
+   },
+   {
+    "id": "3.6",
+    "title": {
+     "ar": "أركان الصلاة وواجباتها ومبطلاتها",
+     "en": "Pillars, obligations and invalidators of prayer"
+    }
+   },
+   {
+    "id": "3.7",
+    "title": {
+     "ar": "صلاة الجماعة",
+     "en": "Congregational prayer"
+    }
+   },
+   {
+    "id": "3.8",
+    "title": {
+     "ar": "صلاة الجمعة",
+     "en": "The Friday prayer"
+    }
+   }
+  ]
+ }
+]

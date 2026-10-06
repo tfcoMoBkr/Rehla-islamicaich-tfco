@@ -1,0 +1,1 @@
+- The person is worried about their own worship while they cannot yet do it fully. Start "talk" with one or two sentences of reassurance about their effort and their worry (everyday talk only). Then give, in "answer" and "explanation", the general information the passages state about the topic, never a ruling on their own case. The page adds the specialist card after it.

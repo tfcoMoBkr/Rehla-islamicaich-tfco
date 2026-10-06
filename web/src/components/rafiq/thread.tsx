@@ -99,11 +99,13 @@ export function ExchangeView({
   lessons,
   replyRef,
   onRetry,
+  onFollowUp,
 }: {
   exchange: Exchange;
   lessons: Readonly<Record<string, LessonLink>>;
   replyRef: (element: HTMLElement | null) => void;
   onRetry: () => void;
+  onFollowUp?: (question: string) => void;
 }) {
   return (
     <>
@@ -113,7 +115,14 @@ export function ExchangeView({
         </li>
       )}
       <YouSaid>{exchange.question}</YouSaid>
-      <RafiqReply id={`rafiq-${exchange.id}`} result={exchange.result} lessons={lessons} replyRef={replyRef} onRetry={onRetry} />
+      <RafiqReply
+        id={`rafiq-${exchange.id}`}
+        result={exchange.result}
+        lessons={lessons}
+        replyRef={replyRef}
+        onRetry={onRetry}
+        onFollowUp={onFollowUp}
+      />
     </>
   );
 }
@@ -125,12 +134,15 @@ export function RafiqReply({
   lessons,
   replyRef,
   onRetry,
+  onFollowUp,
 }: {
   id: string;
   result: RafiqResult | null;
   lessons?: Readonly<Record<string, LessonLink>>;
   replyRef?: (element: HTMLElement | null) => void;
   onRetry: () => void;
+  /** The quick actions under an answer ask this as the learner's next turn. */
+  onFollowUp?: (question: string) => void;
 }) {
   const t = useTranslations("Rafiq");
   return (
@@ -138,7 +150,7 @@ export function RafiqReply({
       {!result ? (
         <p className="font-medium text-muted-foreground">{t("thinking")}</p>
       ) : result.kind === "answer" ? (
-        <AnswerView answer={result.answer} id={id} lessons={lessons} />
+        <AnswerView answer={result.answer} id={id} lessons={lessons} onFollowUp={onFollowUp} />
       ) : (
         <div className="grid gap-3">
           <p className="leading-relaxed">{t(`errors.${result.kind}`)}</p>

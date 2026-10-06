@@ -34,13 +34,7 @@
         "en": "'yahdīkum Allah wa yuslih bālakum!' (may Allah guide you and grant you well being)"
       }
     ],
-    "why": [
-      {
-        "ref": "h3706",
-        "ar": "وَتَشْمِيتُ الْعَاطِسِ",
-        "en": "saying tashmīt (yarhamuk Allah) (may Allah show mercy to you) to the person who sneezes"
-      }
-    ],
+    "why": [],
     "when": [
       {
         "ref": "b-sneezing",
@@ -298,17 +292,6 @@
       "type": "hadith",
       "hadeethencId": 3433,
       "citation": "رواه البخاري",
-      "availableIn": [
-        "ar",
-        "en"
-      ],
-      "publisher": "hadeethenc.com"
-    },
-    {
-      "id": "h3706",
-      "type": "hadith",
-      "hadeethencId": 3706,
-      "citation": "متفق عليه",
       "availableIn": [
         "ar",
         "en"

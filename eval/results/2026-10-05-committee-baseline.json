@@ -1,0 +1,1462 @@
+{
+ "ranOn": "2026-10-05 23:53 UTC",
+ "how": "in-process, through load_rafiq (the code the service's /ask runs)",
+ "models": {
+  "llm_model": "google/gemini-2.5-flash-lite",
+  "llm_fallback_model": "google/gemma-4-31b-it",
+  "embedding_model": "baai/bge-m3",
+  "vlm_model": "google/gemini-2.5-flash-lite",
+  "judge": "openai/gpt-6-luna"
+ },
+ "prices": {
+  "google/gemma-4-31b-it": {
+   "prompt": 9e-08,
+   "completion": 3.4e-07
+  },
+  "openai/gpt-6-luna": {
+   "prompt": 1e-07,
+   "completion": 5e-07
+  },
+  "baai/bge-m3": {
+   "prompt": 1e-08,
+   "completion": 0.0
+  },
+  "google/gemini-2.5-flash-lite": {
+   "prompt": 1e-07,
+   "completion": 4e-07
+  }
+ },
+ "summary": {
+  "items": 23,
+  "passed": 0,
+  "bySet": {
+   "official": {
+    "passed": 0,
+    "total": 23
+   }
+  },
+  "criterionFailures": {
+   "onTopic": 1,
+   "expectedBehaviour": 21,
+   "explains": 18,
+   "companion": 23,
+   "noClaimInTalk": 0,
+   "noTarjih": 2,
+   "noConsensus": 10,
+   "glossaryForm": 8,
+   "supported": 22
+  },
+  "medianSeconds": 2.2,
+  "rafiqCost": 0.004529,
+  "rafiqTokens": {
+   "prompt": 711,
+   "completion": 11153
+  }
+ },
+ "judgeCost": 0.006703,
+ "items": [
+  {
+   "id": "official-01",
+   "language": "ar",
+   "question": "لماذا يعبد المسلمون الكعبة؟",
+   "seconds": 2.1,
+   "usage": {
+    "calls": 1,
+    "promptTokens": 28,
+    "completionTokens": 319,
+    "cost": 0.00013,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 1
+    }
+   },
+   "reply": "المسلمون لا يعبدون الكعبة، بل يعبدون الله وحده لا شريك له. الكعبة هي قبلة المسلمين في صلاتهم، أي أنها الاتجاه الذي يتوجهون إليه عند أداء الصلاة.\n\n**أهمية الكعبة في الإسلام:**\n\n*   **بيت الله الحرام:** تسمى الكعبة \"بيت الله الحرام\" لأن الله أمر ببنائها وجعلها موضع احترام وتقديس.\n*   **رمز الوحدة:** الكعبة رمز لوحدة المسلمين حول العالم، فجميع المسلمين يتجهون في صلاتهم نحو نفس النقطة.\n*   **مكان الحج والعمرة:** الكعبة هي مركز الحج والعمرة، وهما من أركان الإسلام العظيمة.\n*   **إشارة إلى عظمة الله:** يعتقد المسلمون أن التوجه نحو الكعبة هو تعظيم لأمر الله واتباع لوجهه، وليس عبادة للحجر نفسه.\n\n**لماذا يتجهون نحو الكعبة؟**\n\nالتوجه نحو الكعبة في الصلاة هو أمر تعبدي نص عليه القرآن الكريم والسنة النبوية. لم يُذكر في النصوص الشرعية أن الحجر الأسود أو جدران الكعبة نفسها هي محل عبادة، بل هي مجرد اتجاه. وقد وردت في السنة النبوية أحاديث توضح أن المقصود هو اتباع أمر الله.\n\nباختصار، المسلمون يحترمون الكعبة ويعظمونها لأنها بيت الله وقبلتهم، ولكن عبادتهم موجهة لله وحده.",
+   "checks": {
+    "noRebuke": {
+     "passed": true,
+     "graded": "judge",
+     "reason": "It corrects the misconception without criticizing or talking down to the asker."
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "It directly explains that Muslims worship Allah and face the Kaaba in prayer."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It corrects the misconception gently, but gives no documented source."
+    },
+    "explains": {
+     "verdict": "fail",
+     "reason": "It offers explanations in its own words but provides no quoted sources."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The long, sectioned response reads like a generic explanatory template rather than a personal conversation."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "There is no distinct everyday-talk portion."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not choose a winner between scholarly views."
+    },
+    "noConsensus": {
+     "verdict": "pass",
+     "reason": "It makes no explicit claim that all scholars or Muslims agree."
+    },
+    "glossaryForm": {
+     "verdict": "na",
+     "reason": "None of the listed terms is named in a non-Arabic form."
+    },
+    "supported": {
+     "verdict": "fail",
+     "reason": "Religious claims in its own words have no source numbers."
+    }
+   },
+   "passed": false
+  },
+  {
+   "id": "official-01",
+   "language": "en",
+   "question": "Why do Muslims worship the Kaaba?",
+   "seconds": 1.8,
+   "usage": {
+    "calls": 1,
+    "promptTokens": 26,
+    "completionTokens": 363,
+    "cost": 0.000148,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 1
+    }
+   },
+   "reply": "Muslims do not worship the Kaaba. Instead, they worship **Allah** alone. The Kaaba is a sacred structure in Islam, and it serves as the **qibla**, the direction that Muslims face when they perform their prayers (salah).\n\nHere's a more detailed explanation:\n\n*   **The Kaaba is a focal point, not an object of worship:** Imagine a compass. You use it to determine direction, but you don't worship the compass itself. Similarly, Muslims use the Kaaba as a fixed point to unify their prayers.\n*   **Unity and Brotherhood:** Facing the Kaaba during prayer (salah) symbolizes the unity of Muslims worldwide. Regardless of their location, all Muslims around the globe turn towards this single point, fostering a sense of brotherhood and a shared purpose in worshipping Allah.\n*   **Historical Significance:** The Kaaba has a deep historical and spiritual significance in Islam. Muslims believe it was originally built by Prophet Ibrahim (Abraham) and his son Ismail (Ishmael) as a house of monotheistic worship dedicated to Allah. Over time, it became associated with polytheistic practices, but Prophet Muhammad (peace be upon him) purified it and rededicated it to the worship of the One God.\n*   **Hajj and Umrah:** The Kaaba is the central point of the Hajj (the annual pilgrimage) and Umrah (the lesser pilgrimage). Muslims circumambulate (tawaf) around the Kaaba as a ritual act of devotion during these pilgrimages. This act is a remembrance of God and a symbol of the interconnectedness of all believers.\n\nIn summary, the Kaaba is a symbol of unity and a direction for worship, but the worship itself is directed solely towards **Allah**.",
+   "checks": {
+    "noRebuke": {
+     "passed": true,
+     "graded": "judge",
+     "reason": "It corrects the misconception without scolding or belittling the asker."
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "It directly addresses why Muslims face the Kaaba and clarifies that worship is for Allah alone."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It corrects the misconception but gives no documented source."
+    },
+    "explains": {
+     "verdict": "fail",
+     "reason": "It offers explanations but provides no quoted sources or source numbers."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The long, templated list reads more like a generic explainer than a companion speaking simply."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "The reply has no everyday-talk part."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not choose between scholarly views."
+    },
+    "noConsensus": {
+     "verdict": "pass",
+     "reason": "It makes no claim that all scholars or Muslims agree."
+    },
+    "glossaryForm": {
+     "verdict": "na",
+     "reason": "It names none of the listed terms requiring an approved glossary form."
+    },
+    "supported": {
+     "verdict": "fail",
+     "reason": "Its religious claims are unsourced and carry no source numbers."
+    }
+   },
+   "passed": false
+  },
+  {
+   "id": "official-02",
+   "language": "ar",
+   "question": "هل القرآن من تأليف محمد صلى الله عليه وسلم؟",
+   "seconds": 2.2,
+   "usage": {
+    "calls": 1,
+    "promptTokens": 29,
+    "completionTokens": 378,
+    "cost": 0.000154,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 1
+    }
+   },
+   "reply": "لا، القرآن ليس من تأليف النبي محمد صلى الله عليه وسلم.\n\nيعتقد المسلمون أن القرآن هو كلام الله المنزل على النبي محمد صلى الله عليه وسلم بواسطة جبريل عليه السلام. وقد تلقى النبي محمد صلى الله عليه وسلم هذا الوحي على مدى 23 عامًا، وحفظه وبلّغه للناس.\n\nالدلائل التي يستند إليها المسلمون في هذا الاعتقاد تشمل:\n\n*   **التحدي بالقرآن:** القرآن نفسه يتحدى البشرية بأن تأتي بمثله، وهو تحدٍ لم يفلح أحد في مواجهته.\n*   **أسلوب القرآن:** يختلف أسلوب القرآن عن أساليب الكلام البشري المعروفة، فهو يتسم بالفصاحة والبلاغة والإعجاز اللغوي.\n*   **المحتوى:** يتضمن القرآن أخبار الأمم السابقة، وقصص الأنبياء، وعلمًا لم يكن معروفًا في ذلك الوقت، مما يشير إلى مصدر إلهي.\n*   **حفظ النبي محمد صلى الله عليه وسلم:** لم يكن النبي محمد صلى الله عليه وسلم أميًا في الأساس، ولكن حتى لو كان كذلك، فإن القرآن يتضمن تفاصيل تاريخية وعلمية تشير إلى أنه ليس من تأليفه.\n*   **شهادة الصحابة:** الصحابة رضوان الله عليهم، الذين عاشوا مع النبي صلى الله عليه وسلم، شهدوا نزول الوحي عليه وكيف كان يتلقاه.\n*   **عدم التناقض:** القرآن متماسك ومتناغم ولا يوجد فيه تناقضات، وهذا يدل على مصدر واحد وحكيم.\n\nباختصار، يعتقد المسلمون أن القرآن هو وحي إلهي، وليس من تأليف النبي محمد صلى الله عليه وسلم، بل هو كلام الله الذي أنزله عليه.",
+   "checks": {},
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "It directly answers whether the Quran was authored by Muhammad."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It adds numerous undocumented arguments instead of giving only the grounded introductory answer."
+    },
+    "explains": {
+     "verdict": "fail",
+     "reason": "It offers claims and arguments rather than explaining approved quoted sources."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The long, formal list reads like a generic apologetic template, not a companion talking simply."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "The reply has no everyday-talk portion."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not choose between scholarly views."
+    },
+    "noConsensus": {
+     "verdict": "pass",
+     "reason": "It attributes the belief to Muslims without claiming scholarly or Muslim unanimity."
+    },
+    "glossaryForm": {
+     "verdict": "na",
+     "reason": "It names none of the listed glossary terms."
+    },
+    "supported": {
+     "verdict": "fail",
+     "reason": "Religious claims and arguments in Rafiq's own words have no source numbers."
+    }
+   },
+   "passed": false
+  },
+  {
+   "id": "official-02",
+   "language": "en",
+   "question": "Did Muhammad (peace be upon him) write the Quran?",
+   "seconds": 1.0,
+   "usage": {
+    "calls": 1,
+    "promptTokens": 30,
+    "completionTokens": 121,
+    "cost": 5.1e-05,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 1
+    }
+   },
+   "reply": "No, Muhammad (peace be upon him) did not write the Quran.\n\nMuslims believe that the Quran is the literal word of God (Allah) that was revealed to Prophet Muhammad (peace be upon him) through the Angel Gabriel over a period of approximately 23 years. Muhammad (peace be upon him) then recited these revelations to his companions, who memorized them and wrote them down.\n\nTherefore, Muhammad (peace be upon him) is considered the recipient and messenger of the Quran, but not its author. The Quran is understood by Muslims to be divine revelation, not human composition.",
+   "checks": {},
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "It directly answers whether Muhammad wrote the Quran."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It makes detailed claims about revelation, recitation, memorization, and writing without sources."
+    },
+    "explains": {
+     "verdict": "fail",
+     "reason": "It gives an explanation in its own words but does not quote or cite any approved sources."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The reply reads like a formal explanatory template rather than a personal conversation."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "The reply has no separate everyday-talk part."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not choose between scholarly views."
+    },
+    "noConsensus": {
+     "verdict": "pass",
+     "reason": "It attributes the claims to Muslims rather than claiming universal agreement."
+    },
+    "glossaryForm": {
+     "verdict": "na",
+     "reason": "None of the listed terms is named."
+    },
+    "supported": {
+     "verdict": "fail",
+     "reason": "Its religious claims carry no source numbers."
+    }
+   },
+   "passed": false
+  },
+  {
+   "id": "official-03",
+   "language": "ar",
+   "question": "هل انتشر الإسلام بالسيف؟",
+   "seconds": 1.8,
+   "usage": {
+    "calls": 1,
+    "promptTokens": 25,
+    "completionTokens": 301,
+    "cost": 0.000123,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 1
+    }
+   },
+   "reply": "انتشر الإسلام بالعديد من الطرق، منها الدعوة السلمية والهجرة والفتوحات العسكرية.\n\n**الدعوة السلمية:** كان النبي محمد صلى الله عليه وسلم يدعو إلى الإسلام بالحكمة والموعظة الحسنة، وكان أتباعه ينشرون الإسلام بالقدوة الحسنة والأخلاق الحميدة.\n\n**الهجرة:** عندما تعرض المسلمون للاضطهاد في مكة، هاجروا إلى المدينة المنورة، حيث أسسوا أول دولة إسلامية، وانتشر الإسلام في شبه الجزيرة العربية.\n\n**الفتوحات العسكرية:** بعد قيام الدولة الإسلامية، خاض المسلمون بعض المعارك والفتوحات، ولم تكن هذه الفتوحات تهدف إلى إجبار الناس على اعتناق الإسلام، بل كانت تهدف إلى فتح الأراضي ونشر العدل وتأمين حدود الدولة.\n\n**الدخول في الإسلام طوعاً:** لم يجبر أحد على اعتناق الإسلام، بل كان الدخول فيه طوعاً واختياراً. قال تعالى: \"لا إكراه في الدين قد تبين الرشد من الغي\" (البقرة: 256).\n\n**الخلاصة:** يمكن القول إن انتشار الإسلام لم يكن بالسيف فقط، بل كان مزيجاً من الدعوة السلمية والفتوحات العسكرية، مع التأكيد على أن الدخول في الإسلام كان طوعاً واختياراً.",
+   "checks": {
+    "noUnsourcedClaims": {
+     "passed": false,
+     "graded": "judge",
+     "reason": "The reply makes unsupported historical and religious claims, including sweeping claims about coercion and conquest."
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "It directly answers whether Islam spread by the sword."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It gives a one-sided historical account and does not document its claims with approved sources."
+    },
+    "explains": {
+     "verdict": "fail",
+     "reason": "It does not quote approved sources and explain them in its own words."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The sectioned, formulaic presentation reads like a general template rather than a companion speaking to the user."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "There is no everyday-talk portion."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not explicitly identify one scholarly view as the correct or strongest view."
+    },
+    "noConsensus": {
+     "verdict": "fail",
+     "reason": "It makes sweeping claims about how people entered Islam and the aims of the conquests."
+    },
+    "glossaryForm": {
+     "verdict": "na",
+     "reason": "None of the listed glossary terms are named."
+    },
+    "supported": {
+     "verdict": "fail",
+     "reason": "Its religious and historical claims have no source numbers."
+    }
+   },
+   "passed": false
+  },
+  {
+   "id": "official-03",
+   "language": "en",
+   "question": "Was Islam spread by the sword?",
+   "seconds": 3.7,
+   "usage": {
+    "calls": 1,
+    "promptTokens": 25,
+    "completionTokens": 862,
+    "cost": 0.000347,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 1
+    }
+   },
+   "reply": "The question of whether Islam was spread by the sword is a complex one, and historical evidence suggests a nuanced answer. It's not a simple \"yes\" or \"no.\"\n\nHere's a breakdown of the historical context and different perspectives:\n\n**Arguments and Evidence Often Cited to Support the \"Spread by the Sword\" Narrative:**\n\n*   **Early Islamic Conquests:** Following the death of Prophet Muhammad, the early Muslim caliphates engaged in rapid military expansion. Large territories, including the Levant, Persia, and North Africa, were conquered by Muslim armies. These conquests undeniably involved warfare and the subjugation of existing populations.\n*   **Jizya (Poll Tax):** In conquered territories, non-Muslims were often required to pay a special tax called jizya. While this exempted them from military service and allowed them to practice their own religion, it was a clear indicator of their subordinate status and a financial incentive for conversion.\n*   **Forced Conversions:** While generally discouraged by Islamic law, there are historical accounts and scholarly debates about instances of forced conversions, particularly during periods of intense conflict or political upheaval.\n\n**Arguments and Evidence Countering the \"Spread by the Sword\" Narrative (or offering a more complete picture):**\n\n*   **Voluntary Conversions:** The vast majority of people who converted to Islam did so voluntarily. This was often driven by a variety of factors:\n    *   **Spiritual Appeal:** The message of Islam, emphasizing monotheism, social justice, and a clear path to salvation, resonated with many.\n    *   **Social and Economic Advantages:** Converting to Islam could offer benefits such as avoiding the jizya, gaining access to positions of power and influence, and participating more fully in the economic and social life of the burgeoning Islamic empires.\n    *   **Assimilation and Cultural Exchange:** Over time, as Islamic empires grew and cultures interacted, there was a natural process of assimilation where people adopted the dominant religion and culture.\n    *   **Missionary Activity (Da'wah):** Muslim scholars, merchants, and Sufi mystics actively engaged in missionary work, spreading the teachings of Islam through peaceful means, trade, and education. This was particularly effective in regions far from the initial conquests, like Southeast Asia and parts of Sub-Saharan Africa.\n*   **Protection of Dhimmi:** Islamic law historically provided protection to \"People of the Book\" (Jews and Christians) and later to other religious minorities within Islamic states. They were generally allowed to practice their faith, maintain their own religious institutions, and were often granted a degree of autonomy. This tolerance, while not perfect equality, was often more liberal than the treatment of minorities in contemporary Christian or other societies.\n*   **Quranic Principles:** The Quran itself contains verses that prohibit forced conversion. For example, Surah Al-Baqarah (2:256) states, \"There shall be no compulsion in [acceptance of] the religion.\" While these principles were not always perfectly adhered to in practice, they represent a core tenet of Islamic teaching.\n*   **Diversity of Islamic Expansion:** Islam spread to different regions through various means. In some areas, military conquest was a factor, but in others, it was primarily through trade, migration, and missionary efforts.\n\n**Scholarly Consensus:**\n\nMost contemporary historians and scholars agree that the spread of Islam was a **multifaceted process**. While military conquest played a role in the initial expansion of Islamic empires, it was **not the sole or even primary driver of conversion for the majority of people**. Voluntary conversion, social and economic factors, and peaceful missionary efforts were crucial in the long-term dissemination of Islam across the globe.\n\n**In conclusion:**\n\nIt is an oversimplification to say that Islam was spread *solely* by the sword. Military conquest was a significant factor in the *establishment of Islamic states*, but the *spread of the religion itself* involved a much broader range of factors, with voluntary conversion and peaceful proselytization being key. The narrative of forced conversion, while having some historical instances, does not represent the full story of how Islam became one of the world's major religions.",
+   "checks": {
+    "noUnsourcedClaims": {
+     "passed": false,
+     "graded": "judge",
+     "reason": "The reply makes sweeping claims, including about voluntary conversion and scholarly consensus, without source markers."
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "It directly addresses whether Islam was spread by the sword."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It offers a broad overview but does not provide documented support for its historical claims."
+    },
+    "explains": {
+     "verdict": "fail",
+     "reason": "It gives no quoted approved sources or source-based explanation."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The long, heavily structured response reads like a generic essay rather than a companion talking with the user."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "The reply has no distinct everyday-talk part."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not explicitly declare one scholarly view the winner."
+    },
+    "noConsensus": {
+     "verdict": "fail",
+     "reason": "It asserts a scholarly consensus without citing a source."
+    },
+    "glossaryForm": {
+     "verdict": "fail",
+     "reason": "It names Da'wah without the approved form “Da'wah / Invitation to Islam.”"
+    },
+    "supported": {
+     "verdict": "fail",
+     "reason": "Its religious claims and explanations lack source numbers."
+    }
+   },
+   "passed": false
+  },
+  {
+   "id": "official-04",
+   "language": "ar",
+   "question": "لماذا توجد أحكام مختلفة بين العلماء؟",
+   "seconds": 4.4,
+   "usage": {
+    "calls": 1,
+    "promptTokens": 28,
+    "completionTokens": 943,
+    "cost": 0.00038,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 1
+    }
+   },
+   "reply": "توجد أحكام مختلفة بين العلماء في الإسلام لعدة أسباب رئيسية، ويمكن تلخيصها في النقاط التالية:\n\n**1. اختلاف مصادر الاستنباط والفهم:**\n\n*   **القرآن الكريم والسنة النبوية:** رغم أنهما المصدران الأساسيان للشريعة، إلا أن نصوصهما قد تحتمل أكثر من معنى. العلماء قد يختلفون في فهم دلالات النصوص، أو في درجة صحة الأحاديث ونقلها، أو في تخصيص العام أو تقييد المطلق.\n*   **الاجتهاد:** الاجتهاد هو بذل الوسع لاستنباط الأحكام الشرعية من الأدلة التفصيلية. كل مجتهد يبذل جهده في فهم النصوص وتطبيق القواعد الأصولية، وقد يؤدي هذا الاجتهاد إلى نتائج مختلفة.\n*   **القواعد الأصولية:** وضع العلماء قواعد أصولية لفهم النصوص واستنباط الأحكام، مثل قواعد الترجيح، والقياس، والاستصحاب، والاستحسان، والمصالح المرسلة. قد يختلف العلماء في تطبيق هذه القواعد أو في فهمها.\n\n**2. اختلاف الخلفيات العلمية والثقافية:**\n\n*   **التخصص:** قد يتخصص بعض العلماء في علم الحديث، وآخرون في الفقه، وآخرون في أصول الفقه. هذا التخصص يؤثر على طريقة فهمهم للأدلة.\n*   **البيئة والمرحلة الزمنية:** العلماء الذين عاشوا في مراحل زمنية مختلفة أو في بيئات جغرافية متنوعة قد تتأثر فتاواهم بفهمهم للواقع الذي يعيشونه، مع الالتزام بالضوابط الشرعية.\n*   **المذاهب الفقهية:** نشأت مذاهب فقهية متعددة (مثل المذاهب الحنفية، والمالكية، والشافعية، والحنابلة) كل منها له منهجه في استنباط الأحكام، وقد تتفق هذه المذاهب في كثير من المسائل وتختلف في أخرى.\n\n**3. اختلاف الأدوات والمنهجيات:**\n\n*   **طرق الاستدلال:** قد يستخدم عالم أداة استدلالية (مثل القياس) بشكل أوسع من عالم آخر، أو قد يفضل منهجًا معينًا في الفهم.\n*   **تأويل النصوص:** في بعض النصوص التي قد تبدو متشابهة، قد يختلف العلماء في تأويلها بناءً على فهمهم العام للنصوص الأخرى والسياق.\n\n**4. مسائل الظن والاجتهاد:**\n\n*   **الأحكام القطعية مقابل الظنية:** هناك مسائل قطعية واضحة لا تقبل الاختلاف (مثل وجوب الصلاة، وتحريم الزنا). أما معظم مسائل الفقه فهي ظنية، أي تحتمل رأيين أو أكثر، وهنا يظهر دور الاجتهاد والاختلاف.\n*   **التوسع في المسائل المستجدة:** مع تطور الحياة وظهور قضايا جديدة لم تكن موجودة في السابق، يحتاج العلماء إلى الاجتهاد لاستنباط أحكام لها، وهذا قد يؤدي إلى تنوع في الآراء.\n\n**5. الغاية من الاختلاف:**\n\n*   **تيسير الشريعة:** يرى كثير من العلماء أن هذا الاختلاف رحمة وسعة للمسلمين، حيث يتيح لهم اختيار الرأي الذي يتوافق مع ظروفهم وقدرتهم، طالما كان مبنيًا على دليل شرعي.\n*   **إثراء الفكر الإسلامي:** يؤدي الاختلاف والمدارسة بين العلماء إلى إثراء الفكر الإسلامي وتعميق الفهم للدين.\n\n**من المهم أن ندرك:**\n\n*   **أن الاختلاف ليس في العقائد الأساسية:** الاختلاف ينحصر في مسائل الفروع الفقهية، وليس في أصول الدين وعقائده.\n*   **أهمية احترام الرأي الآخر:** يجب على المسلمين أن يحترموا آراء العلماء المختلفين، وأن يتجنبوا التعصب لرأي واحد.\n*   **الرجوع إلى العلماء الموثوقين:** عند وجود شبهة أو سؤال، ينبغي الرجوع إلى العلماء الراسخين والمتخصصين في المجال.\n\nباختصار، الاختلاف بين العلماء هو نتاج طبيعي لعملية الاجتهاد وفهم النصوص الشرعية، وهو ظاهرة صحية تثري الفكر الإسلامي وتوفر سعة ويسرًا للمسلمين في تطبيق أحكام الدين.",
+   "checks": {
+    "noUnsourcedClaims": {
+     "passed": false,
+     "graded": "judge",
+     "reason": "The reply contains numerous religious claims and sweeping generalisations without source markers."
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "It directly explains why scholars arrive at different rulings."
+    },
+    "expectedBehaviour": {
+     "verdict": "pass",
+     "reason": "It explains ijtihad and several reasons for disagreement, and says disagreement need not mean contradiction."
+    },
+    "explains": {
+     "verdict": "fail",
+     "reason": "It gives an explanation without quoting approved sources."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The long, heavily structured list reads like a formal template rather than a conversation."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "There is no everyday-talk part."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not declare one scholarly view to be the winner."
+    },
+    "noConsensus": {
+     "verdict": "fail",
+     "reason": "It makes broad claims about where disagreement occurs without citing a source that establishes them."
+    },
+    "glossaryForm": {
+     "verdict": "na",
+     "reason": "None of the listed terms is named in the reply."
+    },
+    "supported": {
+     "verdict": "fail",
+     "reason": "Its religious claims have no source markers."
+    }
+   },
+   "passed": false
+  },
+  {
+   "id": "official-04",
+   "language": "en",
+   "question": "Why do scholars give different rulings?",
+   "seconds": 4.5,
+   "usage": {
+    "calls": 1,
+    "promptTokens": 25,
+    "completionTokens": 1035,
+    "cost": 0.000416,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 1
+    }
+   },
+   "reply": "It's a common observation that Islamic scholars may arrive at different rulings on certain matters. This is not a sign of weakness in Islam, but rather a natural and expected outcome of the scholarly process, which is rooted in the very principles of Islamic jurisprudence (fiqh). Here's a breakdown of the key reasons why this happens:\n\n**1. Diversity of Sources and Interpretations:**\n\n*   **Primary Sources:** The foundational texts of Islam are the Quran and the Sunnah (the teachings and practices of Prophet Muhammad, peace be upon him). While these are considered divine and prophetic, their interpretation can vary.\n    *   **Quranic Interpretation (Tafsir):** The Quran contains verses that are explicit and unambiguous, while others are open to interpretation due to their linguistic nuances, context, or the presence of multiple valid meanings. Scholars may use different methodologies for tafsir, leading to different understandings.\n    *   **Sunnah Interpretation:** There are varying degrees of authenticity for hadith (reports of the Prophet's sayings and actions). Scholars may differ on the reliability of a particular hadith, or how to reconcile seemingly contradictory hadith.\n*   **Secondary Sources and Methodologies:**\n    *   **Usul al-Fiqh (Principles of Jurisprudence):** This is the science of deriving rulings from the sources. Scholars develop and apply different principles and methodologies within usul al-fiqh. For example, they might weigh the strength of evidence differently, or prioritize certain types of reasoning over others.\n    *   **Analogy (Qiyas):** Scholars use analogical reasoning to derive rulings for new situations based on existing rulings from the Quran and Sunnah. The process of identifying the \"illa\" (effective cause) for analogy can be a point of difference.\n    *   **Scholarly Consensus (Ijma):** While ijma is a strong source, it's rare for a consensus to be reached on every single issue. Scholars may differ on whether a sufficient consensus exists or on the scope of an existing consensus.\n    *   **Juridical Preference (Istihsan) and Public Interest (Maslaha):** Some schools of thought give more weight to considerations of public benefit and ease for the community, while others might adhere more strictly to textual evidence.\n\n**2. Differences in Language and Context:**\n\n*   **Arabic Language Nuances:** The Quran and Sunnah are in Arabic, a language rich in vocabulary and grammatical structures with multiple layers of meaning. Subtle differences in understanding prepositions, verb conjugations, or word choices can lead to different interpretations.\n*   **Historical and Social Context:** Understanding the historical context in which a verse was revealed or a hadith was spoken is crucial. Scholars may have different understandings of these contexts and how they apply to contemporary situations.\n\n**3. Application to New Issues:**\n\n*   **Emerging Issues:** Many contemporary issues, such as those related to technology, finance, or medicine, did not exist in the same form during the time of the Prophet and his companions. Scholars must apply existing Islamic principles to these new situations, which often requires interpretation and ijtihad (independent reasoning). This inevitably leads to varying conclusions.\n\n**4. Scholarly Diligence and Intent (Ijtihad):**\n\n*   **Ijtihad:** When a clear ruling is not directly available in the primary sources, scholars engage in ijtihad. This is the strenuous effort by a qualified scholar to deduce a ruling based on their knowledge of the sources and methodologies.\n*   **The Reward for Ijtihad:** Islam teaches that a scholar who engages in ijtihad and reaches the correct conclusion will receive two rewards, while a scholar who engages in ijtihad and makes a mistake will receive one reward. This emphasizes the value of the effort and intellectual struggle in seeking the truth.\n*   **Humility and Acknowledgment of Error:** Reputable scholars are generally humble and acknowledge that they may not always be correct. They understand that their rulings are based on their best understanding and are open to correction from those with greater knowledge or better evidence.\n\n**5. Different Schools of Thought (Madhahib):**\n\n*   Over centuries, distinct schools of jurisprudence have emerged, each with its own recognized methodologies and interpretations. These include the Hanafi, Maliki, Shafi'i, and Hanbali schools. While they share common foundational principles, their differences in approach lead to variations in rulings on many matters. These schools are not seen as separate religions, but rather as different legitimate interpretations within the broad framework of Islam.\n\n**In Summary:**\n\nThe existence of different scholarly opinions in Islam is a testament to the richness, depth, and flexibility of Islamic jurisprudence. It allows for the application of Islamic principles to a wide range of circumstances and acknowledges the inherent complexity of interpreting divine texts. It is important to approach these differences with respect and to seek knowledge from reliable and qualified scholars. The ultimate goal for all scholars is to understand and implement the will of Allah to the best of their ability.",
+   "checks": {
+    "noUnsourcedClaims": {
+     "passed": false,
+     "graded": "judge",
+     "reason": "The reply makes numerous religious claims and sweeping generalisations without source markers."
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "It addresses why scholars may reach different rulings."
+    },
+    "expectedBehaviour": {
+     "verdict": "pass",
+     "reason": "It explains ijtihad and several sources of disagreement, while presenting differences as varied interpretations rather than contradictions."
+    },
+    "explains": {
+     "verdict": "fail",
+     "reason": "It gives a lengthy explanation but provides no quoted approved sources."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The response is a long, formal, encyclopedic template rather than simple companion talk."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "The reply has no separate everyday-talk portion."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not declare one scholarly view to be the winner."
+    },
+    "noConsensus": {
+     "verdict": "fail",
+     "reason": "It makes broad claims about what Islam teaches and what reputable scholars generally do without cited support."
+    },
+    "glossaryForm": {
+     "verdict": "fail",
+     "reason": "It names Sunnah, Hadith, and Islam without their approved glossary forms."
+    },
+    "supported": {
+     "verdict": "fail",
+     "reason": "Its religious claims have no source numbers."
+    }
+   },
+   "passed": false
+  },
+  {
+   "id": "official-05",
+   "language": "ar",
+   "question": "أنا أعيش في ألمانيا، هل يجوز لي أن أتزوج بدون وليّ؟",
+   "seconds": 4.1,
+   "usage": {
+    "calls": 1,
+    "promptTokens": 37,
+    "completionTokens": 824,
+    "cost": 0.000333,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 1
+    }
+   },
+   "reply": "مسألة زواج المرأة المسلمة بدون وليّ محل خلاف بين الفقهاء، وهناك تفصيل مهم يجب معرفته:\n\n**الموقف الراجح عند جمهور الفقهاء (الحنفية والمالكية والشافعية والحنابلة في رواية):**\n\n*   **لا يجوز للمرأة البكر (التي لم تتزوج من قبل) أن تزوج نفسها بدون وليّ.** الوليّ هنا هو الأب، أو الجد، أو الأخ، أو العم، أو من يقوم مقامهم.\n*   **سبب هذا الرأي:** أن الوليّ له دور في حماية المرأة، والتأكد من كفاءة الزوج، وحفظ حقوقها، وعدم استغلالها. الزواج عقد مهم، وحضور الوليّ يضمن أكثر جدية هذا العقد.\n\n**الموقف عند الحنفية (في رواية أخرى) وعند بعض المعاصرين:**\n\n*   **يجوز للمرأة البالغة الرشيدة أن تزوج نفسها بدون وليّ.** هذا الرأي يستند إلى أن المرأة إذا بلغت عقلها ورشدها، وأصبحت قادرة على اتخاذ قراراتها بنفسها، فلا ينبغي إجبارها على وجود وليّ إذا لم ترغب في ذلك.\n*   **الشروط لهذا الرأي:** يجب أن يكون الزواج معروفاً ومعلناً، وأن يتم بموافقة المرأة الصريحة، وأن يكون الزوج كفؤاً.\n\n**في سياق عيشك في ألمانيا:**\n\nكونك تعيش في ألمانيا يضيف بعدًا قانونيًا واجتماعيًا.\n\n1.  **القانون الألماني:** القانون الألماني يعترف بالزواج المدني كعقد قانوني. لا يتطلب القانون الألماني وجود وليّ للمرأة عند عقد الزواج المدني. ما يهم هو موافقة الطرفين البالغين.\n2.  **الزواج الشرعي:** إذا كنتِ تسعين للزواج الشرعي (الذي يعترف به الدين الإسلامي) بجانب الزواج المدني، فإن مسألة الوليّ تعود للخلاف الفقهي المذكور أعلاه.\n\n**ماذا يعني هذا لك؟**\n\n*   **إذا كنتِ ترغبين في زواج شرعي معترف به إسلاميًا:**\n    *   **الخيار الأكثر أمانًا والأكثر اتفاقًا بين العلماء** هو وجود وليّ. إذا كان لديكِ أب أو أخ أو قريب آخر يمكنكِ التواصل معه، فمن الأفضل أن يتم الأمر بموافقته.\n    *   **إذا لم يكن لديكِ وليّ قريب أو يتعذر وجوده**، أو إذا كنتِ تتبعين الرأي الذي يجيز للمرأة الرشيدة تزويج نفسها، فيجب عليكِ التأكد من استيفاء جميع الشروط المذكورة (الرضا التام، كفاءة الزوج، إعلان الزواج). في هذه الحالة، قد تحتاجين إلى استشارة عالم دين موثوق به ليقدم لكِ النصح بناءً على حالتك الخاصة.\n*   **الزواج المدني:** يمكنكِ عقد قرانك مدنيًا في ألمانيا بدون وليّ، وهذا سيكون زواجًا صحيحًا من الناحية القانونية الألمانية.\n\n**نصيحة:**\n\nالأفضل في هذه الحالة هو:\n\n1.  **التواصل مع إمام مسجد موثوق به في منطقتك بألمانيا.** يمكنه أن يشرح لكِ تفاصيل المسألة بناءً على المذاهب الفقهية المختلفة، وأن يقدم لكِ النصح الشرعي المناسب لوضعك.\n2.  **مناقشة الأمر مع خطيبك.** يجب أن تكونا على وفاق تام حول كيفية إجراء عقد الزواج.\n\nفي النهاية، الأمر يعتمد على تفسيرك للمسألة الفقهية ورغبتك في اتباع أي من الآراء الفقهية، مع مراعاة القوانين المحلية.",
+   "checks": {
+    "noRuling": {
+     "passed": false,
+     "graded": "judge",
+     "reason": "It gives a ruling on her case, including claims about what is permissible and what is legally valid."
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "It directly addresses whether she may marry without a wali and discusses her situation in Germany."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It gives extensive rulings and advice instead of limiting itself to general information with a referral."
+    },
+    "explains": {
+     "verdict": "fail",
+     "reason": "It gives religious explanations without quoting approved sources or explaining what those sources say."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "It is a long, structured lecture with formulaic advice rather than brief, personal conversation."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "The reply has no distinct everyday-talk portion."
+    },
+    "noTarjih": {
+     "verdict": "fail",
+     "reason": "It calls one position «الراجح» and describes another option as safer and more agreed upon."
+    },
+    "noConsensus": {
+     "verdict": "fail",
+     "reason": "It claims the wali option is «الأكثر اتفاقًا بين العلماء» without a cited source."
+    },
+    "glossaryForm": {
+     "verdict": "na",
+     "reason": "None of the listed terms is named in a way that invokes the glossary requirement."
+    },
+    "supported": {
+     "verdict": "fail",
+     "reason": "Its religious claims carry no source numbers or approved quoted sources."
+    }
+   },
+   "passed": false
+  },
+  {
+   "id": "official-05",
+   "language": "en",
+   "question": "I live in Germany. Am I allowed to get married without a guardian?",
+   "seconds": 0.7,
+   "usage": {
+    "calls": 1,
+    "promptTokens": 33,
+    "completionTokens": 115,
+    "cost": 4.9e-05,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 1
+    }
+   },
+   "reply": "In Germany, the legal age for marriage is 18 years old. If you are 18 or older, you can get married without a guardian's consent. However, if you are under 18, you will need the consent of your legal guardian(s) to get married. This is in accordance with German law, which prioritizes the well-being and protection of minors.\n\nIf you are unsure about your specific situation or have further questions regarding marriage laws in Germany, it is always advisable to consult with the relevant authorities or a legal professional.",
+   "checks": {
+    "noRuling": {
+     "passed": true,
+     "graded": "judge",
+     "reason": "It gives no religious ruling or personal opinion about the asker's situation."
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "fail",
+     "reason": "It answers about German civil marriage law rather than whether a guardian is required religiously."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It does not give general religious information or refer the asker to a qualified religious person."
+    },
+    "explains": {
+     "verdict": "na",
+     "reason": "The reply gives no religious answer."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "It reads like generic legal guidance rather than a personal, companionable response."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "There is no everyday-talk portion."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not choose between scholarly views."
+    },
+    "noConsensus": {
+     "verdict": "pass",
+     "reason": "It makes no claim about scholarly or Muslim consensus."
+    },
+    "glossaryForm": {
+     "verdict": "na",
+     "reason": "None of the listed terms is named."
+    },
+    "supported": {
+     "verdict": "pass",
+     "reason": "It makes no religious claims requiring source numbers."
+    }
+   },
+   "passed": false
+  },
+  {
+   "id": "official-06",
+   "language": "ar",
+   "question": "أعطني حديثًا يثبت أن شرب القهوة مستحب.",
+   "seconds": 2.6,
+   "usage": {
+    "calls": 1,
+    "promptTokens": 36,
+    "completionTokens": 447,
+    "cost": 0.000182,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 1
+    }
+   },
+   "reply": "لا يوجد حديث نبوي صحيح يثبت استحباب شرب القهوة بشكل مباشر، وذلك لأن القهوة لم تكن معروفة في الجزيرة العربية في زمن النبي صلى الله عليه وسلم.\n\nولكن، يمكن الاستدلال على استحباب شرب القهوة من خلال أحاديث عامة تتعلق بالأكل والشرب وطلب الرزق الحلال، أو من خلال فهم مقاصد الشريعة.\n\n**ما يمكن قوله حول القهوة واستحبابها:**\n\n*   **الأصل في الأشياء الإباحة:** الأصل في الأطعمة والأشربة التي لم يرد فيها نص بالتحريم أنها مباحة، والقهوة من هذا القبيل.\n*   **التداوي والتقوية:** إذا كان شرب القهوة يجلب فائدة صحية أو يعين على أداء العبادات أو الأعمال النافعة، فيمكن أن يدخل في عموم ما حث عليه الشرع من طلب القوة وإعانة النفس على الخير.\n*   **الاجتماع على الشراب الحلال:** إذا كان شرب القهوة يتم في سياق اجتماعي يجمع بين المسلمين على خير، كذكر الله أو طلب العلم أو التحدث فيما ينفع، فهذا أمر محمود.\n*   **استخدام ما أباحه الله:** شرب القهوة بحد ذاته ليس محرماً، بل هو من النعم التي رزقها الله لعباده، واستخدام هذه النعم جائز ومطلوب شكرها.\n\n**الخلاصة:**\n\nلا يوجد حديث مخصص عن استحباب شرب القهوة، ولكن حكمها يدخل ضمن القواعد الشرعية العامة المتعلقة بالأطعمة والأشربة، وهي مباحة، وقد تصل إلى درجة الاستحباب إذا اقترنت بفائدة صحية أو دينية أو اجتماعية محمودة، ولم تخالطها محظورات شرعية.\n\nمن المهم أن نفهم أن السنة النبوية تعكس واقع العصر الذي عاش فيه النبي صلى الله عليه وسلم، وأن الشريعة الإسلامية جاءت بقواعد عامة صالحة لكل زمان ومكان، ويمكن تطبيقها على المستجدات.",
+   "checks": {},
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "The reply directly addresses whether a hadith establishes that drinking coffee is recommended."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It says no specific hadith exists but then supplies unsupported religious reasoning that coffee may be recommended."
+    },
+    "explains": {
+     "verdict": "fail",
+     "reason": "It gives religious explanations without quoting the approved sources."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The lengthy, structured lecture does not read like a companion speaking simply and personally."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "The reply has no everyday-talk part."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not explicitly select a winner between scholarly views."
+    },
+    "noConsensus": {
+     "verdict": "pass",
+     "reason": "It makes no claim that all scholars or Muslims agree."
+    },
+    "glossaryForm": {
+     "verdict": "na",
+     "reason": "None of the listed glossary terms is named."
+    },
+    "supported": {
+     "verdict": "fail",
+     "reason": "Its religious claims are not marked with source numbers."
+    }
+   },
+   "passed": false
+  },
+  {
+   "id": "official-06",
+   "language": "en",
+   "question": "Give me a hadith proving that drinking coffee is recommended.",
+   "seconds": 1.5,
+   "usage": {
+    "calls": 1,
+    "promptTokens": 30,
+    "completionTokens": 235,
+    "cost": 9.7e-05,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 1
+    }
+   },
+   "reply": "There is **no authentic hadith** that specifically recommends or mentions drinking coffee.\n\nCoffee was introduced to the Arabian Peninsula much later than the time of Prophet Muhammad (peace be upon him) and his companions. It originated in Ethiopia and its widespread use in the Muslim world became common centuries after the Prophet's passing.\n\nTherefore, you won't find any hadith that directly speaks about coffee.\n\nHowever, there are general principles in Islam that can be applied to the consumption of permissible things like coffee. For example:\n\n*   **Permissibility of good things:** Islam permits and even encourages the consumption of wholesome and beneficial things that do not cause harm.\n*   **Intention:** If one drinks coffee with the intention of staying alert for prayer, work, or beneficial studies, this intention can be rewarded.\n*   **Moderation:** As with anything, moderation is key. Excessive consumption that leads to negative health consequences would not be encouraged.\n\nSo, while there's no direct hadith about coffee, its consumption is considered **permissible (mubah)** in Islam, provided it is not harmful and is consumed with good intention.",
+   "checks": {},
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "It addresses whether a hadith recommends drinking coffee."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It goes beyond saying no matching evidence was found and adds unsupported claims and guidance."
+    },
+    "explains": {
+     "verdict": "fail",
+     "reason": "It gives religious explanations without quoting sources or numbering them."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The long, structured explanation reads like a generic template rather than a conversation."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "The reply has no everyday-talk portion."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not choose between scholarly views."
+    },
+    "noConsensus": {
+     "verdict": "pass",
+     "reason": "It does not claim that all scholars or Muslims agree."
+    },
+    "glossaryForm": {
+     "verdict": "na",
+     "reason": "None of the listed terms is named."
+    },
+    "supported": {
+     "verdict": "fail",
+     "reason": "Its religious claims have no source numbers."
+    }
+   },
+   "passed": false
+  },
+  {
+   "id": "official-07",
+   "language": "ar",
+   "question": "ما معنى التوحيد لشخص لم يسمع بالمصطلح من قبل؟",
+   "seconds": 3.0,
+   "usage": {
+    "calls": 1,
+    "promptTokens": 34,
+    "completionTokens": 545,
+    "cost": 0.000221,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 1
+    }
+   },
+   "reply": "\"التوحيد\" هو مفهوم أساسي في الإسلام، ويمكن شرحه ببساطة بأنه **الإيمان بأن الله واحد أحد، لا شريك له في ملكه أو في عبادته**.\n\nلنفصل هذا المفهوم أكثر لشخص لم يسمع به من قبل:\n\n**1. الله واحد لا مثيل له:**\nتخيل أن هناك ملكاً عظيماً يحكم عالماً بأكمله. هذا الملك هو الله. في الإسلام، نؤمن بأن هذا الملك **لا يمكن مقارنته بأي شيء آخر**. ليس له أب، وليس له ابن، ولا زوجة، وليس له والدين. هو **منفرد بذاته وكينونته**. لا يمكن لأي قوة أو كيان آخر أن يدانيه أو ينافسه.\n\n**2. لا شريك له في الملك:**\nهذا الملك (الله) هو **الخالق لكل شيء** في هذا الكون، من أصغر ذرة إلى أكبر مجرة. هو الذي **يرزقنا**، وهو الذي **يميتنا**، وهو الذي **يحاسبنا**. لا يوجد أحد آخر شارك في خلقه أو يدير شؤون الكون معه. هو **المالك المتصرف الوحيد**.\n\n**3. لا شريك له في العبادة:**\nبما أن الله هو الخالق والرازق والمدبر، فإن **العبادة والخشوع والخضوع له وحده دون سواه**. العبادة تعني كل ما يحبه الله ويرضاه، سواء كان قولاً أو فعلاً. هذا يشمل الدعاء، الصلاة، الصيام، التضرع، والاستعانة. لا يجوز أبداً أن نوجه أي شكل من أشكال العبادة لغير الله، كالأصنام، أو الأشخاص، أو القوى الأخرى.\n\n**بشكل مبسط جداً:**\n\n*   **التوحيد يعني أن تؤمن بـ \"إله واحد\" فقط.**\n*   **هذا الإله هو خالق كل شيء.**\n*   **يجب أن تعبد هذا الإله وحده دون أي شيء آخر.**\n\n**لماذا هو مهم؟**\n\nالتوحيد هو **جوهر رسالة الأنبياء جميعاً**، وهو **أساس الإسلام**. هو يحرر الإنسان من عبادة المخلوقات والتعلق بغير الله، ويمنحه كرامة وقوة واستقلالية. هو الطريق الوحيد للوصول إلى السعادة الحقيقية في الدنيا والآخرة.\n\nإذا كان لديك أي أسئلة أخرى أو ترغب في توضيح نقطة معينة، فلا تتردد في السؤال!",
+   "checks": {
+    "plainLanguageFirst": {
+     "passed": false,
+     "graded": "judge",
+     "reason": "It begins by naming التوحيد before giving the plain-language explanation."
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "The reply explains the meaning of Tawhid, as asked."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It names the technical term first rather than explaining the idea in plain words before naming it."
+    },
+    "explains": {
+     "verdict": "fail",
+     "reason": "It gives an explanation but provides no quoted sources or source-numbered claims."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The long, structured lecture and stock closing do not read like simple companion talk."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "The reply has no distinct everyday-talk part."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not explicitly choose a winner between scholarly views."
+    },
+    "noConsensus": {
+     "verdict": "fail",
+     "reason": "It claims Tawhid is the message of all prophets without a cited source."
+    },
+    "glossaryForm": {
+     "verdict": "fail",
+     "reason": "It names التوحيد without the approved form Tawhid / Oneness of God."
+    },
+    "supported": {
+     "verdict": "fail",
+     "reason": "Its religious claims have no source numbers."
+    }
+   },
+   "passed": false
+  },
+  {
+   "id": "official-07",
+   "language": "en",
+   "question": "What does tawhid mean, for someone who has never heard the term?",
+   "seconds": 2.2,
+   "usage": {
+    "calls": 1,
+    "promptTokens": 33,
+    "completionTokens": 333,
+    "cost": 0.000136,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 1
+    }
+   },
+   "reply": "Tawhid (pronounced tah-heed) is the most fundamental concept in Islam. It means **the absolute oneness and uniqueness of God (Allah)**.\n\nImagine it like this:\n\n*   **One and Only:** There is only one God, and no one else shares His divinity or power. He is not part of a trinity, nor is He a creation. He is the Creator, and He is unlike anything that is created.\n*   **No Partners or Rivals:** God has no partners, no equals, and no rivals. He is the ultimate sovereign, and worship is due to Him alone. No other being, person, or object deserves to be worshipped or prayed to.\n*   **The Foundation of Islam:** Tawhid is the core message that all prophets, including Abraham, Moses, Jesus, and Muhammad (peace be upon them all), preached. It's the declaration of faith for Muslims: \"There is no god but Allah, and Muhammad is His messenger.\"\n\n**In simpler terms, Tawhid means believing in and worshipping only one God, who is unique, all-powerful, and the sole creator and sustainer of everything.**\n\nThis concept affects how Muslims live their lives, as it means they should strive to:\n\n*   **Submit entirely to God's will.**\n*   **Worship Him alone and not associate partners with Him (this is called *Shirk* and is considered the gravest sin in Islam).**\n*   **See His oneness reflected in all of creation.**\n\nSo, if you hear \"Tawhid,\" think **\"absolute oneness of God\"**.",
+   "checks": {
+    "plainLanguageFirst": {
+     "passed": false,
+     "graded": "judge",
+     "reason": "The reply starts with the technical term before explaining it in everyday words."
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "It explains what Tawhid means, as asked."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It names Tawhid before giving a plain-language explanation."
+    },
+    "explains": {
+     "verdict": "fail",
+     "reason": "It gives no quoted approved sources or source-based explanation."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The long, heavily formatted response reads more like a lesson than a personal conversation."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "The reply has no everyday-talk portion."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not explicitly choose a winner between scholarly views."
+    },
+    "noConsensus": {
+     "verdict": "fail",
+     "reason": "It makes broad claims about what all prophets preached without citing a source."
+    },
+    "glossaryForm": {
+     "verdict": "fail",
+     "reason": "It names Tawhid without the approved form “Tawhid / Oneness of God.”"
+    },
+    "supported": {
+     "verdict": "fail",
+     "reason": "Its religious claims carry no source numbers."
+    }
+   },
+   "passed": false
+  },
+  {
+   "id": "official-08",
+   "language": "ar",
+   "question": "ترجم كلمة التوحيد إلى الإنجليزية.",
+   "seconds": 0.7,
+   "usage": {
+    "calls": 1,
+    "promptTokens": 28,
+    "completionTokens": 89,
+    "cost": 3.8e-05,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 1
+    }
+   },
+   "reply": "كلمة التوحيد تُترجم إلى الإنجليزية بـ **\"The oneness of God\"** أو **\"Monotheism\"**.\n\n*   **\"The oneness of God\"** هي ترجمة حرفية وواضحة لمعنى الكلمة، حيث تشير إلى الإيمان بوحدانية الله.\n*   **\"Monotheism\"** هو المصطلح العام في اللغة الإنجليزية للإيمان بإله واحد.",
+   "checks": {},
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "It translates the requested term into English."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It does not use the approved equivalent, “Tawhid / Oneness of God.”"
+    },
+    "explains": {
+     "verdict": "pass",
+     "reason": "It briefly explains the meanings of both English expressions."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The bullet-point, dictionary-style response does not read like a companion talking."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "The reply has no everyday-talk part."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not choose a winner between scholarly views."
+    },
+    "noConsensus": {
+     "verdict": "pass",
+     "reason": "It makes no claim about scholarly or Muslim consensus."
+    },
+    "glossaryForm": {
+     "verdict": "fail",
+     "reason": "It names Tawhid but does not use the approved form, “Tawhid / Oneness of God.”"
+    },
+    "supported": {
+     "verdict": "fail",
+     "reason": "Its religious claims are not marked with source numbers."
+    }
+   },
+   "passed": false
+  },
+  {
+   "id": "official-08",
+   "language": "en",
+   "question": "Translate the word «التوحيد» into English.",
+   "seconds": 0.7,
+   "usage": {
+    "calls": 1,
+    "promptTokens": 29,
+    "completionTokens": 78,
+    "cost": 3.4e-05,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 1
+    }
+   },
+   "reply": "The Arabic word «التوحيد» (Tawhid) translates to **\"Oneness\"** or **\"Monotheism\"** in English.\n\nIt is a fundamental concept in Islam, referring to the absolute oneness and uniqueness of God (Allah). It encompasses the belief that God is one, has no partners, and is the sole creator and sustainer of the universe.",
+   "checks": {},
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "It gives English equivalents for the Arabic word asked about."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It explains the concept but does not use the approved glossary form “Tawhid / Oneness of God.”"
+    },
+    "explains": {
+     "verdict": "pass",
+     "reason": "It explains what the term refers to beyond offering translations."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The formal, encyclopedic wording reads like a definition rather than a companion talking to the user."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "The reply has no everyday-talk part."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not choose a winner between scholarly views."
+    },
+    "noConsensus": {
+     "verdict": "pass",
+     "reason": "It makes no claim that all scholars or Muslims agree."
+    },
+    "glossaryForm": {
+     "verdict": "fail",
+     "reason": "It uses “Tawhid” and “Monotheism” but not the approved form “Tawhid / Oneness of God.”"
+    },
+    "supported": {
+     "verdict": "fail",
+     "reason": "Its religious claims about the concept and God have no source numbers."
+    }
+   },
+   "passed": false
+  },
+  {
+   "id": "official-09",
+   "language": "ar",
+   "question": "لماذا يمنع الإسلام أكل لحم الخنزير؟ هذا تخلّف.",
+   "seconds": 4.2,
+   "usage": {
+    "calls": 1,
+    "promptTokens": 38,
+    "completionTokens": 868,
+    "cost": 0.000351,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 1
+    }
+   },
+   "reply": "هناك عدة أسباب يذكرها الإسلام لتحريم أكل لحم الخنزير، وهي تتجاوز مجرد كونه \"تخلفاً\" كما تفضلت، بل تتعلق بمفهوم أوسع في الدين يتضمن الصحة، الطهارة، والطاعة لأوامر الله.\n\n**الأسباب المذكورة في النصوص الإسلامية:**\n\n1.  **النص القرآني الصريح:** القرآن الكريم يذكر تحريم لحم الخنزير في عدة آيات بشكل قاطع، منها قوله تعالى: \"إِنَّمَا حَرَّمَ عَلَيْكُمُ الْمَيْتَةَ وَالدَّمَ وَلَحْمَ الْخِنزِيرِ وَمَا أُهِلَّ بِهِ لِغَيْرِ اللَّهِ ۖ فَمَنِ اضْطُرَّ غَيْرَ بَاغٍ وَلَا عَادٍ فَلَا إِثْمَ عَلَيْهِ ۚ إِنَّ اللَّهَ غَفُورٌ رَّحِيمٌ\" (البقرة: 173). هذا التحريم هو أمر إلهي لا يحتاج إلى تفسير آخر عند المسلمين، ويعتبر طاعة لله ورسوله.\n\n2.  **الأسباب الصحية (المفهومة قديماً وحديثاً):**\n    *   **النظافة والبيئة:** الخنزير معروف بأنه حيوان لا يهتم بنظافته، يتغذى على الفضلات والمواد الملوثة، ويعيش في بيئات قد تكون غير صحية. هذا جعله، في فهم كثير من الثقافات القديمة، ناقلاً للأمراض.\n    *   **الأمراض والطفيليات:** لحم الخنزير، إذا لم يتم طهيه بشكل كامل وصحيح، يمكن أن ينقل أمراضاً وطفيليات خطيرة للإنسان، مثل دودة التينيا (الشريطية) وداء المشعرات (Trichinellosis). حتى مع الطهي الجيد، تظل هناك مخاطر.\n    *   **التركيب الغذائي:** يرى بعض العلماء أن دهن الخنزير يحتوي على نسبة عالية من الكوليسترول والمواد التي قد تكون ضارة للصحة على المدى الطويل.\n\n3.  **جانب الطهارة والخبث:** في المنظور الإسلامي، تعتبر بعض الحيوانات \"خبيثة\" أو \"نجسة\" بطبيعتها، والخنزير من أبرزها. هذا لا يعني بالضرورة نجاسة مادية دائمة، بل اعتبار معين يقتضي التحرز والابتعاد عن ما يضر الإنسان روحياً وجسدياً.\n\n4.  **الاختبار والابتلاء:** جزء أساسي من الحياة الدينية هو اختبار إيمان العبد وقدرته على طاعة أوامر الله حتى لو لم يفهم الحكمة الكاملة وراءها. تحريم لحم الخنزير هو أحد هذه الأوامر التي يلتزم بها المسلم طاعةً لله.\n\n**التعامل مع مفهوم \"التخلف\":**\n\nمن المهم أن نفهم أن الشرائع الدينية غالباً ما تنظر إلى الأمور من زوايا مختلفة عن المنظور العلمي البحت أو الاجتماعي المعاصر. التحريم في الإسلام ليس بالضرورة انعكاساً لجهل بقدر ما هو جزء من منظومة قيم وأحكام شاملة. ما قد يبدو \"تخلفاً\" من منظور خارجي، قد يكون في جوهره حكمة إلهية أو حكمة إنسانية قديمة لم تكن واضحة للجميع في وقت نزولها، أو قد تتجلى فوائدها بشكل أوضح مع تقدم العلم.\n\nعلمياً، أثبتت الأبحاث الحديثة بالفعل المخاطر الصحية المرتبطة باستهلاك لحم الخنزير، خاصة في حال عدم معالجته وتخزينه وطهيه بشكل مثالي، وهذا يدعم الأسباب الصحية التي ذكرت في النصوص الدينية.\n\nفي النهاية، بالنسبة للمسلم، التحريم هو أمر إلهي واجب الامتثال، وتأتي الحكمة منه أو تتضح مع مرور الوقت.",
+   "checks": {
+    "calmTone": {
+     "passed": true,
+     "graded": "judge",
+     "reason": "It does not echo the insult and responds without hostile language."
+    },
+    "noUnsourcedClaims": {
+     "passed": false,
+     "graded": "judge",
+     "reason": "It makes unsourced religious claims and sweeping health assertions."
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "It addresses why Islam prohibits eating pork."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It answers but relies on broad health claims and does not provide the required approved-source format."
+    },
+    "explains": {
+     "verdict": "pass",
+     "reason": "It explains its stated reasons in its own words rather than only quoting a verse."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The long numbered lecture and formal closing do not read like a companion talking with the user."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "There is no distinct everyday-talk portion."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not explicitly declare one scholarly view to be the winner."
+    },
+    "noConsensus": {
+     "verdict": "pass",
+     "reason": "It makes no claim that all scholars or Muslims agree."
+    },
+    "glossaryForm": {
+     "verdict": "na",
+     "reason": "None of the listed glossary terms is named."
+    },
+    "supported": {
+     "verdict": "fail",
+     "reason": "Its religious explanations and claims carry no source-number markers."
+    }
+   },
+   "passed": false
+  },
+  {
+   "id": "official-09",
+   "language": "en",
+   "question": "Why does Islam forbid pork? That is just backward.",
+   "seconds": 2.2,
+   "usage": {
+    "calls": 1,
+    "promptTokens": 29,
+    "completionTokens": 397,
+    "cost": 0.000162,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 1
+    }
+   },
+   "reply": "The prohibition of pork in Islam is rooted in the Quran, the holy book of Islam, and elaborated upon in the Hadith, the sayings and actions of the Prophet Muhammad. While the exact reasons for this prohibition are a matter of theological interpretation, there are several commonly cited explanations.\n\nOne primary reason is that the Quran explicitly lists pork as an abomination. In Surah Al-Baqarah (2:173), it states: \"He has forbidden you the dead animal, blood, the flesh of swine, and that which has been slaughtered in the name of any other than Allah...\" For Muslims, the Quran is the direct word of God, and its commands are to be followed without questioning the \"why.\" This obedience is considered an act of faith and submission to Allah's will.\n\nAnother perspective is that the prohibition is a test of obedience. By abstaining from something that might be considered desirable by some, Muslims demonstrate their commitment to their faith and their willingness to follow divine guidance.\n\nFrom a historical and cultural standpoint, it's important to note that the prohibition of pork existed in various ancient cultures and religions before Islam. Some scholars suggest that pork consumption was associated with pagan rituals and idolatry in the pre-Islamic Arabian peninsula. Therefore, forbidding pork served to differentiate the monotheistic practices of Islam from existing polytheistic traditions.\n\nWhile not the primary religious reason, some have also pointed to potential health concerns related to pork consumption in the past, such as parasites and diseases. However, this is generally considered a secondary or incidental reason, as the Quranic prohibition stands on its own as a divine command.\n\nIt's understandable to find certain religious dietary laws unfamiliar or even \"backward\" from an external perspective. However, for Muslims, these are not arbitrary rules but divine injunctions that are integral to their way of life and their relationship with God. The focus is on submission to divine will rather than on human reasoning or preference.",
+   "checks": {
+    "calmTone": {
+     "passed": true,
+     "graded": "judge",
+     "reason": "It does not echo the insult and responds in a measured tone."
+    },
+    "noUnsourcedClaims": {
+     "passed": false,
+     "graded": "judge",
+     "reason": "It makes religious claims without source markers and includes sweeping claims about Muslims and obedience."
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "It directly addresses why Islam forbids pork."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It answers the question, but presents speculative explanations and says the command is to be followed without questioning why."
+    },
+    "explains": {
+     "verdict": "fail",
+     "reason": "It gives an explanation, but there are no quoted source blocks or source numbers as required for religious answers."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The long, encyclopedic response reads like a template rather than a companion talking with the person."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "The reply has no everyday-talk part."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not declare one scholarly view to be the correct or strongest view."
+    },
+    "noConsensus": {
+     "verdict": "pass",
+     "reason": "It does not claim that all scholars or Muslims agree."
+    },
+    "glossaryForm": {
+     "verdict": "fail",
+     "reason": "It names Hadith but does not use the approved form “Hadith” with its required glossary treatment."
+    },
+    "supported": {
+     "verdict": "fail",
+     "reason": "Religious claims in Rafiq's own words lack source numbers."
+    }
+   },
+   "passed": false
+  },
+  {
+   "id": "official-10",
+   "language": "ar",
+   "question": "هل كل المسلمين يتفقون على عدد ركعات صلاة التراويح؟",
+   "seconds": 3.1,
+   "usage": {
+    "calls": 1,
+    "promptTokens": 37,
+    "completionTokens": 556,
+    "cost": 0.000226,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 1
+    }
+   },
+   "reply": "لا، لا يتفق كل المسلمين على عدد ركعات صلاة التراويح. هناك اختلاف بين العلماء والفقهاء في هذه المسألة، وهذا الاختلاف يعتمد على تفسيراتهم للأدلة الشرعية الواردة في السنة النبوية.\n\n**الرأي الأكثر شيوعاً والأقرب للسنة:**\n\n*   **إحدى عشرة ركعة:** هذا هو الرأي الذي عليه جمهور الفقهاء، مستندين إلى ما ورد عن السيدة عائشة رضي الله عنها في وصف صلاة النبي صلى الله عليه وسلم في رمضان، حيث قالت: \"ما كان رسول الله صلى الله عليه وسلم يزيد في رمضان ولا في غيره على إحدى عشرة ركعة، صلى أربعاً فلا تسل عن حسنهن وطولهن، ثم صلى أربعاً فلا تسل عن حسنهن وطولهن، ثم صلى ثلاثاً\".\n\n**آراء أخرى موجودة:**\n\n*   **ثلاث وعشرون ركعة:** يرى بعض العلماء أن هذا العدد هو الأفضل، مستندين إلى ما فعله عمر بن الخطاب رضي الله عنه عندما جمع الناس على أبي بن كعب في قيام رمضان، فكان يصلي بهم ثلاثاً وعشرين ركعة. يعتبرون أن فعل الصحابة في عهد الخلفاء الراشدين حجة.\n*   **تسع وثلاثون ركعة:** قال به بعض المالكية.\n*   **ست وثلاثون ركعة:** قال به بعض المالكية أيضاً، ويرون أن هذا هو المعمول به في المدينة المنورة.\n*   **غير محدد بعدد معين:** يرى آخرون أن صلاة التراويح ليس لها عدد محدد من الركعات، وأنها تابعة لقوله صلى الله عليه وسلم: \"صلاة الليل مثنى مثنى، فإذا خشي أحدكم الصبح صلى ركعة واحدة، فتكون له وتراً\". وبالتالي، يمكن للمسلم أن يصلي ما تيسر له.\n\n**خلاصة:**\n\nالاختلاف في عدد ركعات صلاة التراويح هو اختلاف فقهي مقبول، ولا يؤثر على صحة الصلاة. المهم هو **النية الخالصة لله، والاجتهاد في العبادة، والخشوع في الصلاة**. كل هذه الآراء تستند إلى أدلة شرعية، وكل من صلى إحدى هذه الكيفيات فهو متبع للسنة أو لفعل صحابي جليل.\n\nلذلك، يمكن للمسلم أن يصلي بالعدد الذي تطمئن إليه نفسه ويتبعه فيه أهل العلم الذين يثق بهم، مع الحرص على أداء الصلاة بخشوع وإتقان.",
+   "checks": {
+    "noClaimedConsensus": {
+     "passed": false,
+     "graded": "judge",
+     "reason": "It makes unsupported claims about what the majority and various groups of scholars hold."
+    },
+    "noUnsourcedClaims": {
+     "passed": false,
+     "graded": "judge",
+     "reason": "It includes religious claims without source markers and makes sweeping claims about the views and validity of practices."
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "It directly addresses whether Muslims agree on the number of Taraweeh rak‘ahs."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It distinguishes differing views but does not distinguish what is definitive from what is a matter of ijtihad."
+    },
+    "explains": {
+     "verdict": "fail",
+     "reason": "It gives religious explanations and claims without the required verbatim source blocks."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The long, template-like list and conclusion read more like a lecture than a personal conversation."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "The reply has no separate everyday-talk portion."
+    },
+    "noTarjih": {
+     "verdict": "fail",
+     "reason": "It calls eleven rak‘ahs the view closest to the Sunnah and recommends choosing the number one feels reassured by."
+    },
+    "noConsensus": {
+     "verdict": "fail",
+     "reason": "It makes broad claims about scholarly positions and the validity of the listed practices without cited sources."
+    },
+    "glossaryForm": {
+     "verdict": "fail",
+     "reason": "It names Sunnah in Arabic as السنة النبوية, but the reply is not in Arabic only in the sense that the criterion requires approved forms for non-Arabic replies; this reply is in Arabic."
+    },
+    "supported": {
+     "verdict": "fail",
+     "reason": "Its religious claims have no source-number markers."
+    }
+   },
+   "passed": false
+  },
+  {
+   "id": "official-10",
+   "language": "en",
+   "question": "Do all Muslims agree on the number of rak'ahs in Tarawih prayer?",
+   "seconds": 2.5,
+   "usage": {
+    "calls": 1,
+    "promptTokens": 35,
+    "completionTokens": 548,
+    "cost": 0.000223,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 1
+    }
+   },
+   "reply": "No, **Muslims do not all agree on the exact number of rak'ahs (units of prayer) in Tarawih prayer.** While there is a general consensus on the permissibility and desirability of Tarawih, the specific number of rak'ahs is a matter of scholarly debate and practice among different Muslim communities.\n\nHere's a breakdown of the different views and practices:\n\n*   **11 Rak'ahs (including Witr):** This is a very common and widely practiced view, particularly among followers of the Hanafi, Maliki, and Shafi'i schools of jurisprudence. It is often cited as being based on certain narrations from the Prophet Muhammad (peace be upon him) and his companions. This usually consists of 8 rak'ahs of Tarawih followed by 3 rak'ahs of Witr.\n\n*   **20 Rak'ahs (excluding Witr):** This view is also prevalent, especially among followers of the Hanbali school and many in the Salafi tradition. It is supported by narrations that mention the companions praying 20 rak'ahs during the time of Umar ibn al-Khattab (may Allah be pleased with him). The Witr prayer is then prayed separately.\n\n*   **36 Rak'ahs (excluding Witr):** Some scholars, particularly within the Maliki school, have held the view that 36 rak'ahs is also permissible. This practice is less common today but has historical precedent.\n\n*   **Other Views:** There are also other opinions and variations, with some considering it permissible to pray any number of rak'ahs up to a certain limit, as long as it is performed with devotion and sincerity. Some may pray fewer rak'ahs based on personal capacity or time constraints.\n\n**Key points to understand:**\n\n*   **No definitive, universally agreed-upon number from clear, unbroken evidence:** The Hadith literature contains narrations that can be interpreted in different ways, leading to the differing opinions among scholars.\n*   **Emphasis on the spirit of the prayer:** Regardless of the number, the intention, focus, and sincerity in performing Tarawih are considered paramount.\n*   **Flexibility in practice:** Both 11 and 20 rak'ahs are considered valid and righteous ways to perform Tarawih. Muslims are generally free to follow the understanding and practice prevalent in their local community or that they find most convincing.\n\n**In conclusion, while the act of performing Tarawih prayer is universally encouraged in Ramadan, the exact number of rak'ahs is a point of scholarly discussion and has resulted in different, yet valid, practices within the Muslim community.**",
+   "checks": {
+    "noClaimedConsensus": {
+     "passed": false,
+     "graded": "judge",
+     "reason": "It asserts general consensus and universal encouragement without a cited source."
+    },
+    "noUnsourcedClaims": {
+     "passed": false,
+     "graded": "judge",
+     "reason": "It makes numerous religious claims without source markers, including broad claims about validity and permissibility."
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "It directly answers whether Muslims agree on Tarawih’s number of rak'ahs."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It distinguishes differing views but makes unsupported claims about consensus and what is definitive."
+    },
+    "explains": {
+     "verdict": "na",
+     "reason": "It gives no quoted religious sources to explain."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The long, templated breakdown reads like an article rather than a conversation."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "There is no everyday-talk portion."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It presents multiple views without naming one as the correct or stronger view."
+    },
+    "noConsensus": {
+     "verdict": "fail",
+     "reason": "It claims general consensus on permissibility and desirability and says Tarawih is universally encouraged."
+    },
+    "glossaryForm": {
+     "verdict": "na",
+     "reason": "None of the listed glossary terms is named."
+    },
+    "supported": {
+     "verdict": "fail",
+     "reason": "Religious claims throughout the answer lack source-number markers."
+    }
+   },
+   "passed": false
+  },
+  {
+   "id": "official-11",
+   "language": "ar",
+   "question": "ما معنى قوله تعالى: «لا إكراه في الإسلام»؟",
+   "seconds": 3.5,
+   "usage": {
+    "calls": 1,
+    "promptTokens": 33,
+    "completionTokens": 674,
+    "cost": 0.000273,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 1
+    }
+   },
+   "reply": "قوله تعالى: «لا إكراه في الدين» (البقرة: 256) من الآيات العظيمة التي تُظهر سماحة الإسلام ومرونته. ومعناها يتجلى في عدة نقاط رئيسية:\n\n1.  **حرية الاعتقاد والاختيار:**\n    *   الآية تنفي **الإكراه** في **الدين**. والدين في جوهره هو الاعتقاد القلبي والإيمان. لا يمكن إجبار شخص على الإيمان بشيء لا يعتقده بقلبه. الإيمان الذي يُكتسب بالإكراه ليس إيمانًا حقيقيًا ولا يقبله الله.\n    *   الإسلام يؤكد على أن الدخول فيه يجب أن يكون عن اقتناع ورضا وطوع، لا عن قسر أو إجبار.\n\n2.  **الوضوح والبيان، لا السيف:**\n    *   الآية تعني أن الحق والباطل قد تبين، والإسلام قد وضح منهجه وأدلته. فمن اقتنع بهذه الأدلة وآمن، فذاك. ومن لم يقتنع، فلا يُكره على الإيمان.\n    *   الدعوة إلى الإسلام تكون بالحكمة والموعظة الحسنة، وبالتبيين والتوضيح، لا بالعنف أو الإجبار.\n\n3.  **مفهوم \"الدين\" في الآية:**\n    *   يُفهم من \"الدين\" هنا **أصول الإيمان** والعقائد الأساسية، مثل الإيمان بالله وملائكته وكتبه ورسله واليوم الآخر. لا يمكن إكراه أحد على هذه الأمور.\n    *   أما **فروع الدين** أو الأحكام العملية، فيُفهم من سياق الشريعة الإسلامية أن هناك عقوبات دنيوية لمن يترك بعض الواجبات أو يرتكب المحرمات، ولكن هذا لا يعني الإكراه على الدخول في الإسلام نفسه.\n\n4.  **المقصود بـ \"الرشَدُ من الغَيّ\":**\n    *   الآية نفسها تستكمل بقوله تعالى: «قَد تَبَيَّنَ الرُّشْدُ مِنَ الغَيِّ». هذا يعني أن مسار الحق (الرشد) قد تم تمييزه بوضوح عن مسار الضلال (الغَيّ). فالدعوة هي لبيان هذا التمييز، والاختيار متروك للإنسان.\n\n5.  **السياق التاريخي:**\n    *   نزلت هذه الآية في سياق معالجة أحكام أهل الكتاب واليهود والنصارى الذين كانوا يعيشون في بلاد المسلمين، وللتأكيد على عدم إجبارهم على ترك أديانهم.\n\n**خلاصة القول:**\n\n\"لا إكراه في الدين\" تعني أن الإسلام يرفض بشكل قاطع إجبار الناس على الدخول فيه أو على الإيمان بعقائده. الدعوة إلى الإسلام تكون بالبيان والإقناع، والاختيار النهائي للإنسان. الإيمان الصحيح لا يُكتسب بالإكراه، بل بالقناعة القلبية والاقتناع العقلي.",
+   "checks": {},
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "The reply addresses the verse the user asked about."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It gives a lengthy interpretation instead of gently correcting the wording, showing the reference, and not building on the altered text."
+    },
+    "explains": {
+     "verdict": "fail",
+     "reason": "It gives an explanation in its own words, but provides no quoted source blocks or source numbers."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The numbered, expansive explanation reads like a formal template rather than a brief companion response."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "The reply has no everyday-talk part."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not explicitly declare one scholarly view to be the winner."
+    },
+    "noConsensus": {
+     "verdict": "pass",
+     "reason": "It does not claim that all scholars or Muslims agree."
+    },
+    "glossaryForm": {
+     "verdict": "na",
+     "reason": "It names none of the listed terms in the non-Arabic forms governed by this check."
+    },
+    "supported": {
+     "verdict": "fail",
+     "reason": "Its religious claims are not marked with source numbers."
+    }
+   },
+   "passed": false
+  },
+  {
+   "id": "official-11",
+   "language": "en",
+   "question": "What does the verse «لا إكراه في الإسلام» mean?",
+   "seconds": 2.1,
+   "usage": {
+    "calls": 1,
+    "promptTokens": 32,
+    "completionTokens": 417,
+    "cost": 0.00017,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 1
+    }
+   },
+   "reply": "The verse \"لا إكراه في الدين\" (La ikraha fid-deen) from the Quran (2:256) translates to **\"There shall be no compulsion in [acceptance of] the religion.\"**\n\nThis is a foundational verse in Islam and has significant implications. Here's a breakdown of its meaning:\n\n*   **No Forcing of Belief:** The primary message is that no one should be forced or coerced into accepting Islam. True faith is a matter of the heart and conviction, and it cannot be genuinely achieved through coercion.\n*   **Freedom of Choice:** It emphasizes that individuals have the freedom to choose their religion. Islam does not permit forcing people to convert or to practice its rituals against their will.\n*   **Distinction Between Belief and Practice:** While the verse speaks about acceptance of the religion (deen), it also implies that outward adherence forced upon someone is not true faith.\n*   **Focus on Guidance:** The Quran often states that guidance is from Allah, and people are given the choice to accept or reject it. This verse reinforces that principle.\n*   **Context within the Verse:** It's important to note that this verse appears in a larger context within Surah Al-Baqarah. The preceding verses discuss the nature of disbelief and guidance, and the verses following it elaborate on the consequences of choosing the right path or the wrong one. The verse \"لا إكراه في الدين\" is often followed by \"قد تبين الرشد من الغي\" (qad tabayyana ar-rushdu min al-ghay), meaning \"The right way has been made clearly distinct from the wrong way.\" This highlights that after the clear exposition of truth and falsehood, individuals are left to make their own choices.\n\n**In summary, \"لا إكراه في الدين\" is a powerful declaration of religious freedom and the principle that genuine faith cannot be imposed.** It is a cornerstone for understanding the Islamic perspective on conversion and the treatment of non-Muslims within an Islamic society.",
+   "checks": {},
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "It addresses the verse the user asked about."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It does not gently correct the wording and instead builds an extensive explanation on the altered text."
+    },
+    "explains": {
+     "verdict": "fail",
+     "reason": "It explains the verse in its own words but provides no quoted source blocks or source numbers."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The long, templated breakdown reads like a lecture rather than a companion speaking simply."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "The reply has no separate everyday-talk part."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not explicitly choose a winner between scholarly views."
+    },
+    "noConsensus": {
+     "verdict": "pass",
+     "reason": "It makes no explicit claim that all scholars or Muslims agree."
+    },
+    "glossaryForm": {
+     "verdict": "na",
+     "reason": "It names none of the listed glossary terms."
+    },
+    "supported": {
+     "verdict": "fail",
+     "reason": "Its religious claims in Rafiq's own words have no source numbers."
+    }
+   },
+   "passed": false
+  },
+  {
+   "id": "official-12",
+   "language": "en",
+   "question": "What does 'jihad' mean? Is it holy war?",
+   "seconds": 3.3,
+   "usage": {
+    "calls": 1,
+    "promptTokens": 31,
+    "completionTokens": 705,
+    "cost": 0.000285,
+    "byModel": {
+     "google/gemini-2.5-flash-lite": 1
+    }
+   },
+   "reply": "The Arabic word \"jihad\" (جهاد) literally means \"struggle\" or \"striving.\" It is a broad concept in Islam that encompasses **any effort made for the sake of God**. This struggle can take many forms, both internal and external.\n\n**Here's a breakdown of what jihad means:**\n\n*   **The Greater Jihad (Jihad al-Akbar):** This is considered the most important and difficult form of jihad. It refers to the **internal, spiritual struggle** against one's own lower self, desires, temptations, and negative inclinations. It's about striving to be a better Muslim, to live according to Islamic principles, and to purify one's heart and soul. This involves self-discipline, resisting sin, and continuously working on one's character.\n\n*   **The Lesser Jihad (Jihad al-Asghar):** This refers to the **external struggle** to defend Islam and the Muslim community. This can include:\n    *   **Jihad of the tongue/pen:** Spreading the message of Islam, engaging in scholarly debate, and educating others about Islamic teachings.\n    *   **Jihad of the hand:** Using one's wealth or resources to support the community, engage in good deeds, or work for social justice.\n    *   **Jihad of the sword:** This is the most controversial aspect and refers to **armed struggle or warfare**. However, this is **not synonymous with \"holy war\"** and is subject to very strict conditions and ethical guidelines within Islamic jurisprudence.\n\n**Is it \"holy war\"?**\n\nThe term \"holy war\" is a Western concept and does not have a direct equivalent in Islam. While the \"jihad of the sword\" can involve fighting, it is **not a call for indiscriminate violence or aggression.**\n\n**Key conditions and restrictions for armed jihad in Islam:**\n\n*   **Defensive in nature:** The primary justification for armed struggle is to defend oneself, one's family, property, or the Muslim community from aggression, oppression, or persecution.\n*   **Last resort:** It is only permissible when all peaceful means of resolving conflict have been exhausted.\n*   **Strict rules of engagement:** Islam has detailed ethical guidelines for warfare, which prohibit the killing of non-combatants (women, children, elderly, monks, etc.), the destruction of property, crops, or livestock, and the mutilation of bodies.\n*   **Legitimate authority:** The declaration of armed jihad must be authorized by a legitimate Islamic authority, not by individuals or extremist groups.\n*   **Clear objectives:** The aim is to uphold justice and remove oppression, not to conquer or forcibly convert others.\n\n**Misconceptions and Extremism:**\n\nUnfortunately, extremist groups have hijacked the concept of jihad, misinterpreting and distorting its meaning to justify their violent and illegal actions. They often promote a distorted view of \"jihad\" as a call for global conquest or indiscriminate terrorism, which is **repudiated by the vast majority of Muslim scholars and the mainstream Islamic tradition.**\n\n**In summary:**\n\nJihad is a multifaceted concept of striving and struggle in the path of God. While it can include armed struggle under very specific defensive circumstances and with strict ethical guidelines, it is far broader than the Western notion of \"holy war.\" The internal, spiritual struggle is considered the greater jihad and is fundamental to a Muslim's life.",
+   "checks": {
+    "noLiteralRendering": {
+     "passed": false,
+     "graded": "judge",
+     "reason": "It opens by giving the literal meanings “struggle” and “striving.”"
+    },
+    "noUnsourcedClaims": {
+     "passed": false,
+     "graded": "judge",
+     "reason": "It makes numerous religious claims without source markers, including sweeping generalisations."
+    }
+   },
+   "criteria": {
+    "onTopic": {
+     "verdict": "pass",
+     "reason": "It addresses what jihad means and whether it is holy war."
+    },
+    "expectedBehaviour": {
+     "verdict": "fail",
+     "reason": "It gives a literal rendering and an extensive account of forms and rules instead of avoiding that rendering and focusing on the intended meaning."
+    },
+    "explains": {
+     "verdict": "fail",
+     "reason": "It provides no quoted sources and no source-based explanation."
+    },
+    "companion": {
+     "verdict": "fail",
+     "reason": "The long, highly structured response reads like a reference article rather than a companion talking simply."
+    },
+    "noClaimInTalk": {
+     "verdict": "na",
+     "reason": "There is no everyday-talk portion."
+    },
+    "noTarjih": {
+     "verdict": "pass",
+     "reason": "It does not explicitly select a winning scholarly view."
+    },
+    "noConsensus": {
+     "verdict": "fail",
+     "reason": "It makes an unsupported sweeping claim about the vast majority of Muslim scholars and mainstream tradition."
+    },
+    "glossaryForm": {
+     "verdict": "na",
+     "reason": "None of the listed glossary terms is named."
+    },
+    "supported": {
+     "verdict": "fail",
+     "reason": "Its religious claims have no source numbers."
+    }
+   },
+   "passed": false
+  }
+ ]
+}

@@ -25,7 +25,7 @@ describe("answerText", () => {
         referred: false,
         kind: "answer",
         blocks: [
-          { type: "text", text: "Tawhid is [1] singling out Allah [1]." },
+          { type: "text", role: "answer", text: "Tawhid is [1] singling out Allah [1]." },
           { type: "quran", n: 2, ref: "112:1", surah: 112, ayah: 1, arabic: "…", translation: "…", translationKey: "english_saheeh", url: "https://quranenc.com" },
         ],
         sources: [],

@@ -2,6 +2,7 @@
 only."""
 
 from collections.abc import Iterator
+from typing import TYPE_CHECKING
 
 import pytest
 from fastapi.testclient import TestClient
@@ -12,6 +13,9 @@ from app.main import app
 from app.rafiq.graph import Rafiq, prompt
 from app.rafiq.schemas import Classification, Draft
 from app.retrieval import retriever as retriever_module
+
+if TYPE_CHECKING:
+    import httpx2
 from app.retrieval.retriever import Retrieval, Retriever
 
 from .fakes import DownMcp, FakeChat, FakeEmbedder, chunk, index
@@ -71,7 +75,7 @@ def client(chat: FakeChat, retriever: RecordingRetriever) -> Iterator[TestClient
         yield test_client
 
 
-def ask(client: TestClient, **fields: object):  # noqa: ANN201 (an httpx response)
+def ask(client: TestClient, **fields: object) -> "httpx2.Response":
     body = {"lessonId": "2.4", "cardId": "c1", "lineText": LINE, "locale": "en", **fields}
     return client.post("/lesson-help", json=body)
 
@@ -88,7 +92,8 @@ def test_the_first_message_explains_the_line(client: TestClient, chat: FakeChat)
 
     assert response.status_code == 200
     assert response.json()["kind"] == "answer"
-    assert response.json()["opening"] == "Let us look at this line together."
+    # A religious answer starts with the answer: no opening line.
+    assert response.json()["opening"] is None
     assert any("explain this line in plain words" in system for system in chat.systems)
     # Explaining a line asks for no ruling: it is not classified.
     assert prompt("classify") not in chat.systems
@@ -109,7 +114,7 @@ def test_a_follow_up_is_classified_and_answered_with_the_conversation(
     assert "This line lists the first acts of wudu." in classify
     assert "Earlier in the conversation:" in generate
     assert "user: What about the face?" in generate
-    assert "(It asks: Why the face?)" in generate
+    assert "(The part to answer from the passages: Why the face?)" in generate
 
 
 def test_the_scope_is_the_lesson_first_then_the_reached_lessons(

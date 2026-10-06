@@ -11,15 +11,15 @@
       "url": "https://quranenc.com",
       "alsoAt": [],
       "usedFor": {
-        "ar": "آيات القرآن الكريم التي تستشهد بها بطاقات الدروس، وآيات نشاط «آية آية»: تُجلب بمراجعها كما هي ولا تُكتب يدويًا. تُعرض الآية بنصها العربي، ومعها في الواجهة الإنجليزية ترجمة مركز نور الدولي (english_saheeh). ويعرض رفيق كل آية بنصها العربي مع ترجمة منشورة واحدة بلغة الجواب، باسمها ورقم إصدارها: english_saheeh (ترجمة مركز نور الدولي الإنجليزية، 1.1.2)، وurdu_junagarhi (الترجمة الأردية لمحمد جوناكري، 1.1.3)، وfrench_montada (ترجمة مركز نور الدولي الفرنسية، 1.0.0)، اختيرت عبر list_quran_translations في 2026-10-04. ولا يدرج الموقع ترجمة بنغالية، فتُعرض الآية في الجواب البنغالي بالترجمة الإنجليزية مع التنبيه على ذلك. وفي «موقف» تُقتبس كلمات من آيتين (2:156 و4:86) بنصها، وتُعرض الآية كاملة عند الطلب.",
-        "en": "The Quran verses cited by lesson cards and the verses of the \"Ayah by ayah\" activity, fetched by reference and never typed. Each verse is shown in Arabic, with the Noor International Center translation (english_saheeh) in the English interface. Rafiq shows every verse in Arabic with one published translation in the answer's language, with its name and version: english_saheeh (English Translation - Noor International Center, 1.1.2), urdu_junagarhi (Urdu Translation - Muhammad Junagarhi, 1.1.3) and french_montada (French translation - Noor International Center, 1.0.0), chosen with list_quran_translations on 2026-10-04. QuranEnc lists no Bengali translation, so a verse in a Bengali answer shows the English one, labelled as such. In Mawqif, words of two verses (2:156, 4:86) are quoted exactly, and the whole verse is shown on request."
+        "ar": "آيات القرآن الكريم التي تستشهد بها بطاقات الدروس، وآيات نشاط «آية آية»: تُجلب بمراجعها كما هي ولا تُكتب يدويًا. تُعرض الآية بنصها العربي، ومعها في الواجهة الإنجليزية ترجمة مركز نور الدولي (english_saheeh). ويعرض رفيق كل آية بنصها العربي مع ترجمة منشورة واحدة بلغة الجواب، باسمها ورقم إصدارها: english_saheeh (ترجمة مركز نور الدولي الإنجليزية، 1.1.2)، وurdu_junagarhi (الترجمة الأردية لمحمد جوناكري، 1.1.3)، وfrench_montada (ترجمة مركز نور الدولي الفرنسية، 1.0.0)، اختيرت عبر list_quran_translations في 2026-10-04، وbengali_rwwad (الترجمة البنغالية لمركز رواد الترجمة). لا تذكر تلك القائمة البنغالية، لكن الموقع ينشر هذه الترجمة وتقدّمها نقطة الآيات فيه؛ ولا يذكر لها رقم إصدار، فيعرض المربع اسمها وحده. وفي «موقف» تُقتبس كلمات من آيتين (2:156 و4:86) بنصها، وتُعرض الآية كاملة عند الطلب.",
+        "en": "The Quran verses cited by lesson cards and the verses of the \"Ayah by ayah\" activity, fetched by reference and never typed. Each verse is shown in Arabic, with the Noor International Center translation (english_saheeh) in the English interface. Rafiq shows every verse in Arabic with one published translation in the answer's language, with its name and version: english_saheeh (English Translation - Noor International Center, 1.1.2), urdu_junagarhi (Urdu Translation - Muhammad Junagarhi, 1.1.3) and french_montada (French translation - Noor International Center, 1.0.0), chosen with list_quran_translations on 2026-10-04, and bengali_rwwad (Bengali Translation - Rowwad Translation Center). That list omits Bengali, but QuranEnc publishes this translation and its verse endpoint serves it; QuranEnc gives it no version number, so the block shows its name only. In Mawqif, words of two verses (2:156, 4:86) are quoted exactly, and the whole verse is shown on request."
       },
       "licence": {
         "ar": "شروط QuranEnc.com المنشورة (صفحتا «حول المشروع» و«خدمات المطورين»، رُوجعت في 2026-10-04): يتاح تنزيل محتوى الترجمات وإعادة نشره، بالشروط والضوابط التالية: 1. عدم التعديل أو الإضافة أو الحذف على المحتوى. 2. الإشارة بوضوح للناشر وللمصدر (QuranEnc.com). 3. ذكر رقم الإصدار عند إعادة نشر الترجمة. 4. إبقاء معلومات نسخة الترجمة الموجودة داخل المستند. 5. إفادة المصدر (QuranEnc.com) بأي ملاحظة على الترجمة. 6. تطوير الترجمات وفق النسخ الجديدة الصادرة من المصدر (QuranEnc.com). 7. عدم تضمين إعلانات لا تليق بترجمات معاني القرآن الكريم عند العرض. وتُعرض النصوص في رحلة دون تعديل، ويُذكر تحت كل آية اسم الترجمة ورقم إصدارها، أو أن QuranEnc لا ينشر لها رقم إصدار، ولا إعلانات في المنصة.",
         "en": "QuranEnc.com's published terms (its About and Developers' pages, checked on 2026-10-04): Contents of the translations can be downloaded and re-published, with the following terms and conditions: 1. No modification, addition, or deletion of the content. 2. Clearly referring to the publisher and the source (QuranEnc.com). 3. Mentioning the version number when re-publishing the translation. 4. Keeping the transcript information inside the document. 5. Notifying the source (QuranEnc.com) of any note on the translation. 6. Updating the translation according to the latest version issued from the source (QuranEnc.com). 7. Inappropriate advertisements must not be included when displaying translations of the meanings of the Noble Quran. Rehla shows the texts unmodified, names each translation and its version under the verse (or says that QuranEnc publishes no version number for it), and carries no advertisements."
       },
       "status": "approved",
-      "verifiedOn": "2026-10-04"
+      "verifiedOn": "2026-10-06"
     },
     {
       "id": "mp3quran",
@@ -239,6 +239,27 @@
       "verifiedOn": "2026-10-04"
     },
     {
+      "id": "dawa-bayyinat",
+      "type": "lessons",
+      "name": {
+        "ar": "«بينات: أسئلة وأجوبة عن الإسلام» لمركز أصول (dawa.center)",
+        "en": "Bayyinat: Questions and Answers about Islam («بينات: أسئلة وأجوبة عن الإسلام»), Osoul Center (Arabic, dawa.center)"
+      },
+      "aliases": [],
+      "url": "https://dawa.center/file/7937",
+      "alsoAt": [],
+      "usedFor": {
+        "ar": "مرجع لأجوبة رفيق بالعربية: 263 مسألة، كل مسألة بسؤالها ومختصر جوابها كما في نص ملف PDF، قطعةً واحدة في الفهرس (والجواب التفصيلي محفوظ في المدونة غير مفهرس). آيات الكتاب مجموعة بخط رسومي لا يُستخرج نصًّا، فتُحذف من النص المفهرس وتؤخذ الآيات من مصدرها.",
+        "en": "Reference for Rafiq's Arabic answers: 263 questions, each with its question and the book's own summary answer as the PDF text layer gives them, one chunk per question in the index (the detailed answer is kept in the corpus, not indexed). The book's verses are set in a glyph font that does not extract as text: they are removed from the indexed text, and verses are taken from their own source."
+      },
+      "licence": {
+        "ar": "لا تنشر صفحة الملف ترخيصًا لإعادة الاستخدام؛ عبارة الحقوق الوحيدة في الموقع هي تذييله: «© 2026 الحقوق محفوظة». وصيغة الاستشهاد المقترحة في الصفحة: «مركز أصول، بينات: أسئلة وأجوبة عن الإسلام، مركز أصول، 2024م / 1445هـ. https://dawa.center/file/7937».",
+        "en": "The file's page publishes no reuse licence; the site's only rights wording is its footer: «© 2026 الحقوق محفوظة» (\"© 2026 All rights reserved\"). The page's suggested citation: «مركز أصول، بينات: أسئلة وأجوبة عن الإسلام، مركز أصول، 2024م / 1445هـ. https://dawa.center/file/7937»."
+      },
+      "status": "pendingReview",
+      "verifiedOn": "2026-10-06"
+    },
+    {
       "id": "terminologyenc",
       "type": "terminology",
       "name": {
@@ -249,15 +270,36 @@
       "url": "https://terminologyenc.com",
       "alsoAt": [],
       "usedFor": {
-        "ar": "تعريفات تسعة مصطلحات بالعربية والإنجليزية، محفوظة كما نُشرت في مدونة رفيق، كلٌّ برابط صفحته.",
-        "en": "The definitions of nine terms in Arabic and English, kept as published in Rafiq's corpus, each with the link to its page."
+        "ar": "تعريفات ثلاثة عشر مصطلحًا بالعربية والإنجليزية، محفوظة كما نُشرت في مدونة رفيق، كلٌّ برابط صفحته. وحين يُطلب من رفيق ترجمة مصطلح من مسرد الجهة المنظِّمة يعرض تعريف الموسوعة للمصطلح بنصه إن كان محفوظًا. وأسماء الموسوعة الإنجليزية للمصطلح (مثل Monotheism للتوحيد) هي التي يُستبدل بها في أجوبة رفيق غير العربية المقابلُ المعتمد في المسرد.",
+        "en": "The definitions of thirteen terms in Arabic and English, kept as published in Rafiq's corpus, each with the link to its page. When Rafiq is asked to translate a term of the organisers' glossary, he shows the encyclopedia's definition of it verbatim when it is stored. The encyclopedia's English names for a term (such as Monotheism for التوحيد) are the renderings that Rafiq's non-Arabic answers replace with the glossary's approved form."
       },
       "licence": {
         "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره.",
         "en": "The organisers' package states that the content of the Association's platforms is free for individuals and organisations; text is kept unmodified and attributed."
       },
       "status": "approved",
-      "verifiedOn": "2026-10-04"
+      "verifiedOn": "2026-10-06"
+    },
+    {
+      "id": "organisers-glossary",
+      "type": "terminology",
+      "name": {
+        "ar": "مسرد المصطلحات في «المرجعية والحزمة العلمية والبيانات» لتحدي الذكاء الاصطناعي لخدمة المحتوى الإسلامي (صفحة 7)",
+        "en": "Glossary of the AI Challenge Serving Islamic Content scholarly package («المرجعية والحزمة العلمية والبيانات»), page 7"
+      },
+      "aliases": [],
+      "alsoAt": [],
+      "usedFor": {
+        "ar": "عشرة مصطلحات بمقابلها الإنجليزي المعتمد وضابط استعمالها، محفوظة بنصها في content/glossary-p7.json. يجيب رفيق عن طلب ترجمة أحدها من المسرد نفسه دون نموذج لغوي: المقابل المعتمد أولًا ثم ضابط الاستعمال. وفي كل جواب بغير العربية يُذكر المصطلح بمقابله المعتمد.",
+        "en": "Ten terms with their approved English equivalent and usage rule, kept verbatim in content/glossary-p7.json. Rafiq answers a request to translate one of them from the glossary itself, with no language model: the approved equivalent first, then the usage rule. In every answer that is not in Arabic, the term is named in its approved form."
+      },
+      "licence": {
+        "ar": "وثيقة سلّمتها الجهة المنظِّمة للمشاركين في التحدي، وليس لها عنوان عام؛ يُنقل المسرد كما هو مع نسبته إليها.",
+        "en": "A document the organisers gave the challenge's participants; it has no public address. The glossary is quoted exactly and attributed to it."
+      },
+      "status": "approved",
+      "verifiedOn": "2026-10-06",
+      "unpublished": true
     },
     {
       "id": "ncnp-directory",

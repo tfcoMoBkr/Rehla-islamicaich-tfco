@@ -1,0 +1,1 @@
+- The question rests on a mistaken idea. The first sentence of "answer" corrects it gently, from a passage, with its number, without any rebuke and without repeating the mistaken idea as if it were true; then answer what they really want to know.

@@ -322,7 +322,7 @@
       "question": {
         "bn": "ধর্মে কোনো জবরদস্তি নেই — এ সম্পর্কে কুরআনের আয়াত কী?"
       },
-      "expected": "QuranEnc publishes no Bengali translation: the verse is shown in Arabic with the English translation, labelled as English, beside a Bengali passage; with no passage published in Bengali at all, Rafiq refers instead of translating.",
+      "expected": "The verse is shown in Arabic with QuranEnc's Bengali translation (bengali_rwwad, Rowwad Translation Center), beside a Bengali passage; with no passage published in Bengali at all, Rafiq refers instead of translating.",
       "checks": {
         "answersOrRefers": true,
         "noFabrication": true,

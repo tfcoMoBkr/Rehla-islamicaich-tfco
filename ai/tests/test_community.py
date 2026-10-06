@@ -92,7 +92,7 @@ def client() -> Iterator[TestClient]:
         app.state.services = Services(
             limiter=RateLimiter(10),
             rafiq=object(),  # type: ignore[arg-type]
-            checker=Checker(FakeChat(ModelCheck(personal_ruling=True))),  # type: ignore[arg-type]
+            checker=Checker(FakeChat(ModelCheck(personal_ruling=True))),
             community_limiter=RateLimiter(2),
         )
         yield test_client

@@ -24,18 +24,7 @@
         "en": "No harm, (it will be) purification (from sins) if Allah wills"
       }
     ],
-    "why": [
-      {
-        "ref": "h3706",
-        "ar": "وَعِيَادَةُ الْمَرِيضِ",
-        "en": "visiting the sick"
-      },
-      {
-        "ref": "b-sick",
-        "ar": "وعيادة المريض",
-        "en": "visiting the sick"
-      }
-    ],
+    "why": [],
     "when": [
       {
         "ref": "h6009",
@@ -276,25 +265,6 @@
         "en"
       ],
       "publisher": "hadeethenc.com"
-    },
-    {
-      "id": "b-sick",
-      "type": "book",
-      "source": "ibnbaz-lessons",
-      "textRef": {
-        "ar": {
-          "book": "1871",
-          "section": "t20",
-          "paragraph": 1,
-          "excerpt": "وعيادة المريض"
-        },
-        "en": {
-          "book": "2842316",
-          "section": "s19",
-          "paragraph": 1,
-          "excerpt": "visiting the sick"
-        }
-      }
     }
   ]
 }

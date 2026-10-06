@@ -54,6 +54,8 @@ class Passage(BaseModel):
     text: str
     verse: VerseText | None = None
     hadith: HadithText | None = None
+    # A question-and-answer book's answer to one question (one chunk per question).
+    answers_a_question: bool = False
 
     @property
     def key(self) -> str:
@@ -112,6 +114,7 @@ def from_chunk(chunk: Chunk) -> Passage:
         publisher=chunk.publisher,
         text=text,
         verse=verse,
+        answers_a_question=bool(chunk.extra.get("question")),
     )
 
 

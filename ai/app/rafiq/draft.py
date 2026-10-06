@@ -24,6 +24,8 @@ _LIST_ITEM = re.compile(rf"^\s*((?:[-*•▪◦]|{DIGIT}+[.)\-]|[a-z][.)])\s+)(.
 _LEADING_MARKERS = re.compile(r"^((?:\s*\[\d+\])+)\s*")
 
 Kind = Literal["paragraph", "item", "block"]
+# The direct answer, or the explanation shown after the sources.
+Role = Literal["answer", "explanation"]
 
 
 def number(text: str) -> int:
@@ -58,6 +60,7 @@ class Unit:
     prefix: str = ""
     # For a block: ("quran", "2:256") or ("hadith", "3064").
     block: tuple[str, str] | None = None
+    role: Role = "answer"
 
     @property
     def closing(self) -> list[int]:
@@ -118,6 +121,28 @@ def parse(answer: str) -> list[Unit]:
             pending.append(rest)
     close_paragraph()
     return [unit for unit in units if unit.kind == "block" or unit.sentences]
+
+
+def explanation_units(paragraphs: list[str]) -> list[Unit]:
+    """The explanation's paragraphs as units. The marker rule is per paragraph: markers written
+    anywhere in a paragraph cover all of it, so they are moved to its end. Placeholders are not
+    allowed here (blocks belong to the answer) and are left for the checks to reject."""
+    units: list[Unit] = []
+    for paragraph in paragraphs:
+        parsed = parse(paragraph)
+        for unit in parsed:
+            unit.role = "explanation"
+            if unit.kind == "paragraph" and len(unit.sentences) > 1:
+                found = list(dict.fromkeys(n for s in unit.sentences for n in markers(s)))
+                if found and not markers(unit.sentences[-1]):
+                    last = unit.sentences[-1].rstrip()
+                    end = len(last)
+                    while end and last[end - 1] in ".!?؟۔।":
+                        end -= 1
+                    tags = "".join(f"[{n}]" for n in found)
+                    unit.sentences[-1] = f"{last[:end]} {tags}{last[end:]}"
+        units.extend(parsed)
+    return units
 
 
 def render(units: list[Unit]) -> str:

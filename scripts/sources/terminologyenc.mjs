@@ -6,7 +6,7 @@ import path from "node:path";
 
 import { characters, corpusDir, exists, getText, python, readJson, scriptPath, today, writeJson } from "./common.mjs";
 
-export const TERM_IDS = [4064, 6733, 8708, 5289, 10482, 46045, 36599, 15008, 4062];
+export const TERM_IDS = [4064, 6733, 8708, 5289, 10482, 46045, 36599, 15008, 4062, 7365, 71790, 71807, 114];
 const LANGUAGES = ["ar", "en"];
 const cacheDir = path.join(corpusDir, ".cache", "terminologyenc");
 

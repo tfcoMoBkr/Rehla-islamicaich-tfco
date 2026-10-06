@@ -14,6 +14,7 @@ from typing import Protocol
 
 import httpx
 from langchain_mcp_adapters.client import MultiServerMCPClient
+from mcp.types import TextContent
 
 log = logging.getLogger("rafiq.mcp")
 
@@ -69,7 +70,7 @@ class McpClient:
                     log.warning("mcp %s returned an error", tool)
                     return None
                 text = "\n".join(
-                    block.text for block in result.content if getattr(block, "type", "") == "text"
+                    block.text for block in result.content if isinstance(block, TextContent)
                 )
                 self._cache[key] = text
                 if len(self._cache) > CACHE_SIZE:

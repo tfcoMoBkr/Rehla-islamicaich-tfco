@@ -31,13 +31,7 @@
         "en": "the devil says (to his companions): 'There is no night shelter nor supper here for you.'"
       }
     ],
-    "when": [
-      {
-        "ref": "b-mosque",
-        "ar": "أو المنزل والخروج منهما",
-        "en": "or home"
-      }
-    ]
+    "when": []
   },
   "exchanges": [
     {
@@ -260,25 +254,6 @@
         "en"
       ],
       "publisher": "hadeethenc.com"
-    },
-    {
-      "id": "b-mosque",
-      "type": "book",
-      "source": "ibnbaz-lessons",
-      "textRef": {
-        "ar": {
-          "book": "1871",
-          "section": "t20",
-          "paragraph": 1,
-          "excerpt": "والآداب الشرعية عند دخول المسجد، أو المنزل والخروج منهما"
-        },
-        "en": {
-          "book": "2842316",
-          "section": "s19",
-          "paragraph": 1,
-          "excerpt": "observing the Islamic etiquettes when entering or leaving the mosque or home"
-        }
-      }
     }
   ]
 }

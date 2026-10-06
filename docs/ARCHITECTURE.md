@@ -69,8 +69,10 @@ Items only one side holds are kept.
 A new Muslim practises everyday situations before meeting them (`/[locale]/mawqif`, flag `mawqif`): the greeting, the mosque, the adhan, a meal, a sneeze, coming home, an invitation, visiting the sick, condolences, a colleague's question, the first Friday, the first day of fasting. `docs/MAWQIF_COVERAGE.md` lists each situation and the source behind every statement in it.
 
 - **Content** (`content/situations/*.json`, schema in `web/src/lib/content/situation-schema.ts`): a scene (team wording, labelled), "what to say", "why" and "when" as quotes, two role-play turns, and two checks. Every religious item is a quote: an exact excerpt, in each language, of a stored HadeethEnc hadith, a QuranEnc verse or an approved book (textRef). Each turn has key points (quotes) and three written replies (best, acceptable, to avoid) that name the key points they meet. `situation-content.test.ts` checks every quote against the stored text byte for byte, both languages, citations against HadeethEnc's own attribution, and that no team line repeats words of a verse or hadith. `scripts/fetch-content.mjs` fetches the hadiths and verses the situations cite.
-- **Pages** (all rendered at build time): the map of situations as stops on the road (not started, practised, mastered), one page per situation (scene, learn, role-play, summary, check), and the final tests after every four situations and for the whole section, with a score, every question's answer and source, and an analysis (handled well, practise again, lessons to revisit).
-- **The role-play.** The learner replies by choosing one of the written replies (no AI) or by writing their own. Feedback is built by the page from fixed lines and the quoted sources of the missing key points; «رفيق» stands beside the learner as the coach, with the `{{name}}` placeholder filled on the device.
+- **Pages** (all rendered at build time): the map of situations as stops on the road (not started, practised, mastered), one page per situation (learn, practise, feedback, check), and the final tests after every four situations and for the whole section.
+- **Learn** is one short screen: each quote with Rafiq's plain explanation, produced when the page opens, and "I don't understand, explain it" beside it (`POST /mawqif/explain`, an ordinary Rafiq answer with every check). "Why" and "when" appear only where the quoted text itself states a reason or a time.
+- **Practise is a conversation** (`ai/app/mawqif/practice.py`): `POST /mawqif/practice/start` sets a fresh scene inside the situation (who, where, the mood, their first line), different from the scenes already practised; `POST /mawqif/practice/turn` takes each free-written reply (4–6 of them) and returns the person's next line and the key points met, or pauses the scene (a religious question for Rafiq, a ruling for the specialist card, distress or danger for the care card); `POST /mawqif/practice/feedback` gives, per reply, what was good, what was missing and a better reply whose religious words are the situation's quotes inserted by code. "Give me a hint" shows the written replies; "Help me" shows the next key point's quote. When the service is unavailable, the written replies are the practice, with a calm note.
+- **The final test** is several situations in a row, each a short conversation of two or three replies, scored from the key points met, with the feedback and better replies, and an analysis (handled well, practise again, lessons to revisit). The written checks remain as a quick option. A situation is **mastered** when a completed conversation met all its key points.
 - **Evaluating a written reply** (`POST /mawqif/evaluate`, `ai/app/mawqif/`): the reply first passes the danger check in code; then one model call reports which of the turn's key points it covers (by id), its tone, whether it is a religious question instead of a reply (offered to Rafiq) or distress (the specialist card), and one encouraging sentence, which must pass Rafiq's warm-line checks or is dropped. A 20-second budget; when the service is unavailable, the turn falls back to the written choices. The key points reach the service through `app/prepare.py` (`ai/data/index/mawqif-turns.json`). Nothing typed is stored or logged.
 - **Progress** is kept like Practice's: provisions once per turn answered with the best reply and per right answer, and the best round of each check and test, in the learner's progress record (device for guests, account when signed in).
 
@@ -102,7 +104,7 @@ An opt-in place where new Muslims, and people who support them, share experience
 
 ## Lens («عدسة»)
 
-A learner photographs something around them (a sign in a mosque, a prayer mat, a wudu area, Arabic writing) and Lens says what it is and what it means, from the approved sources. Page: `/[locale]/lens` (flag `adasa`). Service: `POST /lens` (`ai/app/lens/`), reached through the web proxy (`/api/ai/lens`).
+A learner photographs something around them (a sign in a mosque, a prayer mat, a wudu area, Arabic writing), Lens says what it is and what it means from the approved sources, and then they talk about it. Page: `/[locale]/lens` (flag `adasa`). Service: `POST /lens` for the first reading and `POST /lens/turn` for each message after it (`ai/app/lens/`), reached through the web proxy.
 
 Three steps, kept apart in code and on screen:
 
@@ -111,6 +113,14 @@ Three steps, kept apart in code and on screen:
 3. **EXPLAIN**: only for the rows that answer, the subject, or a religious term the text really holds, becomes an ordinary question to Rafiq ("What is X, and what does it mean for a Muslim?"), so the answer is a normal `RafiqAnswer` with every Rafiq check and card. A matched verse or hadith is shown as its published block with no model text at all; a paper about the learner's own situation gets the specialist card with no ruling.
 
 **Limits.** The browser downscales a photo to 1280 px, re-encodes it as JPEG (which leaves its metadata behind) and sends at most 4 MB; the service checks the size and the file's own signature. `/lens` has its own limit (`LENS_PER_MINUTE`, 5 per minute per address), the shared service key, and a 45-second budget that ends in a friendly card. The image is held in memory for the SEE call only; logs carry the kind, the row, the card and the timing.
+
+**The conversation** (`conversation.py`, `web/src/components/lens/lens-thread.tsx`). The photo stays pinned at the top of the thread and in the browser; Rafiq's first message says what it is and what it means, with two or three suggested next questions (questions only). Each later message goes to `/lens/turn` with what was seen (in words) and the conversation, and is routed by one model call, then code:
+
+- **visual** (what can be seen): the service answers `needsImage`, and the page sends the same turn again with the photo; the vision model looks again, and its answer passes the everyday-talk checks;
+- **meaning**: Rafiq answers the question about the thing itself, under the relevance gate, with every check and card;
+- **talk**: an everyday reply, no photo sent.
+
+The decision table applies to every turn (a person, a personal document, a ruling on one's own case). "Take another photo" starts a new thread; "Add a photo" adds one to the same conversation.
 
 **Examples.** Four drawn examples (original SVG) let a visitor without a camera try Lens: each sends a stored `seen` result, so only EXPLAIN runs, and the screen marks it "Example".
 
@@ -134,8 +144,8 @@ flowchart LR
       RW["route /api/ai/[path]<br/>+ AI_SERVICE_KEY"]
     end
     subgraph ai["ai (FastAPI)"]
-      API["POST /ask<br/>POST /lesson-help"]
-      G["LangGraph:<br/>classify → retrieve → generate → verify → respond | refer"]
+      API["POST /ask<br/>POST /lesson-help<br/>POST /lens/turn, /mawqif/*"]
+      G["LangGraph:<br/>safety → classify → talk | term | retrieve → generate ⇄ widen → verify → respond | refer"]
       IDX[("ai/data/index<br/>chunks + vectors")]
     end
     OR["OpenRouter<br/>LLM_MODEL, LLM_FALLBACK_MODEL,<br/>EMBEDDING_MODEL"]
@@ -160,7 +170,11 @@ flowchart LR
 | `app/rafiq/policy.py` | The reliability levels A–D as code. |
 | `app/languages.py` | The answer languages as one table: direction, QuranEnc translation, HadeethEnc code, and whether the local books are in it. |
 | `app/rafiq/draft.py` | Parses a draft into paragraphs, list items, sentences and blocks, reading markers in any common style. |
-| `app/rafiq/check.py` | Verification by code, with a category for each problem: markers, placeholders, copied sacred text. |
+| `app/rafiq/check.py` | Verification by code, with a category for each problem: markers, placeholders, copied sacred text, picked winners, unsupported consensus claims. |
+| `app/rafiq/voice.py`, `app/rafiq/warmth.py` | Everyday lines: stock phrases, repeated openings and closings, the name's rhythm; the code checks of warm lines. |
+| `app/rafiq/glossary.py` | The organisers' glossary: "translate this term", and approved forms in answers that are not in Arabic. |
+| `app/rafiq/embedded.py` | Verses and hadiths inside a book's text: shown from their own source, or with the line that the grade is not stated. |
+| `app/rafiq/road.py` | The stations and lessons by title, so everyday talk can name the next lesson. |
 | `app/rafiq/repair.py` | Deterministic repairs after the retry, and the finishing every answer gets: the verses and hadiths it relies on shown, at most two. |
 | `app/rafiq/compose.py` | Turns the checked draft into blocks, putting verbatim verses and hadiths in place of placeholders, and numbers the sources. |
 | `app/rafiq/prompts/` | The prompts, one file each, in English. |
@@ -172,6 +186,7 @@ flowchart LR
 **The index is committed.** `uv run python -m app.ingest` reads the corpus from `content/`:
 
 - the lesson books (`content/corpus/books/`), split into pieces of about 800 characters at paragraph and subheading boundaries;
+- «بينات» (`content/corpus/books/dawa-7937/`), a question-and-answer book: one chunk per question, the question with the book's summary answer;
 - TerminologyEnc terms;
 - HadeethEnc catalogue titles;
 - the fetched hadiths and verses the lessons reference (`content/fetched/`).
@@ -188,23 +203,27 @@ Each chunk carries `lang`, `type`, `sourceId`, `title`, `reference`, `url`, `pub
   "kind": "answer | referral | chat | clarify | danger",
   "opening": "A kind line with no religious statement, or null",
   "blocks": [
-    { "type": "text", "text": "… [1]" },
+    { "type": "text", "role": "answer | explanation", "text": "… [1]" },
     { "type": "quran", "n": 2, "ref": "2:256", "surah": 2, "ayah": 256, "surahName": "…", "arabic": "…",
       "translation": "…", "translationLanguage": "en", "translationKey": "english_saheeh",
       "translationName": "…", "translationVersion": "1.1.2", "url": "…" },
     { "type": "hadith", "n": 3, "id": 3064, "title": "…", "arabic": "…", "text": "…", "textLanguage": "en",
-      "grade": "…", "attribution": "…", "explanation": null, "url": "…" }
+      "grade": "…", "attribution": "…", "explanation": null, "url": "…" },
+    { "type": "term", "n": 1, "term": "التوحيد", "approved": "Tawhid / Oneness of God", "rule": "…",
+      "definition": "…", "definitionLanguage": "en", "definitionN": 2 },
+    { "type": "note", "note": "gradeNotStated" }
   ],
   "sources": [{ "n": 1, "sourceId": "…", "title": "…", "reference": "…", "url": "…", "publisher": "…" }],
   "followUp": "One line that keeps the conversation going, or null",
-  "referral": { "reason": "fatwa | personalCase | disputed | noSource | noEvidence | verification | distress | danger | offTopic | smalltalk",
-                "links": ["/talk-to-a-specialist"], "centers": ["moia-1933", "…"] },
+  "encouragement": "A line about the learner's effort, with no religious statement, or null",
+  "referral": { "reason": "fatwa | personalCase | disputed | noSource | noEvidence | verification | distress | danger | offTopic | smalltalk | unexplained | verseNotFound | hadithNotFound | timeout | dailyCap",
+                "links": ["/talk-to-a-specialist"], "centers": ["moia-1933", "…"], "region": "outside | null" },
   "laterLessonId": "2.4",
   "languageFallback": false
 }
 ```
 
-- `/ask` takes `{question, locale, reachedLessonIds?, history?}`. `history` holds at most 8 turns, and `reachedLessonIds` are the lessons the learner completed.
+- `/ask` takes `{question, locale, reachedLessonIds?, history?, shared?}`. `history` holds at most 8 turns, `reachedLessonIds` are the lessons the learner completed, and `shared` is a community post asked about.
 - `referral.centers` are ids in `content/referral-centers.json`; the page renders the bodies from that file (the ingest copies the ids to `ai/data/index/referral-centers.json`).
 - `/lesson-help` is a short conversation about one lesson line. It takes `{lessonId, cardId, lineText, mode: explain | simpler | example | question, question?, locale, reachedLessonIds?, history?}`:
   - `explain` is Rafiq's first message about the line; `simpler` and `example` ask again about it. These three are not classified: they ask for no ruling and are answered in the page's language.

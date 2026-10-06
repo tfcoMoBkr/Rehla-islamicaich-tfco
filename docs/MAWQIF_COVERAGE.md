@@ -12,8 +12,6 @@ A situation was built only when every phrase to say, every reason and every poin
 |---|---|---|---|
 | learn: say | As-salāmu ‘alaykum (peace be upon you) | السَّلَامُ عَلَيْكُمْ | HadeethEnc hadith 3587 (رواه أبو داود والترمذي وأحمد والدارمي), https://hadeethenc.com/en/browse/hadith/3587 |
 | learn: say | As-salāmu ‘alaykum wa rahmatullāh (may the peace and mercy of Allah be upon you) | السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ | HadeethEnc hadith 3587 (رواه أبو داود والترمذي وأحمد والدارمي), https://hadeethenc.com/en/browse/hadith/3587 |
-| learn: why | Feeding people and extending the greeting of peace to those you know and those you do not know | تُطْعِمُ الطَّعَامَ، وَتَقْرَأُ السَّلاَمَ عَلَى مَنْ عَرَفْتَ وَمَنْ لَمْ تَعْرِفْ | HadeethEnc hadith 5808 (متفق عليه), https://hadeethenc.com/en/browse/hadith/5808 |
-| learn: why | Among them are: greeting with peace | ومنها: السلام | ibnbaz-lessons: ar 1871/t20 [1], en 2842316/s19 [1] |
 | learn: when | The young should greet the old, the passer-by should greet the one who is sitting | لِيُسَلِّمِ الصغيرُ على الكبيرِ، والمارُّ على القاعدِ | HadeethEnc hadith 5352 (متفق عليه), https://hadeethenc.com/en/browse/hadith/5352 |
 | learn: when | And when you are greeted with a greeting, greet [in return] with one better than it or [at least] return it | وَإِذَا حُيِّيتُم بِتَحِيَّةٖ فَحَيُّواْ بِأَحۡسَنَ مِنۡهَآ أَوۡ رُدُّوهَآۗ | Quran 4:86, QuranEnc english_saheeh, https://quranenc.com/en/browse/english_saheeh/4#86 |
 | t1 key point | the passer-by should greet the one who is sitting | والمارُّ على القاعدِ | HadeethEnc hadith 5352 (متفق عليه), https://hadeethenc.com/en/browse/hadith/5352 |
@@ -29,7 +27,6 @@ Related lessons: none.
 |---|---|---|---|
 | learn: say | 'Allahumma iftah li abwāba rahmatik' (O Allah, open for me the gates of Your mercy) | اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ | HadeethEnc hadith 65092 (رواه مسلم), https://hadeethenc.com/en/browse/hadith/65092 |
 | learn: say | 'Allahumma inni as’aluka min fadlik' (O Allah, I ask You of Your bounty) | اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ | HadeethEnc hadith 65092 (رواه مسلم), https://hadeethenc.com/en/browse/hadith/65092 |
-| learn: why | observing the Islamic etiquettes when entering or leaving the mosque or home | والآداب الشرعية عند دخول المسجد، أو المنزل والخروج منهما | ibnbaz-lessons: ar 1871/t20 [1], en 2842316/s19 [1] |
 | learn: when | When any of you enters the mosque, let him say | إِذَا دَخَلَ أَحَدُكُمُ الْمَسْجِدَ فَلْيَقُلِ | HadeethEnc hadith 65092 (رواه مسلم), https://hadeethenc.com/en/browse/hadith/65092 |
 | learn: when | And when he leaves, let him say | وَإِذَا خَرَجَ فَلْيَقُلِ | HadeethEnc hadith 65092 (رواه مسلم), https://hadeethenc.com/en/browse/hadith/65092 |
 
@@ -53,8 +50,7 @@ Related lessons: 3.3.
 |---|---|---|---|
 | learn: say | mention Allah's name | سَمِّ اللهَ | HadeethEnc hadith 58120 (متفق عليه), https://hadeethenc.com/en/browse/hadith/58120 |
 | learn: say | Alhamdulillah al-ladhi at‘amani hadha wa razaqneih min ghayri hawl li wala quwwah (Praise be to Allah who fed me and provided me with this food through no might or power on my part) | الحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلاَ قُوَّةٍ | HadeethEnc hadith 5431 (رواه أبو داود والترمذي وابن ماجه وأحمد), https://hadeethenc.com/en/browse/hadith/5431 |
-| learn: why | eating and drinking with the right hand, saying Bismillāh (in the Name of Allah) at the beginning, and Alhamdulillāh (praise be to Allah) upon finishing | والأكل باليمين والشرب بها، والتسمية عند الابتداء، والحمد عند الفراغ | ibnbaz-lessons: ar 1871/t20 [1], en 2842316/s19 [1] |
-| learn: when | mention Allah's name, eat with your right hand, and eat from what is nearer to you | سَمِّ اللهَ، وَكُلْ بِيَمِينِكَ، وَكُلْ مِمَّا يَلِيكَ | HadeethEnc hadith 58120 (متفق عليه), https://hadeethenc.com/en/browse/hadith/58120 |
+| learn: when | eating and drinking with the right hand, saying Bismillāh (in the Name of Allah) at the beginning, and Alhamdulillāh (praise be to Allah) upon finishing | والأكل باليمين والشرب بها، والتسمية عند الابتداء، والحمد عند الفراغ | ibnbaz-lessons: ar 1871/t20 [1], en 2842316/s19 [1] |
 | learn: when | If anyone of you eats, let him eat with his right hand, and if he drinks, let him drink with his right hand | إِذَا أَكَلَ أَحَدُكُمْ فَلْيَأْكُلْ بِيَمِينِهِ، وَإِذَا شَرِبَ فَلْيَشْرَبْ بِيَمِينِهِ | HadeethEnc hadith 58122 (رواه مسلم), https://hadeethenc.com/en/browse/hadith/58122 |
 | t1 key point | let him eat with his right hand | فَلْيَأْكُلْ بِيَمِينِهِ | HadeethEnc hadith 58122 (رواه مسلم), https://hadeethenc.com/en/browse/hadith/58122 |
 
@@ -67,7 +63,6 @@ Related lessons: none.
 | learn: say | he should say 'alhamdu-lillāh' (praise be to Allah) | فَلْيَقُل: الحَمْدُ للهِ | HadeethEnc hadith 3433 (رواه البخاري), https://hadeethenc.com/en/browse/hadith/3433 |
 | learn: say | 'yarhamuk Allah' (may Allah have mercy on you) | يَرْحَمُكَ الله | HadeethEnc hadith 3433 (رواه البخاري), https://hadeethenc.com/en/browse/hadith/3433 |
 | learn: say | 'yahdīkum Allah wa yuslih bālakum!' (may Allah guide you and grant you well being) | يَهْدِيكُم الله ويُصْلِحُ بَالَكُم | HadeethEnc hadith 3433 (رواه البخاري), https://hadeethenc.com/en/browse/hadith/3433 |
-| learn: why | saying tashmīt (yarhamuk Allah) (may Allah show mercy to you) to the person who sneezes | وَتَشْمِيتُ الْعَاطِسِ | HadeethEnc hadith 3706 (متفق عليه), https://hadeethenc.com/en/browse/hadith/3706 |
 | learn: when | responding to the sneezer if they praise Allah | وتشميت العاطس إذا حمد الله | ibnbaz-lessons: ar 1871/t20 [1], en 2842316/s19 [1] |
 
 Related lessons: none.
@@ -78,7 +73,6 @@ Related lessons: none.
 |---|---|---|---|
 | learn: say | When one mentions Allah's name upon entering his house and upon eating | فَذَكَرَ اللهَ عِنْدَ دُخُولِهِ وَعِنْدَ طَعَامِهِ | HadeethEnc hadith 3037 (رواه مسلم), https://hadeethenc.com/en/browse/hadith/3037 |
 | learn: why | the devil says (to his companions): 'There is no night shelter nor supper here for you.' | قَالَ الشَّيْطَانُ: لَا مَبِيتَ لَكُمْ، وَلَا عَشَاءَ | HadeethEnc hadith 3037 (رواه مسلم), https://hadeethenc.com/en/browse/hadith/3037 |
-| learn: when | or home | أو المنزل والخروج منهما | ibnbaz-lessons: ar 1871/t20 [1], en 2842316/s19 [1] |
 | t1 key point | When one mentions Allah's name upon entering his house | فَذَكَرَ اللهَ عِنْدَ دُخُولِهِ | HadeethEnc hadith 3037 (رواه مسلم), https://hadeethenc.com/en/browse/hadith/3037 |
 | t2 key point | and upon eating | وَعِنْدَ طَعَامِهِ | HadeethEnc hadith 3037 (رواه مسلم), https://hadeethenc.com/en/browse/hadith/3037 |
 | check c1 | upon entering his house and upon eating | عِنْدَ دُخُولِهِ وَعِنْدَ طَعَامِهِ | HadeethEnc hadith 3037 (رواه مسلم), https://hadeethenc.com/en/browse/hadith/3037 |
@@ -91,9 +85,9 @@ Related lessons: none.
 | Where | Statement (en) | Statement (ar) | Reference |
 |---|---|---|---|
 | learn: say | mention Allah's name, eat with your right hand, and eat from what is nearer to you | سَمِّ اللهَ، وَكُلْ بِيَمِينِكَ، وَكُلْ مِمَّا يَلِيكَ | HadeethEnc hadith 58120 (متفق عليه), https://hadeethenc.com/en/browse/hadith/58120 |
-| learn: why | accepting invitations | وَإِجَابَةُ الدَّعْوَةِ | HadeethEnc hadith 3706 (متفق عليه), https://hadeethenc.com/en/browse/hadith/3706 |
 | learn: when | If one of you is invited to a wedding banquet, he should attend | إذا دُعِيَ أحدكم إلى الوَلِيمَة فَلْيَأْتِهَا | HadeethEnc hadith 58112 (متفق عليه), https://hadeethenc.com/en/browse/hadith/58112 |
 | t1 key point | he should attend | فَلْيَأْتِهَا | HadeethEnc hadith 58112 (متفق عليه), https://hadeethenc.com/en/browse/hadith/58112 |
+| t1 key point | accepting invitations | وَإِجَابَةُ الدَّعْوَةِ | HadeethEnc hadith 3706 (متفق عليه), https://hadeethenc.com/en/browse/hadith/3706 |
 | t2 key point | mention Allah's name | سَمِّ اللهَ | HadeethEnc hadith 58120 (متفق عليه), https://hadeethenc.com/en/browse/hadith/58120 |
 | t2 key point | and eat from what is nearer to you | وَكُلْ مِمَّا يَلِيكَ | HadeethEnc hadith 58120 (متفق عليه), https://hadeethenc.com/en/browse/hadith/58120 |
 
@@ -104,9 +98,8 @@ Related lessons: none.
 | Where | Statement (en) | Statement (ar) | Reference |
 |---|---|---|---|
 | learn: say | No harm, (it will be) purification (from sins) if Allah wills | لا بأس؛ طَهُور إن شاء الله | HadeethEnc hadith 6009 (رواه البخاري), https://hadeethenc.com/en/browse/hadith/6009 |
-| learn: why | visiting the sick | وَعِيَادَةُ الْمَرِيضِ | HadeethEnc hadith 3706 (متفق عليه), https://hadeethenc.com/en/browse/hadith/3706 |
-| learn: why | visiting the sick | وعيادة المريض | ibnbaz-lessons: ar 1871/t20 [1], en 2842316/s19 [1] |
 | learn: when | whenever he visited a sick person | وكان إذا دَخَلَ على مَن يَعودُه | HadeethEnc hadith 6009 (رواه البخاري), https://hadeethenc.com/en/browse/hadith/6009 |
+| t2 key point | visiting the sick | وَعِيَادَةُ الْمَرِيضِ | HadeethEnc hadith 3706 (متفق عليه), https://hadeethenc.com/en/browse/hadith/3706 |
 | check c2 | A Muslim owes another Muslim five rights | حَقُّ الْمُسْلِمِ عَلَى الْمُسْلِمِ خَمْسٌ | HadeethEnc hadith 3706 (متفق عليه), https://hadeethenc.com/en/browse/hadith/3706 |
 
 Related lessons: none.
@@ -117,7 +110,7 @@ Related lessons: none.
 |---|---|---|---|
 | learn: say | Indeed we belong to Allāh, and indeed to Him we will return | إِنَّا لِلَّهِ وَإِنَّآ إِلَيۡهِ رَٰجِعُونَ | Quran 2:156, QuranEnc english_saheeh, https://quranenc.com/en/browse/english_saheeh/2#156 |
 | learn: say | To Allah belongs what He takes, and to Him belongs what He gives, and for everything He sets a specific term. So she should have patience and seek the reward from Allah | إنَّ لِلَّه ما أَخَذ ولَهُ ما أَعطَى، وكلُّ شَيءٍ عِنده بِأجَل مُسمَّى فَلتَصبِر ولتَحتَسِب | HadeethEnc hadith 3290 (متفق عليه), https://hadeethenc.com/en/browse/hadith/3290 |
-| learn: why | offering condolences in times of affliction | والتعزية في المصاب | ibnbaz-lessons: ar 1871/t20 [1], en 2842316/s19 [1] |
+| learn: when | offering condolences in times of affliction | والتعزية في المصاب | ibnbaz-lessons: ar 1871/t20 [1], en 2842316/s19 [1] |
 | learn: when | Who, when disaster strikes them | ٱلَّذِينَ إِذَآ أَصَٰبَتۡهُم مُّصِيبَةٞ | Quran 2:156, QuranEnc english_saheeh, https://quranenc.com/en/browse/english_saheeh/2#156 |
 | check c2 | To Allah belongs what He takes, and to Him belongs what He gives | إنَّ لِلَّه ما أَخَذ ولَهُ ما أَعطَى | HadeethEnc hadith 3290 (متفق عليه), https://hadeethenc.com/en/browse/hadith/3290 |
 
@@ -128,8 +121,8 @@ Related lessons: none.
 | Where | Statement (en) | Statement (ar) | Reference |
 |---|---|---|---|
 | learn: say | Islam is to testify that there is no god but Allah and that Muhammad is the Messenger of Allah, to establish prayer, to pay Zakah, to fast Ramadan, and to perform Hajj to the House if you are able to find a way thereto | الْإِسْلَامُ أَنْ تَشْهَدَ أَنْ لَا إِلَهَ إِلَّا اللهُ، وَأَنَّ مُحَمَّدًا رَسُولُ اللهِ، وَتُقِيمَ الصَّلَاةَ، وَتُؤْتِيَ الزَّكَاةَ، وَتَصُومَ رَمَضَانَ، وَتَحُجَّ الْبَيْتَ إِنِ اسْتَطَعْتَ إِلَيْهِ سَبِيلًا | HadeethEnc hadith 4563 (رواه مسلم), https://hadeethenc.com/en/browse/hadith/4563 |
-| learn: why | Islam is built on five | بُنِيَ الإِسْلَامُ عَلَى خَمْسٍ | HadeethEnc hadith 66512 (رواه البخاري ومسلم), https://hadeethenc.com/en/browse/hadith/66512 |
-| learn: when | invite them to testify that none is worthy of worship except Allah and that Muhammad is the Messenger of Allah | فَادْعُهُمْ إِلَى أَنْ يَشْهَدُوا أَنْ لَا إِلَهَ إِلَّا اللهُ، وَأَنَّ مُحَمَّدًا رَسُولُ اللهِ | HadeethEnc hadith 3390 (متفق عليه), https://hadeethenc.com/en/browse/hadith/3390 |
+| t2 key point | invite them to testify that none is worthy of worship except Allah and that Muhammad is the Messenger of Allah | فَادْعُهُمْ إِلَى أَنْ يَشْهَدُوا أَنْ لَا إِلَهَ إِلَّا اللهُ، وَأَنَّ مُحَمَّدًا رَسُولُ اللهِ | HadeethEnc hadith 3390 (متفق عليه), https://hadeethenc.com/en/browse/hadith/3390 |
+| check c1 | Islam is built on five | بُنِيَ الإِسْلَامُ عَلَى خَمْسٍ | HadeethEnc hadith 66512 (رواه البخاري ومسلم), https://hadeethenc.com/en/browse/hadith/66512 |
 | check c2 | invite them to testify that none is worthy of worship except Allah | فَادْعُهُمْ إِلَى أَنْ يَشْهَدُوا أَنْ لَا إِلَهَ إِلَّا اللهُ | HadeethEnc hadith 3390 (متفق عليه), https://hadeethenc.com/en/browse/hadith/3390 |
 
 Related lessons: 1.4.
@@ -141,7 +134,7 @@ Related lessons: 1.4.
 | learn: say | If you say to your companion 'listen' on Friday while the Imām is delivering the sermon, you have thus engaged in idle talk | إذا قُلْتَ لِصَاحِبِكَ: أَنْصِتْ، يومَ الجمعةِ، والْإِمامُ يَخْطُبُ، فَقَدْ لَغَوْتَ | HadeethEnc hadith 3107 (متفق عليه), https://hadeethenc.com/en/browse/hadith/3107 |
 | learn: why | listens to it attentively and keeps silent, his sins between that Friday and the following Friday will be forgiven, with the addition of three more days | فَاسْتَمَعَ وَأَنْصَتَ غُفِرَ لَهُ مَا بَيْنَهُ وَبَيْنَ الْجُمُعَةِ وَزِيَادَةُ ثَلَاثَةِ أَيَّامٍ | HadeethEnc hadith 5433 (رواه مسلم), https://hadeethenc.com/en/browse/hadith/5433 |
 | learn: when | Whoever of you comes to attend the Friday prayer, let him take a shower | مَنْ ‌جَاءَ ‌مِنْكُمُ ‌الْجُمُعَةَ فَلْيَغْتَسِلْ | HadeethEnc hadith 5394 (متفق عليه), https://hadeethenc.com/en/browse/hadith/5394 |
-| learn: when | Get up and pray two Rak‘ahs | قم فاركع ركعتين | HadeethEnc hadith 5205 (متفق عليه), https://hadeethenc.com/en/browse/hadith/5205 |
+| t2 key point | Get up and pray two Rak‘ahs | قم فاركع ركعتين | HadeethEnc hadith 5205 (متفق عليه), https://hadeethenc.com/en/browse/hadith/5205 |
 | t2 key point | listens to it attentively and keeps silent | فَاسْتَمَعَ وَأَنْصَتَ | HadeethEnc hadith 5433 (رواه مسلم), https://hadeethenc.com/en/browse/hadith/5433 |
 | check c2 | you have thus engaged in idle talk | فَقَدْ لَغَوْتَ | HadeethEnc hadith 3107 (متفق عليه), https://hadeethenc.com/en/browse/hadith/3107 |
 

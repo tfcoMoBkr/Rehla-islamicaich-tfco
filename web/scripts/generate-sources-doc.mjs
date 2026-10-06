@@ -25,9 +25,11 @@ const STATUS = { approved: "Approved", pendingReview: "Pending review" };
 const cell = (text) => text.replaceAll("|", "\\|").replaceAll("\n", " ");
 
 /**
- * Every media item of the given lessons, with the lessons that use it.
- * @param {{ id: string; media?: object[]; cards: { media?: object[] }[]; steps?: { media?: object[] }[] }[]} lessons
- * @returns {{ ref: string; type: string; credit: string; sourceUrl: string; licence: string; lessons: string[] }[]}
+ * Every media item of the given lessons, with the lessons that use it: images and videos in the
+ * lesson's slots, and the video each lesson suggests at its end (credited from its source entry).
+ * @param {{ id: string; media?: object[]; cards: { media?: object[] }[]; steps?: { media?: object[] }[];
+ *   suggestedVideo?: Record<string, { source: string; page: string } | null> }[]} lessons
+ * @returns {{ ref: string; type: string; credit: string; sourceUrl: string; licence: string; sourceId?: string; lessons: string[] }[]}
  */
 export function collectMedia(lessons) {
   const byRef = new Map();
@@ -51,13 +53,26 @@ export function collectMedia(lessons) {
       if (!entry.lessons.includes(lesson.id)) entry.lessons.push(lesson.id);
       byRef.set(ref, entry);
     }
+    for (const video of Object.values(lesson.suggestedVideo ?? {}).filter(Boolean)) {
+      const entry = byRef.get(video.page) ?? {
+        ref: video.page,
+        type: "suggested video",
+        credit: "",
+        sourceUrl: video.page,
+        licence: "",
+        sourceId: video.source,
+        lessons: [],
+      };
+      if (!entry.lessons.includes(lesson.id)) entry.lessons.push(lesson.id);
+      byRef.set(video.page, entry);
+    }
   }
   return [...byRef.values()];
 }
 
 /**
  * @param {{ id: string; type: string; name: { en: string }; url?: string; alsoAt: string[];
- *   usedFor: { en: string }; licence: { en: string }; status: "approved" | "pendingReview";
+ *   usedFor: { en: string }; licence: { en: string }; status: "approved" | "pendingReview"; unpublished?: true;
  *   verifiedOn: string }[]} sources
  * @param {ReturnType<typeof collectMedia>} media
  * @returns {string}
@@ -75,7 +90,7 @@ export function renderSourcesDoc(sources, media) {
     lines.push(`## ${title}`, "", "| Source | Link | Used for | Licence | Status | Checked on |", "| --- | --- | --- | --- | --- | --- |");
     for (const source of group) {
       const urls = [...(source.url ? [source.url] : []), ...source.alsoAt];
-      const links = urls.length > 0 ? urls.map((url) => `<${url}>`).join("<br>") : "In this repository";
+      const links = urls.length > 0 ? urls.map((url) => `<${url}>`).join("<br>") : source.unpublished ? "No public address" : "In this repository";
       lines.push(
         `| ${cell(source.name.en)} (\`${source.id}\`) | ${links} | ${cell(source.usedFor.en)} | ${cell(source.licence.en)} | ${STATUS[source.status]} | ${source.verifiedOn} |`,
       );
@@ -84,13 +99,14 @@ export function renderSourcesDoc(sources, media) {
   }
   lines.push("## Media in lessons", "");
   if (media.length === 0) {
-    lines.push("No images or videos have been added to lessons yet.", "");
+    lines.push("No lesson uses an image or a video yet.", "");
   } else {
     lines.push("| Media | Credit | Licence | Source | Lessons |", "| --- | --- | --- | --- | --- |");
     for (const item of media) {
-      lines.push(
-        `| ${cell(item.ref)} (${item.type}) | ${cell(item.credit)} | ${cell(item.licence)} | <${item.sourceUrl}> | ${item.lessons.join(", ")} |`,
-      );
+      const source = sources.find((entry) => entry.id === item.sourceId);
+      const credit = item.credit || (source ? `${source.name.en} (\`${source.id}\`)` : "");
+      const licence = item.licence || (source ? source.licence.en : "");
+      lines.push(`| ${cell(item.ref)} (${item.type}) | ${cell(credit)} | ${cell(licence)} | <${item.sourceUrl}> | ${item.lessons.join(", ")} |`);
     }
     lines.push("");
   }

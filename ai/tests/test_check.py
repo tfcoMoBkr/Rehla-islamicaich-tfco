@@ -1,6 +1,7 @@
 """Verification in code, and the verbatim insertion of verses and hadiths."""
 
 import json
+from typing import Any
 
 from app.config import get_settings
 from app.index import Index
@@ -100,9 +101,9 @@ def test_words_a_book_shares_with_a_verse_may_be_taken_from_the_book() -> None:
     assert kinds(copied, given=[book, verse]) == set()
 
 
-def stored(kind: str, name: str) -> dict:
+def stored(kind: str, name: str) -> dict[str, Any]:
     path = get_settings().content_dir / "fetched" / kind / f"{name}.json"
-    data: dict = json.loads(path.read_text(encoding="utf-8"))
+    data: dict[str, Any] = json.loads(path.read_text(encoding="utf-8"))
     return data
 
 

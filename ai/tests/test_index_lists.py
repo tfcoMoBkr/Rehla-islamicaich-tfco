@@ -12,6 +12,7 @@ from pathlib import Path
 import pytest
 
 from app.index import Index
+from app.languages import Language
 from app.retrieval import retriever as retriever_module
 from app.retrieval.retriever import Retriever
 
@@ -53,7 +54,7 @@ def reached_through(index: Index, lesson: str) -> list[str]:
     ],
 )
 async def test_a_list_question_reads_the_section_that_holds_the_list(
-    real_index: Index, question: str, language: str, lesson: str, list_chunk: str
+    real_index: Index, question: str, language: Language, lesson: str, list_chunk: str
 ) -> None:
     retriever = Retriever(real_index, None, DownMcp())
     held = real_index.chunks[real_index.by_id[list_chunk]]

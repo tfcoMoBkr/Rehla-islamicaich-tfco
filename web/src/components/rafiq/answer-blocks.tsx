@@ -1,10 +1,10 @@
 "use client";
 
-import { ExternalLink } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useId, useState } from "react";
 
-import type { HadithAnswerBlock, QuranAnswerBlock } from "@/lib/rafiq/answer";
+import type { BookAnswerBlock, HadithAnswerBlock, QuranAnswerBlock, TermAnswerBlock } from "@/lib/rafiq/answer";
 import { inLanguage, type AnswerLanguage } from "@/lib/rafiq/languages";
 import { cn } from "@/lib/utils";
 
@@ -158,6 +158,7 @@ export function HadithBlockView({ block, id, language }: { block: HadithAnswerBl
           <FallbackNote shown={translated} wanted={language} message="hadith" />
         </div>
       )}
+      {!block.grade && <FixedNote note="gradeNotStated" />}
       <dl className="flex flex-wrap gap-x-4 gap-y-1 text-sm">
         {block.grade && (
           <div className="flex gap-1.5">
@@ -181,6 +182,73 @@ export function HadithBlockView({ block, id, language }: { block: HadithAnswerBl
         </blockquote>
       )}
       <SourceLink href={block.url}>HadeethEnc.com</SourceLink>
+    </figure>
+  );
+}
+
+/**
+ * A fixed line about the text before it: a hadith whose grade its source does not give (never
+ * shown as graded), or a verse the learner quoted in other words.
+ */
+export function FixedNote({ note }: { note: "gradeNotStated" | "wordingDiffers" | "notARuling" }) {
+  const t = useTranslations("Rafiq");
+  return <p className="rounded-lg border border-dawn/40 bg-dawn/8 px-3 py-2 text-sm">{t(note)}</p>;
+}
+
+/**
+ * A term translated from the organisers' glossary: the approved English equivalent first, then the
+ * glossary's usage rule and TerminologyEnc's definition, each as its source gives it.
+ */
+export function TermBlockView({ block, id }: { block: TermAnswerBlock; id: string }) {
+  const t = useTranslations("Rafiq");
+  return (
+    <figure className="grid gap-4 rounded-2xl border border-dawn/40 bg-dawn/6 p-5">
+      <figcaption className="grid gap-1">
+        <span className="text-sm font-medium text-muted-foreground">{t("term.equivalent")}</span>
+        <span className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+          <span lang="ar" dir="rtl" className="font-arabic text-2xl font-semibold text-ink">
+            {block.term}
+          </span>
+          <ArrowRight aria-hidden className="size-5 text-muted-foreground rtl:-scale-x-100" />
+          <span lang="en" dir="ltr" className="text-2xl font-semibold text-ink">
+            {block.approved}
+          </span>
+          <Marker n={block.n} id={id} className="align-baseline" />
+        </span>
+      </figcaption>
+      <blockquote className="grid gap-1.5 border-s-2 border-dawn/60 ps-3">
+        <p className="text-sm font-semibold text-muted-foreground">{t("term.rule")}</p>
+        <PublishedText text={block.rule} language="ar" kind="glossary" className="text-lg text-ink" />
+      </blockquote>
+      {block.definition && (
+        <blockquote className="grid gap-1.5 border-s-2 border-oasis/40 ps-3">
+          <p className="flex items-center gap-1 text-sm font-semibold text-muted-foreground">
+            {t("term.definition")}
+            {block.definitionN && <Marker n={block.definitionN} id={id} className="align-baseline" />}
+          </p>
+          <PublishedText text={block.definition} language={block.definitionLanguage ?? "en"} kind="definition" className="text-ink/85" />
+        </blockquote>
+      )}
+    </figure>
+  );
+}
+
+/**
+ * A book passage exactly as the corpus holds it: the answer a question-and-answer book gives, a
+ * passage in another language than the reply (labelled with its own), or background beside a
+ * question about the learner's own situation.
+ */
+export function BookBlockView({ block, id, language }: { block: BookAnswerBlock; id: string; language: AnswerLanguage }) {
+  const t = useTranslations("Rafiq");
+  const name = useLanguageName();
+  return (
+    <figure className="grid gap-3 rounded-2xl border border-hairline bg-sand/60 p-5">
+      <figcaption className="flex flex-wrap items-center gap-x-2 text-sm font-medium text-muted-foreground">
+        {block.language === language ? t("book.fromSource") : t("book.fromSourceIn", { language: name(block.language) })}
+        <Marker n={block.n} id={id} className="align-baseline" />
+      </figcaption>
+      <PublishedText text={block.text} language={block.language} kind="book" className="text-ink" />
+      <SourceLink href={block.url}>{block.title}</SourceLink>
     </figure>
   );
 }

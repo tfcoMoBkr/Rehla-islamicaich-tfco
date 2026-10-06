@@ -27,11 +27,11 @@ beforeEach(reset);
 afterEach(() => vi.unstubAllEnvs());
 
 describe("the account-or-guest choice", () => {
-  it("is offered to a guest who has not chosen, in Khutuwat, Practice and Rafiq only", () => {
-    for (const pathname of ["/learn", "/learn/1/1-1", "/practice", "/practice/1.1/a1", "/rafiq"]) {
+  it("is offered to a guest who has not chosen, in the learning sections only", () => {
+    for (const pathname of ["/learn", "/learn/1/1-1", "/practice", "/practice/1.1/a1", "/rafiq", "/mawqif", "/mawqif/greeting", "/lens", "/community", "/community/post"]) {
       expect(offersChoice({ ...guest, pathname })).toBe(true);
     }
-    for (const pathname of ["/", "/sources", "/account", "/learning", "/privacy"]) {
+    for (const pathname of ["/", "/sources", "/account", "/learning", "/privacy", "/lenses"]) {
       expect(inLearningSection(pathname)).toBe(false);
       expect(offersChoice({ ...guest, pathname })).toBe(false);
     }

@@ -25,7 +25,7 @@ const answered: RafiqAnswer = {
   level: "B",
   referred: false,
   kind: "answer",
-  blocks: [{ type: "text", text: "A simpler line [1]." }],
+  blocks: [{ type: "text", role: "answer", text: "A simpler line [1]." }],
   sources: [source],
   referral: null,
   languageFallback: false,

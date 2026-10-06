@@ -28,6 +28,7 @@ def content(tmp_path: Path) -> Path:
         {"id": "national", "type": "nationalChannel"},
     ]
     (root / "referral-centers.json").write_text(json.dumps({"centers": centres}))
+    (root / "glossary-p7.json").write_text(json.dumps({"terms": []}))
     return root
 
 
@@ -43,7 +44,7 @@ def index(tmp_path: Path) -> Path:
 def test_prepare_copies_what_the_service_reads_at_runtime(content: Path, index: Path) -> None:
     files = prepare(content, index)
 
-    assert {"surahs.json", "referral-centers.json", *INDEX_FILES} <= set(files)
+    assert {"surahs.json", "referral-centers.json", "glossary-p7.json", *INDEX_FILES} <= set(files)
     assert json.loads((index / "referral-centers.json").read_text())["ids"] == ["national", "assoc"]
 
 

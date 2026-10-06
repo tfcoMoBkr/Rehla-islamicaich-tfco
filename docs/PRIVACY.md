@@ -66,15 +66,19 @@ The AI service (`ai/`) receives, for each question:
 
 The service keeps none of it after replying: it holds no conversation state and has no database of users.
 
+Under the question box, one line says the same to the learner: the question is sent to an AI model provider (OpenRouter) and to the Association for Multilingual Islamic Content's server to find sources, and nothing is stored.
+
 **Logs** carry only the reply kind, language, level, referral reason, counts and timings, and the categories of any problems the checks found. The text of questions and answers is never logged. `RAFIQ_DEBUG=1` adds draft text for local diagnosis; it is off by default and ignored on a deployment.
 
-**Rate limiting** counts requests per IP address in memory, for one minute, and stores nothing.
+**Rate limiting** counts requests per IP address in memory, for one minute, and stores nothing. The **daily cap** (`DAILY_QUESTION_CAP`) counts questions per day in memory, with no address at all.
 
 **The model provider** (OpenRouter) receives the question and the passages Rafiq retrieved. Provider data collection is refused by default (`OPENROUTER_DATA_COLLECTION=deny`).
 
+**The Association's content server** (`mcp.islamiccontent.org`, the MCP server of the Association for Multilingual Islamic Content) receives search phrases made from the question, a text the learner quotes as a verse or hadith, and the numbers of the verses and hadiths to read. It receives nothing about the learner: no name, no account, no lessons, no conversation.
+
 ## Replies written in Mawqif
 
-A reply the learner writes in a Mawqif role-play is sent to the AI model provider to be checked against that turn's points, and is not kept. It is not logged (logs carry counts and timings only), and nothing about the learner is inferred from it. Choosing one of the written replies sends nothing. Mawqif progress (provisions and best rounds) is kept like the rest of the learner's progress: on the device, and in the account when signed in.
+In a Mawqif practice conversation, each reply the learner writes is sent, with the conversation so far, to the AI model provider: it plays the other person, notes which key points were met, and at the end gives feedback. A question about a quoted line goes to Rafiq like any question. Nothing is stored or logged (logs carry statuses, counts and timings only), and nothing about the learner is inferred from what they write. Choosing one of the written replies sends nothing. Mawqif progress (provisions and best rounds) is kept like the rest of the learner's progress: on the device, and in the account when signed in.
 
 ## Rehla Community
 
@@ -91,7 +95,9 @@ A new Muslim may not have told their family, so the community is built to show a
 
 ## Photos shown to Lens
 
-The photo is sent to an AI model provider to be read; nothing is kept.
+The photo stays in the browser while the learner talks about it, and is sent to an AI model provider only when a turn needs to look at it again; nothing is kept on the server.
+
+- **A conversation.** The first message reads the photo. After that, each question is routed in code: one about what can be seen sends the photo again for that turn only; one about meaning goes to Rafiq with what was seen in words, not the photo; everyday talk sends no photo. "Take another photo" starts a new conversation and forgets the old photo.
 
 - **In the browser.** The photo is downscaled to at most 1280 px and re-encoded as JPEG, which leaves its metadata (location, camera, time) behind, before it is sent.
 - **In the service.** It is held in memory for the reading call only, never stored or logged. Logs carry the kind of photo, the row of the decision table that applied, and the timing.

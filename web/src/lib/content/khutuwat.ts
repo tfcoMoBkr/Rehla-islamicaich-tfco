@@ -5,9 +5,9 @@ import type { Locale } from "next-intl";
 import type { RoadStation } from "@/lib/learn/road";
 import type { QuestionView } from "@/lib/learn/types";
 
-import { lessonHref, lessonQuestions, lessonText, questionView } from "./lesson-view";
+import { lessonHref, lessonQuestions, stationParts } from "./lesson-view";
 import { loadKhutuwat, type Khutuwat, type StationEntry } from "./load";
-import type { Lesson, Question } from "./schema";
+import type { Lesson } from "./schema";
 
 export type StationContext = {
   station: StationEntry;
@@ -29,33 +29,29 @@ export function findLesson({ station, khutuwat }: StationContext, slug: string):
 }
 
 export function toRoadStations({ route, khutuwat }: StationContext): RoadStation[] {
-  return route.map((station) => ({
+  return route.map((station) => {
+    const parts = stationParts(station, khutuwat.lessons, "en");
+    return {
     id: station.id,
     lessons: station.lessonIds.flatMap((id) => {
       const lesson = khutuwat.lessons.get(id);
       return lesson ? [{ id, slug: lesson.slug }] : [];
     }),
-    hasBaseline: station.baseline.length > 0,
-    hasExam: station.exam.length > 0,
-  }));
-}
-
-/** Station questions quote the card they name, when they name one. */
-function stationQuestionView(question: Question, station: StationEntry, khutuwat: Khutuwat, locale: Locale): QuestionView {
-  const lesson = question.lesson ? khutuwat.lessons.get(question.lesson) : undefined;
-  const card = lesson?.cards.find((candidate) => candidate.id === question.card);
-  return questionView(question, question.lesson ?? station.id, card ? lessonText(card, locale) : null, locale);
+      hasBaseline: parts.baseline.length > 0,
+      hasExam: parts.exam.length > 0,
+    };
+  });
 }
 
 export function stationQuestions(context: StationContext, part: "baseline" | "exam", locale: Locale): QuestionView[] {
-  return context.station[part].map((question) => stationQuestionView(question, context.station, context.khutuwat, locale));
+  return stationParts(context.station, context.khutuwat.lessons, locale)[part];
 }
 
 /** Everything the learner may already have met before this lesson: earlier lessons and baselines. */
 export function earlierQuestions({ route, khutuwat }: StationContext, lessonId: string, locale: Locale): QuestionView[] {
   const pool: QuestionView[] = [];
   for (const station of route) {
-    pool.push(...station.baseline.map((question) => stationQuestionView(question, station, khutuwat, locale)));
+    pool.push(...stationParts(station, khutuwat.lessons, locale).baseline);
     for (const id of station.lessonIds) {
       if (id === lessonId) return pool;
       const lesson = khutuwat.lessons.get(id);
@@ -82,7 +78,7 @@ export type NextAfterLesson = { href: string; kind: "lesson" | "exam" | "road" }
 export function nextAfterLesson({ station, khutuwat }: StationContext, lessonId: string): NextAfterLesson {
   const following = khutuwat.lessons.get(station.lessonIds[station.lessonIds.indexOf(lessonId) + 1] ?? "");
   if (following) return { href: lessonHref(following), kind: "lesson" };
-  if (station.exam.length > 0) return { href: `/learn/${station.id}/exam`, kind: "exam" };
+  if (stationParts(station, khutuwat.lessons, "en").exam.length > 0) return { href: `/learn/${station.id}/exam`, kind: "exam" };
   return { href: "/learn", kind: "road" };
 }
 
@@ -90,7 +86,7 @@ export function nextAfterLesson({ station, khutuwat }: StationContext, lessonId:
 export function afterExam({ route, khutuwat }: StationContext, stationId: string): string {
   const next = route[route.findIndex((station) => station.id === stationId) + 1];
   if (!next) return "/learn/journal";
-  if (next.baseline.length > 0) return `/learn/${next.id}/check`;
+  if (stationParts(next, khutuwat.lessons, "en").baseline.length > 0) return `/learn/${next.id}/check`;
   const first = khutuwat.lessons.get(next.lessonIds[0] ?? "");
   return first ? lessonHref(first) : "/learn";
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { BookOpen, RotateCcw, Sparkles } from "lucide-react";
+import { BookOpen, CircleCheck, RotateCcw } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
@@ -113,7 +113,7 @@ export function TestResult({
         {strong.length > 0 && (
           <div className="grid gap-2">
             <h3 className="flex items-center gap-2 font-semibold text-oasis-text">
-              <Sparkles aria-hidden className="size-4" />
+              <CircleCheck aria-hidden className="size-4" />
               {t("handlesWell")}
             </h3>
             <ul className="flex flex-wrap gap-2">

@@ -135,7 +135,7 @@ describe("the learner's name in a reply", () => {
     referred: false,
     opening,
     followUp,
-    blocks: [{ type: "text", text: language === "ar" ? "تغسل وجهك {{name}} [1]." : "You wash your face {{name}} [1]." }],
+    blocks: [{ type: "text", role: "answer", text: language === "ar" ? "تغسل وجهك {{name}} [1]." : "You wash your face {{name}} [1]." }],
     sources: [{ n: 1, sourceId: "s", title: "Book", reference: "1", url: "https://example.org", publisher: "P" }],
     referral: null,
     laterLessonId: null,

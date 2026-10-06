@@ -24,20 +24,8 @@
         "en": "Islam is to testify that there is no god but Allah and that Muhammad is the Messenger of Allah, to establish prayer, to pay Zakah, to fast Ramadan, and to perform Hajj to the House if you are able to find a way thereto"
       }
     ],
-    "why": [
-      {
-        "ref": "h66512",
-        "ar": "بُنِيَ الإِسْلَامُ عَلَى خَمْسٍ",
-        "en": "Islam is built on five"
-      }
-    ],
-    "when": [
-      {
-        "ref": "h3390",
-        "ar": "فَادْعُهُمْ إِلَى أَنْ يَشْهَدُوا أَنْ لَا إِلَهَ إِلَّا اللهُ، وَأَنَّ مُحَمَّدًا رَسُولُ اللهِ",
-        "en": "invite them to testify that none is worthy of worship except Allah and that Muhammad is the Messenger of Allah"
-      }
-    ]
+    "why": [],
+    "when": []
   },
   "exchanges": [
     {

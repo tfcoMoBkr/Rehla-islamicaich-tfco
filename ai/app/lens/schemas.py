@@ -4,7 +4,7 @@ from typing import Annotated, Literal
 
 from pydantic import Field
 
-from app.rafiq.schemas import Camel, PageLocale, RafiqAnswer
+from app.rafiq.schemas import Camel, PageLocale, RafiqAnswer, Turn
 
 SeenKind = Literal["text", "object", "place", "document", "person", "unsafe", "unclear"]
 # What the photo is of, in the terms the decision table needs. Naming it is all the model does.
@@ -68,3 +68,53 @@ class LensResponse(Camel):
     answer: RafiqAnswer | None = None
     card: Card | None = None
     others: list[str] = Field(default_factory=list)
+    # What the learner might ask next about this photo.
+    suggestions: list[str] = Field(default_factory=list)
+
+
+# The conversation about a photo (app/lens/conversation.py).
+
+
+class TurnRoute(Camel):
+    """What one message about the photo needs: the photo again, the sources, or neither."""
+
+    visual: bool = False
+    meaning: bool = False
+    talk: bool = False
+    visual_question: str | None = None
+    meaning_question: str | None = None
+
+
+class Look(Camel):
+    """The vision model's answer to a question about what can be seen."""
+
+    answer: str = ""
+    about_people: bool = False
+    reads_document: bool = False
+
+
+class Suggestions(Camel):
+    questions: Annotated[list[str], Field(max_length=4)] = Field(default_factory=list)
+
+
+class TurnRequest(Camel):
+    """One message in the conversation about a photo. The reading (`seen`) comes back from the
+    browser; the photo itself only when the service asked for it (`needsImage`)."""
+
+    locale: PageLocale
+    seen: Seen
+    question: Annotated[str, Field(min_length=1, max_length=500)]
+    history: Annotated[list[Turn], Field(max_length=8)] = Field(default_factory=list)
+    image: Annotated[str, Field(max_length=6_000_000)] | None = None
+    mime_type: Literal["image/jpeg", "image/png", "image/webp"] = "image/jpeg"
+    reached_lesson_ids: list[str] | None = None
+
+
+class TurnResponse(Camel):
+    # "needsImage": the turn is about what can be seen; send it again with the photo.
+    status: Literal["answered", "needsImage", "declined"]
+    # What Rafiq can see in the photo, when the turn asked about it.
+    visual: str | None = None
+    answer: RafiqAnswer | None = None
+    card: Card | None = None
+    suggestions: list[str] = Field(default_factory=list)

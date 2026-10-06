@@ -36,10 +36,12 @@ export function SourceCards({ sources, id }: { sources: readonly SourceCard[]; i
                 </p>
               )}
               <p className="flex flex-wrap gap-x-4 gap-y-1 text-sm">
-                <a href={source.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 underline underline-offset-4">
-                  {t("openSource", { publisher: source.publisher })}
-                  <ExternalLink aria-hidden className="size-3.5" />
-                </a>
+                {source.url && (
+                  <a href={source.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 underline underline-offset-4">
+                    {t("openSource", { publisher: source.publisher })}
+                    <ExternalLink aria-hidden className="size-3.5" />
+                  </a>
+                )}
                 <Link href={`/sources#${source.sourceId}`} className="underline underline-offset-4">
                   {t("aboutSource")}
                 </Link>

@@ -56,7 +56,7 @@ export const PAGE_NAMESPACES = {
   lens: ["Lens", "Lesson", "Rafiq", "Specialist"],
   mawqif: ["Mawqif", "Practice"],
   situation: ["Lesson", "Listen", "Mawqif", "Rafiq", "Specialist"],
-  mawqifTest: ["Lesson", "Listen", "Mawqif"],
+  mawqifTest: ["Lesson", "Listen", "Mawqif", "Rafiq", "Specialist"],
   community: ["Community"],
   communityPost: ["Community", "Rafiq", "Specialist"],
   communityWrite: ["Community", "Rafiq", "Specialist"],

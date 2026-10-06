@@ -37,6 +37,8 @@ export const lensResponseSchema = z.object({
   answer: z.nullish(rafiqAnswerSchema),
   card: z.nullish(z.enum(CARDS)),
   others: z._default(z.array(z.string()), []),
+  /** What the learner might ask next about this photo: questions only. */
+  suggestions: z._default(z.array(z.string()), []),
 });
 
 export type LensResponse = z.infer<typeof lensResponseSchema>;

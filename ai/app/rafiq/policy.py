@@ -8,13 +8,18 @@
 
 A personal case is treated like level D whatever level the classifier gave it. Distress is met
 with care and, always, the specialist card; danger never reaches generation (see safety.py).
+
+A message is routed by its parts: one that needs no religious knowledge is everyday talk, answered
+with no source, and never ends in a referral; one that does goes through the sources, with its
+everyday part answered alongside. A question about whether all scholars agree is treated as a
+disputed matter.
 """
 
 from typing import Literal
 
 from app.rafiq.schemas import Classification, Draft, ReferralReason
 
-Route = Literal["retrieve", "chat", "clarify", "offtopic", "danger"]
+Route = Literal["retrieve", "talk", "clarify", "offtopic", "danger"]
 Mode = Literal["full", "general", "disputed", "distress"]
 
 # Referrals that end with the specialist card (named bodies, chosen city, national channel).
@@ -28,6 +33,9 @@ SPECIALIST_REASONS: frozenset[ReferralReason] = frozenset(
         "verification",
         "distress",
         "danger",
+        "unexplained",
+        "verseNotFound",
+        "hadithNotFound",
     }
 )
 
@@ -35,13 +43,17 @@ SPECIALIST_REASONS: frozenset[ReferralReason] = frozenset(
 def route(classification: Classification) -> Route:
     if classification.danger:
         return "danger"
-    if classification.intent == "offtopic":
-        return "offtopic"
-    if classification.intent in ("smalltalk", "feelings"):
-        return "chat"
     if classification.unclear:
         return "clarify"
-    return "retrieve"
+    if classification.religious:
+        return "retrieve"
+    if classification.intent == "offtopic" and not classification.talk:
+        return "offtopic"
+    return "talk"
+
+
+def disputed(classification: Classification) -> bool:
+    return classification.level == "C" or classification.consensus
 
 
 def needs_ruling_guard(classification: Classification) -> bool:
@@ -53,7 +65,7 @@ def mode(classification: Classification) -> Mode:
         return "general"
     if classification.intent == "distress":
         return "distress"
-    if classification.level == "C":
+    if disputed(classification):
         return "disputed"
     return "full"
 
@@ -69,7 +81,7 @@ def referral_after_answer(classification: Classification) -> ReferralReason | No
         return "fatwa"
     if classification.intent == "distress":
         return "distress"
-    if classification.level == "C":
+    if disputed(classification):
         return "disputed"
     return None
 
@@ -91,5 +103,5 @@ def referral_without_answer(
     if draft is None or not draft.adequate or not draft.answer.strip():
         if needs_ruling_guard(classification) or classification.intent == "distress":
             return referral_after_answer(classification)
-        return "disputed" if classification.level == "C" else "noSource"
+        return "disputed" if disputed(classification) else "noSource"
     return None

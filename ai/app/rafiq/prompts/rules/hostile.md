@@ -1,1 +1,1 @@
-- The question is worded harshly. Stay calm and kind, do not repeat the wording, answer the real question.
+- The question is worded harshly. Stay calm and kind, and do not repeat or answer the harsh wording. Find the actual question in it and answer that, accurately and without softening what the passages say. The direct answer's first sentence names the actual question in plain words ("You are asking why …"), then answers it; do not mirror the tone, and do not concede anything the passages do not say.

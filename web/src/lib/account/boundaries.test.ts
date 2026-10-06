@@ -23,7 +23,7 @@ function sources(dir: string): string[] {
 const files = sources(SRC).map((file) => ({ file: path.relative(SRC, file).replaceAll("\\", "/"), text: readFileSync(file, "utf8") }));
 
 /** Everything that builds or sends a request to the AI service. */
-const AI_CALLERS = ["lib/rafiq/ask.ts", "lib/rafiq/lesson-help.ts", "lib/rafiq/answer.ts", "lib/ai-proxy.ts", "app/api/ai/[path]/route.ts"];
+const AI_CALLERS = ["lib/rafiq/ask.ts", "lib/rafiq/lesson-help.ts", "lib/rafiq/answer.ts", "lib/lens/lens.ts", "lib/lens/conversation.ts", "lib/mawqif/practice.ts", "lib/mawqif/evaluate.ts", "lib/ai-proxy.ts", "app/api/ai/[path]/route.ts"];
 
 describe("what an account never reaches", () => {
   it("keeps the account out of every request to the AI service", () => {

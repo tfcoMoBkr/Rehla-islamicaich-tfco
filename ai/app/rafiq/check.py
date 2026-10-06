@@ -11,9 +11,16 @@ sentence or block it concerns, so repair.py can act on it.
   published translation) that no retrieved book passage also contains.
 - verseBrackets: Quran brackets in a sentence: verses are shown only as blocks.
 - missingVerse: a misquoted verse is not shown.
-- unsupported: the model check found a sentence its passages do not support.
+- unsupported: the model check found a sentence (or explanation paragraph) its passages do not
+  support.
+- tarjih: wording that picks a winner between scholarly views ("the correct view", «الراجح»,
+  "closest to the truth") or blesses the difference ("disagreement is a mercy"). Only a verbatim
+  block may say that; Rafiq's own words never do.
+- consensus: a claim that scholars agree, or that they differ, in a sentence none of whose cited
+  passages speaks of agreement (or of difference).
 """
 
+import re
 from collections import Counter
 from dataclasses import dataclass
 from typing import Literal
@@ -31,6 +38,11 @@ ProblemKind = Literal[
     "verseBrackets",
     "missingVerse",
     "unsupported",
+    "wrongLanguage",
+    "tarjih",
+    "consensus",
+    "offTopic",
+    "unexplained",
 ]
 
 MIN_CITED_WORDS = 4
@@ -40,6 +52,38 @@ LIST_INTRO_WORDS = 12
 # Shared word runs this long (or longer) mean sacred text was copied rather than shown.
 COPIED_RUN_ARABIC_SCRIPT = 7
 COPIED_RUN_OTHER = 9
+
+
+# Wording that settles a disputed matter, and wording that claims agreement. They describe how a
+# sentence argues, not any topic.
+TARJIH = re.compile(
+    r"الراجح|القول\s+الراجح|الصحيح\s+من\s+(?:القولين|الأقوال)|الأصح|أصح\s+الأقوال"
+    r"|(?:الرأي|القول)\s+(?:الصحيح|الأقوى|المختار)"
+    r"|\bthe\s+(?:correct|strongest|stronger|preferred|soundest|most\s+correct|right)\s+"
+    r"(?:view|opinion|position|saying)\b"
+    # Choosing for the reader, or blessing the difference itself.
+    r"|closest\s+to\s+the\s+truth|nearest\s+to\s+the\s+truth|disagreement\s+is\s+a\s+mercy"
+    r"|differences?\s+(?:of\s+opinion\s+)?(?:is|are)\s+a\s+mercy"
+    r"|أقرب\s+إلى\s+(?:الصواب|الحق)|الخلاف\s+رحمة|اختلاف\s+\S+\s+رحمة|الاختلاف\s+رحمة",
+    flags=re.IGNORECASE,
+)
+# A claim about what scholars (or Muslims) as a whole hold: that they agree, or that they differ.
+CONSENSUS = re.compile(
+    r"أجمع\w*|بالإجماع|إجماع\w*|اتفق\s+(?:العلماء|المسلمون|الفقهاء)|باتفاق\s+(?:العلماء|الفقهاء)"
+    r"|(?:العلماء|المسلمون|الفقهاء)\s+(?:كلهم\s+|جميعًا\s+|جميعا\s+)?(?:يتفقون|متفقون|مجمعون)"
+    r"|\b(?:all\s+)?(?:muslims|scholars)\s+(?:all\s+)?(?:agree|accept|hold|are\s+agreed)\b"
+    r"|\bconsensus\b|\bunanimous\w*|\bagreed\s+upon\s+by\s+(?:all|the)\s+scholars\b",
+    flags=re.IGNORECASE,
+)
+DIFFERENCE = re.compile(
+    r"اختلف\s+(?:العلماء|الفقهاء)|اختلاف\s+(?:العلماء|الفقهاء)|خلاف\s+بين\s+(?:العلماء|الفقهاء)"
+    r"|(?:العلماء|الفقهاء)\s+(?:يختلفون|مختلفون)"
+    r"|\b(?:scholars|jurists)\s+(?:may\s+|sometimes\s+|often\s+)?(?:differ|disagree|have\s+"
+    r"different\s+(?:views|opinions))\b",
+    flags=re.IGNORECASE,
+)
+AGREEMENT_IN_SOURCE = re.compile(r"أجمع|إجماع|اتفق|اتفاق|consensus|agree|unanim", re.IGNORECASE)
+DIFFERENCE_IN_SOURCE = re.compile(r"اختلف|اختلاف|خلاف|differ|disagree", re.IGNORECASE)
 
 
 @dataclass(frozen=True)
@@ -185,6 +229,30 @@ def _sentence_problems(
                 sentence=s,
             )
         )
+    if TARJIH.search(sentence):
+        found.append(
+            Problem(
+                "tarjih",
+                "This sentence picks one view over another; say only what the passages "
+                f"state: «{quoted}»",
+                unit=u,
+                sentence=s,
+            )
+        )
+    cited_texts = [p.text for p in passages if p.n in units[u].covering(s)]
+    for claim, in_source, what in (
+        (CONSENSUS, AGREEMENT_IN_SOURCE, "an agreement"),
+        (DIFFERENCE, DIFFERENCE_IN_SOURCE, "a difference among scholars"),
+    ):
+        if claim.search(sentence) and not any(in_source.search(text) for text in cited_texts):
+            found.append(
+                Problem(
+                    "consensus",
+                    f"This sentence claims {what} its passages do not state: «{quoted}»",
+                    unit=u,
+                    sentence=s,
+                )
+            )
     copied = copied_from(sentence, passages, book_runs)
     if copied is not None:
         found.append(

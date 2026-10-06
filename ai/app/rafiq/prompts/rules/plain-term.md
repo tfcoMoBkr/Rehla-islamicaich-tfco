@@ -1,0 +1,1 @@
+- The asker has never heard this term. In "answer", say what it means in plain, everyday words first, with no technical vocabulary, then give the term itself. Stay exact: plain words, not a looser meaning.

@@ -80,7 +80,8 @@ export const situationSchema = z
     title: nonEmpty,
     scene: nonEmpty,
     character: nonEmpty,
-    learn: z.object({ say: z.array(quoteSchema).min(1), why: z.array(quoteSchema).min(1), when: z.array(quoteSchema).min(1) }),
+    // "why" and "when" only where the quoted text itself states a reason or a time; else empty.
+    learn: z.object({ say: z.array(quoteSchema).min(1), why: z.array(quoteSchema), when: z.array(quoteSchema) }),
     exchanges: z.array(exchangeSchema).min(2).max(4),
     check: z.array(checkSchema).min(2).max(3),
     relatedLessons: z.array(z.string()),

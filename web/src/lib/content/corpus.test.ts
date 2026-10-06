@@ -55,7 +55,8 @@ describe("saved source records", () => {
     for (const file of sections) expectSection(await readJson<Section>(file), path.relative(CONTENT, file), { headingOnly: true });
   });
 
-  it.skipIf(!built)("name their source, URL and language and hold text: the corpus books", async () => {
+  // The corpus holds hundreds of sections (a question-and-answer book has one per question).
+  it.skipIf(!built)("name their source, URL and language and hold text: the corpus books", { timeout: 30_000 }, async () => {
     const sections = await sectionFiles(path.join(CORPUS, "books"));
     expect(sections.length).toBeGreaterThan(0);
     for (const file of sections) expectSection(await readJson<Section>(file), path.relative(CONTENT, file));

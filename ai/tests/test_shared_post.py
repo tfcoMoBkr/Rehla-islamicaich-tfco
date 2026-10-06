@@ -79,7 +79,7 @@ async def test_a_ruling_the_post_asks_for_is_still_never_given() -> None:
     answer = await rafiq(chat).run(QUESTION, "en", shared=post)
 
     assert answer.referred
-    assert any("Do not state any ruling" in system for system in chat.systems)
+    assert any("give only the general information" in system for system in chat.systems)
 
 
 @pytest.fixture

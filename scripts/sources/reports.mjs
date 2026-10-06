@@ -132,6 +132,7 @@ export async function writeReports() {
   const corpusBooks = books.filter((book) => book.kind === "corpus");
   const islamhouse = corpusBooks.filter((book) => book.id.startsWith("islamhouse-"));
   const byenah = corpusBooks.filter((book) => book.id.startsWith("byenah-"));
+  const dawa = corpusBooks.filter((book) => book.id.startsWith("dawa-"));
   const fetched = books.filter((book) => book.kind === "fetched");
   const notesFor = async (list) => {
     const notes = [];
@@ -141,10 +142,10 @@ export async function writeReports() {
       let glyphs = 0;
       for (const section of book.sections) {
         const saved = await readJson(section.file);
-        glyphs += saved.paragraphs.filter((paragraph) => paragraph.quranGlyphs).length;
+        glyphs += saved.paragraphs.filter((paragraph) => paragraph.quranGlyphs || paragraph.glyphs).length;
         if (saved.headingFragments) notes.push(`${book.id} ${section.anchor}: heading extracted in pieces ${JSON.stringify(saved.headingFragments)}; the longest is used`);
       }
-      if (glyphs) notes.push(`${book.id}: ${glyphs} pages carry Quran verses in a glyph font that does not extract as text (marked quranGlyphs)`);
+      if (glyphs) notes.push(`${book.id}: ${glyphs} paragraphs (pages, or parts of a question) carry Quran verses in a glyph font that does not extract as text (marked quranGlyphs or glyphs)`);
     }
     return notes;
   };
@@ -172,6 +173,12 @@ export async function writeReports() {
         characters: { ar: byLanguage(islamhouse, "ar"), en: byLanguage(islamhouse, "en") },
         failures: [...new Set([...(lastRun.islamhouse ?? []), ...islamhouse.flatMap((book) => book.failures.map((failure) => `${book.id}: ${failure}`))])],
         notes: await notesFor(islamhouse),
+      },
+      "dawa.center": {
+        counts: { books: dawa.length, sections: sum(dawa.map((book) => book.sections.length)) },
+        characters: { ar: byLanguage(dawa, "ar"), en: byLanguage(dawa, "en") },
+        failures: [...new Set([...(lastRun.dawa ?? []), ...dawa.flatMap((book) => book.failures.map((failure) => `${book.id}: ${failure}`))])],
+        notes: await notesFor(dawa),
       },
       "islamhouse.com (lesson books in content/fetched, indexed in place)": {
         counts: { books: fetched.length, sections: sum(fetched.map((book) => book.sections.length)) },

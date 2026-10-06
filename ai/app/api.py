@@ -12,6 +12,7 @@ import time
 from collections import deque
 from collections.abc import Callable
 from dataclasses import dataclass, field
+from datetime import UTC, date, datetime
 
 from fastapi import APIRouter, FastAPI, Request
 from fastapi.concurrency import run_in_threadpool
@@ -21,12 +22,23 @@ from fastapi.responses import JSONResponse
 from app.community.check import Checker
 from app.community.schemas import CheckRequest, CheckResponse
 from app.lens.lens import Lens
-from app.lens.schemas import LensRequest, LensResponse
+from app.lens.schemas import LensRequest, LensResponse, TurnRequest, TurnResponse
 from app.llm import ModelUnavailableError
 from app.mawqif.evaluate import Evaluator
-from app.mawqif.schemas import EvaluateRequest, EvaluateResponse
+from app.mawqif.practice import Practice
+from app.mawqif.schemas import (
+    EvaluateRequest,
+    EvaluateResponse,
+    ExplainRequest,
+    FeedbackRequest,
+    FeedbackResponse,
+    StartRequest,
+    StartResponse,
+)
+from app.mawqif.schemas import TurnRequest as PracticeTurnRequest
+from app.mawqif.schemas import TurnResponse as PracticeTurnResponse
 from app.rafiq.graph import Rafiq
-from app.rafiq.schemas import AskRequest, LessonHelpRequest, RafiqAnswer
+from app.rafiq.schemas import AskRequest, LessonHelpRequest, PageLocale, RafiqAnswer, Referral
 from app.security import CLIENT_HEADER, key_required
 
 router = APIRouter(tags=["rafiq"])
@@ -57,9 +69,44 @@ class RateLimiter:
         recent.append(now)
 
 
+class DailyCap:
+    """At most `limit` questions to Rafiq per day (UTC). In memory, per instance, like the rate
+    limits: a guard on spending, not a quota."""
+
+    def __init__(self, limit: int, today: Callable[[], date] | None = None) -> None:
+        self._limit = limit
+        self._today = today or (lambda: datetime.now(UTC).date())
+        self._day = self._today()
+        self._count = 0
+
+    def take(self) -> bool:
+        """Counts one question; False when the day's questions are used up."""
+        day = self._today()
+        if day != self._day:
+            self._day, self._count = day, 0
+        if self._count >= self._limit:
+            return False
+        self._count += 1
+        return True
+
+
+def capped(locale: PageLocale) -> RafiqAnswer:
+    """The friendly card for a question past the day's cap: nothing was asked of any model."""
+    return RafiqAnswer(
+        language=locale,
+        level=None,
+        referred=True,
+        kind="referral",
+        blocks=[],
+        sources=[],
+        referral=Referral(reason="dailyCap", links=[]),
+    )
+
+
 @dataclass
 class Services:
     limiter: RateLimiter
+    daily: DailyCap = field(default_factory=lambda: DailyCap(1500))
     rafiq: Rafiq | None = None
     # Builds Rafiq (and loads the index) on first use, so a cold instance answers /health at once.
     load: Callable[[], Rafiq | None] | None = None
@@ -71,6 +118,8 @@ class Services:
     mawqif_limiter: RateLimiter = field(default_factory=lambda: RateLimiter(10))
     evaluator: Evaluator | None = None
     load_evaluator: Callable[[Rafiq], Evaluator | None] | None = None
+    practice: Practice | None = None
+    load_practice: Callable[[Rafiq], Practice | None] | None = None
     community_limiter: RateLimiter = field(default_factory=lambda: RateLimiter(10))
     checker: Checker | None = None
     _lock: threading.Lock = field(default_factory=threading.Lock, repr=False)
@@ -81,6 +130,14 @@ class Services:
                 if self.rafiq is None and self.load is not None:
                     self.rafiq, self.load = self.load(), None
         return self.rafiq
+
+    def get_practice(self) -> Practice | None:
+        rafiq = self.get()
+        if self.practice is None and rafiq is not None and self.load_practice is not None:
+            with self._lock:
+                if self.practice is None and self.load_practice is not None:
+                    self.practice, self.load_practice = self.load_practice(rafiq), None
+        return self.practice
 
     def get_evaluator(self) -> Evaluator | None:
         rafiq = self.get()
@@ -128,9 +185,16 @@ async def _services(request: Request) -> tuple[Rafiq, RateLimiter]:
     return rafiq, services.limiter
 
 
+def _within_cap(request: Request) -> bool:
+    services: Services = request.app.state.services
+    return services.daily.take()
+
+
 @router.post("/ask", response_model=RafiqAnswer, response_model_by_alias=True)
 async def ask(body: AskRequest, request: Request) -> RafiqAnswer:
     rafiq, _ = await _services(request)
+    if not _within_cap(request):
+        return capped(body.locale)
     try:
         return await rafiq.run(
             body.question,
@@ -148,6 +212,8 @@ async def lesson_help(body: LessonHelpRequest, request: Request) -> RafiqAnswer:
     rafiq, _ = await _services(request)
     if body.mode == "question" and not (body.question and body.question.strip()):
         raise ApiError(422, "question_required")
+    if not _within_cap(request):
+        return capped(body.locale)
     question = (
         body.question.strip() if body.mode == "question" and body.question else body.line_text
     )
@@ -174,7 +240,7 @@ SIGNATURES = {
 }
 
 
-def image_url(body: LensRequest) -> str | None:
+def image_url(body: LensRequest | TurnRequest) -> str | None:
     """The photo as a data URL for the vision model, after checking its size and its type by its
     own bytes (not by what the request claims). It is never written anywhere."""
     if body.image is None:
@@ -210,6 +276,25 @@ async def lens(body: LensRequest, request: Request) -> LensResponse:
         raise ApiError(503, "unavailable") from error
 
 
+@router.post("/lens/turn", response_model=TurnResponse, response_model_by_alias=True)
+async def lens_turn(body: TurnRequest, request: Request) -> TurnResponse:
+    """One message in the conversation about a photo. The photo comes only when the service asks
+    for it (status "needsImage"); it is held in memory for the call and never stored."""
+    services: Services = request.app.state.services
+    services.lens_limiter.check(_client(request))
+    url = image_url(body)
+    reader = await run_in_threadpool(services.get_lens)
+    if reader is None:
+        raise ApiError(503, "unavailable")
+    # A turn is counted once: the resend that only brings the photo is the same question.
+    if url is None and not _within_cap(request):
+        return TurnResponse(status="answered", answer=capped(body.locale))
+    try:
+        return await reader.turn(body, url)
+    except ModelUnavailableError as error:
+        raise ApiError(503, "unavailable") from error
+
+
 @router.post("/mawqif/evaluate", response_model=EvaluateResponse, response_model_by_alias=True)
 async def mawqif_evaluate(body: EvaluateRequest, request: Request) -> EvaluateResponse:
     """A learner's written reply in a role-play, judged against that turn's key points only."""
@@ -219,6 +304,54 @@ async def mawqif_evaluate(body: EvaluateRequest, request: Request) -> EvaluateRe
     if evaluator is None:
         raise ApiError(503, "unavailable")
     return await evaluator.evaluate(body)
+
+
+async def _practice(request: Request) -> Practice:
+    services: Services = request.app.state.services
+    services.mawqif_limiter.check(_client(request))
+    practice = await run_in_threadpool(services.get_practice)
+    if practice is None:
+        raise ApiError(503, "unavailable")
+    return practice
+
+
+@router.post("/mawqif/practice/start", response_model=StartResponse, response_model_by_alias=True)
+async def mawqif_start(body: StartRequest, request: Request) -> StartResponse:
+    """A fresh scene inside a situation: who, where, the mood, and their first line."""
+    return await (await _practice(request)).start(body)
+
+
+@router.post(
+    "/mawqif/practice/turn", response_model=PracticeTurnResponse, response_model_by_alias=True
+)
+async def mawqif_turn(body: PracticeTurnRequest, request: Request) -> PracticeTurnResponse:
+    """One reply in the practice conversation: the other person's next line and the key points."""
+    return await (await _practice(request)).turn(body)
+
+
+@router.post(
+    "/mawqif/practice/feedback", response_model=FeedbackResponse, response_model_by_alias=True
+)
+async def mawqif_feedback(body: FeedbackRequest, request: Request) -> FeedbackResponse:
+    """Feedback on each reply of a practice conversation, with a better reply where it helps."""
+    return await (await _practice(request)).feedback(body)
+
+
+@router.post("/mawqif/explain", response_model=RafiqAnswer, response_model_by_alias=True)
+async def mawqif_explain(body: ExplainRequest, request: Request) -> RafiqAnswer:
+    """Rafiq on one quote of a situation, in place: "I don't understand, explain it"."""
+    practice = await _practice(request)
+    if body.mode == "question" and not (body.question and body.question.strip()):
+        raise ApiError(422, "question_required")
+    if not _within_cap(request):
+        return capped(body.locale)
+    try:
+        answer = await practice.explain(body)
+    except ModelUnavailableError as error:
+        raise ApiError(503, "unavailable") from error
+    if answer is None:
+        raise ApiError(404, "unknown_quote")
+    return answer
 
 
 @router.post("/community/check", response_model=CheckResponse, response_model_by_alias=True)

@@ -17,8 +17,9 @@ import time
 from pathlib import Path
 
 from app.languages import spec
+from app.lens.conversation import Conversation
 from app.lens.decide import Decision, decide, lookup_text, shown
-from app.lens.schemas import LensResponse, Seen
+from app.lens.schemas import LensResponse, Seen, TurnRequest, TurnResponse
 from app.llm import ModelUnavailableError, VisionModel
 from app.rafiq.compose import compose
 from app.rafiq.draft import Unit
@@ -78,6 +79,7 @@ class Lens:
         self._vision = vision
         self._rafiq = rafiq
         self._retriever = retriever
+        self.conversation = Conversation(vision, rafiq, retriever)
 
     async def see(self, image: str, locale: PageLocale) -> Seen | None:
         """The vision model's report; None when no model returned a valid one (the unclear card)."""
@@ -115,13 +117,27 @@ class Lens:
         elif question := question_for(decision, seen, locale):
             answer = await self._rafiq.run(question, locale, scope=scope)
         others = seen.others if decision.explain else []
+        # The first message opens the conversation: what the learner might ask next.
+        suggestions = (
+            await self.conversation.suggest(seen, locale, [])
+            if decision.card is None and not decision.specialist
+            else []
+        )
         return LensResponse(
             seen=shown(seen, decision),
             row=decision.row,
             answer=answer,
             card=decision.card,
             others=others,
+            suggestions=suggestions,
         )
+
+    async def turn(self, request: TurnRequest, image: str | None) -> TurnResponse:
+        """One message in the conversation about the photo, within the same time budget."""
+        try:
+            return await asyncio.wait_for(self.conversation.turn(request, image), TIME_BUDGET)
+        except TimeoutError:
+            return TurnResponse(status="answered", card="timeout")
 
     async def run(
         self,

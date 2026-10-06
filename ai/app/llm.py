@@ -20,6 +20,8 @@ from pydantic import BaseModel, ValidationError
 from app.config import Settings
 
 API = "https://openrouter.ai/api/v1"
+# Seconds to wait after a rate limit that names no wait of its own, times the attempt.
+RATE_LIMIT_WAIT = 20.0
 # Free variants share pools upstream that answer 429 in bursts. A model that just did is skipped
 # for COOLDOWN seconds; only when every model is rate-limited does the client wait for a new round.
 COOLDOWN = 60.0
@@ -43,6 +45,16 @@ class VisionModel(Protocol):
 
 class Embedder(Protocol):
     async def embed(self, texts: list[str]) -> np.ndarray: ...
+
+
+def without_nulls(value: object) -> object:
+    """A model writes null for a field it has nothing to say about (an everyday message has no
+    level): that field takes its default, as if the model had left it out."""
+    if isinstance(value, dict):
+        return {key: without_nulls(item) for key, item in value.items() if item is not None}
+    if isinstance(value, list):
+        return [without_nulls(item) for item in value if item is not None]
+    return value
 
 
 def extract_json(content: str) -> object:
@@ -161,7 +173,7 @@ class OpenRouterChat:
                         log.warning("model %s failed: %s", model, type(error).__name__)
                         break
                     try:
-                        return schema.model_validate(extract_json(content))
+                        return schema.model_validate(without_nulls(extract_json(content)))
                     except (ValueError, ValidationError) as error:
                         log.warning(
                             "model %s returned invalid JSON (attempt %d)", model, attempt + 1
@@ -182,25 +194,46 @@ class OpenRouterChat:
 
 
 class OpenRouterEmbedder:
-    def __init__(self, settings: Settings, client: httpx.AsyncClient, batch: int = 64) -> None:
+    def __init__(
+        self,
+        settings: Settings,
+        client: httpx.AsyncClient,
+        batch: int = 64,
+        *,
+        patience: int = 0,
+    ) -> None:
+        """`patience`: how many times a rate-limited batch is sent again after the wait the
+        provider asks for. A question fails fast instead (retrieval falls back to keywords); the
+        index build waits."""
         if settings.openrouter_api_key is None or settings.embedding_model is None:
             raise ModelUnavailableError("OPENROUTER_API_KEY and EMBEDDING_MODEL are required")
         self._key = settings.openrouter_api_key.get_secret_value()
         self._model = settings.embedding_model
         self._client = client
         self._batch = batch
+        self._patience = patience
+
+    async def _post(self, texts: list[str]) -> httpx.Response:
+        for attempt in range(self._patience + 1):
+            response = await self._client.post(
+                f"{API}/embeddings",
+                headers={"Authorization": f"Bearer {self._key}"},
+                json={"model": self._model, "input": texts},
+                timeout=120,
+            )
+            if response.status_code != 429 or attempt == self._patience:
+                break
+            wait = float(response.headers.get("retry-after") or RATE_LIMIT_WAIT * (attempt + 1))
+            log.info("embeddings rate-limited; waiting %.0f s", wait)
+            await asyncio.sleep(wait)
+        response.raise_for_status()
+        return response
 
     async def embed(self, texts: list[str]) -> np.ndarray:
         """Unit-length vectors, one row per text."""
         rows: list[list[float]] = []
         for start in range(0, len(texts), self._batch):
-            response = await self._client.post(
-                f"{API}/embeddings",
-                headers={"Authorization": f"Bearer {self._key}"},
-                json={"model": self._model, "input": texts[start : start + self._batch]},
-                timeout=120,
-            )
-            response.raise_for_status()
+            response = await self._post(texts[start : start + self._batch])
             data = sorted(response.json()["data"], key=lambda item: item["index"])
             rows.extend(item["embedding"] for item in data)
         vectors = np.asarray(rows, dtype=np.float32)

@@ -34,7 +34,14 @@ BOOK_SOURCES = {
     "2842316": "risala-important-lessons",
     "62675": "ih-salat-nabi",
     "1261": "ih-salat-nabi",
+    "dawa-7937": "dawa-bayyinat",
 }
+# The parts of a question-and-answer book's question that are indexed.
+QUESTION_PARTS = ("question", "summary")
+# A verse in a private-use glyph font, with the brackets around it.
+GLYPH_VERSE = re.compile(
+    r"[\ufd3e\ufd3f]?[\s\ue000-\uf8ff]*[\ue000-\uf8ff][\s\ue000-\uf8ff]*[\ufd3e\ufd3f]?"
+)
 # Paragraph styles a book uses for Quran verses: verses never come from a book's text.
 VERSE_STYLES = {"byenah-4784": {"Style1"}}
 QURAN_TITLE = {"ar": "القرآن الكريم", "en": "The Holy Quran"}
@@ -161,15 +168,58 @@ class Sources:
         )
 
 
+def without_glyph_verses(text: str) -> str:
+    """The text without verses set in a private-use glyph font: they spell nothing, and verses
+    are taken from their own source."""
+    return re.sub(r"[ \t]{2,}", " ", GLYPH_VERSE.sub(" ", text)).strip()
+
+
+def question_chunk(book: Json, section: Json, lessons: list[str]) -> Chunk:
+    """A question-and-answer book: one chunk per question, the question with the book's own
+    summary answer (its detailed answer stays in the corpus)."""
+    heading = section.get("heading") or ""
+    text = "\n\n".join(
+        without_glyph_verses(paragraph["text"])
+        for paragraph in section["paragraphs"]
+        if paragraph.get("part") in QUESTION_PARTS
+    )
+    return Chunk(
+        id=f"book:{book['id']}:{section['anchor']}:1",
+        lang=book["language"],
+        type="book",
+        source_id=BOOK_SOURCES[book["id"]],
+        title=book["title"],
+        reference=heading or f"§{section['anchor']}",
+        url=section["source"]["url"],
+        publisher=section["source"]["publisher"],
+        lesson_ids=lessons,
+        text=text,
+        hash=digest(book_context(heading, text)),
+        extra={
+            "book": book["id"],
+            "anchor": section["anchor"],
+            "heading": heading,
+            "question": True,
+        },
+    )
+
+
 def book_chunks(sources: Sources) -> list[Chunk]:
     chunks: list[Chunk] = []
     for book in sources.books:
         directory = sources.content.parent / book["path"]
         verse_styles = VERSE_STYLES.get(book["id"], set())
+        by_question = (directory / "index.json").is_file() and read(directory / "index.json").get(
+            "chunking"
+        ) == "question"
         for path in sorted(directory.glob("*.json")):
             if path.name == "index.json":
                 continue
             section = read(path)
+            if by_question:
+                lessons = sources.lessons_for_section(book["id"], section["anchor"])
+                chunks.append(question_chunk(book, section, lessons))
+                continue
             paragraphs = [
                 paragraph["text"]
                 for paragraph in section["paragraphs"]
@@ -224,7 +274,13 @@ def term_chunks(sources: Sources) -> list[Chunk]:
                     lesson_ids=sorted(sources.lesson_refs.get(f"term:{term['id']}", set())),
                     text=text,
                     hash=digest(text),
-                    extra={"termId": term["id"]},
+                    # The term's own definition, shown verbatim when a learner asks to translate it.
+                    extra={
+                        "termId": term["id"],
+                        "definition": next(
+                            (f["text"] for f in fields if f["field"] == "idio_def"), ""
+                        ),
+                    },
                 )
             )
     return chunks
@@ -382,7 +438,7 @@ async def build() -> None:
     reused = len(chunks) - len(missing)
     print(f"{len(chunks)} chunks, {reused} vectors reused, {len(missing)} to embed")
     async with httpx.AsyncClient() as client:
-        embedder = OpenRouterEmbedder(settings, client)
+        embedder = OpenRouterEmbedder(settings, client, batch=16, patience=6)
         if missing:
             vectors = await embedder.embed([embed_text(chunk) for chunk in missing])
             cached.update({chunk.hash: vectors[position] for position, chunk in enumerate(missing)})

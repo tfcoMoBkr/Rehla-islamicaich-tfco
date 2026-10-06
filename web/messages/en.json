@@ -567,6 +567,26 @@
       "danger": {
         "title": "Please get help now",
         "body": "If you or someone else is in danger, contact your local emergency services now, or a person you trust. You can also reach these specialists."
+      },
+      "unexplained": {
+        "title": "Rafiq can show the source, but not explain it reliably",
+        "body": "These are the passages that answer your question, exactly as published. Rafiq could not write an explanation of them that passed his checks, so he will not guess. A specialist can explain them to you."
+      },
+      "verseNotFound": {
+        "title": "Not found as a verse",
+        "body": "These words were not found as a verse of the Quran in the Quran and its translations Rafiq uses (QuranEnc.com), so Rafiq will not build anything on them. A specialist can tell you where they come from."
+      },
+      "hadithNotFound": {
+        "title": "Not found as a hadith",
+        "body": "These words were not found as a hadith in HadeethEnc.com, the hadith encyclopedia Rafiq uses, so Rafiq will not build anything on them. A specialist can tell you where they come from."
+      },
+      "timeout": {
+        "title": "Rafiq could not check his answer in time",
+        "body": "Finding and checking the sources took too long, so Rafiq will not show an unchecked answer. Please ask again in a moment, or ask a specialist."
+      },
+      "dailyCap": {
+        "title": "Rafiq has answered all the questions he can today",
+        "body": "To keep the service running for everyone, Rafiq answers a limited number of questions each day. Please ask again tomorrow. The lessons and your journal are open as always."
       }
     },
     "showAll": "Show all",
@@ -578,6 +598,18 @@
     "explanationBy": "HadeethEnc's explanation",
     "languageFallback": "Rafiq answers in Arabic, English, Urdu, Bengali and French. This question is in another language, so the answer is in English.",
     "generatedExplanation": "Generated explanation",
+    "gradeNotStated": "The source does not state this hadith's grade.",
+    "wordingDiffers": "The words you quoted differ from the verse as it is published. The verse is shown above as QuranEnc publishes it.",
+    "notARuling": "This is general information. It is not a ruling on your situation.",
+    "book": {
+      "fromSource": "From the source",
+      "fromSourceIn": "From the source, in {language}"
+    },
+    "term": {
+      "equivalent": "Approved English equivalent (organisers' glossary)",
+      "rule": "How the term is used: the glossary's rule, in Arabic",
+      "definition": "Definition (Encyclopedia of Translated Islamic Terms)"
+    },
     "talkToSpecialist": "Talk to a specialist",
     "clarifyFallback": "Could you tell me a little more about what you mean?",
     "you": "You",
@@ -622,7 +654,16 @@
       "remove": "Remove",
       "questionPost": "Can you help me understand this post?",
       "questionReply": "Can you help me understand this reply?"
-    }
+    },
+    "generatedAnswer": "Generated answer",
+    "actionsLabel": "Ask a follow-up",
+    "actions": {
+      "simpler": "Explain more simply",
+      "more": "Tell me more",
+      "now": "What do I do now?"
+    },
+    "reassure": "You did well to ask. Your own situation deserves someone who can listen to all of it.",
+    "inputPrivacy": "Your question is sent to an AI model provider (OpenRouter) and to the Association for Multilingual Islamic Content's server to find sources. Nothing is stored."
   },
   "Specialist": {
     "title": "Talk to a specialist",
@@ -647,7 +688,8 @@
     "map": "Map",
     "source": "Source: {name}. Details verified on {date}.",
     "aboutSource": "About this source",
-    "privacy": "Rehla shares nothing about you with these bodies. Whether and how you contact them is entirely your choice."
+    "privacy": "Rehla shares nothing about you with these bodies. Whether and how you contact them is entirely your choice.",
+    "insideKingdom": "In Saudi Arabia? See the bodies there"
   },
   "MeetRafiq": {
     "title": "Meet Rafiq",
@@ -850,7 +892,7 @@
     "whereAccount": "Account data is kept in Rehla's database (Supabase), where each account can reach only its own records.",
     "whereDevice": "Your conversations with Rafiq stay on this device only, with or without an account. So do the conversations beside lesson boards, the name you gave Rafiq, the city you chose and your personal checklists.",
     "rafiqTitle": "Your questions to Rafiq",
-    "rafiqBody": "To answer, the AI service receives your question, the page language, the lessons you have completed and the last few turns of the conversation. It keeps none of it after replying, and it never receives your name or anything about your account.",
+    "rafiqBody": "To answer, the AI service receives your question, the page language, the lessons you have completed and the last few turns of the conversation. It keeps none of it after replying, and it never receives your name or anything about your account. To answer and to find sources, your question is sent to an AI model provider (OpenRouter) and to the Association for Multilingual Islamic Content's server. Nothing is stored.",
     "controlTitle": "Download or delete your data",
     "controlAccount": "On your account page, “Download my data” gives you a file of everything your account holds, and “Delete my account and data” removes it all for good. Signing out removes your account's data from this device.",
     "controlGuest": "As a guest, erase your journal from the journal page, and clear what Rafiq remembers from the Rafiq page.",
@@ -883,7 +925,7 @@
     "startTitle": "What would you like to understand?",
     "takePhoto": "Take a photo",
     "choosePhoto": "Choose a photo",
-    "privacyLine": "The photo is sent to an AI model provider to be read; nothing is kept.",
+    "privacyLine": "The photo stays in your browser while you talk about it. It is sent to an AI model provider only when a question needs it, and nothing is stored on the server.",
     "examplesTitle": "No camera? Try an example",
     "examplesBody": "Each example shows what Lens does with a photo like it.",
     "exampleBadge": "Example",
@@ -895,7 +937,6 @@
     },
     "photoAlt": "Your photo",
     "working": "Lens is working on your photo",
-    "done": "Lens has finished.",
     "stepRead": "Reading the photo",
     "stepSources": "Looking in the sources",
     "whatThisIs": "What this is",
@@ -907,12 +948,6 @@
     "claimNote": "Lens does not confirm or deny what this says.",
     "specialistLink": "Ask a specialist",
     "alsoInPhoto": "Also in the photo",
-    "askMore": "Ask Rafiq more about this",
-    "askAbout": "Ask Rafiq about this",
-    "askAboutSubject": "What is {subject}, and what does it mean for a Muslim?",
-    "askAboutText": "What do the sources say about this: “{text}”?",
-    "askAboutVerse": "What does this verse mean: {surah}, verse {ayah}?",
-    "askAboutHadith": "What does this hadith mean: “{title}”?",
     "anotherPhoto": "Try another photo",
     "retake": "Take another photo",
     "tryAgain": "Try again",
@@ -954,12 +989,35 @@
       "rateLimited": "You have sent several photos in a short time. Wait a minute, then try again.",
       "unavailable": "Lens is not available right now. Try again in a moment.",
       "error": "Something went wrong. Try again."
+    },
+    "conversation": {
+      "pinned": "The photo you are talking about",
+      "askLabel": "Ask about this photo",
+      "placeholder": "For example: what is it used for?",
+      "ask": "Ask",
+      "you": "You",
+      "seeing": "What I can see",
+      "thinking": "Rafiq is looking…",
+      "suggestions": "You could ask",
+      "addPhoto": "Add another photo",
+      "newThread": "Take another photo",
+      "newPhoto": "A new photo",
+      "turnCards": {
+        "person": "I don't describe people in a photo. Ask me about the place or the things in it.",
+        "privacy": "I don't read out personal documents.",
+        "timeout": "That took too long. Please ask again in a moment."
+      },
+      "errors": {
+        "rateLimited": "You have asked several questions in a short time. Wait a minute, then ask again.",
+        "unavailable": "Rafiq cannot be reached right now. Try again in a little while.",
+        "error": "Something went wrong. Please ask again."
+      }
     }
   },
   "Mawqif": {
     "title": "Mawqif · Situations",
-    "description": "Practise everyday situations before you meet them: what to say, why, and when, from the sources, then a short role-play.",
-    "howItWorks": "Each situation: a short scene, what to say, why and when, a role-play with feedback, then a check. Every word to say is quoted from its source.",
+    "description": "Practise everyday situations before you meet them: learn the words to say, ask Rafiq when something is unclear, then practise in a real conversation.",
+    "howItWorks": "Each situation: the words to say, quoted from their source, with Rafiq's plain explanation; then a conversation with someone you might really meet, and feedback on each reply.",
     "upNext": "Up next",
     "stopLabel": "Stop {number}",
     "status": {
@@ -974,29 +1032,23 @@
     "testIntro": "{count, plural, one {# question} other {# questions}} from the situations of this part. A wrong answer costs nothing.",
     "progressLabel": "Your way through this situation",
     "steps": {
-      "scene": "Scene",
       "learn": "Learn",
-      "roleplay": "Role-play",
-      "summary": "Summary",
+      "practise": "Practise",
+      "feedback": "Feedback",
       "check": "Check"
     },
-    "sceneTitle": "The scene",
-    "youWillMeet": "You will talk with {character}",
     "teamWording": "Wording by the Rehla team",
-    "begin": "Begin",
     "learn": {
       "say": "What to say",
       "why": "Why",
       "when": "When"
     },
     "next": "Next",
-    "startRoleplay": "Start the role-play",
     "readWholeSource": "Read the whole source",
     "sourceHadith": "Hadith · {citation} · {grade} · HadeethEnc.com",
     "sourceHadithShort": "Hadith · {citation}",
     "gradeUnknown": "grade not stated",
     "sourceQuran": "Quran {ref} · QuranEnc.com",
-    "turnTitle": "Turn {number} of {total}",
     "conversation": "The conversation",
     "you": "You",
     "coachPrompt": "Rafiq is beside you. How would you reply?",
@@ -1022,12 +1074,6 @@
     "whatWasMissing": "What was missing",
     "continue": "Continue",
     "tryAgain": "Try another reply",
-    "summaryTitle": "What you practised",
-    "summaryBody": "You gave the fullest reply in {best} of {total} turns.",
-    "summarySay": "The words to remember",
-    "toCheck": "Go to the check",
-    "askRafiq": "Ask Rafiq about this",
-    "askAboutSituation": "I am practising this situation: {title}. What do the sources say about it?",
     "checkTitle": "A short check",
     "questionOf": "Question {number} of {total}",
     "rightAnswer": "That's right.",
@@ -1053,7 +1099,54 @@
     "reviewTitle": "The questions and their answers",
     "reviewRight": "answered right",
     "reviewWrong": "to look at again",
-    "testAgain": "Take the test again"
+    "testAgain": "Take the test again",
+    "learnTitle": "What to say, and what it means",
+    "explaining": "Rafiq is writing a plain explanation…",
+    "explainUnavailable": "The explanation is not available just now. You can still read the source in full.",
+    "dontUnderstand": "I don't understand, explain it",
+    "explainSimpler": "Explain more simply",
+    "askAboutQuote": "Ask Rafiq about these words",
+    "askQuotePlaceholder": "For example: when do I say this?",
+    "ask": "Ask",
+    "backToSituation": "Back to the situation",
+    "startPractice": "Practise in a conversation",
+    "practiseTitle": "A real conversation",
+    "practiseIntro": "Someone you might really meet. Write as you would speak; Rafiq is beside you.",
+    "settingUp": "Setting the scene…",
+    "replyLabel": "Your reply",
+    "replyHint": "Your reply is sent to the AI model provider to keep the conversation going and to see which points it covers. Nothing is kept.",
+    "send": "Send",
+    "replying": "{person} is replying…",
+    "helpMe": "Help me",
+    "helpLine": "You could include these words:",
+    "giveHint": "Give me a hint",
+    "hintTitle": "Replies you could start from",
+    "useThis": "Use this",
+    "pausedTitle": "Rafiq answers your question",
+    "resume": "Back to the scene",
+    "rulingNote": "That is about your own situation: a specialist can answer it. The scene waits for you.",
+    "careNote": "The scene waits for you whenever you are ready.",
+    "conversationFallback": "The conversation is not available just now. You can practise with the written replies instead.",
+    "endConversation": "End and see feedback",
+    "repliesSoFar": "{count, plural, one {# reply} other {# replies}} so far",
+    "feedbackTitle": "How it went",
+    "feedbackScore": "You covered {met} of {total} key points.",
+    "feedbackMastered": "Every key point covered: this situation is mastered.",
+    "youSaid": "You said",
+    "couldSay": "You could say",
+    "feedbackUnavailable": "Detailed feedback is not available just now. Here are the key points you covered.",
+    "keyPointsMet": "Covered",
+    "keyPointsMissing": "Not covered yet",
+    "quickCheck": "A quick check (optional)",
+    "skipCheck": "Skip the check",
+    "practiseNew": "Practise a new conversation",
+    "testModeLabel": "How to take the test",
+    "conversationTest": "Short conversations",
+    "quickTest": "Quick written questions",
+    "conversationTestIntro": "{count, plural, one {# short conversation} other {# short conversations}}, two or three replies each, from the situations of this part.",
+    "testSituationOf": "Conversation {number} of {total}: {title}",
+    "nextConversation": "Next conversation",
+    "testKeyScore": "{met} of {total} key points"
   },
   "Community": {
     "title": "Rehla Community",

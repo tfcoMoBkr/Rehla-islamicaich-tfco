@@ -38,13 +38,22 @@ class FakeChat:
         drafts: list[Draft],
         unsupported: list[int] | None = None,
         religious: list[str] | None = None,
-        chat: ChatReply | None = None,
+        chat: ChatReply | list[ChatReply] | None = None,
+        off_topic: list[bool] | None = None,
     ) -> None:
         self.classification = classification
         self.drafts = list(drafts)
         self.unsupported = unsupported or []
         self.religious = religious or []
-        self.chat = chat or ChatReply(opening="And peace be with you.")
+        # Talk replies in order; the last one repeats.
+        replies = (
+            chat
+            if isinstance(chat, list)
+            else [chat or ChatReply(opening="And peace be with you.")]
+        )
+        self.chats = list(replies)
+        # The off-topic verdict of each support check, in order; the last one repeats.
+        self.off_topic = list(off_topic or [False])
         self.systems: list[str] = []
         self.users: list[str] = []
 
@@ -56,10 +65,13 @@ class FakeChat:
         if schema is Draft:
             return self.drafts.pop(0) if len(self.drafts) > 1 else self.drafts[0]  # type: ignore[return-value]
         if schema is SupportCheck:
-            check = SupportCheck(unsupported=self.unsupported, religious=self.religious)
+            off = self.off_topic.pop(0) if len(self.off_topic) > 1 else self.off_topic[0]
+            check = SupportCheck(
+                unsupported=self.unsupported, religious=self.religious, offTopic=off
+            )
             return check  # type: ignore[return-value]
         if schema is ChatReply:
-            return self.chat  # type: ignore[return-value]
+            return self.chats.pop(0) if len(self.chats) > 1 else self.chats[0]  # type: ignore[return-value]
         if schema is KeywordQueries:
             return KeywordQueries(queries=[])  # type: ignore[return-value]
         raise AssertionError(f"unexpected schema {schema}")

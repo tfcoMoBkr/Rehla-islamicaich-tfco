@@ -24,6 +24,9 @@ vi.mock("@/i18n/navigation", () => ({
   ),
 }));
 
+// next/font runs only in a Next build; the answer's font classes do not matter here.
+vi.mock("@/lib/answer-fonts", () => ({ ANSWER_FONT_VARIABLES: { ar: "", en: "", ur: "", bn: "", fr: "" } }));
+
 const MESSAGES = { ar, en };
 type Locale = keyof typeof MESSAGES;
 const pose = { src: "/art/rafiq/hello.png", width: 400, height: 600 };
@@ -47,7 +50,7 @@ async function view(locale: Locale, id = "greeting"): Promise<SituationView> {
 }
 
 describe("a situation", () => {
-  it.each(["ar", "en"] as const)("opens on its scene, labelled as the team's wording, with the way ahead (%s)", async (locale) => {
+  it.each(["ar", "en"] as const)("opens on what to say, with the scene as the team's wording and the way ahead (%s)", async (locale) => {
     const situation = await view(locale);
     const html = render(locale, <SituationPlayer situation={situation} next={null} />);
     const t = MESSAGES[locale].Mawqif;

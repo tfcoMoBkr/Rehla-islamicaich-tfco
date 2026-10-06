@@ -1,49 +1,35 @@
-import { Camera, Languages, MessageCircleQuestion } from "lucide-react";
+import { Languages } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { AnswerView, type LessonLink } from "@/components/rafiq/answer-view";
-import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { TEXT_ROWS, type LensResponse } from "@/lib/lens/lens";
 
-const ASKED_TEXT_LENGTH = 300;
-
-/** The question "Ask «رفيق» more about this" opens Rafiq with: about the text read, or the subject. */
-export function followUpQuestion(response: LensResponse, t: ReturnType<typeof useTranslations<"Lens">>): string | null {
-  // A verse or hadith is asked about by its reference: its words are never re-typed.
-  const block = response.answer?.blocks.find((candidate) => candidate.type !== "text");
-  if (block?.type === "quran") return t("askAboutVerse", { surah: block.surahName ?? String(block.surah), ayah: block.ayah });
-  if (block?.type === "hadith") return t("askAboutHadith", { title: block.title });
-  const text = response.seen?.visibleText?.text.trim();
-  if (text) return t("askAboutText", { text: text.slice(0, ASKED_TEXT_LENGTH) });
-  const subject = response.seen?.subject.trim();
-  return subject ? t("askAboutSubject", { subject }) : null;
-}
-
 /**
- * What Lens found: what this is (the subject, the text read, a labelled machine translation of
- * ordinary text), then what it means (Rafiq's cited answer, or the boundary of the row that applied).
+ * Rafiq's first message about a photo: what this is (the subject, the text read, a labelled machine
+ * translation of ordinary text), then what it means (his cited answer, or the boundary of the row
+ * that applied). The conversation about the photo goes on below it.
  */
 export function LensResult({
   response,
   lessons,
-  onRetake,
   onChoose,
+  id,
 }: {
+  /** Unique per photo in the conversation. */
+  id: string;
   response: LensResponse;
   lessons?: Readonly<Record<string, LessonLink>>;
-  onRetake: () => void;
   onChoose: (subject: string) => void;
 }) {
   const t = useTranslations("Lens");
   const { seen, row, answer, others } = response;
-  const question = followUpQuestion(response, t);
   const translation = TEXT_ROWS.has(row) ? seen?.plainTranslation : null;
 
   return (
     <div className="grid gap-8">
-      <section aria-labelledby="lens-what" className="grid gap-4 rounded-3xl border border-hairline bg-paper p-6 sm:p-8">
-        <h2 id="lens-what" tabIndex={-1} className="font-display text-2xl font-semibold outline-none">
+      <section aria-labelledby={`${id}-what`} className="grid gap-4 rounded-3xl border border-hairline bg-paper p-6 sm:p-8">
+        <h2 id={`${id}-what`} tabIndex={-1} className="font-display text-2xl font-semibold outline-none">
           {t("whatThisIs")}
         </h2>
         {seen?.subject && (
@@ -80,17 +66,17 @@ export function LensResult({
       </section>
 
       {answer && (
-        <section aria-labelledby="lens-meaning" className="grid gap-4">
-          <h2 id="lens-meaning" className="font-display text-2xl font-semibold">
+        <section aria-labelledby={`${id}-meaning`} className="grid gap-4">
+          <h2 id={`${id}-meaning`} className="font-display text-2xl font-semibold">
             {t("whatItMeans")}
           </h2>
-          <AnswerView answer={answer} id="lens" lessons={lessons} />
+          <AnswerView answer={answer} id={id} lessons={lessons} />
         </section>
       )}
 
       {others.length > 0 && (
-        <section aria-labelledby="lens-others" className="grid gap-3">
-          <h2 id="lens-others" className="font-semibold">
+        <section aria-labelledby={`${id}-others`} className="grid gap-3">
+          <h2 id={`${id}-others`} className="font-semibold">
             {t("alsoInPhoto")}
           </h2>
           <ul className="flex flex-wrap gap-2">
@@ -108,21 +94,6 @@ export function LensResult({
           </ul>
         </section>
       )}
-
-      <div className="flex flex-wrap gap-3">
-        {question && (
-          <Button asChild>
-            <Link href={{ pathname: "/rafiq", query: { ask: question } }}>
-              <MessageCircleQuestion aria-hidden />
-              {row === 15 ? t("askAbout") : t("askMore")}
-            </Link>
-          </Button>
-        )}
-        <Button variant="outline" onClick={onRetake}>
-          <Camera aria-hidden />
-          {t("anotherPhoto")}
-        </Button>
-      </div>
 
       {!answer && <p className="text-sm text-muted-foreground">{t("disclosure")}</p>}
     </div>

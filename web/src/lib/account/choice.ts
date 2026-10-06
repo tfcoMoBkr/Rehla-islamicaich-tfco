@@ -16,7 +16,7 @@ export type Choice = "account" | "guest";
 export const accountChoice = textStore("rehla.choice.v1");
 
 /** The sections where learning starts; the choice is offered on the first visit to any of them. */
-const SECTIONS = ["/learn", "/practice", "/rafiq"];
+const SECTIONS = ["/learn", "/practice", "/rafiq", "/mawqif", "/lens", "/community"];
 
 export const inLearningSection = (pathname: string): boolean =>
   SECTIONS.some((section) => pathname === section || pathname.startsWith(`${section}/`));

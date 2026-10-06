@@ -9,11 +9,31 @@ import { aiServiceUrl } from "@/config/ai-service";
  */
 
 /** The service's endpoints the browser may reach, and the one method each accepts. */
-export const AI_ROUTES = { ask: "POST", "lesson-help": "POST", lens: "POST", "mawqif-evaluate": "POST", "community-check": "POST", health: "GET" } as const;
+export const AI_ROUTES = {
+  ask: "POST",
+  "lesson-help": "POST",
+  lens: "POST",
+  "lens-turn": "POST",
+  "mawqif-evaluate": "POST",
+  "mawqif-start": "POST",
+  "mawqif-turn": "POST",
+  "mawqif-feedback": "POST",
+  "mawqif-explain": "POST",
+  "community-check": "POST",
+  health: "GET",
+} as const;
 export type AiRoute = keyof typeof AI_ROUTES;
 
 /** Where a route lives on the service, when that is not its own name. */
-const SERVICE_PATHS: Partial<Record<AiRoute, string>> = { "mawqif-evaluate": "mawqif/evaluate", "community-check": "community/check" };
+const SERVICE_PATHS: Partial<Record<AiRoute, string>> = {
+  "lens-turn": "lens/turn",
+  "mawqif-evaluate": "mawqif/evaluate",
+  "mawqif-start": "mawqif/practice/start",
+  "mawqif-turn": "mawqif/practice/turn",
+  "mawqif-feedback": "mawqif/practice/feedback",
+  "mawqif-explain": "mawqif/explain",
+  "community-check": "community/check",
+};
 
 /** Rafiq checks every answer against its sources before replying, which can take a while. */
 export const AI_TIMEOUT_MS = 90_000;

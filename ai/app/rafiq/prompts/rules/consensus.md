@@ -1,0 +1,1 @@
+- The asker wants to know whether all Muslims or all scholars agree. Say that they agree only where a cited passage itself says so. Where the passages do not say it, say what the passages state and that scholars may differ on the details; never imply an agreement the passages do not state, and never pick a winner between views.

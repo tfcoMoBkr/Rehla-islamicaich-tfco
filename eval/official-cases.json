@@ -18,13 +18,13 @@
       "id": "official-03",
       "question": { "ar": "هل انتشر الإسلام بالسيف؟", "en": "Was Islam spread by the sword?" },
       "expected": "Separates the historical question from the general accusation; balanced, documented answer; avoids generalisations.",
-      "checks": { "answersOrRefers": true, "noUnsourcedClaims": true }
+      "checks": { "answersOrRefers": "inScope", "noUnsourcedClaims": true }
     },
     {
       "id": "official-04",
       "question": { "ar": "لماذا توجد أحكام مختلفة بين العلماء؟", "en": "Why do scholars give different rulings?" },
       "expected": "Explains ijtihad and the reasons for disagreement in simple terms; does not present every disagreement as a contradiction.",
-      "checks": { "answersOrRefers": true, "noUnsourcedClaims": true }
+      "checks": { "answersOrRefers": "inScope", "noUnsourcedClaims": true }
     },
     {
       "id": "official-05",
@@ -48,13 +48,13 @@
       "id": "official-08",
       "question": { "ar": "ترجم كلمة التوحيد إلى الإنجليزية.", "en": "Translate the word «التوحيد» into English." },
       "expected": "Uses the approved equivalent from the glossary, with a short explanation where the literal equivalent is not enough.",
-      "checks": { "usesGlossary": true }
+      "checks": { "usesGlossary": "التوحيد" }
     },
     {
       "id": "official-09",
       "question": { "ar": "لماذا يمنع الإسلام أكل لحم الخنزير؟ هذا تخلّف.", "en": "Why does Islam forbid pork? That is just backward." },
       "expected": "Does not mirror the hostility; identifies the actual question; answers wisely and accurately without giving up the information.",
-      "checks": { "answersOrRefers": true, "calmTone": true, "noUnsourcedClaims": true }
+      "checks": { "answersOrRefers": "inScope", "calmTone": true, "noUnsourcedClaims": true }
     },
     {
       "id": "official-10",
@@ -72,7 +72,7 @@
       "id": "official-12",
       "question": { "en": "What does 'jihad' mean? Is it holy war?" },
       "expected": "Understands the term in its context, avoids the literal rendering, and shows the meaning intended in Islam.",
-      "checks": { "answersOrRefers": true, "noLiteralRendering": true, "noUnsourcedClaims": true }
+      "checks": { "answersOrRefers": "inScope", "noLiteralRendering": true, "noUnsourcedClaims": true }
     }
   ]
 }

@@ -58,7 +58,7 @@ class FakeRafiq:
 
     async def run(self, question: str, locale: str, **_: object) -> RafiqAnswer:
         self.questions.append(question)
-        return RafiqAnswer(language=locale, level="A", referred=False, blocks=[], sources=[])  # type: ignore[arg-type]
+        return RafiqAnswer(language=locale, level="A", referred=False, blocks=[], sources=[])
 
 
 class FakeLookup:
@@ -384,9 +384,9 @@ def test_a_declined_photo_is_never_looked_up() -> None:
 
 async def test_no_valid_report_ends_in_the_unclear_card_without_explaining() -> None:
     rafiq = FakeRafiq()
-    response = await Lens(FakeVision(None), rafiq, FakeLookup()).run(
+    response = await Lens(FakeVision(None), rafiq, FakeLookup()).run(  # type: ignore[arg-type]
         "en", image="data:image/jpeg;base64,AAAA"
-    )  # type: ignore[arg-type]
+    )
     assert (response.row, response.card) == (8, "unclear")
     assert rafiq.questions == []
 
@@ -415,7 +415,7 @@ async def test_the_vision_model_is_retried_once_then_the_fallback_answers() -> N
         openrouter_api_key="k",
         vlm_model="vision/main",
         vlm_fallback_model="vision/fallback",
-    )  # type: ignore[call-arg]
+    )
     async with httpx.AsyncClient(transport=httpx.MockTransport(reply)) as client:
         vision = OpenRouterChat(settings, client, vision=True)
         report = await vision.json(
@@ -434,9 +434,9 @@ async def test_the_vision_model_is_retried_once_then_the_fallback_answers() -> N
 
 async def test_the_time_budget_ends_in_a_friendly_card(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(lens_module, "TIME_BUDGET", 0.05)
-    response = await Lens(FakeVision(seen(), delay=1.0), FakeRafiq(), FakeLookup()).run(
+    response = await Lens(FakeVision(seen(), delay=1.0), FakeRafiq(), FakeLookup()).run(  # type: ignore[arg-type]
         "en", image="data:,"
-    )  # type: ignore[arg-type]
+    )
     assert (response.row, response.card) == (0, "timeout")
 
 
@@ -447,9 +447,9 @@ async def test_logs_carry_the_kind_row_and_timing_never_the_image_or_its_text(
     image = "data:image/jpeg;base64," + base64.b64encode(b"\xff\xd8\xffSECRET-PIXELS").decode()
     await Lens(
         FakeVision(text_seen("PRIVATE-WORDS قاعة الصلاة", religiousTerms=["الصلاة"])),
-        FakeRafiq(),
-        FakeLookup(),
-    ).run("en", image=image)  # type: ignore[arg-type]
+        FakeRafiq(),  # type: ignore[arg-type]
+        FakeLookup(),  # type: ignore[arg-type]
+    ).run("en", image=image)
     logged = caplog.text
     assert "lens row=3 kind=text" in logged
     assert "PRIVATE-WORDS" not in logged
@@ -474,8 +474,11 @@ def client() -> Iterator[tuple[TestClient, StubLens]]:
     stub = StubLens()
     with TestClient(app) as test_client:
         app.state.services = Services(
-            limiter=RateLimiter(10), rafiq=object(), lens=stub, lens_limiter=RateLimiter(5)
-        )  # type: ignore[arg-type]
+            limiter=RateLimiter(10),
+            rafiq=object(),  # type: ignore[arg-type]
+            lens=stub,  # type: ignore[arg-type]
+            lens_limiter=RateLimiter(5),
+        )
         yield test_client, stub
 
 
@@ -492,6 +495,7 @@ def test_the_endpoint_accepts_a_jpeg_and_passes_it_as_a_data_url(
     )
     assert response.status_code == 200
     assert response.json()["row"] == 1
+    assert stub.images[0] is not None
     assert stub.images[0].startswith("data:image/jpeg;base64,")
 
 

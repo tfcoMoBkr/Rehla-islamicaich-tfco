@@ -6,6 +6,7 @@ import logging
 import pytest
 
 from app.rafiq.graph import Rafiq, prompt
+from app.rafiq.name import without_name
 from app.rafiq.schemas import ChatReply, Classification, Draft, Turn
 from app.rafiq.specialists import referral_centres
 from app.rafiq.warmth import screened
@@ -19,12 +20,19 @@ GHUSL = chunk(
     reference="Ghusl",
     text="Ghusl is washing the whole body with water, beginning with the parts washed in wudu.",
 )
+OPENING = "Let us look at it together."
+NEXT = "Shall we look at ghusl next?"
 WARM = Draft(
-    opening="That is a good thing to ask.",
+    opening=OPENING,
     answer="You wash your face, your arms and your feet [1].",
-    followUp="Was that clear?",
+    followUp=NEXT,
     adequate=True,
 )
+
+
+def plain(text: str | None) -> str | None:
+    """A line as it reads with no name kept (the name is filled in on the device)."""
+    return without_name(text) if text else text
 
 
 @pytest.fixture(autouse=True)
@@ -47,7 +55,7 @@ async def test_a_follow_up_is_answered_as_the_question_it_stands_for() -> None:
     await rafiq(chat).run("And what about the other one?", "en", history=history)
 
     generated = next(user for user in chat.users if "Passages:" in user)
-    assert "(It asks: How is ghusl done?)" in generated
+    assert "(The part to answer from the passages: How is ghusl done?)" in generated
     assert generated.index("Ghusl is washing") < generated.index("To perform wudu")
 
 
@@ -68,7 +76,7 @@ async def test_a_religious_claim_in_a_warm_line_is_removed_and_the_answer_still_
 
     assert not answer.referred
     assert answer.opening is None
-    assert answer.follow_up == "Was that clear?"
+    assert plain(answer.follow_up) == NEXT
     assert answer.sources
 
 
@@ -79,7 +87,7 @@ async def test_thanks_alone_gets_a_warm_reply_without_sources_or_referral() -> N
     answer = await rafiq(chat).run("Thank you!", "en")
 
     assert answer.kind == "chat"
-    assert answer.opening == "You are welcome."
+    assert plain(answer.opening) == "You are welcome."
     assert answer.sources == []
     assert not answer.referred
     assert answer.referral is not None
@@ -92,7 +100,7 @@ async def test_a_personal_case_gets_warmth_and_the_specialist_card() -> None:
 
     assert answer.referred
     assert answer.kind == "referral"
-    assert answer.opening == "That is a good thing to ask."
+    assert plain(answer.opening) == OPENING
     assert answer.referral is not None
     assert answer.referral.reason == "personalCase"
     assert answer.referral.centers == referral_centres()
@@ -108,7 +116,7 @@ async def test_distress_is_met_with_care_and_the_specialist_card() -> None:
     assert answer.referral is not None
     assert answer.referral.reason == "distress"
     assert answer.referral.centers
-    assert answer.opening == "I am sorry it feels so heavy right now."
+    assert plain(answer.opening) == "I am sorry it feels so heavy right now."
     assert answer.sources == []
 
 
@@ -173,17 +181,17 @@ async def test_under_the_ruling_guard_the_check_also_removes_stated_rulings() ->
     plain = FakeChat(classified(), [WARM])
     await rafiq(plain).run("How do I perform wudu?", "en")
 
-    assert any("states a ruling" in system for system in guarded.systems)
-    assert not any("states a ruling" in system for system in plain.systems)
+    assert any("For this question item 1 is stricter" in system for system in guarded.systems)
+    assert not any("For this question item 1 is stricter" in system for system in plain.systems)
 
 
 def test_the_ruling_rule_is_scoped_to_the_numbered_sentences() -> None:
     rule = prompt("rules/verify-general")
     system = prompt("verify", ruling_rule=rule)
 
-    assert "numbered sentences only" in rule
+    assert "numbered items only" in rule
     assert "never judge it by this rule" in rule
-    assert system.index(rule) < system.index("2. For each warm line")
+    assert system.index(rule) < system.index("3. For each everyday line")
 
 
 @pytest.mark.parametrize(
@@ -197,7 +205,9 @@ async def test_a_guarded_answer_keeps_its_opening_and_its_reason(
         "My situation is complicated; what should I do?", "en"
     )
 
-    assert answer.opening == "That is a good thing to ask."
+    # A personal case is something personal and keeps its opening; a plain request for a
+    # ruling starts with the answer.
+    assert plain(answer.opening) == (OPENING if reason == "personalCase" else None)
     assert answer.referral is not None
     assert answer.referral.reason == reason
 
@@ -207,7 +217,7 @@ async def test_a_guarded_answer_with_every_sentence_removed_keeps_its_opening_an
     answer = await rafiq(chat).run("My situation is complicated; what should I do?", "en")
 
     assert answer.kind == "referral"
-    assert answer.opening == "That is a good thing to ask."
+    assert plain(answer.opening) == OPENING
     assert answer.referral is not None
     assert answer.referral.reason == "personalCase"
     assert answer.blocks == []
@@ -220,7 +230,7 @@ async def test_a_guarded_question_without_an_adequate_draft_keeps_its_opening() 
         "My situation is complicated; what should I do?", "en"
     )
 
-    assert answer.opening == "I can hear that this matters to you."
+    assert plain(answer.opening) == "I can hear that this matters to you."
     assert answer.referral is not None
     assert answer.referral.reason == "personalCase"
     assert answer.blocks == []

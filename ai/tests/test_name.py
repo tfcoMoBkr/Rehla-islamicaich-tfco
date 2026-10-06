@@ -3,7 +3,7 @@ name itself never reaches the service. Fake models only."""
 
 import pytest
 
-from app.rafiq.graph import Rafiq, prompt
+from app.rafiq.graph import NAME_DUE, VOCATIVE, Rafiq, prompt
 from app.rafiq.name import named_last_time, without_name
 from app.rafiq.schemas import Classification, Draft, TextBlock, Turn
 from app.rafiq.warmth import screened
@@ -22,16 +22,16 @@ def rafiq(chat: FakeChat) -> Rafiq:
     return Rafiq(chat, Retriever(index(WUDU), FakeEmbedder(), DownMcp()))
 
 
-def classified(language: str = "en") -> Classification:
+def classified(language: str = "en", **fields: object) -> Classification:
     return Classification.model_validate(
-        {"language": language, "level": "A", "intent": "religious"}
+        {"language": language, "level": "A", "intent": "religious", **fields}
     )
 
 
 NAMED = Draft(
-    opening="That is a good thing to ask, {{name}}.",
+    opening="Let us look at it together, {{name}}.",
     answer="{{name}}, you wash your face, your arms and your feet [1].",
-    followUp="Was that clear?",
+    followUp="Shall we look at ghusl next?",
     adequate=True,
 )
 
@@ -66,16 +66,20 @@ def test_a_reply_that_used_the_name_is_noticed_in_the_history() -> None:
 
 
 def test_the_prompts_teach_the_placeholder_and_keep_it_out_of_the_answer() -> None:
-    generate = prompt("generate", language_name="English", mode_rules="")
+    due = NAME_DUE.format(field="encouragement", vocative=VOCATIVE["ar"])
+    generate = prompt("generate", language_name="English", mode_rules="", name_rule=due)
     assert "«يا {{name}}»" in generate
     assert 'Never write {{name}} in "answer"' in generate
-    assert "{{name}}" in prompt("chat", language_name="English")
+    assert "{{name}}" in prompt("talk", language_name="English", name_rule=due, road="")
 
 
 async def test_the_name_stays_in_the_opening_and_never_in_the_cited_answer() -> None:
-    answer = await rafiq(FakeChat(classified(), [NAMED])).run("How do I perform wudu?", "en")
+    # An opening is written only when the learner said something personal.
+    answer = await rafiq(FakeChat(classified(talk=True), [NAMED])).run(
+        "I'm nervous. How do I perform wudu?", "en"
+    )
 
-    assert answer.opening == "That is a good thing to ask, {{name}}."
+    assert answer.opening == "Let us look at it together, {{name}}."
     texts = [block.text for block in answer.blocks if isinstance(block, TextBlock)]
     assert texts
     assert all("{{" not in text for text in texts)
@@ -87,11 +91,11 @@ async def test_the_name_is_not_used_in_two_replies_in_a_row() -> None:
         Turn(role="user", text="What is wudu?"),
         Turn(role="assistant", text="Good question, {{name}}.\nWudu is washing."),
     ]
-    answer = await rafiq(FakeChat(classified(), [NAMED])).run(
-        "How do I perform wudu?", "en", history=history
+    answer = await rafiq(FakeChat(classified(talk=True), [NAMED])).run(
+        "I'm nervous. How do I perform wudu?", "en", history=history
     )
 
-    assert answer.opening == "That is a good thing to ask."
+    assert answer.opening == "Let us look at it together."
 
 
 def test_an_arabic_opening_with_the_vocative_passes_the_language_check() -> None:

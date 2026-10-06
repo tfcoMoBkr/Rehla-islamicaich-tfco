@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 
 import { Lantern } from "@/components/journey/lantern";
 import { SpecialistCard } from "@/components/specialists/specialist-card";
+import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { ANSWER_FONT_VARIABLES } from "@/lib/answer-fonts";
 import { SPECIALIST_REASONS, splitMarkers, type AnswerBlock, type RafiqAnswer } from "@/lib/rafiq/answer";
@@ -10,7 +11,7 @@ import { inLanguage, type AnswerLanguage } from "@/lib/rafiq/languages";
 import { fillName, useLearnerName, withoutName } from "@/lib/rafiq/name";
 import { cn } from "@/lib/utils";
 
-import { HadithBlockView, Marker, QuranBlockView } from "./answer-blocks";
+import { BookBlockView, FixedNote, HadithBlockView, Marker, QuranBlockView, TermBlockView } from "./answer-blocks";
 import { ReferralCard } from "./referral-card";
 import { SourceCards } from "./source-cards";
 
@@ -22,7 +23,13 @@ type AnswerViewProps = {
   id: string;
   /** Lessons by id, to name the lesson that covers a later topic. */
   lessons?: Readonly<Record<string, LessonLink>>;
+  /** Asks a follow-up as the learner's next turn: the quick actions under an answer. */
+  onFollowUp?: (question: string) => void;
 };
+
+const QUICK_ACTIONS = ["simpler", "more", "now"] as const;
+/** Referrals about the learner's own case open with reassurance when Rafiq wrote none. */
+const REASSURED = new Set(["personalCase", "fatwa"]);
 
 /**
  * One reply from Rafiq, in the language it was asked in. Around the cited part he speaks warmly (an
@@ -32,7 +39,7 @@ type AnswerViewProps = {
  * referral says why he hands over, and the specialist card shows who can help. Every reply that
  * carries religious content ends with the disclosure that he is an AI tool.
  */
-export function AnswerView({ answer, id, lessons }: AnswerViewProps) {
+export function AnswerView({ answer, id, lessons, onFollowUp }: AnswerViewProps) {
   const t = useTranslations("Rafiq");
   const later = answer.laterLessonId ? lessons?.[answer.laterLessonId] : undefined;
   const own = answerMessages(answer.language);
@@ -60,7 +67,8 @@ export function AnswerView({ answer, id, lessons }: AnswerViewProps) {
 
   const referral = answer.referral;
   const cited = answer.blocks.length > 0;
-  const opening = answer.opening ?? (cited ? own?.opening : null);
+  const reassure = !own && referral && REASSURED.has(referral.reason) ? t("reassure") : null;
+  const opening = answer.opening ?? (cited ? own?.opening : reassure);
   const followUp = answer.followUp ?? (cited ? own?.followUp : null);
   return (
     <div className={cn("grid gap-5", fonts)}>
@@ -81,7 +89,7 @@ export function AnswerView({ answer, id, lessons }: AnswerViewProps) {
         />
       )}
       {referral && SPECIALIST_REASONS.has(referral.reason) && (
-        <SpecialistCard ids={referral.centers.length > 0 ? referral.centers : undefined} />
+        <SpecialistCard ids={referral.centers.length > 0 ? referral.centers : undefined} outside={referral.region === "outside"} />
       )}
       {later && (
         <p className="rounded-xl border border-oasis/30 bg-oasis/6 px-4 py-3">
@@ -96,7 +104,17 @@ export function AnswerView({ answer, id, lessons }: AnswerViewProps) {
         </p>
       )}
       {answer.sources.length > 0 && <SourceCards sources={answer.sources} id={id} />}
+      {answer.encouragement && say(answer.encouragement)}
       {followUp && say(followUp, "text-muted-foreground")}
+      {onFollowUp && answer.kind === "answer" && cited && (
+        <div role="group" aria-label={t("actionsLabel")} className="flex flex-wrap gap-2">
+          {QUICK_ACTIONS.map((action) => (
+            <Button key={action} type="button" variant="outline" size="sm" onClick={() => onFollowUp(t(`actions.${action}`))}>
+              {t(`actions.${action}`)}
+            </Button>
+          ))}
+        </div>
+      )}
       {answer.kind !== "danger" && (
         <p className="flex items-center gap-2 text-sm text-muted-foreground">
           <Lantern className="size-5 shrink-0 text-ink" />
@@ -116,18 +134,22 @@ export function AnswerView({ answer, id, lessons }: AnswerViewProps) {
 function Block({ block, id, language }: { block: AnswerBlock; id: string; language: AnswerLanguage }) {
   if (block.type === "quran") return <QuranBlockView block={block} id={id} language={language} />;
   if (block.type === "hadith") return <HadithBlockView block={block} id={id} language={language} />;
+  if (block.type === "term") return <TermBlockView block={block} id={id} />;
+  if (block.type === "book") return <BookBlockView block={block} id={id} language={language} />;
+  if (block.type === "note") return <FixedNote note={block.note} />;
   // The cited answer never carries the name; a stray placeholder is removed, never shown.
-  return <TextBlock text={withoutName(block.text)} id={id} language={language} />;
+  return <TextBlock text={withoutName(block.text)} role={block.role} id={id} language={language} />;
 }
 
 // A bullet, or a number in ASCII, Arabic-Indic, Persian or Bengali digits, then a space.
 const LIST_ITEM = /^\s*(?:[-*•▪◦]|[0-9\u0660-\u0669\u06f0-\u06f9\u09e6-\u09ef]+[.)-])\s+/;
 
 /**
- * Rafiq's own words: paragraphs, and lists where he wrote one item per line. They are labelled as a
- * generated explanation, set apart from the verses and hadiths quoted as their publishers print them.
+ * Rafiq's own words: paragraphs, and lists where he wrote one item per line. The direct answer and
+ * the explanation after the sources are each labelled as generated, set apart from the verses and
+ * hadiths quoted as their publishers print them.
  */
-function TextBlock({ text, id, language }: { text: string; id: string; language: AnswerLanguage }) {
+function TextBlock({ text, role, id, language }: { text: string; role: "answer" | "explanation"; id: string; language: AnswerLanguage }) {
   const t = useTranslations("Rafiq");
   const { className } = inLanguage(language);
   const groups: { list: boolean; numbered: boolean; lines: string[] }[] = [];
@@ -140,7 +162,9 @@ function TextBlock({ text, id, language }: { text: string; id: string; language:
   }
   return (
     <section className="grid gap-3 rounded-xl border border-dashed border-hairline px-4 py-3">
-      <p className="text-xs font-semibold tracking-wide text-muted-foreground">{t("generatedExplanation")}</p>
+      <p className="text-xs font-semibold tracking-wide text-muted-foreground">
+        {role === "explanation" ? t("generatedExplanation") : t("generatedAnswer")}
+      </p>
       {groups.map((group, index) => {
         if (!group.list) {
           return (

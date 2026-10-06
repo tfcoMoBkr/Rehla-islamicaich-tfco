@@ -2,12 +2,16 @@
 
 The MCP samples below copy the server's format with placeholder words, not real texts."""
 
+from collections.abc import Iterator
+from datetime import date
+
 import pytest
 from fastapi.testclient import TestClient
 
-from app.api import RateLimiter, Services
-from app.llm import extract_json
+from app.api import DailyCap, RateLimiter, Services
+from app.llm import extract_json, without_nulls
 from app.main import app
+from app.rafiq.schemas import Classification
 from app.retrieval.mcp_text import (
     parse_hadith,
     parse_hadith_versions,
@@ -158,7 +162,7 @@ def test_json_is_found_in_fenced_or_thinking_replies() -> None:
 
 
 @pytest.fixture
-def client() -> TestClient:
+def client() -> Iterator[TestClient]:
     with TestClient(app) as test_client:
         test_client.app.state.services = Services(rafiq=None, limiter=RateLimiter(2))  # type: ignore[attr-defined]
         yield test_client
@@ -190,3 +194,51 @@ def test_too_many_questions_are_rate_limited(client: TestClient) -> None:
     assert response.status_code == 429
     assert response.json()["error"]["code"] == "rate_limited"
     assert "Retry-After" in response.headers
+
+
+def test_the_daily_cap_counts_questions_and_starts_again_the_next_day() -> None:
+    today = [date(2026, 10, 6)]
+    cap = DailyCap(2, today=lambda: today[0])
+    assert [cap.take(), cap.take(), cap.take()] == [True, True, False]
+    today[0] = date(2026, 10, 7)
+    assert cap.take()
+
+
+def test_a_question_past_the_daily_cap_gets_the_friendly_card_and_asks_no_model() -> None:
+    class Untouched:
+        async def run(self, *args: object, **options: object) -> None:
+            raise AssertionError("no model is asked past the cap")
+
+    with TestClient(app) as test_client:
+        test_client.app.state.services = Services(  # type: ignore[attr-defined]
+            rafiq=Untouched(),  # type: ignore[arg-type]
+            limiter=RateLimiter(10),
+            daily=DailyCap(0),
+        )
+        response = test_client.post("/ask", json={"question": "What is wudu?", "locale": "ar"})
+
+    assert response.status_code == 200
+    body = response.json()
+    assert (body["kind"], body["referral"]["reason"], body["language"]) == (
+        "referral",
+        "dailyCap",
+        "ar",
+    )
+    assert body["blocks"] == []
+
+
+def test_a_null_the_model_writes_for_a_field_means_its_default() -> None:
+    reply = {
+        "language": "en",
+        "intent": "smalltalk",
+        "talk": True,
+        "talkKind": "thanks",
+        "level": None,
+        "questionType": None,
+        "personalCase": None,
+        "searchPhrases": [None, "a phrase"],
+    }
+    classification = Classification.model_validate(without_nulls(reply))
+    assert (classification.level, classification.question_type) == ("B", "other")
+    assert classification.personal_case is False
+    assert classification.search_phrases == ["a phrase"]

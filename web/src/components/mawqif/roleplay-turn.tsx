@@ -1,6 +1,6 @@
 "use client";
 
-import { MessageCircleQuestion, PenLine, Sparkles, UserRound } from "lucide-react";
+import { ListChecks, MessageCircleQuestion, PenLine, UserRound } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useId, useState, type FormEvent } from "react";
 
@@ -132,7 +132,7 @@ export function RoleplayTurn({
                   mode === option ? "border-ink bg-ink text-paper" : "border-hairline bg-paper hover:border-dawn",
                 )}
               >
-                {option === "choose" ? <Sparkles aria-hidden className="size-4" /> : <PenLine aria-hidden className="size-4" />}
+                {option === "choose" ? <ListChecks aria-hidden className="size-4" /> : <PenLine aria-hidden className="size-4" />}
                 {t(option === "choose" ? "modeChoose" : "modeWrite")}
               </button>
             ))}

@@ -28,7 +28,7 @@ const answer = (text: string): RafiqAnswer => ({
   kind: "answer",
   opening: null,
   followUp: null,
-  blocks: [{ type: "text", text: `${text} [1]` }],
+  blocks: [{ type: "text", role: "answer", text: `${text} [1]` }],
   sources: [{ n: 1, sourceId: "mukhtasar", title: "Book", reference: "Wudu", url: "https://byenah.com/en", publisher: "byenah.com" }],
   referral: null,
   laterLessonId: null,

@@ -18,19 +18,27 @@ export const checkQuestionKey = (situation: string, check: string) => `mawqif:${
 export const checkRoundKey = (situation: string) => `mawqif:${situation}`;
 export const testRoundKey = (group: string) => `mawqif-test:${group}`;
 export const testQuestionKey = (group: string, situation: string, check: string) => `mawqif-test:${group}:${situation}:${check}`;
+/** The best practice conversation of a situation: key points covered out of all of them. */
+export const conversationKey = (situation: string) => `mawqif:${situation}:conversation`;
+/** Provisions once for each key point the learner has covered in a conversation. */
+export const pointKey = (situation: string, point: string) => `mawqif:${situation}:point:${point}`;
+export const POINT_PROVISIONS = 2;
 
 export type SituationStatus = "notStarted" | "practised" | "mastered";
 
 /**
- * Not started; practised once any turn or its check was done; mastered when every turn was
- * answered with the best reply and its check had every question right.
+ * Not started; practised once any conversation, turn or check was done; mastered when a practice
+ * conversation covered every key point. When the conversation was not available, the written
+ * replies count instead: every turn answered with the best reply and the check all right.
  */
 export function situationStatus(stop: SituationStop, progress: Progress): SituationStatus {
   const { earned, best } = progress.practice;
+  const conversation = best[conversationKey(stop.id)];
+  if (conversation && ratio(conversation) === 1) return "mastered";
   const round = best[checkRoundKey(stop.id)];
   const turnsDone = stop.turns.filter((turn) => earned[turnKey(stop.id, turn)]).length;
   if (round && ratio(round) === 1 && turnsDone === stop.turns.length) return "mastered";
-  const started = round !== undefined || Object.keys(earned).some((key) => key.startsWith(`mawqif:${stop.id}:`));
+  const started = conversation !== undefined || round !== undefined || Object.keys(earned).some((key) => key.startsWith(`mawqif:${stop.id}:`));
   return started ? "practised" : "notStarted";
 }
 

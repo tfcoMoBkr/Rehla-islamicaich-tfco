@@ -1,0 +1,1 @@
+- The asker asked whether «{quoted}» is really from the Quran or the hadith. It is found in the approved sources: show it with its placeholder in "show", say in "answer" where it comes from, with its number, and explain it from the passages.

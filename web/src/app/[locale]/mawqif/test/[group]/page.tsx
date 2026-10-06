@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
-import { MawqifTest, type TestQuestion, type TestSituation } from "@/components/mawqif/mawqif-test";
+import type { TestQuestion, TestSituation } from "@/components/mawqif/mawqif-test";
+import { TestChooser } from "@/components/mawqif/test-chooser";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { PageMessages } from "@/i18n/client-messages";
 import { resolveLocale } from "@/i18n/locale";
@@ -64,11 +65,11 @@ export default async function MawqifTestPage({ params }: PageProps<"/[locale]/ma
         <SectionHeading
           as="h1"
           title={id === "all" ? t("testAll") : t("testAfter", { number: id })}
-          description={t("testIntro", { count: questions.length })}
+          description={t("howItWorks")}
           className="mt-4"
         />
         <div className="mt-8">
-          <MawqifTest group={group.id} questions={questions} situations={testSituations} items={items} />
+          <TestChooser group={group.id} views={views} questions={questions} situations={testSituations} items={items} />
         </div>
       </div>
     </PageMessages>

@@ -41,6 +41,8 @@ class Settings(BaseSettings):
     content_dir: Path = REPOSITORY_ROOT / "content"
     asks_per_minute: int = 10
     lens_per_minute: int = 5
+    # Questions to Rafiq per day (UTC), counted per instance: a guard on spending, not a quota.
+    daily_question_cap: int = 1500
     # Shared with the web app's proxy; when set, requests without it are refused (app/security.py).
     ai_service_key: SecretStr | None = None
     # Local diagnosis only: logs Rafiq's drafts and the problems found in them. Never in production.

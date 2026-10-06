@@ -244,7 +244,7 @@ def settle(shape: Shape) -> tuple[set[str], RafiqAnswer | None]:
     """What verify does on the last attempt, then respond: no model is called."""
     units = parse(shape.draft)
     problems = code_problems(units, PASSAGES, shape.required)
-    found = {problem.kind for problem in problems}
+    found: set[str] = {problem.kind for problem in problems}
     if problems:
         repaired = repair(units, problems, PASSAGES, shape.required)
         if repaired is None:

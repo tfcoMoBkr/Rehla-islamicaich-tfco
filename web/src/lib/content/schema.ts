@@ -461,9 +461,11 @@ export const sourcesSchema = z.object({
         licence: bilingual,
         status: z.enum(["approved", "pendingReview"]),
         verifiedOn: z.iso.date(),
+        /** A document given to the challenge's participants, with no public address. */
+        unpublished: z.optional(z.literal(true)),
       })
       // The team's illustrations live in this repository; the referral directory's address is not supplied yet.
-      .refine((source) => source.url !== undefined || source.type === "illustrations" || source.type === "referral", {
+      .refine((source) => source.url !== undefined || source.unpublished || source.type === "illustrations" || source.type === "referral", {
         message: "A source needs a url",
       }),
   ),

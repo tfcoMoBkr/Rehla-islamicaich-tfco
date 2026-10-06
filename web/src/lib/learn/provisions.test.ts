@@ -43,4 +43,11 @@ describe("gain", () => {
   it("is unknown until both have been taken", () => {
     expect(gain(score(1, 4), undefined)).toBeNull();
   });
+
+  it("compares the same questions, before and after, when both asked them", () => {
+    const before = { correct: 1, total: 3, at: 0, answers: { a: false, b: true, c: false } };
+    const after = { correct: 4, total: 6, at: 1, answers: { a: true, b: true, c: false, d: true, e: true, f: false } };
+    // On a, b and c: one right before, two right after.
+    expect(gain(before, after)).toBe(33);
+  });
 });

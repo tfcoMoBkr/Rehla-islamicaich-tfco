@@ -26,6 +26,8 @@ REMOVED_WITH_SENTENCE = {
     "verseBrackets",
     "unsupported",
     "wrongLanguage",
+    "tarjih",
+    "consensus",
 }
 
 
@@ -57,7 +59,7 @@ def materialize(units: list[Unit], known: set[int]) -> list[Unit]:
             if numbers and not markers(sentence):
                 sentence = _with_markers(sentence, numbers)
             sentences.append(sentence)
-        result.append(Unit(unit.kind, sentences, unit.prefix, unit.block))
+        result.append(Unit(unit.kind, sentences, unit.prefix, unit.block, unit.role))
     return result
 
 
@@ -80,7 +82,7 @@ def tidy(units: list[Unit]) -> list[Unit]:
                 shown.add(unit.block)
                 kept.append(unit)
         elif unit.sentences:
-            kept.append(Unit(unit.kind, list(unit.sentences), unit.prefix))
+            kept.append(Unit(unit.kind, list(unit.sentences), unit.prefix, role=unit.role))
     for index, unit in enumerate(kept):
         following = kept[index + 1] if index + 1 < len(kept) else None
         leads = following is not None and following.kind in ("block", "item")
@@ -100,6 +102,9 @@ def _apply(units: list[Unit], problems: list[Problem], passages: list[Passage]) 
             continue
         if problem.kind == "unknownBlock":
             dropped.add(problem.unit)
+        elif problem.kind in REMOVED_WITH_SENTENCE and problem.sentence is None:
+            # A whole explanation paragraph judged unsupported goes, and only it.
+            dropped.add(problem.unit)
         elif problem.kind in REMOVED_WITH_SENTENCE and problem.sentence is not None:
             removed.add((problem.unit, problem.sentence))
         elif problem.kind == "copiedSacred" and problem.sentence is not None:
@@ -113,7 +118,7 @@ def _apply(units: list[Unit], problems: list[Problem], passages: list[Passage]) 
     for u, unit in enumerate(units):
         if u not in dropped:
             sentences = [s for i, s in enumerate(unit.sentences) if (u, i) not in removed]
-            repaired.append(Unit(unit.kind, sentences, unit.prefix, unit.block))
+            repaired.append(Unit(unit.kind, sentences, unit.prefix, unit.block, unit.role))
         for block in insert_after.get(u, []):
             repaired.append(Unit("block", block=block))
     return tidy(repaired)
@@ -151,6 +156,7 @@ def finish(
     passages: list[Passage],
     *,
     required_verse: str | None = None,
+    required_hadith: str | None = None,
     extractive: bool = False,
 ) -> list[Unit]:
     by_number = {passage.n: passage for passage in passages}
@@ -159,10 +165,11 @@ def finish(
         result = _keep_own_sentences(result, EXTRACTIVE_SENTENCES)
     shown = [unit.block for unit in result if unit.kind == "block"]
 
-    if required_verse and ("quran", required_verse) not in shown:
-        first_text = next((i for i, unit in enumerate(result) if unit.kind != "block"), -1)
-        result.insert(first_text + 1, Unit("block", block=("quran", required_verse)))
-        shown.append(("quran", required_verse))
+    for required in (("quran", required_verse), ("hadith", required_hadith)):
+        if required[1] and required not in shown:
+            first_text = next((i for i, unit in enumerate(result) if unit.kind != "block"), -1)
+            result.insert(first_text + 1, Unit("block", block=required))  # type: ignore[arg-type]
+            shown.append(required)  # type: ignore[arg-type]
 
     # A verse or hadith the answer relies on is shown, after the paragraph that first cites it.
     for u, _, numbers in cited(result):
@@ -173,10 +180,30 @@ def finish(
                 shown.append(block)
                 position = _end_of_group(result, u) + 1
                 result.insert(position, Unit("block", block=block))
-    return tidy(_keep_most_relevant(result, passages, required_verse))
+    return tidy(in_reading_order(_keep_most_relevant(result, passages, required_verse)))
 
 
-def _relevance(block: tuple[str, str], passages: list[Passage], required: str | None) -> tuple:
+def in_reading_order(units: list[Unit]) -> list[Unit]:
+    """The direct answer, then the verses and hadiths, then the explanation. A block stays right
+    after the lead-in that introduces it."""
+    answer: list[Unit] = []
+    blocks: list[Unit] = []
+    explanation: list[Unit] = []
+    for unit in units:
+        if unit.kind == "block":
+            blocks.append(unit)
+        elif unit.role == "explanation":
+            explanation.append(unit)
+        else:
+            answer.append(unit)
+    if not explanation:
+        return units
+    return [*answer, *blocks, *explanation]
+
+
+def _relevance(
+    block: tuple[str, str], passages: list[Passage], required: str | None
+) -> tuple[int, int]:
     if block == ("quran", required):
         return (0, 0)
     passage = find_passage(passages, *block)
@@ -217,5 +244,5 @@ def _keep_own_sentences(units: list[Unit], limit: int) -> list[Unit]:
             for s, sentence in enumerate(unit.sentences)
             if (u, s) in keep or is_lead_in(units, u, s)
         ]
-        result.append(Unit(unit.kind, sentences, unit.prefix, unit.block))
+        result.append(Unit(unit.kind, sentences, unit.prefix, unit.block, unit.role))
     return tidy(result)

@@ -209,6 +209,7 @@ export function RafiqConversation({
             lessons={lessons}
             replyRef={replyRef(exchange.id)}
             onRetry={() => void ask(exchange.question, exchange.id)}
+            onFollowUp={exchange.id === exchanges.at(-1)?.id ? (question) => void ask(question) : undefined}
           />
         ))}
       </ol>
@@ -250,6 +251,7 @@ export function RafiqConversation({
             </Button>
           </div>
         </div>
+        <p className="text-xs text-muted-foreground">{t("inputPrivacy")}</p>
       </form>
 
       <RafiqMemory road={road} messages={stored.length * 2} onCleared={stopAsking} />

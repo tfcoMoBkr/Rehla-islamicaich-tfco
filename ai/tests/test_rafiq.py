@@ -6,7 +6,15 @@ import pytest
 
 from app.languages import Language
 from app.rafiq.graph import Rafiq
-from app.rafiq.schemas import Classification, Draft, Level, QuranBlock, RafiqAnswer, TextBlock
+from app.rafiq.schemas import (
+    Classification,
+    Draft,
+    Level,
+    NoteBlock,
+    QuranBlock,
+    RafiqAnswer,
+    TextBlock,
+)
 from app.retrieval import retriever as retriever_module
 from app.retrieval.retriever import Retrieval, Retriever
 
@@ -74,8 +82,10 @@ async def test_a_ruling_is_never_given_for_level_d_or_a_personal_case(
 
     assert answer.referred
     assert reason(answer) == expected
+    # A personal case is level D, whatever level the classifier gave it.
+    assert answer.level == "D"
     # The model was told to give general information only.
-    assert any("Do not state any ruling" in system for system in chat.systems)
+    assert any("give only the general information" in system for system in chat.systems)
 
 
 async def test_level_d_without_general_information_is_still_referred() -> None:
@@ -190,7 +200,7 @@ async def test_markers_in_any_common_style_pass_the_first_time() -> None:
     answer = await rafiq(chat).run(QUESTION, "en")
 
     assert not answer.referred
-    assert chat.users[-1].startswith("Sentence 1")  # the support check, not a second draft
+    assert "Item 1 (answer sentence)" in chat.users[-1]  # the support check, not a second draft
 
 
 async def test_without_the_debug_switch_logs_carry_no_text(
@@ -246,6 +256,21 @@ async def test_an_urdu_question_is_answered_from_texts_published_in_urdu() -> No
     assert {"surah": 2, "ayah": 256, "translation_key": "urdu_junagarhi"} in mcp.arguments
 
 
+async def test_a_personal_case_shows_one_plain_sentence_one_source_and_the_fixed_line() -> None:
+    mcp = ScriptedMcp({"get_quran_verses": URDU_VERSE})
+    chat = FakeChat(
+        classified(
+            "B", language="ur", personalCase=True, searchPhrases=["no compulsion in the religion"]
+        ),
+        [Draft(answer="یہ آیت اس سوال کے بارے میں ہے [1]۔", adequate=True)],
+    )
+    answer = await rafiq(chat, mcp).run("میرے لیے کیا حکم ہے؟", "en")
+
+    assert reason(answer) == "personalCase"
+    assert [block.type for block in answer.blocks] == ["text", "quran", "note"]
+    assert answer.blocks[-1] == NoteBlock(note="notARuling")
+
+
 async def test_nothing_published_in_the_language_is_referred() -> None:
     chat = FakeChat(
         classified("A", language="fr", searchPhrases=["no compulsion in the religion"]), [GOOD]
@@ -268,7 +293,7 @@ async def test_the_support_check_reads_where_a_book_passage_sits() -> None:
     chat = FakeChat(classified("A"), [GOOD])
     await rafiq(chat).run(QUESTION, "en")
 
-    check = next(user for user in chat.users if user.startswith("Sentence 1:"))
+    check = next(user for user in chat.users if "Item 1 (answer sentence)" in user)
     assert f"[1] ({WUDU.reference}) {WUDU.text}" in check
 
 

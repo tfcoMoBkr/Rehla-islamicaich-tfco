@@ -663,14 +663,47 @@ export function lessonQuestions(lesson: Lesson, locale: Locale): QuestionView[] 
   return [...checks, ...situation, ...quiz];
 }
 
+/** How many questions the "what do I know?" check takes from a station's exam. */
+const BASELINE_FROM_EXAM = 3;
+
+/**
+ * A station's "what do I know?" check and exam. A station whose file lists none of its own takes
+ * them from its lessons' own questions: the exam is each lesson's first scored question, and the
+ * check before the station is three of those same questions, spread across it, so before and
+ * after are measured on the same items. No question is written for this.
+ */
+export function stationParts(station: StationEntry, lessons: ReadonlyMap<string, Lesson>, locale: Locale): { baseline: QuestionView[]; exam: QuestionView[] } {
+  const derived = station.lessonIds.flatMap((id) => {
+    const lesson = lessons.get(id);
+    const first = lesson ? lessonQuestions(lesson, locale)[0] : undefined;
+    return first ? [first] : [];
+  });
+  const listed = (part: "baseline" | "exam") =>
+    station[part].map((question) => {
+      const lesson = question.lesson ? lessons.get(question.lesson) : undefined;
+      const card = lesson?.cards.find((candidate) => candidate.id === question.card);
+      return questionView(question, question.lesson ?? station.id, card ? lessonText(card, locale) : null, locale);
+    });
+  const exam = station.exam.length > 0 ? listed("exam") : derived;
+  const baseline = station.baseline.length > 0 ? listed("baseline") : spread(exam, BASELINE_FROM_EXAM);
+  return { baseline, exam };
+}
+
+/** `count` items from the first to the last, evenly apart. */
+function spread<T>(items: readonly T[], count: number): T[] {
+  if (items.length <= count) return [...items];
+  const positions = Array.from({ length: count }, (_, index) => Math.round((index * (items.length - 1)) / (count - 1)));
+  return [...new Set(positions)].map((position) => items[position]!);
+}
+
 export function toStationView(station: StationEntry, lessons: ReadonlyMap<string, Lesson>, locale: Locale): StationView {
   return {
     id: station.id,
     title: pick(station.title, locale),
     order: station.order,
     demo: station.demo,
-    hasBaseline: station.baseline.length > 0,
-    hasExam: station.exam.length > 0,
+    hasBaseline: stationParts(station, lessons, locale).baseline.length > 0,
+    hasExam: stationParts(station, lessons, locale).exam.length > 0,
     lessons: station.lessonIds.flatMap((id) => {
       const lesson = lessons.get(id);
       return lesson

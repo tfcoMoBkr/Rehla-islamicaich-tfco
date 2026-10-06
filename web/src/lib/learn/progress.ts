@@ -99,8 +99,15 @@ export function ratio(score: Pick<ScoreRecord, "correct" | "total">): number {
   return score.total === 0 ? 0 : score.correct / score.total;
 }
 
-/** Understanding gain between "what do I know?" and the station exam, in percentage points. */
+/**
+ * Understanding gain between "what do I know?" and the station exam, in percentage points:
+ * measured on the questions both asked when they share some (the same items, before and after),
+ * otherwise on the two scores.
+ */
 export function gain(baseline: ScoreRecord | undefined, exam: ScoreRecord | undefined): number | null {
   if (!baseline || !exam) return null;
-  return Math.round((ratio(exam) - ratio(baseline)) * 100);
+  const shared = Object.keys(baseline.answers ?? {}).filter((id) => id in (exam.answers ?? {}));
+  if (shared.length === 0) return Math.round((ratio(exam) - ratio(baseline)) * 100);
+  const right = (answers: Record<string, boolean>) => shared.filter((id) => answers[id]).length;
+  return Math.round(((right(exam.answers) - right(baseline.answers)) / shared.length) * 100);
 }

@@ -1,1 +1,1 @@
-- Shape: one or two short paragraphs, each sentence or paragraph with its number.
+- Shape: in "answer", the direct answer; in "explanation", what the passages mean for the person, paragraph by paragraph.

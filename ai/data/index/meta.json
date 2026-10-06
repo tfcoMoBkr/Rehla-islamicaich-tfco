@@ -1,18 +1,18 @@
 {
   "embeddingModel": "baai/bge-m3",
   "dimensions": 1024,
-  "chunks": 2464,
-  "builtOn": "2026-10-05",
+  "chunks": 2865,
+  "builtOn": "2026-10-06",
   "counts": {
-    "book:ar": 100,
+    "book:ar": 363,
     "book:en": 205,
     "catalogue:ar": 1122,
     "catalogue:en": 792,
-    "hadith:ar": 81,
-    "hadith:en": 70,
-    "quran:ar": 38,
-    "quran:en": 38,
-    "term:ar": 9,
-    "term:en": 9
+    "hadith:ar": 147,
+    "hadith:en": 130,
+    "quran:ar": 40,
+    "quran:en": 40,
+    "term:ar": 13,
+    "term:en": 13
   }
 }

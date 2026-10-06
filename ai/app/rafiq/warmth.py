@@ -16,7 +16,23 @@ from app.retrieval.passages import Passage
 from app.text import words
 
 # (whole sentences kept, longest text kept) per line.
-LIMITS = {"opening": (2, 240), "followUp": (1, 180), "clarification": (1, 160)}
+LIMITS = {
+    "opening": (2, 240),
+    "talk": (4, 600),
+    "encouragement": (2, 240),
+    "followUp": (1, 180),
+    "clarification": (1, 160),
+    # Lens: what can be seen in the photo, in answer to a question about it.
+    "visual": (3, 500),
+    # Mawqif: the scene, the other person's line, and the feedback on a reply.
+    "person": (1, 120),
+    "place": (1, 120),
+    "mood": (1, 80),
+    "setting": (2, 500),
+    "line": (3, 400),
+    "good": (2, 300),
+    "better": (3, 400),
+}
 WARM_FIELDS = tuple(LIMITS)
 
 

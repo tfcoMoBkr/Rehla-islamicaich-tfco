@@ -15,8 +15,9 @@ Nothing to configure beyond the root directory; the repository carries the rest.
 
 - **Runtime.** Python 3.12 (`ai/.python-version`), with dependencies from `ai/pyproject.toml` and `ai/uv.lock`. The entrypoint is `app.main:app` (`[tool.vercel] entrypoint`).
 - **Build step.** `python -m app.prepare` (`[tool.vercel.scripts] build`) runs after the install. It copies the files the service reads at runtime from `content/` into `ai/data/index/` and checks that the committed index is complete. It stops the build with the name of any missing file. It calls no model.
-- **Function.** `ai/vercel.json` sets region `fra1`, a maximum duration of 60 s, and leaves tests, caches, `.venv` and the Dockerfile out of the bundle.
-- **The index** (`ai/data/index/`, about 7 MB) is built offline with `uv run python -m app.ingest`, which calls the embedding model, and is committed. Deployment never rebuilds it.
+- **Function.** `ai/vercel.json` sets region `fra1`, a maximum duration of 300 s, and leaves tests, caches, `.venv` and the Dockerfile out of the bundle. 300 s is the most the Hobby plan allows with Fluid compute, which is on by default for new projects (Pro allows up to 800 s). The service's own budgets end well before it: 45 s for a question to Rafiq, 20 s for each Mawqif turn.
+- **The index** (`ai/data/index/`, about 8.5 MB) is built offline with `uv run python -m app.ingest`, which calls the embedding model, and is committed. Deployment never rebuilds it.
+- **Rebuilding the corpus** the index is made from needs a developer's machine: `node scripts/fetch-content.mjs --corpus` fetches the books, the hadith catalogue and the terms into `content/corpus/` (git-ignored), and the IslamHouse book needs `ISLAMHOUSE_API_KEY` for its first download. Then `uv run python -m app.ingest` re-embeds only the chunks that changed. Neither step is needed to deploy.
 
 ### Environment variables (`ai`)
 
@@ -29,6 +30,7 @@ Nothing to configure beyond the root directory; the repository carries the rest.
 | `AI_SERVICE_KEY` | yes in production | A long random string, the same as in `web`. Requests without it are refused. Secret. |
 | `OPENROUTER_DATA_COLLECTION` | no | `deny` (default) or `allow`. |
 | `ASKS_PER_MINUTE` | no | Questions per address per minute, per instance (default 10). |
+| `DAILY_QUESTION_CAP` | no | Questions to Rafiq per day (UTC), counted **per instance** (default 1500). Past it, a friendly "come back tomorrow" card is shown and no model is called. On serverless hosting each running instance counts on its own, so this is a guard on spending, not an exact global quota. |
 | `MCP_URL` | no | Defaults to `https://mcp.islamiccontent.org/mcp`. |
 | `VLM_MODEL` | for Lens | The vision model that reads photos for Lens. Without it `/lens` answers 503. |
 | `VLM_FALLBACK_MODEL` | recommended | Used when the vision model fails or returns invalid JSON twice. |
@@ -36,6 +38,18 @@ Nothing to configure beyond the root directory; the repository carries the rest.
 | `RAFIQ_DEBUG` | no | Leave unset. It is ignored on Vercel anyway (`VERCEL` is set). |
 
 The AI service never talks to Supabase and has no Supabase variables.
+
+### Production models
+
+The live service runs on these models, all reached through OpenRouter. The committee run in `docs/EVALUATION.md` used the same ones.
+
+| Variable | Model | Used for |
+|---|---|---|
+| `LLM_MODEL` | `google/gemini-2.5-flash-lite` | Rafiq: classifying, writing, checking; Mawqif's scenes and turns; Lens's questions |
+| `LLM_FALLBACK_MODEL` | `google/gemma-4-31b-it` | When the main model fails, is rate limited, or returns invalid JSON twice |
+| `EMBEDDING_MODEL` | `baai/bge-m3` | Retrieval; the committed index was built with it |
+| `VLM_MODEL` | `google/gemini-2.5-flash-lite` | Lens: reading a photo |
+| `JUDGE_MODEL` | `openai/gpt-6-luna` | The evaluation only (`eval/`), never the product |
 
 ## The `web` project
 
@@ -157,6 +171,7 @@ Vercel keeps every deployment. In each project's **Deployments** list, open the 
 
 ## Limits to keep in mind
 
-- **The AI function:** the bundle is the dependencies (FastAPI, LangGraph, LangChain, numpy) plus the 7 MB index, well under Vercel's 500 MB Python limit.
-- **Function duration:** answers that need a repair round can take 20–60 s. The service may run up to 60 s and the proxy waits up to 90 s, so a slow answer ends as "unavailable" rather than hanging.
-- **In-memory state:** the rate limit and the MCP cache are per instance and best effort (see `docs/ARCHITECTURE.md`).
+- **The AI function:** the bundle is the dependencies (FastAPI, LangGraph, LangChain, numpy) plus the 8.5 MB index, well under Vercel's 500 MB Python limit.
+- **Function duration:** answers that need a repair round can take 20–40 s. Rafiq stops at 45 s and shows the "could not check his answer in time" card instead of an unchecked answer; the function may run up to 300 s and the proxy waits up to 90 s, so a platform error is not what the learner sees.
+- **Daily cap:** `DAILY_QUESTION_CAP` is counted in memory, per instance, and starts again at midnight UTC.
+- **In-memory state:** the rate limits, the daily cap and the MCP cache are per instance and best effort (see `docs/ARCHITECTURE.md`).

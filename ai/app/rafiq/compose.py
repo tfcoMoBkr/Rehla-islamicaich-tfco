@@ -1,6 +1,7 @@
 """Builds the answer the API returns from a checked and finished draft: text blocks between the
 verse and hadith blocks, each verse or hadith inserted exactly as it was stored or retrieved, and
-sources numbered in order of first citation."""
+sources numbered in order of first citation. A note (embedded.py) becomes a fixed line the page
+writes in its own language."""
 
 import re
 
@@ -9,8 +10,10 @@ from app.rafiq.check import find_passage
 from app.rafiq.draft import MARKER, Unit, render
 from app.rafiq.schemas import (
     Block,
+    BookBlock,
     HadithBlock,
     Level,
+    NoteBlock,
     QuranBlock,
     RafiqAnswer,
     Referral,
@@ -56,14 +59,35 @@ def compose(
         # A marker said twice in a row ("[1][1]") is said once.
         text = re.sub(r"(\[\d+\])(?:\s*\1)+", r"\1", text).strip()
         if text:
-            blocks.append(TextBlock(text=text))
+            blocks.append(TextBlock(text=text, role=pending[0].role))
         pending.clear()
 
     for unit in units:
         if unit.kind != "block" or not unit.block:
+            # The direct answer and the explanation are separate blocks: they are labelled apart.
+            if pending and pending[0].role != unit.role:
+                flush()
             pending.append(unit)
             continue
         flush()
+        if unit.block[0] == "note":
+            blocks.append(NoteBlock.model_validate({"note": unit.block[1]}))
+            continue
+        if unit.block[0] == "book":
+            book = by_number.get(int(unit.block[1]))
+            number = cite(book)
+            if book is not None and number is not None:
+                blocks.append(
+                    BookBlock(
+                        n=number,
+                        title=book.title,
+                        reference=book.reference,
+                        text=book.text,
+                        language=book.lang,
+                        url=book.url,
+                    )
+                )
+            continue
         passage = find_passage(passages, *unit.block)
         number = cite(passage)
         if passage is None or number is None:

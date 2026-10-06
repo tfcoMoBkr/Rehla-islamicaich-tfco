@@ -16,6 +16,8 @@ type ViewProps = {
   centres: readonly ReferralCentre[];
   city: string | null;
   onChooseCity: (city: string | null) => void;
+  /** The learner said they live outside Saudi Arabia: lead with that, keep the city choice for later. */
+  outside?: boolean;
 };
 
 /**
@@ -23,12 +25,37 @@ type ViewProps = {
  * associations of the city the learner chooses (no location is read or guessed), a line for
  * learners elsewhere, and the full list. Every name and number comes from the data file.
  */
-export function SpecialistCardView({ centres, city, onChooseCity }: ViewProps) {
+export function SpecialistCardView({ centres, city, onChooseCity, outside = false }: ViewProps) {
   const t = useTranslations("Specialist");
   const locale = useLocale();
   const pickerId = useId();
   const cities = citiesOf(centres);
   const known = city && cities.some((candidate) => candidate.ar === city) ? city : null;
+
+  const fullList = (
+    <Link href="/talk-to-a-specialist" className="justify-self-start font-semibold underline underline-offset-4">
+      {t("fullList")}
+    </Link>
+  );
+  if (outside) {
+    return (
+      <section aria-labelledby={`${pickerId}-title`} className="grid gap-3 rounded-2xl border border-oasis/30 bg-oasis/6 p-4">
+        <h3 id={`${pickerId}-title`} className="font-display text-lg font-semibold">
+          {t("cardTitle")}
+        </h3>
+        <p className="font-semibold">{t("outside")}</p>
+        {fullList}
+        <details className="grid gap-3">
+          <summary className="cursor-pointer font-medium">{t("insideKingdom")}</summary>
+          <div className="mt-3 grid gap-3">
+            {nationalChannels(centres).map((centre) => (
+              <CentreCard key={centre.id} centre={centre} compact />
+            ))}
+          </div>
+        </details>
+      </section>
+    );
+  }
 
   return (
     <section aria-labelledby={`${pickerId}-title`} className="grid gap-3 rounded-2xl border border-oasis/30 bg-oasis/6 p-4">
@@ -66,15 +93,13 @@ export function SpecialistCardView({ centres, city, onChooseCity }: ViewProps) {
         <CentreCard key={centre.id} centre={centre} compact />
       ))}
       <p className="text-sm">{t("outside")}</p>
-      <Link href="/talk-to-a-specialist" className="justify-self-start font-semibold underline underline-offset-4">
-        {t("fullList")}
-      </Link>
+      {fullList}
     </section>
   );
 }
 
-export function SpecialistCard({ ids }: { ids?: readonly string[] }) {
+export function SpecialistCard({ ids, outside = false }: { ids?: readonly string[]; outside?: boolean }) {
   const { centers } = useReferralCentres();
   const city = useChosenCity();
-  return <SpecialistCardView centres={centresByIds(centers, ids)} city={city} onChooseCity={chooseCity} />;
+  return <SpecialistCardView centres={centresByIds(centers, ids)} city={city} onChooseCity={chooseCity} outside={outside} />;
 }

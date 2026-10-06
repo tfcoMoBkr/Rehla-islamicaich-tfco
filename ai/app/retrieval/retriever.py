@@ -37,7 +37,7 @@ from app.retrieval.passages import (
     from_mcp_verse,
 )
 from app.retrieval.terms import TermExpander
-from app.text import has_arabic, words
+from app.text import has_arabic, shares_run, words
 
 log = logging.getLogger("rafiq.retrieval")
 
@@ -46,6 +46,8 @@ log = logging.getLogger("rafiq.retrieval")
 WEAK_COSINE = 0.50
 MAX_PASSAGES = 10
 LOCAL_PASSAGES = 7
+# Book passages taken from the other index language, after the answer language's own.
+OTHER_LANGUAGE_BOOKS = 3
 # For a list question, the best LIST_SECTIONS book hits are read with the pieces around them
 # that belong to the same list, at most LIST_RUN pieces each.
 LIST_SECTIONS = 2
@@ -54,6 +56,8 @@ CATALOGUE_HADITHS = 3
 # Verses and hadiths read live for a language without local books.
 LIVE_HADITHS = 3
 LIVE_VERSES = 2
+# A book's quote is a verse or hadith when they share this many words in a row.
+QUOTE_RUN = 5
 PASSAGE_TYPES: set[ChunkType] = {"book", "term", "quran", "hadith"}
 # Other wordings of the question searched alongside it, from the classify step.
 MAX_PHRASES = 2
@@ -66,6 +70,7 @@ class Misquote:
     quoted: str
     ref: str
     exact: bool
+    kind: str = "quran"
 
 
 @dataclass
@@ -112,7 +117,8 @@ def _contains(verse: str, quoted: str) -> bool:
 
 
 def _index_languages(language: Language) -> list[IndexLanguage]:
-    return [language] if spec(language).local else ["ar", "en"]  # type: ignore[list-item]
+    """Both index languages, whatever the question's: the answer's own first."""
+    return ["en", "ar"] if language == "en" else ["ar", "en"]
 
 
 class Retriever:
@@ -299,14 +305,48 @@ class Retriever:
                 passages.append(passage)
         return passages
 
+    async def widen(
+        self, retrieval: Retrieval, queries: list[str], language: Language
+    ) -> Retrieval:
+        """One more search when no passage answered the question: the approved sources' own search
+        (MCP), with the question's Arabic and English search phrases. New passages are numbered
+        after the ones already listed, so earlier numbers keep their meaning."""
+        calls_before = self._mcp.calls
+        known = {passage.key for passage in retrieval.passages}
+        found: list[Passage] = []
+        for query in dict.fromkeys(q.strip() for q in queries if q.strip()):
+            for passage in await self._search_mcp(query, language):
+                if passage.key not in known:
+                    known.add(passage.key)
+                    found.append(passage)
+        start = len(retrieval.passages)
+        numbered = [
+            passage.model_copy(update={"n": start + n})
+            for n, passage in enumerate(found[:MAX_PASSAGES], 1)
+        ]
+        return Retrieval(
+            passages=[*retrieval.passages, *numbered],
+            weak=retrieval.weak,
+            top_cosine=retrieval.top_cosine,
+            misquote=retrieval.misquote,
+            mcp_calls=retrieval.mcp_calls + self._mcp.calls - calls_before,
+            later_lesson=retrieval.later_lesson,
+            notes=[*retrieval.notes, "widened"],
+        )
+
     async def find_quoted(
-        self, quote: str, language: Language, sources: tuple[str, ...] = ("quran",)
+        self,
+        quote: str,
+        language: Language,
+        sources: tuple[str, ...] = ("quran",),
+        search_language: Language = "ar",
     ) -> tuple[Passage | None, Misquote | None]:
         """The verse or hadith a quoted text points to, read from the approved sources, and whether
-        the quoted words appear in it exactly. Rafiq uses it for a quoted verse, Lens for text read
-        from a photo; nothing else looks sacred text up."""
+        the quoted words appear in it exactly. Rafiq uses it for a quoted verse and for a verse or
+        hadith a book quotes, Lens for text read from a photo; nothing else looks sacred text up."""
         text = await self._mcp.call(
-            "search", {"query": quote, "language": "ar", "sources": list(sources), "limit": 3}
+            "search",
+            {"query": quote, "language": search_language, "sources": list(sources), "limit": 3},
         )
         for hit in parse_search(text or ""):
             if verse := re.fullmatch(r"quran:(\d+):(\d+)(?::\w+)?", hit.id):
@@ -328,15 +368,38 @@ class Retriever:
                         quoted=quote,
                         ref=str(passage.hadith.id),
                         exact=_contains(passage.hadith.arabic, quote),
+                        kind="hadith",
                     )
         return None, None
 
+    async def match_quote(
+        self, kind: str, quote: str, language: Language, ref: tuple[int, int] | None = None
+    ) -> Passage | None:
+        """The verse or hadith a book quotes ("quran" or "hadith"), read from the approved sources:
+        by the verse reference the book gives, else a stored one that shares the quote's words,
+        else the approved sources' own search, kept only when it shares them too."""
+        if ref:
+            return await self._verse(*ref, language)
+        for chunk in self._index.chunks:
+            if chunk.type == kind and shares_run(chunk.text, quote, QUOTE_RUN):
+                if kind == "hadith":
+                    return await self._hadith(int(str(chunk.extra["hadithId"])), language)
+                surah, ayah = (int(part) for part in chunk.reference.split(":"))
+                return await self._verse(surah, ayah, language)
+        found, _ = await self.find_quoted(
+            quote, language, (kind,), search_language="ar" if has_arabic(quote) else "en"
+        )
+        if found and any(shares_run(text, quote, QUOTE_RUN) for text in found.sacred_texts()):
+            return found
+        return None
+
     async def _queries(
-        self, question: str, phrases: list[str], language: IndexLanguage, own: bool
+        self, question: str, phrases: list[str], language: IndexLanguage
     ) -> list[tuple[str, np.ndarray | None]]:
-        """The question (always: the embeddings are multilingual) and the phrases in `language`."""
+        """The question (always: the embeddings are multilingual) and the search phrases written
+        in `language`: the Arabic phrase searches the Arabic index, the English one the English."""
         written_in = [p for p in phrases if has_arabic(p) == (language == "ar")]
-        texts = [question, *(phrases if own else written_in)[:MAX_PHRASES]]
+        texts = [question, *written_in[:MAX_PHRASES]]
         if language == "en":
             texts = [self._terms.expand(text) for text in texts]
         return list(zip(texts, await self._vectors(texts), strict=True))
@@ -349,6 +412,7 @@ class Retriever:
         scope: list[str] | None = None,
         phrases: list[str] | None = None,
         quoted_verse: str | None = None,
+        quoted_hadith: str | None = None,
         keywords: KeywordMaker | None = None,
         list_question: bool = False,
         focus: str | None = None,
@@ -363,14 +427,20 @@ class Retriever:
         later_lesson = None
         catalogue_ids: list[int] = []
         for index_language in _index_languages(language):
-            queries = await self._queries(question, phrases or [], index_language, local)
+            queries = await self._queries(question, phrases or [], index_language)
             hits, later = self._ranked(queries, index_language, scope, PASSAGE_TYPES, focus)
             # Catalogue titles only point to hadiths; ranked with passages, they crowd them out.
             catalogue, _ = self._ranked(queries, index_language, scope, {"catalogue"}, focus)
             top_cosine = max([top_cosine, *(hit.cosine for hit in [*hits, *catalogue])])
             later_lesson = later_lesson or later
-            if local:
+            if local and index_language == language:
                 passages.extend(self._local_passages(hits, language, list_question=list_question))
+            elif local:
+                # The other language's books, after the answer's own: its verses and hadiths are
+                # shown from their published text in the answer's language, never from this one.
+                books = [hit for hit in hits if hit.chunk.type == "book"]
+                found = self._local_passages(books, language, list_question=list_question)
+                passages.extend(found[:OTHER_LANGUAGE_BOOKS])
             else:
                 passages.extend(await self._live_passages(hits, language))
             for hit in catalogue[:10]:
@@ -389,6 +459,10 @@ class Retriever:
             verse, misquote = await self.find_quoted(quoted_verse, language)
             if verse:
                 passages.insert(0, verse)
+        elif quoted_hadith:
+            hadith, misquote = await self.find_quoted(quoted_hadith, language, ("hadith",))
+            if hadith:
+                passages.insert(0, hadith)
 
         in_language = [p for p in passages if p.lang == language]
         weak = top_cosine < WEAK_COSINE or not in_language

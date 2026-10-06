@@ -1,0 +1,601 @@
+{
+ "greeting": {
+  "say": [
+   {
+    "id": "s1",
+    "ar": "السَّلَامُ عَلَيْكُمْ",
+    "en": "As-salāmu ‘alaykum (peace be upon you)"
+   },
+   {
+    "id": "s2",
+    "ar": "السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ",
+    "en": "As-salāmu ‘alaykum wa rahmatullāh (may the peace and mercy of Allah be upon you)"
+   }
+  ],
+  "title": {
+   "ar": "إلقاء السلام وردّه",
+   "en": "Giving and returning the greeting"
+  },
+  "scene": {
+   "ar": "تدخل غرفة الاستراحة في عملك، وفيها مجموعة من زملائك المسلمين جالسون يتحدثون. لم تعتد بعدُ على التحية التي يتبادلونها، وتحب أن تبدأ بها أنت.",
+   "en": "You walk into the break room at work, where a group of Muslim colleagues are sitting and talking. You are not used to the greeting they exchange yet, and you would like to be the one who starts it."
+  },
+  "character": {
+   "ar": "يوسف، زميلك في العمل",
+   "en": "Yusuf, a colleague"
+  },
+  "keyPoints": [
+   {
+    "id": "k1",
+    "ref": "h5352",
+    "ar": "والمارُّ على القاعدِ",
+    "en": "the passer-by should greet the one who is sitting"
+   },
+   {
+    "id": "k2",
+    "ref": "h3587",
+    "ar": "السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ",
+    "en": "As-salāmu ‘alaykum wa rahmatullāh"
+   }
+  ],
+  "quotes": {
+   "h3587": {
+    "ar": "السَّلَامُ عَلَيْكُمْ",
+    "en": "As-salāmu ‘alaykum (peace be upon you)"
+   },
+   "h5352": {
+    "ar": "لِيُسَلِّمِ الصغيرُ على الكبيرِ، والمارُّ على القاعدِ",
+    "en": "The young should greet the old, the passer-by should greet the one who is sitting"
+   },
+   "q4-86": {
+    "ar": "وَإِذَا حُيِّيتُم بِتَحِيَّةٖ فَحَيُّواْ بِأَحۡسَنَ مِنۡهَآ أَوۡ رُدُّوهَآۗ",
+    "en": "And when you are greeted with a greeting, greet [in return] with one better than it or [at least] return it"
+   },
+   "h3706": {
+    "ar": "رَدُّ السَّلَامِ",
+    "en": "returning the greeting of peace"
+   }
+  },
+  "lessons": []
+ },
+ "mosque": {
+  "say": [
+   {
+    "id": "s1",
+    "ar": "اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ",
+    "en": "'Allahumma iftah li abwāba rahmatik' (O Allah, open for me the gates of Your mercy)"
+   },
+   {
+    "id": "s2",
+    "ar": "اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ",
+    "en": "'Allahumma inni as’aluka min fadlik' (O Allah, I ask You of Your bounty)"
+   }
+  ],
+  "title": {
+   "ar": "دخول المسجد والخروج منه",
+   "en": "Entering and leaving the mosque"
+  },
+  "scene": {
+   "ar": "تصل إلى المسجد قبل صلاة العصر بدقائق. عند الباب رجل كبير يرحّب بالمصلين، ويلاحظ أنك تتمهّل قليلًا قبل أن تدخل.",
+   "en": "You reach the mosque a few minutes before the 'Asr prayer. An older man at the door is welcoming people, and he notices you pause for a moment before going in."
+  },
+  "character": {
+   "ar": "أبو خالد، من رواد المسجد",
+   "en": "Abu Khalid, who prays at this mosque"
+  },
+  "keyPoints": [
+   {
+    "id": "k1",
+    "ref": "h65092",
+    "ar": "اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ",
+    "en": "'Allahumma iftah li abwāba rahmatik' (O Allah, open for me the gates of Your mercy)"
+   }
+  ],
+  "quotes": {
+   "h65092": {
+    "ar": "اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ",
+    "en": "'Allahumma iftah li abwāba rahmatik' (O Allah, open for me the gates of Your mercy)"
+   }
+  },
+  "lessons": [
+   "3.7"
+  ]
+ },
+ "adhan": {
+  "say": [
+   {
+    "id": "s1",
+    "ar": "فَقُولُوا مِثْلَ مَا يَقُولُ المُؤَذِّنُ",
+    "en": "repeat what the Muezzin says"
+   },
+   {
+    "id": "s2",
+    "ar": "اللَّهُمَّ رَبَّ هَذِهِ الدَّعْوَةِ التَّامَّةِ، وَالصَّلاَةِ القَائِمَةِ، آتِ مُحَمَّدًا الوَسِيلَةَ وَالفَضِيلَةَ، وَابْعَثْهُ مَقَامًا مَحْمُودًا الَّذِي وَعَدْتَهُ",
+    "en": "O Allah, Lord of this perfect call and the prayer that is to be established, grant Muhammad Al-Wasīlah and Al-Fadīlah and resurrect him to the Praiseworthy Station that You have promised him"
+   }
+  ],
+  "title": {
+   "ar": "سماع الأذان",
+   "en": "Hearing the call to prayer"
+  },
+  "scene": {
+   "ar": "أنت في بيت صديقك حين يُرفع أذان المغرب من المسجد القريب. يخفض صديقك صوت التلفاز ويصمت.",
+   "en": "You are at a friend's home when the call to prayer for Maghrib rises from the nearby mosque. Your friend turns the television down and falls quiet."
+  },
+  "character": {
+   "ar": "سامر، صديقك",
+   "en": "Samer, your friend"
+  },
+  "keyPoints": [
+   {
+    "id": "k1",
+    "ref": "h3013",
+    "ar": "فَقُولُوا مِثْلَ مَا يَقُولُ المُؤَذِّنُ",
+    "en": "repeat what the Muezzin says"
+   },
+   {
+    "id": "k2",
+    "ref": "h10635",
+    "ar": "اللَّهُمَّ رَبَّ هَذِهِ الدَّعْوَةِ التَّامَّةِ، وَالصَّلاَةِ القَائِمَةِ، آتِ مُحَمَّدًا الوَسِيلَةَ وَالفَضِيلَةَ، وَابْعَثْهُ مَقَامًا مَحْمُودًا الَّذِي وَعَدْتَهُ",
+    "en": "O Allah, Lord of this perfect call and the prayer that is to be established, grant Muhammad Al-Wasīlah and Al-Fadīlah and resurrect him to the Praiseworthy Station that You have promised him"
+   }
+  ],
+  "quotes": {
+   "h3013": {
+    "ar": "فَقُولُوا مِثْلَ مَا يَقُولُ المُؤَذِّنُ",
+    "en": "repeat what the Muezzin says"
+   },
+   "h10635": {
+    "ar": "اللَّهُمَّ رَبَّ هَذِهِ الدَّعْوَةِ التَّامَّةِ، وَالصَّلاَةِ القَائِمَةِ، آتِ مُحَمَّدًا الوَسِيلَةَ وَالفَضِيلَةَ، وَابْعَثْهُ مَقَامًا مَحْمُودًا الَّذِي وَعَدْتَهُ",
+    "en": "O Allah, Lord of this perfect call and the prayer that is to be established, grant Muhammad Al-Wasīlah and Al-Fadīlah and resurrect him to the Praiseworthy Station that You have promised him"
+   },
+   "h65087": {
+    "ar": "ثُمَّ صَلُّوا عَلَيَّ",
+    "en": "and then invoke Allah's blessings upon me"
+   }
+  },
+  "lessons": [
+   "3.3"
+  ]
+ },
+ "eating": {
+  "say": [
+   {
+    "id": "s1",
+    "ar": "سَمِّ اللهَ",
+    "en": "mention Allah's name"
+   },
+   {
+    "id": "s2",
+    "ar": "الحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلاَ قُوَّةٍ",
+    "en": "Alhamdulillah al-ladhi at‘amani hadha wa razaqneih min ghayri hawl li wala quwwah (Praise be to Allah who fed me and provided me with this food through no might or power on my part)"
+   }
+  ],
+  "title": {
+   "ar": "قبل الطعام وبعده",
+   "en": "Before and after eating"
+  },
+  "scene": {
+   "ar": "تجلس مع زميلة لك على غداء العمل. هي مسلمة منذ صغرها، وأنت تتعلم أن للطعام آدابًا لم تعرفها من قبل.",
+   "en": "You sit down to a work lunch with a colleague who has been Muslim all her life. You are learning that eating has manners you did not know before."
+  },
+  "character": {
+   "ar": "مريم، زميلتك",
+   "en": "Maryam, a colleague"
+  },
+  "keyPoints": [
+   {
+    "id": "k1",
+    "ref": "h58120",
+    "ar": "سَمِّ اللهَ",
+    "en": "mention Allah's name"
+   },
+   {
+    "id": "k2",
+    "ref": "h58122",
+    "ar": "فَلْيَأْكُلْ بِيَمِينِهِ",
+    "en": "let him eat with his right hand"
+   }
+  ],
+  "quotes": {
+   "h58120": {
+    "ar": "سَمِّ اللهَ",
+    "en": "mention Allah's name"
+   },
+   "h5431": {
+    "ar": "الحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلاَ قُوَّةٍ",
+    "en": "Alhamdulillah al-ladhi at‘amani hadha wa razaqneih min ghayri hawl li wala quwwah (Praise be to Allah who fed me and provided me with this food through no might or power on my part)"
+   },
+   "b-eating": {
+    "ar": "والأكل باليمين والشرب بها، والتسمية عند الابتداء، والحمد عند الفراغ",
+    "en": "eating and drinking with the right hand, saying Bismillāh (in the Name of Allah) at the beginning, and Alhamdulillāh (praise be to Allah) upon finishing"
+   },
+   "h58122": {
+    "ar": "إِذَا أَكَلَ أَحَدُكُمْ فَلْيَأْكُلْ بِيَمِينِهِ، وَإِذَا شَرِبَ فَلْيَشْرَبْ بِيَمِينِهِ",
+    "en": "If anyone of you eats, let him eat with his right hand, and if he drinks, let him drink with his right hand"
+   }
+  },
+  "lessons": []
+ },
+ "sneezing": {
+  "say": [
+   {
+    "id": "s1",
+    "ar": "فَلْيَقُل: الحَمْدُ للهِ",
+    "en": "he should say 'alhamdu-lillāh' (praise be to Allah)"
+   },
+   {
+    "id": "s2",
+    "ar": "يَرْحَمُكَ الله",
+    "en": "'yarhamuk Allah' (may Allah have mercy on you)"
+   },
+   {
+    "id": "s3",
+    "ar": "يَهْدِيكُم الله ويُصْلِحُ بَالَكُم",
+    "en": "'yahdīkum Allah wa yuslih bālakum!' (may Allah guide you and grant you well being)"
+   }
+  ],
+  "title": {
+   "ar": "حين يعطس أحد",
+   "en": "When someone sneezes"
+  },
+  "scene": {
+   "ar": "في اجتماع صباحي يعطس زميلك المسلم ويقول شيئًا بصوت منخفض. وبعد قليل تعطس أنت أيضًا.",
+   "en": "In a morning meeting, your Muslim colleague sneezes and says something quietly. A little later, you sneeze too."
+  },
+  "character": {
+   "ar": "عمر، زميلك",
+   "en": "Omar, a colleague"
+  },
+  "keyPoints": [
+   {
+    "id": "k1",
+    "ref": "h3433",
+    "ar": "يَرْحَمُكَ الله",
+    "en": "'yarhamuk Allah' (may Allah have mercy on you)"
+   },
+   {
+    "id": "k2",
+    "ref": "h3433",
+    "ar": "يَهْدِيكُم الله ويُصْلِحُ بَالَكُم",
+    "en": "'yahdīkum Allah wa yuslih bālakum!' (may Allah guide you and grant you well being)"
+   }
+  ],
+  "quotes": {
+   "h3433": {
+    "ar": "فَلْيَقُل: الحَمْدُ للهِ",
+    "en": "he should say 'alhamdu-lillāh' (praise be to Allah)"
+   },
+   "b-sneezing": {
+    "ar": "وتشميت العاطس إذا حمد الله",
+    "en": "responding to the sneezer if they praise Allah"
+   }
+  },
+  "lessons": []
+ },
+ "home": {
+  "say": [
+   {
+    "id": "s1",
+    "ar": "فَذَكَرَ اللهَ عِنْدَ دُخُولِهِ وَعِنْدَ طَعَامِهِ",
+    "en": "When one mentions Allah's name upon entering his house and upon eating"
+   }
+  ],
+  "title": {
+   "ar": "دخول البيت",
+   "en": "Coming home"
+  },
+  "scene": {
+   "ar": "تعود إلى البيت بعد يوم طويل، ومعك أخوك الصغير الذي يسألك عن كل ما تفعله منذ أسلمت.",
+   "en": "You come home after a long day with your younger brother, who asks about everything you have done since you became Muslim."
+  },
+  "character": {
+   "ar": "زياد، أخوك الصغير",
+   "en": "Ziyad, your younger brother"
+  },
+  "keyPoints": [
+   {
+    "id": "k1",
+    "ref": "h3037",
+    "ar": "فَذَكَرَ اللهَ عِنْدَ دُخُولِهِ",
+    "en": "When one mentions Allah's name upon entering his house"
+   }
+  ],
+  "quotes": {
+   "h3037": {
+    "ar": "فَذَكَرَ اللهَ عِنْدَ دُخُولِهِ وَعِنْدَ طَعَامِهِ",
+    "en": "When one mentions Allah's name upon entering his house and upon eating"
+   }
+  },
+  "lessons": []
+ },
+ "invitation": {
+  "say": [
+   {
+    "id": "s1",
+    "ar": "سَمِّ اللهَ، وَكُلْ بِيَمِينِكَ، وَكُلْ مِمَّا يَلِيكَ",
+    "en": "mention Allah's name, eat with your right hand, and eat from what is nearer to you"
+   }
+  ],
+  "title": {
+   "ar": "حين تُدعى إلى طعام",
+   "en": "When you are invited to a meal"
+  },
+  "scene": {
+   "ar": "يدعوك جارك المسلم إلى وليمة عرس أخيه نهاية الأسبوع. تتردد قليلًا لأنك لا تعرف أحدًا هناك.",
+   "en": "Your Muslim neighbour invites you to his brother's wedding meal at the weekend. You hesitate a little, because you will not know anyone there."
+  },
+  "character": {
+   "ar": "حسن، جارك",
+   "en": "Hassan, your neighbour"
+  },
+  "keyPoints": [
+   {
+    "id": "k1",
+    "ref": "h58112",
+    "ar": "فَلْيَأْتِهَا",
+    "en": "he should attend"
+   },
+   {
+    "id": "k2",
+    "ref": "h3706",
+    "ar": "وَإِجَابَةُ الدَّعْوَةِ",
+    "en": "accepting invitations"
+   }
+  ],
+  "quotes": {
+   "h58120": {
+    "ar": "سَمِّ اللهَ، وَكُلْ بِيَمِينِكَ، وَكُلْ مِمَّا يَلِيكَ",
+    "en": "mention Allah's name, eat with your right hand, and eat from what is nearer to you"
+   },
+   "h58112": {
+    "ar": "إذا دُعِيَ أحدكم إلى الوَلِيمَة فَلْيَأْتِهَا",
+    "en": "If one of you is invited to a wedding banquet, he should attend"
+   },
+   "h3706": {
+    "ar": "وَإِجَابَةُ الدَّعْوَةِ",
+    "en": "accepting invitations"
+   }
+  },
+  "lessons": []
+ },
+ "sick": {
+  "say": [
+   {
+    "id": "s1",
+    "ar": "لا بأس؛ طَهُور إن شاء الله",
+    "en": "No harm, (it will be) purification (from sins) if Allah wills"
+   }
+  ],
+  "title": {
+   "ar": "زيارة المريض",
+   "en": "Visiting someone who is ill"
+  },
+  "scene": {
+   "ar": "زميلك في المسجد في المستشفى منذ أيام. تذهب لزيارته وتحمل له بعض الفاكهة، ولا تعرف ماذا تقول حين تدخل.",
+   "en": "A friend from the mosque has been in hospital for a few days. You go to visit him with some fruit, not sure what to say when you walk in."
+  },
+  "character": {
+   "ar": "إبراهيم، صديقك المريض",
+   "en": "Ibrahim, your friend in hospital"
+  },
+  "keyPoints": [
+   {
+    "id": "k1",
+    "ref": "h6009",
+    "ar": "لا بأس؛ طَهُور إن شاء الله",
+    "en": "No harm, (it will be) purification (from sins) if Allah wills"
+   }
+  ],
+  "quotes": {
+   "h6009": {
+    "ar": "لا بأس؛ طَهُور إن شاء الله",
+    "en": "No harm, (it will be) purification (from sins) if Allah wills"
+   },
+   "h3706": {
+    "ar": "وَعِيَادَةُ الْمَرِيضِ",
+    "en": "visiting the sick"
+   }
+  },
+  "lessons": []
+ },
+ "condolence": {
+  "say": [
+   {
+    "id": "s1",
+    "ar": "إِنَّا لِلَّهِ وَإِنَّآ إِلَيۡهِ رَٰجِعُونَ",
+    "en": "Indeed we belong to Allāh, and indeed to Him we will return"
+   },
+   {
+    "id": "s2",
+    "ar": "إنَّ لِلَّه ما أَخَذ ولَهُ ما أَعطَى، وكلُّ شَيءٍ عِنده بِأجَل مُسمَّى فَلتَصبِر ولتَحتَسِب",
+    "en": "To Allah belongs what He takes, and to Him belongs what He gives, and for everything He sets a specific term. So she should have patience and seek the reward from Allah"
+   }
+  ],
+  "title": {
+   "ar": "التعزية في المصاب",
+   "en": "Offering condolences"
+  },
+  "scene": {
+   "ar": "توفي والد زميلك في العمل. تذهب مع الزملاء إلى بيت العائلة، وتجد زميلك عند الباب يستقبل المعزّين.",
+   "en": "A colleague's father has passed away. You go with others from work to the family home, and find your colleague at the door receiving people."
+  },
+  "character": {
+   "ar": "علي، زميلك",
+   "en": "Ali, your colleague"
+  },
+  "keyPoints": [
+   {
+    "id": "k1",
+    "ref": "h3290",
+    "ar": "إنَّ لِلَّه ما أَخَذ ولَهُ ما أَعطَى، وكلُّ شَيءٍ عِنده بِأجَل مُسمَّى فَلتَصبِر ولتَحتَسِب",
+    "en": "To Allah belongs what He takes, and to Him belongs what He gives, and for everything He sets a specific term. So she should have patience and seek the reward from Allah"
+   }
+  ],
+  "quotes": {
+   "q2-156": {
+    "ar": "إِنَّا لِلَّهِ وَإِنَّآ إِلَيۡهِ رَٰجِعُونَ",
+    "en": "Indeed we belong to Allāh, and indeed to Him we will return"
+   },
+   "h3290": {
+    "ar": "إنَّ لِلَّه ما أَخَذ ولَهُ ما أَعطَى، وكلُّ شَيءٍ عِنده بِأجَل مُسمَّى فَلتَصبِر ولتَحتَسِب",
+    "en": "To Allah belongs what He takes, and to Him belongs what He gives, and for everything He sets a specific term. So she should have patience and seek the reward from Allah"
+   },
+   "b-condolence": {
+    "ar": "والتعزية في المصاب",
+    "en": "offering condolences in times of affliction"
+   }
+  },
+  "lessons": []
+ },
+ "colleague": {
+  "say": [
+   {
+    "id": "s1",
+    "ar": "الْإِسْلَامُ أَنْ تَشْهَدَ أَنْ لَا إِلَهَ إِلَّا اللهُ، وَأَنَّ مُحَمَّدًا رَسُولُ اللهِ، وَتُقِيمَ الصَّلَاةَ، وَتُؤْتِيَ الزَّكَاةَ، وَتَصُومَ رَمَضَانَ، وَتَحُجَّ الْبَيْتَ إِنِ اسْتَطَعْتَ إِلَيْهِ سَبِيلًا",
+    "en": "Islam is to testify that there is no god but Allah and that Muhammad is the Messenger of Allah, to establish prayer, to pay Zakah, to fast Ramadan, and to perform Hajj to the House if you are able to find a way thereto"
+   }
+  ],
+  "title": {
+   "ar": "حين يسألك زميل عن الإسلام",
+   "en": "When a colleague asks about Islam"
+  },
+  "scene": {
+   "ar": "زميلتك في العمل ليست مسلمة، ولاحظت أنك تغيّرت في الأسابيع الماضية. تسألك بفضول ولطف عن دينك الجديد.",
+   "en": "A colleague who is not Muslim has noticed a change in you over the past weeks. She asks, kindly and curiously, about your new faith."
+  },
+  "character": {
+   "ar": "سارة، زميلتك",
+   "en": "Sarah, a colleague"
+  },
+  "keyPoints": [
+   {
+    "id": "k1",
+    "ref": "h4563",
+    "ar": "الْإِسْلَامُ أَنْ تَشْهَدَ أَنْ لَا إِلَهَ إِلَّا اللهُ، وَأَنَّ مُحَمَّدًا رَسُولُ اللهِ، وَتُقِيمَ الصَّلَاةَ، وَتُؤْتِيَ الزَّكَاةَ، وَتَصُومَ رَمَضَانَ، وَتَحُجَّ الْبَيْتَ إِنِ اسْتَطَعْتَ إِلَيْهِ سَبِيلًا",
+    "en": "Islam is to testify that there is no god but Allah and that Muhammad is the Messenger of Allah, to establish prayer, to pay Zakah, to fast Ramadan, and to perform Hajj to the House if you are able to find a way thereto"
+   }
+  ],
+  "quotes": {
+   "h4563": {
+    "ar": "الْإِسْلَامُ أَنْ تَشْهَدَ أَنْ لَا إِلَهَ إِلَّا اللهُ، وَأَنَّ مُحَمَّدًا رَسُولُ اللهِ، وَتُقِيمَ الصَّلَاةَ، وَتُؤْتِيَ الزَّكَاةَ، وَتَصُومَ رَمَضَانَ، وَتَحُجَّ الْبَيْتَ إِنِ اسْتَطَعْتَ إِلَيْهِ سَبِيلًا",
+    "en": "Islam is to testify that there is no god but Allah and that Muhammad is the Messenger of Allah, to establish prayer, to pay Zakah, to fast Ramadan, and to perform Hajj to the House if you are able to find a way thereto"
+   },
+   "h3390": {
+    "ar": "فَادْعُهُمْ إِلَى أَنْ يَشْهَدُوا أَنْ لَا إِلَهَ إِلَّا اللهُ، وَأَنَّ مُحَمَّدًا رَسُولُ اللهِ",
+    "en": "invite them to testify that none is worthy of worship except Allah and that Muhammad is the Messenger of Allah"
+   }
+  },
+  "lessons": [
+   "1.4"
+  ]
+ },
+ "friday": {
+  "say": [
+   {
+    "id": "s1",
+    "ar": "إذا قُلْتَ لِصَاحِبِكَ: أَنْصِتْ، يومَ الجمعةِ، والْإِمامُ يَخْطُبُ، فَقَدْ لَغَوْتَ",
+    "en": "If you say to your companion 'listen' on Friday while the Imām is delivering the sermon, you have thus engaged in idle talk"
+   }
+  ],
+  "title": {
+   "ar": "أول صلاة جمعة",
+   "en": "Your first Friday prayer"
+  },
+  "scene": {
+   "ar": "اليوم أول جمعة لك. يتصل بك صديقك صباحًا ليتفق معك على الذهاب، وتصلان إلى المسجد والإمام قد بدأ الخطبة.",
+   "en": "Today is your first Friday. A friend calls in the morning to go together, and you reach the mosque just after the imam has begun the sermon."
+  },
+  "character": {
+   "ar": "طارق، صديقك",
+   "en": "Tariq, your friend"
+  },
+  "keyPoints": [
+   {
+    "id": "k1",
+    "ref": "h5394",
+    "ar": "مَنْ ‌جَاءَ ‌مِنْكُمُ ‌الْجُمُعَةَ فَلْيَغْتَسِلْ",
+    "en": "Whoever of you comes to attend the Friday prayer, let him take a shower"
+   },
+   {
+    "id": "k2",
+    "ref": "h5433",
+    "ar": "فَاسْتَمَعَ وَأَنْصَتَ",
+    "en": "listens to it attentively and keeps silent"
+   }
+  ],
+  "quotes": {
+   "h3107": {
+    "ar": "إذا قُلْتَ لِصَاحِبِكَ: أَنْصِتْ، يومَ الجمعةِ، والْإِمامُ يَخْطُبُ، فَقَدْ لَغَوْتَ",
+    "en": "If you say to your companion 'listen' on Friday while the Imām is delivering the sermon, you have thus engaged in idle talk"
+   },
+   "h5433": {
+    "ar": "فَاسْتَمَعَ وَأَنْصَتَ غُفِرَ لَهُ مَا بَيْنَهُ وَبَيْنَ الْجُمُعَةِ وَزِيَادَةُ ثَلَاثَةِ أَيَّامٍ",
+    "en": "listens to it attentively and keeps silent, his sins between that Friday and the following Friday will be forgiven, with the addition of three more days"
+   },
+   "h5394": {
+    "ar": "مَنْ ‌جَاءَ ‌مِنْكُمُ ‌الْجُمُعَةَ فَلْيَغْتَسِلْ",
+    "en": "Whoever of you comes to attend the Friday prayer, let him take a shower"
+   },
+   "h5205": {
+    "ar": "قم فاركع ركعتين",
+    "en": "Get up and pray two Rak‘ahs"
+   }
+  },
+  "lessons": [
+   "3.8"
+  ]
+ },
+ "fasting": {
+  "say": [
+   {
+    "id": "s1",
+    "ar": "صــوم رمضــان هــو: التعبُّــد لله \nتعالــى بالإِمســاك عــن الطعــام \nوالشــراب والجمــاع",
+    "en": "Fasting Ramadan means worshiping Allah by abstaining from eating, drinking, and sexual intercourse"
+   }
+  ],
+  "title": {
+   "ar": "أول يوم من رمضان",
+   "en": "Your first day of Ramadan"
+  },
+  "scene": {
+   "ar": "هذا أول رمضان لك. تتصل بك صديقة أسلمت قبلك بعامين لتطمئن عليك في الليلة الأولى.",
+   "en": "This is your first Ramadan. A friend who became Muslim two years before you calls on the first evening to see how you are."
+  },
+  "character": {
+   "ar": "ليلى، صديقتك",
+   "en": "Layla, your friend"
+  },
+  "keyPoints": [
+   {
+    "id": "k1",
+    "ref": "h4498",
+    "ar": "تَسَحَّرُوا، فَإِنَّ فِي السَّحُورِ بَرَكَةً",
+    "en": "Have Sahūr (pre-dawn meal) for, indeed, there is a blessing in Sahūr"
+   },
+   {
+    "id": "k2",
+    "ref": "b-fasting",
+    "ar": "مــن طلــوع الفجــر \nإلــى غــروبِ الشــمسِ",
+    "en": "from dawn to sunset"
+   }
+  ],
+  "quotes": {
+   "b-fasting": {
+    "ar": "صــوم رمضــان هــو: التعبُّــد لله \nتعالــى بالإِمســاك عــن الطعــام \nوالشــراب والجمــاع",
+    "en": "Fasting Ramadan means worshiping Allah by abstaining from eating, drinking, and sexual intercourse"
+   },
+   "h4498": {
+    "ar": "تَسَحَّرُوا، فَإِنَّ فِي السَّحُورِ بَرَكَةً",
+    "en": "Have Sahūr (pre-dawn meal) for, indeed, there is a blessing in Sahūr"
+   },
+   "h4525": {
+    "ar": "مَنْ نَسِيَ وَهُوَ صَائِمٌ، فَأَكَلَ أَوْ شَرِبَ، فَلْيُتِمَّ صَوْمَهُ",
+    "en": "Whoever forgets while fasting and eats or drinks, let him complete his fast"
+   }
+  },
+  "lessons": [
+   "1.4"
+  ]
+ }
+}

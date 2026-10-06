@@ -149,3 +149,10 @@ def words(text: str) -> list[str]:
 
 def has_arabic(text: str) -> bool:
     return bool(_ARABIC.search(text))
+
+
+def shares_run(text: str, other: str, length: int) -> bool:
+    """Whether two texts share `length` normalised words in a row."""
+    first, second = words(text), words(other)
+    runs = {tuple(first[i : i + length]) for i in range(len(first) - length + 1)}
+    return any(tuple(second[i : i + length]) in runs for i in range(len(second) - length + 1))

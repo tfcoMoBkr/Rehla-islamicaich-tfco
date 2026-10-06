@@ -29,18 +29,7 @@
         "en": "As-salāmu ‘alaykum wa rahmatullāh (may the peace and mercy of Allah be upon you)"
       }
     ],
-    "why": [
-      {
-        "ref": "h5808",
-        "ar": "تُطْعِمُ الطَّعَامَ، وَتَقْرَأُ السَّلاَمَ عَلَى مَنْ عَرَفْتَ وَمَنْ لَمْ تَعْرِفْ",
-        "en": "Feeding people and extending the greeting of peace to those you know and those you do not know"
-      },
-      {
-        "ref": "b-greeting",
-        "ar": "ومنها: السلام",
-        "en": "Among them are: greeting with peace"
-      }
-    ],
+    "why": [],
     "when": [
       {
         "ref": "h5352",
@@ -318,17 +307,6 @@
       "publisher": "hadeethenc.com"
     },
     {
-      "id": "h5808",
-      "type": "hadith",
-      "hadeethencId": 5808,
-      "citation": "متفق عليه",
-      "availableIn": [
-        "ar",
-        "en"
-      ],
-      "publisher": "hadeethenc.com"
-    },
-    {
       "id": "q4-86",
       "type": "quran",
       "ref": "4:86",
@@ -344,25 +322,6 @@
         "en"
       ],
       "publisher": "hadeethenc.com"
-    },
-    {
-      "id": "b-greeting",
-      "type": "book",
-      "source": "ibnbaz-lessons",
-      "textRef": {
-        "ar": {
-          "book": "1871",
-          "section": "t20",
-          "paragraph": 1,
-          "excerpt": "ومنها: السلام"
-        },
-        "en": {
-          "book": "2842316",
-          "section": "s19",
-          "paragraph": 1,
-          "excerpt": "Among them are: greeting with peace"
-        }
-      }
     }
   ]
 }

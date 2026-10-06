@@ -1,0 +1,1 @@
+- The asker quoted «{quoted}» as a hadith, but the hadith's wording is different. Gently say the wording is different, ending that sentence with the hadith passage's number, show the real hadith with {{hadith:{ref}}}, and explain only the real wording. Do not build on the quoted words.
