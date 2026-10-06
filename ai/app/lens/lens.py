@@ -18,20 +18,23 @@ from pathlib import Path
 
 from app.languages import spec
 from app.lens.conversation import Conversation
-from app.lens.decide import Decision, decide, lookup_text, shown
+from app.lens.decide import Decision, decide, lookup_text, matched_text, shown
 from app.lens.schemas import LensResponse, Seen, TurnRequest, TurnResponse
 from app.llm import ModelUnavailableError, VisionModel
 from app.rafiq.compose import compose
-from app.rafiq.draft import Unit
+from app.rafiq.draft import Unit, split_sentences
 from app.rafiq.graph import Rafiq, referral
 from app.rafiq.schemas import PageLocale, RafiqAnswer
 from app.retrieval.passages import Passage
 from app.retrieval.retriever import Retriever
+from app.text import shares_run
 
 log = logging.getLogger("lens")
 PROMPTS = Path(__file__).parent / "prompts"
 # The whole of one photo's journey, from reading it to the explained answer.
 TIME_BUDGET = 45.0
+# Words in a row that a description may not share with writing that looks like scripture.
+SCRIPTURE_RUN = 3
 
 # The questions EXPLAIN asks Rafiq: plain search wording, not religious content.
 QUESTIONS: dict[str, dict[PageLocale, str]] = {
@@ -40,7 +43,11 @@ QUESTIONS: dict[str, dict[PageLocale, str]] = {
         "en": "What is {subject}, and what does it mean for a Muslim?",
     },
     "term": {"ar": "ما معنى «{term}»؟", "en": "What does “{term}” mean?"},
+    "verse": {"ar": "ما معنى قوله تعالى: «{text}»؟", "en": "What does the verse «{text}» mean?"},
 }
+DECLINED_ROWS = (7, 8, 9, 10)
+# A sourced answer that found nothing is left out of the first reply: the description stands.
+UNANSWERED = ("noSource", "noEvidence", "verification", "unexplained", "offTopic")
 
 
 def question_for(decision: Decision, seen: Seen, locale: PageLocale) -> str | None:
@@ -104,18 +111,21 @@ class Lens:
         passage = None
         text = lookup_text(seen)
         if text:
-            passage, quote = await self._retriever.find_quoted(text, locale, ("quran", "hadith"))
             # Only the exact wording counts: a near match is not the text in the photo.
-            passage = passage if quote and quote.exact else None
+            passage = await matched_text(self._retriever, text, locale)
         decision = decide(seen, matched=passage is not None)
 
         answer = None
-        if decision.block and passage is not None:
+        if decision.block and passage is not None and passage.verse is not None and text:
+            answer = await self._explained_verse(text, passage, locale, scope)
+        elif decision.block and passage is not None:
             answer = published_block(passage, locale)
         elif decision.specialist:
             answer = ruling_referral(locale)
         elif question := question_for(decision, seen, locale):
             answer = await self._rafiq.run(question, locale, scope=scope)
+            if answer.referral is not None and answer.referral.reason in UNANSWERED:
+                answer = None
         others = seen.others if decision.explain else []
         # The first message opens the conversation: what the learner might ask next.
         suggestions = (
@@ -128,9 +138,36 @@ class Lens:
             row=decision.row,
             answer=answer,
             card=decision.card,
+            description=await self._description(seen, decision, locale),
             others=others,
             suggestions=suggestions,
         )
+
+    async def _explained_verse(
+        self, text: str, passage: Passage, locale: PageLocale, scope: list[str] | None
+    ) -> RafiqAnswer:
+        """Row 4: the verse as published, explained by Rafiq's sourced path; the published block
+        alone when no explanation passes his checks."""
+        question = QUESTIONS["verse"][locale].format(text=text)
+        answer = await self._rafiq.run(question, locale, scope=scope)
+        if answer.referral is None and any(block.type == "quran" for block in answer.blocks):
+            return answer
+        return published_block(passage, locale)
+
+    async def _description(self, seen: Seen, decision: Decision, locale: PageLocale) -> str | None:
+        """The general description, for every row that is not declined. Writing that looks like
+        scripture is never read out in it: a sentence sharing words with that text is dropped."""
+        if decision.row in DECLINED_ROWS or not seen.description.strip():
+            return None
+        sentences = split_sentences(seen.description.strip())
+        if seen.looks_like_scripture and seen.visible_text:
+            read = seen.visible_text.text
+            sentences = [s for s in sentences if not shares_run(s, read, SCRIPTURE_RUN)]
+        # Sentence by sentence, so one sentence that fails the checks does not take the rest.
+        checked = await asyncio.gather(
+            *(self._rafiq.everyday({"visual": sentence}, locale) for sentence in sentences)
+        )
+        return " ".join(kept["visual"] for kept in checked if "visual" in kept) or None
 
     async def turn(self, request: TurnRequest, image: str | None) -> TurnResponse:
         """One message in the conversation about the photo, within the same time budget."""

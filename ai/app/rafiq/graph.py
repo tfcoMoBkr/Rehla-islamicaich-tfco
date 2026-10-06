@@ -32,6 +32,7 @@ import asyncio
 import logging
 import re
 import time
+from dataclasses import replace
 from pathlib import Path
 from typing import TypedDict
 
@@ -39,7 +40,7 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.graph.state import CompiledStateGraph
 
 from app.languages import DEFAULT, LANGUAGES, Language, spec
-from app.llm import ChatModel
+from app.llm import ChatModel, ModelUnavailableError
 from app.rafiq import policy
 from app.rafiq.check import Problem, cited, code_problems, counts, find_passage
 from app.rafiq.compose import compose
@@ -79,13 +80,14 @@ from app.rafiq.schemas import (
     SupportCheck,
     TermBlock,
     TextBlock,
+    TopicLessons,
     Turn,
 )
 from app.rafiq.specialists import SPECIALIST_PAGE, referral_centres
 from app.rafiq.voice import name_due, voiced
 from app.rafiq.warmth import screened
 from app.retrieval.passages import Passage
-from app.retrieval.retriever import Retrieval, Retriever
+from app.retrieval.retriever import TOPIC_LESSONS, Retrieval, Retriever
 from app.text import has_arabic, tokens, words
 
 log = logging.getLogger("rafiq")
@@ -107,6 +109,12 @@ VOCATIVE = {
     "ar": " (with the vocative before it: «يا {{name}}»)",
     "other": " (as a name only, with no word such as «يا» or “ya” before it)",
 }
+PLANNED = (
+    "\n\n(The next lesson is «{title}»; the page links it under your reply. Mention it by its name "
+    "only, and say nothing about what it teaches.)"
+)
+# The prompts in which Rafiq himself speaks: who he is comes first (prompts/identity.md).
+SPOKEN_AS_RAFIQ = frozenset({"talk", "generate"})
 NAME_NOT_DUE = "Do not address the person by name in this reply."
 EVERYDAY_PART = (
     "\n\n(The question «{question}» in this message is answered separately, from the sources. "
@@ -117,6 +125,8 @@ EVERYDAY_PART = (
 
 def prompt(name: str, **values: str) -> str:
     text = (PROMPTS / f"{name}.md").read_text(encoding="utf-8")
+    if name in SPOKEN_AS_RAFIQ:
+        text = (PROMPTS / "identity.md").read_text(encoding="utf-8") + "\n" + text
     for key, value in values.items():
         text = text.replace(f"{{{key}}}", value)
     return text
@@ -171,6 +181,12 @@ class State(TypedDict, total=False):
     answer: RafiqAnswer
 
 
+# A question-and-answer book often opens its answer by stating the objection it then refutes.
+OBJECTION_FIRST = (
+    "the book's answer to this question, which may open by stating the objection it then answers"
+)
+
+
 def _passages_text(passages: list[Passage]) -> str:
     lines = []
     for passage in passages:
@@ -183,6 +199,8 @@ def _passages_text(passages: list[Passage]) -> str:
             label = f"hadith {hadith.id}, grade: {hadith.grade}; show it with {show}"
         else:
             label = f"{passage.type}: {passage.title} — {passage.reference}"
+            if passage.answers_a_question:
+                label += f"; {OBJECTION_FIRST}"
         lines.append(f"[{passage.n}] ({label}, in {passage.lang})\n{passage.text[:PASSAGE_CHARS]}")
     return "\n\n".join(lines)
 
@@ -192,7 +210,8 @@ def _checked(passage: Passage) -> str:
     its source: a piece such as "They are six: ..." names its subject only in its heading."""
     if passage.sacred:
         return passage.text[:PASSAGE_CHARS]
-    return f"({passage.reference}) {passage.text[:PASSAGE_CHARS]}"
+    question = f"; {OBJECTION_FIRST}" if passage.answers_a_question else ""
+    return f"({passage.reference}{question}) {passage.text[:PASSAGE_CHARS]}"
 
 
 LESSON_TASKS = {
@@ -374,6 +393,7 @@ class Rafiq:
                 )
             classification = _in_its_own_script(classification, state)
             classification = _by_question_form(classification, state["question"])
+            classification = _by_plan(classification, state["question"])
             if classification.personal_case and classification.level != "D":
                 # A personal case is level D, whatever level the classifier gave it.
                 classification = classification.model_copy(update={"level": "D"})
@@ -519,7 +539,9 @@ class Rafiq:
         if not _speaks(state):
             return {}
         kept = screened(lines, passages, state["language"], _earlier_replies(state))
-        return voiced(kept, state.get("history"), state["language"], opening=opening)
+        return voiced(
+            kept, state.get("history"), state["language"], opening=opening, asked=state["question"]
+        )
 
     async def everyday(self, lines: dict[str, str], locale: PageLocale) -> dict[str, str]:
         """Lines written outside the pipeline (Lens's answer about what a photo shows) under the
@@ -559,10 +581,21 @@ class Rafiq:
             log.info("verify glossary forms=%d", renamed)
         warm = self._warm_lines(state, draft)
         checked = False
-        problems = code_problems(units, passages, required, language)
+        counted = state["classification"].amount_of
+        # The learner's words, and the question as the classifier made it explicit.
+        asked = f"{state['question']} {_question(state)}"
+        problems = code_problems(units, passages, required, language, asked, counted)
         self._log_problems(state, "code", render(units), problems)
         if problems and last_try:
-            repaired = repair(units, problems, passages, required, language)
+            repaired = repair(
+                units,
+                problems,
+                passages,
+                required,
+                language,
+                asked,
+                counted,
+            )
             problems = [] if repaired is not None else problems
             units = repaired if repaired is not None else units
             self._log_problems(state, "repaired", render(units), problems)
@@ -586,9 +619,21 @@ class Rafiq:
                 )
             self._log_problems(state, "support", render(units), problems)
             if problems and last_try and not off_topic:
-                repaired = repair(units, problems, passages, required, language)
+                repaired = repair(
+                    units,
+                    problems,
+                    passages,
+                    required,
+                    language,
+                    asked,
+                    counted,
+                )
                 problems = [] if repaired is not None else problems
                 units = repaired if repaired is not None else units
+        if not problems and not _answered(units):
+            # Every answer starts with a direct answer: when repair removed it, the first
+            # sentence of the explanation (checked like the rest) leads.
+            units = _answer_first(units)
         unexplained = False
         if not problems and not extractive and _sources_only(units):
             if last_try:
@@ -643,7 +688,7 @@ class Rafiq:
             units = [unit for unit in units if unit.kind == "block"]
         if _misquoted(state):
             units = _without_wording(units, classification.quoted_verse or "")
-            units = _with_note_after_verse(units, _required(state, "quran"))
+            units = _with_note_before_verse(units, _required(state, "quran"))
 
         async def match(quote: Quote) -> Passage | None:
             return await self._retriever.match_quote(quote.kind, quote.text, language, quote.ref)
@@ -677,9 +722,7 @@ class Rafiq:
                 "kind": kind,
                 "blocks": blocks,
                 "opening": await self._everyday_part(state, warm),
-                # A religious answer ends with at most one next step: no praise, no
-                # encouragement line.
-                "encouragement": None,
+                "encouragement": await self._encouragement(state, warm),
                 "follow_up": warm.get("followUp"),
             }
         )
@@ -689,7 +732,7 @@ class Rafiq:
         classification = state["classification"]
         reason: ReferralReason
         problems = state.get("problems") or []
-        if any(problem.kind == "offTopic" for problem in problems):
+        if any(problem.kind in ("offTopic", "noAmount") for problem in problems):
             # Nothing found answers the question asked: never answer a nearby one instead.
             reason = policy.referral_after_answer(classification) or "noSource"
         elif problems:
@@ -707,7 +750,33 @@ class Rafiq:
             if not state.get("warm_checked"):
                 _, warm, _ = await self._model_check(None, [], self._warm_lines(state, draft))
         answer = answer.model_copy(update={"opening": await self._everyday_part(state, warm)})
-        return {"answer": self._decorated(state, answer)}
+        answer = self._decorated(state, answer)
+        if reason == "noSource":
+            answer = answer.model_copy(
+                update={"topic_lesson_ids": await self._topic_lessons(state, answer)}
+            )
+        return {"answer": answer}
+
+    async def _topic_lessons(self, state: State, answer: RafiqAnswer) -> list[str]:
+        """The lessons that teach the question's topic, chosen from the lesson map by topic (a
+        model call, its ids checked against the road); the search hits' lessons otherwise."""
+        if self._road is None:
+            return answer.topic_lesson_ids
+        system = prompt("topics", road=self._road.describe(None, state["locale"]))
+        try:
+            chosen = await self._chat.json(system, _question(state), TopicLessons)
+        except ModelUnavailableError:
+            return answer.topic_lesson_ids
+        known = [i for i in chosen.lessons if self._road.title(i, state["locale"]) is not None]
+        return known[:TOPIC_LESSONS] or answer.topic_lesson_ids
+
+    async def _encouragement(self, state: State, warm: dict[str, str]) -> str | None:
+        """A warm line after a religious answer, only when the learner shared something personal;
+        never beside a ruling question."""
+        classification = state["classification"]
+        if not _personal(classification) or policy.needs_ruling_guard(classification):
+            return None
+        return warm.get("encouragement")
 
     async def _everyday_part(self, state: State, warm: dict[str, str]) -> str | None:
         """The opening: the draft's everyday lines that passed. When the message has an everyday
@@ -716,13 +785,7 @@ class Rafiq:
         answer starts with the answer: there is no opening unless the learner said something
         personal. Beside a ruling question, no everyday line may use ruling words."""
         classification = state["classification"]
-        personal = (
-            classification.talk
-            or classification.worship_worry
-            or classification.personal_case
-            or classification.intent in ("feelings", "distress")
-        )
-        if not personal:
+        if not _personal(classification):
             return None
         if policy.needs_ruling_guard(classification):
             warm = without_rulings(warm)
@@ -746,13 +809,34 @@ class Rafiq:
     async def _talk(self, state: State) -> State:
         """Everyday talk: a direct, warm reply with no religious claim and no source."""
         answer = self._bare(state, "smalltalk", "chat")
+        # What to study next is read from the lesson map in code; the page links that lesson
+        # under the reply with its own fixed line.
+        planned = (
+            self._road.planned(state["question"], state.get("scope"))
+            if self._road and STUDY_NEXT.search(state["question"])
+            else None
+        )
         if not _speaks(state):
-            return {"answer": self._decorated(state, answer)}
-        lines = await self._talk_lines(state)
+            linked = answer.model_copy(update={"lesson_id": planned.id if planned else None})
+            return {"answer": self._decorated(state, linked)}
+        note = PLANNED.format(title=planned.title[state["locale"]]) if planned else ""
+        lines = await self._talk_lines(state, note)
         answer = answer.model_copy(
-            update={"opening": lines.get("talk"), "follow_up": lines.get("followUp")}
+            update={
+                "opening": lines.get("talk"),
+                "follow_up": lines.get("followUp"),
+                "lesson_id": planned.id if planned else lines.get("lesson"),
+            }
         )
         return {"answer": self._decorated(state, answer)}
+
+    def _linked_lesson(self, state: State, lesson_id: str, talk: str) -> str | None:
+        """A lesson the reply links to: one on the road that the reply itself names, so the link
+        always comes with the sentence that connects it to what was said."""
+        title = self._road.title(lesson_id.strip(), state["locale"]) if self._road else None
+        if not title or not talk:
+            return None
+        return lesson_id.strip() if " ".join(words(title)) in " ".join(words(talk)) else None
 
     async def _talk_lines(self, state: State, note: str = "") -> dict[str, str]:
         """An everyday reply (talk.md) that passed its checks, asked for once more if nothing
@@ -793,7 +877,10 @@ class Rafiq:
             kept[f"talk {i}"] for i in range(1, len(sentences) + 1) if f"talk {i}" in kept
         )
         joined = {"talk": talk, "followUp": kept.get("followUp", "")}
-        return self._everyday(state, {k: v for k, v in joined.items() if v}, [], "talk")
+        lines = self._everyday(state, {k: v for k, v in joined.items() if v}, [], "talk")
+        if lesson := self._linked_lesson(state, reply.lesson, lines.get("talk", "")):
+            lines["lesson"] = lesson
+        return lines
 
     async def _clarify(self, state: State) -> State:
         """An unclear follow-up gets one short question back instead of a guess."""
@@ -837,9 +924,6 @@ class Rafiq:
             sources=[],
             referral=referral(reason, outside=outside),
         )
-
-    def _offtopic(self, state: State) -> State:
-        return {"answer": self._decorated(state, self._bare(state, "offTopic", "referral"))}
 
     @staticmethod
     def _after_safety(state: State) -> str:
@@ -951,6 +1035,9 @@ class Rafiq:
     def _after_verify(state: State) -> str:
         if not state.get("problems"):
             return "respond"
+        if any(problem.kind == "noAmount" for problem in state["problems"]):
+            # No passage states the amount asked for: writing again cannot find one.
+            return "refer"
         return "generate" if state.get("attempts", 0) < MAX_ATTEMPTS else "refer"
 
     def _build(self) -> CompiledStateGraph[State, None, State, State]:
@@ -966,7 +1053,6 @@ class Rafiq:
         graph.add_node("notFound", self._not_found)
         graph.add_node("talk", self._talk)
         graph.add_node("clarify", self._clarify)
-        graph.add_node("offtopic", self._offtopic)
         graph.add_node("danger", self._danger)
         graph.add_node("term", self._term)
         graph.add_edge(START, "safety")
@@ -980,7 +1066,6 @@ class Rafiq:
                 "retrieve": "retrieve",
                 "talk": "talk",
                 "clarify": "clarify",
-                "offtopic": "offtopic",
                 "danger": "danger",
                 "term": "term",
             },
@@ -1001,7 +1086,7 @@ class Rafiq:
             self._after_verify,
             {"respond": "respond", "generate": "generate", "refer": "refer"},
         )
-        ends = ("respond", "refer", "notFound", "talk", "clarify", "offtopic", "danger", "term")
+        ends = ("respond", "refer", "notFound", "talk", "clarify", "danger", "term")
         for end in ends:
             graph.add_edge(end, END)
         return graph.compile()
@@ -1149,27 +1234,71 @@ def _aids(forms: Normalized | None) -> str:
     )
 
 
+def _answered(units: list[Unit]) -> bool:
+    """Whether the draft states a direct answer before its explanation."""
+    return any(unit.kind != "block" and unit.role == "answer" and unit.sentences for unit in units)
+
+
+def _answer_first(units: list[Unit]) -> list[Unit]:
+    """The first sentence of the explanation as the answer, with the markers that cover it, and
+    the rest after it."""
+    for index, unit in enumerate(units):
+        if unit.kind != "block" and unit.role == "explanation" and unit.sentences:
+            sentence = unit.sentences[0]
+            if not markers(sentence):
+                sentence += "".join(f"[{n}]" for n in unit.closing)
+            first = Unit("paragraph", sentences=[sentence], role="answer")
+            rest = [replace(unit, sentences=unit.sentences[1:])] if unit.sentences[1:] else []
+            return [first, *units[:index], *rest, *units[index + 1 :]]
+    return units
+
+
+def _personal(classification: Classification) -> bool:
+    """Whether the learner said something personal that the reply answers with care."""
+    return (
+        classification.talk
+        or classification.worship_worry
+        or classification.personal_case
+        or classification.intent in ("feelings", "distress")
+    )
+
+
 def _misquoted(state: State) -> bool:
     """Whether the asker quoted a verse in words that differ from it as published."""
     misquote = state["retrieval"].misquote
     return bool(misquote and misquote.kind == "quran" and not misquote.exact)
 
 
-def _with_note_after_verse(units: list[Unit], ref: str | None) -> list[Unit]:
-    """The fixed line that the quoted words differ from the verse, right after the verse."""
+def _with_note_before_verse(units: list[Unit], ref: str | None) -> list[Unit]:
+    """A misquoted verse: the reply starts with the fixed line that the quoted words differ from
+    the verse, then the verse as published, then the answer and its explanation."""
     for index, unit in enumerate(units):
         if unit.kind == "block" and unit.block == ("quran", ref):
             note = Unit("block", block=("note", "wordingDiffers"))
-            return [*units[: index + 1], note, *units[index + 1 :]]
+            return [note, unit, *units[:index], *units[index + 1 :]]
     return units
 
 
 # A question whether a quoted text is a verse or a hadith, by its form: «…» with the word.
-QUOTED_TEXT = re.compile(r"«([^»]{2,300})»")
-VERSE_WORD = re.compile(r"\b(?:verse|ayah|aya|quran|qur'an)\b|آية|آيه|القرآن", re.IGNORECASE)
+QUOTED_TEXT = re.compile(r"«([^»]{2,300})»|\"([^\"]{2,300})\"|“([^”]{2,300})”")
+QUOTED_AFTER = re.compile(
+    r"(?:قوله\s+تعالى|قال\s+(?:الله\s+)?تعالى|\bthe\s+verse)\s*[:：]?\s*([^«»\"“”؟?]{4,200})",
+    re.IGNORECASE,
+)
+VERSE_WORD = re.compile(
+    r"\b(?:verse|ayah|aya|quran|qur'an)\b|آية|آيه|القرآن|قوله\s+تعالى|قال\s+(?:الله\s+)?تعالى",
+    re.IGNORECASE,
+)
 HADITH_WORD = re.compile(r"\b(?:hadith|hadeeth|prophet said)\b|حديث|قال\s+النبي", re.IGNORECASE)
 # Asked as "is it one?": a question about what a quoted text means is not.
 QUESTION_FORM = re.compile(r"^\s*(?:is|was|are|did|هل)\b", re.IGNORECASE)
+# "What should I study next / after this lesson?": the learner's plan, not a religious question.
+STUDY_NEXT = re.compile(
+    r"\b(?:what|which)\b[^?]{0,40}\b(?:learn|study|lesson)\b[^?]{0,40}\b(?:next|after)\b"
+    r"|(?:ماذا|ما\s*الذي|أي\s*درس)\s*(?:أتعلم|أدرس|أقرأ|أبدأ)[^؟?]{0,40}(?:بعد|التالي)"
+    r"|الدرس\s*التالي|الدرس\s*القادم",
+    re.IGNORECASE,
+)
 # A question whether something is forbidden or allowed: a request for a ruling.
 # A request for a proof text, by its words: "give me a hadith proving…", "what is the evidence…".
 EVIDENCE_REQUEST = re.compile(
@@ -1183,23 +1312,48 @@ RULING_QUESTION = re.compile(
 )
 
 
+def quoted_words(question: str) -> str | None:
+    """The words a question quotes: inside «» or quotation marks, or after قوله تعالى or
+    "the verse"."""
+    if found := QUOTED_TEXT.search(question):
+        return next(group for group in found.groups() if group)
+    if after := QUOTED_AFTER.search(question):
+        return after.group(1).strip(" .،,") or None
+    return None
+
+
+def _by_plan(classification: Classification, question: str) -> Classification:
+    """What to study next is conversation, answered from the lesson map, whatever the classifier
+    said: it needs no source."""
+    if not STUDY_NEXT.search(question):
+        return classification
+    return classification.model_copy(
+        update={
+            "intent": "talk",
+            "talk": True,
+            "talk_kind": "planning",
+            "religious_part": None,
+            "personal_case": False,
+        }
+    )
+
+
 def _by_question_form(classification: Classification, question: str) -> Classification:
     """Two readings that follow from how a question is put, whatever the classifier said.
     Asking whether a quoted text is a verse or a hadith is answered by looking it up; asking
     whether something disputed is forbidden or allowed is a request for a ruling (level D)."""
     update: dict[str, object] = {}
-    quoted = QUOTED_TEXT.search(question)
+    quoted = quoted_words(question)
     outside = QUOTED_TEXT.sub(" ", question)
     already = classification.quoted_verse or classification.quoted_hadith
-    if (
-        quoted
-        and QUESTION_FORM.search(question)
-        and not (classification.asks_if_quoted and already)
-    ):
+    if quoted and not (classification.asks_if_quoted and already):
+        # Quoted words presented as a verse or a hadith are always looked up, so a near match
+        # is shown as published; asked as "is it one?", the lookup decides the answer.
+        asks = {"asks_if_quoted": True} if QUESTION_FORM.search(question) else {}
         if HADITH_WORD.search(outside):
-            update = {"asks_if_quoted": True, "quoted_hadith": quoted.group(1)}
+            update = {**asks, "quoted_hadith": quoted}
         elif VERSE_WORD.search(outside):
-            update = {"asks_if_quoted": True, "quoted_verse": quoted.group(1)}
+            update = {**asks, "quoted_verse": quoted}
     if classification.asks_for_evidence and not EVIDENCE_REQUEST.search(question):
         # Asking why something is so is not asking for a proof text.
         update["asks_for_evidence"] = False

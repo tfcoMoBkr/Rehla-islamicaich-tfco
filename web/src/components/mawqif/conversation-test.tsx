@@ -15,7 +15,7 @@ import { PracticeConversation, type ConversationResult } from "./practice-conver
 import { PracticeFeedback } from "./practice-feedback";
 
 /** Each conversation of the test is short: two or three replies. */
-const TEST_REPLIES = { min: 2, max: 3 } as const;
+const TEST_REPLIES = { min: 1, max: 3 } as const;
 
 /**
  * The final test as conversations: several situations in a row, each a short conversation with a

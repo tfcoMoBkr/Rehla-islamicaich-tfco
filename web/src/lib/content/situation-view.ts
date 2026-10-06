@@ -15,6 +15,8 @@ import type {
 } from "@/lib/mawqif/types";
 
 import { evidenceView, lessonHref } from "./lesson-view";
+import { transliterate } from "@/lib/mawqif/transliterate";
+
 import { readFetchedHadith, type Khutuwat } from "./load";
 import type { Quote, Situation, SituationItem } from "./situation-schema";
 
@@ -57,13 +59,18 @@ export async function toSituationView(situation: Situation, khutuwat: Khutuwat, 
     text: q[locale].replace(/\s+/g, " ").trim(),
     source: labels.get(q.ref)!,
   });
+  // A phrase to say carries its Arabic and pronunciation, in every interface language.
+  const toSay = (q: Quote): QuoteView => ({
+    ...quote(q),
+    say: { arabic: q.ar.replace(/\s+/g, " ").trim(), pronunciation: transliterate(q.ar) },
+  });
   const part = (p: { text: { ar: string; en: string } } | { quote: Quote }): PartView =>
     "text" in p ? { kind: "text", text: p.text[locale] } : { kind: "quote", quote: quote(p.quote) };
 
   const exchanges: ExchangeView[] = situation.exchanges.map((exchange) => ({
     id: exchange.id,
     says: exchange.says.map(part),
-    keyPoints: exchange.keyPoints.map((point) => ({ id: point.id, quote: quote(point.quote) })),
+    keyPoints: exchange.keyPoints.map((point) => ({ id: point.id, quote: toSay(point.quote) })),
     choices: exchange.choices.map((choice) => ({ id: choice.id, quality: choice.quality, reply: choice.reply.map(part), meets: choice.meets })),
   }));
 
@@ -80,7 +87,7 @@ export async function toSituationView(situation: Situation, khutuwat: Khutuwat, 
     scene: situation.scene[locale],
     character: situation.character[locale],
     learn: {
-      say: situation.learn.say.map(quote),
+      say: situation.learn.say.map(toSay),
       why: situation.learn.why.map(quote),
       when: situation.learn.when.map(quote),
     },

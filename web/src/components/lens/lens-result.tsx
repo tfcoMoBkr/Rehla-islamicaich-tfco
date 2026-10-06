@@ -54,6 +54,15 @@ export function LensResult({
             </p>
           </div>
         )}
+        {response.description && (
+          <div className="grid gap-1">
+            <p className="text-sm font-semibold text-muted-foreground">{t("generalDescription")}</p>
+            <p dir="auto" className="text-lg leading-relaxed">
+              {response.description}
+            </p>
+          </div>
+        )}
+        {row === 11 && <p className="rounded-xl border border-dawn/50 bg-dawn/8 px-4 py-3">{t("unmatchedNote")}</p>}
         {row === 13 && (
           <p className="rounded-xl border border-dawn/50 bg-dawn/8 px-4 py-3">
             {t("productNote")}{" "}

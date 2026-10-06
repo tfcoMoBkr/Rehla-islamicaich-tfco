@@ -26,6 +26,7 @@ from dataclasses import dataclass
 from typing import Literal
 
 from app.languages import Language, spec, written_in
+from app.rafiq.amounts import about, amounts, asks_amount, same_form, stated_by
 from app.rafiq.draft import Unit, markers, strip_markers
 from app.retrieval.passages import Passage
 from app.text import has_arabic, words
@@ -44,6 +45,9 @@ ProblemKind = Literal[
     "offTopic",
     "unexplained",
     "attribution",
+    "worshipWords",
+    "amount",
+    "noAmount",
 ]
 
 MIN_CITED_WORDS = 4
@@ -53,6 +57,9 @@ LIST_INTRO_WORDS = 12
 # Shared word runs this long (or longer) mean sacred text was copied rather than shown.
 COPIED_RUN_ARABIC_SCRIPT = 7
 COPIED_RUN_OTHER = 9
+# Inside quotation marks, this many words of a verse or hadith are already its text.
+QUOTED_RUN = 3
+QUOTED_SPAN = re.compile(r"«([^»]+)»|\"([^\"]+)\"|“([^”]+)”")
 
 
 # Wording that settles a disputed matter, and wording that claims agreement. They describe how a
@@ -92,6 +99,27 @@ ATTRIBUTION = re.compile(
     r"|\bis\s+a\s+hadith\b|\b(?:allah|the\s+quran)\s+says\b|\bis\s+a\s+verse\b"
     r"|قال\s+(?:النبي|رسول\s+الله|الرسول)|حديث\s+(?:نبوي|عن\s+النبي)|قال\s+(?:الله|تعالى)"
     r"|يقول\s+(?:الله|تعالى)|من\s+كلام\s+النبي",
+    re.IGNORECASE,
+)
+# Words of worship (a remembrance, a supplication, the words said in prayer) typed into the prose,
+# in any language Rafiq writes, quoted or not, translated or transliterated. Patterns to detect
+# such words; they are never shown. The words themselves appear only in a published block.
+WORSHIP_WORDS = re.compile(
+    r"سبحانك|سبحان\s+(?:ربي|الله|ربك)|اللهم|ربنا|ربي?\s*اغفر|أستغفر\s+الله|سمع\s+الله\s+لمن"
+    r"|التحيات\s+لله|الله\s+أكبر|بسم\s+الله|أعوذ\s+بالله|لا\s+حول\s+ولا\s+قوة|حسبنا\s+الله"
+    r"|إنا\s+لله\s+وإنا|يرحمك\s+الله|يهديكم\s+الله|الحمد\s+لله\s+رب\s+العالمين"
+    r"|اللہ\s+اکبر|بسم\s+اللہ|اے\s+اللہ|سبحان|হে\s+আল্লাহ|আল্লাহু\s+আকবার|সুবহানা"
+    r"|\b(?:subh?ana(?:ka)?|subhan|allahumm?a|rabbana|allahu\s+akbar|sami['’]?a\s*-?\s*allah"
+    r"|astaghfirullah|bismillah|a['’]?[uo]o?dhu\s+billah|la\s+hawla|alhamdu\s*lillahi?\s+rabb"
+    r"|at-?tahiyyat|hasbuna\s*allah|yarhamuk)\b"
+    r"|\bglory\s+be\s+to\s+(?:you|allah|my\s+lord)|\bo\s+allah\b|\bour\s+lord\b"
+    r"|\ballah\s+is\s+(?:the\s+)?(?:most\s+)?great(?:est)?\b|\ballah\s+hears\b"
+    r"|\bin\s+the\s+name\s+of\s+allah\b|\bi\s+seek\s+refuge\b|\ball\s+greetings"
+    r"|\bmay\s+allah\s+have\s+mercy\s+on\s+you\b|السلام\s+عليكم\s+ورحمة\s+الله"
+    r"|\bpeace\s+(?:be\s+upon\s+you\s+)?and\s+(?:the\s+)?mercy\s+of\s+allah\b"
+    r"|\bas-?salamu?\s+[ʿ'‘]?alaykum\s+wa\s*rahmatu"
+    r"|\bgloire\s+(?:à\s+toi|à\s+allah)|\bô\s+allah\b|\bnotre\s+seigneur\b"
+    r"|\ballah\s+est\s+(?:le\s+)?plus\s+grand\b|\bau\s+nom\s+d['’]allah\b",
     re.IGNORECASE,
 )
 DIFFERENCE_IN_SOURCE = re.compile(r"اختلف|اختلاف|خلاف|differ|disagree", re.IGNORECASE)
@@ -159,9 +187,12 @@ def code_problems(
     passages: list[Passage],
     required_verse: str | None = None,
     language: Language | None = None,
+    asked: str = "",
+    counted: list[str] | None = None,
 ) -> list[Problem]:
     """What is wrong with a parsed draft, by code alone. `required_verse` must be shown, and
-    the prose must be written in `language`'s script."""
+    the prose must be written in `language`'s script. Words of worship the learner wrote in
+    `asked` may be named back to them; any others in the prose are not Rafiq's to write."""
     problems: list[Problem] = []
     numbers = {passage.n for passage in passages}
     blocks = [unit.block for unit in units if unit.kind == "block"]
@@ -193,6 +224,17 @@ def code_problems(
             problems.extend(
                 _sentence_problems(units, u, s, sentence, passages, numbers, book_runs, language)
             )
+            if worship_words(sentence, asked):
+                problems.append(
+                    Problem(
+                        "worshipWords",
+                        "This sentence writes words of a remembrance or a supplication. Name the "
+                        "step instead; its words are shown only in a published block: "
+                        f"«{sentence[:120]}»",
+                        unit=u,
+                        sentence=s,
+                    )
+                )
             if not blocks and ATTRIBUTION.search(sentence):
                 problems.append(
                     Problem(
@@ -203,7 +245,84 @@ def code_problems(
                         sentence=s,
                     )
                 )
+    if asks_amount(asked) and language is not None:
+        problems.extend(_amount_problems(units, passages, language, counted or [], asked))
     return problems
+
+
+def _amount_problems(
+    units: list[Unit],
+    passages: list[Passage],
+    language: Language,
+    counted: list[str],
+    asked: str = "",
+) -> list[Problem]:
+    """A "how many" reply: each amount must be stated by a passage its sentence cites; with none
+    stated, the reply has not answered what was asked."""
+    found: list[Problem] = []
+    stated = 0
+    # The form is read from the whole reply: "these rak'ahs" refers back to an earlier sentence.
+    form = same_form(" ".join(s for unit in units for s in unit.sentences), asked)
+    for u, unit in enumerate(units):
+        if unit.kind == "block":
+            continue
+        for s, sentence in enumerate(unit.sentences):
+            plain = strip_markers(sentence)
+            if not amounts(plain) or not about(plain, counted):
+                continue
+            cited = [p for p in passages if p.n in unit.covering(s)]
+            if form and any(stated_by(plain, p, language) for p in cited):
+                stated += 1
+                continue
+            found.append(
+                Problem(
+                    "amount",
+                    "No passage this sentence cites states this amount, in the reply's "
+                    f"language: «{sentence[:120]}»",
+                    unit=u,
+                    sentence=s,
+                )
+            )
+    if not stated:
+        found.append(
+            Problem("noAmount", "The question asks how many or how much; no passage states it.")
+        )
+    return found
+
+
+# The verb that introduced words of worship, left dangling once the words are cut.
+SAYING = re.compile(
+    r"\s*(?:مثل\s+|ك)?(?:و?(?:تقول|يقول|تقولين|قل|بقول|قول|قائلًا|قائلا)(?:\s+في\s+\S+)?"
+    r"|\b(?:and\s+)?(?:say|saying|by\s+saying)\b(?:\s+in\s+\S+\s+\S+)?)\s*$",
+    re.IGNORECASE,
+)
+# A sentence cut shorter than this no longer names a step.
+STEP_WORDS = 2
+
+
+def without_worship_words(sentence: str, asked: str = "") -> str | None:
+    """The sentence with the words of worship it typed cut out (from the colon or quotation mark
+    that introduces them, or from the words themselves), so it still names the step; None when
+    nothing is left of it. Only removes: no word is added."""
+    tags = "".join(f"[{n}]" for n in markers(sentence))
+    body = strip_markers(sentence)
+    while found := worship_words(body, asked):
+        at = body.find(found)
+        opener = max(body.rfind(mark, 0, at) for mark in (":", '"', "«", "“"))
+        body = body[: opener if opener >= 0 else at]
+    body = SAYING.sub("", body.rstrip(' ،,.:"«“')).rstrip(" ،,")
+    if len(words(body)) < STEP_WORDS:
+        return None
+    return f"{body} {tags}." if tags else f"{body}."
+
+
+def worship_words(sentence: str, asked: str = "") -> str | None:
+    """Words of worship typed into a sentence that the learner did not write themselves."""
+    said = " ".join(words(asked))
+    for found in WORSHIP_WORDS.finditer(sentence):
+        if not said or " ".join(words(found.group(0))) not in said:
+            return found.group(0)
+    return None
 
 
 def _sentence_problems(
@@ -275,6 +394,8 @@ def _sentence_problems(
                 )
             )
     copied = copied_from(sentence, passages, book_runs)
+    if copied is None:
+        copied = quoted_from(sentence, passages)
     if copied is not None:
         found.append(
             Problem(
@@ -293,6 +414,18 @@ def book_runs_of(passages: list[Passage]) -> dict[int, set[tuple[str, ...]]]:
     """Word runs of the book and term passages: a run found there is the book's, not memory's."""
     book_text = " ".join(p.text for p in passages if not p.sacred)
     return {n: _runs(book_text, n) for n in (COPIED_RUN_ARABIC_SCRIPT, COPIED_RUN_OTHER)}
+
+
+def quoted_from(text: str, passages: list[Passage]) -> int | None:
+    """The number of the verse or hadith whose words the text puts in quotation marks, even a few
+    of them: quoted, they are presented as the text itself, which only its block may show."""
+    for span in QUOTED_SPAN.finditer(text):
+        quoted = next(group for group in span.groups() if group)
+        for passage in passages:
+            for original in passage.sacred_texts():
+                if _runs(quoted, QUOTED_RUN) & _runs(original, QUOTED_RUN):
+                    return passage.n
+    return None
 
 
 def copied_from(

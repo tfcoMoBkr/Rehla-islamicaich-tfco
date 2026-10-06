@@ -10,7 +10,13 @@ export type SourceLabel =
   | { kind: "quran"; ref: string; url: string | null }
   | { kind: "book"; title: string; url: string };
 
-export type QuoteView = { ref: string; text: string; source: SourceLabel };
+/**
+ * A phrase the learner is taught to say: its Arabic as the source writes it, and an approximate
+ * pronunciation made by fixed rules from its vowel signs (null when the source has none).
+ */
+export type SayView = { arabic: string; pronunciation: string | null };
+
+export type QuoteView = { ref: string; text: string; source: SourceLabel; say?: SayView };
 
 export type PartView = { kind: "text"; text: string } | { kind: "quote"; quote: QuoteView };
 

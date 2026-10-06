@@ -20,6 +20,7 @@ Reply with one JSON object:
   "plainTerm": true | false,
   "termTranslation": "…" | null,
   "asksForEvidence": true | false,
+  "amountOf": ["…", "…"],
   "quotedVerse": "…" | null,
   "quotedHadith": "…" | null,
   "asksIfQuoted": true | false,
@@ -40,7 +41,7 @@ intent, the message as a whole:
 - distress: a hard situation that weighs on them (loneliness after converting, pressure from family, doubt, grief).
 - offtopic: nothing to do with Islam, the learner's road or how they feel (weather, code, sport, news). A question about Islam is never off-topic, whatever language it is written in.
 
-religiousPart: the part of the message, or of what it asks about the shared text, that needs religious knowledge, written as one question that stands alone, in the message's language. null when nothing in the message needs it. A shared text that only tells an everyday experience (where to put shoes, arriving early, feeling nervous) needs no religious knowledge: explaining it is talk. A message that is all religious has religiousPart equal to its question.
+religiousPart: the part of the message, or of what it asks about the shared text, that needs religious knowledge, written as one question that stands alone, in the message's language. null when nothing in the message needs it. A shared text that only tells an everyday experience (where to put shoes, arriving early, feeling nervous) needs no religious knowledge: explaining it is talk. A message that is all religious has religiousPart equal to its question, with what it refers to made explicit where the words leave it implicit ("each prayer" asked by a learner means each of the five obligatory daily prayers; "it" names the thing it stands for).
 
 talk: true when the message has an everyday part Rafiq should answer as a friend (a greeting, a feeling, a plan, a text to explain, practical advice), alone or alongside a religious question. talkKind: which kind, or null.
 
@@ -61,6 +62,7 @@ consensus: the asker wants to know whether all Muslims, or all scholars, agree o
 plainTerm: the asker wants a term explained to someone who has never heard it.
 termTranslation: when the asker wants a religious term translated into another language, the term exactly as written; else null. Asking what a term means, or to explain it, is not a translation (that is plainTerm or a definition).
 asksForEvidence: the asker explicitly asks for a verse or hadith that proves a claim ("give me a hadith proving…", "what is the evidence that…"). A yes/no or why question about Islam, its history or a claim about it is not a request for evidence.
+amountOf: when the message asks how many or how much, the thing counted or measured, as one or two words in English and the same in Arabic (for example ["rak'ah", "ركعة"]); else [].
 quotedVerse: if the message quotes words presented as a Quran verse ("the verse «…»", «الآية …», or words the asker attributes to the Quran), copy those words exactly as the message writes them, even when they differ from any verse you know; else null.
 quotedHadith: if the message quotes words presented as a hadith, copy those words exactly; else null.
 asksIfQuoted: the asker asks whether a quoted text really is a verse or a hadith ("Is «…» a verse?", «هل … آية؟», "Did the Prophet say …?"). Copy the quoted words into quotedVerse or quotedHadith as well.

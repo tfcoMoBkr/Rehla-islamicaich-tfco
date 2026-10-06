@@ -109,9 +109,18 @@ def _same_section(piece: Chunk, other: Chunk) -> bool:
     )
 
 
+def _spelled(word: str) -> str:
+    """A word without the alifs inside it: the Quran's script writes some long ā as a small alif
+    («ٱلۡعَٰلَمِينَ») where ordinary spelling writes it in full («العالمين»), and the two are the same
+    word."""
+    return word[:1] + word[1:].replace("ا", "")
+
+
 def _contains(verse: str, quoted: str) -> bool:
-    """Whether the quoted words appear, in order and together, in the verse."""
-    verse_words, quoted_words = words(verse), words(quoted)
+    """Whether the quoted words appear, in order and together, in the verse, whatever the spelling
+    convention."""
+    verse_words = [_spelled(word) for word in words(verse)]
+    quoted_words = [_spelled(word) for word in words(quoted)]
     if not quoted_words:
         return True
     return any(

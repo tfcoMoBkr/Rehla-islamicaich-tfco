@@ -14,6 +14,7 @@ Reply with one JSON object only:
   "looksLikeScripture": true | false,
   "peoplePresent": true | false,
   "confidence": 0.0,
+  "description": "…",
   "category": "worship" | "mosque" | "sign" | "food" | "personalDocument" | "rulingRequest" | "post" | "otherReligion" | "ordinary",
   "quality": "good" | "blurry" | "dark" | "cropped",
   "religiousTerms": ["…"],
@@ -26,7 +27,8 @@ visibleText: the text you can read, exactly as written, with no correction, and 
 plainTranslation: a translation into {language_name} of that text, only when it is ordinary text (a sign, a notice, a label, a post). null for anything that looks like a Quran verse or a hadith, for a personal document, and when the text is already in {language_name}.
 looksLikeScripture: true when the text appears to be a Quran verse or a hadith.
 peoplePresent: true when any person is in the photo.
-confidence: from 0 to 1, how sure you are of this report.
+confidence: from 0 to 1, how sure you are of this report. A photo you can mostly make out is above 0.5, even if you are not certain what it is.
+description: one to three short sentences in {language_name}, in hedged words, as a sensible friend would describe it: what this looks like ("This looks like…"), what is written on it in plain words, and what such a thing is ordinarily for (a sign that marks a room, a board that lists times). An everyday description only: no ruling, no virtue, no reward, nothing about what Islam teaches or says. For writing that looks like a Quran verse or a hadith, say only what kind of writing it appears to be (for example "Arabic calligraphy in a frame, which looks like a verse"), never its words, meaning or translation. Empty for a person, an unsafe or unclear photo, and a personal document.
 category: "worship" for an object of worship or of a mosque (a prayer mat, a mihrab, a minbar, a wudu area, a miswak, a closed mushaf); "mosque" for a mosque, a prayer room or a qibla sign; "sign" for an ordinary sign, notice, label or door plate; "food" for food, a drink, a product or an ingredients label; "personalDocument" for an ID, passport, bank card, medical paper, private letter or private chat; "rulingRequest" for a contract or a paper about someone's own situation that asks what is allowed; "post" for a screenshot of a post, a fatwa or a claim about Islam; "otherReligion" for a symbol or place of another religion; otherwise "ordinary".
 quality: "good" unless the photo is blurry, too dark, or cropped so the subject is cut off.
 religiousTerms: religious words or phrases that appear in visibleText, copied as written there. Empty if none. Never add a word the text does not hold.

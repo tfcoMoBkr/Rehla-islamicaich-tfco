@@ -69,6 +69,15 @@ describe("Lens results", () => {
     expect(html).not.toMatch(/\{\{|\}\}/);
   });
 
+  it.each(["ar", "en"] as const)("gives a general description, labelled as not from the sources, and a note for unmatched scripture (%s)", (locale) => {
+    const t = MESSAGES[locale].Lens;
+    const html = decoded(render(locale, <LensResult response={response({ row: 11, description: "DESCRIPTION-LINE" })} id="lens" onChoose={noop} />));
+    expect(html).toContain(t.generalDescription);
+    expect(html).toContain("DESCRIPTION-LINE");
+    expect(html).toContain(t.unmatchedNote);
+    expect(html).not.toContain("talk-to-a-specialist");
+  });
+
   it("labels the translation of ordinary text as a machine translation", () => {
     const seen = { ...response({}).seen!, kind: "text" as const, subject: "sign", visibleText: { text: "قاعة الصلاة", language: "ar" }, plainTranslation: "Prayer hall" };
     const html = render("en", <LensResult response={response({ seen, row: 3 })} id="lens" onChoose={noop} />);

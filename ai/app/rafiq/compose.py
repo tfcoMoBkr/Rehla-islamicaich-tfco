@@ -8,6 +8,7 @@ import re
 from app.languages import Language
 from app.rafiq.check import find_passage
 from app.rafiq.draft import MARKER, Unit, render
+from app.rafiq.editions import edition_for
 from app.rafiq.schemas import (
     Block,
     BookBlock,
@@ -129,14 +130,7 @@ def compose(
     flush()
 
     sources = [
-        SourceCard(
-            n=index,
-            source_id=by_number[number].source_id,
-            title=by_number[number].title,
-            reference=by_number[number].reference,
-            url=by_number[number].url,
-            publisher=by_number[number].publisher,
-        )
+        source_card(index, by_number[number], language)
         for index, number in enumerate(order, start=1)
     ]
     return RafiqAnswer(
@@ -146,4 +140,27 @@ def compose(
         blocks=blocks,
         sources=sources,
         referral=referral,
+    )
+
+
+def source_card(n: int, passage: Passage, language: str) -> SourceCard:
+    """The passage's source card; for a book in another language than the answer, the card of the
+    same book's edition in the answer's language, when there is one (its section is not named,
+    since the section titles differ between editions)."""
+    if edition := edition_for(passage, language):
+        return SourceCard(
+            n=n,
+            source_id=edition.source_id,
+            title=edition.title,
+            reference="",
+            url=edition.url,
+            publisher=edition.publisher,
+        )
+    return SourceCard(
+        n=n,
+        source_id=passage.source_id,
+        title=passage.title,
+        reference=passage.reference,
+        url=passage.url,
+        publisher=passage.publisher,
     )

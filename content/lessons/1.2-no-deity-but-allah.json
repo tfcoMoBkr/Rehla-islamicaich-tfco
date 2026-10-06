@@ -44,12 +44,7 @@
   "cards": [
     {
       "id": "c2",
-      "authoring": "team",
       "source": [],
-      "text": {
-        "ar": "من قالها صادقًا يبتغي بها وجه الله نجا من النار.",
-        "en": "Whoever says it sincerely, seeking Allah's pleasure, is saved from the Fire."
-      },
       "evidence": {
         "type": "hadith",
         "hadeethencId": 10098,

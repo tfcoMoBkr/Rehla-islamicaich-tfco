@@ -55,9 +55,18 @@ export function AnswerView({ answer, id, lessons, onFollowUp }: AnswerViewProps)
   );
 
   if (answer.kind === "chat") {
+    const named = answer.lessonId ? lessons?.[answer.lessonId] : undefined;
     return (
       <div className={cn("grid gap-3", fonts)}>
         {say(answer.opening ?? own?.smalltalk ?? t("smalltalk"))}
+        {named && (
+          <p className="rounded-xl border border-oasis/30 bg-oasis/6 px-4 py-3">
+            {t("nextLesson")}{" "}
+            <Link href={named.href} className="font-semibold underline underline-offset-4">
+              {named.title}
+            </Link>
+          </p>
+        )}
         {answer.followUp && say(answer.followUp, "text-muted-foreground")}
       </div>
     );

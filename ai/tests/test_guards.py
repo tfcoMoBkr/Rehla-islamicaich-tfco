@@ -13,7 +13,7 @@ from app.rafiq.compose import compose
 from app.rafiq.draft import Unit, parse
 from app.rafiq.embedded import NOTE, Quote, place_quotes, quotes_in
 from app.rafiq.glossary import Glossary
-from app.rafiq.graph import Rafiq, _with_note_after_verse
+from app.rafiq.graph import Rafiq, _with_note_before_verse
 from app.rafiq.repair import repair
 from app.rafiq.schemas import (
     ChatReply,
@@ -318,10 +318,10 @@ async def test_asking_what_a_term_means_is_answered_from_the_sources(glossary: G
     assert any("Passages:" in user for user in chat.users)
 
 
-def test_a_verse_quoted_in_other_words_is_followed_by_a_fixed_line() -> None:
-    units = [*parse("The verse is:"), Unit("block", block=("quran", "2:256"))]
-    noted = _with_note_after_verse(units, "2:256")
-    assert [unit.block for unit in noted] == [None, ("quran", "2:256"), ("note", "wordingDiffers")]
+def test_a_verse_quoted_in_other_words_opens_with_a_fixed_line_then_the_verse() -> None:
+    units = [*parse("The verse means:"), Unit("block", block=("quran", "2:256"))]
+    noted = _with_note_before_verse(units, "2:256")
+    assert [unit.block for unit in noted] == [("note", "wordingDiffers"), ("quran", "2:256"), None]
     passages = [hadith(9, 1, "نص", "text")]
     assert NoteBlock(note="wordingDiffers") in compose(noted, passages, "en", "A").blocks
 

@@ -3,17 +3,23 @@ reports what it sees; whether Lens answers, declines or answers within a boundar
 from that report and from the approved-source lookup, never by a model.
 
 Precedence when rows collide: 10 (unsafe), 9 (personal document), 7 (a person), 8 (unclear),
-11 (scripture that matches nothing), then the rest.
+11 (scripture that matches nothing), then the rest. Every row that is not declined (7 to 10) also
+carries the photo's general description, so the first reply always says something useful.
 """
 
 from dataclasses import dataclass
 from typing import Literal
 
 from app.lens.schemas import Card, Seen
+from app.rafiq.schemas import PageLocale
+from app.retrieval.passages import Passage
+from app.retrieval.retriever import Retriever
 from app.text import has_arabic, words
 
-# Below this the photo is not read with enough certainty to say anything about it.
-MIN_CONFIDENCE = 0.6
+# Below this the photo is not read with enough certainty to say anything about it; a blurry, dark
+# or cropped photo needs READABLE. Between the two, a hedged description is given.
+MIN_CONFIDENCE = 0.35
+READABLE = 0.6
 # Short Arabic text (a phrase on a wall) is looked up in case it is a verse or a hadith. A word or
 # two is not: a single word appears in many verses, and would "match" one it was never taken from.
 PHRASE_WORDS = (3, 30)
@@ -42,7 +48,8 @@ def _declined(seen: Seen) -> Decision | None:
         return Decision(9, card="privacy")
     if seen.kind == "person":
         return Decision(7, card="person")
-    if seen.kind == "unclear" or seen.quality != "good" or seen.confidence < MIN_CONFIDENCE:
+    poor = seen.quality != "good" and seen.confidence < READABLE
+    if seen.kind == "unclear" or poor or seen.confidence < MIN_CONFIDENCE:
         return Decision(8, card="unclear")
     return None
 
@@ -59,6 +66,16 @@ def lookup_text(seen: Seen) -> str | None:
     phrase = has_arabic(text) and shortest <= len(words(text)) <= longest
     if seen.looks_like_scripture or phrase:
         return text
+    return None
+
+
+async def matched_text(retriever: Retriever, text: str, locale: PageLocale) -> Passage | None:
+    """The verse, or else the hadith, whose exact words are the text read. The verse is looked for
+    first, so a hadith that quotes a verse is never shown in the verse's place."""
+    for kinds in (("quran",), ("hadith",)):
+        passage, quote = await retriever.find_quoted(text, locale, kinds)
+        if passage is not None and quote is not None and quote.exact:
+            return passage
     return None
 
 
@@ -81,7 +98,8 @@ def decide(seen: Seen, matched: bool) -> Decision:
     if declined:
         return declined
     if seen.looks_like_scripture and not matched:
-        return Decision(11, card="unmatched")
+        # Described as the kind of writing it appears to be, not read out or translated.
+        return Decision(11)
     if matched:
         return Decision(4 if seen.looks_like_scripture else 5, block=True)
     if seen.category == "rulingRequest":
@@ -99,7 +117,7 @@ def decide(seen: Seen, matched: bool) -> Decision:
         if seen.people_present:
             return Decision(6, explain="subject")
         return Decision(2 if seen.kind == "place" else 1, explain="subject")
-    return Decision(12, card="nothing")
+    return Decision(12)
 
 
 def shown(seen: Seen, decision: Decision) -> Seen | None:

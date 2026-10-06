@@ -66,4 +66,6 @@ Who does what today, and what is proposed.
 4. Measure Lens and Mawqif per-turn costs the way Rafiq's were measured.
 5. Tell the learner when the content server is down, rather than reporting a quoted text as not found.
 6. A study with real learners of the understanding measure (`docs/UNDERSTANDING.md`), with their consent; until then no learner results are reported.
-7. Aqim (practice prayer with the camera), which stays hidden until it is finished.
+7. Aqim (practice prayer with the camera): proposed, not built; the section is hidden and is not in the live version.
+8. A book that states the obligatory rak'ah count of each prayer (for example IslamHouse «Salah (Prayers) Step by Step», which needs `ISLAMHOUSE_API_KEY` to fetch): until then Rafiq answers that question with the honest no-source card and links to lessons 3.3 and 3.4.
+9. Re-extract «بينات» and the other PDF books in reading order, so their passages can be quoted again; until then they are cited by their source card only.

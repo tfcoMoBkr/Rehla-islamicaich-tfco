@@ -36,6 +36,8 @@ MOSQUE_POST = SharedPost(
     body="I did not know where to leave my shoes. A man showed me the racks. Arrive early.",
 )
 
+CONVERSATION = "this message is conversation: it needs no religious knowledge"
+
 
 @pytest.fixture(autouse=True)
 def low_threshold(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -103,10 +105,9 @@ async def test_an_ordinary_shared_post_is_explained_as_talk_not_sent_to_the_sour
     assert answer.referral.reason == "smalltalk"
     assert "where shoes go" in (answer.opening or "")
     assert not passages_asked(chat)
-    talk_prompt = next(
-        system for system in chat.systems if "This message needs no religious knowledge" in system
-    )
-    assert "never contains: no religious claim" in talk_prompt
+    talk_prompt = next(system for system in chat.systems if CONVERSATION in system)
+    assert talk_prompt.startswith("Rafiq is the learner's friendly companion on the journey.")
+    assert "The one hard line: no religious claim of your own." in talk_prompt
 
 
 async def test_a_mixed_message_answers_the_talk_part_and_the_religious_part_in_one_reply() -> None:
@@ -149,9 +150,7 @@ async def test_everyday_talk_that_is_all_religious_is_written_again_then_left_to
     )
     answer = await rafiq(chat).run("I feel good today.", "en")
 
-    talk_calls = [
-        system for system in chat.systems if "This message needs no religious knowledge" in system
-    ]
+    talk_calls = [system for system in chat.systems if CONVERSATION in system]
     assert len(talk_calls) == graph_module.MAX_ATTEMPTS
     assert answer.kind == "chat"
     assert answer.opening is None

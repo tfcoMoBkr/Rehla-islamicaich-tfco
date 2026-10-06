@@ -23,7 +23,7 @@ import time
 from pathlib import Path
 
 from app.languages import spec, written_in
-from app.lens.decide import decide, lookup_text
+from app.lens.decide import decide, lookup_text, matched_text
 from app.lens.schemas import Look, Seen, Suggestions, TurnRequest, TurnResponse, TurnRoute
 from app.llm import ChatModel, ModelUnavailableError, VisionModel
 from app.rafiq.draft import split_sentences
@@ -110,8 +110,7 @@ class Conversation:
         text = lookup_text(seen)
         if not text:
             return False
-        passage, quote = await self._retriever.find_quoted(text, locale, ("quran", "hadith"))
-        return passage is not None and quote is not None and quote.exact
+        return await matched_text(self._retriever, text, locale) is not None
 
     async def _route(self, request: TurnRequest) -> TurnRoute:
         system = _prompt("route", subject=request.seen.subject or "something")

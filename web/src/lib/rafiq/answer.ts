@@ -164,6 +164,8 @@ export const rafiqAnswerSchema = z.object({
   laterLessonId: optionalText,
   /** On a card for want of a source: the lessons that cover the topic. */
   topicLessonIds: z.optional(z.array(z.string())),
+  /** In conversation: the lesson the reply names, linked under it. */
+  lessonId: z.nullish(z.string()),
   /** The question was in a language Rafiq does not answer in; the answer is in `language`. */
   languageFallback: z._default(z.boolean(), false),
 });

@@ -109,8 +109,8 @@
       "source": [],
       "authoring": "team",
       "text": {
-        "ar": "العصر: أربع ركعات. وقتها من انتهاء وقت الظهر إلى غروب الشمس، وتُصلى قبل اصفرار الشمس.",
-        "en": "Asr: 4 rak'ahs. Its time: from the end of Dhuhr until sunset; pray it before the sun turns yellow."
+        "ar": "العصر: أربع ركعات. «ووقت العصر ما لم تَصْفَرَّ الشمس».",
+        "en": "Asr: 4 rak'ahs. “The time for the ‘Asr lasts until the sun turns yellow.”"
       },
       "evidence": {
         "type": "hadith",
@@ -219,8 +219,8 @@
       },
       "rakahs": 4,
       "time": {
-        "ar": "من انتهاء وقت الظهر إلى غروب الشمس، وتُصلى قبل اصفرار الشمس",
-        "en": "From the end of Dhuhr until sunset; pray it before the sun turns yellow"
+        "ar": "«ووقت العصر ما لم تَصْفَرَّ الشمس»",
+        "en": "“The time for the ‘Asr lasts until the sun turns yellow”"
       }
     },
     {

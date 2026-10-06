@@ -15,16 +15,27 @@ export const TURN_PATH = "/api/ai/mawqif-turn";
 export const FEEDBACK_PATH = "/api/ai/mawqif-feedback";
 export const EXPLAIN_PATH = "/api/ai/mawqif-explain";
 export const PRACTICE_REPLY_MAX = 500;
-/** A conversation lasts four to six of the learner's replies. */
-export const MIN_REPLIES = 4;
-export const MAX_REPLIES = 6;
+/** A conversation can be ended after the learner's first reply, and ends itself after the fifth. */
+export const MIN_REPLIES = 1;
+export const MAX_REPLIES = 5;
+/** The service answers within 20 seconds; past this the page stops waiting and says so. */
+export const PRACTICE_TIMEOUT_MS = 25_000;
+
+/** Where the conversation stands: the turn the learner is on, whether they may end it, whether it is over. */
+export function turnState(replies: number, { min, max }: { min: number; max: number }) {
+  return { turn: Math.min(replies + 1, max), total: max, canEnd: replies >= min, over: replies >= max };
+}
+
+/** A text field the service may leave empty or null: always a string on the page. */
+const text = z.pipe(z.nullish(z.string()), z.transform((value) => value ?? ""));
+const ids = z.pipe(z.nullish(z.array(z.string())), z.transform((value) => value ?? []));
 
 const sceneSchema = z.object({
-  person: z._default(z.string(), ""),
-  place: z._default(z.string(), ""),
-  mood: z._default(z.string(), ""),
-  setting: z._default(z.string(), ""),
-  line: z._default(z.string(), ""),
+  person: text,
+  place: text,
+  mood: text,
+  setting: text,
+  line: text,
 });
 export type Scene = z.infer<typeof sceneSchema>;
 
@@ -32,13 +43,13 @@ const startSchema = z.object({ status: z.enum(["ready", "unavailable", "unknownS
 const turnSchema = z.object({
   status: z.enum(["continued", "ended", "question", "ruling", "distress", "danger", "unavailable", "unknownSituation"]),
   line: z.nullish(z.string()),
-  met: z._default(z.array(z.string()), []),
+  met: ids,
   tone: z.nullish(z.enum(["fine", "gentler"])),
 });
 const feedbackSchema = z.object({
   status: z.enum(["ready", "unavailable", "unknownSituation"]),
   replies: z._default(
-    z.array(z.object({ n: z.number(), good: z._default(z.string(), ""), missing: z._default(z.array(z.string()), []), better: z._default(z.string(), "") })),
+    z.array(z.object({ n: z.number(), good: text, missing: ids, better: text })),
     [],
   ),
 });
@@ -46,12 +57,18 @@ const feedbackSchema = z.object({
 export type TurnReply = z.infer<typeof turnSchema>;
 export type ReplyFeedback = z.infer<typeof feedbackSchema>["replies"][number];
 export type Line = { role: "learner" | "character"; text: string };
-type Options = { signal?: AbortSignal; fetcher?: typeof fetch };
+type Options = { signal?: AbortSignal; fetcher?: typeof fetch; timeoutMs?: number };
 type Unreachable = { status: "unavailable" } | { status: "rateLimited" };
 
-async function post<T>(path: string, body: unknown, schema: z.ZodMiniType<T>, { signal, fetcher = fetch }: Options): Promise<T | Unreachable> {
+async function post<T>(path: string, body: unknown, schema: z.ZodMiniType<T>, { signal, fetcher = fetch, timeoutMs = PRACTICE_TIMEOUT_MS }: Options): Promise<T | Unreachable> {
+  const timeout = AbortSignal.timeout(timeoutMs);
   try {
-    const response = await fetcher(path, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body), signal });
+    const response = await fetcher(path, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+      signal: signal ? AbortSignal.any([signal, timeout]) : timeout,
+    });
     if (response.status === 429) return { status: "rateLimited" };
     if (!response.ok) return { status: "unavailable" };
     const parsed = schema.safeParse(await response.json());

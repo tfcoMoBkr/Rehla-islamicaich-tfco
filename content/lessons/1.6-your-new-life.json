@@ -30,12 +30,7 @@
   "cards": [
     {
       "id": "c3",
-      "authoring": "team",
       "source": [],
-      "text": {
-        "ar": "التوبة هي الرجوع الصادق إلى الله. ولها شروط: أن تترك الذنب، وأن تندم عليه، وأن تعزم على ألا تعود إليه.",
-        "en": "Repentance is sincerely turning back to Allah. Its conditions: giving up the sin, feeling remorse for it, and resolving not to return to it."
-      },
       "evidence": {
         "type": "hadith",
         "hadeethencId": 5344,
@@ -114,45 +109,6 @@
     }
   ],
   "activities": [
-    {
-      "id": "a1",
-      "type": "select",
-      "title": {
-        "ar": "شروط التوبة الصادقة",
-        "en": "The conditions of sincere repentance"
-      },
-      "instruction": {
-        "ar": "اختر الشروط الثلاثة المذكورة في الدرس.",
-        "en": "Choose the three conditions mentioned in the lesson."
-      },
-      "items": [
-        {
-          "ar": "ترك الذنب",
-          "en": "Giving up the sin",
-          "correct": true
-        },
-        {
-          "ar": "الندم عليه",
-          "en": "Feeling remorse for it",
-          "correct": true
-        },
-        {
-          "ar": "العزم على عدم العودة إليه",
-          "en": "Resolving not to return to it",
-          "correct": true
-        },
-        {
-          "ar": "التحدث عن الذنب أمام الناس",
-          "en": "Talking about the sin in front of people",
-          "correct": false
-        },
-        {
-          "ar": "تأجيل التوبة إلى وقت لاحق",
-          "en": "Postponing repentance to a later time",
-          "correct": false
-        }
-      ]
-    },
     {
       "id": "a2",
       "type": "checklist",

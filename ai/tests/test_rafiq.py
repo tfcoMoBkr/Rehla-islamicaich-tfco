@@ -117,9 +117,9 @@ async def test_proof_that_no_passage_gives_is_reported_not_invented() -> None:
 
 @pytest.mark.parametrize(
     ("intent", "expected", "referred"),
-    [("offtopic", "offTopic", True), ("smalltalk", "smalltalk", False)],
+    [("offtopic", "smalltalk", False), ("smalltalk", "smalltalk", False)],
 )
-async def test_off_topic_and_small_talk_need_no_sources(
+async def test_general_questions_and_small_talk_are_conversation_with_no_sources(
     intent: str, expected: str, referred: bool
 ) -> None:
     chat = FakeChat(classified("A", intent=intent), [GOOD])

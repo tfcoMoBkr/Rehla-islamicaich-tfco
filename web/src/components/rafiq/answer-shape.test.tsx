@@ -105,3 +105,22 @@ describe("cards for the new honest outcomes", () => {
     }
   });
 });
+
+describe("a conversation reply", () => {
+  it("links the lesson its words name, and shows no source or card", () => {
+    const chat: RafiqAnswer = {
+      ...shaped("ar"),
+      kind: "chat",
+      blocks: [],
+      sources: [],
+      opening: "بعد الوضوء يأتي درس «الغسل».",
+      followUp: null,
+      encouragement: null,
+      referral: { reason: "smalltalk", links: [], centers: [] } as never,
+      lessonId: "2.3",
+    };
+    const html = render("ar", <AnswerView answer={chat} id="c" lessons={{ "2.3": { title: "الغسل", href: "/learn/2.3" } }} />);
+    expect(html).toContain('<a href="/learn/2.3">الغسل</a>');
+    expect(html).not.toContain(MESSAGES.ar.Rafiq.generatedAnswer);
+  });
+});

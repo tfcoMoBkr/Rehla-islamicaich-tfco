@@ -37,9 +37,9 @@ Books: `ibnbaz-lessons` = Ibn Baz, Important Lessons (1871 / 2842316); `ibnbaz-p
 | Lesson | Card / part | Point | What was done |
 |---|---|---|---|
 | 1.6 | card c2 + checklist item (card c2) | ghusl on accepting Islam being 'recommended' (A2 list, 2.5) | removed |
-| 1.2 | card c2 (team) | The card says «يبتغي بها وجه الله / seeking Allah's pleasure», but its hadith 10098 says «صدقًا من قلبه / sincerely from his heart», not 'seeking Allah's face'. Kept, not reworded: decide whether to delete the card or keep it. | kept as team; flagged |
-| 1.6 | card c3 (team) + activity a1 | The three conditions of repentance (stop, regret, resolve) are not in the card's hadith 5344 ('All human beings are sinners, and the best of sinners are those who repent'). No approved book passage covers them. Kept, not reworded. | kept as team; flagged |
-| 1.3 | activity a1 (timeline) | Team-written seerah items (born 570 CE, revelation at forty in 610 CE, hijrah 622 CE, died at sixty-three in 632 CE) with no source; the brief did not cover them. | kept; flagged |
+| 1.2 | card c2 (team) | The card says «يبتغي بها وجه الله / seeking Allah's pleasure», but its hadith 10098 says «صدقًا من قلبه / sincerely from his heart», not 'seeking Allah's face'. Kept, not reworded. | 6 October: the card is now hadith 10098 alone (see below) |
+| 1.6 | card c3 (team) + activity a1 | The three conditions of repentance (stop, regret, resolve) are not in the card's hadith 5344 ('All human beings are sinners, and the best of sinners are those who repent'). No approved book passage covers them. | 6 October: c3 is hadith 5344 alone; a1 removed |
+| 1.3 | activity a1 (timeline) | Team-written seerah items (born 570 CE, revelation at forty in 610 CE, hijrah 622 CE, died at sixty-three in 632 CE) with no source; the brief did not cover them. | 6 October: years and the two age items removed |
 | 1.4 | activity a1 (five lanterns) | Its correct items come from the five pillars list, and card c2 that held the list was removed. Kept because the same five items are named in c1's hadith 66512, which is shown verbatim. | kept; flagged |
 | 2.2 | card c5 (first sentence) / check | any cleaner removes impurity; no set number of washes | removed (sentence and the 'seven washes' check) |
 | 2.2 | card c4 | the dog, next to 'no set number of washes' | removed (card c4 and the dog review note) |
@@ -60,7 +60,7 @@ Books: `ibnbaz-lessons` = Ibn Baz, Important Lessons (1871 / 2842316); `ibnbaz-p
 | 3.4 | card c1 | not uttering the intention (team text said 'You do not say it aloud') | not shown: the card now shows al-Mukhtasar verbatim (intention in the heart). Ibn Baz states the point (62675 t3 [1]) but the matching 1261 English is OCR-damaged ('perfonn', soft-hyphen splits) |
 | 3.2 | objectives / activity a1 | lesson says 'four conditions'; c1 now shows Ibn Baz's nine | left for the team: objectives and checklist wording not editable under the contract |
 | 3.2 | card c2 | team wording 'clothing that is neither tight nor see-through' and the woman's 'awrah in prayer | kept as team text with 7:31; flag for scholarly review |
-| 3.3 | card c4 | team says Asr time lasts until sunset; the cited hadith 10596 says 'until the sun turns yellow' | kept as team text; flag for scholarly review |
+| 3.3 | card c4 | team says Asr time lasts until sunset; the cited hadith 10596 says 'until the sun turns yellow' | 6 October: the time is quoted from hadith 10596 |
 | 3.3 | cards c2-c6 and match a2 | rak'ah counts rest on no cited text (hadith 10596 gives times only) | kept as team text; flag for review |
 | 3.3 | prayers array | times written by the team, outside cards/steps | untouched; not covered by the contract |
 | 3.6 | card c1 | classification of pillars | verbatim from 1871 t11 [1] / 2842316 s10 [2] |
@@ -195,16 +195,29 @@ These need approved text in both languages, or the objective should be removed:
 - 3.7: any approved-book text on congregation: forming rows, where a single follower stands, what a latecomer does (the stored 62675 Arabic stops after the sitting for tashahhud; 1261 OCR is not clean).
 - 3.8: who must attend the Friday prayer, its etiquette (bath, clothes, going early), the two sermons, and what to do if it is missed.
 
+## Cards that said more than their hadith (6 October, final round)
+
+A card in the team's wording may rest only on what its verse or hadith says. Where it said more, it now shows its hadith alone (the hadith's own words, as published), or the hadith's words are quoted, or the unsupported part is removed. Nothing was written or reworded.
+
+| Lesson | Card / part | What it said beyond its source | What was done |
+|---|---|---|---|
+| 1.2 | c2 | «يبتغي بها وجه الله / seeking Allah's pleasure»; hadith 10098 says «صدقًا من قلبه» | team text removed: the card is hadith 10098 alone |
+| 1.6 | c3 | the three conditions of repentance; hadith 5344 does not state them, and no stored book does | team text removed: the card is hadith 5344 alone |
+| 1.6 | activity a1 (select) | asked for those three conditions | removed (the checklist a2 still links to c3) |
+| 1.3 | activity a1 (timeline) | dates (570, 610, 622, 632 CE) and ages (forty, sixty-three) with no source | the years and the two items that state an age removed; five items remain, in order |
+| 3.3 | c4 and the `prayers` list | 'Asr "until sunset"; hadith 10596 says until the sun turns yellow | the time is now the hadith's own words, quoted from the stored text: «ووقت العصر ما لم تَصْفَرَّ الشمس» / "The time for the ‘Asr lasts until the sun turns yellow" |
+| 3.6 | c6 | fidgeting, food served, needing the toilet; hadith 10878 is only about turning around | team text removed: the card is hadith 10878 alone |
+| 3.2 | c7 and activity a1 | "a prayer mat is not required"; hadith 3503 says the earth was made a place of prayer and purification | team text removed: the card is hadith 3503 alone; the "I have a prayer mat" quiz item removed |
+
+Searched: every team card that rests on a hadith, in all 19 lessons (word overlap with the stored hadith, then read by hand where it was low), and the 12 Mawqif situations. The situations quote their hadiths by reference only (the published text is shown), so none has team wording attributed to a hadith. Still open, not changed: the rak'ah counts in 3.3 c2–c6 rest on no cited text (hadith 10596 gives times only); the learner is pointed to lesson 3.3 for them, so removing them is the team's decision.
+
 ## Open points for the reviewer
 
-- 1.2 c2 (team): the card says "seeking Allah's pleasure"; its hadith 10098 says "sincerely from his heart".
-- 1.6 c3 and activity a1: the three conditions of repentance are not in the card's hadith 5344, and no approved book states them.
-- 1.3 a1 (timeline): the seerah dates and ages are team-written with no cited source.
 - 2.2 c5 (team): says a remaining smell does no harm; hadith 8373 mentions only the mark.
 - 2.4 step 2: the "three times" label on washing the hands is team metadata with no book behind it.
 - 2.5 a2: says "backs of the hands" while the book text now shown says "face and palms".
 - 3.1 c2 now opens with «وهي», which pointed back to the removed c1.
-- 3.3: the rak'ah counts and the prayer times in the `prayers` list are team-written; c4 says 'Asr lasts until sunset, while its hadith 10596 says until the sun turns yellow.
+- 3.3: the rak'ah counts and the prayer times in the `prayers` list (other than 'Asr, now quoted from hadith 10596) are team-written.
 - 3.4: the intention card no longer says not to pronounce the intention; Ibn Baz states it, but the English edition (1261) is OCR-damaged there.
 - 3.8 c5: given hadith 5433 as evidence (confirmed in both languages) in place of no evidence; its unsupported "two sermons" sentence was removed.
 

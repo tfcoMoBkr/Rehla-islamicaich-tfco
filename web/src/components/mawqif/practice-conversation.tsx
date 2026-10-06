@@ -9,7 +9,7 @@ import { ReferralCard } from "@/components/rafiq/referral-card";
 import { RafiqReply } from "@/components/rafiq/thread";
 import { SpecialistCard } from "@/components/specialists/specialist-card";
 import { Button } from "@/components/ui/button";
-import { PRACTICE_REPLY_MAX, startScene, takeTurn, type Line, type Scene } from "@/lib/mawqif/practice";
+import { PRACTICE_REPLY_MAX, startScene, takeTurn, turnState, type Line, type Scene } from "@/lib/mawqif/practice";
 import { keyPointsOf } from "@/lib/mawqif/conversation";
 import type { PartView, SituationView } from "@/lib/mawqif/types";
 import { askRafiq } from "@/lib/rafiq/ask";
@@ -64,6 +64,7 @@ export function PracticeConversation({
   const [problem, setProblem] = useState<"rateLimited" | null>(null);
   const points = useMemo(() => keyPointsOf(situation), [situation]);
   const replies = history.filter((line) => line.role === "learner").length;
+  const state = turnState(replies, { min: minReplies, max: maxReplies });
 
   useEffect(() => {
     let current = true;
@@ -127,7 +128,7 @@ export function PracticeConversation({
     setMet((current) => [...new Set([...current, ...("met" in result ? result.met : [])])]);
     setDraft("");
     const count = lines.filter((line) => line.role === "learner").length;
-    if (count >= maxReplies) onFinished({ scene, history: lines, met: [...new Set([...met, ...("met" in result ? result.met : [])])] });
+    if (turnState(count, { min: minReplies, max: maxReplies }).over) onFinished({ scene, history: lines, met: [...new Set([...met, ...("met" in result ? result.met : [])])] });
     else if (result.status === "ended") setEnded(true);
   }
 
@@ -232,13 +233,13 @@ export function PracticeConversation({
               <Lightbulb aria-hidden />
               {t("giveHint")}
             </Button>
-            {(replies >= minReplies || ended) && (
-              <Button type="button" variant="ghost" onClick={finish}>
+            {(state.canEnd || ended) && (
+              <Button type="button" variant={ended ? "default" : "ghost"} onClick={finish}>
                 {t("endConversation")}
               </Button>
             )}
           </div>
-          <p className="text-xs text-muted-foreground">{t("repliesSoFar", { count: replies })}</p>
+          <p className="text-sm text-muted-foreground">{t("turnOf", { turn: state.turn, total: state.total })}</p>
           {help === "help" && missing && (
             <div className="grid gap-2">
               <p className="font-semibold">{t("helpLine")}</p>

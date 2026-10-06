@@ -4,8 +4,11 @@ import { ExternalLink } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
 import { EvidenceBlock } from "@/components/learn/evidence-block";
+import { parts } from "@/config/features";
 import type { ItemView, PartView, QuoteView, SourceLabel } from "@/lib/mawqif/types";
 import { cn } from "@/lib/utils";
+
+import { ListenButton } from "./listen-button";
 
 /** Where a quote comes from, in one line, with a link to the publisher. */
 export function SourceLine({ source, className }: { source: SourceLabel; className?: string }) {
@@ -30,14 +33,37 @@ export function SourceLine({ source, className }: { source: SourceLabel; classNa
   );
 }
 
-/** Exact words of a source, set apart from the team's wording, with the source named under them. */
+/**
+ * Exact words of a source, set apart from the team's wording, with the source named under them. A
+ * phrase to say is taught in Arabic whatever the interface language: on an English page its Arabic,
+ * an approximate pronunciation and the published translation as its meaning; on both, "listen".
+ */
 export function QuoteCard({ quote, className }: { quote: QuoteView; className?: string }) {
+  const t = useTranslations("Mawqif");
+  const locale = useLocale();
   const verse = quote.source.kind === "quran";
+  const say = parts.phraseAids ? quote.say : undefined;
+  const arabicFirst = say && locale !== "ar";
   return (
     <figure className={cn("grid gap-2 rounded-2xl border border-dawn/40 border-s-4 border-s-dawn bg-paper p-4", className)}>
-      <blockquote dir="auto" className={cn("text-lg leading-loose", verse && "font-quran text-xl")}>
+      {arabicFirst && (
+        <div className="grid gap-1">
+          <p lang="ar" dir="rtl" className={cn("text-xl leading-loose", verse && "font-quran text-2xl")}>
+            {say.arabic}
+          </p>
+          {say.pronunciation && (
+            <p className="text-sm">
+              <span className="font-semibold text-muted-foreground">{t("approxPronunciation")}: </span>
+              <span lang="ar-Latn">{say.pronunciation}</span>
+            </p>
+          )}
+          <p className="text-sm font-semibold text-muted-foreground">{t("meaningPublished")}</p>
+        </div>
+      )}
+      <blockquote dir="auto" className={cn("text-lg leading-loose", verse && !arabicFirst && "font-quran text-xl")}>
         {quote.text}
       </blockquote>
+      {say && !verse && <ListenButton text={say.arabic} />}
       <figcaption>
         <SourceLine source={quote.source} />
       </figcaption>

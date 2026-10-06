@@ -170,8 +170,7 @@
         {
           "n": 1,
           "ar": "وُلد في مكة",
-          "en": "Born in Makkah",
-          "year": "570 CE"
+          "en": "Born in Makkah"
         },
         {
           "n": 2,
@@ -180,31 +179,18 @@
         },
         {
           "n": 3,
-          "ar": "نزل عليه الوحي في غار حراء وهو في الأربعين",
-          "en": "Received revelation in the Cave of Hira at the age of forty",
-          "year": "610 CE"
-        },
-        {
-          "n": 4,
           "ar": "دعا إلى الإسلام في مكة سرًّا ثم جهرًا",
           "en": "Called to Islam in Makkah, secretly then openly"
         },
         {
-          "n": 5,
+          "n": 4,
           "ar": "هاجر إلى المدينة",
-          "en": "Migrated to Madinah",
-          "year": "622 CE"
+          "en": "Migrated to Madinah"
         },
         {
-          "n": 6,
+          "n": 5,
           "ar": "انتشر الإسلام ودخل الناس فيه أفواجًا",
           "en": "Islam spread and people entered it in crowds"
-        },
-        {
-          "n": 7,
-          "ar": "تُوفي في المدينة وعمره ثلاث وستون سنة",
-          "en": "Died in Madinah at the age of sixty-three",
-          "year": "632 CE"
         }
       ]
     },

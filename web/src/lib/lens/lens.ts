@@ -36,6 +36,8 @@ export const lensResponseSchema = z.object({
   row: z.number(),
   answer: z.nullish(rafiqAnswerSchema),
   card: z.nullish(z.enum(CARDS)),
+  /** A hedged everyday description of the photo, shown as not from the sources. */
+  description: z.nullish(z.string()),
   others: z._default(z.array(z.string()), []),
   /** What the learner might ask next about this photo: questions only. */
   suggestions: z._default(z.array(z.string()), []),

@@ -144,11 +144,6 @@
     {
       "id": "c7",
       "source": [],
-      "authoring": "team",
-      "text": {
-        "ar": "تصح الصلاة في أي مكان طاهر، وهذا من تيسير الله. والأصل في المكان الطهارة، فلا تحتاج إلى سجادة.",
-        "en": "Prayer is valid in any clean place; this is ease from Allah. A place is clean by default, so a prayer mat is not required."
-      },
       "evidence": {
         "type": "hadith",
         "hadeethencId": 3503,
@@ -190,11 +185,6 @@
           "ar": "دخل وقت الصلاة",
           "en": "The prayer time has begun",
           "correct": true
-        },
-        {
-          "ar": "عندي سجادة صلاة",
-          "en": "I have a prayer mat",
-          "correct": false
         }
       ]
     },

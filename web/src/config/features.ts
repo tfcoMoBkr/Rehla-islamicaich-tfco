@@ -17,6 +17,12 @@ export const features: Readonly<Record<Feature, boolean>> = {
   aqim: false,
 };
 
+/** Parts of a section that ship behind their own switch. */
+export const parts = {
+  /** Mawqif's phrases to say: the Arabic, an approximate pronunciation, the meaning, and "listen". */
+  phraseAids: true,
+} as const;
+
 export type Section = { feature: Feature; href: `/${string}` };
 
 /** Every section of the product in its planned order, built or not. */

@@ -5,7 +5,7 @@ import { toSituationView } from "@/lib/content/situation-view";
 import { EMPTY_PROGRESS, withBestRound } from "@/lib/learn/progress";
 
 import { analyseConversations, keyPointsOf, testSituations } from "./conversation";
-import { getFeedback, sceneSummary, startScene, takeTurn, TURN_PATH } from "./practice";
+import { getFeedback, MAX_REPLIES, MIN_REPLIES, sceneSummary, startScene, takeTurn, TURN_PATH, turnState } from "./practice";
 import { conversationKey, situationStatus } from "./progress";
 import type { SituationStop } from "./types";
 
@@ -33,6 +33,29 @@ describe("the practice client", () => {
     );
     expect(feedbackSent.met).toEqual(["k2"]);
     expect(sceneSummary(scene)).toBe("Mariam, the lift, cheerful");
+  });
+});
+
+describe("the end of a practice conversation", () => {
+  it("can be ended from the second turn, counts the turns, and ends itself at the fifth reply", () => {
+    const limits = { min: MIN_REPLIES, max: MAX_REPLIES };
+    expect(turnState(0, limits)).toEqual({ turn: 1, total: 5, canEnd: false, over: false });
+    expect(turnState(1, limits)).toEqual({ turn: 2, total: 5, canEnd: true, over: false });
+    expect(turnState(5, limits)).toMatchObject({ turn: 5, over: true });
+  });
+
+  it("reads null fields as empty, so the feedback still opens", async () => {
+    const response = await getFeedback(
+      { situationId: "g", locale: "en", scene, history: [{ role: "learner", text: "Hi" }], met: [] },
+      { fetcher: reply(200, { status: "ready", replies: [{ n: 1, good: null, missing: null, better: null }] }) },
+    );
+    expect(response).toEqual({ status: "ready", replies: [{ n: 1, good: "", missing: [], better: "" }] });
+  });
+
+  it("stops waiting when the service does not answer in time", async () => {
+    const hanging: typeof fetch = (_url, init) =>
+      new Promise((_resolve, reject) => init?.signal?.addEventListener("abort", () => reject(new DOMException("timeout", "TimeoutError"))));
+    expect(await getFeedback({ situationId: "g", locale: "en", scene, history: [], met: [] }, { fetcher: hanging, timeoutMs: 10 })).toEqual({ status: "unavailable" });
   });
 });
 

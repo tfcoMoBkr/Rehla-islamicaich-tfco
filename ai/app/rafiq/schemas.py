@@ -64,6 +64,8 @@ class Classification(BaseModel):
     personal_case: bool = Field(default=False, alias="personalCase")
     hostile_tone: bool = Field(default=False, alias="hostileTone")
     asks_for_evidence: bool = Field(default=False, alias="asksForEvidence")
+    # A "how many / how much" question: the thing counted, in English and in Arabic.
+    amount_of: list[str] = Field(default_factory=list, alias="amountOf")
     quoted_verse: str | None = Field(default=None, alias="quotedVerse")
     search_phrases: list[str] = Field(default_factory=list, alias="searchPhrases")
     question_type: QuestionType = Field(default="other", alias="questionType")
@@ -147,6 +149,14 @@ class ChatReply(BaseModel):
 
     opening: str = Field(default="", validation_alias=AliasChoices("reply", "opening"))
     follow_up: str = Field(default="", validation_alias=AliasChoices("next", "followUp"))
+    # The id of a lesson the reply names, for its link; kept only when the reply names it.
+    lesson: str = ""
+
+
+class TopicLessons(BaseModel):
+    """prompts/topics.md: the lessons, by id, that teach a question's topic."""
+
+    lessons: list[str] = Field(default_factory=list)
 
 
 class SupportCheck(BaseModel):
@@ -340,5 +350,7 @@ class RafiqAnswer(Camel):
     # On a card for want of a source: the lessons that cover the topic, where the learner
     # can read it.
     topic_lesson_ids: list[str] = Field(default_factory=list)
+    # In conversation: the lesson the reply names (what to study next), shown as its link.
+    lesson_id: str | None = None
     # The question was in a language Rafiq does not answer in; this answer is in `language`.
     language_fallback: bool = False

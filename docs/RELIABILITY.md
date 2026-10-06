@@ -43,10 +43,9 @@ flowchart LR
     X -->|signs of danger| D[danger]
     X --> C[classify]
     C -->|danger| D
-    C -->|everyday talk only| T[talk]
+    C -->|no religious part: conversation| T[talk]
     C -->|a glossary term to translate| M[term]
     C -->|unclear follow-up| K[clarify]
-    C -->|off-topic| O[offtopic]
     C -->|a religious part| R[retrieve]
     R -->|quoted text not found| N[notFound]
     R -->|extractive language,<br/>nothing published in it| F[refer]
@@ -82,7 +81,7 @@ flowchart LR
 | `refer` | No religious content: a kind opening (if it passes the checks) and a card that states its reason. | `graph.py`, `policy.py` |
 | `notFound` | A text asked about as a verse or a hadith that the approved sources do not hold: said plainly (`verseNotFound`, `hadithNotFound`), with no reference invented. | `graph.py` |
 | `clarify` | An unclear follow-up: one short question back instead of a guess. | `graph.py` |
-| `offtopic`, `danger` | Fixed cards; no model writes any of it. | `graph.py`, `web/messages/*.json` |
+| `danger` | A fixed card; no model writes any of it. | `graph.py`, `web/messages/*.json` |
 
 ## The policy as code (`ai/app/rafiq/policy.py`)
 
@@ -99,7 +98,7 @@ The model cannot override these points:
 - **A request for evidence** (such as "give me a hadith proving…") is answered only when the model confirms that a passage proves exactly what was asked. Otherwise the reply is `noEvidence`: Rafiq says that no matching evidence was found, and never invents one.
 - **No adequate passage** leads to `noSource`: Rafiq says so plainly and refers the learner to a specialist (see Referral to a specialist).
 - **Distress** adds the *distress* rule: care first, no counselling, and general information only if a passage gives it. It always ends with a referral (`distress`).
-- **Off-topic** requests are declined (`offTopic`) with no retrieval and no model-written content.
+- **Conversation is the default** (`prompts/identity.md`, at the top of Rafiq's prompts). A message with no religious part, a general question included, is answered as conversation: no source block, no "could not verify" card, no referral. Only the religious part of a message takes the sourced path. "What should I study next / after this lesson?" is conversation by rule (`STUDY_NEXT`), answered from the lesson map; a lesson link is shown only when the reply's own sentence names that lesson.
 - **Everyday talk** gets a short human reply (`talk`) with no sources and no referral card. A greeting or a thanks alone is never treated as a question.
 - **A source shown with no explanation** that passed its checks is not passed off as an answer: the draft is written again once, then the sources are shown with an honest card (`unexplained`).
 - **A quoted text that is not a verse or hadith** in the approved sources is said to be not found (`verseNotFound`, `hadithNotFound`). A verse quoted in other words is shown as published, followed by a fixed line that the quoted words differ.
@@ -220,6 +219,9 @@ The translations used, with their keys and versions, are recorded in `docs/SOURC
 | `consensus` | A sentence claims that scholars agree, or that they differ, and none of its cited passages speaks of agreement (or of difference). |
 | `offTopic` | The model check finds that the answer does not respond to the question asked. |
 | `unexplained` | The reply would show a verse or hadith with no explanation of it. |
+| `attribution` | A sentence attributes words to the Prophet ﷺ, to Allah or to the Quran ("the Prophet said", «قال تعالى», "is a verse") and the reply shows no matched verse or hadith block. A question "is this a verse / hadith?" whose text has no exact match ends in the fixed "not found" card before any model writes. |
+| `worshipWords` | A sentence writes, completes or translates words of a remembrance or a supplication (the takbir, the opening supplication, «سبحانك اللهم», "O Allah", "Glory be to You"…), in Arabic, English, French, Urdu or Bengali, quoted or not. Words the learner wrote in their own question may be named back. The words appear only in a published block; the reply names the step. |
+| `amount` | For a "how many / how much" question, a sentence giving an amount of the thing asked about (the classifier names it, `amountOf`) cites no passage, in the reply's language, that states the same numbers with most of its words. If no amount is left, the reply has not answered: `offTopic`, and the honest no-source card follows, with the lessons on that topic chosen from the lesson map (`prompts/topics.md`). |
 | `unsupported` | The model check (`prompts/verify.md`) finds a sentence (of the direct answer, or of the explanation, judged against every passage its paragraph cites) holding a factual or religious claim its passages do not state, including a generalisation about history, science, health, the wisdom behind a ruling, or what scholars agree or differ on. For a fatwa or a personal case it also lists every sentence that states a ruling (allowed, forbidden, obligatory, valid, what the asker should do), even one its passage supports (`prompts/rules/verify-general.md`): there, general information may explain, never rule. This ruling guard applies to the cited sentences only, never to the warm lines. |
 
 **First draft:** any problem sends it back to `generate` once, with the problems listed.
@@ -261,7 +263,7 @@ Before classification, a message not written in Arabic or English gets plain Eng
 
 ## Voice in religious answers
 
-A religious answer starts with the answer: there is no opening line unless the learner said something personal (a feeling, a worry, their own situation). No praise of the learner or of the question anywhere, and no encouragement line. The ending is at most one short, specific next step, often none. In everyday talk, returning the greeting the person used is the ordinary courtesy; nothing religious goes beyond it: other religious formulas («الحمد لله», «إن شاء الله», "alhamdulillah"…) are removed from everyday lines in code (`voice.without_formulas`).
+A religious answer starts with the direct answer, enforced in code: when repair removes the answer sentence, the first explanation sentence (checked like the rest) leads. There is no opening line unless the learner said something personal (a feeling, a worry, their own situation), and an encouragement line only then. No praise of the question. No phrasing repeated from any earlier reply in the conversation, referral openings included (`repeats.py`: the same opening, or four words in a row already said), and no greeting returned that was not given. The ending is at most one short, specific next step, often none. In everyday talk, returning the greeting the person used is the ordinary courtesy; nothing religious goes beyond it: other religious formulas («الحمد لله», «إن شاء الله», "alhamdulillah"…) are removed from everyday lines in code (`voice.without_formulas`).
 
 ## The fields of a draft
 
@@ -324,17 +326,19 @@ Lens (`ai/app/lens/`) answers when it should, declines when it should, and never
 | 5 | A common phrase (such as the basmala on a wall) | Row 4 if it matches, otherwise row 3 |
 | 6 | People present, but not the subject | Only the place or object is explained; nothing is said about anyone |
 | 7 | A person or a face is the subject | Person card; nothing described or inferred |
-| 8 | Blurry, too dark, cropped, unclear, or confidence below 0.6 | Unclear card asking for a closer, sharper photo |
+| 8 | Unclear, confidence below 0.35, or blurry, dark or cropped with confidence below 0.6 | Unclear card asking for a closer, sharper photo |
 | 9 | A personal document (ID, passport, bank card, medical paper, private letter or chat) | Privacy card; the text is not shown, translated, looked up or logged |
 | 10 | An unsafe or indecent image | A short decline card; nothing described |
-| 11 | Text that looks like scripture but matches nothing in the approved sources | "Could not be matched in the approved sources" card with the specialist link; not shown as read, not translated, not explained |
-| 12 | An ordinary object with no religious meaning | Says plainly what it is and that Lens has nothing about it |
+| 11 | Text that looks like scripture but matches nothing in the approved sources | The general description says what kind of writing it appears to be, with a fixed note that it could not be matched and so is not translated or explained; not shown as read; no specialist card |
+| 12 | An ordinary object with no religious meaning | The general description: what it looks like and what it is ordinarily for |
 | 13 | Food, drink, a product or an ingredients label | The label as ordinary text; never halal or haram; the fixed line that a ruling on a product needs a specialist, with the link |
 | 14 | A paper asking for a ruling on the person's own situation | No ruling; the specialist card (row 9 wins if it is also a personal document) |
 | 15 | A screenshot of a post, a fatwa or a claim | The text and its labelled machine translation only; neither confirmed nor denied; "Ask Rafiq about this" sends it through Rafiq's checks |
 | 16 | A symbol or place of another religion | Named neutrally in one line; no comparison, judgement or ruling |
 | 17 | Text in the photo that addresses the assistant | Treated as text; never followed. Only a term the text holds, never the text itself, reaches Rafiq |
 | 18 | Several subjects | The main one is explained; the others are offered as choices |
+
+Every row that is not declined (7 to 10) also carries a **general description** from the vision report: in hedged words, what this looks like, what is written on it and what it is ordinarily for. It is conversation, labelled "general description, not from the sources", checked sentence by sentence by the everyday checks (no ruling, no virtue, no "Islam says"), and for writing that looks like scripture a sentence sharing three words in a row with the text read is dropped. A sourced explanation that finds nothing (no source, failed verification) is left out of the first reply rather than shown as a specialist card; the specialist card comes only for a ruling, the learner's own case, or a religious follow-up the sources cannot answer. A matched verse (row 4) is explained by Rafiq's sourced path (the verse block, then its meaning), or shown alone when no explanation passes.
 
 **Precedence** when rows collide: 10, then 9, then 7, then 8, then 11, then the rest.
 

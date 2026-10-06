@@ -9,8 +9,9 @@
 A personal case is treated like level D whatever level the classifier gave it. Distress is met
 with care and, always, the specialist card; danger never reaches generation (see safety.py).
 
-A message is routed by its parts: one that needs no religious knowledge is everyday talk, answered
-with no source, and never ends in a referral; one that does goes through the sources, with its
+A message is routed by its parts: conversation is the default. One that needs no religious
+knowledge (a feeling, a plan, a general question) is answered as conversation, with no source, and
+never ends in a referral; one that does goes through the sources, with its
 everyday part answered alongside. A question about whether all scholars agree is treated as a
 disputed matter.
 """
@@ -19,7 +20,7 @@ from typing import Literal
 
 from app.rafiq.schemas import Classification, Draft, ReferralReason
 
-Route = Literal["retrieve", "talk", "clarify", "offtopic", "danger"]
+Route = Literal["retrieve", "talk", "clarify", "danger"]
 Mode = Literal["full", "general", "disputed", "distress"]
 
 # Referrals that end with the specialist card (named bodies, chosen city, national channel).
@@ -47,8 +48,7 @@ def route(classification: Classification) -> Route:
         return "clarify"
     if classification.religious:
         return "retrieve"
-    if classification.intent == "offtopic" and not classification.talk:
-        return "offtopic"
+    # Everything else is conversation, general questions included: Rafiq talks like a friend.
     return "talk"
 
 

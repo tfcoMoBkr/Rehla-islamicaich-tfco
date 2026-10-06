@@ -664,7 +664,8 @@
       "now": "What do I do now?"
     },
     "reassure": "You did well to ask. Your own situation deserves someone who can listen to all of it.",
-    "inputPrivacy": "Your question is sent to an AI model provider (OpenRouter) and to the Association for Multilingual Islamic Content's server to find sources. Nothing is stored."
+    "inputPrivacy": "Your question is sent to an AI model provider (OpenRouter) and to the Association for Multilingual Islamic Content's server to find sources. Nothing is stored.",
+    "nextLesson": "The lesson to study next:"
   },
   "Specialist": {
     "title": "Talk to a specialist",
@@ -1013,7 +1014,9 @@
         "unavailable": "Rafiq cannot be reached right now. Try again in a little while.",
         "error": "Something went wrong. Please ask again."
       }
-    }
+    },
+    "generalDescription": "General description, not from the sources",
+    "unmatchedNote": "This looks like a verse or a hadith, but it could not be matched in the approved sources, so it is not translated or explained."
   },
   "Mawqif": {
     "title": "Mawqif · Situations",
@@ -1128,8 +1131,7 @@
     "rulingNote": "That is about your own situation: a specialist can answer it. The scene waits for you.",
     "careNote": "The scene waits for you whenever you are ready.",
     "conversationFallback": "The conversation is not available just now. You can practise with the written replies instead.",
-    "endConversation": "End and see feedback",
-    "repliesSoFar": "{count, plural, one {# reply} other {# replies}} so far",
+    "endConversation": "End the conversation and see my feedback",
     "feedbackTitle": "How it went",
     "feedbackScore": "You covered {met} of {total} key points.",
     "feedbackMastered": "Every key point covered: this situation is mastered.",
@@ -1147,7 +1149,13 @@
     "conversationTestIntro": "{count, plural, one {# short conversation} other {# short conversations}}, two or three replies each, from the situations of this part.",
     "testSituationOf": "Conversation {number} of {total}: {title}",
     "nextConversation": "Next conversation",
-    "testKeyScore": "{met} of {total} key points"
+    "testKeyScore": "{met} of {total} key points",
+    "turnOf": "Turn {turn} of {total}",
+    "feedbackRetry": "Try again",
+    "approxPronunciation": "Approximate pronunciation",
+    "meaningPublished": "Meaning, from the published translation:",
+    "listen": "Listen",
+    "computerVoice": "Computer voice, for practice"
   },
   "Community": {
     "title": "Rehla Community",

@@ -20,6 +20,7 @@ from app.mawqif.schemas import (
     StartRequest,
     TurnRequest,
 )
+from app.rafiq.repeats import repeated
 from app.rafiq.schemas import RafiqAnswer
 
 SITUATION = {
@@ -339,3 +340,51 @@ async def test_nothing_typed_is_logged(caplog: pytest.LogCaptureFixture) -> None
     await practice(FakeChat()).turn(turn("PRIVATE-WORDS As-salamu alaykum"))
     assert "mawqif turn status=continued" in caplog.text
     assert "PRIVATE-WORDS" not in caplog.text
+
+
+async def test_the_other_person_does_not_repeat_their_own_words() -> None:
+    history = [
+        {"role": "learner", "text": "Hello"},
+        {"role": "character", "text": "Ahlan bik! Nice weather today."},
+    ]
+    chat = FakeChat(
+        turns=[ModelTurn(line="Ahlan bik! How is work?"), ModelTurn(line="How is work going?")]
+    )
+    response = await practice(chat).turn(turn(history=history))
+    assert response.line == "How is work going?"
+    assert "«ahlan bik»" in chat.users[1]
+    assert "do not greet again" in chat.users[1]
+
+
+def test_repeated_phrasing_is_found_by_its_opening_or_a_run_of_words() -> None:
+    assert repeated("أهلاً بك يا صديقي", ["أَهْلًا بِكَ! كيف حالك؟"]) == "اهلا بك"
+    assert repeated("So, the weather is lovely today", ["I think the weather is lovely"]) == (
+        "the weather is lovely"
+    )
+    assert repeated("How is work going?", ["Ahlan bik! Nice weather."]) is None
+    assert repeated("Hi", ["Hi there"]) is None
+
+
+async def test_what_was_good_shows_the_situations_words_never_a_raw_placeholder() -> None:
+    judged = ModelFeedback(
+        replies=[
+            ReplyFeedback(n=1, good="Good that you started with {{say:s1}}."),
+            ReplyFeedback(n=2, good="Good, like {{say:s9}}."),
+        ]
+    )
+    history = [
+        {"role": "learner", "text": "Hi!"},
+        {"role": "character", "text": "Hello."},
+        {"role": "learner", "text": "Bye."},
+    ]
+    body = FeedbackRequest.model_validate(
+        {
+            "situationId": "greeting",
+            "locale": "en",
+            "scene": SCENE.model_dump(by_alias=True),
+            "history": history,
+        }
+    )
+    first, second = (await practice(FakeChat(feedback=judged)).feedback(body)).replies
+    assert first.good == "Good that you started with «As-salamu alaykum»."
+    assert second.good == ""

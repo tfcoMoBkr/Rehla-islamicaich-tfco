@@ -38,6 +38,9 @@ class Seen(Camel):
     looks_like_scripture: bool = False
     people_present: bool = False
     confidence: Annotated[float, Field(ge=0, le=1)]
+    # A hedged plain description: what this looks like, what is written on it, what it is
+    # ordinarily for. Conversation, not from the sources; checked like any everyday line.
+    description: Annotated[str, Field(max_length=600)] = ""
     category: Category = "ordinary"
     quality: Quality = "good"
     # Religious terms that appear in the text read, as written there (never added by the model).
@@ -67,6 +70,8 @@ class LensResponse(Camel):
     row: int
     answer: RafiqAnswer | None = None
     card: Card | None = None
+    # The general description that passed the everyday checks, shown as not from the sources.
+    description: str | None = None
     others: list[str] = Field(default_factory=list)
     # What the learner might ask next about this photo.
     suggestions: list[str] = Field(default_factory=list)

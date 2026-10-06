@@ -24,6 +24,7 @@ from app.lens.lens import Lens
 from app.lens.schemas import LensResponse, Seen
 from app.llm import ModelUnavailableError, OpenRouterChat
 from app.main import app
+from app.rafiq.graph import referral
 from app.rafiq.schemas import QuranBlock, RafiqAnswer
 from app.retrieval.retriever import Misquote
 
@@ -51,14 +52,20 @@ class FakeVision:
 
 
 class FakeRafiq:
-    """Records each question EXPLAIN asks; answers with an empty cited answer."""
+    """Records each question EXPLAIN asks; answers with an empty cited answer, or `answer`. The
+    everyday checks drop a line that says "Islam says"."""
 
-    def __init__(self) -> None:
+    def __init__(self, answer: RafiqAnswer | None = None) -> None:
         self.questions: list[str] = []
+        self.answer = answer
 
     async def run(self, question: str, locale: str, **_: object) -> RafiqAnswer:
         self.questions.append(question)
-        return RafiqAnswer(language=locale, level="A", referred=False, blocks=[], sources=[])
+        empty = RafiqAnswer(language=locale, level="A", referred=False, blocks=[], sources=[])
+        return self.answer or empty
+
+    async def everyday(self, lines: dict[str, str], locale: str) -> dict[str, str]:
+        return {k: v for k, v in lines.items() if "Islam says" not in v}
 
 
 class FakeLookup:
@@ -148,7 +155,8 @@ async def test_row_4_a_verse_read_from_the_photo_is_shown_as_its_published_block
     )
     assert response.row == 4
     assert lookup.looked_up == [VERSE_ARABIC]
-    assert rafiq.questions == []
+    # Rafiq is asked to explain the verse; with no explanation that passes, the block stands alone.
+    assert rafiq.questions == [f"What does the verse «{VERSE_ARABIC}» mean?"]
     block = response.answer.blocks[0]
     assert isinstance(block, QuranBlock)
     assert (block.ref, block.arabic) == ("1:1", VERSE_ARABIC)
@@ -169,7 +177,8 @@ async def test_row_5_a_common_phrase_is_its_block_when_it_matches_else_ordinary_
     assert matched.row == 5
     assert matched.answer.blocks[0].type == "quran"
     unmatched, _, lookup = await run(text_seen("السلام عليكم ورحمة الله", looksLikeScripture=False))
-    assert lookup.looked_up == ["السلام عليكم ورحمة الله"]
+    # The verse is looked for first, then the hadith.
+    assert lookup.looked_up == ["السلام عليكم ورحمة الله"] * 2
     assert unmatched.row == 3
 
 
@@ -201,10 +210,10 @@ async def test_row_7_a_person_as_the_subject_gets_the_person_card_and_nothing_de
     "fields",
     [
         {"kind": "unclear"},
-        {"quality": "blurry"},
-        {"quality": "dark"},
-        {"quality": "cropped"},
-        {"confidence": 0.59},
+        {"quality": "blurry", "confidence": 0.5},
+        {"quality": "dark", "confidence": 0.5},
+        {"quality": "cropped", "confidence": 0.5},
+        {"confidence": 0.3},
     ],
 )
 async def test_row_8_a_blurry_dark_cropped_or_unsure_photo_gets_the_unclear_card(
@@ -241,18 +250,30 @@ async def test_row_10_an_unsafe_image_gets_a_short_decline_and_nothing_described
 
 async def test_row_11_scripture_that_matches_nothing_is_not_translated_or_explained() -> None:
     response, rafiq, lookup = await run(
-        text_seen("كلام يشبه آية", looksLikeScripture=True, plainTranslation="looks like a verse")
+        text_seen(
+            "كلام يشبه آية",
+            looksLikeScripture=True,
+            plainTranslation="looks like a verse",
+            description=(
+                "Arabic calligraphy in a frame, which looks like a verse. كلام يشبه آية هنا."
+            ),
+        )
     )
-    assert (response.row, response.card, response.answer) == (11, "unmatched", None)
-    assert lookup.looked_up == ["كلام يشبه آية"]
+    # Described as the kind of writing it appears to be: no card, no translation, no words of it.
+    assert (response.row, response.card, response.answer) == (11, None, None)
+    assert response.description == "Arabic calligraphy in a frame, which looks like a verse."
+    assert lookup.looked_up == ["كلام يشبه آية"] * 2
     assert response.seen.plain_translation is None
     assert response.seen.visible_text is None
     assert rafiq.questions == []
 
 
 async def test_row_12_an_ordinary_object_is_named_with_nothing_invented_about_it() -> None:
-    response, rafiq, _ = await run(seen(subject="car", category="ordinary"))
-    assert (response.row, response.card, response.answer) == (12, "nothing", None)
+    response, rafiq, _ = await run(
+        seen(subject="car", category="ordinary", description="This looks like a small car.")
+    )
+    assert (response.row, response.card, response.answer) == (12, None, None)
+    assert response.description == "This looks like a small car."
     assert response.seen.subject == "car"
     assert rafiq.questions == []
 
@@ -544,3 +565,39 @@ def test_the_endpoint_explains_an_example_without_any_image(
     assert test_client.post("/lens", json={"locale": "en"}).json() == {
         "error": {"code": "image_required"}
     }
+
+
+# The first reply always helps.
+
+
+async def test_a_reasonable_photo_gets_a_hedged_description_not_the_unclear_card() -> None:
+    response, _, _ = await run(
+        seen(subject="board", confidence=0.45, description="This looks like a notice board.")
+    )
+    assert response.card is None
+    assert response.description == "This looks like a notice board."
+
+
+async def test_a_description_is_checked_and_never_given_for_a_declined_photo() -> None:
+    preaching = seen(subject="mat", description="This looks like a mat. Islam says it is blessed.")
+    assert (await run(preaching))[0].description == "This looks like a mat."
+    person = seen(kind="person", subject="", description="A person smiling.")
+    assert (await run(person))[0].description is None
+
+
+async def test_a_sourced_answer_that_found_nothing_is_left_out_of_the_first_reply() -> None:
+    nothing = RafiqAnswer(
+        language="en",
+        level="A",
+        referred=True,
+        kind="referral",
+        blocks=[],
+        sources=[],
+        referral=referral("noSource"),
+    )
+    lens = Lens(FakeVision(), FakeRafiq(nothing), FakeLookup())  # type: ignore[arg-type]
+    mat = seen(subject="prayer mat", category="worship", description="This looks like a mat.")
+    response = await lens.run("en", seen=mat)
+    assert response.answer is None
+    assert response.card is None
+    assert response.description == "This looks like a mat."

@@ -171,15 +171,7 @@ async def test_a_religious_claim_in_the_visual_answer_is_dropped() -> None:
         ({"kind": "person", "subject": ""}, "person"),
         ({"category": "personalDocument"}, "privacy"),
         ({"kind": "unsafe"}, "unsafe"),
-        ({"quality": "blurry"}, "unclear"),
-        (
-            {
-                "kind": "text",
-                "looksLikeScripture": True,
-                "visibleText": {"text": "كلام يشبه الآية", "language": "ar"},
-            },
-            "unmatched",
-        ),
+        ({"quality": "blurry", "confidence": 0.5}, "unclear"),
     ],
 )
 async def test_the_decision_table_applies_to_every_follow_up(

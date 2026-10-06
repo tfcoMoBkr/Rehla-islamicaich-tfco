@@ -13,7 +13,14 @@ extractive answer keeps at most EXTRACTIVE_SENTENCES sentences of its own.
 """
 
 from app.languages import Language
-from app.rafiq.check import Problem, cited, code_problems, find_passage, is_lead_in
+from app.rafiq.check import (
+    Problem,
+    cited,
+    code_problems,
+    find_passage,
+    is_lead_in,
+    without_worship_words,
+)
 from app.rafiq.draft import Unit, markers
 from app.retrieval.passages import Passage
 
@@ -29,6 +36,7 @@ REMOVED_WITH_SENTENCE = {
     "tarjih",
     "consensus",
     "attribution",
+    "amount",
 }
 
 
@@ -92,9 +100,12 @@ def tidy(units: list[Unit]) -> list[Unit]:
     return [unit for unit in kept if unit.kind == "block" or unit.sentences]
 
 
-def _apply(units: list[Unit], problems: list[Problem], passages: list[Passage]) -> list[Unit]:
+def _apply(
+    units: list[Unit], problems: list[Problem], passages: list[Passage], asked: str = ""
+) -> list[Unit]:
     by_number = {passage.n: passage for passage in passages}
     removed: set[tuple[int, int]] = set()
+    cut: dict[tuple[int, int], str] = {}
     dropped: set[int] = set()
     insert_after: dict[int, list[tuple[str, str]]] = {}
     shown = {unit.block for unit in units if unit.kind == "block"}
@@ -108,6 +119,14 @@ def _apply(units: list[Unit], problems: list[Problem], passages: list[Passage]) 
             dropped.add(problem.unit)
         elif problem.kind in REMOVED_WITH_SENTENCE and problem.sentence is not None:
             removed.add((problem.unit, problem.sentence))
+        elif problem.kind == "worshipWords" and problem.sentence is not None:
+            # The typed words go; the step they belong to stays, if anything of it is left.
+            sentence = units[problem.unit].sentences[problem.sentence]
+            shorter = without_worship_words(sentence, asked)
+            if shorter is None:
+                removed.add((problem.unit, problem.sentence))
+            else:
+                cut[(problem.unit, problem.sentence)] = shorter
         elif problem.kind == "copiedSacred" and problem.sentence is not None:
             removed.add((problem.unit, problem.sentence))
             passage = by_number.get(problem.passage or 0)
@@ -118,7 +137,9 @@ def _apply(units: list[Unit], problems: list[Problem], passages: list[Passage]) 
     repaired: list[Unit] = []
     for u, unit in enumerate(units):
         if u not in dropped:
-            sentences = [s for i, s in enumerate(unit.sentences) if (u, i) not in removed]
+            sentences = [
+                cut.get((u, i), s) for i, s in enumerate(unit.sentences) if (u, i) not in removed
+            ]
             repaired.append(Unit(unit.kind, sentences, unit.prefix, unit.block, unit.role))
         for block in insert_after.get(u, []):
             repaired.append(Unit("block", block=block))
@@ -131,19 +152,21 @@ def repair(
     passages: list[Passage],
     required_verse: str | None = None,
     language: Language | None = None,
+    asked: str = "",
+    counted: list[str] | None = None,
 ) -> list[Unit] | None:
     """The draft with every repairable problem repaired, or None if it cannot stand."""
     # Writing the markers out keeps every sentence in place, so the model check's verdicts still
     # point at the right sentences; the code checks are run again on the result.
     current = materialize(units, {passage.n for passage in passages})
     verdicts = [p for p in problems if p.kind == "unsupported"]
-    problems = verdicts + code_problems(current, passages, required_verse, language)
+    problems = verdicts + code_problems(current, passages, required_verse, language, asked, counted)
     for _ in range(REPAIR_ROUNDS):
         actionable = [p for p in problems if p.kind != "missingVerse"]
         if not actionable:
             break
-        current = _apply(current, actionable, passages)
-        problems = code_problems(current, passages, required_verse, language)
+        current = _apply(current, actionable, passages, asked)
+        problems = code_problems(current, passages, required_verse, language, asked, counted)
     remaining = [p for p in problems if p.kind != "missingVerse"]
     # A verse or hadith block is cited content too: it is shown with its source card.
     shows_sacred = any(unit.kind == "block" for unit in current)

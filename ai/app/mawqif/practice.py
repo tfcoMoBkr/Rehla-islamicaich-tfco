@@ -7,8 +7,9 @@ Guards, in code:
   per turn also reports distress, a religious question asked in the middle (the page pauses the
   scene and asks Rafiq), and a ruling asked for the learner's own case (the specialist card).
 - The other person speaks ordinary everyday speech only: each line passes Rafiq's everyday-talk
-  checks (code, then the model check); a line that fails is asked for once more, then the turn
-  falls back to the written choices.
+  checks (code, then the model check); a line that fails is asked for again, then the turn
+  falls back to the written choices. A line repeating the person's own earlier words is asked
+  for again too.
 - A suggested better reply is written by the model in ordinary words; any religious words in it are
   the situation's own quotes, inserted by code from {{say:ID}} placeholders. The model's own words
   pass the everyday-talk checks, or the suggestion is not shown.
@@ -40,12 +41,14 @@ from app.mawqif.schemas import (
     TurnResponse,
 )
 from app.rafiq.graph import NAME_DUE, VOCATIVE, Rafiq
+from app.rafiq.repeats import repeated
 from app.rafiq.safety import danger_signs
 from app.rafiq.schemas import PageLocale, RafiqAnswer
 
 log = logging.getLogger("mawqif")
 PROMPTS = Path(__file__).parent / "prompts"
 TIME_BUDGET = 20.0
+TURN_TRIES = 3
 SCENE_FIELDS = ("person", "place", "mood", "setting", "line")
 SAY = re.compile(r"\{\{\s*say\s*:\s*(s\d+)\s*\}\}", flags=re.IGNORECASE)
 
@@ -177,7 +180,8 @@ class Practice:
         history = [*body.history, Line(role="learner", text=body.reply)]
         user = f"The conversation so far:\nThem: {scene.line}\n{_conversation(history)}"
         ids = [point["id"] for point in situation["keyPoints"]]
-        for _ in range(2):
+        said = [scene.line, *(line.text for line in body.history if line.role == "character")]
+        for attempt in range(TURN_TRIES):
             judged = await self._chat.json(system, user, ModelTurn)
             if judged.distress:
                 return TurnResponse(status="distress")
@@ -189,10 +193,19 @@ class Practice:
             if judged.done and not judged.line.strip():
                 return TurnResponse(status="ended", met=met, tone=judged.tone)
             kept = await self._everyday({"line": judged.line}, locale)
-            if "line" in kept:
-                status = "ended" if judged.done else "continued"
-                return TurnResponse(status=status, line=kept["line"], met=met, tone=judged.tone)
-            user += "\n\n(Your last line made a religious statement. Speak as an ordinary person.)"
+            if "line" not in kept:
+                user += "\n\n(Your last line made a religious statement. Speak as an ordinary"
+                user += " person.)"
+                continue
+            # A repeat is asked for again; on the last try the line is kept, so the scene goes on.
+            if (again := repeated(kept["line"], said)) and attempt < TURN_TRIES - 1:
+                user += (
+                    f"\n\n(Your last line repeated words you already said: «{again}». Say something"
+                    " new, and do not greet again.)"
+                )
+                continue
+            status = "ended" if judged.done else "continued"
+            return TurnResponse(status=status, line=kept["line"], met=met, tone=judged.tone)
         return TurnResponse(status="unavailable")
 
     async def explain(self, body: ExplainRequest) -> RafiqAnswer | None:
@@ -260,7 +273,10 @@ class Practice:
             # better reply given only for points met elsewhere has nothing left to add.
             missing = [point for point in ids if point in item.missing and point not in body.met]
             only_met = bool(item.missing) and not missing
-            lines = {"good": item.good}
+            # "What was good" may quote the situation's words too: filled the same way, checked on
+            # its own words; one that names words the situation does not have is not shown.
+            good = fill_says(item.good, situation, locale) if item.good.strip() else None
+            lines = {"good": good[1] if good else ""}
             better = (
                 fill_says(item.better, situation, locale)
                 if item.better.strip() and not only_met
@@ -272,7 +288,7 @@ class Practice:
             result.append(
                 ReplyFeedback(
                     n=n,
-                    good=kept.get("good", ""),
+                    good=good[0] if good and "good" in kept else "",
                     missing=missing,
                     better=better[0] if better and "better" in kept else "",
                 )

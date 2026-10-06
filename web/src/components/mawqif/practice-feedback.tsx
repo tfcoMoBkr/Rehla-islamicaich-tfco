@@ -4,6 +4,8 @@ import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 import { RafiqFigure } from "@/components/rafiq/rafiq-figure";
+import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/navigation";
 import { keyPointsOf } from "@/lib/mawqif/conversation";
 import { getFeedback, type ReplyFeedback } from "@/lib/mawqif/practice";
 import type { SituationView } from "@/lib/mawqif/types";
@@ -26,6 +28,7 @@ export function PracticeFeedback({ situation, result }: { situation: SituationVi
   const points = keyPointsOf(situation);
   const learnerReplies = result.history.filter((line) => line.role === "learner");
   const [state, setState] = useState<State>(learnerReplies.length ? { kind: "loading" } : { kind: "ready", replies: [] });
+  const [asked, setAsked] = useState(0);
 
   useEffect(() => {
     if (learnerReplies.length === 0) return;
@@ -37,9 +40,9 @@ export function PracticeFeedback({ situation, result }: { situation: SituationVi
     return () => {
       current = false;
     };
-    // The feedback is asked for once per finished conversation.
+    // The feedback is asked for once per finished conversation, and again on "try again".
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [result]);
+  }, [result, asked]);
 
   const covered = points.filter((point) => result.met.includes(point.id));
   const all = covered.length === points.length;
@@ -59,7 +62,22 @@ export function PracticeFeedback({ situation, result }: { situation: SituationVi
           {t("checking")}
         </p>
       )}
-      {state.kind === "unavailable" && <p className="rounded-xl border border-dawn/50 bg-dawn/8 px-4 py-3">{t("feedbackUnavailable")}</p>}
+      {state.kind === "unavailable" && (
+        <div role="alert" className="grid gap-3 rounded-xl border border-dawn/50 bg-dawn/8 px-4 py-3">
+          <p>{t("feedbackUnavailable")}</p>
+          <div className="flex flex-wrap gap-2">
+            <Button size="sm" onClick={() => {
+                setState({ kind: "loading" });
+                setAsked((count) => count + 1);
+              }}>
+              {t("feedbackRetry")}
+            </Button>
+            <Button asChild size="sm" variant="outline">
+              <Link href="/mawqif">{t("backToMap")}</Link>
+            </Button>
+          </div>
+        </div>
+      )}
 
       {state.kind === "ready" && (
         <ol className="grid gap-4">
