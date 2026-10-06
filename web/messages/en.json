@@ -81,6 +81,12 @@
       "noRulings": "No rulings from the AI",
       "specialists": "Specialists for what needs them",
       "link": "See every source"
+    },
+    "why": {
+      "eyebrow": "Where the road begins",
+      "title": "Why Rehla?",
+      "body": "Right after the Shahada, a new Muslim faces practical questions that cannot wait: how to purify and pray, how to behave in a mosque for the first time, what the Arabic texts around them mean, and who to turn to when stuck. Human follow-up alone cannot be present in their every day.",
+      "intro": "Rehla is an AI-powered platform that accompanies new Muslims from the moment they declare the Shahada to confident practice and belonging, in Arabic and English, grounded in approved sources."
     }
   },
   "AiNotice": {
