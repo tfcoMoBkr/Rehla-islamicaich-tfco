@@ -7,9 +7,9 @@
 
 [العربية](#العربية) · [English](#english)
 
-**[النسخة الحية · Live](https://rehla-islamicaich-tfco-6igd.vercel.app/ar)** · [العرض التقديمي · Slides (PDF)](docs/media/rehla-presentation.pdf) · [فيديو العرض · Demo video](docs/media/rehla-demo.mp4)
+**[النسخة الحية · Live](https://rehla-islamicaich-tfco-6igd.vercel.app/ar)** · [العرض التقديمي · Slides (PDF)](docs/media/rehla-presentation.pdf) · [فيديو العرض · Demo video](https://drive.google.com/file/d/1zlktGIm6mxR9SBE4lh0xfmxc_GkDQNL6/view?usp=sharing)
 
-<img src="docs/media/rafiq.jpg" width="49%" alt="اسأل «رفيق»: جواب ثم شرح ثم المصادر"> <img src="docs/media/lens.jpg" width="49%" alt="عدسة: شرح لافتة من المصادر">
+<img src="docs/media/cover.jpg" width="100%" alt="رحلة: رفيقك في الطريق إلى النور">
 
 </div>
 
@@ -109,7 +109,7 @@ flowchart LR
 | الابتكار والقيمة المضافة (15%) | رفيق واحد حاضر في كل قسم، و«عدسة» لفهم ما حول المتعلم، و«موقف» للتدرّب قبل الموقف الحقيقي |
 | تجربة المستفيد والتواصل والإتاحة (10%) | واجهة عربية وإنجليزية للجوال والحاسوب، تعمل للزائر بلا حساب، مع زر استماع للعبارات |
 | واقعية التشغيل والاستكمال (10%) | نسخة حية، وتكلفة مقيسة لكل سؤال، وحد يومي للأسئلة، وخطة ما بعد التحدي: [التشغيل والتكلفة](docs/OPERATIONS.md)، [النشر](docs/DEPLOY.md) |
-| وضوح العرض وإتاحة التحقق (5%) | هذا الملف، و[العرض](docs/media/rehla-presentation.pdf)، و[الفيديو](docs/media/rehla-demo.mp4)، ونتائج كل سؤال في [`eval/results/`](eval/results) |
+| وضوح العرض وإتاحة التحقق (5%) | هذا الملف، و[العرض](docs/media/rehla-presentation.pdf)، و[الفيديو](https://drive.google.com/file/d/1zlktGIm6mxR9SBE4lh0xfmxc_GkDQNL6/view?usp=sharing)، ونتائج كل سؤال في [`eval/results/`](eval/results) |
 
 ### ما بُني ويعمل، وما هو مقترح بعده
 
@@ -294,7 +294,7 @@ flowchart LR
 | Innovation and added value (15%) | One companion present in every section; Lens to understand the surroundings; Mawqif to practise before the real moment |
 | Learner experience, communication and access (10%) | Arabic and English interface for phone and desktop, usable as a guest with no account, with a listen button for phrases |
 | Realistic operation and completion (10%) | A live deployment, a measured cost per question, a daily question cap, and the plan after the challenge: [operations and cost](docs/OPERATIONS.md), [deployment](docs/DEPLOY.md) |
-| Clarity and verifiability (5%) | This file, the [slides](docs/media/rehla-presentation.pdf), the [video](docs/media/rehla-demo.mp4), and every result in [`eval/results/`](eval/results) |
+| Clarity and verifiability (5%) | This file, the [slides](docs/media/rehla-presentation.pdf), the [video](https://drive.google.com/file/d/1zlktGIm6mxR9SBE4lh0xfmxc_GkDQNL6/view?usp=sharing), and every result in [`eval/results/`](eval/results) |
 
 ### Built and working, and proposed next
 
