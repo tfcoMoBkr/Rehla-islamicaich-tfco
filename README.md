@@ -7,6 +7,10 @@
 
 [العربية](#العربية) · [English](#english)
 
+**[النسخة الحية · Live](https://rehla-islamicaich-tfco-6igd.vercel.app/ar)** · [العرض التقديمي · Slides (PDF)](docs/media/rehla-presentation.pdf) · [فيديو العرض · Demo video](docs/media/rehla-demo.mp4)
+
+<img src="docs/media/rafiq.jpg" width="49%" alt="اسأل «رفيق»: جواب ثم شرح ثم المصادر"> <img src="docs/media/lens.jpg" width="49%" alt="عدسة: شرح لافتة من المصادر">
+
 </div>
 
 ---
@@ -20,6 +24,30 @@
 «رحلة» منصة ذكية ترافق المسلم الجديد من لحظة نطق الشهادة إلى الممارسة الواثقة والانتماء، بلغته ومن مصادر معتمدة.
 
 يقدّمها فريق **ذكاء فلو** ضمن **تحدي الذكاء الاصطناعي في خدمة المحتوى الإسلامي**، في **المسار الثالث: التجارب التفاعلية والرحلة المعرفية للتعريف بالإسلام وتعلمه**.
+
+### للمحكّمين: تحقّق في خمس دقائق
+
+لا يلزم حساب ولا تثبيت. افتح [النسخة الحية](https://rehla-islamicaich-tfco-6igd.vercel.app/ar) وجرّب:
+
+| جرّب | ما تراه |
+|---|---|
+| في **اسأل «رفيق»**: «كيف أتوضأ؟» | جواب مباشر، ثم شرح مُسنَد فقرة فقرة، ثم بطاقات المصادر بروابطها |
+| في **اسأل «رفيق»**: «كم عدد ركعات الصلوات الخمس؟» | جواب من مصدر معتمد مع بطاقته |
+| في **اسأل «رفيق»**: حالة شخصية تطلب حكمًا | كلمة طيبة وبطاقة الإحالة إلى مختص، بلا حكم من النموذج |
+| في **عدسة**: اختر المثال «لافتة مسجد» ثم اسأل عنها | وصف الصورة، ثم الحديث بنصّه ومصدره، ثم محادثة عن الصورة |
+| في **موقف**: افتح موقفًا وانتقل إلى «تدرّب» | حوار حر مع شخصية في مشهد جديد، ثم ملاحظات على ردّك |
+| في **خطوات**: افتح الدرس الأول | درس تفاعلي على اللوح، وسؤال سريع، و«رفيق» بجانبه |
+
+وللتحقق من الأرقام: كل جواب في التقييم ونتيجته وتكلفته في [`eval/results/`](eval/results)، وأوامر إعادته في [إعادة تشغيل التقييم](#إعادة-تشغيل-التقييم).
+
+### صور من النسخة الحية
+
+<div align="center">
+<img src="docs/media/khutuwat.jpg" width="32%" alt="خطوات"> <img src="docs/media/practice.jpg" width="32%" alt="تدرّب"> <img src="docs/media/rafiq.jpg" width="32%" alt="اسأل رفيق">
+<img src="docs/media/lens.jpg" width="32%" alt="عدسة"> <img src="docs/media/mawqif.jpg" width="32%" alt="موقف"> <img src="docs/media/community.jpg" width="32%" alt="مجتمع رحلة">
+</div>
+
+خطوات · تدرّب · اسأل «رفيق» · عدسة · موقف · مجتمع رحلة
 
 ### المشكلة
 
@@ -43,6 +71,45 @@
 | **مجتمع رحلة** | مكان اختياري لتبادل التجربة والتشجيع باسم يختاره العضو. يُفحص كل نص قبل نشره: علامات الخطر، والبيانات الشخصية، والأحكام، وما يُنسب إلى الإسلام، والآيات والأحاديث المقتبسة؛ فلا يُنشر حكم ولا ادعاء كهذا ولا اقتباس، ولا يُنشر شيء إن تعذّر الفحص. البلاغ الواحد لا يُخفي شيئًا وحده: ثلاثة بلاغات تُخفي المنشور حتى يراجعه مشرفو فريق «رحلة» |
 
 **مقترح ولم يُبنَ:** **أقم**، صلاة تدريبية بالكاميرا تنتهي بتقرير عن الأداء. القسم مخفي، وليس في النسخة الحية.
+
+### كيف يعمل الذكاء الاصطناعي
+
+لم ندرّب نموذجًا على النصوص الشرعية. بنينا فهرسًا من مصادر الحزمة المعتمدة يُبحث فيه عند كل سؤال، والنموذج يكتب الشرح فقط.
+
+```mermaid
+flowchart LR
+  Q([Question]) --> S[Safety] --> C{Classify}
+  C -->|everyday talk| T[Companion reply<br/>no religious claim]
+  C -->|religious question| R[Retrieve<br/>bge-m3 + BM25 + MCP]
+  C -->|personal case, fatwa,<br/>disputed matter| X[Referral card]
+  R --> G[Generate explanation] --> V[Verify in code]
+  V -->|supported| A[Answer + verbatim texts + sources]
+  V -->|no source| X
+```
+
+| التقنية | ماذا تضيف |
+|---|---|
+| **Hybrid RAG** (`baai/bge-m3` + BM25) | بحث بالمعنى وبالكلمة معًا في أكثر من 2,000 مقطع مفهرس، فيجد المصدر ولو اختلفت صياغة السؤال أو لغته |
+| **LangGraph** | مسار من محطات (أمان، تصنيف، استرجاع، توليد، تحقق)، وقرارات الأمان والإحالة فيه مكتوبة في الشيفرة |
+| **التحقق في الشيفرة** | فحوص على كل جواب قبل عرضه: لا ألفاظ ذكر أو دعاء يكتبها النموذج، ولا نسبة قول بلا نص مطابق، ولا عدد لا يذكره المصدر |
+| **إدراج النص بالمرجع** | الآية والحديث والمصطلح تُدرج حرفيًا من مصادرها، ولا يكتبها النموذج |
+| **VLM** (`google/gemini-2.5-flash`) | يقرأ صورة «عدسة»، ثم يمرّ المعنى بمسار المصادر نفسه |
+| **MCP** (خادم جمعية المحتوى الإسلامي) | استرجاع حي للآيات والأحاديث وقت السؤال، ولا يُخزَّن منه شيء |
+| **LLM-as-Judge** | تقييم على أسئلة التحدي الرسمية، وكل نتيجة منشورة في المستودع |
+
+**بالأرقام:** أكثر من 2,000 مقطع مفهرس · 15 مرجعًا معتمدًا موثّقًا في [docs/SOURCES.md](docs/SOURCES.md) · 14 جهة إحالة مرخّصة · 19 درسًا · 12 موقفًا · أكثر من 800 اختبار آلي.
+
+### أين تجد كل معيار من معايير التحكيم
+
+| المعيار | أين تجده |
+|---|---|
+| جودة الحل التقني وتوظيف الذكاء الاصطناعي (25%) | الجدول أعلاه، و[البنية](docs/ARCHITECTURE.md)، و[أدوات MCP](docs/MCP_TOOLS.md)، والشيفرة في `ai/app/` و`web/src/` |
+| تحقيق النفع وفق معيار نجاح المسار (20%) | رحلة متدرجة باختبار قبل كل محطة وبعدها ودفتر يُري المتعلم تقدّمه: [قياس الفهم](docs/UNDERSTANDING.md)، [المنهج](docs/CURRICULUM.md) |
+| الموثوقية والسلامة العلمية (15%) | ستة فحوص نتيجتها صفر على 53 سؤالًا، مع ما لم ينجح بعد مذكورًا بصراحة: [التقييم](docs/EVALUATION.md)، [الموثوقية](docs/RELIABILITY.md)، [المصادر](docs/SOURCES.md) |
+| الابتكار والقيمة المضافة (15%) | رفيق واحد حاضر في كل قسم، و«عدسة» لفهم ما حول المتعلم، و«موقف» للتدرّب قبل الموقف الحقيقي |
+| تجربة المستفيد والتواصل والإتاحة (10%) | واجهة عربية وإنجليزية للجوال والحاسوب، تعمل للزائر بلا حساب، مع زر استماع للعبارات |
+| واقعية التشغيل والاستكمال (10%) | نسخة حية، وتكلفة مقيسة لكل سؤال، وحد يومي للأسئلة، وخطة ما بعد التحدي: [التشغيل والتكلفة](docs/OPERATIONS.md)، [النشر](docs/DEPLOY.md) |
+| وضوح العرض وإتاحة التحقق (5%) | هذا الملف، و[العرض](docs/media/rehla-presentation.pdf)، و[الفيديو](docs/media/rehla-demo.mp4)، ونتائج كل سؤال في [`eval/results/`](eval/results) |
 
 ### ما بُني ويعمل، وما هو مقترح بعده
 
@@ -143,6 +210,30 @@ cd ai && uv run ruff check && uv run mypy app tests && uv run pytest
 
 It is built by **Thakaa Flow** for the **AI Challenge Serving Islamic Content**, in **Track 3: Interactive experiences and the learning journey for introducing and teaching Islam**.
 
+### For the judges: verify in five minutes
+
+No account and no install. Open the [live version](https://rehla-islamicaich-tfco-6igd.vercel.app/en) and try:
+
+| Try | What you see |
+|---|---|
+| In **Ask Rafiq**: "How do I make wudu?" | A direct answer, an explanation cited paragraph by paragraph, then the source cards with their links |
+| In **Ask Rafiq**: "How many rak'ahs are in the five prayers?" | An answer from an approved source, with its card |
+| In **Ask Rafiq**: a personal case asking for a ruling | A kind word and the specialist card; no ruling from the model |
+| In **Lens**: pick the "mosque sign" example, then ask about it | A description of the picture, the hadith verbatim with its source, then a conversation about the picture |
+| In **Mawqif**: open a situation and go to "Practise" | A free conversation with a character in a fresh scene, then feedback on your reply |
+| In **Khutuwat**: open the first lesson | An interactive lesson on the board, a quick question, and Rafiq beside it |
+
+To check the numbers: every evaluated answer, its verdict and its cost are in [`eval/results/`](eval/results), and the commands to rerun them are under [Re-running the evaluation](#re-running-the-evaluation).
+
+### Screens from the live version
+
+<div align="center">
+<img src="docs/media/khutuwat.jpg" width="32%" alt="Khutuwat"> <img src="docs/media/practice.jpg" width="32%" alt="Practice"> <img src="docs/media/rafiq.jpg" width="32%" alt="Ask Rafiq">
+<img src="docs/media/lens.jpg" width="32%" alt="Lens"> <img src="docs/media/mawqif.jpg" width="32%" alt="Mawqif"> <img src="docs/media/community.jpg" width="32%" alt="Rehla Community">
+</div>
+
+Khutuwat · Practice · Ask Rafiq · Lens · Mawqif · Rehla Community
+
 ### The problem
 
 163,319 people embraced Islam in Saudi Arabia in 2023 alone, and 347,646 over five years, according to the Ministry of Islamic Affairs, Dawah and Guidance ([Saudi Press Agency, January 2024](https://www.spa.gov.sa/N2031934)). Many of them are expatriates who do not speak Arabic.
@@ -165,6 +256,45 @@ The sections switched on in the [live version](https://rehla-islamicaich-tfco-6i
 | **Rehla Community** | An opt-in place to share experience and encourage each other under a chosen community name. Before anything is shared it is checked for danger, personal details, rulings, claims about what Islam says and quoted verses or hadiths; such a ruling, claim or quote is not published, and nothing is published when the check cannot run. One report hides nothing by itself: three reports hide an item until the Rehla team's moderators review it |
 
 **Proposed, not built:** **Aqim**, a camera-based practice prayer that ends with a performance report. The section is hidden and is not in the live version.
+
+### How the AI works
+
+No model was trained on religious texts. We built an index of the approved sources that is searched on every question; the model only writes the explanation.
+
+```mermaid
+flowchart LR
+  Q([Question]) --> S[Safety] --> C{Classify}
+  C -->|everyday talk| T[Companion reply<br/>no religious claim]
+  C -->|religious question| R[Retrieve<br/>bge-m3 + BM25 + MCP]
+  C -->|personal case, fatwa,<br/>disputed matter| X[Referral card]
+  R --> G[Generate explanation] --> V[Verify in code]
+  V -->|supported| A[Answer + verbatim texts + sources]
+  V -->|no source| X
+```
+
+| Technique | What it adds |
+|---|---|
+| **Hybrid RAG** (`baai/bge-m3` + BM25) | Search by meaning and by word together over more than 2,000 indexed passages, so the source is found whatever the wording or language of the question |
+| **LangGraph** | A path of stations (safety, classify, retrieve, generate, verify); the safety and referral decisions are written in code |
+| **Verification in code** | Checks on every answer before it is shown: no words of dhikr or du'a written by the model, no attribution without a matched text, no amount the source does not give |
+| **Text inserted by reference** | Verses, hadiths and terms are inserted verbatim from their sources; the model never writes them |
+| **VLM** (`google/gemini-2.5-flash`) | Reads the Lens photo; the meaning then takes the same sourced path |
+| **MCP** (the Association's Islamic content server) | Live retrieval of verses and hadiths at question time; nothing from it is stored |
+| **LLM-as-Judge** | Evaluation on the challenge's official questions, with every result published in this repository |
+
+**In numbers:** more than 2,000 indexed passages · 15 approved references recorded in [docs/SOURCES.md](docs/SOURCES.md) · 14 licensed referral bodies · 19 lessons · 12 situations · more than 800 automated tests.
+
+### Where to find each judging criterion
+
+| Criterion | Where it is |
+|---|---|
+| Technical quality and use of AI (25%) | The table above, [architecture](docs/ARCHITECTURE.md), [MCP tools](docs/MCP_TOOLS.md), and the code in `ai/app/` and `web/src/` |
+| Benefit by the track's success criterion (20%) | A graded journey with a check before each station and an exam after it, and a journal showing the learner their progress: [measuring understanding](docs/UNDERSTANDING.md), [curriculum](docs/CURRICULUM.md) |
+| Reliability and scholarly safety (15%) | Six checks that must be zero, measured on 53 questions, with what still fails stated plainly: [evaluation](docs/EVALUATION.md), [reliability](docs/RELIABILITY.md), [sources](docs/SOURCES.md) |
+| Innovation and added value (15%) | One companion present in every section; Lens to understand the surroundings; Mawqif to practise before the real moment |
+| Learner experience, communication and access (10%) | Arabic and English interface for phone and desktop, usable as a guest with no account, with a listen button for phrases |
+| Realistic operation and completion (10%) | A live deployment, a measured cost per question, a daily question cap, and the plan after the challenge: [operations and cost](docs/OPERATIONS.md), [deployment](docs/DEPLOY.md) |
+| Clarity and verifiability (5%) | This file, the [slides](docs/media/rehla-presentation.pdf), the [video](docs/media/rehla-demo.mp4), and every result in [`eval/results/`](eval/results) |
 
 ### Built and working, and proposed next
 
