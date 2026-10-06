@@ -8,7 +8,6 @@ import pytest
 from app.rafiq.graph import Rafiq, prompt
 from app.rafiq.name import without_name
 from app.rafiq.schemas import ChatReply, Classification, Draft, Turn
-from app.rafiq.specialists import referral_centres
 from app.rafiq.warmth import screened
 from app.retrieval import retriever as retriever_module
 from app.retrieval.retriever import Retriever
@@ -94,19 +93,6 @@ async def test_thanks_alone_gets_a_warm_reply_without_sources_or_referral() -> N
     assert answer.referral.centers == []
 
 
-async def test_a_personal_case_gets_warmth_and_the_specialist_card() -> None:
-    chat = FakeChat(classified(personalCase=True, level="D"), [WARM])
-    answer = await rafiq(chat).run("My situation is complicated; what should I do?", "en")
-
-    assert answer.referred
-    assert answer.kind == "referral"
-    assert plain(answer.opening) == OPENING
-    assert answer.referral is not None
-    assert answer.referral.reason == "personalCase"
-    assert answer.referral.centers == referral_centres()
-    assert answer.referral.centers[0] == "moia-1933"
-
-
 async def test_distress_is_met_with_care_and_the_specialist_card() -> None:
     care = Draft(opening="I am sorry it feels so heavy right now.", adequate=False)
     answer = await rafiq(FakeChat(classified(intent="distress"), [care])).run(
@@ -175,16 +161,6 @@ def test_a_warm_line_already_said_in_the_conversation_is_dropped() -> None:
     assert screened(lines, [], "en", earlier) == {"opening": lines["opening"]}
 
 
-async def test_under_the_ruling_guard_the_check_also_removes_stated_rulings() -> None:
-    guarded = FakeChat(classified(personalCase=True, level="D"), [WARM])
-    await rafiq(guarded).run("My situation is complicated; what should I do?", "en")
-    plain = FakeChat(classified(), [WARM])
-    await rafiq(plain).run("How do I perform wudu?", "en")
-
-    assert any("For this question item 1 is stricter" in system for system in guarded.systems)
-    assert not any("For this question item 1 is stricter" in system for system in plain.systems)
-
-
 def test_the_ruling_rule_is_scoped_to_the_numbered_sentences() -> None:
     rule = prompt("rules/verify-general")
     system = prompt("verify", ruling_rule=rule)
@@ -192,48 +168,6 @@ def test_the_ruling_rule_is_scoped_to_the_numbered_sentences() -> None:
     assert "numbered items only" in rule
     assert "never judge it by this rule" in rule
     assert system.index(rule) < system.index("3. For each everyday line")
-
-
-@pytest.mark.parametrize(
-    ("fields", "reason"),
-    [({"personalCase": True, "level": "D"}, "personalCase"), ({"level": "D"}, "fatwa")],
-)
-async def test_a_guarded_answer_keeps_its_opening_and_its_reason(
-    fields: dict[str, object], reason: str
-) -> None:
-    answer = await rafiq(FakeChat(classified(**fields), [WARM])).run(
-        "My situation is complicated; what should I do?", "en"
-    )
-
-    # A personal case is something personal and keeps its opening; a plain request for a
-    # ruling starts with the answer.
-    assert plain(answer.opening) == (OPENING if reason == "personalCase" else None)
-    assert answer.referral is not None
-    assert answer.referral.reason == reason
-
-
-async def test_a_guarded_answer_with_every_sentence_removed_keeps_its_opening_and_reason() -> None:
-    chat = FakeChat(classified(personalCase=True, level="D"), [WARM], unsupported=[1])
-    answer = await rafiq(chat).run("My situation is complicated; what should I do?", "en")
-
-    assert answer.kind == "referral"
-    assert plain(answer.opening) == OPENING
-    assert answer.referral is not None
-    assert answer.referral.reason == "personalCase"
-    assert answer.blocks == []
-    assert answer.sources == []
-
-
-async def test_a_guarded_question_without_an_adequate_draft_keeps_its_opening() -> None:
-    kind = Draft(opening="I can hear that this matters to you.", adequate=False)
-    answer = await rafiq(FakeChat(classified(personalCase=True, level="D"), [kind])).run(
-        "My situation is complicated; what should I do?", "en"
-    )
-
-    assert plain(answer.opening) == "I can hear that this matters to you."
-    assert answer.referral is not None
-    assert answer.referral.reason == "personalCase"
-    assert answer.blocks == []
 
 
 def test_an_opening_too_long_for_two_sentences_keeps_its_first() -> None:

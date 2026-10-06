@@ -20,6 +20,22 @@ PAIRS = [
     (
         Edition(
             "en",
+            "byenah-children",
+            "What Muslim Children Must Know",
+            "https://byenah.com/en/muslim-content/5138",
+            "byenah.com",
+        ),
+        Edition(
+            "ar",
+            "byenah-children",
+            "ما لا يسع أطفال المسلمين جهله",
+            "https://byenah.com/ar/muslim-content/21227",
+            "byenah.com",
+        ),
+    ),
+    (
+        Edition(
+            "en",
             "byenah-new-muslim-guideline",
             "New Muslim Guideline",
             "https://byenah.com/en/muslim-content/4784",

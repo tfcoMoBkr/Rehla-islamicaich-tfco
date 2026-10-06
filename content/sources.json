@@ -170,8 +170,8 @@
         "en": "The suggested video of the wudu lesson (How do I perform wudu?) and of the prayer lesson (How do I pray?): the video's IslamHouse page is the primary link, and the file plays from the site's own servers, never re-uploaded."
       },
       "licence": {
-        "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُعرض دون تعديل ومع نسبته إلى مصدره. النسبة: الفريق العلمي لمركز أصول عبر IslamHouse.com. للاستخدام غير الربحي فقط.",
-        "en": "The organisers' package states that the content of the Association's platforms is free for individuals and organisations; shown unmodified and attributed. Credit: Osoul Center's scientific team via IslamHouse.com. Non-profit use only."
+        "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُعرض دون تعديل ومع نسبته إلى مصدره. النسبة: الفريق العلمي لمركز أصول عبر IslamHouse.com. للاستخدام غير الربحي فقط. مواد IslamHouse المرئية والمسموعة للاستخدام غير الربحي فقط.",
+        "en": "The organisers' package states that the content of the Association's platforms is free for individuals and organisations; shown unmodified and attributed. Credit: Osoul Center's scientific team via IslamHouse.com. Non-profit use only. IslamHouse media may be used for non-profit purposes only."
       },
       "status": "approved",
       "verifiedOn": "2026-10-04"
@@ -218,6 +218,31 @@
       "verifiedOn": "2026-10-04"
     },
     {
+      "id": "byenah-children",
+      "type": "lessons",
+      "name": {
+        "ar": "«ما لا يسع أطفال المسلمين جهله» (byenah.com)",
+        "en": "What Muslim Children Must Know (byenah.com)"
+      },
+      "aliases": [],
+      "url": "https://byenah.com/ar/muslim-content/21227",
+      "alsoAt": [
+        "https://byenah.com/en/muslim-content/5138",
+        "https://byenah.com/fr/muslim-content/5130",
+        "https://byenah.com/ur/muslim-content/22370"
+      ],
+      "usedFor": {
+        "ar": "مرجع لإجابات رفيق بالعربية والإنجليزية، سؤالًا سؤالًا (منه عدد ركعات الصلوات الخمس). النص مستخرج من ملف، فيُستشهد به ببطاقة المصدر ولا يُعرض نصًّا حرفيًّا.",
+        "en": "Reference for Rafiq's answers in Arabic and English, question by question (among them, the rak'ahs of the five prayers). The text is extracted from a file, so it is cited by its source card and never shown as a verbatim quote."
+      },
+      "licence": {
+        "ar": "تنصّ الحزمة العلمية للمسابقة على أن محتوى منصات الجمعية متاح مجانًا للأفراد والمؤسسات؛ يُحفظ النص دون تعديل ومع نسبته إلى مصدره.",
+        "en": "The organisers' package states that the content of the Association's platforms is free for individuals and organisations; text is kept unmodified and attributed."
+      },
+      "status": "approved",
+      "verifiedOn": "2026-10-06"
+    },
+    {
       "id": "ih-almukhtasar-almufid",
       "type": "lessons",
       "name": {
@@ -253,8 +278,8 @@
         "en": "Reference for Rafiq's Arabic answers: 263 questions, each with its question and the book's own summary answer as the PDF text layer gives them, one chunk per question in the index (the detailed answer is kept in the corpus, not indexed). The book's verses are set in a glyph font that does not extract as text: they are removed from the indexed text, and verses are taken from their own source."
       },
       "licence": {
-        "ar": "لا تنشر صفحة الملف ترخيصًا لإعادة الاستخدام؛ عبارة الحقوق الوحيدة في الموقع هي تذييله: «© 2026 الحقوق محفوظة». وصيغة الاستشهاد المقترحة في الصفحة: «مركز أصول، بينات: أسئلة وأجوبة عن الإسلام، مركز أصول، 2024م / 1445هـ. https://dawa.center/file/7937».",
-        "en": "The file's page publishes no reuse licence; the site's only rights wording is its footer: «© 2026 الحقوق محفوظة» (\"© 2026 All rights reserved\"). The page's suggested citation: «مركز أصول، بينات: أسئلة وأجوبة عن الإسلام، مركز أصول، 2024م / 1445هـ. https://dawa.center/file/7937»."
+        "ar": "لا تنشر صفحة الملف ترخيصًا لإعادة الاستخدام؛ عبارة الحقوق الوحيدة في الموقع هي تذييله: «© 2026 الحقوق محفوظة». وصيغة الاستشهاد المقترحة في الصفحة: «مركز أصول، بينات: أسئلة وأجوبة عن الإسلام، مركز أصول، 2024م / 1445هـ. https://dawa.center/file/7937». نُزّل ملف PDF يدويًا من صفحة الكتاب العامة؛ وملف robots.txt في الموقع يمنع المسار /storage/files/، فلا يجلبه أي برنامج.",
+        "en": "The file's page publishes no reuse licence; the site's only rights wording is its footer: «© 2026 الحقوق محفوظة» (\"© 2026 All rights reserved\"). The page's suggested citation: «مركز أصول، بينات: أسئلة وأجوبة عن الإسلام، مركز أصول، 2024م / 1445هـ. https://dawa.center/file/7937». The PDF was downloaded by hand from the book's public page; the site's robots.txt disallows /storage/files/, so no script fetches it."
       },
       "status": "pendingReview",
       "verifiedOn": "2026-10-06"

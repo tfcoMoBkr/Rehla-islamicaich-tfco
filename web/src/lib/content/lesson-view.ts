@@ -604,6 +604,7 @@ export async function toLessonView(
     stationId: lesson.station,
     title: pick(lesson.title, locale),
     demo: lesson.status === "demo",
+    reviewed: lesson.reviewed,
     objectives: lesson.objectives[locale],
     sources: books,
     fiqhNote: fiqhNote(lesson, books, encyclopedia),

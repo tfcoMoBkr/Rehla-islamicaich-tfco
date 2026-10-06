@@ -4,7 +4,10 @@ import * as z from "zod/mini";
  * What is looked at before a post or reply is shared, in this order: danger or distress (the AI
  * service, which finds danger in code before any model), personal data (patterns, here in the
  * browser), and a request for a ruling on one's own situation (the AI service). Each only offers
- * help; the writer decides whether to post. The service keeps nothing of the text.
+ * help; the writer decides whether to post. Two things are not published: a text the service
+ * reads as a ruling, a claim about what Islam says or quoted scripture (the writer is pointed to
+ * Rafiq or a specialist), and a text that could not be checked (held; it fails closed). The
+ * service keeps nothing of the text.
  */
 
 export const CHECK_PATH = "/api/ai/community-check";
@@ -28,13 +31,14 @@ const checkSchema = z.object({
   danger: z._default(z.boolean(), false),
   distress: z._default(z.boolean(), false),
   personalRuling: z._default(z.boolean(), false),
+  religiousClaim: z._default(z.boolean(), false),
 });
 
 export type ServiceCheck = z.infer<typeof checkSchema>;
 
-const UNCHECKED: ServiceCheck = { checked: false, danger: false, distress: false, personalRuling: false };
+const UNCHECKED: ServiceCheck = { checked: false, danger: false, distress: false, personalRuling: false, religiousClaim: false };
 
-/** The service's reading of the text, or "unchecked" when it cannot be had: the post then goes through. */
+/** The service's reading of the text, or "unchecked" when it cannot be had: the post is then held. */
 export async function checkText(text: string, locale: "ar" | "en", fetcher: typeof fetch = fetch): Promise<ServiceCheck> {
   try {
     const response = await fetcher(CHECK_PATH, {
@@ -50,14 +54,24 @@ export async function checkText(text: string, locale: "ar" | "en", fetcher: type
   }
 }
 
-export type Notice = { kind: "care"; danger: boolean } | { kind: "personalData"; found: PersonalData[] } | { kind: "ruling" };
+export type Notice =
+  | { kind: "care"; danger: boolean }
+  | { kind: "personalData"; found: PersonalData[] }
+  | { kind: "ruling" }
+  | { kind: "religious" }
+  | { kind: "held" };
+
+/** Notices that stop the text: it is not published, whatever the writer chooses. */
+export const STOPS: ReadonlySet<Notice["kind"]> = new Set(["religious", "held"]);
 
 /** The notices to show, one after another, before the text is shared. */
 export function noticesFor(text: string, service: ServiceCheck): Notice[] {
+  if (!service.checked) return [{ kind: "held" }];
   const notices: Notice[] = [];
   if (service.danger || service.distress) notices.push({ kind: "care", danger: service.danger });
   const found = personalData(text);
   if (found.length > 0) notices.push({ kind: "personalData", found });
+  if (service.religiousClaim) return [...notices.filter((notice) => notice.kind === "care"), { kind: "religious" }];
   if (service.personalRuling) notices.push({ kind: "ruling" });
   return notices;
 }

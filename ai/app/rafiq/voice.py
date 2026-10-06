@@ -38,6 +38,11 @@ _STOCK = [
     r"\bit is good that you\b",
     r"\b(?:a|an)\s+(?:good|great|important|fair)\s+thing\s+to\s+(?:ask|wonder)\b",
     r"\bi (?:can )?understand why you\b",
+    # The learner's feeling named back to them ("I understand you feel nervous").
+    r"(?:أتفهم|أفهم|أدرك|أقدر|أقدّر)\s+(?:تمامًا\s+|تماما\s+)?(?:شعورك|مشاعرك|قلقك|توترك|خوفك|حزنك|أنك)"
+    r"|يبدو\s+(?:أنك|انك)\s+(?:تشعر|متوتر|قلق|حزين|خائف|متعب)",
+    r"\bi\s+(?:can\s+)?(?:understand|see|hear)\s+(?:that\s+|how\s+)?(?:you(?:'re|\s+are|\s+feel)|your\s+(?:feeling|worry|nerves|stress))",
+    r"\bit\s+sounds\s+like\s+you(?:'re|\s+are)?\b",
     # The standard closing question.
     r"هل\s+(?:كان(?:ت)?\s+)?(?:هذه\s+الإجابة|هذا\s+الشرح|الشرح|هذا|الجواب|الإجابة)[^؟]{0,20}واضح",
     r"(?:أتمنى|آمل|أرجو)\s+أن\s+(?:يكون|تكون)\s+[^.؟!]{0,30}(?:واضح|مفيد|نافع)",

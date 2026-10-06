@@ -19,6 +19,8 @@ from app.rafiq.check import (
     code_problems,
     find_passage,
     is_lead_in,
+    unshown_quote,
+    without_quote,
     without_worship_words,
 )
 from app.rafiq.draft import Unit, markers
@@ -123,6 +125,18 @@ def _apply(
             # The typed words go; the step they belong to stays, if anything of it is left.
             sentence = units[problem.unit].sentences[problem.sentence]
             shorter = without_worship_words(sentence, asked)
+            if shorter is None:
+                removed.add((problem.unit, problem.sentence))
+            else:
+                cut[(problem.unit, problem.sentence)] = shorter
+        elif problem.kind == "quoted" and problem.sentence is not None:
+            # The quoted words go; the rest of the sentence stays if it can stand.
+            sentence = (
+                cut.get((problem.unit, problem.sentence))
+                or units[problem.unit].sentences[problem.sentence]
+            )
+            span = unshown_quote(sentence, [], [])
+            shorter = without_quote(sentence, span) if span else sentence
             if shorter is None:
                 removed.add((problem.unit, problem.sentence))
             else:

@@ -50,6 +50,8 @@ LOCAL_PASSAGES = 7
 OTHER_LANGUAGE_BOOKS = 3
 # Lessons named on a card that has no answer: the ones the closest passages belong to.
 TOPIC_LESSONS = 2
+# A quoted text counts as a slip of a verse or hadith when this share of its words is in it.
+NEAR_SHARE = 0.6
 # For a list question, the best LIST_SECTIONS book hits are read with the pieces around them
 # that belong to the same list, at most LIST_RUN pieces each.
 LIST_SECTIONS = 2
@@ -116,6 +118,16 @@ def _spelled(word: str) -> str:
     return word[:1] + word[1:].replace("ا", "")
 
 
+def _near(original: str, quoted: str) -> bool:
+    """Whether the quoted words are the text or a slip of it: most of them are in it. A search hit
+    that shares a word or two is another text, not this one misquoted."""
+    if _contains(original, quoted):
+        return True
+    said = {_spelled(word) for word in words(quoted)}
+    held = {_spelled(word) for word in words(original)}
+    return bool(said) and len(said & held) / len(said) >= NEAR_SHARE
+
+
 def _contains(verse: str, quoted: str) -> bool:
     """Whether the quoted words appear, in order and together, in the verse, whatever the spelling
     convention."""
@@ -173,6 +185,11 @@ class Retriever:
         text = await self._mcp.call("get_hadith", {"id": hadith_id, "language": wanted})
         versions = parse_hadith_versions(hadith_id, text, wanted[0]) if text else {}
         return from_mcp_hadith(versions, language)
+
+    async def verse(self, surah: int, ayah: int, language: Language) -> Passage | None:
+        """One verse by reference, as the approved sources publish it (stored, or from QuranEnc
+        through the content server)."""
+        return await self._verse(surah, ayah, language)
 
     async def _verse(self, surah: int, ayah: int, language: Language) -> Passage | None:
         if spec(language).local:
@@ -367,7 +384,7 @@ class Retriever:
                 if "quran" not in sources:
                     continue
                 passage = await self._verse(int(verse.group(1)), int(verse.group(2)), language)
-                if passage and passage.verse:
+                if passage and passage.verse and _near(passage.verse.arabic, quote):
                     return passage, Misquote(
                         quoted=quote,
                         ref=passage.verse.ref,
@@ -377,7 +394,7 @@ class Retriever:
                 if "hadith" not in sources:
                     continue
                 passage = await self._hadith(int(hadith.group(1)), language)
-                if passage and passage.hadith:
+                if passage and passage.hadith and _near(passage.hadith.arabic, quote):
                     return passage, Misquote(
                         quoted=quote,
                         ref=str(passage.hadith.id),

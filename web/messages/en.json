@@ -226,7 +226,8 @@
     "hadithFetched": "fetched on {date}",
     "talkToSpecialist": "Talk to a specialist",
     "termLabel": "Term",
-    "termSource": "Definition from TerminologyEnc.com"
+    "termSource": "Definition from TerminologyEnc.com",
+    "notReviewed": "Not yet reviewed by a scholar."
   },
   "Activity": {
     "continue": "Continue",
@@ -600,7 +601,7 @@
     "languageFallback": "Rafiq answers in Arabic, English, Urdu, Bengali and French. This question is in another language, so the answer is in English.",
     "generatedExplanation": "Generated explanation",
     "gradeNotStated": "The source does not state this hadith's grade.",
-    "wordingDiffers": "The words you quoted differ from the verse as it is published. The verse is shown above as QuranEnc publishes it.",
+    "wordingDiffers": "The words you quoted differ from the verse as it is published. The verse is shown below as QuranEnc publishes it.",
     "notARuling": "This is general information. It is not a ruling on your situation.",
     "book": {
       "fromSource": "From the source",
@@ -669,8 +670,8 @@
   },
   "Specialist": {
     "title": "Talk to a specialist",
-    "description": "Licensed bodies you can turn to with your own questions.",
-    "intro": "A question that troubles you, or need a trusted body to ask? These licensed organisations in Saudi Arabia can answer.",
+    "description": "Licensed bodies listed in the national directory of non-profit organisations (NCNP). Rehla lists them for you to contact; it does not approve them.",
+    "intro": "A question that troubles you? These licensed organisations in Saudi Arabia, from the national directory of non-profit organisations, can answer. Rehla lists them; it does not approve them.",
     "why": "Rafiq is an AI tool. It explains what the lessons say, but it does not give rulings on anyone's personal situation. For your own case, speak with a specialist.",
     "nationalTitle": "Across Saudi Arabia",
     "nationalNote": "National channel, available inside Saudi Arabia",
@@ -1155,7 +1156,8 @@
     "approxPronunciation": "Approximate pronunciation",
     "meaningPublished": "Meaning, from the published translation:",
     "listen": "Listen",
-    "computerVoice": "Computer voice, for practice"
+    "computerVoice": "Computer voice, for practice",
+    "notReviewed": "Not yet reviewed by a scholar."
   },
   "Community": {
     "title": "Rehla Community",
@@ -1172,10 +1174,10 @@
       "title": "How we talk here",
       "kind": "Be kind and patient: everyone here is on their own road.",
       "experience": "Share experience and encouragement, not rulings. Point religious questions to Rafiq or a specialist.",
-      "source": "If you pass on religious information, name its source.",
+      "source": "Before anything is shared, it is checked for danger, personal details, a ruling on your own situation, rulings or claims about what Islam says, and quoted verses or hadiths. A ruling, such a claim or a quote is not published, and nothing is published when the check cannot run.",
       "privacy": "Keep privacy, yours and others': no phone numbers, addresses or anything that identifies anyone.",
       "noAds": "No advertising and no commercial links.",
-      "report": "Report what breaks these rules. Anything reported by three members is hidden until the team reviews it.",
+      "report": "One report hides nothing by itself: a post or reply is hidden when three members report it, and the Rehla team's moderators review it.",
       "care": "If you are going through something hard or are in danger, do not wait for replies: contact a specialist or emergency services."
     },
     "categories": {
@@ -1271,7 +1273,11 @@
       "askSpecialist": "Ask a specialist",
       "postTagged": "Share with the tag “Better answered by a specialist”",
       "edit": "Edit",
-      "postAnyway": "Share anyway"
+      "postAnyway": "Share anyway",
+      "heldTitle": "Not shared yet",
+      "heldBody": "Your text could not be checked just now, so it has not been shared. It is kept here: try again in a moment.",
+      "religiousTitle": "This is not published here",
+      "religiousBody": "Posts here share experience and encouragement. This one states a ruling, says what Islam teaches, or quotes a verse or a hadith, so it is not published. Rafiq answers such questions from the sources, or you can ask a specialist."
     },
     "report": {
       "button": "Report",

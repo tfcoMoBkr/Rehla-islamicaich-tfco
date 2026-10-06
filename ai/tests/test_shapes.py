@@ -153,8 +153,11 @@ SHAPES: dict[str, Shape] = {
         "In plain words, it means the first meaning the term source gives [5]. "
         "This is called the term [5]."
     ),
+    # A quoted word that no shown block, cited passage or question holds is not Rafiq's to quote.
     "mixed Arabic and English": Shape(
-        "The book calls it «الموضوع» in Arabic, and the passage explains it [1]."
+        "The book calls it «الموضوع» in Arabic, and the passage explains it [1].",
+        found={"quoted"},
+        text_lacks=("«الموضوع»",),
     ),
     "combined markers": Shape(
         "This rests on the first two passages [1, 2]. And on these two as well [1،2]."

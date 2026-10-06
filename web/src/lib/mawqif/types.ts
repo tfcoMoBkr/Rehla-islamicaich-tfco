@@ -43,6 +43,8 @@ export type RelatedLesson = { id: string; title: string; href: `/${string}` };
 export type SituationView = {
   id: string;
   order: number;
+  /** Whether a scholar has reviewed the situation (every situation file says so). */
+  reviewed?: boolean;
   title: string;
   art: string;
   scene: string;

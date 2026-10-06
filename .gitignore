@@ -43,3 +43,6 @@ content/sources/
 
 # Rafiq's source corpus, rebuilt by `node scripts/fetch-content.mjs --corpus` (large, re-downloadable)
 content/corpus/
+
+# Material handed over for ingestion (rebuilt into content/corpus by script; never committed).
+content/incoming/

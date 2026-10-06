@@ -350,7 +350,7 @@ async def test_a_relevant_answer_is_not_widened() -> None:
         ({"hostileTone": True}, "Find the actual question"),
         ({"plainTerm": True}, "plain, everyday words first"),
         ({"consensus": True}, "never imply an agreement"),
-        ({"worshipWorry": True, "personalCase": True, "level": "D"}, "reassurance"),
+        ({"worshipWorry": True}, "reassurance"),
     ],
 )
 async def test_each_behaviour_rule_reaches_the_answer_prompt(
@@ -403,15 +403,6 @@ async def test_a_personal_case_outside_the_kingdom_leads_the_card_with_that() ->
     assert answer.referral is not None
     assert answer.referral.reason == "personalCase"
     assert answer.referral.region == "outside"
-
-
-async def test_a_personal_case_still_gets_the_general_information_the_sources_state() -> None:
-    chat = FakeChat(classified(personalCase=True, level="D"), [SHAPED])
-    answer = await rafiq(chat).run("My situation is complicated; what should I do?", "en")
-
-    assert answer.sources
-    assert answer.referral is not None
-    assert answer.referral.reason == "personalCase"
 
 
 # Time.

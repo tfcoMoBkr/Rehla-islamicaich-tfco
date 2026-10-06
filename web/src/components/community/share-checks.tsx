@@ -7,7 +7,7 @@ import { ReferralCard } from "@/components/rafiq/referral-card";
 import { SpecialistCard } from "@/components/specialists/specialist-card";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
-import { advance, checkText, noticesFor, type Pending } from "@/lib/community/checks";
+import { advance, checkText, noticesFor, STOPS, type Pending } from "@/lib/community/checks";
 import type { CommunityError } from "@/lib/community/types";
 import { QUESTION_MAX_LENGTH } from "@/lib/rafiq/ask";
 
@@ -85,10 +85,16 @@ export function ShareNotice({ state, onPass, onEdit }: { state: Extract<ShareSta
           <p className="leading-relaxed">{t("personalDataBody", { found: notice.found.map((kind) => t(`found.${kind}`)).join(" · ") })}</p>
         </div>
       )}
-      {notice.kind === "ruling" && (
+      {notice.kind === "held" && (
+        <div className="grid gap-2">
+          <p className="font-display text-lg font-semibold">{t("heldTitle")}</p>
+          <p className="leading-relaxed">{t("heldBody")}</p>
+        </div>
+      )}
+      {(notice.kind === "ruling" || notice.kind === "religious") && (
         <div className="grid gap-3">
-          <p className="font-display text-lg font-semibold">{t("rulingTitle")}</p>
-          <p className="leading-relaxed">{t("rulingBody")}</p>
+          <p className="font-display text-lg font-semibold">{t(notice.kind === "ruling" ? "rulingTitle" : "religiousTitle")}</p>
+          <p className="leading-relaxed">{t(notice.kind === "ruling" ? "rulingBody" : "religiousBody")}</p>
           <div className="flex flex-wrap gap-3">
             <Button asChild>
               <Link href={{ pathname: "/rafiq", query: { ask: state.text.slice(0, QUESTION_MAX_LENGTH) } }}>{t("askRafiq")}</Link>
@@ -103,7 +109,7 @@ export function ShareNotice({ state, onPass, onEdit }: { state: Extract<ShareSta
         <Button type="button" variant="outline" onClick={onEdit}>
           {t("edit")}
         </Button>
-        {notice.kind === "ruling" ? (
+        {STOPS.has(notice.kind) ? null : notice.kind === "ruling" ? (
           <Button type="button" variant="ghost" className="h-auto min-h-11 whitespace-normal text-start" onClick={() => onPass(true)}>
             {t("postTagged")}
           </Button>

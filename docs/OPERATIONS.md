@@ -4,6 +4,23 @@ What it costs to run Rehla, what it depends on and what happens when a dependenc
 
 ## Cost per question
 
+### On `google/gemini-2.5-flash` (the final round, 6 October 2026)
+
+Measured on the final regression set (`eval/results/2026-10-06-final-regression.json`, first full run): 53 questions through Rafiq, every OpenRouter call counted from the provider's token report and priced at OpenRouter's published prices that day: `google/gemini-2.5-flash` $0.30 / $2.50 per million tokens (input / output), `google/gemini-2.5-flash-lite` (fallback) $0.10 / $0.40, `baai/bge-m3` $0.01.
+
+| Measure | Value |
+|---|---|
+| Model calls per question | 4.8 on average |
+| Cost per question (Rafiq's model calls) | **$0.00476** on average, $0.00483 median, $0.01176 at most |
+| Time to answer | 10.8 s median, 23.9 s at the 90th percentile, 45 s at most (an Urdu question that ran out of the 45 s budget) |
+| Which model answered | the main model answered all 169 successful calls; the fallback answered none |
+
+A month at the same three levels: about $14 for a pilot (3,000 questions), about $143 at 30,000, and about $214 at the daily cap (1,500 a day per instance). `DAILY_QUESTION_CAP` is counted per instance, so several instances can together pass it; the owner also sets a credit limit on the OpenRouter key, which stops spending whatever the instances count.
+
+Live checks in these rounds: Lens was run live on three photos (a sign, a prayer-times board, a verse plaque) with one follow-up each; Mawqif on one conversation per language to its feedback, in code and clicked through on the page (Arabic at 390 px, English at 1024 px); accounts were not re-tested live in the final rounds.
+
+### On `google/gemini-2.5-flash-lite` (earlier, 6 October committee run)
+
 Measured on the committee run of 6 October 2026 (`eval/results/2026-10-05-committee.json`): 56 questions through Rafiq on the production models, every OpenRouter call counted from the provider's own token report and priced at OpenRouter's published prices on that day.
 
 | Measure | Value |

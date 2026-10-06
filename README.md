@@ -40,7 +40,7 @@
 | **اسأل «رفيق»** | رفيق يحادثك كصديق في كل شيء: يستمع ويشجع ويساعدك في التخطيط ويجيب عن الأسئلة العامة. وحين يصل الحديث إلى الدين يجيب من المصادر المعتمدة وحدها: جواب مباشر، ثم النصوص بحروفها، ثم شرح، مع الامتناع والإحالة عند الحاجة |
 | **عدسة** | صوّر شيئًا مما حولك (لافتة في مسجد، لوحة مواقيت، كتابة عربية): يصفه «رفيق» أولًا وصفًا عامًّا ويقرأ ما كُتب عليه، ثم يشرحه من المصادر المعتمدة حين تغطيه، وتواصل الحديث عنه |
 | **موقف** | تدرّب على مواقف يومية (السلام، المسجد، الطعام، زيارة المريض…): ماذا تقول من المصادر، ثم حوار حر مع شخص في مشهد جديد، وملاحظات واختبار |
-| **مجتمع رحلة** | مكان اختياري لتبادل التجربة والتشجيع باسم يختاره العضو: بلا فتاوى ولا صفحات شخصية ولا رسائل خاصة، مع فحص قبل النشر وبلاغات وإشراف |
+| **مجتمع رحلة** | مكان اختياري لتبادل التجربة والتشجيع باسم يختاره العضو. يُفحص كل نص قبل نشره: علامات الخطر، والبيانات الشخصية، والأحكام، وما يُنسب إلى الإسلام، والآيات والأحاديث المقتبسة؛ فلا يُنشر حكم ولا ادعاء كهذا ولا اقتباس، ولا يُنشر شيء إن تعذّر الفحص. البلاغ الواحد لا يُخفي شيئًا وحده: ثلاثة بلاغات تُخفي المنشور حتى يراجعه مشرفو فريق «رحلة» |
 
 **مقترح ولم يُبنَ:** **أقم**، صلاة تدريبية بالكاميرا تنتهي بتقرير عن الأداء. القسم مخفي، وليس في النسخة الحية.
 
@@ -49,7 +49,7 @@
 **يعمل الآن:**
 
 - «رفيق» صديق يحادث المتعلم افتراضيًا (يستمع ويشجع ويخطط معه ويجيب عن الأسئلة العامة) بلا أي ادعاء ديني من عنده، ولا يدخل المسار المُسنَد إلا للجزء الديني من الرسالة: جواب مباشر، ثم النصوص بحروفها، ثم شرح مُسنَد فقرة فقرة، مع فحوص في الشيفرة على كل جواب (لا ألفاظ ذكر أو دعاء يكتبها النموذج، ولا نسبة قول إلى النبي ﷺ أو القرآن بلا نص مطابق، ولا عدد لا يذكره المصدر)، والامتناع والإحالة حين يلزم ([الموثوقية](docs/RELIABILITY.md)).
-- البحث في المصادر بالعربية والإنجليزية لكل لغة سؤال، والإجابة بالعربية والإنجليزية والأردية والبنغالية والفرنسية.
+- العربية والإنجليزية مدعومتان. والأردية والبنغالية والفرنسية تجريبية: الإجابة فيها استخراجية (الآيات والأحاديث كما نُشرت، وعبارات ثابتة تنتظر مراجعة متحدث أصلي). ويُبحث في المصادر بالعربية والإنجليزية لسؤال بأي لغة.
 - مسرد الجهة المنظِّمة: ترجمة المصطلح منه مباشرة، والصيغة المعتمدة في كل جواب بغير العربية.
 - «خطوات» بمحطاتها ودروسها التفاعلية، واختبار «ماذا أعرف؟» قبل كل محطة واختبارها في آخرها، ودفتر الرحلة يُري المتعلم تقدّمه ([قياس الفهم](docs/UNDERSTANDING.md)).
 - «عدسة» محادثةً حول صورة تبدأ بوصف عام مفيد دائمًا، و«موقف» حوارًا حرًّا من خمسة أدوار مع ملاحظات في آخره (وعبارات «موقف» تُعرض بالعربية دائمًا مع زر استماع بصوت الجهاز، وفي الواجهة الإنجليزية مع نطق تقريبي بحروف لاتينية يُولَّد بقواعد ثابتة ومع المعنى من الترجمة المنشورة)، و«مجتمع رحلة».
@@ -127,6 +127,8 @@ cd ai && uv run ruff check && uv run mypy app tests && uv run pytest
 
 **النسخة الحية:** [https://rehla-islamicaich-tfco-6igd.vercel.app](https://rehla-islamicaich-tfco-6igd.vercel.app/ar)
 
+**النماذج:** `google/gemini-2.5-flash` لـ«رفيق» و«موقف» و«عدسة» (والاحتياطي `google/gemini-2.5-flash-lite`)، و`baai/bge-m3` للبحث، عبر OpenRouter؛ بنحو 0.005 دولار للسؤال على مجموعة الاختبار النهائية ([التشغيل والتكلفة](docs/OPERATIONS.md)).
+
 بدأ البناء مع انطلاق أيام التحدي في **4 أكتوبر 2026**، ويوضح الملف [docs/START_STATE.md](docs/START_STATE.md) حالة المستودع قبل ذلك. التوثيق التقني: [البنية](docs/ARCHITECTURE.md)، [الموثوقية](docs/RELIABILITY.md)، [التقييم](docs/EVALUATION.md)، [التشغيل والتكلفة](docs/OPERATIONS.md)، [الخصوصية](docs/PRIVACY.md)، [المصادر](docs/SOURCES.md)، [النشر](docs/DEPLOY.md).
 
 </div>
@@ -160,7 +162,7 @@ The sections switched on in the [live version](https://rehla-islamicaich-tfco-6i
 | **Ask Rafiq** | Rafiq talks with you like a friend about anything: he listens, encourages, helps you plan and answers general questions. When the talk turns to religion, he answers from approved sources only: a direct answer, the sources verbatim, then an explanation; abstention and referral when needed |
 | **Adasa** (Lens) | Photograph something around you (a sign in a mosque, a prayer-times board, Arabic writing): Rafiq first describes it in general terms and reads what is written on it, then explains it from the approved sources where they cover it, and you talk about it |
 | **Mawqif** (Situations) | Practise everyday situations (greeting, the mosque, a meal, visiting the sick…): what to say from the sources, then a free conversation with someone in a fresh scene, feedback and a test |
-| **Rehla Community** | An opt-in place to share experience and encourage each other under a chosen community name: no rulings, no profiles or private messages, checks before sharing, reports and moderation |
+| **Rehla Community** | An opt-in place to share experience and encourage each other under a chosen community name. Before anything is shared it is checked for danger, personal details, rulings, claims about what Islam says and quoted verses or hadiths; such a ruling, claim or quote is not published, and nothing is published when the check cannot run. One report hides nothing by itself: three reports hide an item until the Rehla team's moderators review it |
 
 **Proposed, not built:** **Aqim**, a camera-based practice prayer that ends with a performance report. The section is hidden and is not in the live version.
 
@@ -169,7 +171,7 @@ The sections switched on in the [live version](https://rehla-islamicaich-tfco-6i
 **Working now:**
 
 - Rafiq as a companion who talks by default (listens, encourages, plans, answers general questions) and makes no religious claim of his own; only the religious part of a message takes the sourced path: a direct answer, the sources verbatim, then an explanation cited paragraph by paragraph, every answer checked in code (no words of dhikr or du'a written by the model, no words attributed to the Prophet ﷺ or the Quran without a matched text, no amount the source does not give), with abstention and referral where needed ([reliability](docs/RELIABILITY.md)).
-- Sources searched in Arabic and English for a question in any language; answers in Arabic, English, Urdu, Bengali and French.
+- Arabic and English are supported. Urdu, Bengali and French are experimental: answers in them are extractive (verses and hadiths as published, fixed lines awaiting native review). Sources are searched in Arabic and English for a question in any language.
 - The organisers' glossary: terms translated from it directly, and its approved forms in every answer that is not in Arabic.
 - Khutuwat's stations and interactive lessons, a "What do I already know?" check before each station and an exam at its end, and the journal showing the learner their own progress ([measuring understanding](docs/UNDERSTANDING.md)).
 - Lens as a conversation about a photo that always starts with a useful general description, Mawqif as a free five-turn conversation with feedback at the end (its phrases are always taught in Arabic, with a "listen" button using the device's voice, and on English pages an approximate pronunciation made by fixed rules and the meaning from the published translation), and Rehla Community.
@@ -245,5 +247,7 @@ Each run writes `eval/results/2026-10-05-committee*.json`: every answer as shown
 ### Project status
 
 **Live:** [https://rehla-islamicaich-tfco-6igd.vercel.app](https://rehla-islamicaich-tfco-6igd.vercel.app/en)
+
+**Models:** `google/gemini-2.5-flash` for Rafiq, Mawqif and Lens (fallback `google/gemini-2.5-flash-lite`) and `baai/bge-m3` for retrieval, through OpenRouter; about $0.005 per question on the final regression set ([operations and cost](docs/OPERATIONS.md)).
 
 The build started with the challenge build days on **October 4, 2026**; [docs/START_STATE.md](docs/START_STATE.md) records the repository's state before then. Technical documentation: [architecture](docs/ARCHITECTURE.md), [reliability](docs/RELIABILITY.md), [evaluation](docs/EVALUATION.md), [operations and cost](docs/OPERATIONS.md), [privacy](docs/PRIVACY.md), [sources](docs/SOURCES.md), [deployment](docs/DEPLOY.md).

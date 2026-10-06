@@ -41,7 +41,7 @@ from langgraph.graph.state import CompiledStateGraph
 
 from app.languages import DEFAULT, LANGUAGES, Language, spec
 from app.llm import ChatModel, ModelUnavailableError
-from app.rafiq import policy
+from app.rafiq import policy, scope
 from app.rafiq.check import Problem, cited, code_problems, counts, find_passage
 from app.rafiq.compose import compose
 from app.rafiq.draft import (
@@ -53,6 +53,7 @@ from app.rafiq.draft import (
     parse,
     render,
     split_sentences,
+    strip_markers,
 )
 from app.rafiq.embedded import Quote, place_quotes
 from app.rafiq.glossary import SOURCE_ID as GLOSSARY_SOURCE_ID
@@ -88,6 +89,7 @@ from app.rafiq.voice import name_due, voiced
 from app.rafiq.warmth import screened
 from app.retrieval.passages import Passage
 from app.retrieval.retriever import TOPIC_LESSONS, Retrieval, Retriever
+from app.retrieval.surahs import surah_name
 from app.text import has_arabic, tokens, words
 
 log = logging.getLogger("rafiq")
@@ -394,6 +396,9 @@ class Rafiq:
             classification = _in_its_own_script(classification, state)
             classification = _by_question_form(classification, state["question"])
             classification = _by_plan(classification, state["question"])
+            classification = _by_scope(classification, state["question"])
+            if state.get("history"):
+                classification = _by_own_topic(classification, state["question"])
             if classification.personal_case and classification.level != "D":
                 # A personal case is level D, whatever level the classifier gave it.
                 classification = classification.model_copy(update={"level": "D"})
@@ -576,6 +581,8 @@ class Rafiq:
             units += explanation_units(draft.explanation)
         if state["classification"].plain_term:
             units = _plain_first(units, self._terms_named(state))
+        if policy.disputed(state["classification"]):
+            units = _without_yes_no(units)
         units, renamed = self._glossary.in_approved_form(units, language)
         if renamed:
             log.info("verify glossary forms=%d", renamed)
@@ -768,7 +775,9 @@ class Rafiq:
         except ModelUnavailableError:
             return answer.topic_lesson_ids
         known = [i for i in chosen.lessons if self._road.title(i, state["locale"]) is not None]
-        return known[:TOPIC_LESSONS] or answer.topic_lesson_ids
+        # The search's own lessons fill the second place, so the topic and its practice both show.
+        found = [i for i in answer.topic_lesson_ids if i not in known]
+        return [*known, *found][:TOPIC_LESSONS]
 
     async def _encouragement(self, state: State, warm: dict[str, str]) -> str | None:
         """A warm line after a religious answer, only when the learner shared something personal;
@@ -903,13 +912,14 @@ class Rafiq:
         later = state["retrieval"].later_lesson if "retrieval" in state else None
         unanswered = answer.referral is not None and answer.referral.reason == "noSource"
         topics = state["retrieval"].topic_lessons if unanswered and "retrieval" in state else []
-        return answer.model_copy(
+        answer = answer.model_copy(
             update={
                 "later_lesson_id": later,
                 "topic_lesson_ids": topics,
                 "language_fallback": state.get("language_fallback", False),
             }
         )
+        return _without_details(answer, scope.personal_details(state["question"]))
 
     def _bare(self, state: State, reason: ReferralReason, kind: ReplyKind) -> RafiqAnswer:
         classification = state.get("classification")
@@ -929,7 +939,38 @@ class Rafiq:
     def _after_safety(state: State) -> str:
         return "danger" if state.get("danger") else "classify"
 
+    async def _recite(self, state: State) -> State:
+        """A surah asked for by name: its opening verses as QuranEnc publishes them, with the
+        published translation and a link to each; no model writes anything."""
+        surah = surah_asked(state["question"])
+        assert surah is not None
+        language = state["language"]
+        passages: list[Passage] = []
+        for ayah in range(1, RECITED_VERSES + 1):
+            passage = await self._retriever.verse(surah, ayah, language)
+            if passage is None or passage.verse is None:
+                break
+            passages.append(passage.model_copy(update={"n": ayah}))
+        if not passages:
+            return {"answer": self._decorated(state, self._bare(state, "noSource", "referral"))}
+        units = [Unit("block", block=("quran", p.verse.ref)) for p in passages if p.verse]
+        answer = compose(units, passages, language, "A")
+        return {"answer": self._decorated(state, answer.model_copy(update={"kind": "answer"}))}
+
     def _after_classify(self, state: State) -> str:
+        if surah_asked(state["question"]) is not None:
+            return "recite"
+        classification = state["classification"]
+        if (
+            scope.referred_at_once(state["question"])
+            or policy.needs_ruling_guard(classification)
+            or scope.WHICH_SCHOOL.search(state["question"])
+        ):
+            # Nothing generated, only a kind word and the card: a personal case or a ruling question
+            # (general information beside it read as a ruling too often), which school is right, a
+            # named scholar's view, a judgement on people, a ruling on finance, evidence for one
+            # side, a text to invent.
+            return "refer"
         route = policy.route(state["classification"])
         # A request to translate a glossary term is answered from the glossary, whether the
         # classifier saw it as a question or as everyday help.
@@ -1016,6 +1057,9 @@ class Rafiq:
         # it is said plainly that it was not found.
         if classification.asks_if_quoted and (not quoted or misquote is None or not misquote.exact):
             return "notFound"
+        if quoted and misquote is None and _quotes_own_text(state["question"]):
+            # Quoted words presented as a verse or hadith that are not one, nor a slip of one.
+            return "notFound"
         language = state["language"]
         if spec(language).local:
             return "generate"
@@ -1055,6 +1099,7 @@ class Rafiq:
         graph.add_node("clarify", self._clarify)
         graph.add_node("danger", self._danger)
         graph.add_node("term", self._term)
+        graph.add_node("recite", self._recite)
         graph.add_edge(START, "safety")
         graph.add_conditional_edges(
             "safety", self._after_safety, {"danger": "danger", "classify": "classify"}
@@ -1068,6 +1113,8 @@ class Rafiq:
                 "clarify": "clarify",
                 "danger": "danger",
                 "term": "term",
+                "refer": "refer",
+                "recite": "recite",
             },
         )
         graph.add_conditional_edges(
@@ -1086,7 +1133,7 @@ class Rafiq:
             self._after_verify,
             {"respond": "respond", "generate": "generate", "refer": "refer"},
         )
-        ends = ("respond", "refer", "notFound", "talk", "clarify", "danger", "term")
+        ends = ("respond", "refer", "notFound", "talk", "clarify", "danger", "term", "recite")
         for end in ends:
             graph.add_edge(end, END)
         return graph.compile()
@@ -1292,6 +1339,25 @@ VERSE_WORD = re.compile(
 HADITH_WORD = re.compile(r"\b(?:hadith|hadeeth|prophet said)\b|حديث|قال\s+النبي", re.IGNORECASE)
 # Asked as "is it one?": a question about what a quoted text means is not.
 QUESTION_FORM = re.compile(r"^\s*(?:is|was|are|did|هل)\b", re.IGNORECASE)
+# "Recite / show me surah X": its verses are shown from QuranEnc, the opening ones for a long one.
+RECITE = re.compile(
+    r"(?:اقرأ|اتل|اعرض|أرني|ارني|اكتب)\s+(?:لي\s+)?سورة\s+(\S+(?:\s+\S+)?)"
+    r"|\b(?:recite|show|read)\b(?:\s+me)?\s+(?:the\s+)?(?:surah|sura|surat)\s+([\w'-]+(?:\s+[\w'-]+)?)",
+    re.IGNORECASE,
+)
+RECITED_VERSES = 7
+SURAHS = 114
+# A message that leans on the conversation for its topic.
+FOLLOW_UP = re.compile(
+    r"^\s*(?:و\s*)?(?:ماذا|ما)\s+عن\b|^\s*(?:و\s*)?(?:لماذا|كيف)\s*[؟?]?\s*$|اشرح\s+(?:أكثر|اكثر|ذلك|هذا|لي\s+أكثر)"
+    r"|وضّح\s+أكثر|^\s*(?:and\s+)?what\s+about\b|\bexplain\s+(?:more|that|it|this)\b"
+    r"|\btell\s+me\s+more\b|^\s*(?:and\s+)?(?:why|how)\s*\??\s*$",
+    re.IGNORECASE,
+)
+# A message with this many words of its own (stop words aside) names its own topic.
+OWN_TOPIC_WORDS = 3
+# A yes or a no at the start of a reply.
+YES_NO = re.compile(r"^\s*(?:نعم|كلا|لا|yes|no)\b\s*[،,.!:]?\s*", re.IGNORECASE)
 # "What should I study next / after this lesson?": the learner's plan, not a religious question.
 STUDY_NEXT = re.compile(
     r"\b(?:what|which)\b[^?]{0,40}\b(?:learn|study|lesson)\b[^?]{0,40}\b(?:next|after)\b"
@@ -1320,6 +1386,121 @@ def quoted_words(question: str) -> str | None:
     if after := QUOTED_AFTER.search(question):
         return after.group(1).strip(" .،,") or None
     return None
+
+
+def surah_asked(question: str) -> int | None:
+    """The surah a message asks to have read or shown, by its name or number."""
+    match = RECITE.search(question)
+    if match is None:
+        return None
+    asked = " ".join(words(next(group for group in match.groups() if group)))
+    if asked.isdigit():
+        return int(asked) if 1 <= int(asked) <= SURAHS else None
+    asked = re.sub(r"^(?:ال|al\s*-?\s*|an\s*-?\s*|as\s*-?\s*)", "", asked)
+    for surah in range(1, SURAHS + 1):
+        for language in ("ar", "en"):
+            name = " ".join(words(surah_name(surah, language) or ""))
+            name = re.sub(r"^(?:ال|al\s*-?\s*|an\s*-?\s*|as\s*-?\s*)", "", name)
+            if name and (asked == name or asked.startswith(name + " ")):
+                return surah
+    return None
+
+
+def _quotes_own_text(question: str) -> bool:
+    """Whether the message puts words in quotation marks («…», "…")."""
+    return QUOTED_TEXT.search(question) is not None
+
+
+def _by_own_topic(classification: Classification, question: str) -> Classification:
+    """Earlier turns are context only for a real follow-up (a message with no topic of its own:
+    "and what about it?", "explain more"). A message that quotes its own text or names its own
+    topic is searched and answered on its own words; the classifier's rewrite from the
+    conversation is set aside, and only the search phrases that share its words are kept."""
+    own = tokens(question)
+    if FOLLOW_UP.search(question) or (
+        len(own) < OWN_TOPIC_WORDS and not _quotes_own_text(question)
+    ):
+        return classification
+    phrases = [p for p in classification.search_phrases if set(tokens(p)) & set(own)]
+    update: dict[str, object] = {"standalone": None, "search_phrases": [question, *phrases]}
+    if classification.religious:
+        update["religious_part"] = question
+    return classification.model_copy(update=update)
+
+
+def _by_scope(classification: Classification, question: str) -> Classification:
+    """The readings of scope.py: a personal case, a matter to refer at once, a disputed matter,
+    and a text asked about as a hadith or a verse in plain words."""
+    update: dict[str, object] = {}
+    religious = {"intent": "religious", "religious_part": classification.religious_part or question}
+    if scope.personal_by_form(question):
+        update |= {**religious, "personal_case": True, "level": "D"}
+    if scope.referred_at_once(question):
+        update |= {**religious, "level": "D"}
+    elif (
+        (classification.religious or update)
+        and scope.disputed_by_form(question)
+        and "D" not in (update.get("level"), classification.level)
+    ):
+        update |= {"level": "C", "consensus": True}
+    asked = scope.asked_text(question)
+    if asked:
+        # The question's own form decides, over the classifier: "…, is it a verse?" is looked up
+        # as a verse, "…, right?" as a possible slip of one.
+        text, kind, asks = asked
+        field, other = (
+            ("quoted_hadith", "quoted_verse")
+            if kind == "hadith"
+            else ("quoted_verse", "quoted_hadith")
+        )
+        update |= {**religious, field: text, other: None, "asks_if_quoted": asks}
+    return classification.model_copy(update=update) if update else classification
+
+
+def _without_details(answer: RafiqAnswer, details: list[str]) -> RafiqAnswer:
+    """The reply without any sentence that repeats the learner's name, city or workplace."""
+    if not details:
+        return answer
+    named = {" ".join(words(detail)) for detail in details}
+
+    def clean(text: str | None) -> str | None:
+        if not text:
+            return text
+        kept = [
+            sentence
+            for sentence in split_sentences(text)
+            if not any(name and name in " ".join(words(sentence)) for name in named)
+        ]
+        return " ".join(kept) or None
+
+    blocks = [
+        block.model_copy(update={"text": clean(block.text) or ""})
+        if isinstance(block, TextBlock)
+        else block
+        for block in answer.blocks
+    ]
+    return answer.model_copy(
+        update={
+            "blocks": [b for b in blocks if not isinstance(b, TextBlock) or b.text],
+            "opening": clean(answer.opening),
+            "follow_up": clean(answer.follow_up),
+            "encouragement": clean(answer.encouragement),
+        }
+    )
+
+
+def _without_yes_no(units: list[Unit]) -> list[Unit]:
+    """A disputed matter never opens with yes or no: the word goes; a sentence that was only that
+    word goes with it."""
+    for index, unit in enumerate(units):
+        if unit.kind == "block" or not unit.sentences:
+            continue
+        first = YES_NO.sub("", unit.sentences[0], count=1)
+        if first == unit.sentences[0]:
+            return units
+        sentences = ([first] if len(words(strip_markers(first))) > 1 else []) + unit.sentences[1:]
+        return [*units[:index], replace(unit, sentences=sentences), *units[index + 1 :]]
+    return units
 
 
 def _by_plan(classification: Classification, question: str) -> Classification:
@@ -1351,9 +1532,10 @@ def _by_question_form(classification: Classification, question: str) -> Classifi
         # is shown as published; asked as "is it one?", the lookup decides the answer.
         asks = {"asks_if_quoted": True} if QUESTION_FORM.search(question) else {}
         if HADITH_WORD.search(outside):
-            update = {**asks, "quoted_hadith": quoted}
+            update = {**asks, "quoted_hadith": quoted, "quoted_verse": None}
         elif VERSE_WORD.search(outside):
-            update = {**asks, "quoted_verse": quoted}
+            # Presented as a verse: looked up as one, never as a hadith.
+            update = {**asks, "quoted_verse": quoted, "quoted_hadith": None}
     if classification.asks_for_evidence and not EVIDENCE_REQUEST.search(question):
         # Asking why something is so is not asking for a proof text.
         update["asks_for_evidence"] = False

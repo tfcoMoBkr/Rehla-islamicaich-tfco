@@ -1,11 +1,11 @@
 {
   "embeddingModel": "baai/bge-m3",
   "dimensions": 1024,
-  "chunks": 2865,
+  "chunks": 3220,
   "builtOn": "2026-10-06",
   "counts": {
-    "book:ar": 363,
-    "book:en": 205,
+    "book:ar": 426,
+    "book:en": 497,
     "catalogue:ar": 1122,
     "catalogue:en": 792,
     "hadith:ar": 147,

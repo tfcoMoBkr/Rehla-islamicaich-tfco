@@ -34,5 +34,6 @@ describe("the product's own words", () => {
     const stale = ["web", "docs", "content", "ai"].flatMap((dir) => files(path.join(ROOT, dir))).concat(path.join(ROOT, "README.md"));
     const found = stale.filter((file) => OLD_TAGLINES.some((tagline) => readFileSync(file, "utf8").includes(tagline)));
     expect(found.map((file) => path.relative(ROOT, file))).toEqual([]);
-  });
+    // It reads every file of the repository, the committed index included.
+  }, 30_000);
 });

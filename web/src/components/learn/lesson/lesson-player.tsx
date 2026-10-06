@@ -243,6 +243,7 @@ export function LessonPlayer({ lesson, visual, provisionsPool, next }: LessonPla
           </div>
         </div>
 
+        {screen.kind === "intro" && lesson.reviewed !== true && <p className="mt-3 text-sm text-muted-foreground">{t("notReviewed")}</p>}
         {screen.kind === "intro" && lesson.demo && (
           <div className="tone-day mt-4 rounded-xl bg-paper *:mt-0">
             <LessonBanner />

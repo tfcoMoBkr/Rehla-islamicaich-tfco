@@ -36,16 +36,13 @@ from app.llm import ModelUnavailableError, OpenRouterChat  # noqa: E402
 from app.main import load_rafiq  # noqa: E402
 from app.rafiq.graph import Rafiq  # noqa: E402
 from app.rafiq.name import without_name  # noqa: E402
-from app.rafiq.schemas import RafiqAnswer, SharedPost  # noqa: E402
+from app.rafiq.schemas import Turn, RafiqAnswer, SharedPost  # noqa: E402
 
 RESULTS = EVAL / "results"
 STEM = "2026-10-05-committee"
-PRODUCTION = {
-    "llm_model": "google/gemini-2.5-flash-lite",
-    "llm_fallback_model": "google/gemma-4-31b-it",
-    "embedding_model": "baai/bge-m3",
-    "vlm_model": "google/gemini-2.5-flash-lite",
-}
+# The models ai/.env names, as production runs them; filled in main().
+PRODUCTION: dict[str, str] = {}
+MODEL_FIELDS = ("llm_model", "llm_fallback_model", "embedding_model", "vlm_model", "vlm_fallback_model")
 JUDGE_MODEL = "openai/gpt-6-luna"
 CRITERIA = (
     "onTopic",
@@ -163,8 +160,8 @@ async def openrouter_prices(client: httpx.AsyncClient) -> dict[str, dict[str, fl
     return prices
 
 
-def load_set() -> list[dict[str, Any]]:
-    data = json.loads((EVAL / "committee.json").read_text(encoding="utf-8"))
+def load_set(name: str = "committee.json") -> list[dict[str, Any]]:
+    data = json.loads((EVAL / name).read_text(encoding="utf-8"))
     cases: list[dict[str, Any]] = []
     for include in data["include"]:
         listed = json.loads((EVAL / include["file"]).read_text(encoding="utf-8"))["cases"]
@@ -297,8 +294,10 @@ async def run_item(
     calls, mcp_before = len(usage.calls), rafiq.retriever._mcp.calls
     started = time.perf_counter()
     try:
+        # Earlier turns of a conversation the case is asked in, if it has them.
+        history = [Turn(**turn) for turn in case.get("history", {}).get(language, [])]
         answer: RafiqAnswer | None = await rafiq.run(
-            question, locale, shared=SharedPost(**shared) if shared else None
+            question, locale, shared=SharedPost(**shared) if shared else None, history=history
         )
         error = None
     except Exception as failure:
@@ -439,15 +438,18 @@ async def main() -> None:
     parser.add_argument("--only", nargs="*", help="id:language items to rerun into the results")
     parser.add_argument("--run", type=int, default=1, help="2 writes a second, separate run")
     parser.add_argument("--baseline", action="store_true", help="official cases, model alone")
+    parser.add_argument("--set", default="committee.json", help="the set file under eval/")
+    parser.add_argument("--stem", default=STEM, help="the results file's name")
     args = parser.parse_args()
 
-    settings = Settings(_env_file=AI_ROOT / ".env", **PRODUCTION)  # type: ignore[call-arg]
+    settings = Settings(_env_file=AI_ROOT / ".env")  # type: ignore[call-arg]
+    PRODUCTION.update({f: str(getattr(settings, f)) for f in MODEL_FIELDS if getattr(settings, f)})
     judge_model = os.environ.get("JUDGE_MODEL") or JUDGE_MODEL
     judge_settings = settings.model_copy(
         update={"llm_model": judge_model, "llm_fallback_model": None}
     )
     wanted = {tuple(entry.split(":", 1)) for entry in args.only or []}
-    cases = load_set()
+    cases = load_set(args.set)
     if args.baseline:
         cases = [case for case in cases if case["set"] == "official"]
 
@@ -481,7 +483,7 @@ async def main() -> None:
 
     RESULTS.mkdir(exist_ok=True)
     name = "baseline" if args.baseline else ("" if args.run == 1 else f"run{args.run}")
-    path = RESULTS / f"{STEM}{'-' + name if name else ''}.json"
+    path = RESULTS / f"{args.stem}{'-' + name if name else ''}.json"
     if wanted and path.exists():
         items = merge(path, items)
     path.write_text(
@@ -492,6 +494,8 @@ async def main() -> None:
                 "models": {**PRODUCTION, "judge": judge_model},
                 "prices": {m: prices.get(m) for m in {*PRODUCTION.values(), judge_model}},
                 "summary": summary(items),
+                # Successful calls per model: the fallback should answer few or none.
+                "answeredBy": dict(getattr(rafiq.chat, "answered", {})) if rafiq else {},
                 "judgeCost": round(sum(c["cost"] for c in judge_usage.calls), 6),
                 "items": items,
             },

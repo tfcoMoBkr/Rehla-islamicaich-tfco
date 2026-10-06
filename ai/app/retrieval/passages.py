@@ -2,6 +2,7 @@
 published texts separately (the Arabic, and the published translation with its language), so it is
 shown only as it was stored or retrieved, never as written by the model."""
 
+import re
 from typing import Literal
 
 from pydantic import BaseModel
@@ -13,6 +14,12 @@ from app.retrieval.mcp_text import McpHadith, McpVerse
 PassageType = Literal["book", "hadith", "quran", "term"]
 
 QURAN_TITLE = {"ar": "القرآن الكريم", "en": "The Holy Quran"}
+# Words a book gives as the Prophet's ﷺ: a hadith inside the book's text.
+PROPHET_SAID = re.compile(
+    r"(?:قال|يقول)\s+(?:رسول\s+الله|النبي|الرسول)|قال\s+ﷺ|«[^»]{0,20}ﷺ"
+    r"|\b(?:the\s+)?(?:prophet|messenger\s+of\s+allah)\b[^.]{0,60}\bsaid\b",
+    re.IGNORECASE,
+)
 
 
 class VerseText(BaseModel):
@@ -118,7 +125,10 @@ def from_chunk(chunk: Chunk) -> Passage:
         text=text,
         verse=verse,
         answers_a_question=bool(chunk.extra.get("question")),
-        quotable=chunk.type != "book" or bool(chunk.extra.get("verbatim")),
+        # A book passage carrying a hadith (words given as the Prophet's ﷺ) is cited by its card,
+        # never shown as a block: the hadith would appear without its grade.
+        quotable=chunk.type != "book"
+        or (bool(chunk.extra.get("verbatim")) and not PROPHET_SAID.search(text)),
     )
 
 

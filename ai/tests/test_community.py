@@ -105,9 +105,21 @@ def test_the_endpoint_answers_in_camel_case_validates_and_limits(client: TestCli
         "danger": False,
         "distress": False,
         "personalRuling": True,
+        "religiousClaim": False,
     }
     too_long = client.post("/community/check", json={**body, "text": "x" * 3201})
     assert too_long.status_code == 422
     assert "xxxxxxxxxx" not in too_long.text
     assert client.post("/community/check", json=body).status_code == 200
     assert client.post("/community/check", json=body).status_code == 429
+
+
+async def test_a_text_quoting_scripture_is_a_religious_claim_and_an_unchecked_one_is_held() -> None:
+    quoting = await Checker(FakeChat(ModelCheck())).check(
+        CheckRequest(text="قال رسول الله إن هذا مباح", locale="ar")
+    )
+    assert quoting.religious_claim is True
+    sharing = await Checker(FakeChat(ModelCheck())).check(
+        CheckRequest(text="I went to the mosque today.", locale="en")
+    )
+    assert sharing.religious_claim is False

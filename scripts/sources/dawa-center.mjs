@@ -4,7 +4,7 @@
 
 import path from "node:path";
 
-import { corpusDir, download, exists, getText, python, readJson, root, scriptPath, sectionCharacters, sourcesDir, today, writeJson } from "./common.mjs";
+import { corpusDir, exists, getText, python, readJson, root, scriptPath, sectionCharacters, sourcesDir, today, writeJson } from "./common.mjs";
 
 export const DAWA_BOOKS = [{ id: 7937, language: "ar" }];
 
@@ -28,7 +28,11 @@ async function fetchBook(book, refresh) {
   const page = readPage(html);
   if (!page.file) return { book, page, sections: [], failures: ["the page links no PDF"] };
   const file = path.join(sourcesDir, `dawa-${book.id}-${path.basename(new URL(page.file).pathname)}`);
-  await download(page.file, file, { refresh, gapMs: 2000 });
+  // dawa.center's robots.txt disallows /storage/files/, where the PDF is: the script never fetches
+  // it. The PDF is downloaded by hand from the book's public page and saved under this name.
+  if (!(await exists(file))) {
+    return { book, page, sections: [], failures: [`download ${page.file} by hand from ${pageUrl(book)} and save it as ${file}`] };
+  }
   const split = await python(scriptPath("sources", "qa_sections.py"), ["pypdf"], file);
   const failures = [];
   if (split.sections.length === 0) failures.push(`${path.basename(file)}: no numbered questions found in its text layer`);

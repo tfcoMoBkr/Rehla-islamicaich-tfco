@@ -112,6 +112,7 @@ export function SituationPlayer({ situation, next }: { situation: SituationView;
           <p className="leading-relaxed text-muted-foreground">
             {situation.scene} · {t("teamWording")}
           </p>
+          {situation.reviewed !== true && <p className="text-sm text-muted-foreground">{t("notReviewed")}</p>}
           <h3 className="font-display text-xl font-semibold">{t("learn.say")}</h3>
           {quotes("say")}
           {situation.learn.why.length > 0 && (

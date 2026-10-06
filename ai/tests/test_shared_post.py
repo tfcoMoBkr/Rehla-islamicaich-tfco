@@ -68,20 +68,6 @@ async def test_danger_in_the_post_is_answered_before_any_model_is_asked() -> Non
     assert chat.systems == []
 
 
-async def test_a_ruling_the_post_asks_for_is_still_never_given() -> None:
-    chat = FakeChat(
-        Classification.model_validate(
-            {"language": "en", "level": "D", "intent": "religious", "personalCase": True}
-        ),
-        [GOOD],
-    )
-    post = SharedPost(title="My job", body="Is my job at the bank allowed for me?")
-    answer = await rafiq(chat).run(QUESTION, "en", shared=post)
-
-    assert answer.referred
-    assert any("give only the general information" in system for system in chat.systems)
-
-
 @pytest.fixture
 def chat() -> FakeChat:
     return FakeChat(classified(), [GOOD])

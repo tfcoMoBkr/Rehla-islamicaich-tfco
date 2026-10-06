@@ -1,0 +1,201 @@
+## Conversation
+
+> انا متوتر جدا ي صديقييي اريدك ان تشجعني  (3.8s)
+   [kind=chat referral=smalltalk level=None lang=ar]
+   (opening) يا {{name}}، لا تقلق أبدًا، كلنا نمر بلحظات كهذه، والمهم هو أنك تحاول وتتقدم.
+   (next) هل تود أن تخبرني ما الذي يجعلك متوترًا؟
+
+> شكرًا لك، أفدتني كثيرًا.  (3.4s)
+   [kind=chat referral=smalltalk level=None lang=ar]
+   (opening) العفو يا {{name}}، يسعدني أنني أفدتك. أنا هنا لأي شيء تحتاج إليه.
+
+> كيف يومك يا رفيق؟ أنا رجعت من الشغل تعبان  (5.2s)
+   [kind=chat referral=smalltalk level=None lang=ar]
+   (opening) أهلاً بك يا {{name}}، أتمنى أن يكون يومك قد مر بخير رغم التعب. يبدو أنك بذلت مجهودًا كبيرًا في عملك اليوم.
+   (next) هل تود أن تتحدث عن يومك قليلًا، أم تفضل أن تستريح الآن؟
+
+> ماذا أتعلم بعد درس الوضوء؟  (5.8s)
+   [kind=chat referral=smalltalk level=None lang=ar]
+   (opening) أهلاً بك يا {{name}}! بعد درس الوضوء، يمكنك أن تنتقل إلى درس "كيف أتوضأ؟"، وهو يكمل ما تعلمته عن الوضوء.
+   (next) هل أنت مستعد لبدء هذا الدرس؟
+   [lesson link: 2.4]
+
+> أنا متوتر قليلًا من أول رمضان لي. وما الذي يفسد الصيام؟  (14.4s)
+   [kind=answer referral=None level=A lang=ar]
+   (opening) يا {{name}}، هذا أمر طبيعي تمامًا، ولا تقلق بشأنه.
+   (answer) الصيام هو الامتناع عن مبطلات الصيام من طلوع الفجر إلى غروب الشمس مع نية الصيام [1]. ومبطلات الصيام هي الأكل والشرب والجماع [2].
+   (explanation) الصيام يعني عبادة الله بالامتناع عن مبطلات الصيام من طلوع الفجر إلى غروب الشمس، مع وجود نية الصيام [1].
+
+مبطلات الصيام التي يجب الامتناع عنها هي الأكل والشرب والجماع [2].
+   (encouragement) يا {{name}}، هذا شعور طبيعي في البداية، وأنت تبذل جهدًا طيبًا.
+   Source [1]: ما لا يسع أطفال المسلمين جهله —  — https://byenah.com/ar/muslim-content/21227
+   Source [2]: المختصر المفيد للمسلم الجديد —  — https://islamhouse.com/ar/books/2831443/
+
+## Sourced
+
+> official-11 ar: ما معنى قوله تعالى: «لا إكراه في الإسلام»؟  (21.7s)
+   [kind=referral referral=verseNotFound level=B lang=ar]
+
+> official-11 en: What does the verse «لا إكراه في الإسلام» mean?  (14.9s)
+   [kind=answer referral=None level=B lang=en]
+   [fixed note: wordingDiffers]
+   [verse 2:256 Al-Baqarah: لَآ إِكۡرَاهَ فِي ٱلدِّينِۖ قَد تَّبَيَّنَ ٱلرُّشۡدُ مِنَ ٱلۡغَيِّۚ فَمَن يَكۡفُرۡ بِٱلطَّٰغُوتِ وَيُؤۡمِنۢ بِٱللَّهِ فَقَدِ ٱسۡتَمۡسَكَ بِٱلۡعُرۡوَةِ ٱلۡوُثۡقَىٰ لَا ٱنفِصَامَ لَهَاۗ وَٱللَّهُ سَمِيعٌ عَلِيمٌ]
+     There shall be no compulsion in [acceptance of] the religion. The right course has become distinct from the wrong. So whoever disbelieves in ṭāghūt[104] and believes in Allāh has grasped the most trustworthy handhold with no break in it. And Allāh is Hearing and Knowing.
+   (answer) The verse you mentioned is slightly different in its wording [1]. It means that no one should be forced to accept the religion [1]. The right path has been made clear from the wrong one [1].
+   (explanation) The verse states that there is no compulsion in religion [1]. This means that people should not be forced to become Muslim or to practice Islam against their will [1].
+
+The verse also explains that the correct way has been made clear from the incorrect way [1]. This implies that the truth is evident, and people can choose it freely [1].
+
+Islam is a religion of ease and gentleness [2]. It does not place burdens that people cannot bear [2]. This includes not being held accountable for mistakes, forgetfulness, or actions done under compulsion [2].
+   Source [1]: The Holy Quran — 2:256 — https://quranenc.com/en/browse/english_saheeh/2#256
+   Source [2]: بينات: أسئلة وأجوبة عن الإسلام — أليست شرائعُ الإسلامِ صعبةً؛ بدليلِ عزوفِ كثيرٍ ممن يقتنِعُ بالإسلامِ — https://dawa.center/file/7937
+
+> rakahs ar: كم عدد ركعات كل صلاة؟  (28.6s)
+   [kind=answer referral=None level=A lang=ar]
+   (answer) عدد الصلوات الواجبة على المسلم في اليوم والليلة خمس صلوات [1][2]. صلاة الفجر ركعتان، وصلاة الظهر أربع ركعات، وصلاة العصر أربع ركعات، وصلاة المغرب ثلاث ركعات، وصلاة العشاء أربع ركعات [1][2].
+   (explanation) الصلوات الخمس المفروضة هي:
+
+- صلاة الفجر: ركعتان [1][2].
+- صلاة الظهر: أربع ركعات [1][2].
+- صلاة العصر: أربع ركعات [1][2].
+- صلاة المغرب: ثلاث ركعات [1][2].
+- صلاة العشاء: أربع ركعات [1][2].
+   Source [1]: ما لا يسع أطفال المسلمين جهله — س19- کم صلاة تجب على المسلم في اليوم والليلة؟ وكم عدد رکعات كل صلاة؟ — https://byenah.com/ar/muslim-content/21227
+   Source [2]: ما لا يسع أطفال المسلمين جهله —  — https://byenah.com/ar/muslim-content/21227
+
+> rakahs en: How many rak'ahs are in each of the five daily prayers?  (8.7s)
+   [kind=referral referral=disputed level=A lang=en]
+   (answer) There are five prayers each day and night [1]. The number of Rak'ahs for each prayer is: Fajr has two Rak'ahs, Dhuhr has four Rak'ahs, 'Asr has four Rak'ahs, Maghrib has three Rak'ahs, and 'Ishā' has four Rak'ahs [1].
+   (explanation) The five daily prayers are:
+
+- Fajr (dawn) prayer - two Rak'ahs [1]
+- Dhuhr (noon) prayer - four Rak'ahs [1]
+- 'Asr (afternoon) prayer - four Rak'ahs [1]
+- Maghrib (sunset) prayer - three Rak'ahs [1]
+- 'Ishā' (night) prayer - four Rak'ahs [1]
+   Source [1]: What Muslim Children Must Know — Q20: How many prayers are obligatory upon the Muslim in one day and night? What are the number of Rak‘ahs (units of prayer) in each prayer? — https://byenah.com/en/muslim-content/5138
+
+> rakahs ur: پانچ فرض نمازوں میں سے ہر ایک میں کتنی رکعتیں ہیں؟  (15.6s)
+   [kind=referral referral=noSource level=A lang=ur]
+   [lessons on this topic: 3.3, 3.4]
+
+> rakahs id: Berapa rakaat dalam setiap salat wajib lima waktu?  (23.7s)
+   [kind=answer referral=None level=A lang=en]
+   (answer) There are five obligatory prayers each day and night [1]. The number of units (Rak‘ahs) for each prayer are: Fajr has two, Dhuhr has four, ‘Asr has four, Maghrib has three, and ‘Ishā’ has four [1].
+   (explanation) There are five prayers that are obligatory for Muslims every day and night [1]:
+
+- Fajr (dawn) prayer has two units (Rak‘ahs) [1]
+- Dhuhr (noon) prayer has four units (Rak‘ahs) [1]
+- ‘Asr (afternoon) prayer has four units (Rak‘ahs) [1]
+- Maghrib (sunset) prayer has three units (Rak‘ahs) [1]
+- ‘Ishā’ (night) prayer has four units (Rak‘ahs) [1]
+   Source [1]: What Muslim Children Must Know — Q20: How many prayers are obligatory upon the Muslim in one day and night? What are the number of Rak‘ahs (units of prayer) in each prayer? — https://byenah.com/en/muslim-content/5138
+
+> how-to-pray ar: كيف أصلي؟ علّمني خطوة خطوة  (30.3s)
+   [kind=answer referral=None level=A lang=ar]
+   (answer) تبدأ الصلاة بالنية في القلب للفريضة التي تريد أداءها، ثم تتوضأ وتستقبل القبلة، وتصلي قائمًا إذا كنت قادرًا [1].
+   (explanation) بعد ذلك ترفع يديك بمحاذاة المنكبين وتقول تكبيرة الإحرام ناوياً الدخول في الصلاة [1][2].
+
+ثم تركع وتجعل ظهرك مستويًا ويديك على ركبتيك مفرجة الأصابع، وتقول في الركوع ذكرًا خاصًا [1]. ثم ترفع من الركوع رافعًا يديك إلى حذو المنكبين، وإذا اعتدل جسمك واقفًا تقول ذكرًا خاصًا [1].
+   (next) يمكنك مراجعة درس «كيف أتوضأ؟» إذا أردت معرفة خطوات الوضوء.
+   Source [1]: المختصر المفيد للمسلم الجديد — أتعلم الصلاة — https://islamhouse.com/ar/books/2831443/
+   Source [2]: المختصر المفيد للمسلم الجديد —  — https://islamhouse.com/ar/books/2831443/
+
+> by-the-sword ar: هل انتشر الإسلام بالسيف؟  (8.2s)
+   [kind=answer referral=None level=B lang=ar]
+   (answer) الإسلام لم ينتشر بالسيف، بل انتشر بالدعوة والحجة [1].
+   (explanation) الإسلام لم يُكره الناس على الدخول فيه، ولم ينتشر بالقوة [1].
+
+انتشر الإسلام بالدعوة إلى الله وبالحجج والبراهين [1].
+
+عندما فُتحت البلاد، سافر إليها الكثير من المسلمين وأقاموا فيها، وهذا أتاح لأهل تلك البلاد أن يتعرفوا على حقائق الدين من خلال تعاملهم مع المسلمين [1].
+
+عندما يرى الناس الدعاة بمظهر العزة والوجاهة، تقترب منهم النفوس، وإذا وجدوا دين الإسلام أفضل من دينهم وشريعته أحكم وآدابه أرفع، فإنهم يؤمنون به ويتبعونه [1].
+   Source [1]: بينات: أسئلة وأجوبة عن الإسلام — هل انتشَرَ الإسلامُ بالسيف؟ — https://dawa.center/file/7937
+
+## Lens
+
+> photo: sign  (34.1s)
+   [row=3 card=None]
+   subject: لافتة
+   text read: مصلى النساء
+Women's Prayer Room →
+   machine translation: مصلى النساء
+   general description (not from the sources): هذه لافتة خضراء مستطيلة الشكل ذات حدود بيضاء. مكتوب عليها باللغتين العربية والإنجليزية "مصلى النساء" و "Women's Prayer Room" مع سهم يشير إلى اليمين. تشير هذه اللافتة عادةً إلى مكان مخصص لصلاة النساء.
+
+   > follow-up: ماذا يظهر في الصورة؟
+   [status=answered card=None]
+   (what can be seen) تظهر في الصورة لافتة خضراء مكتوب عليها باللغتين العربية والإنجليزية "مصلى النساء" و "Women's Prayer Room" مع سهم يشير إلى الاتجاه.
+
+> photo: board  (28.7s)
+   [row=3 card=None]
+   subject: جدول أوقات الصلاة
+   text read: مواقيت الصلاة
+الفجر 04:38
+الشروق 05:56
+الظهر 11:47
+العصر 15:11
+المغرب 17:38
+العشاء 19:08
+   general description (not from the sources): هذه لافتة تعرض أوقات الصلاة اليومية. يبدو أنها قائمة بأوقات الصلوات الخمس بالإضافة إلى وقت الشروق.
+
+   > follow-up: ما الغرض من هذه اللوحة؟
+   [status=answered card=None]
+   [kind=answer referral=None level=A lang=ar]
+   (answer) تُظهر هذه اللوحة أوقات الصلوات المفروضة، وهي الظهر والعصر والمغرب والعشاء والفجر [1].
+   [hadith #10596: عن عبد الله بن عمرو رضي الله عنهما : أن رسول الله صلى الله عليه وسلم ، قال:«وقت الظهر إذا زالت الشمس وكان ظل الرجل كطوله، ما لم يحضر العصر، ووقت العصر ما لم تَصْفَرَّ الشمس، ووقت صلاة المغرب ما لم يَغِبْ الشفق، ووقت صلاة العشاء إلى نصف الليل الأوسط، ووقت صلاة الصبح من طلوع الفجر ما لم تطلع الشمس، فإ]
+   (explanation) اللوحة التي رأيتها تعرض أوقات الصلوات الخمس: الظهر، والعصر، والمغرب، والعشاء، والفجر [1]. هذه الأوقات محددة في الإسلام [1].
+
+يبدأ وقت صلاة الظهر عندما تميل الشمس عن وسط السماء نحو الغرب [1]. أما وقت العصر فيستمر ما لم تصفر الشمس [1]. ووقت صلاة المغرب يبدأ بعد غروب الشمس ويستمر حتى يغيب الشفق الأحمر [1]. ووقت صلاة العشاء يمتد إلى منتصف الليل [1]. أما صلاة الفجر فوقتها من طلوع الفجر الصادق إلى طلوع الشمس [1].
+   Source [1]: وقت الظهر إذا زالت الشمس وكان ظل الرجل كطوله، ما لم يحضر العصر، ووقت العصر ما لم تصفر الشمس، ووقت صلاة المغرب ما لم يغب الشفق، ووقت صلاة العشاء إلى نصف الليل الأوسط، ووقت صلاة الصبح من طلوع الفجر ما لم تطلع الشمس — #10596 — https://hadeethenc.com/ar/browse/hadith/10596
+
+> photo: plaque  (31.3s)
+   [row=4 card=None]
+   subject: خط عربي
+   general description (not from the sources): هذا يبدو وكأنه خط عربي في إطار، والذي يبدو وكأنه آية قرآنية.
+   [kind=answer referral=None level=B lang=ar]
+   (answer) هو أن كل أنواع الحمد والكمال لله وحده [1]. والله هو الرب الذي ربى جميع العالمين بنعمته [2].
+   [verse 1:2 الفاتحة: ٱلۡحَمۡدُ لِلَّهِ رَبِّ ٱلۡعَٰلَمِينَ]
+   (explanation) الآية الكريمة
+
+تعني أن جميع أنواع الحمد والكمال هي لله وحده [1].
+
+الله هو الرب، وهو الذي خلق ورزق وربى جميع العالمين بنعمته [2][4].
+
+كلمة تعني الخالق والمالك والرازق والمدبر لكل الأمور [4].
+   Source [1]: ما لا يسع أطفال المسلمين جهله —  — https://byenah.com/ar/muslim-content/21227
+   Source [2]: ما لا يسع أطفال المسلمين جهله — س1: من ربك؟ — https://byenah.com/ar/muslim-content/21227
+   Source [3]: القرآن الكريم — 1:2 — https://quranenc.com/en/browse/english_saheeh/1#2
+   Source [4]: ما لا يسع أطفال المسلمين جهله —  — https://byenah.com/ar/muslim-content/21227
+
+   > follow-up: هل يجب علي أن أعلق آية في بيتي؟
+   [status=answered card=None]
+   [kind=referral referral=personalCase level=D lang=ar]
+   (opening) يا {{name}}، هذا أمر يحتاج إلى رأي متخصص يمكنه الاستماع إلى حالتك بالتفصيل.
+
+## Mawqif
+
+> greeting, ar: صديقة قديمة من الجامعة — مقهى مزدحم
+   Them: يا إلهي، لم أتوقع رؤيتك هنا! كيف حالك؟
+   You: السلام عليكم ورحمة الله
+   Them: وعليكم السلام ورحمة الله! أنا بخير الحمد لله، لم أتوقع أن أراك أنت أيضًا! ما الذي أتى بك إلى هنا؟   [continued, met ['k2']]
+   You: بخير والحمد لله، وأنت؟
+   Them: أنا بخير أيضًا، شكرًا لسؤالك. هل أنت هنا لتناول القهوة أم تنتظر أحدًا؟   [continued, met []]
+   Feedback: ready  (13.9s in all)
+     reply 1: good «أحسنت يا {{name}}، لقد بدأتِ حديثك بتحية الإسلام الجميلة.» better «» missing []
+     reply 2: good «لقد كان ردك على السؤال عن حالك واضحًا وموجزًا.» better «» missing []
+
+> greeting, en: Ahmad, a colleague from another department — The office elevator
+   Them: Oh, hey. Going down too?
+   You: As-salamu alaykum
+   Them: Wa alaykum as-salam. Yes, heading down for some coffee. You too?   [continued, met []]
+   You: I'm well, thank you. And you?
+   Them: I'm good too, thanks. Just need a quick break from all these spreadsheets.   [continued, met []]
+   Feedback: ready  (19.7s in all)
+     reply 1: good «That was a good start, {{name}}.» better «» missing ['k1', 'k2']
+     reply 2: good «It's good that you asked how they were doing.» better «» missing ['k1', 'k2']
+
+## The three zero checks
+   rulings in a personal case: 0
+   words of worship written by the model: 0
+   attributions to the Prophet or the Quran without a matched block: 0

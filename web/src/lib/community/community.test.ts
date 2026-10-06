@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { advance, checkText, noticesFor, personalData, type ServiceCheck } from "./checks";
+import { advance, checkText, noticesFor, personalData, STOPS, type ServiceCheck } from "./checks";
 
 /*
  * A stand-in for the Supabase client: each query records what it was asked and answers from
@@ -49,7 +49,7 @@ beforeEach(() => {
 
 const step = (call: Call | undefined, name: string) => call?.steps.find(([given]) => given === name)?.[1];
 
-const service = (flags: Partial<ServiceCheck> = {}): ServiceCheck => ({ checked: true, danger: false, distress: false, personalRuling: false, ...flags });
+const service = (flags: Partial<ServiceCheck> = {}): ServiceCheck => ({ checked: true, danger: false, distress: false, personalRuling: false, religiousClaim: false, ...flags });
 
 describe("the checks before sharing", () => {
   it("finds phone numbers, emails and addresses, in Arabic and English digits", () => {
@@ -76,12 +76,18 @@ describe("the checks before sharing", () => {
     expect(advance({ notices: notices.slice(0, 1), index: 0, tagged: false })).toEqual({ share: true, needsSpecialist: false });
   });
 
-  it("asks the service once, and lets the post through when it cannot answer", async () => {
+  it("holds a post that could not be checked, and stops one that rules or quotes scripture", () => {
+    expect(noticesFor("Hello all", { ...service(), checked: false })).toEqual([{ kind: "held" }]);
+    expect(noticesFor("Music is haram.", service({ religiousClaim: true, personalRuling: true }))).toEqual([{ kind: "religious" }]);
+    expect(STOPS.has("religious") && STOPS.has("held")).toBe(true);
+  });
+
+  it("asks the service once, and reports when it cannot answer", async () => {
     const fetcher = vi.fn(async () => new Response(JSON.stringify({ checked: true, danger: false, distress: false, personalRuling: true })));
     expect(await checkText("  Is my job allowed for me?  ", "en", fetcher)).toEqual(service({ personalRuling: true }));
     expect(fetcher).toHaveBeenCalledWith("/api/ai/community-check", expect.objectContaining({ body: JSON.stringify({ text: "Is my job allowed for me?", locale: "en" }) }));
 
-    const unchecked = { checked: false, danger: false, distress: false, personalRuling: false };
+    const unchecked = { checked: false, danger: false, distress: false, personalRuling: false, religiousClaim: false };
     expect(await checkText("x", "ar", async () => new Response("", { status: 503 }))).toEqual(unchecked);
     expect(await checkText("x", "ar", async () => new Response("not json"))).toEqual(unchecked);
     expect(

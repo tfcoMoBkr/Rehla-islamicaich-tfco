@@ -41,15 +41,18 @@ The AI service never talks to Supabase and has no Supabase variables.
 
 ### Production models
 
-The live service runs on these models, all reached through OpenRouter. The committee run in `docs/EVALUATION.md` used the same ones.
+The service is set to these models (6 October, final round), all reached through OpenRouter, with reasoning switched off on every call. The evaluation harness reads the same four from `ai/.env`. Earlier runs in `docs/EVALUATION.md` used `google/gemini-2.5-flash-lite` with `google/gemma-4-31b-it` as fallback; they are reported under that model.
 
 | Variable | Model | Used for |
 |---|---|---|
-| `LLM_MODEL` | `google/gemini-2.5-flash-lite` | Rafiq: classifying, writing, checking; Mawqif's scenes and turns; Lens's questions |
-| `LLM_FALLBACK_MODEL` | `google/gemma-4-31b-it` | When the main model fails, is rate limited, or returns invalid JSON twice |
+| `LLM_MODEL` | `google/gemini-2.5-flash` | Rafiq: classifying, writing, checking; Mawqif's scenes and turns; Lens's questions; the community check |
+| `LLM_FALLBACK_MODEL` | `google/gemini-2.5-flash-lite` | When the main model fails, is rate limited, or returns invalid JSON twice (every call logs which model answered) |
 | `EMBEDDING_MODEL` | `baai/bge-m3` | Retrieval; the committed index was built with it |
-| `VLM_MODEL` | `google/gemini-2.5-flash-lite` | Lens: reading a photo |
+| `VLM_MODEL` | `google/gemini-2.5-flash` | Lens: reading a photo |
+| `VLM_FALLBACK_MODEL` | `google/gemini-2.5-flash-lite` | Lens, when the vision model fails |
 | `JUDGE_MODEL` | `openai/gpt-6-luna` | The evaluation only (`eval/`), never the product |
+
+`DAILY_QUESTION_CAP` is counted per instance: with several instances running, the total can exceed it. The owner also sets a credit limit on the OpenRouter key, which caps spending whatever the instances count.
 
 ## The `web` project
 

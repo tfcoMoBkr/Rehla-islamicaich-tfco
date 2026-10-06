@@ -27,7 +27,7 @@ from app.rafiq.graph import Rafiq, referral
 from app.rafiq.schemas import PageLocale, RafiqAnswer
 from app.retrieval.passages import Passage
 from app.retrieval.retriever import Retriever
-from app.text import shares_run
+from app.text import shares_run, words
 
 log = logging.getLogger("lens")
 PROMPTS = Path(__file__).parent / "prompts"
@@ -66,6 +66,16 @@ def published_block(passage: Passage, locale: PageLocale) -> RafiqAnswer:
         ("quran", numbered.verse.ref) if numbered.verse else ("hadith", str(numbered.hadith.id))  # type: ignore[union-attr]
     )
     return compose([Unit(kind="block", block=(kind, reference))], [numbered], locale, "A")
+
+
+def defines(answer: RafiqAnswer, term: str) -> bool:
+    """Whether a source the answer cites is about the term itself: its title or reference names
+    it."""
+    wanted = " ".join(words(term))
+    return any(
+        wanted and wanted in " ".join(words(f"{source.title} {source.reference}"))
+        for source in answer.sources
+    )
 
 
 def ruling_referral(locale: PageLocale) -> RafiqAnswer:
@@ -125,6 +135,10 @@ class Lens:
         elif question := question_for(decision, seen, locale):
             answer = await self._rafiq.run(question, locale, scope=scope)
             if answer.referral is not None and answer.referral.reason in UNANSWERED:
+                answer = None
+            elif decision.term and not defines(answer, decision.term):
+                # A sourced part that does not define the word read is left out (a passage on the
+                # qibla does not say what a prayer room is).
                 answer = None
         others = seen.others if decision.explain else []
         # The first message opens the conversation: what the learner might ask next.

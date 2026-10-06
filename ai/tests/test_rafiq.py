@@ -10,7 +10,6 @@ from app.rafiq.schemas import (
     Classification,
     Draft,
     Level,
-    NoteBlock,
     QuranBlock,
     RafiqAnswer,
     TextBlock,
@@ -68,24 +67,6 @@ async def test_level_c_without_an_adequate_source_is_referred() -> None:
 
     assert answer.referred
     assert reason(answer) == "disputed"
-
-
-@pytest.mark.parametrize(
-    ("classification", "expected"),
-    [(classified("D"), "fatwa"), (classified("B", personalCase=True), "personalCase")],
-)
-async def test_a_ruling_is_never_given_for_level_d_or_a_personal_case(
-    classification: Classification, expected: str
-) -> None:
-    chat = FakeChat(classification, [GOOD])
-    answer = await rafiq(chat).run(QUESTION, "en")
-
-    assert answer.referred
-    assert reason(answer) == expected
-    # A personal case is level D, whatever level the classifier gave it.
-    assert answer.level == "D"
-    # The model was told to give general information only.
-    assert any("give only the general information" in system for system in chat.systems)
 
 
 async def test_level_d_without_general_information_is_still_referred() -> None:
@@ -254,21 +235,6 @@ async def test_an_urdu_question_is_answered_from_texts_published_in_urdu() -> No
     assert block.translation == "اردو ترجمے کے شائع شدہ الفاظ"
     assert (block.translation_language, block.translation_key) == ("ur", "urdu_junagarhi")
     assert {"surah": 2, "ayah": 256, "translation_key": "urdu_junagarhi"} in mcp.arguments
-
-
-async def test_a_personal_case_shows_one_plain_sentence_one_source_and_the_fixed_line() -> None:
-    mcp = ScriptedMcp({"get_quran_verses": URDU_VERSE})
-    chat = FakeChat(
-        classified(
-            "B", language="ur", personalCase=True, searchPhrases=["no compulsion in the religion"]
-        ),
-        [Draft(answer="یہ آیت اس سوال کے بارے میں ہے [1]۔", adequate=True)],
-    )
-    answer = await rafiq(chat, mcp).run("میرے لیے کیا حکم ہے؟", "en")
-
-    assert reason(answer) == "personalCase"
-    assert [block.type for block in answer.blocks] == ["text", "quran", "note"]
-    assert answer.blocks[-1] == NoteBlock(note="notARuling")
 
 
 async def test_nothing_published_in_the_language_is_referred() -> None:

@@ -30,19 +30,7 @@ export const REFERRAL_REASONS = [
 export type ReferralReason = (typeof REFERRAL_REASONS)[number];
 
 /** Referrals that end with the specialist card (ai/app/rafiq/policy.py, SPECIALIST_REASONS). */
-export const SPECIALIST_REASONS: ReadonlySet<ReferralReason> = new Set([
-  "fatwa",
-  "personalCase",
-  "disputed",
-  "noSource",
-  "noEvidence",
-  "verification",
-  "distress",
-  "danger",
-  "unexplained",
-  "verseNotFound",
-  "hadithNotFound",
-]);
+export const SPECIALIST_REASONS: ReadonlySet<ReferralReason> = new Set(["fatwa", "personalCase", "disputed", "distress", "danger"]);
 
 /** How the page lays a reply out: a cited answer, a referral, a chat line, a question back, or danger. */
 export const REPLY_KINDS = ["answer", "referral", "chat", "clarify", "danger"] as const;

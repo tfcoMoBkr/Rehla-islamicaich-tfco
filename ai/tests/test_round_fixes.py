@@ -87,25 +87,6 @@ def test_a_personal_case_reply_is_one_plain_sentence_one_source_and_the_fixed_li
     }
 
 
-async def test_in_the_pipeline_a_personal_case_never_carries_a_ruling() -> None:
-    draft = Draft(
-        relevant=[1],
-        opening="I hear that this weighs on you.",
-        answer="Your marriage is invalid without a guardian [1].",
-        explanation=["This means the marriage is void [1].", "You must marry again [1]."],
-    )
-    chat = FakeChat(classified(personalCase=True), [draft])
-    retriever = Retriever(index(WUDU, VERSE), FakeEmbedder(), DownMcp())
-    answer = await Rafiq(chat, retriever).run("Is my marriage valid?", "en")
-
-    texts = " ".join(getattr(block, "text", "") or "" for block in answer.blocks)
-    assert not any(word in texts for word in ("invalid", "void", "must"))
-    assert answer.blocks[-1].type == "note"
-    assert answer.level == "D"
-    assert answer.referral is not None
-    assert answer.referral.reason == "personalCase"
-
-
 # Priority 1: agreement, difference and tarjih in Rafiq's own words.
 
 

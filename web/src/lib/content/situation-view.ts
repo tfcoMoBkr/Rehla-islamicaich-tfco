@@ -82,6 +82,7 @@ export async function toSituationView(situation: Situation, khutuwat: Khutuwat, 
   return {
     id: situation.id,
     order: situation.order,
+    reviewed: situation.reviewed,
     title: situation.title[locale],
     art: situation.art,
     scene: situation.scene[locale],

@@ -20,7 +20,7 @@ Their road:
 
 Reply with one JSON object:
 {
-  "reply": "…",   // the reply: one to five short sentences
+  "reply": "…",   // the reply: two to four full sentences that answer what the person actually said
   "next": "…",    // optional: one short question back or one concrete next step, or ""
   "lesson": "…"   // the id of the lesson the reply names and links to, or ""
 }

@@ -4,7 +4,7 @@ The other person is usually: {character}
 
 Invent a different moment each time, still inside this situation: a different person, place and mood. Scenes already practised (do not repeat them): {avoid}
 
-Write every field in {language_name}. The person speaks ordinary everyday speech only: no religious statement, no ruling, no verse or hadith, no preaching, and no judgement of the learner. Nothing about the learner's religious background, family or health, and never guess their gender: in Arabic, address them in the general form used for someone whose details you do not know.
+Write every field in {language_name}. The person speaks ordinary everyday speech only: no religious statement, no ruling, no verse or hadith, no preaching, and no judgement of the learner. Nothing about the learner's religious background, family or health, and never guess their gender: in Arabic, address them in the masculine singular, the general form used for someone whose details you do not know (تفضل، هل تحتاج), never the feminine.
 
 Reply with one JSON object only:
 {

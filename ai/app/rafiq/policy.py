@@ -23,21 +23,11 @@ from app.rafiq.schemas import Classification, Draft, ReferralReason
 Route = Literal["retrieve", "talk", "clarify", "danger"]
 Mode = Literal["full", "general", "disputed", "distress"]
 
-# Referrals that end with the specialist card (named bodies, chosen city, national channel).
+# Referrals that end with the specialist card (named bodies, chosen city, national channel): the
+# cases that need a specialist. A question the sources do not answer gets the short note and the
+# lessons on its topic, not the list of specialists.
 SPECIALIST_REASONS: frozenset[ReferralReason] = frozenset(
-    {
-        "fatwa",
-        "personalCase",
-        "disputed",
-        "noSource",
-        "noEvidence",
-        "verification",
-        "distress",
-        "danger",
-        "unexplained",
-        "verseNotFound",
-        "hadithNotFound",
-    }
+    {"fatwa", "personalCase", "disputed", "distress", "danger"}
 )
 
 

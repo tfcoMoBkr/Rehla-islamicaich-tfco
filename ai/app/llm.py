@@ -11,6 +11,7 @@ import json
 import logging
 import re
 import time
+from collections import Counter
 from typing import Protocol
 
 import httpx
@@ -105,6 +106,7 @@ class OpenRouterChat:
         self._data_collection = settings.openrouter_data_collection
         self._client = client
         self._cooling_until: dict[str, float] = {}
+        self.answered: Counter[str] = Counter()
 
     async def _complete(self, model: str, messages: list[dict[str, object]], strict: bool) -> str:
         body: dict[str, object] = {
@@ -146,9 +148,9 @@ class OpenRouterChat:
     async def json[T: BaseModel](
         self, system: str, user: str, schema: type[T], *, image: str | None = None
     ) -> T:
-        content: object = user
+        asked: object = user
         if image is not None:
-            content = [
+            asked = [
                 {"type": "text", "text": user},
                 {"type": "image_url", "image_url": {"url": image}},
             ]
@@ -157,7 +159,7 @@ class OpenRouterChat:
             for model in self._ordered():
                 messages: list[dict[str, object]] = [
                     {"role": "system", "content": system},
-                    {"role": "user", "content": content},
+                    {"role": "user", "content": asked},
                 ]
                 for attempt in range(2):
                     try:
@@ -173,7 +175,7 @@ class OpenRouterChat:
                         log.warning("model %s failed: %s", model, type(error).__name__)
                         break
                     try:
-                        return schema.model_validate(without_nulls(extract_json(content)))
+                        parsed = schema.model_validate(without_nulls(extract_json(content)))
                     except (ValueError, ValidationError) as error:
                         log.warning(
                             "model %s returned invalid JSON (attempt %d)", model, attempt + 1
@@ -187,6 +189,13 @@ class OpenRouterChat:
                                 f"Problem: {str(error)[:300]}",
                             },
                         ]
+                        continue
+                    # Which model answered each call (never what was said), so a fallback that
+                    # answers silently shows in the logs and in the evaluation.
+                    self.answered[model] += 1
+                    if model != self._models[0]:
+                        log.warning("fallback model %s answered %s", model, schema.__name__)
+                    return parsed
             if rate_limited < len(self._models) or wait is None:
                 break
             await asyncio.sleep(wait)

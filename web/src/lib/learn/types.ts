@@ -185,6 +185,8 @@ export type LessonView = {
   stationId: string;
   title: string;
   demo: boolean;
+  /** Whether a scholar has reviewed the lesson (every lesson file says so). */
+  reviewed?: boolean;
   objectives: string[];
   /** The books the lesson's text quotes. */
   sources: LessonSource[];

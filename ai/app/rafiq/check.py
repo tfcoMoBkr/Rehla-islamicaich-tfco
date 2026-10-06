@@ -48,6 +48,7 @@ ProblemKind = Literal[
     "worshipWords",
     "amount",
     "noAmount",
+    "quoted",
 ]
 
 MIN_CITED_WORDS = 4
@@ -59,20 +60,23 @@ COPIED_RUN_ARABIC_SCRIPT = 7
 COPIED_RUN_OTHER = 9
 # Inside quotation marks, this many words of a verse or hadith are already its text.
 QUOTED_RUN = 3
+# A quoted term this short may come from a cited passage (a glossary or book term).
+TERM_WORDS = 2
 QUOTED_SPAN = re.compile(r"«([^»]+)»|\"([^\"]+)\"|“([^”]+)”")
 
 
 # Wording that settles a disputed matter, and wording that claims agreement. They describe how a
 # sentence argues, not any topic.
 TARJIH = re.compile(
-    r"الراجح|القول\s+الراجح|الصحيح\s+من\s+(?:القولين|الأقوال)|الأصح|أصح\s+الأقوال"
+    r"الراجح|القول\s+الراجح|الصحيح\s+من\s+(?:القولين|الأقوال)|الأصح|أصح\s+(?:الأقوال|القولين)"
+    r"|الأرجح|أرجح\s+(?:الأقوال|القولين)|أقوى\s+الأقوال|\bpreponderant\b"
     r"|(?:الرأي|القول)\s+(?:الصحيح|الأقوى|المختار)"
     r"|\bthe\s+(?:correct|strongest|stronger|preferred|soundest|most\s+correct|right)\s+"
     r"(?:view|opinion|position|saying)\b"
     # Choosing for the reader, or blessing the difference itself.
     r"|closest\s+to\s+the\s+truth|nearest\s+to\s+the\s+truth|disagreement\s+is\s+a\s+mercy"
     r"|differences?\s+(?:of\s+opinion\s+)?(?:is|are)\s+a\s+mercy"
-    r"|أقرب\s+إلى\s+(?:الصواب|الحق)|الخلاف\s+رحمة|اختلاف\s+\S+\s+رحمة|الاختلاف\s+رحمة",
+    r"|أقرب\s+إلى\s+(?:الصواب|الحق)|الخلاف\s+رحمة|اختلاف\s+(?:\S+\s+)?رحمة|الاختلاف\s+رحمة",
     flags=re.IGNORECASE,
 )
 # A claim about what scholars (or Muslims) as a whole hold: that they agree, or that they differ.
@@ -241,6 +245,28 @@ def code_problems(
                         "attribution",
                         "This sentence attributes words to the Prophet or the Quran, but no "
                         f"matched verse or hadith is shown: «{sentence[:120]}»",
+                        unit=u,
+                        sentence=s,
+                    )
+                )
+    shown = [
+        text
+        for block in blocks
+        if block is not None and (passage := find_passage(passages, *block)) is not None
+        for text in passage.sacred_texts()
+    ]
+    terms = [passage.text for passage in passages if not passage.sacred]
+    for u, unit in enumerate(units):
+        if unit.kind == "block":
+            continue
+        for s, sentence in enumerate(unit.sentences):
+            span = unshown_quote(sentence, [*shown, asked], terms)
+            if span is not None and quoted_from(sentence, passages) is None:
+                problems.append(
+                    Problem(
+                        "quoted",
+                        "Words in quotation marks must come from a verse or hadith shown with "
+                        f"the answer; say it in your own words instead: «{span[:80]}»",
                         unit=u,
                         sentence=s,
                     )
@@ -414,6 +440,36 @@ def book_runs_of(passages: list[Passage]) -> dict[int, set[tuple[str, ...]]]:
     """Word runs of the book and term passages: a run found there is the book's, not memory's."""
     book_text = " ".join(p.text for p in passages if not p.sacred)
     return {n: _runs(book_text, n) for n in (COPIED_RUN_ARABIC_SCRIPT, COPIED_RUN_OTHER)}
+
+
+def unshown_quote(sentence: str, allowed: list[str], terms: list[str]) -> str | None:
+    """Words the sentence puts in quotation marks that come from none of the `allowed` texts (the
+    blocks shown with the answer, the learner's own question). A term of one or two words may also
+    come from a cited passage."""
+    allowed_words = [" ".join(words(text)) for text in allowed]
+    term_words = [" ".join(words(text)) for text in terms]
+    for span in QUOTED_SPAN.finditer(sentence):
+        quoted = next(group for group in span.groups() if group)
+        said = " ".join(words(quoted))
+        if not said or any(said in text for text in allowed_words):
+            continue
+        if len(said.split()) <= TERM_WORDS and any(said in text for text in term_words):
+            continue
+        return quoted
+    return None
+
+
+def without_quote(sentence: str, quoted: str) -> str | None:
+    """The sentence without the quoted words and their quotation marks; None when too little of it
+    is left to stand."""
+    tags = "".join(f"[{n}]" for n in markers(sentence))
+    body = strip_markers(sentence)
+    for opening, closing in (("«", "»"), ('"', '"'), ("“", "”")):
+        body = body.replace(f"{opening}{quoted}{closing}", " ")
+    body = re.sub(r"\s{2,}", " ", body).strip(" :،,.")
+    if len(words(body)) < STEP_WORDS + 1:
+        return None
+    return f"{body} {tags}." if tags else f"{body}."
 
 
 def quoted_from(text: str, passages: list[Passage]) -> int | None:

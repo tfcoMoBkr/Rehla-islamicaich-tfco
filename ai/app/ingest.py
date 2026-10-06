@@ -35,10 +35,12 @@ BOOK_SOURCES = {
     "62675": "ih-salat-nabi",
     "1261": "ih-salat-nabi",
     "dawa-7937": "dawa-bayyinat",
+    "byenah-21227": "byenah-children",
+    "byenah-5138": "byenah-children",
 }
 # Books whose text comes from a PDF text layer that extracts lines or letters out of order: they
 # are searched and cited, but never quoted to the reader as a verbatim block.
-FROM_PDF = {"dawa-7937", "islamhouse-2831443", "1261", "2842316"}
+FROM_PDF = {"dawa-7937", "islamhouse-2831443", "1261", "2842316", "byenah-21227", "byenah-5138"}
 # The parts of a question-and-answer book's question that are indexed.
 QUESTION_PARTS = ("question", "summary")
 # A verse in a private-use glyph font, with the brackets around it.
